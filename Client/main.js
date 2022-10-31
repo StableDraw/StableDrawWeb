@@ -26,7 +26,16 @@ clrs.forEach(clr => {
 })
 
 let clearBtn = document.querySelector(".clear")
-clearBtn.addEventListener("click", () => {
+clearBtn.addEventListener("click", () => 
+{
+    let inds = pstack.length
+    if(inds != 0)
+    {
+        if(pstack[inds - 1][1] != [])
+        {
+            pstack.push([ctx.strokeStyle, []])
+        }
+    }
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 })
 
@@ -108,6 +117,7 @@ window.addEventListener("mousemove", (e) => {
         prevY = e.clientY
         fp = true
         pstack.push([ctx.strokeStyle, curprim])
+        nstack = []
         curprim = []
         return 
     }
