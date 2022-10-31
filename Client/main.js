@@ -11,16 +11,29 @@ let fp = true
 
 let prevX = null
 let prevY = null
+let W = window.innerWidth
+let H = window.innerHeight
 
-ctx.lineWidth = 5
+let l_width = 5
+
+let W_shift = W * 0.15 - l_width / 2
+let H_shift = 70 + l_width / 2
+let W_max = W * 0.6935 - l_width
+let H_max = 502 - l_width
+let W_min = l_width / 2
+let H_min = l_width / 2
+
+ctx.lineWidth = l_width
 
 let draw = false
 let enddraw = false
 
 let clrs = document.querySelectorAll(".clr")
 clrs = Array.from(clrs)
-clrs.forEach(clr => {
-    clr.addEventListener("click", () => {
+clrs.forEach(clr => 
+{
+    clr.addEventListener("click", () => 
+    {
         ctx.strokeStyle = clr.dataset.clr
     })
 })
@@ -31,7 +44,7 @@ clearBtn.addEventListener("click", () =>
     let inds = pstack.length
     if(inds != 0)
     {
-        if(pstack[inds - 1][1] != [])
+        if((pstack[inds - 1][1]).length != 0)
         {
             pstack.push([ctx.strokeStyle, []])
         }
@@ -81,7 +94,7 @@ document.addEventListener('keydown', (event) => {
                 let prim_opt = nstack.pop()
                 let prim = prim_opt[1]
                 let bufcolour = ctx.strokeStyle
-                pstack.push(prim)
+                pstack.push(prim_opt)
                 ctx.strokeStyle = prim_opt[0]
                 ctx.beginPath()
                 let fpoint = prim[0]
@@ -102,27 +115,30 @@ document.addEventListener('keydown', (event) => {
 window.addEventListener("mousedown", (e) => draw = true)
 window.addEventListener("mouseup", (e) => enddraw = true)
 
-window.addEventListener("mousemove", (e) => {
+window.addEventListener("mousemove", (e) => 
+{
+    let X = Math.min(W_max, Math.max(W_min, e.clientX - W_shift))
+    let Y = Math.min(H_max, Math.max(H_min, e.clientY - H_shift))
     if(prevX == null || prevY == null || !draw)
     {
-        prevX = e.clientX
-        prevY = e.clientY
+        prevX = X
+        prevY = Y
         return
     }
     if(enddraw)
     {
         draw = false
         enddraw = false
-        prevX = e.clientX
-        prevY = e.clientY
+        prevX = X
+        prevY = Y
         fp = true
         pstack.push([ctx.strokeStyle, curprim])
         nstack = []
         curprim = []
         return 
     }
-    let currentX = e.clientX
-    let currentY = e.clientY
+    let currentX = X
+    let currentY = Y
     ctx.beginPath()
     ctx.moveTo(prevX, prevY)
     ctx.lineTo(currentX, currentY)

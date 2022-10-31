@@ -18,6 +18,28 @@
 .nav:hover{
     opacity: 1;
 }
+.draw_field{
+    position: relative;
+    margin: 70px auto;
+    width: 70%;
+    height: 500px;
+    background: #ffffff;
+    border: 2px solid #999999;
+}
+.draw_field:before,
+.draw_field:after{
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background: #999999;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    z-index: -1;
+}
+.draw_field:after{
+    filter: blur(10px);
+   }
 .clr{
     height: 30px;
     width: 30px;
