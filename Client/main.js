@@ -1,6 +1,5 @@
+let drawfield = document.querySelector('canvas').getBoundingClientRect();
 const canvas = document.getElementById("canvas")
-canvas.height = window.innerHeight
-canvas.width = window.innerWidth
 
 const ctx = canvas.getContext("2d")
 
@@ -14,15 +13,16 @@ let prevY = null
 let W = window.innerWidth
 let H = window.innerHeight
 
+canvas.height = H
+canvas.width = W
+
 let l_width = 5
-
-let W_shift = W * 0.15 - l_width / 2
-let H_shift = 70 + l_width / 2
-let W_max = W * 0.6935 - l_width
-let H_max = 502 - l_width
-let W_min = l_width / 2
-let H_min = l_width / 2
-
+let W_min = drawfield.x / drawfield.left
+let H_min = drawfield.y / drawfield.top
+let W_max = W - W_min
+let H_max = H - H_min
+let dcW = W / 2
+let dcH = 180
 ctx.lineWidth = l_width
 
 let draw = false
@@ -112,19 +112,38 @@ document.addEventListener('keydown', (event) => {
     }
   }, false);
 
-window.addEventListener("mousedown", (e) => draw = true)
-window.addEventListener("mouseup", (e) => enddraw = true)
-
-window.addEventListener("mousemove", (e) => 
+window.addEventListener("mousedown", (e) => 
 {
-    let X = Math.min(W_max, Math.max(W_min, e.clientX - W_shift))
-    let Y = Math.min(H_max, Math.max(H_min, e.clientY - H_shift))
-    if(prevX == null || prevY == null || !draw)
+    let cX = e.clientX
+    let cY = e.clientY
+    let X = cX + (cX - dcW) * 0.425
+    let Y = cY + (cY - dcH) * 0.68
+    if(W_min < X && X < W_max && H_min < Y && Y < H_max)
     {
         prevX = X
         prevY = Y
+        draw = true
+        enddraw = false
+    }
+})
+
+window.addEventListener("mouseup", (e) => 
+{
+    enddraw = true
+})
+
+window.addEventListener("mousemove", (e) => 
+{
+    if (!draw) 
+    {
         return
     }
+    let cX = e.clientX
+    let cY = e.clientY
+    let kX = (cX - dcW) * 0.425
+    let kY = (cY - dcH) * 0.68
+    let X = Math.min(W_max, Math.max(W_min, cX + kX))
+    let Y = Math.min(H_max, Math.max(H_min, cY + kY))
     if(enddraw)
     {
         draw = false

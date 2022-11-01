@@ -1,9 +1,13 @@
-*{
+html{
+    margin: 0;
+    padding: 0;
+}
+body{
     margin: 0;
     padding: 0;
 }
 .nav{
-    width: 310px;
+    width: 410px;
     height: 50px;
     position: fixed;
     top: 0;
@@ -39,7 +43,12 @@
 }
 .draw_field:after{
     filter: blur(10px);
-   }
+}
+canvas
+{
+    width: 100%;
+    height: 100%;
+}
 .clr{
     height: 30px;
     width: 30px;
@@ -76,4 +85,7 @@ button{
 }
 .save{
     background-color: #0f65d4;
+}
+.generate{
+    background-color: #19bb49;
 }
