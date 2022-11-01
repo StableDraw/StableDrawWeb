@@ -1,3 +1,8 @@
+const cursor = document.querySelector(".cursor");
+const cursor_image = document.querySelector('.cursimg');
+
+let cursor_type = 0
+
 let drawfield = document.querySelector('canvas').getBoundingClientRect();
 const canvas = document.getElementById("canvas")
 
@@ -12,7 +17,6 @@ let prevX = null
 let prevY = null
 let W = window.innerWidth
 let H = window.innerHeight
-
 canvas.height = H
 canvas.width = W
 
@@ -22,7 +26,7 @@ let H_min = drawfield.y / drawfield.top
 let W_max = W - W_min
 let H_max = H - H_min
 let dcW = W / 2
-let dcH = 180
+let dcH = 420
 ctx.lineWidth = l_width
 
 let draw = false
@@ -134,16 +138,119 @@ window.addEventListener("mouseup", (e) =>
 
 window.addEventListener("mousemove", (e) => 
 {
-    if (!draw) 
-    {
-        return
-    }
     let cX = e.clientX
     let cY = e.clientY
     let kX = (cX - dcW) * 0.425
     let kY = (cY - dcH) * 0.68
-    let X = Math.min(W_max, Math.max(W_min, cX + kX))
-    let Y = Math.min(H_max, Math.max(H_min, cY + kY))
+    let fX = cX + kX
+    let fY = cY + kY
+    if(cursor_type != 0 && cursor_type != 3)
+    {
+        cursor.style.left = cX + "px";
+        cursor.style.top = cY + "px";
+    }
+    else
+    {
+        cursor.style.left = (cX + 7.5) + "px";
+        cursor.style.top = (cY + 7.5) + "px";
+    }
+    if(!draw)
+    {
+        if(W_min < fX && fX < W_max && H_min < fY && fY < H_max)
+        {
+            if(!cursor_type != 3)
+            {
+                cursor_type = 3
+                cursor_image.setAttribute('src', 'aero_pen.cur')
+            }
+        }
+        else
+        {
+            let fup = false
+            let fdown = false
+            let fright = false
+            let fleft = false
+            if(H_min - 30 < fY && H_min >= fY) //если верхняя часть горизонтальной части рамки 
+            {
+                fup = true
+                if(!cursor_type != 1)
+                {
+                    cursor_type = 1
+                    cursor_image.setAttribute('src', 'aero_ns.cur')
+                }
+            }
+            else
+            {
+                if(fY < H_max + 30 && fY >= H_max) //если нижняя часть горизонтальной рамки
+                {
+                    fdown = true
+                }
+            }
+            if(W_min - 30 < fX && W_min >= fX) //если левая часть вертикальной рамки
+            {
+                fleft = true
+            }
+            else
+            {
+                if(fX < W_max + 30 && fX >= W_max) //если правая часть вертикальной рамки
+                {
+                    fright = true
+                }
+            }
+            if(!fleft && !fup && !fright && !fdown)
+            {
+                if(cursor_type != 0)
+                {
+                    cursor_type = 0
+                    cursor_image.setAttribute('src', 'aero_arrow.cur');
+                }
+            }
+            else
+            {
+                if(fleft && fup || fright && fdown)
+                {
+                    if(cursor_type != 4)
+                    {
+                        cursor_type = 4
+                        cursor_image.setAttribute('src', 'aero_nwse.cur');
+                    }
+                }
+                else
+                {
+                    if(fleft && fdown || fright && fup)
+                    {
+                        if(cursor_type != 5)
+                        {
+                            cursor_type = 5
+                            cursor_image.setAttribute('src', 'aero_nesw.cur');
+                        }
+                    }
+                    else
+                    {
+                        if (fleft || fright)
+                        {
+                            if(cursor_type != 2)
+                            {
+                                cursor_type = 2
+                                cursor_image.setAttribute('src', 'aero_ew.cur');
+                            }
+                        }
+                        else
+                        {
+                            if(cursor_type != 1)
+                            {
+                                cursor_type = 1
+                                cursor_image.setAttribute('src', 'aero_ns.cur');
+                            } 
+                        }
+                    }
+                }
+            }
+        }
+        return
+    }
+    let X = Math.min(W_max, Math.max(W_min, fX))
+    let Y = Math.min(H_max, Math.max(H_min, fY))
     if(enddraw)
     {
         draw = false
