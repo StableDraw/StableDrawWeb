@@ -13,6 +13,11 @@ body{
     overflow: hidden;
 }
 .cursor {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    border: 0;
+    outline: none;
     z-index: 999999; 
     pointer-events: none;
     position: absolute;
@@ -36,32 +41,17 @@ body{
 .nav:hover{
     opacity: 1;
 }
-.draw_field{
-    position: relative;
-    margin: 70px auto;
-    width: 70%;
-    height: 500px;
-    background: #ffffff;
-    border: 2px solid #999999;
-}
-.draw_field:before,
-.draw_field:after{
-    content: '';
+.d_frame{
     position: absolute;
-    top: -2px;
-    left: -2px;
-    background: #999999;
-    width: calc(100% + 4px);
-    height: calc(100% + 4px);
-    z-index: -1;
-}
-.draw_field:after{
-    filter: blur(10px);
+    width: 80%;
+    height: 80%;
+    padding: 20px;
 }
 canvas
 {
     width: 100%;
     height: 100%;
+    border: 4px solid rgb(154, 154, 154);
 }
 .clr{
     height: 30px;

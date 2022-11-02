@@ -1,10 +1,9 @@
 const cursor = document.querySelector(".cursor");
 const cursor_image = document.querySelector('.cursimg');
-
 let cursor_type = 0
 
-let drawfield = document.querySelector('canvas').getBoundingClientRect();
-const canvas = document.getElementById("canvas")
+const canvas = document.getElementById("canvas") 
+const d_frame = document.getElementById("d_frame")
 
 const ctx = canvas.getContext("2d")
 
@@ -12,25 +11,38 @@ let nstack = []
 let pstack = []
 let curprim = []
 let fp = true
+let on_d_frame = false
+let on_d_fiend = false
 
 let prevX = null
 let prevY = null
+
 let W = window.innerWidth
 let H = window.innerHeight
-canvas.height = H
-canvas.width = W
 
+let cW = canvas.offsetWidth
+let cH = canvas.offsetHeight
+const rez = cW * cH
 let l_width = 5
-let W_min = drawfield.x / drawfield.left
-let H_min = drawfield.y / drawfield.top
-let W_max = W - W_min
-let H_max = H - H_min
-let dcW = W / 2
-let dcH = 420
+let W_f = (W - cW) / 2 + cW / 200
+let H_f = 70 + cH / 55  + l_width / 2
+let f_dW = d_frame.offsetWidth
+let f_dH = d_frame.offsetHeight
+let H_min = 40
+let H_max = f_dH + H_min
+
+let W_min = (W - f_dW) / 4
+let W_max = f_dW + W_min
+
+canvas.height = cH
+canvas.width = cW
+
 ctx.lineWidth = l_width
 
 let draw = false
 let enddraw = false
+let f_move = false
+let end_f_move = false
 
 let clrs = document.querySelectorAll(".clr")
 clrs = Array.from(clrs)
@@ -57,7 +69,9 @@ clearBtn.addEventListener("click", () =>
 })
 
 let saveBtn = document.querySelector(".save")
-saveBtn.addEventListener("click", () => {
+
+saveBtn.addEventListener("click", () => 
+{
     let data = canvas.toDataURL("imag/png")
     let a = document.createElement("a")
     a.href = data
@@ -65,7 +79,16 @@ saveBtn.addEventListener("click", () => {
     a.click()
 })
 
-document.addEventListener('keydown', (event) => {
+document.addEventListener('mouseenter', (e) => 
+{
+    let cX = e.clientX
+    let cY = e.clientY
+    cursor.style.left = (cX + 7.5) + "px";
+    cursor.style.top = (cY + 7.5) + "px";
+}, { once: true });
+
+document.addEventListener('keydown', (event) => 
+{
     if (event.ctrlKey) 
     {
         if (event.code == 'KeyZ') 
@@ -116,34 +139,237 @@ document.addEventListener('keydown', (event) => {
     }
   }, false);
 
-window.addEventListener("mousedown", (e) => 
+canvas.addEventListener("mousedown", (e) => 
 {
-    let cX = e.clientX
-    let cY = e.clientY
-    let X = cX + (cX - dcW) * 0.425
-    let Y = cY + (cY - dcH) * 0.68
-    if(W_min < X && X < W_max && H_min < Y && Y < H_max)
+    prevX = e.clientX - W_f
+    prevY = e.clientY - H_f
+    draw = true
+    enddraw = false
+})
+
+d_frame.addEventListener("mousedown", (e) => 
+{
+    if(!draw)
     {
-        prevX = X
-        prevY = Y
-        draw = true
-        enddraw = false
+        prevX = e.clientX - W_f
+        prevY = e.clientY - H_f
+        f_move = true
+        end_f_move = false
     }
 })
 
 window.addEventListener("mouseup", (e) => 
 {
     enddraw = true
+    end_f_move = true
 })
 
-window.addEventListener("mousemove", (e) => 
+canvas.addEventListener("mousemove", (e) => //проверка курсора на поле для рисования
+{
+    on_d_fiend = true
+    if(!cursor_type != 3 && !f_move)
+    {
+        cursor_type = 3
+        cursor_image.setAttribute('src', 'aero_pen.cur')
+    }
+})
+
+d_frame.addEventListener("mousemove", (e) => //проверка курсора на поле вместе с рамкой
+{
+    on_d_frame = true
+    if(!on_d_fiend && !draw)
+    {
+        let X = e.clientX - W_min
+        let Y = e.clientY - H_min
+        let fup = false
+        let fdown = false
+        let fright = false
+        let fleft = false 
+        if(H_min + 40 > Y) //если верхняя часть горизонтальной части рамки 
+        {
+            fup = true
+        }
+        else
+        {
+            if(Y > H_max - 40) //если нижняя часть горизонтальной рамки
+            {
+                fdown = true
+            }
+        }
+        if(W_min + 40 > X) //если левая часть вертикальной рамки
+        {
+            fleft = true
+        }
+        else
+        {
+            if(X > W_max - 40) //если правая часть вертикальной рамки
+            {
+                fright = true
+            }
+        }
+        if(fleft && fup || fright && fdown)
+        {
+            if(cursor_type != 4)
+            {
+                cursor_type = 4
+                cursor_image.setAttribute('src', 'aero_nwse.cur');
+            }
+        }
+        else
+        {
+            if(fleft && fdown || fright && fup)
+            {
+                if(cursor_type != 5)
+                {
+                    cursor_type = 5
+                    cursor_image.setAttribute('src', 'aero_nesw.cur');
+                }
+            }
+            else
+            {
+                if (fleft || fright)
+                {
+                    if(cursor_type != 2)
+                    {
+                        cursor_type = 2
+                        cursor_image.setAttribute('src', 'aero_ew.cur');
+                    }
+                }
+                else
+                {
+                    if(cursor_type != 1)
+                    {
+                        cursor_type = 1
+                        cursor_image.setAttribute('src', 'aero_ns.cur');
+                    }
+                }
+            }
+        }
+    }
+    on_d_fiend = false
+    if(!draw && !f_move)
+    {
+        return
+    }
+    let pX = e.clientX - W_f
+    let pY = e.clientY - H_f
+    //Изменение размеров области рисования
+    if(f_move)
+    {
+        if(end_f_move)
+        {
+            f_move = false
+            end_f_move = false
+            prevX = pX
+            prevY = pY
+            return 
+        }
+        let currentX = pX
+        let currentY = pY
+        let X_move
+        let Y_move
+        if(cursor_type == 2)//если вертикальные
+        {
+            X_move = prevX - currentX
+            Y_move = 0
+        }
+        else
+        {
+            if(cursor_type == 1)//если горизонтальные
+            {
+                X_move = 0
+                Y_move = prevY - currentY
+            }
+            else //если угловые
+            {
+                X_move = prevX - currentX
+                Y_move = prevY - currentY
+                if(Math.abs(X_move) > Math.abs(Y_move))
+                {
+                    Y_move = 0
+                }
+                else
+                {
+                    X_move = 0
+                }
+            }
+        }
+        if(X_move == 0)
+        {
+            cW += X_move
+            let nX = (rez / cW)
+            Y_move = nX - cH
+            cH = nX
+        }
+        else
+        {
+            cH += Y_move
+            let nY = (rez / cH)
+            Y_move = nY - cW
+            cW = nY
+        }
+        f_dW = d_frame.offsetWidth + X_move
+        f_dH = d_frame.offsetHeight + Y_move
+        d_frame.style.width = f_dW + "px"
+        d_frame.style.height = f_dH + "px"
+        canvas.style.width = cW + "px"
+        canvas.style.height = cH + "px"
+        canvas.width = cW
+        canvas.height = cH
+        W_f = (W - cW) / 2 + cW / 200
+        W_min = (W - f_dW) / 4
+        W_max = f_dW + W_min
+        H_f = 70 + cH / 55  + l_width / 2
+        H_min = 40
+        H_max = f_dH + H_min
+        prevX = currentX
+        prevY = currentY
+        return
+    }
+    //Рисование
+    if(draw)
+    {
+        if(enddraw)
+        {
+            draw = false
+            enddraw = false
+            prevX = pX
+            prevY = pY
+            fp = true
+            pstack.push([ctx.strokeStyle, curprim])
+            nstack = []
+            curprim = []
+            return 
+        }
+        let currentX = pX + (pX - W_min) * 0.005
+        let currentY = pY
+        ctx.beginPath()
+        ctx.moveTo(prevX, prevY)
+        ctx.lineTo(currentX, currentY)
+        ctx.stroke()
+        if(fp)
+        {
+            curprim.push([prevX, prevY])
+        }
+        curprim.push([currentX, currentY])
+        prevX = currentX
+        prevY = currentY
+        fp = false
+    }
+})
+
+window.addEventListener("mousemove", (e) => //проверка курсора на всём окне
 {
     let cX = e.clientX
     let cY = e.clientY
-    let kX = (cX - dcW) * 0.425
-    let kY = (cY - dcH) * 0.68
-    let fX = cX + kX
-    let fY = cY + kY
+    if(!on_d_frame && !draw && !f_move)
+    {
+        if(cursor_type != 0)
+        {
+            cursor_type = 0
+            cursor_image.setAttribute('src', 'aero_arrow.cur');
+        }
+    }
     if(cursor_type != 0 && cursor_type != 3)
     {
         cursor.style.left = cX + "px";
@@ -154,127 +380,5 @@ window.addEventListener("mousemove", (e) =>
         cursor.style.left = (cX + 7.5) + "px";
         cursor.style.top = (cY + 7.5) + "px";
     }
-    if(!draw)
-    {
-        if(W_min < fX && fX < W_max && H_min < fY && fY < H_max)
-        {
-            if(!cursor_type != 3)
-            {
-                cursor_type = 3
-                cursor_image.setAttribute('src', 'aero_pen.cur')
-            }
-        }
-        else
-        {
-            let fup = false
-            let fdown = false
-            let fright = false
-            let fleft = false
-            if(H_min - 30 < fY && H_min >= fY) //если верхняя часть горизонтальной части рамки 
-            {
-                fup = true
-                if(!cursor_type != 1)
-                {
-                    cursor_type = 1
-                    cursor_image.setAttribute('src', 'aero_ns.cur')
-                }
-            }
-            else
-            {
-                if(fY < H_max + 30 && fY >= H_max) //если нижняя часть горизонтальной рамки
-                {
-                    fdown = true
-                }
-            }
-            if(W_min - 30 < fX && W_min >= fX) //если левая часть вертикальной рамки
-            {
-                fleft = true
-            }
-            else
-            {
-                if(fX < W_max + 30 && fX >= W_max) //если правая часть вертикальной рамки
-                {
-                    fright = true
-                }
-            }
-            if(!fleft && !fup && !fright && !fdown)
-            {
-                if(cursor_type != 0)
-                {
-                    cursor_type = 0
-                    cursor_image.setAttribute('src', 'aero_arrow.cur');
-                }
-            }
-            else
-            {
-                if(fleft && fup || fright && fdown)
-                {
-                    if(cursor_type != 4)
-                    {
-                        cursor_type = 4
-                        cursor_image.setAttribute('src', 'aero_nwse.cur');
-                    }
-                }
-                else
-                {
-                    if(fleft && fdown || fright && fup)
-                    {
-                        if(cursor_type != 5)
-                        {
-                            cursor_type = 5
-                            cursor_image.setAttribute('src', 'aero_nesw.cur');
-                        }
-                    }
-                    else
-                    {
-                        if (fleft || fright)
-                        {
-                            if(cursor_type != 2)
-                            {
-                                cursor_type = 2
-                                cursor_image.setAttribute('src', 'aero_ew.cur');
-                            }
-                        }
-                        else
-                        {
-                            if(cursor_type != 1)
-                            {
-                                cursor_type = 1
-                                cursor_image.setAttribute('src', 'aero_ns.cur');
-                            } 
-                        }
-                    }
-                }
-            }
-        }
-        return
-    }
-    let X = Math.min(W_max, Math.max(W_min, fX))
-    let Y = Math.min(H_max, Math.max(H_min, fY))
-    if(enddraw)
-    {
-        draw = false
-        enddraw = false
-        prevX = X
-        prevY = Y
-        fp = true
-        pstack.push([ctx.strokeStyle, curprim])
-        nstack = []
-        curprim = []
-        return 
-    }
-    let currentX = X
-    let currentY = Y
-    ctx.beginPath()
-    ctx.moveTo(prevX, prevY)
-    ctx.lineTo(currentX, currentY)
-    ctx.stroke()
-    if(fp)
-    {
-        curprim.push([prevX, prevY])
-    }
-    curprim.push([currentX, currentY])
-    prevX = currentX
-    prevY = currentY
-    fp = false
+    on_d_frame = false
 })
