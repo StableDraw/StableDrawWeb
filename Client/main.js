@@ -57,7 +57,6 @@ let W_max = f_dW + W_min
 
 canvas.height = cH
 canvas.width = cW
-
 ctx.lineWidth = l_width
 
 let draw = false
@@ -67,11 +66,29 @@ let end_f_move = false
 
 window.onload = function()
 {
-    ws = new WebSocket('ws:192.168.0.101:8081'); 
+    ws = new WebSocket('ws://109.111.179.197:8081'); 
     ws.onmessage = function(event)
     {
-        //alert("message received"); 
-        //alert(event.data); 
+        var jdata = JSON.parse(event.data)
+        var type = jdata[0];
+        let img = new Image();
+        if (type == "t")
+        {
+            alert(jdata[1]); 
+        }
+        else
+        {
+            console.log(type);
+            if (type == "i")
+            {
+                var image = new Image();
+                image.onload = function() 
+                {
+                    ctx.drawImage(image, 0, 0, jdata[2], jdata[3])
+                }
+                image.src = "data:image/jpg;base64," + jdata[1];
+            }
+        }
     } 
     //ws.onopen = function(){alert("open");} 
     //ws.onclose = function(){alert("close");}
