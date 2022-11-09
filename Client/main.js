@@ -16,18 +16,39 @@ let on_d_fiend = false
 
 let prevX = null
 let prevY = null
+let move_prevX = null
+let move_prevY = null
+let X_move = null
+let Y_move = null
+
+let shift_k = false
+let shift_x = false
+let shift_y = false
+
+let fup = false
+let fdown = false
+let fright = false
+let fleft = false 
+let cfup = false
+let cfleft = false
 
 let W = window.innerWidth
 let H = window.innerHeight
 
+let fW_max = W * 0.8
+let fH_max = H * 0.8
+let fW_min = W * 0.1
+let fH_min = H * 0.1
+
 let cW = canvas.offsetWidth
 let cH = canvas.offsetHeight
-const rez = cW * cH
 let l_width = 5
 let W_f = (W - cW) / 2 + cW / 200
 let H_f = 70 + cH / 55  + l_width / 2
-let f_dW = d_frame.offsetWidth
-let f_dH = d_frame.offsetHeight
+let f_dW = d_frame.offsetWidth * 0.973
+let f_dH = d_frame.offsetHeight * 0.973
+d_frame.style.width = f_dW + "px"
+d_frame.style.height = f_dH + "px"
 let H_min = 40
 let H_max = f_dH + H_min
 
@@ -43,6 +64,19 @@ let draw = false
 let enddraw = false
 let f_move = false
 let end_f_move = false
+
+window.onload = function()
+{
+    ws = new WebSocket('ws:192.168.0.101:8081'); 
+    ws.onmessage = function(event)
+    {
+        //alert("message received"); 
+        //alert(event.data); 
+    } 
+    //ws.onopen = function(){alert("open");} 
+    //ws.onclose = function(){alert("close");}
+    //ws.onerror = function(){alert("error");}
+}
 
 let clrs = document.querySelectorAll(".clr")
 clrs = Array.from(clrs)
@@ -76,7 +110,17 @@ saveBtn.addEventListener("click", () =>
     let a = document.createElement("a")
     a.href = data
     a.download = "sketch.png"
+    console.log(a)
     a.click()
+})
+
+let generateBtn = document.querySelector(".generate")
+
+generateBtn.addEventListener("click", () => 
+{
+    ws.send(canvas.toDataURL("imag/png"))
+    //a.download = "sketch.png"
+    //a.click()
 })
 
 document.addEventListener('mouseenter', (e) => 
@@ -89,6 +133,14 @@ document.addEventListener('mouseenter', (e) =>
 
 document.addEventListener('keydown', (event) => 
 {
+    if (event.shiftKey)
+    {
+        shift_k = true
+    }
+    else
+    {
+        shift_k = false
+    }
     if (event.ctrlKey) 
     {
         if (event.code == 'KeyZ') 
@@ -153,6 +205,8 @@ d_frame.addEventListener("mousedown", (e) =>
     {
         prevX = e.clientX - W_f
         prevY = e.clientY - H_f
+        cfup = fup
+        cfleft = fleft
         f_move = true
         end_f_move = false
     }
@@ -181,10 +235,10 @@ d_frame.addEventListener("mousemove", (e) => //проверка курсора �
     {
         let X = e.clientX - W_min
         let Y = e.clientY - H_min
-        let fup = false
-        let fdown = false
-        let fright = false
-        let fleft = false 
+        fup = false
+        fdown = false
+        fright = false
+        fleft = false 
         if(H_min + 40 > Y) //если верхняя часть горизонтальной части рамки 
         {
             fup = true
@@ -253,79 +307,6 @@ d_frame.addEventListener("mousemove", (e) => //проверка курсора �
     }
     let pX = e.clientX - W_f
     let pY = e.clientY - H_f
-    //Изменение размеров области рисования
-    if(f_move)
-    {
-        if(end_f_move)
-        {
-            f_move = false
-            end_f_move = false
-            prevX = pX
-            prevY = pY
-            return 
-        }
-        let currentX = pX
-        let currentY = pY
-        let X_move
-        let Y_move
-        if(cursor_type == 2)//если вертикальные
-        {
-            X_move = prevX - currentX
-            Y_move = 0
-        }
-        else
-        {
-            if(cursor_type == 1)//если горизонтальные
-            {
-                X_move = 0
-                Y_move = prevY - currentY
-            }
-            else //если угловые
-            {
-                X_move = prevX - currentX
-                Y_move = prevY - currentY
-                if(Math.abs(X_move) > Math.abs(Y_move))
-                {
-                    Y_move = 0
-                }
-                else
-                {
-                    X_move = 0
-                }
-            }
-        }
-        if(X_move == 0)
-        {
-            cW += X_move
-            let nX = (rez / cW)
-            Y_move = nX - cH
-            cH = nX
-        }
-        else
-        {
-            cH += Y_move
-            let nY = (rez / cH)
-            Y_move = nY - cW
-            cW = nY
-        }
-        f_dW = d_frame.offsetWidth + X_move
-        f_dH = d_frame.offsetHeight + Y_move
-        d_frame.style.width = f_dW + "px"
-        d_frame.style.height = f_dH + "px"
-        canvas.style.width = cW + "px"
-        canvas.style.height = cH + "px"
-        canvas.width = cW
-        canvas.height = cH
-        W_f = (W - cW) / 2 + cW / 200
-        W_min = (W - f_dW) / 4
-        W_max = f_dW + W_min
-        H_f = 70 + cH / 55  + l_width / 2
-        H_min = 40
-        H_max = f_dH + H_min
-        prevX = currentX
-        prevY = currentY
-        return
-    }
     //Рисование
     if(draw)
     {
@@ -333,6 +314,8 @@ d_frame.addEventListener("mousemove", (e) => //проверка курсора �
         {
             draw = false
             enddraw = false
+            shift_x = false
+            shift_y = false
             prevX = pX
             prevY = pY
             fp = true
@@ -341,16 +324,35 @@ d_frame.addEventListener("mousemove", (e) => //проверка курсора �
             curprim = []
             return 
         }
-        let currentX = pX + (pX - W_min) * 0.005
-        let currentY = pY
+        let currentX = pX + (pX - W_min) * 0.01 - l_width
+        let currentY = pY - l_width / 2
+        if(fp)
+        {
+            curprim.push([prevX, prevY])
+            if(shift_k)
+            {
+                if (Math.abs(currentX - prevX) > Math.abs(currentY - prevY))
+                {
+                    shift_x = true
+                }
+                else
+                {
+                    shift_y = true
+                }
+            }
+        }
+        if (shift_x)
+        {
+            currentY = prevY
+        }
+        if (shift_y)
+        {
+            currentX = prevX
+        }
         ctx.beginPath()
         ctx.moveTo(prevX, prevY)
         ctx.lineTo(currentX, currentY)
         ctx.stroke()
-        if(fp)
-        {
-            curprim.push([prevX, prevY])
-        }
         curprim.push([currentX, currentY])
         prevX = currentX
         prevY = currentY
@@ -362,13 +364,70 @@ window.addEventListener("mousemove", (e) => //проверка курсора н
 {
     let cX = e.clientX
     let cY = e.clientY
-    if(!on_d_frame && !draw && !f_move)
+    if(!f_move)
     {
-        if(cursor_type != 0)
+        if(!on_d_frame && !draw)
         {
-            cursor_type = 0
-            cursor_image.setAttribute('src', 'aero_arrow.cur');
+            if(cursor_type != 0)
+            {
+                cursor_type = 0
+                cursor.display
+                cursor.style.display = "none";
+            }
         }
+        else
+        {
+            if(cursor_type != 0)
+            {
+                cursor.style.display = "block";
+            }
+        }
+    }
+    else //Изменение размеров области рисования
+    {
+        X_move = (cX - move_prevX) * 2
+        Y_move = (cY - move_prevY) * 2
+        if(end_f_move)
+        {
+            f_move = false
+            end_f_move = false
+            return 
+        }
+        if(cursor_type == 2)//если вертикальные
+        {
+            Y_move = 0
+        }
+        else
+        {
+            if(cursor_type == 1)//если горизонтальные
+            {
+                X_move = 0
+            }
+        }
+        if(cfleft == true)
+        {
+            X_move *= -1
+        }
+        if(cfup == true)
+        {
+            Y_move *= -1
+        }
+        let prev_f_dW = f_dW
+        let prev_f_dH = f_dH
+        f_dW = Math.min(fW_max, Math.max(fW_min, f_dW + X_move))
+        f_dH = Math.min(fH_max, Math.max(fH_min, f_dH + Y_move))
+        X_move = f_dW - prev_f_dW
+        Y_move = f_dH - prev_f_dH
+        d_frame.style.width = f_dW + "px"
+        d_frame.style.height = f_dH + "px"
+        //canvas.width = cW + X_move
+        //canvas.height = cH + Y_move
+        W_f = (W - cW) / 2 + cW / 200
+        W_min = (W - f_dW) / 4
+        W_max = f_dW + W_min
+        H_f = 70 + cH / 55  + l_width / 2
+        H_min = 40
+        H_max = f_dH + H_min
     }
     if(cursor_type != 0 && cursor_type != 3)
     {
@@ -380,5 +439,7 @@ window.addEventListener("mousemove", (e) => //проверка курсора н
         cursor.style.left = (cX + 7.5) + "px";
         cursor.style.top = (cY + 7.5) + "px";
     }
+    move_prevX = cX
+    move_prevY = cY
     on_d_frame = false
 })
