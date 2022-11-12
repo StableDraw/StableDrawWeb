@@ -1,0 +1,3 @@
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\.stabledraw\.com [NC]
+RewriteRule ^(.*)$ https://stabledraw.com/$1 [L,R=301]

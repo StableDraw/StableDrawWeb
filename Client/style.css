@@ -1,8 +1,10 @@
-html{
+html
+{
     margin: 0;
     padding: 0;
 }
-body{
+body
+{
     margin: 0;
     padding: 0;
     display: flex;
@@ -10,7 +12,8 @@ body{
     align-items: center;
     height: 100vh;
 }
-.cursor {
+.cursor 
+{
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -23,8 +26,9 @@ body{
     transition: 0, 1s;
     transform: translate(-25%, -25%);
 }
-.nav{
-    width: 410px;
+.nav
+{
+    width: 430px;
     height: 50px;
     position: fixed;
     top: 0;
@@ -36,10 +40,12 @@ body{
     opacity: .3;
     transition: opacity .5s;
 }
-.nav:hover{
+.nav:hover
+{
     opacity: 1;
 }
-.d_frame{
+.d_frame
+{
     position: absolute;
     width: 80%;
     height: 80%;
@@ -47,7 +53,8 @@ body{
     cursor: none;
     overflow: hidden;
 }
-.v_frame{
+.v_frame
+{
     width: 100%;
     height: 100%;
     border: 4px solid rgb(154, 154, 154);
@@ -57,33 +64,41 @@ canvas
     width: 100%;
     height: 100%;
 }
-.clr{
+.clr
+{
     height: 30px;
-    width: 30px;
+    width: 60px;
     background-color: blue;
     border-radius: 50%;
     border: 3px solid rgb(214, 214, 214);
     transition: transform .5s;
 }
-.clr:hover{
+.clr:hover
+{
     transform: scale(1.2);
 }
-.clr:nth-child(1){
+.clr:nth-child(1)
+{
     background-color: #000;
 }
-.clr:nth-child(2){
+.clr:nth-child(2)
+{
     background-color: #EF626C;
 }
-.clr:nth-child(3){
+.clr:nth-child(3)
+{
     background-color: #fdec03;
 }
-.clr:nth-child(4){
+.clr:nth-child(4)
+{
     background-color: #24d102;
 }
-.clr:nth-child(5){
+.clr:nth-child(5)
+{
     background-color: #fff;
 }
-button{
+button
+{
     border: none;
     outline: none;
     padding: .6em 1em;
@@ -91,9 +106,19 @@ button{
     background-color: #03bb56;
     color: #fff;
 }
-.save{
-    background-color: #0f65d4;
+.clear
+{
+    background-color: #00dc49;
 }
-.generate{
-    background-color: #19bb49;
+.upload
+{
+    background-color: #0398c5;
+}
+.save
+{
+    background-color: #0a3a79;
+}
+.generate
+{
+    background-color: #8b147e;
 }

@@ -66,7 +66,7 @@ let end_f_move = false
 
 window.onload = function()
 {
-    ws = new WebSocket('ws://109.111.179.197:8081'); 
+    ws = new WebSocket('wss://109.111.179.197:8081'); 
     ws.onmessage = function(event)
     {
         var jdata = JSON.parse(event.data)
@@ -84,7 +84,7 @@ window.onload = function()
                 var image = new Image();
                 image.onload = function() 
                 {
-                    ctx.drawImage(image, 0, 0, jdata[2], jdata[3])
+                    ctx.drawImage(image, 0, 0, jdata[2], jdata[3], 0, 0, cW, cH)
                 }
                 image.src = "data:image/jpg;base64," + jdata[1];
             }
@@ -117,6 +117,18 @@ clearBtn.addEventListener("click", () =>
         }
     }
     ctx.clearRect(0, 0, canvas.width, canvas.height)
+})
+
+let uploadBtn = document.querySelector(".save")
+
+uploadBtn.addEventListener("click", () => 
+{
+    let data = canvas.toDataURL("imag/png")
+    let a = document.createElement("a")
+    a.href = data
+    a.download = "sketch.png"
+    console.log(a)
+    a.click()
 })
 
 let saveBtn = document.querySelector(".save")
