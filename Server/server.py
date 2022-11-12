@@ -4,6 +4,7 @@ import requests
 import base64
 from PIL import Image
 import json
+import ssl
 
 TOKEN = "5646296397:AAFvcZ303j97Y505kM7alN2Qat_ipC2L9fw"
 URL = "https://api.telegram.org/bot{}/".format(TOKEN)
@@ -26,6 +27,8 @@ async def handler(websocket):
         '3' : h
     }
     await websocket.send(json.dumps(resp_data))
-start_server = websockets.serve(handler, "192.168.0.101", 8081)
+ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+ssl_context.load_cert_chain("C:/Apache24/ssl/domain_name.crt", "C:/Apache24/ssl/private.key")
+start_server = websockets.serve(handler, "109.111.179.197", 8081, ssl=ssl_context)
 asyncio.get_event_loop().run_until_complete(start_server)
 asyncio.get_event_loop().run_forever()
