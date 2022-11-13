@@ -59,6 +59,8 @@ canvas.height = cH
 canvas.width = cW
 ctx.lineWidth = l_width
 
+let iscaption = false //Временый костыль, убрать
+
 let draw = false
 let enddraw = false
 let f_move = false
@@ -91,7 +93,7 @@ ws.onmessage = function(event)
 //ws.onopen = function(){alert("open");} 
 
 
-ws.onclose = function(){alert("Соединение разорвано со стороны сервера");}
+ws.onclose = function(){alert("Соединение разорвано со стороны сервера");} // Убрать
 
 
 //ws.onerror = function(){alert("error");}
@@ -107,8 +109,13 @@ clrs.forEach(clr =>
 })
 
 let clearBtn = document.querySelector(".clear")
+
 clearBtn.addEventListener("click", () => 
 {
+    if(iscaption)//убрать
+    {
+        iscaption = false
+    }
     let inds = pstack.length
     if(inds != 0)
     {
@@ -148,10 +155,22 @@ let generateBtn = document.querySelector(".generate")
 
 generateBtn.addEventListener("click", () => 
 {
-    let send_data = JSON.stringify({ 
-        "type": "d", //рисунок
-        "data": canvas.toDataURL("imag/png")
-    });
+    let send_data
+    if (!iscaption) //убрать
+    {
+        iscaption = true
+        send_data = JSON.stringify({ 
+            "type": "d", //рисунок
+            "data": canvas.toDataURL("imag/png")
+        });
+    }
+    else
+    {
+        iscaption = false //убрать
+        send_data = JSON.stringify({ 
+            "type": "g" //просьба сгенерировать с текущей подписью)
+        });
+    }
     ws.send(send_data)
 
     //a.download = "sketch.png"
