@@ -64,36 +64,37 @@ let enddraw = false
 let f_move = false
 let end_f_move = false
 
-window.onload = function()
+
+ws = new WebSocket('wss://stabledraw.com:8081'); 
+ws.onmessage = function(event)
 {
-    ws = new WebSocket('wss://109.111.179.197:8081'); 
-    ws.onmessage = function(event)
+    var jdata = JSON.parse(event.data)
+    var type = jdata[0];
+    if (type == "t")
     {
-        var jdata = JSON.parse(event.data)
-        var type = jdata[0];
-        let img = new Image();
-        if (type == "t")
+        alert(jdata[1]); 
+    }
+    else
+    {
+        console.log(type);
+        if (type == "i")
         {
-            alert(jdata[1]); 
-        }
-        else
-        {
-            console.log(type);
-            if (type == "i")
+            let image = new Image();
+            image.onload = function() 
             {
-                var image = new Image();
-                image.onload = function() 
-                {
-                    ctx.drawImage(image, 0, 0, jdata[2], jdata[3], 0, 0, cW, cH)
-                }
-                image.src = "data:image/jpg;base64," + jdata[1];
+                ctx.drawImage(image, 0, 0, jdata[2], jdata[3], 0, 0, cW, cH)
             }
+            image.src = "data:image/jpg;base64," + jdata[1];
         }
-    } 
-    //ws.onopen = function(){alert("open");} 
-    //ws.onclose = function(){alert("close");}
-    //ws.onerror = function(){alert("error");}
-}
+    }
+} 
+//ws.onopen = function(){alert("open");} 
+
+
+ws.onclose = function(){alert("Соединение разорвано со стороны сервера");}
+
+
+//ws.onerror = function(){alert("error");}
 
 let clrs = document.querySelectorAll(".clr")
 clrs = Array.from(clrs)
@@ -147,7 +148,12 @@ let generateBtn = document.querySelector(".generate")
 
 generateBtn.addEventListener("click", () => 
 {
-    ws.send(canvas.toDataURL("imag/png"))
+    let send_data = JSON.stringify({ 
+        "type": "d", //рисунок
+        "data": canvas.toDataURL("imag/png")
+    });
+    ws.send(send_data)
+
     //a.download = "sketch.png"
     //a.click()
 })
