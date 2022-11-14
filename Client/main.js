@@ -66,34 +66,40 @@ let enddraw = false
 let f_move = false
 let end_f_move = false
 
-
 ws = new WebSocket('wss://stabledraw.com:8081'); 
+let chain_id
+let task_id
+
 ws.onmessage = function(event)
 {
     var jdata = JSON.parse(event.data)
     var type = jdata[0];
     if (type == "t")
     {
-        alert(jdata[1]); 
+        alert(jdata[1]);
+        return
     }
-    else
+    if (type == "c") //если подпись
     {
-        console.log(type);
-        if (type == "i")
+        task_id = jdata[1]
+        alert(jdata[2]); //костыль, потом заменить
+        chain_id = jdata[3]
+        return
+    }
+    if (type == "i")
+    {
+        let image = new Image();
+        image.onload = function() 
         {
-            let image = new Image();
-            image.onload = function() 
-            {
-                ctx.drawImage(image, 0, 0, jdata[2], jdata[3], 0, 0, cW, cH)
-            }
-            image.src = "data:image/jpg;base64," + jdata[1];
+            ctx.drawImage(image, 0, 0, jdata[2], jdata[3], 0, 0, cW, cH)
         }
+        image.src = "data:image/jpg;base64," + jdata[1];
     }
 } 
 //ws.onopen = function(){alert("open");} 
 
 
-ws.onclose = function(){alert("Соединение разорвано со стороны сервера");} // Убрать
+ws.onclose = function() {alert("Соединение разорвано со стороны сервера");} // Убрать
 
 
 //ws.onerror = function(){alert("error");}
@@ -168,7 +174,9 @@ generateBtn.addEventListener("click", () =>
     {
         iscaption = false //убрать
         send_data = JSON.stringify({ 
-            "type": "g" //просьба сгенерировать с текущей подписью)
+            "type": "g", //просьба сгенерировать с текущей подписью)
+            "chain_id": chain_id, //id последнего звена цепочки
+            "task_id": task_id, //id задания
         });
     }
     ws.send(send_data)
