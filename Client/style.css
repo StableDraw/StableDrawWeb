@@ -132,7 +132,7 @@ body
     background-color:#000000;
     cursor: pointer;
     height: 40px;
-    width: 40px;
+    width: 50px;
 }
 .clrimg
 {
@@ -166,7 +166,7 @@ body
 {
     cursor: pointer;
     height: 40px;
-    width: 40px;
+    width: 50px;
 }
 .clearimg
 {
@@ -178,7 +178,7 @@ body
 {
     cursor: pointer;
     height: 40px;
-    width: 40px;
+    width: 50px;
 }
 .uploadimg
 {
@@ -190,7 +190,7 @@ body
 {
     cursor: pointer;
     height: 40px;
-    width: 40px;
+    width: 50px;
 }
 .saveimg
 {
@@ -202,7 +202,7 @@ body
 {
     cursor: pointer;
     height: 40px;
-    width: 40px;
+    width: 50px;
 }
 .generateimg
 {
