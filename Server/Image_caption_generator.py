@@ -1,4 +1,3 @@
-import os
 import torch
 import numpy as np
 from fairseq import utils, tasks
@@ -7,6 +6,8 @@ from tasks.mm_tasks.caption import CaptionTask
 from PIL import Image
 from torchvision import transforms
 from utils.eval_utils import eval_caption
+
+checkpoint_path = 'caption.pt'
 
 # Подготовка теста
 def encode_text(text, task, length=None, append_bos=False, append_eos=False):

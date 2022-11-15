@@ -1,4 +1,3 @@
-import os
 import PIL
 from PIL import Image
 import torch
@@ -12,6 +11,18 @@ from contextlib import nullcontext
 from pytorch_lightning import seed_everything
 from ldm.util import instantiate_from_config
 from ldm.models.diffusion.ddim import DDIMSampler
+
+checkpoint_path = 'models/ldm/stable-diffusion-v1/'
+checkpoint_list = ["sd-v1-1.ckpt", 
+                   "sd-v1-1-full-ema.ckpt", 
+                   "sd-v1-2.ckpt", 
+                   "sd-v1-2-full-ema.ckpt", 
+                   "sd-v1-3.ckpt", 
+                   "sd-v1-3-full-ema.ckpt", 
+                   "sd-v1-4.ckpt", 
+                   "sd-v1-4-full-ema.ckpt", 
+                   "sd-v1-5.ckpt", 
+                   "sd-v1-5-full-ema.ckpt"]
 
 async def chunk(it, size):
     it = iter(it)

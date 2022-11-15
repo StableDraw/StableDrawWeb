@@ -5,7 +5,9 @@ import base64
 import json
 import ssl
 import os
+import io
 import time
+from PIL import Image
 from googletrans import Translator
 from Image_caption_generator import Gen_caption
 from Image_to_image import Stable_diffusion
@@ -62,11 +64,12 @@ def get_message_id(req):
     message_id = str(content_json["result"]["message_id"])
     return message_id
 
-def del_prompt_about_drawing(prompt, rep_mess_id):
+def del_prompt_about_drawing(prompt, rep_mess_id, noback):
     orig_p = prompt
-    del_list = [' drawing of an ', 
-                ' drawing of a ', 
-                'a drawing of ', 'an image of ',
+    del_list = [' drawing of an', 
+                ' drawing of a', 
+                'a drawing of ', 
+                'an image of ',
                 'a picture of ',
                 'an illustration of ',
                 'a logo of',
@@ -76,7 +79,11 @@ def del_prompt_about_drawing(prompt, rep_mess_id):
                 'illustration of ',
                 'logo of',
                 'logo ',
-                'logo']
+                'logo',
+                ' icon']
+    if noback == True:
+        del_list.append(' on a white background')
+        del_list.append(' with a white background')
     for dw in del_list:
         prompt = prompt.replace(dw, '')
     if prompt != orig_p:
@@ -99,7 +106,7 @@ async def neural_processing(process, nprocess):
             path_to_task_dir = "log/" + task[3] + "/"  + task[2]
             if task[1] == 'c': #если нужно сгенерировать подпись
                 client_message = await Gen_caption(websocket, path_to_task_dir + "/drawing.png")
-                client_message, rep_mess_id = del_prompt_about_drawing(client_message, task[2])
+                client_message, rep_mess_id = del_prompt_about_drawing(client_message, task[2], task[5])
                 with open(path_to_task_dir + "/AI_caption.txt", "w") as f:
                     f.write(client_message)
                 req = requests.post(URL + "sendMessage?text=" + client_message + "&reply_to_message_id=" + rep_mess_id + "&chat_id=-1001784737051")
@@ -188,6 +195,19 @@ async def handler(websocket):
                 return
             if(dictData["type"] == "d"):
                 binary_data = base64.b64decode(bytes(dictData["data"][22:], 'utf-8'))
+                pillow_img = Image.open(io.BytesIO(binary_data))
+                if dictData["backgroung"] == "":
+                    noback = True
+                    (w, h) = pillow_img.size
+                    background_img = Image.new('RGB', (w, h), (255, 255, 255))
+                else:
+                    noback = False
+                    binary_data2 = base64.b64decode(bytes(dictData["backgroung"][22:], 'utf-8'))
+                    background_img = Image.open(io.BytesIO(binary_data2))
+                background_img.paste(pillow_img, (0,0),  pillow_img)
+                buf = io.BytesIO()
+                background_img.save(buf, format='PNG')
+                binary_data = buf.getvalue()
                 files = {'document': ('drawing.png', binary_data)}
                 req = requests.post(URL + "sendDocument?chat_id=-1001784737051", files = files)
                 content = req.content.decode("utf8")
@@ -197,7 +217,12 @@ async def handler(websocket):
                 os.mkdir(task_dir)
                 with open(task_dir + "/drawing.png", "wb") as f:
                     f.write(binary_data)
-                task_list.append([websocket, "c", message_id, user_id, need_translate]) #нужна подпись
+                if noback == False:
+                    with open(task_dir + "/background.png", "wb") as f:
+                        f.write(binary_data2)
+                    with open(task_dir + "/foreground.png", "wb") as f:
+                        f.write(binary_data)
+                task_list.append([websocket, "c", message_id, user_id, need_translate, noback]) #нужна подпись
             elif(dictData["type"] == "g"): #нужна картина по AI подписи
                 cur_task = [websocket, "p", dictData["task_id"], user_id, dictData["chain_id"]] #дескриптор сокета, тип задания, номер сообщения ТГ (id задания), user_id, номер последнего ответа ТГ
                 task_list.append(cur_task)
