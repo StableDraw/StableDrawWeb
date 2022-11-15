@@ -35,7 +35,7 @@ body
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #111;
+    background-color: rgb(224, 197, 26);
     overflow-x: hidden; /* Отключить горизонтальную прокрутку */
     padding-top: 60px;
     transition: 0.5s; /* 0.5 секунды эффект перехода */
@@ -44,13 +44,13 @@ body
 {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
-    color: #818181;
+    color: #000000;
     display: block;
     transition: 0.3s;
 }
 .sidepanel a:hover 
 {
-    color: #f1f1f1;
+    color: rgb(244, 237, 76);
 }
 .sidepanel .closebtn 
 {
@@ -90,14 +90,14 @@ body
     left: 0;
     font-size: 20px;
     cursor: pointer;
-    background-color: #111;
-    color: white;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     padding: 10px 15px;
-    border: none;
+    border: 2px solid rgb(181, 181, 181);
 }
 .openbtn:hover 
 {
-    background-color: #444;
+    background-color: #bbb;
 }
 .nav
 {
@@ -112,13 +112,103 @@ body
     transform: translateX(-50%);
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    opacity: .3;
-    transition: opacity .5s;
 }
 .nav:hover
 {
     opacity: 1;
+}
+.icon_buttons
+{
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    margin-left: auto;
+    display: flex;
+    display: inline-block;
+    width: 80%;
+}
+.clr
+{
+    background-color:#000000;
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+}
+.clrimg
+{
+    cursor: pointer;
+    pointer-events: none;
+    height: 100%;
+    width: 100%;
+}
+.clr_window
+{
+    display: none;
+    z-index: 1;
+    position: fixed;
+    justify-content: flex-end;
+    top: 7%;
+    margin-right: 200px;
+    border: 2px solid rgb(29, 29, 29);
+    background-color:#fff;
+}
+.ok_clr_btn
+{
+    color: #fff;
+    background-color:#000000;
+    height: 30%;
+    width: 40%;
+    float: right;
+    display: flex;
+    margin-left: auto;
+}
+.clear
+{
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+}
+.clearimg
+{
+    pointer-events: none;
+    height: 100%;
+    width: 100%;
+}
+.upload
+{
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+}
+.uploadimg
+{
+    pointer-events: none;
+    height: 100%;
+    width: 100%;
+}
+.save
+{
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+}
+.saveimg
+{
+    pointer-events: none;
+    height: 100%;
+    width: 100%;
+}
+.generate
+{
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+}
+.generateimg
+{
+    pointer-events: none;
+    height: 100%;
+    width: 100%;
 }
 .d_frame
 {
@@ -139,62 +229,4 @@ canvas
 {
     width: 100%;
     height: 100%;
-}
-.clr
-{
-    height: 30px;
-    width: 60px;
-    background-color: blue;
-    border-radius: 50%;
-    border: 3px solid rgb(214, 214, 214);
-    transition: transform .5s;
-}
-.clr:hover
-{
-    transform: scale(1.2);
-}
-.clr:nth-child(1)
-{
-    background-color: #000;
-}
-.clr:nth-child(2)
-{
-    background-color: #EF626C;
-}
-.clr:nth-child(3)
-{
-    background-color: #fdec03;
-}
-.clr:nth-child(4)
-{
-    background-color: #24d102;
-}
-.clr:nth-child(5)
-{
-    background-color: #fff;
-}
-button
-{
-    border: none;
-    outline: none;
-    padding: .6em 1em;
-    border-radius: 3px;
-    background-color: #03bb56;
-    color: #fff;
-}
-.clear
-{
-    background-color: #00dc49;
-}
-.upload
-{
-    background-color: #0398c5;
-}
-.save
-{
-    background-color: #0a3a79;
-}
-.generate
-{
-    background-color: #8b147e;
 }

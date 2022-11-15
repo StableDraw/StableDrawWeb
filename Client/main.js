@@ -3,9 +3,15 @@ const cursor_image = document.querySelector('.cursimg');
 let cursor_type = 0
 
 const canvas = document.getElementById("canvas") 
+const canvas_background = document.getElementById("canvas_background") 
 const d_frame = document.getElementById("d_frame")
 
+const clr_w = document.getElementById("clr_window") 
+const ok_clr_btn = document.getElementById("ok_clr_btn") 
+const cur_color = document.getElementById("color") 
+const clrimg = document.querySelector('.clrimg');
 const ctx = canvas.getContext("2d")
+const ctx_background = canvas.getContext("2d")
 
 let nstack = []
 let pstack = []
@@ -58,6 +64,7 @@ let W_max = f_dW + W_min
 canvas.height = cH
 canvas.width = cW
 ctx.lineWidth = l_width
+ctx_background.lineWidth = l_width
 
 let iscaption = false //Временый костыль, убрать
 
@@ -65,6 +72,11 @@ let draw = false
 let enddraw = false
 let f_move = false
 let end_f_move = false
+
+let is_clr_window = false
+let old_btn_clr = false //изначально чёрный текст у кнопок цвета
+
+let is_background_used = false
 
 ws = new WebSocket('wss://stabledraw.com:8081'); 
 let chain_id
@@ -116,6 +128,7 @@ function closeNav()
     document.getElementById("mySidepanel").style.width = "0";
 }
 
+/*
 let clrs = document.querySelectorAll(".clr")
 clrs = Array.from(clrs)
 clrs.forEach(clr => 
@@ -124,6 +137,73 @@ clrs.forEach(clr =>
     {
         ctx.strokeStyle = clr.dataset.clr
     })
+})
+*/
+
+function hexDec(h)
+{
+    let m=h.slice(1).match(/.{2}/g)
+    m[0]=parseInt(m[0], 16)
+    m[1]=parseInt(m[1], 16)
+    m[2]=parseInt(m[2], 16)
+    return m[0] + m[1] + m[2]
+};
+
+function handleclr_MouseMove() 
+{
+    let ccv = cur_color.value
+    if (hexDec(ccv) > 255)
+    {
+        if(!old_btn_clr)
+        {
+            console.log("1")
+            old_btn_clr = true
+            ok_clr_btn.style.color = '#000000'
+            clrimg.setAttribute('src', 'palette.png');
+        }
+    }
+    else
+    {
+        if(old_btn_clr)
+        {
+            console.log("2")
+            old_btn_clr = false
+            ok_clr_btn.style.color = '#fff'
+            clrimg.setAttribute('src', 'palette_w.png');
+        }
+    }
+    ok_clr_btn.style.background = cur_color.value
+    colourBtn.style.background = cur_color.value
+}
+
+function close_clr_window()
+{
+    clr_w.removeEventListener("mousemove", handleclr_MouseMove)
+    ctx.strokeStyle = cur_color.value
+    ctx_background.strokeStyle = cur_color.value
+    clr_w.style.display = "none"
+    is_clr_window = false
+}
+
+let colourBtn = document.querySelector(".clr")
+let ok_clr = document.querySelector(".ok_clr_btn")
+
+colourBtn.addEventListener("click", () => 
+{
+    if (is_clr_window == false)
+    {
+        clr_w.style.display = "block"
+        is_clr_window = true
+        clr_w.addEventListener("mousemove", handleclr_MouseMove)
+        ok_clr.addEventListener("click", () => 
+        {
+            close_clr_window()
+        }, { once: true })
+    }
+    else
+    {
+        close_clr_window()
+    }
 })
 
 let clearBtn = document.querySelector(".clear")
@@ -176,11 +256,23 @@ generateBtn.addEventListener("click", () =>
     let send_data
     if (!iscaption) //убрать
     {
+        if (is_background_used == true)
+        {
+            send_data = JSON.stringify({ 
+                "type": "d", //рисунок
+                "data": canvas.toDataURL("imag/png"),
+                "backgroung": canvas_background.toDataURL("imag/png")
+            });
+        }
+        else
+        {
+            send_data = JSON.stringify({ 
+                "type": "d", //рисунок
+                "data": canvas.toDataURL("imag/png"),
+                "backgroung": ""
+            });
+        }
         iscaption = true
-        send_data = JSON.stringify({ 
-            "type": "d", //рисунок
-            "data": canvas.toDataURL("imag/png")
-        });
     }
     else
     {
@@ -271,6 +363,10 @@ canvas.addEventListener("mousedown", (e) =>
     prevY = e.clientY - H_f
     draw = true
     enddraw = false
+    if (is_clr_window == true)
+    {
+        close_clr_window()
+    }
 })
 
 d_frame.addEventListener("mousedown", (e) => 
@@ -438,6 +534,11 @@ window.addEventListener("mousemove", (e) => //проверка курсора н
 {
     let cX = e.clientX
     let cY = e.clientY
+    if (is_clr_window)
+    {
+
+        return
+    }
     if(!f_move)
     {
         if(!on_d_frame && !draw)
