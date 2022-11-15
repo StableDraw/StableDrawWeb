@@ -66,13 +66,25 @@ def get_message_id(req):
 
 def del_prompt_about_drawing(prompt, rep_mess_id, noback):
     orig_p = prompt
-    del_list = [' drawing of an', 
+    del_list = ['a sketch of an ',
+                'a sketch of a ',
+                'an outline of an ',
+                'a outline of an ',
+                'an outline of a ',
+                'a outline of a ', 
+                'drawing of an', 
                 ' drawing of a', 
                 'a drawing of ', 
                 'an image of ',
                 'a picture of ',
+                'a retro illustration of an ',
+                'a retro illustration of a ',
+                'an illustration of an ',
+                'an illustration of a ',
                 'an illustration of ',
-                'a logo of',
+                'a logo of ',
+                'a sketch of ',
+                'sketch of ',
                 'drawing of ',
                 'image of ',
                 'picture of ',
@@ -80,7 +92,8 @@ def del_prompt_about_drawing(prompt, rep_mess_id, noback):
                 'logo of',
                 'logo ',
                 'logo',
-                ' icon']
+                ' icon',
+                ' coloring page']
     if noback == True:
         del_list.append(' on a white background')
         del_list.append(' with a white background')
