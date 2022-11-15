@@ -8,11 +8,6 @@ from PIL import Image
 from torchvision import transforms
 from utils.eval_utils import eval_caption
 
-checkpoint_path = 'caption.pt'
-if not os.path.exists(checkpoint_path):
-    import urllib.request
-    urllib.request.urlretrieve("https://ofa-beijing.oss-cn-beijing.aliyuncs.com/checkpoints/caption_base_best.pt", checkpoint_path)
-
 # Подготовка теста
 def encode_text(text, task, length=None, append_bos=False, append_eos=False):
     bos_item = torch.LongTensor([task.src_dict.bos()])

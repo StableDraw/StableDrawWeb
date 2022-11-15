@@ -4,42 +4,14 @@ from PIL import Image
 import torch
 import numpy as np
 from omegaconf import OmegaConf
-from tqdm import tqdm, trange
+from tqdm import trange
 from itertools import islice
 from einops import rearrange, repeat
-from torchvision.utils import make_grid
 from torch import autocast
 from contextlib import nullcontext
 from pytorch_lightning import seed_everything
 from ldm.util import instantiate_from_config
 from ldm.models.diffusion.ddim import DDIMSampler
-
-checkpoint_path = 'models/ldm/stable-diffusion-v1/'
-checkpoint_list = ["sd-v1-1.ckpt", 
-                   "sd-v1-1-full-ema.ckpt", 
-                   "sd-v1-2.ckpt", 
-                   "sd-v1-2-full-ema.ckpt", 
-                   "sd-v1-3.ckpt", 
-                   "sd-v1-3-full-ema.ckpt", 
-                   "sd-v1-4.ckpt", 
-                   "sd-v1-4-full-ema.ckpt", 
-                   "sd-v1-5.ckpt", 
-                   "sd-v1-5-full-ema.ckpt"]
-
-if not os.path.exists(checkpoint_path):
-    os.mkdir(checkpoint_path)
-    import urllib.request
-    import click
-    print("сначала нужно посетить каждую страницу снизу и согласиться с лицензионными соглашениями:")
-    for i in range (1, 5):
-        print("https://huggingface.co/CompVis/stable-diffusion-v-1-" + str(i) + "-original/resolve/main/")
-    print("https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/")
-    click.pause()
-    for i in range (1, 5):
-        urllib.request.urlretrieve("https://huggingface.co/CompVis/stable-diffusion-v-1-1-original/resolve/main/sd-v1-" + str(i) + ".ckpt", checkpoint_path + checkpoint_list[2 * (i - 1)])
-        urllib.request.urlretrieve("https://huggingface.co/CompVis/stable-diffusion-v-1-1-original/resolve/main/sd-v1-" + str(i) + "-full-ema.ckpt", checkpoint_path + checkpoint_list[2 * (i - 1) + 1])
-    urllib.request.urlretrieve("https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt", checkpoint_path + checkpoint_list[4])
-    urllib.request.urlretrieve("https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned.ckpt", checkpoint_path + checkpoint_list[4])
 
 async def chunk(it, size):
     it = iter(it)
