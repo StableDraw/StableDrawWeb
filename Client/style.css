@@ -17,6 +17,7 @@ body
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+    display: none;
     border: 0;
     outline: none;
     z-index: 999999; 
@@ -26,8 +27,83 @@ body
     transition: 0, 1s;
     transform: translate(-25%, -25%);
 }
+.sidepanel 
+{
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden; /* Отключить горизонтальную прокрутку */
+    padding-top: 60px;
+    transition: 0.5s; /* 0.5 секунды эффект перехода */
+}
+.sidepanel a 
+{
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+.sidepanel a:hover 
+{
+    color: #f1f1f1;
+}
+.sidepanel .closebtn 
+{
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+.sidepanel .mods_of_work
+{
+    font-size: 25px;
+}
+.sidepanel .setting_buttons
+{
+    font-size: 25px;
+    position: absolute;
+    bottom: 20%;
+}
+.sidepanel .helpfull_links
+{
+    font-size: 15px;
+    position: absolute;
+    bottom: 10%;
+}
+.openbtn 
+{
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #111;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+}
+.openbtn:hover 
+{
+    background-color: #444;
+}
 .nav
 {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     width: 430px;
     height: 50px;
     position: fixed;

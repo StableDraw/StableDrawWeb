@@ -104,6 +104,18 @@ ws.onclose = function() {alert("Соединение разорвано со с�
 
 //ws.onerror = function(){alert("error");}
 
+/* Установить ширину боковой панели на 250 пикселей (показать) */
+function openNav() 
+{
+    document.getElementById("mySidepanel").style.width = "250px";
+}
+  
+/* Установить ширину боковой панели на 0 (скрыть) */
+function closeNav() 
+{
+    document.getElementById("mySidepanel").style.width = "0";
+}
+
 let clrs = document.querySelectorAll(".clr")
 clrs = Array.from(clrs)
 clrs.forEach(clr => 
