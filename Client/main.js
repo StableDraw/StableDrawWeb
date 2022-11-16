@@ -1,10 +1,11 @@
 const cursor = document.querySelector(".cursor");
 const cursor_image = document.querySelector('.cursimg');
-let cursor_type = 0
+let cursor_type = -1
 
 const canvas = document.getElementById("canvas") 
 const canvas_background = document.getElementById("canvas_background") 
 const d_frame = document.getElementById("d_frame")
+const spanel = document.getElementById("mySidepanel")
 
 const clr_w = document.getElementById("clr_window") 
 const ok_clr_btn = document.getElementById("ok_clr_btn") 
@@ -12,6 +13,8 @@ const cur_color = document.getElementById("color")
 const clrimg = document.querySelector('.clrimg');
 const ctx = canvas.getContext("2d")
 const ctx_background = canvas.getContext("2d")
+
+const EL = (sel) => document.querySelector(sel);
 
 let nstack = []
 let pstack = []
@@ -49,10 +52,16 @@ let fH_min = H * 0.1
 let cW = canvas.offsetWidth
 let cH = canvas.offsetHeight
 let l_width = 5
-let W_f = (W - cW) / 2 + cW / 200
-let H_f = 70 + cH / 55  + l_width / 2
-let f_dW = d_frame.offsetWidth * 0.973
-let f_dH = d_frame.offsetHeight * 0.973
+let W_f = (W - cW) / 2 + cW / 86
+let H_f = cH / 55 + H / 10.7 + l_width / 2
+let f_dW = d_frame.offsetWidth * 0.971
+let f_dH = d_frame.offsetHeight * 0.971 // костыли
+let orig_f_dW = f_dW
+let orig_f_dH = f_dH
+let cmp_W = 1
+let cmp_H = 1
+let cmp_W_b = 0
+let cmp_H_b = 0
 d_frame.style.width = f_dW + "px"
 d_frame.style.height = f_dH + "px"
 let H_min = 40
@@ -75,6 +84,7 @@ let end_f_move = false
 
 let is_clr_window = false
 let old_btn_clr = false //изначально чёрный текст у кнопок цвета
+let on_clr_window = false
 
 let is_background_used = false
 
@@ -119,26 +129,24 @@ ws.onclose = function() {alert("Соединение разорвано со с�
 /* Установить ширину боковой панели на 250 пикселей (показать) */
 function openNav() 
 {
-    document.getElementById("mySidepanel").style.width = "250px";
-}
-  
-/* Установить ширину боковой панели на 0 (скрыть) */
-function closeNav() 
-{
-    document.getElementById("mySidepanel").style.width = "0";
+    spanel.style.width = "250px";
+    spanel.style.border = "2px solid #4c4c4c";
+    spanel.style.borderLeftStyle = "hidden"
+    spanel.style.borderTopStyle = "hidden"
+    //spanel.style.borderRightStyle = "solid";
 }
 
-/*
-let clrs = document.querySelectorAll(".clr")
-clrs = Array.from(clrs)
-clrs.forEach(clr => 
+function closeNav_border()
 {
-    clr.addEventListener("click", () => 
-    {
-        ctx.strokeStyle = clr.dataset.clr
-    })
-})
-*/
+    spanel.style.borderLeftStyle = "hidden"
+    spanel.style.borderRightStyle = "hidden"
+}
+
+function closeNav() 
+{
+    spanel.style.width = "0"
+    setTimeout(closeNav_border, 490);
+}
 
 function hexDec(h)
 {
@@ -151,6 +159,7 @@ function hexDec(h)
 
 function handleclr_MouseMove() 
 {
+    on_clr_window = true
     let ccv = cur_color.value
     if (hexDec(ccv) > 255)
     {
@@ -187,7 +196,6 @@ function close_clr_window()
 
 let colourBtn = document.querySelector(".clr")
 let ok_clr = document.querySelector(".ok_clr_btn")
-
 colourBtn.addEventListener("click", () => 
 {
     if (is_clr_window == false)
@@ -225,16 +233,31 @@ clearBtn.addEventListener("click", () =>
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 })
 
-let uploadBtn = document.querySelector(".save")
+let mhf = document.getElementById('my_hidden_file')
+let uploadBtn = document.querySelector('.upload')
 
 uploadBtn.addEventListener("click", () => 
 {
-    let data = canvas.toDataURL("imag/png")
-    let a = document.createElement("a")
-    a.href = data
-    a.download = "sketch.png"
-    console.log(a)
-    a.click()
+    mhf.click(); 
+    mhf.addEventListener("change", function readImage()
+    {
+        if (!this.files || !this.files[0]) return;
+        const FR = new FileReader();
+        FR.addEventListener("load", (evt) => 
+        {
+            const img = new Image();
+            img.addEventListener("load", () => 
+            {
+                ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+                ctx.drawImage(img, 0, 0);
+            });
+            img.src = evt.target.result;
+        });
+        FR.readAsDataURL(this.files[0]);
+    }, 
+    { 
+        once: true 
+    });
 })
 
 let saveBtn = document.querySelector(".save")
@@ -494,8 +517,8 @@ d_frame.addEventListener("mousemove", (e) => //проверка курсора �
             curprim = []
             return 
         }
-        let currentX = pX + (pX - W_min) * 0.01 - l_width
-        let currentY = pY - l_width / 2
+        let currentX = pX * cmp_W + (pX - W_min) * 0.01 - l_width - cmp_W_b
+        let currentY = pY * cmp_H - l_width / 2 - cmp_H_b
         if(fp)
         {
             curprim.push([prevX, prevY])
@@ -532,20 +555,36 @@ d_frame.addEventListener("mousemove", (e) => //проверка курсора �
 
 window.addEventListener("mousemove", (e) => //проверка курсора на всём окне
 {
-    let cX = e.clientX
-    let cY = e.clientY
+    let cX = e.clientX - 7.5
+    let cY = e.clientY - 7.5
     if (is_clr_window)
     {
-
-        return
+        if (!on_clr_window)
+        {
+            if(cursor_type != 0)
+            {
+                cursor_type = 0
+                cursor.style.display = "block";
+            }
+        }
+        else
+        {
+            if(cursor_type != -1)
+            {
+                cursor_type = -1
+                cursor.style.display = "none";
+            }
+            on_clr_window = false
+            return
+        }
     }
     if(!f_move)
     {
         if(!on_d_frame && !draw)
         {
-            if(cursor_type != 0)
+            if(cursor_type != -1)
             {
-                cursor_type = 0
+                cursor_type = -1
                 cursor.display
                 cursor.style.display = "none";
             }
@@ -554,6 +593,7 @@ window.addEventListener("mousemove", (e) => //проверка курсора н
         {
             if(cursor_type != 0)
             {
+                cursor_type = 0
                 cursor.style.display = "block";
             }
         }
@@ -590,17 +630,19 @@ window.addEventListener("mousemove", (e) => //проверка курсора н
         let prev_f_dW = f_dW
         let prev_f_dH = f_dH
         f_dW = Math.min(fW_max, Math.max(fW_min, f_dW + X_move))
+        cmp_W = orig_f_dW / f_dW
+        cmp_W_b = Math.pow((orig_f_dW - f_dW), 4) * 0.00000000417// костыль
         f_dH = Math.min(fH_max, Math.max(fH_min, f_dH + Y_move))
+        cmp_H = orig_f_dH / f_dH
+        cmp_H_b = Math.pow((orig_f_dH - f_dH), 4) * 0.00000002// Это фигня полная, надо убрать
         X_move = f_dW - prev_f_dW
         Y_move = f_dH - prev_f_dH
         d_frame.style.width = f_dW + "px"
         d_frame.style.height = f_dH + "px"
-        //canvas.width = cW + X_move
-        //canvas.height = cH + Y_move
-        W_f = (W - cW) / 2 + cW / 200
+        W_f = (W - cW) / 2 + cW / 100
         W_min = (W - f_dW) / 4
         W_max = f_dW + W_min
-        H_f = 70 + cH / 55  + l_width / 2
+        H_f = cH / 55 + H / 10.7 + l_width / 2
         H_min = 40
         H_max = f_dH + H_min
     }

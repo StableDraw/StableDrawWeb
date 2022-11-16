@@ -29,28 +29,32 @@ body
 }
 .sidepanel 
 {
+    border: 2px solid #4c4c4c;
+    border-top-style: hidden;
+    border-left-style: hidden;
+    border-right-style: hidden;
     height: 100%;
     width: 0;
     position: fixed;
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: rgb(224, 197, 26);
+    background-color: rgb(255, 255, 255);
     overflow-x: hidden; /* Отключить горизонтальную прокрутку */
     padding-top: 60px;
     transition: 0.5s; /* 0.5 секунды эффект перехода */
 }
 .sidepanel a 
 {
-    padding: 8px 8px 8px 32px;
+    padding: 8px 8px 8px 8px;
     text-decoration: none;
-    color: #000000;
+    color: #1d1d1d;
     display: block;
     transition: 0.3s;
 }
 .sidepanel a:hover 
 {
-    color: rgb(244, 237, 76);
+    background: #d9d9d9;
 }
 .sidepanel .closebtn 
 {
@@ -60,25 +64,160 @@ body
     position: absolute;
     cursor: pointer;
     top: 0;
-    right: 25px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    right: 0px;
     font-size: 36px;
-    margin-left: 50px;
+    width: 45px;
 }
 .sidepanel .mods_of_work
 {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     font-size: 25px;
+    height: 100%;
+    width: 100%;
+}
+.txt_to_img_href
+{
+    border: 1px solid rgb(76, 76, 76);
+    border-left-style: hidden;
+    border-right-style: hidden;
+    border-bottom-style: hidden;
+}
+.txt_to_img_btn
+{
+    pointer-events: none;
+    height: 100%;
+    width: 100%;
+}
+.img_to_img_href
+{
+    outline: 4px solid rgb(0, 0, 0);
+    outline-offset: 2px;
+    border: 3px solid rgb(0, 0, 0);
+    border-left-style: hidden;
+    border-right-style: hidden;
+    border-bottom-style: 1px solid rgb(0, 0, 0);
+}
+.img_to_img_btn
+{
+    pointer-events: none;
+    height: 100%;
+    width: 100%;
+}
+.photo_to_img_href
+{
+    border: 1px solid rgb(76, 76, 76);
+    border-left-style: hidden;
+    border-right-style: hidden;
+    border-top-style: hidden;
+}
+.photo_to_img_btn
+{
+    pointer-events: none;
+    height: 100%;
+    width: 100%;
+}
+.frames_to_animation_href
+{
+    border: 1px solid rgb(76, 76, 76);
+    border-top-style: hidden;
+    border-left-style: hidden;
+    border-right-style: hidden;
+}
+.frames_to_animation_btn
+{
+    pointer-events: none;
+    height: 100%;
+    width: 100%;
 }
 .sidepanel .setting_buttons
 {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     font-size: 25px;
     position: absolute;
-    bottom: 20%;
+    height: 7%;
+    width: 100%;
+    bottom: 15%;
+    border: 2px solid rgb(76, 76, 76);
+    border-left-style: hidden;
+    border-right-style: hidden;
+}
+.settings_btn
+{
+    margin-top: 1%;
+    display: flex;
+    margin-left: 10%;
+    float: left;
+    display: inline-block;
+    height: 90%;
+    width: 30%;
+}
+.settings_btn_img
+{
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    pointer-events: none;
+    height: 100%;
+    width: 85%;
+}
+.language_btn
+{
+    margin-top: 1%;
+    display: flex;
+    margin-right: 10%;
+    float: right;
+    display: inline-block;
+    height: 90%;
+    width: 30%;
+}
+.language_btn_img
+{
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    pointer-events: none;
+    height: 100%;
+    width: 85%;
 }
 .sidepanel .helpfull_links
 {
-    font-size: 15px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    font-size: 20px;
     position: absolute;
-    bottom: 10%;
+    display: inline-block;
+    width: 100%;
+    bottom: 8%;
+}
+.helpfull_links a:hover 
+{
+    text-decoration: underline;
+}
+.about_us_href
+{
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    text-align: center;
+    width: 49%;
+    display: inline-block;
+}
+.help_href
+{
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    text-align: center;
+    width: 49%;
+    display: inline-block;
 }
 .openbtn 
 {
@@ -86,8 +225,8 @@ body
     -moz-user-select: none;
     -ms-user-select: none;
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 0px;
+    left: 0px;
     font-size: 20px;
     cursor: pointer;
     background-color: rgb(255, 255, 255);
@@ -180,6 +319,14 @@ body
     height: 40px;
     width: 50px;
 }
+.hiddenInput
+{  
+    position:absolute;
+    overflow: hidden;
+    display:block;  
+    height:0px;  
+    width:0px;  
+}
 .uploadimg
 {
     pointer-events: none;
@@ -227,6 +374,9 @@ body
 }
 canvas
 {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     width: 100%;
     height: 100%;
 }
