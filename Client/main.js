@@ -2,7 +2,7 @@ const cursor = document.querySelector(".cursor");
 const cursor_image = document.querySelector('.cursimg');
 let cursor_type = -1
 
-const canvas = document.getElementById("canvas") 
+const canvas_foreground = document.getElementById("canvas_foreground") 
 const canvas_background = document.getElementById("canvas_background") 
 const d_frame = document.getElementById("d_frame")
 const spanel = document.getElementById("mySidepanel")
@@ -11,8 +11,8 @@ const clr_w = document.getElementById("clr_window")
 const ok_clr_btn = document.getElementById("ok_clr_btn") 
 const cur_color = document.getElementById("color") 
 const clrimg = document.querySelector('.clrimg');
-const ctx = canvas.getContext("2d")
-const ctx_background = canvas.getContext("2d")
+const ctx = canvas_foreground.getContext("2d")
+const ctx_background = canvas_background.getContext("2d")
 
 const EL = (sel) => document.querySelector(sel);
 
@@ -29,6 +29,9 @@ let move_prevX = null
 let move_prevY = null
 let X_move = null
 let Y_move = null
+
+let cX
+let cY
 
 let shift_k = false
 let shift_x = false
@@ -49,8 +52,8 @@ let fH_max = H * 0.8
 let fW_min = W * 0.1
 let fH_min = H * 0.1
 
-let cW = canvas.offsetWidth
-let cH = canvas.offsetHeight
+let cW = canvas_foreground.offsetWidth
+let cH = canvas_foreground.offsetHeight
 let l_width = 5
 let W_f = (W - cW) / 2 + cW / 86
 let H_f = cH / 55 + H / 10.7 + l_width / 2
@@ -70,8 +73,8 @@ let H_max = f_dH + H_min
 let W_min = (W - f_dW) / 4
 let W_max = f_dW + W_min
 
-canvas.height = cH
-canvas.width = cW
+canvas_foreground.height = cH
+canvas_foreground.width = cW
 ctx.lineWidth = l_width
 ctx_background.lineWidth = l_width
 
@@ -87,6 +90,13 @@ let old_btn_clr = false //изначально чёрный текст у кно
 let on_clr_window = false
 
 let is_background_used = false
+let cur_background_clr = "#ffffff"
+let new_background_clr = cur_background_clr
+let cur_bash_clr = "#000000"
+//заливка фона белым, костыль, убрать
+ctx_background.fillStyle = cur_background_clr; 
+ctx_background.fillRect(0, 0, cW, cH);
+let is_clr_brash = true
 
 ws = new WebSocket('wss://stabledraw.com:8081'); 
 let chain_id
@@ -165,7 +175,6 @@ function handleclr_MouseMove()
     {
         if(!old_btn_clr)
         {
-            console.log("1")
             old_btn_clr = true
             ok_clr_btn.style.color = '#000000'
             clrimg.setAttribute('src', 'palette.png');
@@ -175,36 +184,130 @@ function handleclr_MouseMove()
     {
         if(old_btn_clr)
         {
-            console.log("2")
             old_btn_clr = false
             ok_clr_btn.style.color = '#fff'
             clrimg.setAttribute('src', 'palette_w.png');
         }
     }
-    ok_clr_btn.style.background = cur_color.value
-    colourBtn.style.background = cur_color.value
+    if (is_clr_brash)
+    {
+        ctype_clr_btn.background = ccv
+    }
+    ok_clr_btn.style.background = ccv
+    colourBtn.style.background = ccv
+}
+
+function handlet_clr_Click()
+{
+    if (is_clr_brash)
+    {
+        is_background_used = true
+        cur_bash_clr = cur_color.value
+        ctype_clr_btn.textContent = "Цвет кисти"
+        cur_color.value = cur_background_clr
+        if (hexDec(cur_bash_clr) > 255)
+        {
+            ctype_clr_btn.style.color = '#000000'
+            clrimg.setAttribute('src', 'palette_w.png');
+        }
+        else
+        {
+            ctype_clr_btn.style.color = '#fff'
+            clrimg.setAttribute('src', 'palette.png');
+        }
+        ctype_clr_btn.style.background = cur_bash_clr
+        is_clr_brash = false
+    }
+    else
+    {
+        ctype_clr_btn.textContent = "Цвет фона"
+        let ccv = cur_bash_clr
+        new_background_clr = cur_color.value
+        cur_color.value = ccv
+        if (hexDec(new_background_clr) > 255)
+        {
+            ctype_clr_btn.style.color = '#000000'
+            clrimg.setAttribute('src', 'palette_w.png');
+        }
+        else
+        {
+            ctype_clr_btn.style.color = '#fff'
+        }
+        ctype_clr_btn.style.background = new_background_clr
+        if (hexDec(ccv) > 255)
+        {
+            if(!old_btn_clr)
+            {
+                old_btn_clr = true
+                clrimg.setAttribute('src', 'palette.png');
+            }
+        }
+        else
+        {
+            if(old_btn_clr)
+            {
+                old_btn_clr = false
+                clrimg.setAttribute('src', 'palette_w.png');
+            }
+        }
+        ok_clr_btn.style.background = ccv
+        colourBtn.style.background = ccv
+        is_clr_brash = true
+    }
 }
 
 function close_clr_window()
 {
     clr_w.removeEventListener("mousemove", handleclr_MouseMove)
-    ctx.strokeStyle = cur_color.value
-    ctx_background.strokeStyle = cur_color.value
-    clr_w.style.display = "none"
+    ctype_clr_btn.removeEventListener("click", handlet_clr_Click)
     is_clr_window = false
+    if (!is_clr_brash)
+    {
+        new_background_clr = cur_color.value
+        is_clr_brash = true
+    }
+    else
+    {
+        cur_bash_clr = cur_color.value
+    }
+    if (is_background_used)
+    {
+        if (cur_background_clr != new_background_clr) //почему-то не работает, из-за этого пришлось сделать костыль строчкой сверху. Убрать
+        {
+            ctx_background.beginPath()
+            ctx_background.fillStyle = new_background_clr; //заливка фона белым, костыль, убрать
+            ctx_background.fillRect(0, 0, cW, cH);
+        }
+        else
+        {
+            is_background_used = false
+        }
+    }
+    ctx.strokeStyle = cur_bash_clr
+    ctx_background.strokeStyle = cur_bash_clr
+    clr_w.style.display = "none"
 }
 
 let colourBtn = document.querySelector(".clr")
 let ok_clr = document.querySelector(".ok_clr_btn")
+let ctype_clr_btn = document.querySelector(".ctype_clr_btn")
+
 colourBtn.addEventListener("click", () => 
 {
+    cur_color.value = cur_bash_clr
     if (is_clr_window == false)
     {
         clr_w.style.display = "block"
         is_clr_window = true
         clr_w.addEventListener("mousemove", handleclr_MouseMove)
+        ctype_clr_btn.addEventListener("click", handlet_clr_Click)
         ok_clr.addEventListener("click", () => 
         {
+            cursor_type = 3
+            cursor_image.setAttribute('src', 'aero_pen.cur')
+            cursor.style.left = (cX + 7.5) + "px";
+            cursor.style.top = (cY + 7.5) + "px";
+            cursor.style.display = "block"
             close_clr_window()
         }, { once: true })
     }
@@ -230,7 +333,7 @@ clearBtn.addEventListener("click", () =>
             pstack.push([ctx.strokeStyle, []])
         }
     }
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.clearRect(0, 0, canvas_foreground.width, canvas_foreground.height)
 })
 
 let mhf = document.getElementById('my_hidden_file')
@@ -248,7 +351,7 @@ uploadBtn.addEventListener("click", () =>
             const img = new Image();
             img.addEventListener("load", () => 
             {
-                ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+                ctx.clearRect(0, 0, ctx.canvas_foreground.width, ctx.canvas_foreground.height);
                 ctx.drawImage(img, 0, 0);
             });
             img.src = evt.target.result;
@@ -264,11 +367,10 @@ let saveBtn = document.querySelector(".save")
 
 saveBtn.addEventListener("click", () => 
 {
-    let data = canvas.toDataURL("imag/png")
+    let data = canvas_foreground.toDataURL("imag/png")
     let a = document.createElement("a")
     a.href = data
     a.download = "sketch.png"
-    console.log(a)
     a.click()
 })
 
@@ -283,7 +385,7 @@ generateBtn.addEventListener("click", () =>
         {
             send_data = JSON.stringify({ 
                 "type": "d", //рисунок
-                "data": canvas.toDataURL("imag/png"),
+                "data": canvas_foreground.toDataURL("imag/png"),
                 "backgroung": canvas_background.toDataURL("imag/png")
             });
         }
@@ -291,7 +393,7 @@ generateBtn.addEventListener("click", () =>
         {
             send_data = JSON.stringify({ 
                 "type": "d", //рисунок
-                "data": canvas.toDataURL("imag/png"),
+                "data": canvas_foreground.toDataURL("imag/png"),
                 "backgroung": ""
             });
         }
@@ -337,7 +439,7 @@ document.addEventListener('keydown', (event) =>
             if (pstack.length != 0)
             {
                 nstack.push(pstack.pop())
-                ctx.clearRect(0, 0, canvas.width, canvas.height)
+                ctx.clearRect(0, 0, canvas_foreground.width, canvas_foreground.height)
                 let bufcolour = ctx.strokeStyle
                 for (let prim_opt of pstack) 
                 {
@@ -380,7 +482,7 @@ document.addEventListener('keydown', (event) =>
     }
   }, false);
 
-canvas.addEventListener("mousedown", (e) => 
+canvas_foreground.addEventListener("mousedown", (e) => 
 {
     prevX = e.clientX - W_f
     prevY = e.clientY - H_f
@@ -411,7 +513,7 @@ window.addEventListener("mouseup", (e) =>
     end_f_move = true
 })
 
-canvas.addEventListener("mousemove", (e) => //проверка курсора на поле для рисования
+canvas_foreground.addEventListener("mousemove", (e) => //проверка курсора на поле для рисования
 {
     on_d_fiend = true
     if(!cursor_type != 3 && !f_move)
@@ -555,8 +657,8 @@ d_frame.addEventListener("mousemove", (e) => //проверка курсора �
 
 window.addEventListener("mousemove", (e) => //проверка курсора на всём окне
 {
-    let cX = e.clientX - 7.5
-    let cY = e.clientY - 7.5
+    cX = e.clientX - 7.5
+    cY = e.clientY - 7.5
     if (is_clr_window)
     {
         if (!on_clr_window)

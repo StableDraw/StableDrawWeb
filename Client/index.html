@@ -48,8 +48,9 @@
     </div>
     <div class="d_frame" id="d_frame">
         <div class="v_frame" id="v_frame">
-            <canvas id="canvas"></canvas>
-            <canvas id="canvas_background"></canvas>
+            <canvas class = "foreground_canvas" id="canvas_foreground"></canvas>
+            <canvas class = "background_canvas" id="canvas_background"></canvas>
+            <div class = "alpha_img" id="alpha_img"></div>
         </div>
     </div>
     <div class="clr_window" id="clr_window">
@@ -63,8 +64,11 @@
             <div id="picker">
             </div>
         </form>
-        <button class = "ok_clr_btn" id = "ok_clr_btn"
-        type="button">Сохранить
+        <button class = "ctype_clr_btn" id = "ctype_clr_btn" type="button">
+            Цвет фона
+        </button>
+        <button class = "ok_clr_btn" id = "ok_clr_btn" type="button">
+            Сохранить
         </button>
     </div>
     <div class="nav">
