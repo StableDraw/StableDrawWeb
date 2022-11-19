@@ -2,8 +2,8 @@ const cursor = document.querySelector(".cursor");
 const cursor_image = document.querySelector('.cursimg');
 let cursor_type = -1
 
-const canvas_foreground = document.getElementById("canvas_foreground") 
-const canvas_background = document.getElementById("canvas_background") 
+let canvas_foreground = document.getElementById("canvas_foreground") 
+let canvas_background = document.getElementById("canvas_background") 
 const d_frame = document.getElementById("d_frame")
 const spanel = document.getElementById("mySidepanel")
 
@@ -11,8 +11,8 @@ const clr_w = document.getElementById("clr_window")
 const ok_clr_btn = document.getElementById("ok_clr_btn") 
 const cur_color = document.getElementById("color") 
 const clrimg = document.querySelector('.clrimg');
-const ctx = canvas_foreground.getContext("2d")
-const ctx_background = canvas_background.getContext("2d")
+let ctx = canvas_foreground.getContext("2d")
+let ctx_background = canvas_background.getContext("2d")
 
 const EL = (sel) => document.querySelector(sel);
 
@@ -54,9 +54,13 @@ let fH_min = H * 0.1
 
 let cW = canvas_foreground.offsetWidth
 let cH = canvas_foreground.offsetHeight
+let Max_cW = cW
+let Max_cH = cH
+
 let l_width = 5
+
 let W_f = (W - cW) / 2 + cW / 86
-let H_f = cH / 55 + H / 10.7 + l_width / 2
+let H_f = (H - cH) / 2 + cH / 86 + l_width / 2
 let f_dW = d_frame.offsetWidth * 0.971
 let f_dH = d_frame.offsetHeight * 0.971 // костыли
 let orig_f_dW = f_dW
@@ -67,7 +71,7 @@ let cmp_W_b = 0
 let cmp_H_b = 0
 d_frame.style.width = f_dW + "px"
 d_frame.style.height = f_dH + "px"
-let H_min = 40
+let H_min = (H - f_dH) / 4
 let H_max = f_dH + H_min
 
 let W_min = (W - f_dW) / 4
@@ -75,6 +79,8 @@ let W_max = f_dW + W_min
 
 canvas_foreground.height = cH
 canvas_foreground.width = cW
+canvas_background.height = cH
+canvas_background.width = cW
 ctx.lineWidth = l_width
 ctx_background.lineWidth = l_width
 
@@ -409,9 +415,6 @@ generateBtn.addEventListener("click", () =>
         });
     }
     ws.send(send_data)
-
-    //a.download = "sketch.png"
-    //a.click()
 })
 
 document.addEventListener('mouseenter', (e) => 
@@ -537,6 +540,7 @@ d_frame.addEventListener("mousemove", (e) => //проверка курсора �
         if(H_min + 40 > Y) //если верхняя часть горизонтальной части рамки 
         {
             fup = true
+            console.log({Y})
         }
         else
         {
@@ -619,8 +623,8 @@ d_frame.addEventListener("mousemove", (e) => //проверка курсора �
             curprim = []
             return 
         }
-        let currentX = pX * cmp_W + (pX - W_min) * 0.01 - l_width - cmp_W_b
-        let currentY = pY * cmp_H - l_width / 2 - cmp_H_b
+        let currentX = pX * cmp_W + (pX - W_min) * 0.01 - l_width
+        let currentY = pY * cmp_H - l_width / 2
         if(fp)
         {
             curprim.push([prevX, prevY])
@@ -732,21 +736,41 @@ window.addEventListener("mousemove", (e) => //проверка курсора н
         let prev_f_dW = f_dW
         let prev_f_dH = f_dH
         f_dW = Math.min(fW_max, Math.max(fW_min, f_dW + X_move))
-        cmp_W = orig_f_dW / f_dW
-        cmp_W_b = Math.pow((orig_f_dW - f_dW), 4) * 0.00000000417// костыль
         f_dH = Math.min(fH_max, Math.max(fH_min, f_dH + Y_move))
-        cmp_H = orig_f_dH / f_dH
-        cmp_H_b = Math.pow((orig_f_dH - f_dH), 4) * 0.00000002// Это фигня полная, надо убрать
         X_move = f_dW - prev_f_dW
         Y_move = f_dH - prev_f_dH
         d_frame.style.width = f_dW + "px"
         d_frame.style.height = f_dH + "px"
-        W_f = (W - cW) / 2 + cW / 100
+        cW = cW * (f_dW / prev_f_dW)
+        cH = cH * (f_dH / prev_f_dH)
+        canvas_foreground.width = cW
+        canvas_foreground.height = cH
+        ctx.lineWidth = l_width
+        ctx_background.lineWidth = l_width
+        W_f = (W - cW) / 2 + cW / 86
         W_min = (W - f_dW) / 4
         W_max = f_dW + W_min
-        H_f = cH / 55 + H / 10.7 + l_width / 2
-        H_min = 40
+        H_f = (H - cH) / 2 + cH / 86 + l_width / 2
+        H_min = (H - f_dH) / 4
         H_max = f_dH + H_min
+        //Повторная отрисовка с новым разрешением:
+        if (pstack.length != 0)
+        {
+            let bufcolour = ctx.strokeStyle
+            for (let prim_opt of pstack) 
+            {
+                let prim = prim_opt[1]
+                ctx.strokeStyle = prim_opt[0]
+                ctx.beginPath()
+                for (let points of prim) 
+                {
+                    ctx.lineTo(points[0], points[1])
+                    ctx.moveTo(points[0], points[1])
+                }
+                ctx.stroke()
+            }
+            ctx.strokeStyle = bufcolour
+        }
     }
     if(cursor_type != 0 && cursor_type != 3)
     {
