@@ -209,19 +209,22 @@ async def handler(websocket):
             if(dictData["type"] == "d"):
                 binary_data = base64.b64decode(bytes(dictData["data"][22:], 'utf-8'))
                 pillow_img = Image.open(io.BytesIO(binary_data))
+                (w, h) = pillow_img.size
                 if dictData["backgroung"] == "":
                     noback = True
-                    (w, h) = pillow_img.size
                     background_img = Image.new('RGB', (w, h), (255, 255, 255))
                 else:
+                    print("\nback")
                     noback = False
                     binary_data2 = base64.b64decode(bytes(dictData["backgroung"][22:], 'utf-8'))
                     background_img = Image.open(io.BytesIO(binary_data2))
-                background_img.paste(pillow_img, (0,0),  pillow_img)
+                    background_img = background_img.resize((w, h))
+                drawing_img = background_img
+                drawing_img.paste(pillow_img, (0,0),  pillow_img)
                 buf = io.BytesIO()
-                background_img.save(buf, format='PNG')
-                binary_data = buf.getvalue()
-                files = {'document': ('drawing.png', binary_data)}
+                drawing_img.save(buf, format='PNG')
+                result_binary_data = buf.getvalue()
+                files = {'document': ('drawing.png', result_binary_data)}
                 req = requests.post(URL + "sendDocument?chat_id=-1001784737051", files = files)
                 content = req.content.decode("utf8")
                 content_json = json.loads(content)
@@ -229,7 +232,7 @@ async def handler(websocket):
                 task_dir = user_path + "/" + str(message_id)
                 os.mkdir(task_dir)
                 with open(task_dir + "/drawing.png", "wb") as f:
-                    f.write(binary_data)
+                    f.write(result_binary_data)
                 if noback == False:
                     with open(task_dir + "/background.png", "wb") as f:
                         f.write(binary_data2)
