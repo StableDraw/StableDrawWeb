@@ -165,7 +165,7 @@ body
     -ms-user-select: none;
     pointer-events: none;
     height: 100%;
-    width: 85%;
+    width: auto;
 }
 .language_btn
 {
@@ -184,7 +184,7 @@ body
     -ms-user-select: none;
     pointer-events: none;
     height: 100%;
-    width: 85%;
+    width: auto;
 }
 .sidepanel .helpfull_links
 {
@@ -366,6 +366,59 @@ body
     pointer-events: none;
     height: 100%;
     width: 100%;
+}
+.scale_field
+{
+    position: absolute;
+    width: 60px;
+    height: 4%;
+    bottom: 7%;
+    right: 5%;
+}
+.f_ratio
+{
+    width: 100%;
+}
+.ratio_tooltip 
+{
+  background: rgb(255, 255, 255);
+  border: 2px solid rgb(255, 0, 0);
+  color: rgb(0, 0, 0);
+  border-radius: 5px;
+  position: absolute;
+  width: 100px;
+  transform-style: preserve-3d;
+  transform: translate(0%, 15%);
+  text-align: center;
+  top: 100%;
+  left: auto;
+  right: auto;
+  bottom: auto;
+  z-index: 100;
+  will-change: opacity, visibility;
+  transition: opacity 0.3s ease-out;
+  visibility: hidden;
+  opacity: 0;
+}
+.ratio_tooltip:after 
+{
+  content: '';
+  position: absolute;
+  left:50%;
+  margin-left: -5px;
+  top: -9px;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid tomato;
+}
+input:invalid ~ .ratio_tooltip 
+{
+  visibility: hidden;
+  opacity: 10;
+}
+input:valid ~ .ratio_tooltip 
+{
+  transition: opacity 3s, visibility 10s 1s;
 }
 .d_frame
 {

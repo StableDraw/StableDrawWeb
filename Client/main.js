@@ -14,6 +14,9 @@ const clrimg = document.querySelector('.clrimg');
 let ctx = canvas_foreground.getContext("2d")
 let ctx_background = canvas_background.getContext("2d")
 
+const ratio_field = document.querySelector('.f_ratio');
+const ratio_tooltip = document.querySelector('ratio_tooltip')
+
 const EL = (sel) => document.querySelector(sel);
 
 let nstack = []
@@ -57,6 +60,8 @@ let cH = canvas_foreground.offsetHeight
 let Max_cW = cW
 let Max_cH = cH
 
+let cur_real_ratio = cH / cW
+
 let l_width = 5
 
 let W_f = (W - cW) / 2 + cW / 86
@@ -96,13 +101,16 @@ let old_btn_clr = false //изначально чёрный текст у кно
 let on_clr_window = false
 
 let is_background_used = false
-let cur_background_clr = "#ffffff"
+let cur_background_clr = "#fff"
 let new_background_clr = cur_background_clr
 let cur_bash_clr = "#000000"
-//заливка фона белым, костыль, убрать
-ctx_background.fillStyle = cur_background_clr; 
+
+ctx_background.fillStyle = cur_background_clr; //заливка фона белым, костыль, убрать
 ctx_background.fillRect(0, 0, cW, cH);
 let is_clr_brash = true
+
+let cur_ratio_val = get_visual_ratio(false, cW, cH)
+ratio_field.value = cur_ratio_val //устанавливаем соотношение сторон при запуске
 
 ws = new WebSocket('wss://stabledraw.com:8081'); 
 let chain_id
@@ -137,10 +145,90 @@ ws.onmessage = function(event)
 //ws.onopen = function(){alert("open");} 
 
 
-ws.onclose = function() {alert("Соединение разорвано со стороны сервера");} // Убрать
+//ws.onclose = function() {alert("Соединение разорвано со стороны сервера");} // Убрать
 
 
 //ws.onerror = function(){alert("error");}
+
+ratio_field.onchange = function() 
+{
+    let t_v = ratio_field.value
+    let pos = t_v.indexOf(":")
+    if (pos == -1) 
+    {
+        //ratio_tooltip.style.visibility = "visible" //убрать, починить, это не работает
+        ratio_field.value = cur_ratio_val
+        return
+    }
+    if (t_v[0] == '≈')
+    {
+        t_v = t_v.slice(1)
+    }
+    let new_r_w_s = t_v.slice(0, pos)
+    let new_r_h_s = t_v.slice(pos + 1)
+    let new_r_w = parseInt(new_r_w_s)
+    let new_r_h = parseInt(new_r_h_s)
+    let new_dfw, new_dfh
+    if(new_r_w / new_r_h > Max_cW / Max_cH)
+    {
+        new_dfw = fW_max
+        new_dfh = Math.max(fW_min, (fW_max / new_r_w) * new_r_h)
+    }
+    else
+    {
+        new_dfh = fH_max
+        new_dfw = Math.max(fH_min, (fH_max / new_r_h) * new_r_w)
+    }
+    change_drawfield_size(new_dfw, new_dfh)
+    let ps_size = pstack.length
+    if (ps_size != 0 && pstack[ps_size - 1][0] == 'r')
+    {
+        pstack.pop()
+    }
+    pstack.push(['r', cur_new_dfw, cur_new_dfh, true])
+    replay_actions(pstack) //Повторная отрисовка с новым разрешением
+    return get_visual_ratio(true, new_dfw, new_dfh)
+}
+
+function get_visual_ratio(abs, w, h)
+{
+    let rat = [[2.0556, 21, 9], [1.5556, 16, 9], [1.1667, 4, 3], [0.875, 1, 1], [0.6562, 3, 4], [0.4955, 9, 16]]
+    let cur_ratio = w / h
+    let v_w, v_h, cur_k
+    if (cur_ratio <= 0.4955)
+    {
+        v_w = 9
+        v_h = 21
+    }
+    else
+    {
+        for (let r of rat)
+        {
+            if (cur_ratio > r[0])
+            {
+                v_w = r[1]
+                v_h = r[2]
+                break
+            }
+        }
+    }
+    if (cur_ratio > v_w / v_h)
+    {
+        cur_k = h / v_h
+        v_w = Math.round(w / cur_k)
+    }
+    else
+    {
+        cur_k = w / v_w
+        v_h = Math.round(h / cur_k)
+    }
+    let res = (v_w).toString() + ":" + (v_h).toString()
+    if (!abs)
+    {
+        res = "≈" + res
+    }
+    return res
+}
 
 /* Установить ширину боковой панели на 250 пикселей (показать) */
 function openNav() 
@@ -149,7 +237,6 @@ function openNav()
     spanel.style.border = "2px solid #4c4c4c";
     spanel.style.borderLeftStyle = "hidden"
     spanel.style.borderTopStyle = "hidden"
-    //spanel.style.borderRightStyle = "solid";
 }
 
 function closeNav_border()
@@ -280,7 +367,9 @@ function close_clr_window()
     {
         if (cur_background_clr != new_background_clr) //почему-то не работает, из-за этого пришлось сделать костыль строчкой сверху. Убрать
         {
-            ctx_background.beginPath()
+            pstack.push(['b'])
+            pstack.push(['c', new_background_clr])
+            pstack.push(['i']) //залить фон
             ctx_background.fillStyle = new_background_clr; //заливка фона белым, костыль, убрать
             ctx_background.fillRect(0, 0, cW, cH);
         }
@@ -289,6 +378,8 @@ function close_clr_window()
             is_background_used = false
         }
     }
+    pstack.push(['f'])
+    pstack.push(['c', cur_bash_clr])
     ctx.strokeStyle = cur_bash_clr
     ctx_background.strokeStyle = cur_bash_clr
     clr_w.style.display = "none"
@@ -325,6 +416,14 @@ colourBtn.addEventListener("click", () =>
 
 let clearBtn = document.querySelector(".clear")
 
+function clear_drawfield()
+{
+    cur_background_clr = "#fff"
+    ctx_background.fillStyle = cur_background_clr
+    ctx_background.fillRect(0, 0, cW, cH)
+    ctx.clearRect(0, 0, cW, cH)
+}
+
 clearBtn.addEventListener("click", () => 
 {
     if(iscaption)//убрать
@@ -334,12 +433,12 @@ clearBtn.addEventListener("click", () =>
     let inds = pstack.length
     if(inds != 0)
     {
-        if((pstack[inds - 1][1]).length != 0)
+        if(pstack[inds - 1][0] != 'd')
         {
-            pstack.push([ctx.strokeStyle, []])
+            pstack.push(['d']) //тип - очистка экрана
         }
     }
-    ctx.clearRect(0, 0, canvas_foreground.width, canvas_foreground.height)
+    clear_drawfield()
 })
 
 let mhf = document.getElementById('my_hidden_file')
@@ -425,8 +524,76 @@ document.addEventListener('mouseenter', (e) =>
     cursor.style.top = (cY + 7.5) + "px";
 }, { once: true });
 
+function replay_actions(cur_pstack)
+{
+    clear_drawfield()
+    let act_type
+    let cur_ctx = ctx
+    let change_bash_clr = false
+    let new_bash_clr
+    let k_X = (orig_f_dW / f_dW) / 2
+    let k_Y = (orig_f_dH / f_dH) / 2
+    let b_X = orig_f_dW - f_dW
+    let b_Y = orig_f_dH - f_dH
+    ctx_background.strokeStyle = "#000000"
+    ctx.strokeStyle = "#000000"
+    for (let act of cur_pstack) 
+    {
+        act_type = act[0]
+        switch (act_type)
+        {
+            case 'f': //если выбран передний план
+                cur_ctx = ctx
+                break
+            case 'b': //если выбран фон
+                cur_ctx = ctx_background
+                break
+            case 'p': //если это примитив
+                let prim = act[1]
+                cur_ctx.beginPath()
+                for (let points of prim) 
+                {
+                    /*cur_ctx.lineTo((points[0] / k_X) - b_X, (points[1] / k_Y) - b_Y)
+                    cur_ctx.moveTo((points[0] / k_X) - b_X, (points[1] / k_Y) - b_Y)*/
+
+                    cur_ctx.lineTo(points[0], points[1]) //убрать, не работает то, что выше, починить
+                    cur_ctx.moveTo(points[0], points[1])
+
+                }
+                cur_ctx.stroke()
+                break
+            case 'c': //если цвет
+                cur_ctx.strokeStyle = act[1]
+                break
+            case 'd': //если очистка экрана
+                new_background_clr = "#fff"
+                ctx_background.fillStyle = cur_background_clr;
+                ctx_background.fillRect(0, 0, cW, cH);
+                ctx.clearRect(0, 0, canvas_foreground.width, canvas_foreground.height)
+                break
+            case 'r': //если изменение размеров экрана
+                k_X = (fW_max / act[1]) / 2
+                k_Y = (fH_max / act[2]) / 2
+                b_X = fW_max - act[1]
+                b_Y = fH_max - act[2]
+            case 'i': //если изменение цвета фона
+                new_background_clr = ctx_background.strokeStyle
+        }
+    }
+    ctx.strokeStyle = cur_bash_clr
+    if (change_bash_clr)
+    {
+        cur_bash_clr = new_bash_clr
+    }
+    cur_background_clr = new_background_clr
+}
+
 document.addEventListener('keydown', (event) => 
 {
+    if (event.code == 'Delete')
+    {
+        clear_drawfield()
+    }
     if (event.shiftKey)
     {
         shift_k = true
@@ -439,24 +606,64 @@ document.addEventListener('keydown', (event) =>
     {
         if (event.code == 'KeyZ') 
         {
-            if (pstack.length != 0)
+            let pstack_size = pstack.length
+            if (pstack_size != 0)
             {
-                nstack.push(pstack.pop())
-                ctx.clearRect(0, 0, canvas_foreground.width, canvas_foreground.height)
-                let bufcolour = ctx.strokeStyle
-                for (let prim_opt of pstack) 
+                let cur_act = pstack.pop()
+                let is_r = false
+                if (cur_act[0] == 'r')
                 {
-                    let prim = prim_opt[1]
-                    ctx.strokeStyle = prim_opt[0]
-                    ctx.beginPath()
-                    for (let points of prim) 
-                    {
-                        ctx.lineTo(points[0], points[1])
-                        ctx.moveTo(points[0], points[1])
-                    }
-                    ctx.stroke()
+                    is_r = true
                 }
-                ctx.strokeStyle = bufcolour
+                let cur_act_visible
+                let temp_list = ['f', 'b', 'c']
+                pstack_size--
+                nstack.push(cur_act)
+                if (cur_act in temp_list)
+                {
+                    cur_act_visible = false
+                }
+                else
+                {
+                    cur_act_visible = true
+                }
+                while(pstack_size > 1)
+                {
+                    if (!(pstack[pstack_size - 1][0] in temp_list))
+                    {
+                        if (cur_act_visible)
+                        {
+                            break
+                        }
+                        else
+                        {
+                            cur_act_visible = true
+                        }
+                    }
+                    cur_act = pstack.pop()
+                    pstack_size--
+                    nstack.push(cur_act)
+                    if (cur_act[0] == 'r')
+                    {
+                        is_r = true
+                    }
+                }
+                if (is_r)
+                {
+                    let buf_r_elem = ['r', fW_max, fH_max, false]
+                    for (let i = pstack_size - 1; i > -1; i--)
+                    {
+                        if (pstack[i][0] == 'r')
+                        {
+                            buf_r_elem = pstack[i]
+                            break
+                        }
+                    }
+                    change_drawfield_size(buf_r_elem[1], buf_r_elem[2])
+                    cur_ratio_val = get_visual_ratio(buf_r_elem[3], cW, cH)
+                    ratio_field.value = cur_ratio_val
+                }
+                replay_actions(pstack)
             }
             return
         }
@@ -464,22 +671,23 @@ document.addEventListener('keydown', (event) =>
         {
             if (nstack.length != 0)
             {
-                let prim_opt = nstack.pop()
-                let prim = prim_opt[1]
-                let bufcolour = ctx.strokeStyle
-                pstack.push(prim_opt)
-                ctx.strokeStyle = prim_opt[0]
-                ctx.beginPath()
-                let fpoint = prim[0]
-                ctx.moveTo(fpoint[0], fpoint[1])
-                let points
-                for (points of prim) 
+                let cur_act = nstack.pop()
+                let cur_acts = []
+                cur_acts.push(cur_act)
+                pstack.push(cur_act)
+                while(nstack.length != 0 && (cur_act[0] == 'f' || cur_act[0] == 'b'|| cur_act[0] == 'c'))
                 {
-                    ctx.lineTo(points[0], points[1])
-                    ctx.moveTo(points[0], points[1])
+                    cur_act = nstack.pop()
+                    pstack.push(cur_act)
+                    cur_acts.push(cur_act)
                 }
-                ctx.stroke()
-                ctx.strokeStyle = bufcolour
+                if (cur_act[0] == 'r')
+                {
+                    change_drawfield_size(cur_act[1], cur_act[2])
+                    cur_ratio_val = get_visual_ratio(cur_act[3], cW, cH)
+                    ratio_field.value = cur_ratio_val
+                }
+                replay_actions(pstack)
             }
         }
     }
@@ -540,7 +748,6 @@ d_frame.addEventListener("mousemove", (e) => //проверка курсора �
         if(H_min + 40 > Y) //если верхняя часть горизонтальной части рамки 
         {
             fup = true
-            console.log({Y})
         }
         else
         {
@@ -618,7 +825,7 @@ d_frame.addEventListener("mousemove", (e) => //проверка курсора �
             prevX = pX
             prevY = pY
             fp = true
-            pstack.push([ctx.strokeStyle, curprim])
+            pstack.push(['p', curprim])
             nstack = []
             curprim = []
             return 
@@ -658,6 +865,32 @@ d_frame.addEventListener("mousemove", (e) => //проверка курсора �
         fp = false
     }
 })
+
+function change_drawfield_size(new_dfw, new_dfh)//функция изменения размеров окна
+{
+    let prev_f_dW = f_dW
+    let prev_f_dH = f_dH
+    f_dW = Math.min(fW_max, Math.max(fW_min, new_dfw))
+    f_dH = Math.min(fH_max, Math.max(fH_min, new_dfh))
+    d_frame.style.width = f_dW + "px"
+    d_frame.style.height = f_dH + "px"
+    cW = cW * (f_dW / prev_f_dW)
+    cH = cH * (f_dH / prev_f_dH)
+    canvas_foreground.width = cW
+    canvas_foreground.height = cH
+    canvas_background.width = cW
+    canvas_background.height = cH
+    ctx.lineWidth = l_width
+    ctx_background.lineWidth = l_width
+    W_f = (W - cW) / 2 + cW / 86
+    W_min = (W - f_dW) / 4
+    W_max = f_dW + W_min
+    H_f = (H - cH) / 2 + cH / 86 + l_width / 2
+    H_min = (H - f_dH) / 4
+    H_max = f_dH + H_min
+    X_move = f_dW - prev_f_dW
+    Y_move = f_dH - prev_f_dH
+}
 
 window.addEventListener("mousemove", (e) => //проверка курсора на всём окне
 {
@@ -733,44 +966,18 @@ window.addEventListener("mousemove", (e) => //проверка курсора н
         {
             Y_move *= -1
         }
-        let prev_f_dW = f_dW
-        let prev_f_dH = f_dH
-        f_dW = Math.min(fW_max, Math.max(fW_min, f_dW + X_move))
-        f_dH = Math.min(fH_max, Math.max(fH_min, f_dH + Y_move))
-        X_move = f_dW - prev_f_dW
-        Y_move = f_dH - prev_f_dH
-        d_frame.style.width = f_dW + "px"
-        d_frame.style.height = f_dH + "px"
-        cW = cW * (f_dW / prev_f_dW)
-        cH = cH * (f_dH / prev_f_dH)
-        canvas_foreground.width = cW
-        canvas_foreground.height = cH
-        ctx.lineWidth = l_width
-        ctx_background.lineWidth = l_width
-        W_f = (W - cW) / 2 + cW / 86
-        W_min = (W - f_dW) / 4
-        W_max = f_dW + W_min
-        H_f = (H - cH) / 2 + cH / 86 + l_width / 2
-        H_min = (H - f_dH) / 4
-        H_max = f_dH + H_min
-        //Повторная отрисовка с новым разрешением:
-        if (pstack.length != 0)
+        let cur_new_dfw = f_dW + X_move
+        let cur_new_dfh = f_dH + Y_move
+        let ps_size = pstack.length
+        change_drawfield_size(cur_new_dfw, cur_new_dfh)
+        cur_ratio_val = get_visual_ratio(false, cW, cH)
+        ratio_field.value = cur_ratio_val //устанавливаем соотношение сторон
+        if (ps_size != 0 && pstack[ps_size - 1][0] == 'r')
         {
-            let bufcolour = ctx.strokeStyle
-            for (let prim_opt of pstack) 
-            {
-                let prim = prim_opt[1]
-                ctx.strokeStyle = prim_opt[0]
-                ctx.beginPath()
-                for (let points of prim) 
-                {
-                    ctx.lineTo(points[0], points[1])
-                    ctx.moveTo(points[0], points[1])
-                }
-                ctx.stroke()
-            }
-            ctx.strokeStyle = bufcolour
+            pstack.pop()
         }
+        pstack.push(['r', cur_new_dfw, cur_new_dfh, false])
+        replay_actions(pstack) //Повторная отрисовка с новым разрешением
     }
     if(cursor_type != 0 && cursor_type != 3)
     {
