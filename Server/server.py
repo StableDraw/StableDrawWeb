@@ -93,7 +93,9 @@ def del_prompt_about_drawing(prompt, rep_mess_id, noback):
                 'logo ',
                 'logo',
                 ' icon',
-                ' coloring page']
+                ' coloring page',
+                ' outline style',
+                ' illustration']
     if noback == True:
         del_list.append(' on a white background')
         del_list.append(' with a white background')
@@ -115,7 +117,7 @@ async def neural_processing(process, nprocess):
         if len(task_list) != 0:
             task = task_list.pop(0)
             websocket = task[0]
-            #await websocket.send(json.dumps({'0' : "t", '1' : "Обработка началась"})) костыль
+            #await websocket.send(json.dumps({'0' : "t", '1' : "Обработка началась"})) #костыль
             path_to_task_dir = "log/" + task[3] + "/"  + task[2]
             if task[1] == 'c': #если нужно сгенерировать подпись
                 client_message = await Gen_caption(websocket, path_to_task_dir + "/drawing.png")
