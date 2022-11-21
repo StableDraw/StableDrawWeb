@@ -112,6 +112,10 @@ let is_clr_brash = true
 let cur_ratio_val = get_visual_ratio(false, cW, cH)
 ratio_field.value = cur_ratio_val //устанавливаем соотношение сторон при запуске
 
+let is_first_upload_btn_click = true //костыль, чтобы кнопка не срабатывала дважды
+
+let server_image_buf = "" //переменная для хранения исходного изображения с сервера
+
 ws = new WebSocket('wss://stabledraw.com:8081'); 
 let chain_id
 let task_id
@@ -140,13 +144,12 @@ ws.onmessage = function(event)
             ctx.drawImage(image, 0, 0, jdata[2], jdata[3], 0, 0, cW, cH)
         }
         image.src = "data:image/jpg;base64," + jdata[1];
+        server_image_buf = image.src
     }
 } 
 //ws.onopen = function(){alert("open");} 
 
-
-//ws.onclose = function() {alert("Соединение разорвано со стороны сервера");} // Убрать
-
+ws.onclose = function() {alert("Соединение разорвано");} // Убрать
 
 //ws.onerror = function(){alert("error");}
 
@@ -163,6 +166,7 @@ ratio_field.onchange = function()
     if (t_v[0] == '≈')
     {
         t_v = t_v.slice(1)
+        pos--
     }
     let new_r_w_s = t_v.slice(0, pos)
     let new_r_h_s = t_v.slice(pos + 1)
@@ -171,13 +175,13 @@ ratio_field.onchange = function()
     let new_dfw, new_dfh
     if(new_r_w / new_r_h > Max_cW / Max_cH)
     {
+        new_dfh = Math.max(fH_min, (fW_max / new_r_w) * new_r_h)
         new_dfw = fW_max
-        new_dfh = Math.max(fW_min, (fW_max / new_r_w) * new_r_h)
     }
     else
-    {
+    { 
+        new_dfw = Math.max(fW_min, (fH_max / new_r_h) * new_r_w)
         new_dfh = fH_max
-        new_dfw = Math.max(fH_min, (fH_max / new_r_h) * new_r_w)
     }
     change_drawfield_size(new_dfw, new_dfh)
     let ps_size = pstack.length
@@ -185,7 +189,7 @@ ratio_field.onchange = function()
     {
         pstack.pop()
     }
-    pstack.push(['r', cur_new_dfw, cur_new_dfh, true])
+    pstack.push(['r', new_dfw, new_dfh, true])
     replay_actions(pstack) //Повторная отрисовка с новым разрешением
     return get_visual_ratio(true, new_dfw, new_dfh)
 }
@@ -418,6 +422,7 @@ let clearBtn = document.querySelector(".clear")
 
 function clear_drawfield()
 {
+    server_image_buf = ""
     cur_background_clr = "#fff"
     ctx_background.fillStyle = cur_background_clr
     ctx_background.fillRect(0, 0, cW, cH)
@@ -446,6 +451,12 @@ let uploadBtn = document.querySelector('.upload')
 
 uploadBtn.addEventListener("click", () => 
 {
+    if(!is_first_upload_btn_click) //костыль чтобы кнопка не срабатывала дважды
+    {
+        is_first_upload_btn_click = true
+        return
+    }
+    is_first_upload_btn_click = false
     mhf.click(); 
     mhf.addEventListener("change", function readImage()
     {
@@ -453,13 +464,48 @@ uploadBtn.addEventListener("click", () =>
         const FR = new FileReader();
         FR.addEventListener("load", (evt) => 
         {
-            const img = new Image();
+            let new_img_w
+            let new_img_h
+            let img = new Image();
             img.addEventListener("load", () => 
             {
-                ctx.clearRect(0, 0, ctx.canvas_foreground.width, ctx.canvas_foreground.height);
-                ctx.drawImage(img, 0, 0);
+                let img_w = img.width
+                let img_h = img.height
+                let new_dfw
+                let new_dfh
+                let ps_size = pstack.length
+                if (img_w / img_h > Max_cW / Max_cH)
+                {
+                    new_dfw = fW_max
+                    new_dfh = (fW_max / img_w) * img_h
+                    new_img_w = Max_cW
+                    new_img_h = (Max_cW / img_w) * img_h
+                }
+                else
+                {
+                    new_dfh = fH_max
+                    new_dfw = (fH_max / img_h) * img_w
+                    new_img_h = Max_cH
+                    new_img_w = (Max_cH / img_h) * img_w
+                }
+                change_drawfield_size(new_dfw, new_dfh)
+                cur_ratio_val = get_visual_ratio(false, cW, cH)
+                ratio_field.value = cur_ratio_val //устанавливаем соотношение сторон
+                if (ps_size != 0 && pstack[ps_size - 1][0] == 'r')
+                {
+                    pstack.pop()
+                }
+                pstack.push(['r', new_dfw, new_dfh, false])
+                ctx.drawImage(img, 0, 0, new_img_w, new_img_h);
+                pstack.push(['u', img, new_img_w, new_img_h])
+            }, 
+            { 
+                once: true 
             });
             img.src = evt.target.result;
+        }, 
+        { 
+            once: true 
         });
         FR.readAsDataURL(this.files[0]);
     }, 
@@ -472,11 +518,27 @@ let saveBtn = document.querySelector(".save")
 
 saveBtn.addEventListener("click", () => 
 {
-    let data = canvas_foreground.toDataURL("imag/png")
-    let a = document.createElement("a")
-    a.href = data
-    a.download = "sketch.png"
-    a.click()
+    let image = new Image()
+    if (server_image_buf == "")
+    {
+        image.onload = function() 
+        {
+            ctx_background.drawImage(image, 0, 0)
+            let a = document.createElement("a")
+            a.href = canvas_background.toDataURL("imag/png")
+            a.download = "sketch.png"
+            a.click()
+            replay_actions(pstack)
+        }
+        image.src = canvas_foreground.toDataURL()
+    }
+    else
+    {
+        let a = document.createElement("a")
+        a.href = server_image_buf
+        a.download = "sketch.png"
+        a.click()
+    }
 })
 
 let generateBtn = document.querySelector(".generate")
@@ -531,10 +593,10 @@ function replay_actions(cur_pstack)
     let cur_ctx = ctx
     let change_bash_clr = false
     let new_bash_clr
-    let k_X = (orig_f_dW / f_dW) / 2
-    let k_Y = (orig_f_dH / f_dH) / 2
-    let b_X = orig_f_dW - f_dW
-    let b_Y = orig_f_dH - f_dH
+    let fW_pred = orig_f_dW
+    let fH_pred = orig_f_dH
+    let k_X = fW_pred / f_dW
+    let k_Y = fH_pred / f_dH
     ctx_background.strokeStyle = "#000000"
     ctx.strokeStyle = "#000000"
     for (let act of cur_pstack) 
@@ -553,12 +615,8 @@ function replay_actions(cur_pstack)
                 cur_ctx.beginPath()
                 for (let points of prim) 
                 {
-                    /*cur_ctx.lineTo((points[0] / k_X) - b_X, (points[1] / k_Y) - b_Y)
-                    cur_ctx.moveTo((points[0] / k_X) - b_X, (points[1] / k_Y) - b_Y)*/
-
-                    cur_ctx.lineTo(points[0], points[1]) //убрать, не работает то, что выше, починить
-                    cur_ctx.moveTo(points[0], points[1])
-
+                    cur_ctx.lineTo(points[0] / k_X, points[1] / k_Y)
+                    cur_ctx.moveTo(points[0] / k_X, points[1] / k_Y)
                 }
                 cur_ctx.stroke()
                 break
@@ -566,18 +624,25 @@ function replay_actions(cur_pstack)
                 cur_ctx.strokeStyle = act[1]
                 break
             case 'd': //если очистка экрана
-                new_background_clr = "#fff"
+            cur_background_clr = "#fff"
                 ctx_background.fillStyle = cur_background_clr;
                 ctx_background.fillRect(0, 0, cW, cH);
                 ctx.clearRect(0, 0, canvas_foreground.width, canvas_foreground.height)
                 break
             case 'r': //если изменение размеров экрана
-                k_X = (fW_max / act[1]) / 2
-                k_Y = (fH_max / act[2]) / 2
-                b_X = fW_max - act[1]
-                b_Y = fH_max - act[2]
+                k_X = (k_X * act[1]) / fW_pred
+                k_Y = (k_Y * act[2]) / fH_pred
+                fW_pred = act[1]
+                fH_pred = act[2]
+                break
             case 'i': //если изменение цвета фона
-                new_background_clr = ctx_background.strokeStyle
+                cur_background_clr = ctx_background.strokeStyle
+                ctx_background.fillStyle = cur_background_clr
+                ctx_background.fillRect(0, 0, cW, cH);
+                break
+            case 'u': //если добавление изображения с ПК
+                ctx.drawImage(act[1], 0, 0, act[2], act[3]);
+                break
         }
     }
     ctx.strokeStyle = cur_bash_clr
@@ -585,7 +650,6 @@ function replay_actions(cur_pstack)
     {
         cur_bash_clr = new_bash_clr
     }
-    cur_background_clr = new_background_clr
 }
 
 document.addEventListener('keydown', (event) => 
@@ -616,7 +680,7 @@ document.addEventListener('keydown', (event) =>
                     is_r = true
                 }
                 let cur_act_visible
-                let temp_list = ['f', 'b', 'c']
+                let temp_list = ['f', 'b', 'c', 'u']
                 pstack_size--
                 nstack.push(cur_act)
                 if (cur_act in temp_list)
@@ -671,11 +735,12 @@ document.addEventListener('keydown', (event) =>
         {
             if (nstack.length != 0)
             {
+                let temp_list = ['f', 'b', 'c', 'u']
                 let cur_act = nstack.pop()
                 let cur_acts = []
                 cur_acts.push(cur_act)
                 pstack.push(cur_act)
-                while(nstack.length != 0 && (cur_act[0] == 'f' || cur_act[0] == 'b'|| cur_act[0] == 'c'))
+                while(nstack.length != 0 && cur_act[0] in temp_list)
                 {
                     cur_act = nstack.pop()
                     pstack.push(cur_act)
