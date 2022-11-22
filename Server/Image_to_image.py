@@ -1,6 +1,7 @@
 import PIL
 from PIL import Image
 import torch
+import io
 import numpy as np
 from omegaconf import OmegaConf
 from tqdm import trange
@@ -76,8 +77,8 @@ async def Stable_diffusion(ws, work_path, AI_prompt):
         'C': 4,                       #латентные каналы
         'f': 8,                       #коэффициент понижающей дискретизации, чаще всего 8 или 16
         'scale': 5.0,                 #безусловная навигационная величина: eps = eps(x, empty) + scale * (eps(x, cond) - eps(x, empty))
-        'strength': 0.8,              #сила увеличения/уменньшения шума. 1.0 соответствует полному уничтожению информации в инициализирующем образе
-        'ckpt': 3,                    #выбор контрольной точки модели (от 0 до 9)
+        'strength': 0.7,              #сила увеличения/уменньшения шума. 1.0 соответствует полному уничтожению информации в инициализирующем образе
+        'ckpt': 0,                    #выбор контрольной точки модели (от 0 до 9)
         'seed': 42,                   #сид (для воспроизводимой генерации изображений)
         'precision': "autocast"       #оценивать с этой точностью ("full" или "autocast")
         }
@@ -141,8 +142,9 @@ async def Stable_diffusion(ws, work_path, AI_prompt):
                     x_sample = 255. * rearrange(x_sample.cpu().numpy(), 'c h w -> h w c')
                     img = Image.fromarray(x_sample.astype(np.uint8))
                     w, h = img.size
-                    img.save(outpath + "/AI_picture.png")
+                    buf = io.BytesIO()
+                    img.save(buf, format='PNG')
+                    b_data = buf.getvalue()
+                    img.save(outpath + "/picture.png")
                     img.close
-                    with open(outpath + "/AI_picture.png", "rb") as image_file:
-                        b_data = image_file.read()
     return w, h, b_data

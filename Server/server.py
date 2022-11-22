@@ -11,6 +11,7 @@ from PIL import Image
 from googletrans import Translator
 from Image_caption_generator import Gen_caption
 from Image_to_image import Stable_diffusion
+from Delete_background import Delete_background
 
 checkpoint_path = 'caption.pt'
 if not os.path.exists(checkpoint_path):
@@ -118,7 +119,7 @@ async def neural_processing(process, nprocess):
             task = task_list.pop(0)
             websocket = task[0]
             #await websocket.send(json.dumps({'0' : "t", '1' : "Обработка началась"})) #костыль
-            path_to_task_dir = "log/" + task[3] + "/"  + task[2]
+            path_to_task_dir = "log\\" + task[3] + "\\"  + task[2]
             if task[1] == 'c': #если нужно сгенерировать подпись
                 client_message = await Gen_caption(websocket, path_to_task_dir + "/drawing.png")
                 client_message, rep_mess_id = del_prompt_about_drawing(client_message, task[2], task[5])
@@ -141,18 +142,32 @@ async def neural_processing(process, nprocess):
                     '2' : client_message,
                     '3' : message_id
                 }
-            if task[1] == 'p': #если нужно сгенерировать изображение по AI подписи
+            elif task[1] == 'p': #если нужно сгенерировать изображение по AI подписи
                 w, h, binary_data = await Stable_diffusion(websocket, path_to_task_dir, True) #передаю сокет, путь к рабочей папке, и true если AI подпись, false если человеческая
                 img = base64.b64encode(binary_data).decode('utf-8')
+                files = {'document': ('drawing.png', binary_data)}
+                req = requests.post(URL + "sendDocument?&reply_to_message_id=" + task[4] + "&chat_id=-1001784737051", files = files)
+                message_id = get_message_id(req)
                 resp_data = {
                     '0' : "i",
                     '1' : str(img),
                     '2' : w,
-                    '3' : h
+                    '3' : h,
+                    '4' : message_id
                 }
-                files = {'document': ('drawing.png', binary_data)}
+            elif task[1] == 'f': #если нужно удалить фон у изображения
+                w, h, binary_data = Delete_background(path_to_task_dir) #передаю путь к рабочей папке
+                img = base64.b64encode(binary_data).decode('utf-8')
+                files = {'document': ('object.png', binary_data)}
                 req = requests.post(URL + "sendDocument?&reply_to_message_id=" + task[4] + "&chat_id=-1001784737051", files = files)
                 message_id = get_message_id(req)
+                resp_data = {
+                    '0' : "i",
+                    '1' : str(img),
+                    '2' : w,
+                    '3' : h,
+                    '4' : message_id
+                }
             await websocket.send(json.dumps(resp_data))
         else:
             process = False
@@ -228,9 +243,7 @@ async def handler(websocket):
                 result_binary_data = buf.getvalue()
                 files = {'document': ('drawing.png', result_binary_data)}
                 req = requests.post(URL + "sendDocument?chat_id=-1001784737051", files = files)
-                content = req.content.decode("utf8")
-                content_json = json.loads(content)
-                message_id = str(content_json["result"]["message_id"])
+                message_id = get_message_id(req)
                 task_dir = user_path + "/" + str(message_id)
                 os.mkdir(task_dir)
                 with open(task_dir + "/drawing.png", "wb") as f:
@@ -243,6 +256,23 @@ async def handler(websocket):
                 task_list.append([websocket, "c", message_id, user_id, need_translate, noback]) #нужна подпись
             elif(dictData["type"] == "g"): #нужна картина по AI подписи
                 cur_task = [websocket, "p", dictData["task_id"], user_id, dictData["chain_id"]] #дескриптор сокета, тип задания, номер сообщения ТГ (id задания), user_id, номер последнего ответа ТГ
+                task_list.append(cur_task)
+            elif(dictData["type"] == "b"): #нужно удалить фон у изображения
+                if dictData["chain_id"] == -1:
+                    binary_data = base64.b64decode(bytes(dictData["data"][22:], 'utf-8'))
+                    pillow_img = Image.open(io.BytesIO(binary_data))
+                    files = {'document': ('drawing.png', result_binary_data)}
+                    req = requests.post(URL + "sendDocument?caption=Изображение для удаления фона&chat_id=-1001784737051", files = files)
+                    message_id = get_message_id(req)
+                    task_id = message_id
+                    task_dir = user_path + "/" + str(message_id)
+                    os.mkdir(task_dir)
+                    with open(task_dir + "/drawing.png", "wb") as f:
+                        f.write(result_binary_data)
+                else:
+                    message_id = dictData["chain_id"]
+                    task_id = dictData["task_id"]
+                cur_task = [websocket, "f", task_id, user_id, message_id] #дескриптор сокета, тип задания, номер сообщения ТГ (id задания), user_id, номер последнего ответа ТГ, ширину и высоту исходного изображения
                 task_list.append(cur_task)
             tls = len(task_list)
             if tls > 1:
@@ -260,8 +290,9 @@ async def handler(websocket):
         print("Соединение разорвано со стороны пользователя")
         task_list.pop(next(i for i, (x, _) in enumerate(task_list) if x == websocket))
 
-ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
-ssl_context.load_cert_chain("C:/Apache24/ssl/domain_name.crt", "C:/Apache24/ssl/private.key")
-start_server = websockets.serve(handler, "stabledraw.com", 8081, ssl = ssl_context, max_size = None)
-asyncio.get_event_loop().run_until_complete(start_server)
-asyncio.get_event_loop().run_forever()
+if __name__ == "__main__":
+    ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+    ssl_context.load_cert_chain("C:/Apache24/ssl/domain_name.crt", "C:/Apache24/ssl/private.key")
+    start_server = websockets.serve(handler, "stabledraw.com", 8081, ssl = ssl_context, max_size = None)
+    asyncio.get_event_loop().run_until_complete(start_server)
+    asyncio.get_event_loop().run_forever()
