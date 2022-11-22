@@ -90,6 +90,7 @@ ctx.lineWidth = l_width
 ctx_background.lineWidth = l_width
 
 let iscaption = false //Временый костыль, убрать
+let ispicture = false //Тоже временный костыль, убрать
 
 let draw = false
 let enddraw = false
@@ -114,37 +115,41 @@ ratio_field.value = cur_ratio_val //устанавливаем соотноше�
 
 let is_first_upload_btn_click = true //костыль, чтобы кнопка не срабатывала дважды
 
-let server_image_buf = "" //переменная для хранения исходного изображения с сервера
+let original_image_buf = "" //переменная для хранения исходных изображений
 
 ws = new WebSocket('wss://stabledraw.com:8081'); 
-let chain_id
+let chain_id = -1
 let task_id
 
 ws.onmessage = function(event)
 {
     var jdata = JSON.parse(event.data)
     var type = jdata[0];
-    if (type == "t")
+    if (type == "t") //если текстовое сообщение
     {
-        alert(jdata[1]);
+        alert(jdata[1])
         return
     }
     if (type == "c") //если подпись
     {
         task_id = jdata[1]
-        alert(jdata[2]); //костыль, потом заменить
+        alert(jdata[2]) //костыль, потом заменить
         chain_id = jdata[3]
         return
     }
-    if (type == "i")
+    if (type == "i") //если изображение
     {
         let image = new Image();
         image.onload = function() 
         {
+            abs_clear_drawfield()
             ctx.drawImage(image, 0, 0, jdata[2], jdata[3], 0, 0, cW, cH)
+            pstack.push(['u', image, jdata[2], jdata[3]])
         }
-        image.src = "data:image/jpg;base64," + jdata[1];
-        server_image_buf = image.src
+        original_image_buf = "data:image/jpg;base64," + jdata[1]
+        image.src = original_image_buf
+        chain_id = jdata[4]
+        return
     }
 } 
 //ws.onopen = function(){alert("open");} 
@@ -420,9 +425,16 @@ colourBtn.addEventListener("click", () =>
 
 let clearBtn = document.querySelector(".clear")
 
+function abs_clear_drawfield()
+{
+    original_image_buf = ""
+    ctx_background.clearRect(0, 0, cW, cH)
+    ctx.clearRect(0, 0, cW, cH)
+}
+
 function clear_drawfield()
 {
-    server_image_buf = ""
+    original_image_buf = ""
     cur_background_clr = "#fff"
     ctx_background.fillStyle = cur_background_clr
     ctx_background.fillRect(0, 0, cW, cH)
@@ -431,10 +443,8 @@ function clear_drawfield()
 
 clearBtn.addEventListener("click", () => 
 {
-    if(iscaption)//убрать
-    {
-        iscaption = false
-    }
+    iscaption = false //убрать
+    ispicture = false //убрать
     let inds = pstack.length
     if(inds != 0)
     {
@@ -461,6 +471,7 @@ uploadBtn.addEventListener("click", () =>
     mhf.addEventListener("change", function readImage()
     {
         if (!this.files || !this.files[0]) return;
+        chain_id = -1
         const FR = new FileReader();
         FR.addEventListener("load", (evt) => 
         {
@@ -496,13 +507,15 @@ uploadBtn.addEventListener("click", () =>
                     pstack.pop()
                 }
                 pstack.push(['r', new_dfw, new_dfh, false])
+                abs_clear_drawfield()
                 ctx.drawImage(img, 0, 0, new_img_w, new_img_h);
                 pstack.push(['u', img, new_img_w, new_img_h])
             }, 
             { 
                 once: true 
             });
-            img.src = evt.target.result;
+            original_image_buf = evt.target.result
+            img.src = original_image_buf
         }, 
         { 
             once: true 
@@ -519,7 +532,7 @@ let saveBtn = document.querySelector(".save")
 saveBtn.addEventListener("click", () => 
 {
     let image = new Image()
-    if (server_image_buf == "")
+    if (original_image_buf == "")
     {
         image.onload = function() 
         {
@@ -535,7 +548,7 @@ saveBtn.addEventListener("click", () =>
     else
     {
         let a = document.createElement("a")
-        a.href = server_image_buf
+        a.href = original_image_buf
         a.download = "sketch.png"
         a.click()
     }
@@ -546,34 +559,61 @@ let generateBtn = document.querySelector(".generate")
 generateBtn.addEventListener("click", () => 
 {
     let send_data
+    let data
     if (!iscaption) //убрать
     {
-        if (is_background_used == true)
+        if (original_image_buf == "")
         {
-            send_data = JSON.stringify({ 
-                "type": "d", //рисунок
-                "data": canvas_foreground.toDataURL("imag/png"),
-                "backgroung": canvas_background.toDataURL("imag/png")
-            });
+            data = canvas_foreground.toDataURL("imag/png")
         }
         else
         {
+            data = original_image_buf
+        }
+        if (!ispicture)
+        {
+            if (is_background_used == true)
+            {
+                send_data = JSON.stringify({ 
+                    "type": "d", //рисунок
+                    "data": data,
+                    "backgroung": canvas_background.toDataURL("imag/png")
+                });
+            }
+            else
+            {
+                send_data = JSON.stringify({ 
+                    "type": "d", //рисунок
+                    "data": data,
+                    "backgroung": ""
+                });
+            }
+            iscaption = true
+        }
+        else //удаление фона
+        {
+            if (chain_id != -1) 
+            {
+                data = ""
+            }
+            ispicture = false
             send_data = JSON.stringify({ 
-                "type": "d", //рисунок
-                "data": canvas_foreground.toDataURL("imag/png"),
-                "backgroung": ""
+                "type": "b", //просьба удалить фон
+                "data": data,
+                "chain_id": chain_id, //id последнего звена цепочки
+                "task_id": task_id //id задания
             });
         }
-        iscaption = true
     }
     else
     {
         iscaption = false //убрать
         send_data = JSON.stringify({ 
-            "type": "g", //просьба сгенерировать с текущей подписью)
+            "type": "g", //просьба сгенерировать с текущей подписью
             "chain_id": chain_id, //id последнего звена цепочки
-            "task_id": task_id, //id задания
+            "task_id": task_id //id задания
         });
+        ispicture = true
     }
     ws.send(send_data)
 })
@@ -641,7 +681,8 @@ function replay_actions(cur_pstack)
                 ctx_background.fillRect(0, 0, cW, cH);
                 break
             case 'u': //если добавление изображения с ПК
-                ctx.drawImage(act[1], 0, 0, act[2], act[3]);
+                abs_clear_drawfield()
+                ctx.drawImage(act[1], 0, 0, act[2], act[3], 0, 0, cW, cH);
                 break
         }
     }
@@ -767,6 +808,10 @@ canvas_foreground.addEventListener("mousedown", (e) =>
     if (is_clr_window == true)
     {
         close_clr_window()
+    }
+    else
+    {
+        original_image_buf == "" //очистить буфер изображения
     }
 })
 
