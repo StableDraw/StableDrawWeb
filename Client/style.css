@@ -243,7 +243,7 @@ body
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    width: 430px;
+    width: 610px;
     height: 50px;
     position: fixed;
     top: 0;
@@ -265,6 +265,30 @@ body
     display: flex;
     display: inline-block;
     width: 80%;
+}
+.arrow_back
+{
+    cursor: pointer;
+    height: 40px;
+    width: 50px;
+}
+.arrow_back_image
+{
+    pointer-events: none;
+    height: 100%;
+    width: 100%;
+}
+.arrow_next
+{
+    cursor: pointer;
+    height: 40px;
+    width: 50px;
+}
+.arrow_next_image
+{
+    pointer-events: none;
+    height: 100%;
+    width: 100%;
 }
 .clr
 {
@@ -310,6 +334,34 @@ body
     float: right;
     display: flex;
     margin-left: auto;
+}
+.pencil
+{
+    cursor: pointer;
+    border: 5px solid #000000;
+    border-radius: 3px;
+    height: 40px;
+    width: 50px;
+}
+.pencil_image
+{
+    pointer-events: none;
+    height: 100%;
+    width: 100%;
+}
+.pipette
+{
+    cursor: pointer;
+    border: 1px solid #707070;
+    border-radius: 3px;
+    height: 40px;
+    width: 50px;
+}
+.pipette_image
+{
+    pointer-events: none;
+    height: 100%;
+    width: 100%;
 }
 .clear
 {

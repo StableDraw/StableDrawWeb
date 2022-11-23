@@ -2,8 +2,8 @@ const cursor = document.querySelector(".cursor");
 const cursor_image = document.querySelector('.cursimg');
 let cursor_type = -1
 
-let canvas_foreground = document.getElementById("canvas_foreground") 
-let canvas_background = document.getElementById("canvas_background") 
+const canvas_foreground = document.getElementById("canvas_foreground") 
+const canvas_background = document.getElementById("canvas_background") 
 const d_frame = document.getElementById("d_frame")
 const spanel = document.getElementById("mySidepanel")
 
@@ -11,8 +11,8 @@ const clr_w = document.getElementById("clr_window")
 const ok_clr_btn = document.getElementById("ok_clr_btn") 
 const cur_color = document.getElementById("color") 
 const clrimg = document.querySelector('.clrimg');
-let ctx = canvas_foreground.getContext("2d")
-let ctx_background = canvas_background.getContext("2d")
+const ctx = canvas_foreground.getContext("2d", { willReadFrequently: true })
+const ctx_background = canvas_background.getContext("2d", { willReadFrequently: true })
 
 const ratio_field = document.querySelector('.f_ratio');
 const ratio_tooltip = document.querySelector('ratio_tooltip')
@@ -117,6 +117,8 @@ let is_first_upload_btn_click = true //костыль, чтобы кнопка �
 
 let original_image_buf = "" //переменная для хранения исходных изображений
 
+let cur_draw_ctx = ctx //текущий выбранный слой для рисования, по-умолчанию верхний
+
 ws = new WebSocket('wss://stabledraw.com:8081'); 
 let chain_id = -1
 let task_id
@@ -142,7 +144,7 @@ ws.onmessage = function(event)
         let image = new Image();
         image.onload = function() 
         {
-            abs_clear_drawfield()
+            ctx.clearRect(0, 0, cW, cH) // очищаем верхний холст
             ctx.drawImage(image, 0, 0, jdata[2], jdata[3], 0, 0, cW, cH)
             pstack.push(['u', image, jdata[2], jdata[3]])
         }
@@ -151,10 +153,11 @@ ws.onmessage = function(event)
         chain_id = jdata[4]
         return
     }
-} 
+}
+
 //ws.onopen = function(){alert("open");} 
 
-ws.onclose = function() {alert("Соединение разорвано");} // Убрать
+//ws.onclose = function() {alert("Соединение разорвано");} // Убрать
 
 //ws.onerror = function(){alert("error");}
 
@@ -259,6 +262,20 @@ function closeNav()
     spanel.style.width = "0"
     setTimeout(closeNav_border, 490);
 }
+
+let backBtn = document.querySelector(".arrow_back")
+
+backBtn.addEventListener("click", () => 
+{
+    undo_action()
+})
+
+let nextBtn = document.querySelector(".arrow_next")
+
+nextBtn.addEventListener("click", () => 
+{
+    repeat_action()
+})
 
 function hexDec(h)
 {
@@ -410,7 +427,7 @@ colourBtn.addEventListener("click", () =>
         ok_clr.addEventListener("click", () => 
         {
             cursor_type = 3
-            cursor_image.setAttribute('src', 'aero_pen.cur')
+            cursor_image.setAttribute('src', cur_tool[2])
             cursor.style.left = (cX + 7.5) + "px";
             cursor.style.top = (cY + 7.5) + "px";
             cursor.style.display = "block"
@@ -423,14 +440,32 @@ colourBtn.addEventListener("click", () =>
     }
 })
 
-let clearBtn = document.querySelector(".clear")
+const setpencilBtn = document.querySelector(".pencil")
+let cur_tool = ['k', setpencilBtn, 'aero_pen.cur'] //текущий инструмент (карандаш)
 
-function abs_clear_drawfield()
+setpencilBtn.addEventListener("click", () =>
 {
-    original_image_buf = ""
-    ctx_background.clearRect(0, 0, cW, cH)
-    ctx.clearRect(0, 0, cW, cH)
-}
+    if (cur_tool[0] != 'k')
+    {
+        setpencilBtn.style.border = "5px solid #000000"
+        cur_tool[1].style.border = "1px solid #707070"
+        cur_tool = ['k', setpencilBtn, 'aero_pen.cur']
+    }
+})
+
+const setpipetteBtn = document.querySelector(".pipette")
+
+setpipetteBtn.addEventListener("click", () => 
+{
+    if (cur_tool[0] != 'p')
+    {
+        setpipetteBtn.style.border = "5px solid #000000"
+        cur_tool[1].style.border = "1px solid #707070"
+        cur_tool = ['p', setpipetteBtn, 'aero_pipette.png']
+    }
+})
+
+const clearBtn = document.querySelector(".clear")
 
 function clear_drawfield()
 {
@@ -456,8 +491,8 @@ clearBtn.addEventListener("click", () =>
     clear_drawfield()
 })
 
-let mhf = document.getElementById('my_hidden_file')
-let uploadBtn = document.querySelector('.upload')
+const mhf = document.getElementById('my_hidden_file')
+const uploadBtn = document.querySelector('.upload')
 
 uploadBtn.addEventListener("click", () => 
 {
@@ -499,15 +534,17 @@ uploadBtn.addEventListener("click", () =>
                     new_img_h = Max_cH
                     new_img_w = (Max_cH / img_h) * img_w
                 }
+                new_dfw *= 0.982 //костыль. Я не понимаю, почему пустое поле появляется справа (ширину берёт больше, чем надо)
                 change_drawfield_size(new_dfw, new_dfh)
                 cur_ratio_val = get_visual_ratio(false, cW, cH)
                 ratio_field.value = cur_ratio_val //устанавливаем соотношение сторон
+                replay_actions(pstack) //воспроизводим действия
                 if (ps_size != 0 && pstack[ps_size - 1][0] == 'r')
                 {
                     pstack.pop()
                 }
                 pstack.push(['r', new_dfw, new_dfh, false])
-                abs_clear_drawfield()
+                ctx.clearRect(0, 0, cW, cH) //очищаем верхний слой
                 ctx.drawImage(img, 0, 0, new_img_w, new_img_h);
                 pstack.push(['u', img, new_img_w, new_img_h])
             }, 
@@ -527,7 +564,7 @@ uploadBtn.addEventListener("click", () =>
     });
 })
 
-let saveBtn = document.querySelector(".save")
+const saveBtn = document.querySelector(".save")
 
 saveBtn.addEventListener("click", () => 
 {
@@ -554,7 +591,7 @@ saveBtn.addEventListener("click", () =>
     }
 })
 
-let generateBtn = document.querySelector(".generate")
+const generateBtn = document.querySelector(".generate")
 
 generateBtn.addEventListener("click", () => 
 {
@@ -681,8 +718,8 @@ function replay_actions(cur_pstack)
                 ctx_background.fillRect(0, 0, cW, cH);
                 break
             case 'u': //если добавление изображения с ПК
-                abs_clear_drawfield()
-                ctx.drawImage(act[1], 0, 0, act[2], act[3], 0, 0, cW, cH);
+                ctx.clearRect(0, 0, cW, cH) //очищаем верхний слой
+                ctx.drawImage(act[1], 0, 0, act[2], act[3]);
                 break
         }
     }
@@ -693,116 +730,135 @@ function replay_actions(cur_pstack)
     }
 }
 
-document.addEventListener('keydown', (event) => 
+function undo_action()
 {
-    if (event.code == 'Delete')
+    let pstack_size = pstack.length
+    if (pstack_size != 0)
     {
-        clear_drawfield()
-    }
-    if (event.shiftKey)
-    {
-        shift_k = true
-    }
-    else
-    {
-        shift_k = false
-    }
-    if (event.ctrlKey) 
-    {
-        if (event.code == 'KeyZ') 
+        let cur_act = pstack.pop()
+        let is_r = false
+        if (cur_act[0] == 'r')
         {
-            let pstack_size = pstack.length
-            if (pstack_size != 0)
+            is_r = true
+        }
+        let cur_act_visible
+        let temp_list = ['f', 'b', 'c', 'u']
+        pstack_size--
+        nstack.push(cur_act)
+        if (cur_act in temp_list)
+        {
+            cur_act_visible = false
+        }
+        else
+        {
+            cur_act_visible = true
+        }
+        while(pstack_size > 1)
+        {
+            if (!(pstack[pstack_size - 1][0] in temp_list))
             {
-                let cur_act = pstack.pop()
-                let is_r = false
-                if (cur_act[0] == 'r')
+                if (cur_act_visible)
                 {
-                    is_r = true
-                }
-                let cur_act_visible
-                let temp_list = ['f', 'b', 'c', 'u']
-                pstack_size--
-                nstack.push(cur_act)
-                if (cur_act in temp_list)
-                {
-                    cur_act_visible = false
+                    break
                 }
                 else
                 {
                     cur_act_visible = true
                 }
-                while(pstack_size > 1)
-                {
-                    if (!(pstack[pstack_size - 1][0] in temp_list))
-                    {
-                        if (cur_act_visible)
-                        {
-                            break
-                        }
-                        else
-                        {
-                            cur_act_visible = true
-                        }
-                    }
-                    cur_act = pstack.pop()
-                    pstack_size--
-                    nstack.push(cur_act)
-                    if (cur_act[0] == 'r')
-                    {
-                        is_r = true
-                    }
-                }
-                if (is_r)
-                {
-                    let buf_r_elem = ['r', fW_max, fH_max, false]
-                    for (let i = pstack_size - 1; i > -1; i--)
-                    {
-                        if (pstack[i][0] == 'r')
-                        {
-                            buf_r_elem = pstack[i]
-                            break
-                        }
-                    }
-                    change_drawfield_size(buf_r_elem[1], buf_r_elem[2])
-                    cur_ratio_val = get_visual_ratio(buf_r_elem[3], cW, cH)
-                    ratio_field.value = cur_ratio_val
-                }
-                replay_actions(pstack)
             }
+            cur_act = pstack.pop()
+            pstack_size--
+            nstack.push(cur_act)
+            if (cur_act[0] == 'r')
+            {
+                is_r = true
+            }
+        }
+        if (is_r)
+        {
+            let buf_r_elem = ['r', fW_max, fH_max, false]
+            for (let i = pstack_size - 1; i > -1; i--)
+            {
+                if (pstack[i][0] == 'r')
+                {
+                    buf_r_elem = pstack[i]
+                    break
+                }
+            }
+            change_drawfield_size(buf_r_elem[1], buf_r_elem[2])
+            cur_ratio_val = get_visual_ratio(buf_r_elem[3], cW, cH)
+            ratio_field.value = cur_ratio_val
+        }
+        replay_actions(pstack)
+    }
+}
+
+function repeat_action()
+{
+    if (nstack.length != 0)
+    {
+        let temp_list = ['f', 'b', 'c', 'u']
+        let cur_act = nstack.pop()
+        let cur_acts = []
+        cur_acts.push(cur_act)
+        pstack.push(cur_act)
+        while(nstack.length != 0 && cur_act[0] in temp_list)
+        {
+            cur_act = nstack.pop()
+            pstack.push(cur_act)
+            cur_acts.push(cur_act)
+        }
+        if (cur_act[0] == 'r')
+        {
+            change_drawfield_size(cur_act[1], cur_act[2])
+            cur_ratio_val = get_visual_ratio(cur_act[3], cW, cH)
+            ratio_field.value = cur_ratio_val
+        }
+        replay_actions(pstack)
+    }
+}
+
+document.addEventListener('keydown', (event) => 
+{
+    if (event.code == 'Delete')
+    {
+        clear_drawfield()
+        return
+    }
+    if (event.shiftKey)
+    {
+        shift_k = true
+        return
+    }
+    if (event.ctrlKey) 
+    {
+        if (event.code == 'KeyZ') 
+        {
+            undo_action()
             return
         }
         if (event.code == 'KeyX') 
         {
-            if (nstack.length != 0)
-            {
-                let temp_list = ['f', 'b', 'c', 'u']
-                let cur_act = nstack.pop()
-                let cur_acts = []
-                cur_acts.push(cur_act)
-                pstack.push(cur_act)
-                while(nstack.length != 0 && cur_act[0] in temp_list)
-                {
-                    cur_act = nstack.pop()
-                    pstack.push(cur_act)
-                    cur_acts.push(cur_act)
-                }
-                if (cur_act[0] == 'r')
-                {
-                    change_drawfield_size(cur_act[1], cur_act[2])
-                    cur_ratio_val = get_visual_ratio(cur_act[3], cW, cH)
-                    ratio_field.value = cur_ratio_val
-                }
-                replay_actions(pstack)
-            }
+            repeat_action()
+            return
         }
     }
-  }, false);
+}, false);
+
+document.addEventListener('keyup', (event) => 
+{
+    if (event.code == 'Shift')
+    {
+        shift_k = false
+    }
+}, false);
 
 canvas_foreground.addEventListener("mousedown", (e) => 
 {
-    prevX = e.clientX - W_f
-    prevY = e.clientY - H_f
+    let cur_x = e.clientX
+    let cur_y = e.clientY
+    prevX = cur_x - W_f
+    prevY = cur_y - H_f
     draw = true
     enddraw = false
     if (is_clr_window == true)
@@ -815,6 +871,13 @@ canvas_foreground.addEventListener("mousedown", (e) =>
     }
 })
 
+function rgbToHex(r, g, b) 
+{
+    if (r > 255 || g > 255 || b > 255)
+        throw "Invalid color component";
+    return ((r << 16) | (g << 8) | b).toString(16);
+}
+
 d_frame.addEventListener("mousedown", (e) => 
 {
     if(!draw)
@@ -825,6 +888,35 @@ d_frame.addEventListener("mousedown", (e) =>
         cfleft = fleft
         f_move = true
         end_f_move = false
+    }
+    else
+    {
+        cur_x = e.clientX - W_f
+        cur_y = e.clientY - H_f
+        if (cur_tool[0] == 'p') //если выбрана пипетка
+        {
+            rgba = cur_draw_ctx.getImageData(cur_x, cur_y - 3, 1, 1).data //пока снимаем цвет только с верхнего слоя, временно. Потом надо снимать с текущего выбранного
+            console.log(rgba)
+            let hex
+            if (rgba[3] != 0)
+            {
+                hex = "#" + ("000000" + rgbToHex(rgba[0], rgba[1], rgba[2])).slice(-6);
+                console.log(hex)
+                cur_bash_clr = hex
+                cur_draw_ctx.strokeStyle = cur_bash_clr
+                if (rgba[0] + rgba[1] + rgba[2] > 255)
+                {
+                    clrimg.setAttribute('src', 'palette.png');
+                }
+                else
+                {
+                    clrimg.setAttribute('src', 'palette_w.png');
+                }
+                colourBtn.style.background = cur_bash_clr
+            }
+            draw = false
+            return
+        }
     }
 })
 
@@ -840,7 +932,7 @@ canvas_foreground.addEventListener("mousemove", (e) => //проверка кур
     if(!cursor_type != 3 && !f_move)
     {
         cursor_type = 3
-        cursor_image.setAttribute('src', 'aero_pen.cur')
+        cursor_image.setAttribute('src', cur_tool[2])
     }
 })
 
@@ -965,10 +1057,10 @@ d_frame.addEventListener("mousemove", (e) => //проверка курсора �
         {
             currentX = prevX
         }
-        ctx.beginPath()
-        ctx.moveTo(prevX, prevY)
-        ctx.lineTo(currentX, currentY)
-        ctx.stroke()
+        cur_draw_ctx.beginPath()
+        cur_draw_ctx.moveTo(prevX, prevY)
+        cur_draw_ctx.lineTo(currentX, currentY)
+        cur_draw_ctx.stroke()
         curprim.push([currentX, currentY])
         prevX = currentX
         prevY = currentY
