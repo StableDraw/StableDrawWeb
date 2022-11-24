@@ -1,5 +1,6 @@
 html
 {
+    touch-action: none;
     margin: 0;
     padding: 0;
 }
@@ -238,12 +239,35 @@ body
 {
     background-color: #bbb;
 }
+.graphic_tablet
+{
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    height: 50px;
+    position: fixed;
+    margin-left: auto;
+    display: none;
+    border: 1px solid #707070;
+    border-radius: 3px;
+    cursor: pointer;
+    width: 50px;
+    height: 40px;
+    top: 4px;
+    left: 10%;
+}
+.graphic_tablet_image
+{
+    pointer-events: none;
+    height: 100%;
+    width: 100%;
+}
 .nav
 {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    width: 610px;
+    width: 630px;
     height: 50px;
     position: fixed;
     top: 0;
@@ -311,7 +335,7 @@ body
     position: fixed;
     justify-content: flex-end;
     top: 7%;
-    margin-right: 200px;
+    margin-right: 100px;
     border: 2px solid rgb(29, 29, 29);
     background-color:#fff;
 }
@@ -334,6 +358,32 @@ body
     float: right;
     display: flex;
     margin-left: auto;
+}
+.pencil_window
+{
+    display: block;
+    z-index: 18;
+    position: fixed;
+    justify-content: flex-end;
+    top: 6%;
+    width: 230px;
+    margin-right: -10px;
+    border: 2px solid rgb(29, 29, 29);
+    background-color:#fff;
+}
+.thicknessimg
+{
+    pointer-events: none;
+    height: 20px;
+    width: 20px;
+}
+.thickness_slider
+{
+    width: 60%;
+}
+.thickness_field
+{
+    width: 20%;
 }
 .pencil
 {
@@ -496,6 +546,7 @@ input:valid ~ .ratio_tooltip
 }
 canvas
 {
+    touch-action: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -505,6 +556,7 @@ canvas
 }
 .foreground_canvas
 {
+    touch-action: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -515,6 +567,7 @@ canvas
 }
 .background_canvas
 {
+    touch-action: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -525,6 +578,7 @@ canvas
 }
 .alpha_img
 {
+    touch-action: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;

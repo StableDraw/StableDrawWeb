@@ -1,23 +1,29 @@
-const cursor = document.querySelector(".cursor");
-const cursor_image = document.querySelector('.cursimg');
+const cursor = document.querySelector(".cursor")
+const cursor_image = document.querySelector('.cursimg')
 let cursor_type = -1
+
+const nav_panel = document.querySelector('.nav')
 
 const canvas_foreground = document.getElementById("canvas_foreground") 
 const canvas_background = document.getElementById("canvas_background") 
 const d_frame = document.getElementById("d_frame")
 const spanel = document.getElementById("mySidepanel")
 
-const clr_w = document.getElementById("clr_window") 
+const clr_w = document.getElementById("clr_window")
+const pencil_w = document.getElementById("pencil_window")
 const ok_clr_btn = document.getElementById("ok_clr_btn") 
 const cur_color = document.getElementById("color") 
-const clrimg = document.querySelector('.clrimg');
+const clrimg = document.querySelector('.clrimg')
 const ctx = canvas_foreground.getContext("2d", { willReadFrequently: true })
 const ctx_background = canvas_background.getContext("2d", { willReadFrequently: true })
 
-const ratio_field = document.querySelector('.f_ratio');
+const ratio_field = document.querySelector('.f_ratio')
 const ratio_tooltip = document.querySelector('ratio_tooltip')
 
-const EL = (sel) => document.querySelector(sel);
+const thickness_slider = document.querySelector('.thickness_slider')
+const thickness_field = document.querySelector('.thickness_field')
+
+const EL = (sel) => document.querySelector(sel)
 
 let nstack = []
 let pstack = []
@@ -62,10 +68,10 @@ let Max_cH = cH
 
 let cur_real_ratio = cH / cW
 
-let l_width = 5
+let l_width = 1
 
-let W_f = (W - cW) / 2 + cW / 86
-let H_f = (H - cH) / 2 + cH / 86 + l_width / 2
+let W_f = (W - cW) / 2 + cW / 86 - l_width / 2 + 5
+let H_f = (H - cH) / 2 + cH / 86 - l_width / 2 + 5
 let f_dW = d_frame.offsetWidth * 0.971
 let f_dH = d_frame.offsetHeight * 0.971 // костыли
 let orig_f_dW = f_dW
@@ -106,8 +112,8 @@ let cur_background_clr = "#fff"
 let new_background_clr = cur_background_clr
 let cur_bash_clr = "#000000"
 
-ctx_background.fillStyle = cur_background_clr; //заливка фона белым, костыль, убрать
-ctx_background.fillRect(0, 0, cW, cH);
+ctx_background.fillStyle = cur_background_clr //заливка фона белым, костыль, убрать
+ctx_background.fillRect(0, 0, cW, cH)
 let is_clr_brash = true
 
 let cur_ratio_val = get_visual_ratio(false, cW, cH)
@@ -119,7 +125,9 @@ let original_image_buf = "" //переменная для хранения ис�
 
 let cur_draw_ctx = ctx //текущий выбранный слой для рисования, по-умолчанию верхний
 
-ws = new WebSocket('wss://stabledraw.com:8081'); 
+let graphic_tablet_mode = false //режим графического планшета
+
+ws = new WebSocket('wss://stabledraw.com:8081')
 let chain_id = -1
 let task_id
 
@@ -286,7 +294,7 @@ function hexDec(h)
     return m[0] + m[1] + m[2]
 };
 
-function handleclr_MouseMove() 
+function handleclr_PointerMove() 
 {
     on_clr_window = true
     let ccv = cur_color.value
@@ -377,7 +385,7 @@ function handlet_clr_Click()
 
 function close_clr_window()
 {
-    clr_w.removeEventListener("mousemove", handleclr_MouseMove)
+    clr_w.removeEventListener("pointermove", handleclr_PointerMove)
     ctype_clr_btn.removeEventListener("click", handlet_clr_Click)
     is_clr_window = false
     if (!is_clr_brash)
@@ -411,6 +419,22 @@ function close_clr_window()
     clr_w.style.display = "none"
 }
 
+const graphic_tabletBtn = document.querySelector(".graphic_tablet")
+
+graphic_tabletBtn.addEventListener("click", () => 
+{
+    if (graphic_tablet_mode)
+    {
+        graphic_tabletBtn.style.border = "1px solid #707070"
+        graphic_tablet_mode = false
+    }
+    else
+    {
+        graphic_tabletBtn.style.border = "5px solid #000000"
+        graphic_tablet_mode = true
+    }
+})
+
 let colourBtn = document.querySelector(".clr")
 let ok_clr = document.querySelector(".ok_clr_btn")
 let ctype_clr_btn = document.querySelector(".ctype_clr_btn")
@@ -422,7 +446,7 @@ colourBtn.addEventListener("click", () =>
     {
         clr_w.style.display = "block"
         is_clr_window = true
-        clr_w.addEventListener("mousemove", handleclr_MouseMove)
+        clr_w.addEventListener("pointermove", handleclr_PointerMove)
         ctype_clr_btn.addEventListener("click", handlet_clr_Click)
         ok_clr.addEventListener("click", () => 
         {
@@ -440,6 +464,39 @@ colourBtn.addEventListener("click", () =>
     }
 })
 
+function change_thickness()
+{
+    let t_v = thickness_field.value - 1
+    let real_t_v = Math.min(100, Math.max(0, t_v))
+    if (t_v != real_t_v)
+    {
+        thickness_field.value = real_t_v
+        t_v = real_t_v
+    }
+    let thickness_k = (100 - Math.sqrt(10000 - (t_v * t_v))) * 0.01 //коэффициент, чтобы толщина не увеличивалась так резко, сейчас это четвертьокружность
+    l_width = 1 + Math.max(cW, cH) * thickness_k
+    W_f = (W - cW) / 2 + cW / 86 - l_width / 2 + 5
+    H_f = (H - cH) / 2 + cH / 86 - l_width / 2 + 5
+    ctx.lineWidth = l_width
+    ctx_background.lineWidth = l_width
+    let ps_size = pstack.length
+    if (ps_size != 0 && pstack[ps_size - 1][0] == 't')
+    {
+        pstack.pop()
+    }
+    pstack.push(['t', l_width])
+}
+
+thickness_slider.onchange = function()
+{
+    change_thickness()
+}
+
+thickness_field.onchange = function()
+{
+    change_thickness()
+}
+
 const setpencilBtn = document.querySelector(".pencil")
 let cur_tool = ['k', setpencilBtn, 'aero_pen.cur'] //текущий инструмент (карандаш)
 
@@ -447,6 +504,7 @@ setpencilBtn.addEventListener("click", () =>
 {
     if (cur_tool[0] != 'k')
     {
+        pencil_window.style.display = 'block'
         setpencilBtn.style.border = "5px solid #000000"
         cur_tool[1].style.border = "1px solid #707070"
         cur_tool = ['k', setpencilBtn, 'aero_pen.cur']
@@ -459,6 +517,10 @@ setpipetteBtn.addEventListener("click", () =>
 {
     if (cur_tool[0] != 'p')
     {
+        if (cur_tool[0] == 'k')
+        {
+            pencil_window.style.display = 'none'
+        }
         setpipetteBtn.style.border = "5px solid #000000"
         cur_tool[1].style.border = "1px solid #707070"
         cur_tool = ['p', setpipetteBtn, 'aero_pipette.png']
@@ -655,7 +717,7 @@ generateBtn.addEventListener("click", () =>
     ws.send(send_data)
 })
 
-document.addEventListener('mouseenter', (e) => 
+document.addEventListener('pointerenter', (e) => 
 {
     let cX = e.clientX
     let cY = e.clientY
@@ -674,6 +736,10 @@ function replay_actions(cur_pstack)
     let fH_pred = orig_f_dH
     let k_X = fW_pred / f_dW
     let k_Y = fH_pred / f_dH
+    let cur_thickness = 1
+    ctx.strokeStyle = cur_bash_clr
+    ctx.lineWidth = cur_thickness
+    ctx_background.lineWidth = cur_thickness
     ctx_background.strokeStyle = "#000000"
     ctx.strokeStyle = "#000000"
     for (let act of cur_pstack) 
@@ -689,19 +755,27 @@ function replay_actions(cur_pstack)
                 break
             case 'p': //если это примитив
                 let prim = act[1]
+                console.log(cur_ctx.lineWidth)
                 cur_ctx.beginPath()
-                for (let points of prim) 
+                cur_ctx.arc(prim[0][0] / k_X, prim[0][1] / k_Y, cur_thickness / 2, 0, 2 * Math.PI)
+                cur_ctx.fill()
+                for (i = 1; i < prim.length; i++) 
                 {
-                    cur_ctx.lineTo(points[0] / k_X, points[1] / k_Y)
-                    cur_ctx.moveTo(points[0] / k_X, points[1] / k_Y)
+                    cur_ctx.beginPath()
+                    cur_ctx.moveTo(prim[i - 1][0] / k_X, prim[i - 1][1] / k_Y)
+                    cur_ctx.lineTo(prim[i][0] / k_X, prim[i][1] / k_Y)
+                    cur_ctx.stroke()
+                    cur_ctx.arc(prim[i][0] / k_X, prim[i][1] / k_Y, cur_thickness / 2, 0, 2 * Math.PI)
+                    cur_ctx.fill()
                 }
-                cur_ctx.stroke()
+                //cur_ctx.stroke()
                 break
             case 'c': //если цвет
+                cur_ctx.fillStyle = act[1]
                 cur_ctx.strokeStyle = act[1]
                 break
             case 'd': //если очистка экрана
-            cur_background_clr = "#fff"
+                cur_background_clr = "#fff"
                 ctx_background.fillStyle = cur_background_clr;
                 ctx_background.fillRect(0, 0, cW, cH);
                 ctx.clearRect(0, 0, canvas_foreground.width, canvas_foreground.height)
@@ -721,9 +795,15 @@ function replay_actions(cur_pstack)
                 ctx.clearRect(0, 0, cW, cH) //очищаем верхний слой
                 ctx.drawImage(act[1], 0, 0, act[2], act[3]);
                 break
+            case 't': //если изменение толщины линии
+                cur_thickness = act[1]
+                cur_ctx.lineWidth = cur_thickness
+                break
         }
     }
     ctx.strokeStyle = cur_bash_clr
+    ctx.lineWidth = l_width
+    ctx_background.lineWidth = l_width
     if (change_bash_clr)
     {
         cur_bash_clr = new_bash_clr
@@ -742,7 +822,7 @@ function undo_action()
             is_r = true
         }
         let cur_act_visible
-        let temp_list = ['f', 'b', 'c', 'u']
+        let temp_list = ['f', 'b', 'c', 'u', 't']
         pstack_size--
         nstack.push(cur_act)
         if (cur_act in temp_list)
@@ -755,7 +835,7 @@ function undo_action()
         }
         while(pstack_size > 1)
         {
-            if (!(pstack[pstack_size - 1][0] in temp_list))
+            if (temp_list.indexOf(pstack[pstack_size - 1][0]) == -1)
             {
                 if (cur_act_visible)
                 {
@@ -797,12 +877,12 @@ function repeat_action()
 {
     if (nstack.length != 0)
     {
-        let temp_list = ['f', 'b', 'c', 'u']
+        let temp_list = ['f', 'b', 'c', 'u', 't']
         let cur_act = nstack.pop()
         let cur_acts = []
         cur_acts.push(cur_act)
         pstack.push(cur_act)
-        while(nstack.length != 0 && cur_act[0] in temp_list)
+        while(nstack.length != 0 && temp_list.indexOf(cur_act[0]) != -1)
         {
             cur_act = nstack.pop()
             pstack.push(cur_act)
@@ -853,8 +933,12 @@ document.addEventListener('keyup', (event) =>
     }
 }, false);
 
-canvas_foreground.addEventListener("mousedown", (e) => 
+canvas_foreground.addEventListener("pointerdown", (e) => 
 {
+    if (e.pointerType == "pen")
+    {
+        graphic_tabletBtn.style.display = 'block'
+    }
     let cur_x = e.clientX
     let cur_y = e.clientY
     prevX = cur_x - W_f
@@ -878,7 +962,7 @@ function rgbToHex(r, g, b)
     return ((r << 16) | (g << 8) | b).toString(16);
 }
 
-d_frame.addEventListener("mousedown", (e) => 
+d_frame.addEventListener("pointerdown", (e) => 
 {
     if(!draw)
     {
@@ -895,13 +979,11 @@ d_frame.addEventListener("mousedown", (e) =>
         cur_y = e.clientY - H_f
         if (cur_tool[0] == 'p') //если выбрана пипетка
         {
-            rgba = cur_draw_ctx.getImageData(cur_x, cur_y - 3, 1, 1).data //пока снимаем цвет только с верхнего слоя, временно. Потом надо снимать с текущего выбранного
-            console.log(rgba)
+            rgba = cur_draw_ctx.getImageData(cur_x, cur_y - (l_width / 2), 1, 1).data //пока снимаем цвет только с верхнего слоя, временно. Потом надо снимать с текущего выбранного
             let hex
             if (rgba[3] != 0)
             {
                 hex = "#" + ("000000" + rgbToHex(rgba[0], rgba[1], rgba[2])).slice(-6);
-                console.log(hex)
                 cur_bash_clr = hex
                 cur_draw_ctx.strokeStyle = cur_bash_clr
                 if (rgba[0] + rgba[1] + rgba[2] > 255)
@@ -920,13 +1002,13 @@ d_frame.addEventListener("mousedown", (e) =>
     }
 })
 
-window.addEventListener("mouseup", (e) => 
+window.addEventListener("pointerup", (e) => 
 {
     enddraw = true
     end_f_move = true
 })
 
-canvas_foreground.addEventListener("mousemove", (e) => //проверка курсора на поле для рисования
+canvas_foreground.addEventListener("pointermove", (e) => //проверка курсора на поле для рисования
 {
     on_d_fiend = true
     if(!cursor_type != 3 && !f_move)
@@ -936,7 +1018,7 @@ canvas_foreground.addEventListener("mousemove", (e) => //проверка кур
     }
 })
 
-d_frame.addEventListener("mousemove", (e) => //проверка курсора на поле вместе с рамкой
+d_frame.addEventListener("pointermove", (e) => //проверка курсора на поле вместе с рамкой
 {
     on_d_frame = true
     if(!on_d_fiend && !draw)
@@ -1034,9 +1116,12 @@ d_frame.addEventListener("mousemove", (e) => //проверка курсора �
         }
         let currentX = pX * cmp_W + (pX - W_min) * 0.01 - l_width
         let currentY = pY * cmp_H - l_width / 2
+        cur_draw_ctx.beginPath()
         if(fp)
         {
-            curprim.push([prevX, prevY])
+            cur_draw_ctx.arc(currentX, currentY, l_width / 2, 0, 2 * Math.PI)
+            cur_draw_ctx.fill()
+            curprim.push([currentX, currentY])
             if(shift_k)
             {
                 if (Math.abs(currentX - prevX) > Math.abs(currentY - prevY))
@@ -1048,6 +1133,10 @@ d_frame.addEventListener("mousemove", (e) => //проверка курсора �
                     shift_y = true
                 }
             }
+            fp = false
+            prevX = currentX
+            prevY = currentY
+            return
         }
         if (shift_x)
         {
@@ -1057,14 +1146,14 @@ d_frame.addEventListener("mousemove", (e) => //проверка курсора �
         {
             currentX = prevX
         }
-        cur_draw_ctx.beginPath()
         cur_draw_ctx.moveTo(prevX, prevY)
         cur_draw_ctx.lineTo(currentX, currentY)
         cur_draw_ctx.stroke()
+        cur_draw_ctx.arc(currentX, currentY, l_width / 2, 0, 2 * Math.PI)
+        cur_draw_ctx.fill()
         curprim.push([currentX, currentY])
         prevX = currentX
         prevY = currentY
-        fp = false
     }
 })
 
@@ -1084,17 +1173,17 @@ function change_drawfield_size(new_dfw, new_dfh)//функция изменен�
     canvas_background.height = cH
     ctx.lineWidth = l_width
     ctx_background.lineWidth = l_width
-    W_f = (W - cW) / 2 + cW / 86
+    W_f = (W - cW) / 2 + cW / 86 - l_width / 2 + 5
     W_min = (W - f_dW) / 4
     W_max = f_dW + W_min
-    H_f = (H - cH) / 2 + cH / 86 + l_width / 2
+    H_f = (H - cH) / 2 + cH / 86 - l_width / 2 + 5
     H_min = (H - f_dH) / 4
     H_max = f_dH + H_min
     X_move = f_dW - prev_f_dW
     Y_move = f_dH - prev_f_dH
 }
 
-window.addEventListener("mousemove", (e) => //проверка курсора на всём окне
+window.addEventListener("pointermove", (e) => //проверка курсора на всём окне
 {
     cX = e.clientX - 7.5
     cY = e.clientY - 7.5
