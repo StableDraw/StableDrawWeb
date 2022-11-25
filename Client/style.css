@@ -6,6 +6,7 @@ html
 }
 body
 {
+    touch-action: none;
     margin: 0;
     padding: 0;
     display: flex;
@@ -15,6 +16,7 @@ body
 }
 .cursor 
 {
+    touch-action: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -30,6 +32,7 @@ body
 }
 .sidepanel 
 {
+    touch-action: none;
     border: 2px solid #4c4c4c;
     border-top-style: hidden;
     border-left-style: hidden;
@@ -47,6 +50,7 @@ body
 }
 .sidepanel a 
 {
+    touch-action: none;
     padding: 8px 8px 8px 8px;
     text-decoration: none;
     color: #1d1d1d;
@@ -55,10 +59,12 @@ body
 }
 .sidepanel a:hover 
 {
+    touch-action: none;
     background: #d9d9d9;
 }
 .sidepanel .closebtn 
 {
+    touch-action: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -74,6 +80,7 @@ body
 }
 .sidepanel .mods_of_work
 {
+    touch-action: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -83,6 +90,7 @@ body
 }
 .txt_to_img_href
 {
+    touch-action: none;
     border: 1px solid rgb(76, 76, 76);
     border-left-style: hidden;
     border-right-style: hidden;
@@ -90,12 +98,14 @@ body
 }
 .txt_to_img_btn
 {
+    touch-action: none;
     pointer-events: none;
     height: 100%;
     width: 100%;
 }
 .img_to_img_href
 {
+    touch-action: none;
     outline: 4px solid rgb(0, 0, 0);
     outline-offset: 2px;
     border: 3px solid rgb(0, 0, 0);
@@ -105,12 +115,14 @@ body
 }
 .img_to_img_btn
 {
+    touch-action: none;
     pointer-events: none;
     height: 100%;
     width: 100%;
 }
 .photo_to_img_href
 {
+    touch-action: none;
     border: 1px solid rgb(76, 76, 76);
     border-left-style: hidden;
     border-right-style: hidden;
@@ -118,12 +130,14 @@ body
 }
 .photo_to_img_btn
 {
+    touch-action: none;
     pointer-events: none;
     height: 100%;
     width: 100%;
 }
 .frames_to_animation_href
 {
+    touch-action: none;
     border: 1px solid rgb(76, 76, 76);
     border-top-style: hidden;
     border-left-style: hidden;
@@ -131,12 +145,14 @@ body
 }
 .frames_to_animation_btn
 {
+    touch-action: none;
     pointer-events: none;
     height: 100%;
     width: 100%;
 }
 .sidepanel .setting_buttons
 {
+    touch-action: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -151,6 +167,7 @@ body
 }
 .settings_btn
 {
+    touch-action: none;
     margin-top: 1%;
     display: flex;
     margin-left: 10%;
@@ -161,6 +178,7 @@ body
 }
 .settings_btn_img
 {
+    touch-action: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -170,6 +188,7 @@ body
 }
 .language_btn
 {
+    touch-action: none;
     margin-top: 1%;
     display: flex;
     margin-right: 10%;
@@ -180,6 +199,7 @@ body
 }
 .language_btn_img
 {
+    touch-action: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -189,6 +209,7 @@ body
 }
 .sidepanel .helpfull_links
 {
+    touch-action: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -200,10 +221,12 @@ body
 }
 .helpfull_links a:hover 
 {
+    touch-action: none;
     text-decoration: underline;
 }
 .about_us_href
 {
+    touch-action: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -213,6 +236,7 @@ body
 }
 .help_href
 {
+    touch-action: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -222,6 +246,7 @@ body
 }
 .openbtn 
 {
+    touch-action: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -237,10 +262,12 @@ body
 }
 .openbtn:hover 
 {
+    touch-action: none;
     background-color: #bbb;
 }
 .graphic_tablet
 {
+    touch-action: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -258,16 +285,18 @@ body
 }
 .graphic_tablet_image
 {
+    touch-action: none;
     pointer-events: none;
     height: 100%;
     width: 100%;
 }
 .nav
 {
+    touch-action: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    width: 630px;
+    width: 500px;
     height: 50px;
     position: fixed;
     top: 0;
@@ -278,44 +307,51 @@ body
 }
 .nav:hover
 {
+    touch-action: none;
     opacity: 1;
 }
 .icon_buttons
 {
+    touch-action: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     margin-left: auto;
     display: flex;
     display: inline-block;
-    width: 80%;
+    width: 100%;
 }
 .arrow_back
 {
+    touch-action: none;
     cursor: pointer;
     height: 40px;
     width: 50px;
 }
 .arrow_back_image
 {
+    touch-action: none;
     pointer-events: none;
     height: 100%;
     width: 100%;
 }
 .arrow_next
 {
+    touch-action: none;
     cursor: pointer;
     height: 40px;
     width: 50px;
 }
 .arrow_next_image
 {
+    touch-action: none;
     pointer-events: none;
     height: 100%;
     width: 100%;
 }
 .clr
 {
+    touch-action: none;
     background-color:#000000;
     cursor: pointer;
     height: 40px;
@@ -323,6 +359,7 @@ body
 }
 .clrimg
 {
+    touch-action: none;
     cursor: pointer;
     pointer-events: none;
     height: 100%;
@@ -330,6 +367,7 @@ body
 }
 .clr_window
 {
+    touch-action: none;
     display: none;
     z-index: 19;
     position: fixed;
@@ -341,6 +379,7 @@ body
 }
 .ctype_clr_btn
 {
+    touch-action: none;
     color: rgb(0, 0, 0);
     background-color:#ffffff;
     height: 30%;
@@ -351,6 +390,7 @@ body
 }
 .ok_clr_btn
 {
+    touch-action: none;
     color: #fff;
     background-color:#000000;
     height: 30%;
@@ -361,11 +401,12 @@ body
 }
 .pencil_window
 {
+    touch-action: none;
     display: block;
     z-index: 18;
     position: fixed;
     justify-content: flex-end;
-    top: 6%;
+    top: 45px;
     width: 230px;
     margin-right: -10px;
     border: 2px solid rgb(29, 29, 29);
@@ -373,20 +414,24 @@ body
 }
 .thicknessimg
 {
+    touch-action: none;
     pointer-events: none;
     height: 20px;
     width: 20px;
 }
 .thickness_slider
 {
+    touch-action: none;
     width: 60%;
 }
 .thickness_field
 {
+    touch-action: none;
     width: 20%;
 }
 .pencil
 {
+    touch-action: none;
     cursor: pointer;
     border: 5px solid #000000;
     border-radius: 3px;
@@ -395,12 +440,14 @@ body
 }
 .pencil_image
 {
+    touch-action: none;
     pointer-events: none;
     height: 100%;
     width: 100%;
 }
 .pipette
 {
+    touch-action: none;
     cursor: pointer;
     border: 1px solid #707070;
     border-radius: 3px;
@@ -409,30 +456,35 @@ body
 }
 .pipette_image
 {
+    touch-action: none;
     pointer-events: none;
     height: 100%;
     width: 100%;
 }
 .clear
 {
+    touch-action: none;
     cursor: pointer;
     height: 40px;
     width: 50px;
 }
 .clearimg
 {
+    touch-action: none;
     pointer-events: none;
     height: 100%;
     width: 100%;
 }
 .upload
 {
+    touch-action: none;
     cursor: pointer;
     height: 40px;
     width: 50px;
 }
 .hiddenInput
-{  
+{   
+    touch-action: none;
     position:absolute;
     overflow: hidden;
     display:block;  
@@ -441,89 +493,56 @@ body
 }
 .uploadimg
 {
+    touch-action: none;
     pointer-events: none;
     height: 100%;
     width: 100%;
 }
 .save
 {
+    touch-action: none;
     cursor: pointer;
     height: 40px;
     width: 50px;
 }
 .saveimg
 {
+    touch-action: none;
     pointer-events: none;
     height: 100%;
     width: 100%;
 }
 .generate
 {
+    touch-action: none;
     cursor: pointer;
     height: 40px;
     width: 50px;
 }
 .generateimg
 {
+    touch-action: none;
     pointer-events: none;
     height: 100%;
     width: 100%;
 }
 .scale_field
 {
+    touch-action: none;
     position: absolute;
     width: 60px;
-    height: 4%;
-    bottom: 7%;
-    right: 5%;
+    height: 3%;
+    bottom: 3%;
+    right: 2%;
 }
 .f_ratio
 {
+    touch-action: none;
     width: 100%;
-}
-.ratio_tooltip 
-{
-  background: rgb(255, 255, 255);
-  border: 2px solid rgb(255, 0, 0);
-  color: rgb(0, 0, 0);
-  border-radius: 5px;
-  position: absolute;
-  width: 100px;
-  transform-style: preserve-3d;
-  transform: translate(0%, 15%);
-  text-align: center;
-  top: 100%;
-  left: auto;
-  right: auto;
-  bottom: auto;
-  z-index: 100;
-  will-change: opacity, visibility;
-  transition: opacity 0.3s ease-out;
-  visibility: hidden;
-  opacity: 0;
-}
-.ratio_tooltip:after 
-{
-  content: '';
-  position: absolute;
-  left:50%;
-  margin-left: -5px;
-  top: -9px;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 10px solid tomato;
-}
-input:invalid ~ .ratio_tooltip 
-{
-  visibility: hidden;
-  opacity: 10;
-}
-input:valid ~ .ratio_tooltip 
-{
-  transition: opacity 3s, visibility 10s 1s;
 }
 .d_frame
 {
+    touch-action: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -536,6 +555,7 @@ input:valid ~ .ratio_tooltip
 }
 .v_frame
 {
+    touch-action: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
