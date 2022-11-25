@@ -101,7 +101,6 @@ async def Stable_diffusion(ws, work_path, AI_prompt):
 
     outpath = work_path
     prompt += " " + opt['style']
-    data = [prompt]
     '''
     with Image.open(init_img).convert("RGB") as image:
         orig_w, orig_h = image.size
@@ -126,13 +125,11 @@ async def Stable_diffusion(ws, work_path, AI_prompt):
                     uc = None
                     if opt['scale'] != 1.0:
                         uc = model.get_learned_conditioning([""])
-                    if isinstance(prompt, tuple):
-                        prompt = list(prompt)
                     c = model.get_learned_conditioning(prompt)
 
-                    # encode (scaled latent)
+                    # закодировать (скрытое масштабирование)
                     z_enc = sampler.stochastic_encode(init_latent, torch.tensor([t_enc]).to(device))
-                    # decode it
+                    # раскодировать
                     samples = sampler.decode(z_enc, c, t_enc, unconditional_guidance_scale=opt['scale'], unconditional_conditioning=uc)
 
                     x_samples = model.decode_first_stage(samples)
