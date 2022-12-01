@@ -429,6 +429,23 @@ body
     touch-action: none;
     width: 20%;
 }
+.smoothingimg
+{
+    touch-action: none;
+    pointer-events: none;
+    height: 20px;
+    width: 20px;
+}
+.smoothing_slider
+{
+    touch-action: none;
+    width: 60%;
+}
+.smoothing_field
+{
+    touch-action: none;
+    width: 20%;
+}
 .pencil
 {
     touch-action: none;
@@ -574,7 +591,7 @@ canvas
     width: 100%;
     height: 100%;
 }
-.foreground_canvas
+.current_canvas
 {
     touch-action: none;
     -webkit-user-select: none;
@@ -585,7 +602,7 @@ canvas
     height: 100%;
     z-index: 10;
 }
-.background_canvas
+.foreground_canvas
 {
     touch-action: none;
     -webkit-user-select: none;
@@ -596,6 +613,17 @@ canvas
     height: 100%;
     z-index: 9;
 }
+.background_canvas
+{
+    touch-action: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 8;
+}
 .alpha_img
 {
     touch-action: none;
@@ -605,7 +633,7 @@ canvas
     position: relative;
     width: 100%;
     height: 100%;
-    z-index: 8;
+    z-index: 7;
     background-image: url(alpha_pattern.png);
     background-repeat: repeat;
 }

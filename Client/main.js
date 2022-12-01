@@ -5,7 +5,8 @@ let cursor_type = -1
 const nav_panel = document.querySelector('.nav')
 
 const canvas_foreground = document.getElementById("canvas_foreground") 
-const canvas_background = document.getElementById("canvas_background") 
+const canvas_background = document.getElementById("canvas_background")
+const canvas_additional = document.getElementById("canvas_current") 
 const d_frame = document.getElementById("d_frame")
 const spanel = document.getElementById("mySidepanel")
 
@@ -16,12 +17,16 @@ const cur_color = document.getElementById("color")
 const clrimg = document.querySelector('.clrimg')
 const ctx = canvas_foreground.getContext("2d", { willReadFrequently: true })
 const ctx_background = canvas_background.getContext("2d", { willReadFrequently: true })
+const ctx_add = canvas_additional.getContext("2d", { willReadFrequently: true })
 
 const ratio_field = document.querySelector('.f_ratio')
 const ratio_tooltip = document.querySelector('ratio_tooltip')
 
 const thickness_slider = document.querySelector('.thickness_slider')
 const thickness_field = document.querySelector('.thickness_field')
+
+const smoothing_slider = document.querySelector('.smoothing_slider')
+const smoothing_field = document.querySelector('.smoothing_field')
 
 const EL = (sel) => document.querySelector(sel)
 
@@ -68,7 +73,7 @@ let Max_cH = cH
 
 let cur_real_ratio = cH / cW
 
-let l_width = 1
+let l_width
 
 let W_f = (W - cW) / 2 + cW / 86 - l_width / 2 + 5
 let H_f = (H - cH) / 2 + cH / 86 - l_width / 2 + 5
@@ -92,7 +97,10 @@ canvas_foreground.height = cH
 canvas_foreground.width = cW
 canvas_background.height = cH
 canvas_background.width = cW
+canvas_additional.height = cH
+canvas_additional.width = cW
 ctx.lineWidth = l_width
+ctx_add.lineWidth = l_width
 ctx_background.lineWidth = l_width
 
 let iscaption = false //Временый костыль, убрать
@@ -126,6 +134,19 @@ let original_image_buf = "" //переменная для хранения ис�
 let cur_draw_ctx = ctx //текущий выбранный слой для рисования, по-умолчанию верхний
 
 let graphic_tablet_mode = false //режим графического планшета
+
+let is_pencil_window = true //отображение окна настроек кисти
+
+let cur_smoothing = 0 //параметр сглаживания
+let cur_smooth_prim = [] //текущий сглаженный примитив
+let k_smooth = 0 //текущий коэффициент сглаживания
+
+ctx.lineCap = 'round'
+ctx.lineJoin = 'round'
+ctx_add.lineCap = 'round'
+ctx_add.lineJoin = 'round'
+ctx_background.lineCap = 'round'
+ctx_background.lineJoin = 'round'
 
 ws = new WebSocket('wss://stabledraw.com:8081')
 let chain_id = -1
@@ -198,6 +219,8 @@ window.onresize = function()
     canvas_foreground.width = cW
     canvas_background.height = cH
     canvas_background.width = cW
+    canvas_additional.height = cH
+    canvas_additional.width = cW
     replay_actions(pstack)
 }
 
@@ -434,8 +457,7 @@ function close_clr_window()
         if (cur_background_clr != new_background_clr) //почему-то не работает, из-за этого пришлось сделать костыль строчкой сверху. Убрать
         {
             pstack.push(['b'])
-            pstack.push(['c', new_background_clr])
-            pstack.push(['i']) //залить фон
+            pstack.push(['i', new_background_clr]) //залить фон
             ctx_background.fillStyle = new_background_clr; //заливка фона белым, костыль, убрать
             ctx_background.fillRect(0, 0, cW, cH);
         }
@@ -445,9 +467,10 @@ function close_clr_window()
         }
     }
     pstack.push(['f'])
-    pstack.push(['c', cur_brush_clr])
     ctx.strokeStyle = cur_brush_clr
     ctx.fillStyle = cur_brush_clr
+    ctx_add.strokeStyle = cur_brush_clr
+    ctx_add.fillStyle = cur_brush_clr
     ctx_background.strokeStyle = cur_brush_clr
     clr_w.style.display = "none"
 }
@@ -506,11 +529,12 @@ function change_thickness()
         thickness_field.value = real_t_v
         t_v = real_t_v
     }
-    let thickness_k = (100 - Math.sqrt(10000 - (t_v * t_v))) * 0.01 //коэффициент, чтобы толщина не увеличивалась так резко, сейчас это четвертьокружность
+    let thickness_k = t_v * t_v * 0.0001 //коэффициент, чтобы толщина не увеличивалась так резко, сейчас это четвертьокружность
     l_width = 1 + Math.max(cW, cH) * thickness_k
     W_f = (W - cW) / 2 + cW / 86 - l_width / 2 + 5
     H_f = (H - cH) / 2 + cH / 86 - l_width / 2 + 5
     ctx.lineWidth = l_width
+    ctx_add.lineWidth = l_width
     ctx_background.lineWidth = l_width
 }
 
@@ -522,6 +546,34 @@ thickness_slider.onchange = function()
 thickness_field.onchange = function()
 {
     change_thickness()
+}
+
+function change_smoothing()
+{
+    cur_smoothing = smoothing_field.value
+    let real_s_v = Math.min(100, Math.max(0, cur_smoothing))
+    if (cur_smoothing != real_s_v)
+    {
+        cur_smoothing = real_s_v
+        smoothing_field.value = cur_smoothing
+    }
+    k_smooth = 0
+    step = 1.0 / cur_smoothing
+    for (let t = 0; t < 1 + step; t += step) //очень странный костыль, исправлю позже
+    {
+        t = Math.min(1, t)
+        k_smooth++
+    }
+}
+
+smoothing_slider.onchange = function()
+{
+    change_smoothing()
+}
+
+smoothing_field.onchange = function()
+{
+    change_smoothing()
 }
 
 const setpencilBtn = document.querySelector(".pencil")
@@ -536,6 +588,20 @@ setpencilBtn.addEventListener("click", () =>
         cur_tool[1].style.border = "1px solid #707070"
         cur_tool = ['k', setpencilBtn, 'aero_pen.cur']
     }
+    else
+    {
+        if (is_pencil_window)
+        {
+            change_thickness()
+            pencil_window.style.display = 'none'
+            is_pencil_window = false
+        }
+        else
+        {
+            pencil_window.style.display = 'block'
+            is_pencil_window = true
+        }
+    }
 })
 
 const setpipetteBtn = document.querySelector(".pipette")
@@ -546,6 +612,7 @@ setpipetteBtn.addEventListener("click", () =>
     {
         if (cur_tool[0] == 'k')
         {
+            change_thickness()
             pencil_window.style.display = 'none'
         }
         setpipetteBtn.style.border = "5px solid #000000"
@@ -764,12 +831,15 @@ function replay_actions(cur_pstack)
     let k_X = fW_pred / f_dW
     let k_Y = fH_pred / f_dH
     let cur_thickness = 1
-    ctx.strokeStyle = "#000000"
-    ctx.fillStyle = "#000000"
     ctx.lineWidth = cur_thickness
     ctx_background.lineWidth = cur_thickness
     ctx_background.strokeStyle = "#000000"
-    ctx.strokeStyle = "#000000"
+    ctx.lineCap = 'round'
+    ctx.lineJoin = 'round'
+    ctx_add.lineCap = 'round'
+    ctx_add.lineJoin = 'round'
+    ctx_background.lineCap = 'round'
+    ctx_background.lineJoin = 'round'
     for (let act of cur_pstack) 
     {
         act_type = act[0]
@@ -782,25 +852,8 @@ function replay_actions(cur_pstack)
                 cur_ctx = ctx_background
                 break
             case 'p': //если это примитив
-                let prim = act[1]
-                cur_ctx.lineWidth = prim[0][2]
-                cur_ctx.beginPath()
-                cur_ctx.arc(prim[0][0] / k_X, prim[0][1] / k_Y, prim[0][2] / 2, 0, 2 * Math.PI)
-                cur_ctx.fill()
-                for (i = 1; i < prim.length; i++) 
-                {
-                    cur_ctx.lineWidth = prim[i][2]
-                    cur_ctx.beginPath()
-                    cur_ctx.moveTo(prim[i - 1][0] / k_X, prim[i - 1][1] / k_Y)
-                    cur_ctx.lineTo(prim[i][0] / k_X, prim[i][1] / k_Y)
-                    cur_ctx.stroke()
-                    cur_ctx.arc(prim[i][0] / k_X, prim[i][1] / k_Y, prim[i][2] / 2, 0, 2 * Math.PI)
-                    cur_ctx.fill()
-                }
-                break
-            case 'c': //если цвет
-                cur_ctx.fillStyle = act[1]
-                cur_ctx.strokeStyle = act[1]
+                cur_ctx.strokeStyle = act[2]
+                drawLines(cur_ctx, act[1])
                 break
             case 'd': //если очистка экрана
                 cur_background_clr = "#fff"
@@ -815,8 +868,8 @@ function replay_actions(cur_pstack)
                 fH_pred = act[2]
                 break
             case 'i': //если изменение цвета фона
-                cur_background_clr = ctx_background.strokeStyle
-                ctx_background.fillStyle = cur_background_clr
+                cur_background_clr = act[2]
+                ctx_background.fillStyle = act[2]
                 ctx_background.fillRect(0, 0, cW, cH);
                 break
             case 'u': //если добавление изображения с ПК
@@ -847,7 +900,7 @@ function undo_action()
             is_r = true
         }
         let cur_act_visible
-        let temp_list = ['f', 'b', 'c', 'u']
+        let temp_list = ['f', 'b', 'u']
         pstack_size--
         nstack.push(cur_act)
         if (cur_act in temp_list)
@@ -902,7 +955,7 @@ function repeat_action()
 {
     if (nstack.length != 0)
     {
-        let temp_list = ['f', 'b', 'c', 'u']
+        let temp_list = ['f', 'b', 'u']
         let cur_act = nstack.pop()
         let cur_acts = []
         cur_acts.push(cur_act)
@@ -958,7 +1011,7 @@ document.addEventListener('keyup', (event) =>
     }
 }, false);
 
-canvas_foreground.addEventListener("pointerdown", (e) => 
+canvas_additional.addEventListener("pointerdown", (e) => 
 {
     let cur_x = e.clientX
     let cur_y = e.clientY
@@ -1020,6 +1073,15 @@ d_frame.addEventListener("pointerdown", (e) =>
             draw = false
             return
         }
+        else
+        {
+            if (is_pencil_window)
+            {
+                change_thickness()
+                pencil_window.style.display = 'none'
+                is_pencil_window = false
+            }
+        }
     }
 })
 
@@ -1040,7 +1102,7 @@ function addGraphicTabletButton(e)
 
 nav_panel.addEventListener("pointermove", addGraphicTabletButton) //проверка курсора на поле с кнопками
 
-canvas_foreground.addEventListener("pointermove", (e) => //проверка курсора на поле для рисования
+canvas_additional.addEventListener("pointermove", (e) => //проверка курсора на поле для рисования
 {
     on_d_fiend = true
     if(!cursor_type != 3 && !f_move)
@@ -1049,6 +1111,52 @@ canvas_foreground.addEventListener("pointermove", (e) => //проверка ку
         cursor_image.setAttribute('src', cur_tool[2])
     }
 })
+
+function getBezierBasis(i, n, t) //Базисная функция i - номер вершины, n - количество вершин, t - положение кривой (от 0 до 1)
+{
+	// Факториал
+	function f(n) 
+    {
+		return (n <= 1) ? 1 : n * f(n - 1);
+	}
+	// считаем i-й элемент полинома Берштейна
+	return (f(n)/(f(i)*f(n - i)))* Math.pow(t, i)*Math.pow(1 - t, n - i);
+}
+
+// arr - массив опорных точек. Точка - двухэлементный массив, (x = arr[0], y = arr[1])
+// step - шаг при расчете кривой (0 < step < 1), по умолчанию 0.01
+function getBezierCurve(arr, step) 
+{
+    console.log(arr.length)
+	step = 1.0 / step
+	let res = new Array()
+	for (let t = 0; t < 1 + step; t += step) 
+    {
+		t = Math.min(1, t)
+		let ind = res.length;
+		res[ind] = new Array(0, 0, 0);
+		for (let i = 0; i < arr.length; i++) 
+        {
+			let b = getBezierBasis(i, arr.length - 1, t);
+			res[ind][0] += arr[i][0] * b;
+			res[ind][1] += arr[i][1] * b;
+            res[ind][2] += arr[i][2] * b;
+		}
+	}
+	return res;
+}
+
+function drawLines(local_ctx, arr) 
+{
+    local_ctx.beginPath()
+    for (let i = 0; i < arr.length - 1; i++)
+    {
+        local_ctx.lineWidth = arr[i][2]
+		local_ctx.moveTo(arr[i][0], arr[i][1])
+		local_ctx.lineTo(arr[i + 1][0], arr[i + 1][1])
+		local_ctx.stroke()
+    }
+}
 
 d_frame.addEventListener("pointermove", (e) => //проверка курсора на поле вместе с рамкой
 {
@@ -1135,6 +1243,11 @@ d_frame.addEventListener("pointermove", (e) => //проверка курсора
     {
         if(enddraw)
         {
+            if (cur_smoothing != 0)
+            {
+                ctx_add.clearRect(0, 0, cW, cH)
+                drawLines(cur_draw_ctx, cur_smooth_prim)
+            }
             draw = false
             enddraw = false
             shift_x = false
@@ -1142,7 +1255,14 @@ d_frame.addEventListener("pointermove", (e) => //проверка курсора
             prevX = pX
             prevY = pY
             fp = true
-            pstack.push(['p', curprim])
+            if (cur_smoothing == 0)
+            {
+                pstack.push(['p', curprim, cur_brush_clr])
+            }
+            else
+            {
+                pstack.push(['p', cur_smooth_prim, cur_brush_clr])
+            }
             nstack = []
             curprim = []
             return 
@@ -1154,17 +1274,17 @@ d_frame.addEventListener("pointermove", (e) => //проверка курсора
         {
             currentW = pW * l_width
             cur_draw_ctx.lineWidth = currentW
+            ctx_add.lineWidth = currentW
             currentX += (l_width - currentW) / 2
         }
         else
         {
             currentW = l_width
         }
-        cur_draw_ctx.beginPath()
         if(fp)
         {
-            cur_draw_ctx.arc(currentX, currentY, currentW / 2, 0, 2 * Math.PI)
-            cur_draw_ctx.fill()
+            cur_smooth_prim = []
+            fp = false
             curprim.push([currentX, currentY, currentW])
             if(shift_k)
             {
@@ -1177,7 +1297,6 @@ d_frame.addEventListener("pointermove", (e) => //проверка курсора
                     shift_y = true
                 }
             }
-            fp = false
             prevX = currentX
             prevY = currentY
             return
@@ -1190,11 +1309,23 @@ d_frame.addEventListener("pointermove", (e) => //проверка курсора
         {
             currentX = prevX
         }
-        cur_draw_ctx.moveTo(prevX, prevY)
-        cur_draw_ctx.lineTo(currentX, currentY)
-        cur_draw_ctx.stroke()
-        cur_draw_ctx.arc(currentX, currentY, currentW / 2, 0, 2 * Math.PI)
-        cur_draw_ctx.fill()
+        cur_draw_ctx.beginPath()
+        if (cur_smoothing == 0)
+        {
+            console.log(currentW)
+            cur_draw_ctx.moveTo(prevX, prevY)
+            cur_draw_ctx.lineTo(currentX, currentY)
+            cur_draw_ctx.stroke()
+        }
+        else
+        {
+            //drawLines(cur_draw_ctx, cur_smooth_prim.slice(0, -k_smooth + 2))
+            //cur_smooth_prim = getBezierCurve(curprim.slice(-cur_smoothing), cur_smoothing)
+
+            cur_smooth_prim = cur_smooth_prim.slice(0, -k_smooth + 1).concat(getBezierCurve(curprim.slice(-cur_smoothing), cur_smoothing))
+            ctx_add.clearRect(0, 0, cW, cH)
+            drawLines(ctx_add, cur_smooth_prim)
+        }
         curprim.push([currentX, currentY, currentW])
         prevX = currentX
         prevY = currentY
@@ -1215,6 +1346,8 @@ function change_drawfield_size(new_dfw, new_dfh)//функция изменен�
     canvas_foreground.height = cH
     canvas_background.width = cW
     canvas_background.height = cH
+    canvas_additional.height = cH
+    canvas_additional.width = cW
     ctx.lineWidth = l_width
     ctx_background.lineWidth = l_width
     W_f = (W - cW) / 2 + cW / 86 - l_width / 2 + 5
