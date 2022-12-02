@@ -190,7 +190,10 @@ ws.onmessage = function(event)
 
 //ws.onopen = function(){alert("open");} 
 
-ws.onclose = function() {alert("Соединение разорвано");} // Убрать
+ws.onclose = function() // Убрать
+{
+    alert("Соединение разорвано");
+}
 
 //ws.onerror = function(){alert("error");}
 
@@ -975,7 +978,10 @@ function replay_actions(cur_pstack)
                 break
             case 'u': //если добавление изображения с ПК
                 ctx.clearRect(0, 0, cW, cH) //очищаем верхний слой
-                ctx.drawImage(act[1], 0, 0, act[2], act[3]);
+                ctx.drawImage(act[1], 0, 0, act[2], act[3])
+                break
+            case 'f': //если заливка
+                floodFill(cur_ctx, act[1], act[2], act[3])
                 break
         }
     }
@@ -1297,6 +1303,7 @@ d_frame.addEventListener("pointerdown", (e) =>
                 {
                     let cur_form_clr = "0x" + cur_brush_clr.slice(1) + "FF"
                     floodFill(cur_draw_ctx, Math.floor(cur_x + l_width / 2 + 2), Math.floor(cur_y - l_width / 2 + 19), cur_form_clr);
+                    pstack.push(['f', Math.floor(cur_x + l_width / 2 + 2), Math.floor(cur_y - l_width / 2 + 19), cur_form_clr])
                 }
                 draw = false
                 return
