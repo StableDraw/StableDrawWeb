@@ -286,6 +286,9 @@ body
 .graphic_tablet_image
 {
     touch-action: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     pointer-events: none;
     height: 100%;
     width: 100%;
@@ -296,7 +299,7 @@ body
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    width: 500px;
+    width: 600px;
     height: 50px;
     position: fixed;
     top: 0;
@@ -324,6 +327,9 @@ body
 .arrow_back
 {
     touch-action: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     cursor: pointer;
     height: 40px;
     width: 50px;
@@ -331,6 +337,9 @@ body
 .arrow_back_image
 {
     touch-action: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     pointer-events: none;
     height: 100%;
     width: 100%;
@@ -345,6 +354,9 @@ body
 .arrow_next_image
 {
     touch-action: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     pointer-events: none;
     height: 100%;
     width: 100%;
@@ -360,6 +372,9 @@ body
 .clrimg
 {
     touch-action: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     cursor: pointer;
     pointer-events: none;
     height: 100%;
@@ -402,19 +417,25 @@ body
 .pencil_window
 {
     touch-action: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     display: block;
     z-index: 18;
     position: fixed;
     justify-content: flex-end;
     top: 45px;
     width: 230px;
-    margin-right: -10px;
+    margin-right: 28%;
     border: 2px solid rgb(29, 29, 29);
     background-color:#fff;
 }
 .thicknessimg
 {
     touch-action: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     pointer-events: none;
     height: 20px;
     width: 20px;
@@ -432,6 +453,9 @@ body
 .smoothingimg
 {
     touch-action: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     pointer-events: none;
     height: 20px;
     width: 20px;
@@ -458,6 +482,73 @@ body
 .pencil_image
 {
     touch-action: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    pointer-events: none;
+    height: 100%;
+    width: 100%;
+}
+.eraser_window
+{
+    touch-action: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    display: none;
+    z-index: 18;
+    position: fixed;
+    justify-content: flex-end;
+    top: 45px;
+    width: 230px;
+    margin-right: 14.5%;
+    border: 2px solid rgb(29, 29, 29);
+    background-color:#fff;
+}
+.e_thickness_slider
+{
+    touch-action: none;
+    width: 60%;
+}
+.e_thickness_field
+{
+    touch-action: none;
+    width: 20%;
+}
+.eraser
+{
+    touch-action: none;
+    cursor: pointer;
+    border: 1px solid #707070;
+    border-radius: 3px;
+    height: 40px;
+    width: 50px;
+}
+.eraser_image
+{
+    touch-action: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    pointer-events: none;
+    height: 100%;
+    width: 100%;
+}
+.bucket
+{
+    touch-action: none;
+    cursor: pointer;
+    border: 1px solid #707070;
+    border-radius: 3px;
+    height: 40px;
+    width: 50px;
+}
+.bucket_image
+{
+    touch-action: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     pointer-events: none;
     height: 100%;
     width: 100%;
@@ -474,6 +565,9 @@ body
 .pipette_image
 {
     touch-action: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     pointer-events: none;
     height: 100%;
     width: 100%;
@@ -488,6 +582,9 @@ body
 .clearimg
 {
     touch-action: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     pointer-events: none;
     height: 100%;
     width: 100%;
@@ -511,6 +608,9 @@ body
 .uploadimg
 {
     touch-action: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     pointer-events: none;
     height: 100%;
     width: 100%;
@@ -525,6 +625,9 @@ body
 .saveimg
 {
     touch-action: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     pointer-events: none;
     height: 100%;
     width: 100%;
@@ -539,6 +642,9 @@ body
 .generateimg
 {
     touch-action: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     pointer-events: none;
     height: 100%;
     width: 100%;

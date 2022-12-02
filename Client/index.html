@@ -95,6 +95,13 @@
             <input class = "smoothing_field" type = "number" id = "smoothing_rangeValue" min = "0" max = "100" value = "0" oninput = "smoothing_sliderValue.value = this.value"/>
         </div>
     </div>
+    <div class="eraser_window" id="eraser_window">
+        <div class="eraser_window_thickness_block">
+            <img class = "thicknessimg" src="thickness.png">
+            <input class = "e_thickness_slider" type = "range" id = "e_thickness_sliderValue" min = "1" max = "100" value = "1" oninput = "e_thickness_rangeValue.value = this.value">
+            <input class = "e_thickness_field" type = "number" id = "e_thickness_rangeValue" min = "1" max = "100" value = "1" oninput = "e_thickness_sliderValue.value = this.value"/>
+        </div>
+    </div>
     <button class="graphic_tablet" title = "Учитывать силу нажатия">
         <img class = "graphic_tablet_image" src="graphic_tablet.png">
     </button>
@@ -111,6 +118,12 @@
             </button>
             <button class="pencil" title = "Карандаш">
                 <img class = "pencil_image" src="pencil.png">
+            </button>
+            <button class="eraser" title = "ластик">
+                <img class = "eraser_image" src="eraser.png">
+            </button>
+            <button class="bucket" title = "Заливка">
+                <img class = "bucket_image" src="bucket.png">
             </button>
             <button class="pipette" title = "Пипетка">
                 <img class = "pipette_image" src="pipette.png">

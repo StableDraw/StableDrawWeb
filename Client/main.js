@@ -12,6 +12,7 @@ const spanel = document.getElementById("mySidepanel")
 
 const clr_w = document.getElementById("clr_window")
 const pencil_w = document.getElementById("pencil_window")
+const eraser_w = document.getElementById("eraser_window")
 const ok_clr_btn = document.getElementById("ok_clr_btn") 
 const cur_color = document.getElementById("color") 
 const clrimg = document.querySelector('.clrimg')
@@ -24,6 +25,8 @@ const ratio_tooltip = document.querySelector('ratio_tooltip')
 
 const thickness_slider = document.querySelector('.thickness_slider')
 const thickness_field = document.querySelector('.thickness_field')
+const e_thickness_slider = document.querySelector('.e_thickness_slider')
+const e_thickness_field = document.querySelector('.e_thickness_field')
 
 const smoothing_slider = document.querySelector('.smoothing_slider')
 const smoothing_field = document.querySelector('.smoothing_field')
@@ -136,6 +139,7 @@ let cur_draw_ctx = ctx //текущий выбранный слой для ри�
 let graphic_tablet_mode = false //режим графического планшета
 
 let is_pencil_window = true //отображение окна настроек кисти
+let is_eraser_window = false //отображение окна настроек ластика
 
 let cur_smoothing = 0 //параметр сглаживания
 let cur_smooth_prim = [] //текущий сглаженный примитив
@@ -186,7 +190,7 @@ ws.onmessage = function(event)
 
 //ws.onopen = function(){alert("open");} 
 
-//ws.onclose = function() {alert("Соединение разорвано");} // Убрать
+ws.onclose = function() {alert("Соединение разорвано");} // Убрать
 
 //ws.onerror = function(){alert("error");}
 
@@ -305,7 +309,7 @@ function get_visual_ratio(abs, w, h)
     return res
 }
 
-/* Установить ширину боковой панели на 250 пикселей (показать) */
+// Установить ширину боковой панели на 250 пикселей (показать)
 function openNav() 
 {
     spanel.style.width = "250px";
@@ -346,14 +350,16 @@ function hexDec(h)
     m[0]=parseInt(m[0], 16)
     m[1]=parseInt(m[1], 16)
     m[2]=parseInt(m[2], 16)
-    return m[0] + m[1] + m[2]
-};
+    return m[0], m[1], m[2]
+}
 
 function handleclr_PointerMove() 
 {
     on_clr_window = true
     let ccv = cur_color.value
-    if (hexDec(ccv) > 255)
+    let rgb = [0, 0, 0]
+    rgb[0], rgb[1], rgb[2] = hexDec(ccv)
+    if (rgb[0] + rgb[1] + rgb[2] > 255)
     {
         if(!old_btn_clr)
         {
@@ -381,13 +387,15 @@ function handleclr_PointerMove()
 
 function handlet_clr_Click()
 {
+    let rgb = [0, 0, 0]
     if (is_clr_brash)
     {
         is_background_used = true
         cur_brush_clr = cur_color.value
         ctype_clr_btn.textContent = "Цвет кисти"
         cur_color.value = cur_background_clr
-        if (hexDec(cur_brush_clr) > 255)
+        rgb[0], rgb[1], rgb[2] = hexDec(ccv)
+        if (rgb[0] + rgb[1] + rgb[2] > 255)
         {
             ctype_clr_btn.style.color = '#000000'
             clrimg.setAttribute('src', 'palette_w.png');
@@ -406,7 +414,8 @@ function handlet_clr_Click()
         let ccv = cur_brush_clr
         new_background_clr = cur_color.value
         cur_color.value = ccv
-        if (hexDec(new_background_clr) > 255)
+        rgb[0], rgb[1], rgb[2] = hexDec(new_background_clr)
+        if (rgb[0] + rgb[1] + rgb[2] > 255)
         {
             ctype_clr_btn.style.color = '#000000'
             clrimg.setAttribute('src', 'palette_w.png');
@@ -416,7 +425,8 @@ function handlet_clr_Click()
             ctype_clr_btn.style.color = '#fff'
         }
         ctype_clr_btn.style.background = new_background_clr
-        if (hexDec(ccv) > 255)
+        rgb[0], rgb[1], rgb[2] = hexDec(ccv)
+        if (rgb[0] + rgb[1] + rgb[2] > 255)
         {
             if(!old_btn_clr)
             {
@@ -520,15 +530,26 @@ colourBtn.addEventListener("click", () =>
     }
 })
 
-function change_thickness()
+function change_thickness(flag)
 {
-    let t_v = thickness_field.value - 1
+    let t_v
+    if (flag)
+    {
+        t_v = thickness_field.value - 1
+    }
+    else
+    {
+        t_v = e_thickness_field.value - 1
+    }
     let real_t_v = Math.min(100, Math.max(0, t_v))
     if (t_v != real_t_v)
     {
-        thickness_field.value = real_t_v
         t_v = real_t_v
     }
+    thickness_field.value = t_v + 1
+    e_thickness_field.value = t_v + 1
+    thickness_slider.value = t_v + 1
+    e_thickness_slider.value = t_v + 1
     let thickness_k = t_v * t_v * 0.0001 //коэффициент, чтобы толщина не увеличивалась так резко, сейчас это четвертьокружность
     l_width = 1 + Math.max(cW, cH) * thickness_k
     W_f = (W - cW) / 2 + cW / 86 - l_width / 2 + 5
@@ -540,12 +561,22 @@ function change_thickness()
 
 thickness_slider.onchange = function()
 {
-    change_thickness()
+    change_thickness(true)
 }
 
 thickness_field.onchange = function()
 {
-    change_thickness()
+    change_thickness(true)
+}
+
+e_thickness_slider.onchange = function()
+{
+    change_thickness(false)
+}
+
+e_thickness_field.onchange = function()
+{
+    change_thickness(false)
 }
 
 function change_smoothing()
@@ -583,6 +614,15 @@ setpencilBtn.addEventListener("click", () =>
 {
     if (cur_tool[0] != 'k')
     {
+        if (cur_tool[0] == 'e')
+        {
+            change_thickness()
+            eraser_window.style.display = 'none'
+            is_eraser_window = false
+            ctx.globalCompositeOperation="source-over";
+            ctx_background.globalCompositeOperation="source-over";
+        }
+        is_pencil_window = true
         pencil_window.style.display = 'block'
         setpencilBtn.style.border = "5px solid #000000"
         cur_tool[1].style.border = "1px solid #707070"
@@ -604,14 +644,75 @@ setpencilBtn.addEventListener("click", () =>
     }
 })
 
+const seteraserBtn = document.querySelector(".eraser")
+
+seteraserBtn.addEventListener("click", () => 
+{
+    if (cur_tool[0] != 'e')
+    {
+        if (cur_tool[0] == 'k')
+        {
+            change_thickness()
+            pencil_window.style.display = 'none'
+            is_pencil_window = false
+            ctx.globalCompositeOperation="destination-out";
+            ctx_background.globalCompositeOperation="destination-out";
+        }
+        is_eraser_window = true
+        eraser_window.style.display = 'block'
+        seteraserBtn.style.border = "5px solid #000000"
+        cur_tool[1].style.border = "1px solid #707070"
+        cur_tool = ['e', seteraserBtn, 'aero_eraser.png']
+    }
+    else
+    {
+        if (is_eraser_window)
+        {
+            change_thickness()
+            eraser_window.style.display = 'none'
+            is_eraser_window = false
+        }
+        else
+        {
+            eraser_window.style.display = 'block'
+            is_eraser_window = true
+        }
+    }
+})
+
+const setbucketBtn = document.querySelector(".bucket")
+
+setbucketBtn.addEventListener("click", () => 
+{
+    if (cur_tool[0] != 'b')
+    {
+        if (cur_tool[0] == 'k' || cur_tool[0] == 'e')
+        {
+            pencil_window.style.display = 'none'
+            is_pencil_window = false
+            eraser_window.style.display = 'none'
+            is_eraser_window = false
+            change_thickness()
+            pencil_window.style.display = 'none'
+        }
+        setbucketBtn.style.border = "5px solid #000000"
+        cur_tool[1].style.border = "1px solid #707070"
+        cur_tool = ['b', setbucketBtn, 'aero_bucket.png']
+    }
+})
+
 const setpipetteBtn = document.querySelector(".pipette")
 
 setpipetteBtn.addEventListener("click", () => 
 {
     if (cur_tool[0] != 'p')
     {
-        if (cur_tool[0] == 'k')
+        if (cur_tool[0] == 'k' || cur_tool[0] == 'e')
         {
+            pencil_window.style.display = 'none'
+            is_pencil_window = false
+            eraser_window.style.display = 'none'
+            is_eraser_window = false
             change_thickness()
             pencil_window.style.display = 'none'
         }
@@ -1032,8 +1133,121 @@ canvas_additional.addEventListener("pointerdown", (e) =>
 function rgbToHex(r, g, b) 
 {
     if (r > 255 || g > 255 || b > 255)
+    {
         throw "Invalid color component";
+    }
     return ((r << 16) | (g << 8) | b).toString(16);
+}
+
+function getPixel(pixelData, x, y) 
+{
+    if (x < 0 || y < 0 || x >= pixelData.width || y >= pixelData.height) 
+    {
+        return -1;
+    } 
+    else 
+    {
+        return pixelData.data[y * pixelData.width + x];
+    }
+}
+
+function floodFill(local_ctx, x, y, fillColor) 
+{
+    const dex_clr = parseInt("FF" + fillColor.slice(6, 8) + fillColor.slice(4, 6) + fillColor.slice(2, 4), 16)
+    const imageData = local_ctx.getImageData(0, 0, local_ctx.canvas.width, local_ctx.canvas.height);
+    const pixelData = 
+    {
+        width: imageData.width,
+        height: imageData.height,
+        data: new Uint32Array(imageData.data.buffer),
+    }
+    const targetColor = getPixel(pixelData, x, y);
+    if (targetColor !== fillColor) 
+    {
+        const spansToCheck = []
+        function addSpan(left, right, y, direction) 
+        {
+            spansToCheck.push({left, right, y, direction})
+        }
+        function checkSpan(left, right, y, direction) 
+        {
+            let inSpan = false;
+            let start;
+            let x;
+            for (x = left; x < right; ++x) 
+            {
+                const color = getPixel(pixelData, x, y);
+                if (color === targetColor) 
+                {
+                    if (!inSpan) 
+                    {
+                        inSpan = true
+                        start = x
+                    }
+                } 
+                else 
+                {
+                    if (inSpan) 
+                    {
+                        inSpan = false;
+                        addSpan(start, x - 1, y, direction);
+                    }
+                }
+            }
+            if (inSpan) 
+            {
+                inSpan = false;
+                addSpan(start, x - 1, y, direction);
+            }
+        }
+        addSpan(x, x, y, 0);
+        while (spansToCheck.length > 0) 
+        {
+            const {left, right, y, direction} = spansToCheck.pop();
+            let l = left;
+            for (;;) 
+            {
+                --l;
+                const color = getPixel(pixelData, l, y);
+                if (color !== targetColor) 
+                {
+                    break;
+                }
+            }
+            ++l
+            let r = right;
+            for (;;) 
+            {
+                ++r;
+                const color = getPixel(pixelData, r, y);
+                if (color !== targetColor) 
+                {
+                    break
+                }
+            }
+            const lineOffset = y * pixelData.width;
+            pixelData.data.fill(dex_clr, lineOffset + l, lineOffset + r);
+            if (direction <= 0) 
+            {
+                checkSpan(l, r, y - 1, -1);
+            } 
+            else
+            {
+                checkSpan(l, left, y - 1, -1);
+                checkSpan(right, r, y - 1, -1);
+            }
+            if (direction >= 0) 
+            {
+                checkSpan(l, r, y + 1, +1);
+            } 
+            else 
+            {
+                checkSpan(l, left, y + 1, +1);
+                checkSpan(right, r, y + 1, +1);
+            }     
+        }
+        local_ctx.putImageData(imageData, 0, 0);
+    }
 }
 
 d_frame.addEventListener("pointerdown", (e) => 
@@ -1053,7 +1267,7 @@ d_frame.addEventListener("pointerdown", (e) =>
         cur_y = e.clientY - H_f
         if (cur_tool[0] == 'p') //если выбрана пипетка
         {
-            rgba = cur_draw_ctx.getImageData(cur_x + l_width / 2, cur_y - l_width / 2, 1, 1).data //пока снимаем цвет только с верхнего слоя, временно. Потом надо снимать с текущего выбранного
+            let rgba = cur_draw_ctx.getImageData(cur_x + l_width / 2, cur_y - l_width / 2, 1, 1).data //пока снимаем цвет только с верхнего слоя, временно. Потом надо снимать с текущего выбранного
             let hex
             if (rgba[3] != 0)
             {
@@ -1075,11 +1289,26 @@ d_frame.addEventListener("pointerdown", (e) =>
         }
         else
         {
-            if (is_pencil_window)
+            if (cur_tool[0] == 'b') //если выбрана заливка
             {
-                change_thickness()
-                pencil_window.style.display = 'none'
-                is_pencil_window = false
+                let rgba = cur_draw_ctx.getImageData(cur_x + l_width / 2, cur_y - l_width / 2, 1, 1).data
+                hex = "#" + ("000000" + rgbToHex(rgba[0], rgba[1], rgba[2])).slice(-6)
+                if (cur_brush_clr != hex) //если цвет выбранной точки не равен текущему
+                {
+                    let cur_form_clr = "0x" + cur_brush_clr.slice(1) + "FF"
+                    floodFill(cur_draw_ctx, Math.floor(cur_x + l_width / 2 + 2), Math.floor(cur_y - l_width / 2 + 19), cur_form_clr);
+                }
+                draw = false
+                return
+            }
+            else
+            {
+                if (is_pencil_window)
+                {
+                    change_thickness()
+                    pencil_window.style.display = 'none'
+                    is_pencil_window = false
+                }
             }
         }
     }
@@ -1115,7 +1344,7 @@ canvas_additional.addEventListener("pointermove", (e) => //проверка ку
 function getBezierBasis(i, n, t) //Базисная функция i - номер вершины, n - количество вершин, t - положение кривой (от 0 до 1)
 {
 	// Факториал
-	function f(n) 
+	function f(n)
     {
 		return (n <= 1) ? 1 : n * f(n - 1);
 	}
@@ -1127,7 +1356,6 @@ function getBezierBasis(i, n, t) //Базисная функция i - номе�
 // step - шаг при расчете кривой (0 < step < 1), по умолчанию 0.01
 function getBezierCurve(arr, step) 
 {
-    console.log(arr.length)
 	step = 1.0 / step
 	let res = new Array()
 	for (let t = 0; t < 1 + step; t += step) 
@@ -1310,9 +1538,8 @@ d_frame.addEventListener("pointermove", (e) => //проверка курсора
             currentX = prevX
         }
         cur_draw_ctx.beginPath()
-        if (cur_smoothing == 0)
+        if (cur_smoothing == 0 || cur_tool[0] == 'e')
         {
-            console.log(currentW)
             cur_draw_ctx.moveTo(prevX, prevY)
             cur_draw_ctx.lineTo(currentX, currentY)
             cur_draw_ctx.stroke()
