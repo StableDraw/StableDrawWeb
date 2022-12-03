@@ -7,6 +7,10 @@ const nav_panel = document.querySelector('.nav')
 const canvas_foreground = document.getElementById("canvas_foreground") 
 const canvas_background = document.getElementById("canvas_background")
 const canvas_additional = document.getElementById("canvas_current") 
+
+const canvas_layer_1 = document.getElementById("layer_1_display_canvas")
+const canvas_layer_2 = document.getElementById("layer_2_display_canvas") 
+
 const d_frame = document.getElementById("d_frame")
 const spanel = document.getElementById("mySidepanel")
 
@@ -20,6 +24,9 @@ const ctx = canvas_foreground.getContext("2d", { willReadFrequently: true })
 const ctx_background = canvas_background.getContext("2d", { willReadFrequently: true })
 const ctx_add = canvas_additional.getContext("2d", { willReadFrequently: true })
 
+const ctx_layer_1 = canvas_layer_1.getContext("2d", { willReadFrequently: true })
+const ctx_layer_2 = canvas_layer_2.getContext("2d", { willReadFrequently: true })
+
 const ratio_field = document.querySelector('.f_ratio')
 const ratio_tooltip = document.querySelector('ratio_tooltip')
 
@@ -30,6 +37,8 @@ const e_thickness_field = document.querySelector('.e_thickness_field')
 
 const smoothing_slider = document.querySelector('.smoothing_slider')
 const smoothing_field = document.querySelector('.smoothing_field')
+
+const layer_1 = document.getElementById("layer_1")
 
 const EL = (sel) => document.querySelector(sel)
 
@@ -74,9 +83,14 @@ let cH = canvas_foreground.offsetHeight
 let Max_cW = cW
 let Max_cH = cH
 
+let lW = canvas_layer_1.width
+let lH = canvas_layer_1.height
+let orig_lW = lW
+let orig_lH = lH
+
 let cur_real_ratio = cH / cW
 
-let l_width
+let l_width = 1
 
 let W_f = (W - cW) / 2 + cW / 86 - l_width / 2 + 5
 let H_f = (H - cH) / 2 + cH / 86 - l_width / 2 + 5
@@ -102,9 +116,6 @@ canvas_background.height = cH
 canvas_background.width = cW
 canvas_additional.height = cH
 canvas_additional.width = cW
-ctx.lineWidth = l_width
-ctx_add.lineWidth = l_width
-ctx_background.lineWidth = l_width
 
 let iscaption = false //Временый костыль, убрать
 let ispicture = false //Тоже временный костыль, убрать
@@ -114,7 +125,6 @@ let enddraw = false
 let f_move = false
 let end_f_move = false
 
-let is_clr_window = false
 let old_btn_clr = false //изначально чёрный текст у кнопок цвета
 let on_clr_window = false
 
@@ -134,10 +144,14 @@ let is_first_upload_btn_click = true //костыль, чтобы кнопка �
 
 let original_image_buf = "" //переменная для хранения исходных изображений
 
+let is_foregraund_selected = true //выбран ли верхний слой, по-умолчанию выбран
 let cur_draw_ctx = ctx //текущий выбранный слой для рисования, по-умолчанию верхний
+let cur_canvas = canvas_foreground //текущий выбранный слой для рисования ввиде слоя, не контекста, по-умолчанию верхний
+let cur_ctx_layer = ctx_layer_1 //текущий выбранный слой для рисования ввиде контекста кнопки который в углу, по-умолчанию верхний
 
 let graphic_tablet_mode = false //режим графического планшета
 
+let is_clr_window = false //отображение окна с палитрой
 let is_pencil_window = true //отображение окна настроек кисти
 let is_eraser_window = false //отображение окна настроек ластика
 
@@ -151,6 +165,9 @@ ctx_add.lineCap = 'round'
 ctx_add.lineJoin = 'round'
 ctx_background.lineCap = 'round'
 ctx_background.lineJoin = 'round'
+
+layer_1.style.border = "5px solid #000000"
+layer_2.style.border = "1px solid #707070"
 
 ws = new WebSocket('wss://stabledraw.com:8081')
 let chain_id = -1
@@ -179,9 +196,10 @@ ws.onmessage = function(event)
         {
             ctx.clearRect(0, 0, cW, cH) // очищаем верхний холст
             ctx.drawImage(image, 0, 0, jdata[2], jdata[3], 0, 0, cW, cH)
-            pstack.push(['u', image, jdata[2], jdata[3]])
+            pstack.push(['u', cur_draw_ctx, image, jdata[2], jdata[3]])
+            canvas_to_layer(cur_canvas, cur_ctx_layer)
         }
-        original_image_buf = "data:image/jpg;base64," + jdata[1]
+        original_image_buf = "data:image/png;base64," + jdata[1]
         image.src = original_image_buf
         chain_id = jdata[4]
         return
@@ -190,10 +208,10 @@ ws.onmessage = function(event)
 
 //ws.onopen = function(){alert("open");} 
 
-ws.onclose = function() // Убрать
+/*ws.onclose = function() // Убрать
 {
     alert("Соединение разорвано");
-}
+}*/
 
 //ws.onerror = function(){alert("error");}
 
@@ -237,7 +255,6 @@ ratio_field.onchange = function()
     let pos = t_v.indexOf(":")
     if (pos == -1) 
     {
-        //ratio_tooltip.style.visibility = "visible" //убрать, починить, это не работает
         ratio_field.value = cur_ratio_val
         return
     }
@@ -397,7 +414,7 @@ function handlet_clr_Click()
         cur_brush_clr = cur_color.value
         ctype_clr_btn.textContent = "Цвет кисти"
         cur_color.value = cur_background_clr
-        rgb[0], rgb[1], rgb[2] = hexDec(ccv)
+        rgb[0], rgb[1], rgb[2] = hexDec(cur_brush_clr)
         if (rgb[0] + rgb[1] + rgb[2] > 255)
         {
             ctype_clr_btn.style.color = '#000000'
@@ -469,17 +486,16 @@ function close_clr_window()
     {
         if (cur_background_clr != new_background_clr) //почему-то не работает, из-за этого пришлось сделать костыль строчкой сверху. Убрать
         {
-            pstack.push(['b'])
             pstack.push(['i', new_background_clr]) //залить фон
             ctx_background.fillStyle = new_background_clr; //заливка фона белым, костыль, убрать
             ctx_background.fillRect(0, 0, cW, cH);
+            canvas_to_layer(canvas_background, ctx_layer_2)
         }
         else
         {
             is_background_used = false
         }
     }
-    pstack.push(['f'])
     ctx.strokeStyle = cur_brush_clr
     ctx.fillStyle = cur_brush_clr
     ctx_add.strokeStyle = cur_brush_clr
@@ -487,6 +503,36 @@ function close_clr_window()
     ctx_background.strokeStyle = cur_brush_clr
     clr_w.style.display = "none"
 }
+
+const select_first_layerBtn = document.getElementById("layer_button_1")
+
+select_first_layerBtn.addEventListener("click", () => 
+{
+    if (!is_foregraund_selected)
+    {
+        layer_1.style.border = "5px solid #000000"
+        layer_2.style.border = "1px solid #707070"
+        cur_draw_ctx = ctx
+        cur_canvas = canvas_layer_1
+        cur_ctx_layer = canvas_foreground
+        is_foregraund_selected = true
+    }
+})
+
+const select_second_layerBtn = document.getElementById("layer_button_2")
+
+select_second_layerBtn.addEventListener("click", () => 
+{
+    if (is_foregraund_selected)
+    {
+        layer_1.style.border = "1px solid #707070"
+        layer_2.style.border = "5px solid #000000"
+        cur_draw_ctx = ctx_background
+        cur_canvas = canvas_background
+        cur_ctx_layer = ctx_layer_2
+        is_foregraund_selected = false
+    }
+})
 
 const graphic_tabletBtn = document.querySelector(".graphic_tablet")
 
@@ -510,6 +556,13 @@ let ctype_clr_btn = document.querySelector(".ctype_clr_btn")
 
 colourBtn.addEventListener("click", () => 
 {
+    if (is_pencil_window || is_eraser_window)
+    {
+        pencil_window.style.display = 'none'
+        is_pencil_window = false
+        eraser_window.style.display = 'none'
+        is_eraser_window = false
+    }
     cur_color.value = cur_brush_clr
     if (is_clr_window == false)
     {
@@ -525,7 +578,10 @@ colourBtn.addEventListener("click", () =>
             cursor.style.top = (cY + 7.5) + "px";
             cursor.style.display = "block"
             close_clr_window()
-        }, { once: true })
+        }, 
+        { 
+            once: true 
+        })
     }
     else
     {
@@ -615,6 +671,10 @@ let cur_tool = ['k', setpencilBtn, 'aero_pen.cur'] //текущий инстру
 
 setpencilBtn.addEventListener("click", () =>
 {
+    if (is_clr_window)
+    {
+        close_clr_window()
+    }
     if (cur_tool[0] != 'k')
     {
         if (cur_tool[0] == 'e')
@@ -651,6 +711,10 @@ const seteraserBtn = document.querySelector(".eraser")
 
 seteraserBtn.addEventListener("click", () => 
 {
+    if (is_clr_window)
+    {
+        close_clr_window()
+    }
     if (cur_tool[0] != 'e')
     {
         if (cur_tool[0] == 'k')
@@ -806,7 +870,8 @@ uploadBtn.addEventListener("click", () =>
                 pstack.push(['r', new_dfw, new_dfh, false])
                 ctx.clearRect(0, 0, cW, cH) //очищаем верхний слой
                 ctx.drawImage(img, 0, 0, new_img_w, new_img_h);
-                pstack.push(['u', img, new_img_w, new_img_h])
+                pstack.push(['u', cur_draw_ctx, img, new_img_w, new_img_h])
+                canvas_to_layer(cur_canvas, cur_ctx_layer)
             }, 
             { 
                 once: true 
@@ -927,7 +992,6 @@ function replay_actions(cur_pstack)
 {
     clear_drawfield()
     let act_type
-    let cur_ctx = ctx
     let change_bash_clr = false
     let new_bash_clr
     let fW_pred = orig_f_dW
@@ -949,15 +1013,9 @@ function replay_actions(cur_pstack)
         act_type = act[0]
         switch (act_type)
         {
-            case 'f': //если выбран передний план
-                cur_ctx = ctx
-                break
-            case 'b': //если выбран фон
-                cur_ctx = ctx_background
-                break
             case 'p': //если это примитив
-                cur_ctx.strokeStyle = act[2]
-                drawLines(cur_ctx, act[1])
+                act[1].strokeStyle = act[3]
+                drawLines(act[1], act[2])
                 break
             case 'd': //если очистка экрана
                 cur_background_clr = "#fff"
@@ -977,11 +1035,11 @@ function replay_actions(cur_pstack)
                 ctx_background.fillRect(0, 0, cW, cH);
                 break
             case 'u': //если добавление изображения с ПК
-                ctx.clearRect(0, 0, cW, cH) //очищаем верхний слой
-                ctx.drawImage(act[1], 0, 0, act[2], act[3])
+                act[1].clearRect(0, 0, cW, cH) //очищаем нужный слой
+                act[1].drawImage(act[2], 0, 0, act[3], act[4])
                 break
             case 'f': //если заливка
-                floodFill(cur_ctx, act[1], act[2], act[3])
+                floodFill(act[1], act[2], act[3], act[4])
                 break
         }
     }
@@ -993,6 +1051,18 @@ function replay_actions(cur_pstack)
     {
         cur_brush_clr = new_bash_clr
     }
+    canvas_to_layer(canvas_foreground, ctx_layer_1)
+    canvas_to_layer(canvas_background, ctx_layer_2)
+}
+
+function canvas_to_layer(local_canvas, local_layer)
+{
+    let image = new Image()
+    image.onload = function() 
+    {
+        local_layer.drawImage(image, 0, 0, cW, cH, 0, 0, lW, lH)
+    }
+    image.src = local_canvas.toDataURL()
 }
 
 function undo_action()
@@ -1006,39 +1076,8 @@ function undo_action()
         {
             is_r = true
         }
-        let cur_act_visible
-        let temp_list = ['f', 'b', 'u']
         pstack_size--
         nstack.push(cur_act)
-        if (cur_act in temp_list)
-        {
-            cur_act_visible = false
-        }
-        else
-        {
-            cur_act_visible = true
-        }
-        while(pstack_size > 1)
-        {
-            if (temp_list.indexOf(pstack[pstack_size - 1][0]) == -1)
-            {
-                if (cur_act_visible)
-                {
-                    break
-                }
-                else
-                {
-                    cur_act_visible = true
-                }
-            }
-            cur_act = pstack.pop()
-            pstack_size--
-            nstack.push(cur_act)
-            if (cur_act[0] == 'r')
-            {
-                is_r = true
-            }
-        }
         if (is_r)
         {
             let buf_r_elem = ['r', fW_max, fH_max, false]
@@ -1062,17 +1101,10 @@ function repeat_action()
 {
     if (nstack.length != 0)
     {
-        let temp_list = ['f', 'b', 'u']
         let cur_act = nstack.pop()
         let cur_acts = []
         cur_acts.push(cur_act)
         pstack.push(cur_act)
-        while(nstack.length != 0 && temp_list.indexOf(cur_act[0]) != -1)
-        {
-            cur_act = nstack.pop()
-            pstack.push(cur_act)
-            cur_acts.push(cur_act)
-        }
         if (cur_act[0] == 'r')
         {
             change_drawfield_size(cur_act[1], cur_act[2])
@@ -1138,11 +1170,12 @@ canvas_additional.addEventListener("pointerdown", (e) =>
 
 function rgbToHex(r, g, b) 
 {
-    if (r > 255 || g > 255 || b > 255)
-    {
-        throw "Invalid color component";
-    }
     return ((r << 16) | (g << 8) | b).toString(16);
+}
+
+function rgbaToHex(r, g, b, a) 
+{
+    return ((r << 24) | (g << 16) | (b << 8) | a).toString(16);
 }
 
 function getPixel(pixelData, x, y) 
@@ -1159,7 +1192,7 @@ function getPixel(pixelData, x, y)
 
 function floodFill(local_ctx, x, y, fillColor) 
 {
-    const dex_clr = parseInt("FF" + fillColor.slice(6, 8) + fillColor.slice(4, 6) + fillColor.slice(2, 4), 16)
+    let dex_clr = parseInt("FF" + fillColor.slice(6, 8) + fillColor.slice(4, 6) + fillColor.slice(2, 4), 16)
     const imageData = local_ctx.getImageData(0, 0, local_ctx.canvas.width, local_ctx.canvas.height);
     const pixelData = 
     {
@@ -1195,44 +1228,49 @@ function floodFill(local_ctx, x, y, fillColor)
                 {
                     if (inSpan) 
                     {
-                        inSpan = false;
+                        inSpan = false
                         addSpan(start, x - 1, y, direction);
                     }
                 }
             }
             if (inSpan) 
             {
-                inSpan = false;
+                inSpan = false
                 addSpan(start, x - 1, y, direction);
             }
         }
-        addSpan(x, x, y, 0);
-        while (spansToCheck.length > 0) 
+        addSpan(x, x, y, 0)
+        let iter_max = Math.round(cH) * 2 + 1
+        let iter = 0
+        while (spansToCheck.length > 0 && iter <= iter_max) 
         {
-            const {left, right, y, direction} = spansToCheck.pop();
+            iter++
+            const {left, right, y, direction} = spansToCheck.pop()
             let l = left;
-            for (;;) 
+            let iter_l_max = left - cH / 3
+            while (true)
             {
-                --l;
-                const color = getPixel(pixelData, l, y);
-                if (color !== targetColor) 
-                {
-                    break;
-                }
-            }
-            ++l
-            let r = right;
-            for (;;) 
-            {
-                ++r;
-                const color = getPixel(pixelData, r, y);
-                if (color !== targetColor) 
+                --l
+                const color = getPixel(pixelData, l, y)
+                if (color !== targetColor || l < iter_l_max) 
                 {
                     break
                 }
             }
-            const lineOffset = y * pixelData.width;
-            pixelData.data.fill(dex_clr, lineOffset + l, lineOffset + r);
+            ++l
+            let r = right
+            let iter_r_max = right + cW / 3
+            while (true)
+            {
+                ++r;
+                const color = getPixel(pixelData, r, y)
+                if (color !== targetColor || r > iter_r_max)
+                {
+                    break
+                }
+            }
+            const lineOffset = y * pixelData.width
+            pixelData.data.fill(dex_clr, lineOffset + l - 1, lineOffset + r + 1)
             if (direction <= 0) 
             {
                 checkSpan(l, r, y - 1, -1);
@@ -1252,6 +1290,7 @@ function floodFill(local_ctx, x, y, fillColor)
                 checkSpan(right, r, y + 1, +1);
             }     
         }
+
         local_ctx.putImageData(imageData, 0, 0);
     }
 }
@@ -1273,6 +1312,7 @@ d_frame.addEventListener("pointerdown", (e) =>
         cur_y = e.clientY - H_f
         if (cur_tool[0] == 'p') //если выбрана пипетка
         {
+
             let rgba = cur_draw_ctx.getImageData(cur_x + l_width / 2, cur_y - l_width / 2, 1, 1).data //пока снимаем цвет только с верхнего слоя, временно. Потом надо снимать с текущего выбранного
             let hex
             if (rgba[3] != 0)
@@ -1297,13 +1337,16 @@ d_frame.addEventListener("pointerdown", (e) =>
         {
             if (cur_tool[0] == 'b') //если выбрана заливка
             {
-                let rgba = cur_draw_ctx.getImageData(cur_x + l_width / 2, cur_y - l_width / 2, 1, 1).data
-                hex = "#" + ("000000" + rgbToHex(rgba[0], rgba[1], rgba[2])).slice(-6)
-                if (cur_brush_clr != hex) //если цвет выбранной точки не равен текущему
+                cur_x = Math.floor(cur_x + l_width / 2 + 2)
+                cur_y = Math.floor(cur_y - l_width / 2 + 19)
+                let rgba = cur_draw_ctx.getImageData(cur_x, cur_y, 1, 1).data
+                hex = "#" + ("00000000" + rgbaToHex(rgba[0], rgba[1], rgba[2], rgba[3])).slice(-8)
+                if (cur_brush_clr + "ff" != hex) //если цвет выбранной точки не равен текущему
                 {
                     let cur_form_clr = "0x" + cur_brush_clr.slice(1) + "FF"
-                    floodFill(cur_draw_ctx, Math.floor(cur_x + l_width / 2 + 2), Math.floor(cur_y - l_width / 2 + 19), cur_form_clr);
-                    pstack.push(['f', Math.floor(cur_x + l_width / 2 + 2), Math.floor(cur_y - l_width / 2 + 19), cur_form_clr])
+                    floodFill(cur_draw_ctx, cur_x, cur_y, cur_form_clr);
+                    pstack.push(['f', cur_draw_ctx, cur_x, cur_y, cur_form_clr])
+                    canvas_to_layer(cur_canvas, cur_ctx_layer)
                 }
                 draw = false
                 return
@@ -1492,12 +1535,13 @@ d_frame.addEventListener("pointermove", (e) => //проверка курсора
             fp = true
             if (cur_smoothing == 0)
             {
-                pstack.push(['p', curprim, cur_brush_clr])
+                pstack.push(['p', cur_draw_ctx, curprim, cur_brush_clr])
             }
             else
             {
-                pstack.push(['p', cur_smooth_prim, cur_brush_clr])
+                pstack.push(['p', cur_draw_ctx, cur_smooth_prim, cur_brush_clr])
             }
+            canvas_to_layer(cur_canvas, cur_ctx_layer)
             nstack = []
             curprim = []
             return 

@@ -46,6 +46,34 @@
     <div class="cursor">
         <img class = "cursimg" display = "none" width = "30px" height="30px">
     </div>
+    <div class = layers>
+        <div class = layers_buttons>
+            <button class = layers_mini_button id = merge_layers>
+                <img class = "layers_mini_button_image" src="merge.png">
+            </button>
+            <button class = layers_mini_button id = swap_layers>
+                <img class = "layers_mini_button_image" src="swap.png">
+            </button>
+        </div>
+        <div class = layer_box>
+            <div class = layer id = layer_1>
+                <button class = layer_visibility_button id = layer_1_visibility_button>
+                    <img class = "layers_visibility_button_image" id = layer_1_visibility_img src = "visibility_on.png">
+                </button>
+                <div class = layer_button id = layer_button_1>
+                    <canvas class = layer_display_canvas id = layer_1_display_canvas></canvas>
+                </div>
+            </div>
+            <div class = layer id = layer_2>
+                <button class = layer_visibility_button id = layer_2_visibility_button>
+                    <img class = "layers_visibility_button_image" id = layer_2_visibility_img src = "visibility_on.png">
+                </button>
+                <div class = layer_button id = layer_button_2>
+                    <canvas class = layer_display_canvas id = layer_2_display_canvas></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class = scale_field>
         <input type = "text" class = "f_ratio" list = "default_ratio" name = "f_ratio" required placeholder = "W:H"/>
         <datalist id = "default_ratio">
