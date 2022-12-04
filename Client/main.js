@@ -19,8 +19,8 @@ const pencil_w = document.getElementById("pencil_window")
 const eraser_w = document.getElementById("eraser_window")
 const ok_clr_btn = document.getElementById("ok_clr_btn") 
 const cur_color = document.getElementById("color") 
-const clrimg = document.querySelector('.clrimg')
-const ctx = canvas_foreground.getContext("2d", { willReadFrequently: true })
+const clrimg = document.getElementById('clrimg')
+const ctx_foreground = canvas_foreground.getContext("2d", { willReadFrequently: true })
 const ctx_background = canvas_background.getContext("2d", { willReadFrequently: true })
 const ctx_add = canvas_additional.getContext("2d", { willReadFrequently: true })
 
@@ -80,6 +80,7 @@ let fH_min = H * 0.1
 
 let cW = canvas_foreground.offsetWidth
 let cH = canvas_foreground.offsetHeight
+let cD = cW / cH
 let Max_cW = cW
 let Max_cH = cH
 
@@ -87,6 +88,25 @@ let lW = canvas_layer_1.width
 let lH = canvas_layer_1.height
 let orig_lW = lW
 let orig_lH = lH
+let orig_lD = lW / lH
+
+if (cD > orig_lD)
+{
+    lW = orig_lW
+    lH = orig_lW / cD
+}
+else
+{
+    lH = orig_lH
+    lW = orig_lH * cD
+}
+
+let lWp = Math.round(995 * (lW / orig_lW)) / 10 + "%"
+let lHp = Math.round(1000 * (lH / orig_lH)) / 10 + "%"
+canvas_layer_1.style.width = lWp
+canvas_layer_2.style.width = lWp
+canvas_layer_1.style.height = lHp
+canvas_layer_2.style.height = lHp
 
 let cur_real_ratio = cH / cW
 
@@ -144,8 +164,8 @@ let is_first_upload_btn_click = true //костыль, чтобы кнопка �
 
 let original_image_buf = "" //переменная для хранения исходных изображений
 
-let is_foregraund_selected = true //выбран ли верхний слой, по-умолчанию выбран
-let cur_draw_ctx = ctx //текущий выбранный слой для рисования, по-умолчанию верхний
+let is_foreground_selected = true //выбран ли верхний слой, по-умолчанию выбран
+let cur_draw_ctx = ctx_foreground //текущий выбранный слой для рисования, по-умолчанию верхний
 let cur_canvas = canvas_foreground //текущий выбранный слой для рисования ввиде слоя, не контекста, по-умолчанию верхний
 let cur_ctx_layer = ctx_layer_1 //текущий выбранный слой для рисования ввиде контекста кнопки который в углу, по-умолчанию верхний
 
@@ -159,8 +179,11 @@ let cur_smoothing = 0 //параметр сглаживания
 let cur_smooth_prim = [] //текущий сглаженный примитив
 let k_smooth = 0 //текущий коэффициент сглаживания
 
-ctx.lineCap = 'round'
-ctx.lineJoin = 'round'
+let is_foreground_visible = true //включена ли видимость переднего слоя
+let is_background_visible = true //включена ли видимость заднего слоя
+
+ctx_foreground.lineCap = 'round'
+ctx_foreground.lineJoin = 'round'
 ctx_add.lineCap = 'round'
 ctx_add.lineJoin = 'round'
 ctx_background.lineCap = 'round'
@@ -191,12 +214,13 @@ ws.onmessage = function(event)
     }
     if (type == "i") //если изображение
     {
-        let image = new Image();
+        let image = new Image()
         image.onload = function() 
         {
-            ctx.clearRect(0, 0, cW, cH) // очищаем верхний холст
-            ctx.drawImage(image, 0, 0, jdata[2], jdata[3], 0, 0, cW, cH)
+            ctx_foreground.clearRect(0, 0, cW, cH) // очищаем верхний холст
+            ctx_foreground.drawImage(image, 0, 0, jdata[2], jdata[3], 0, 0, cW, cH)
             pstack.push(['u', cur_draw_ctx, image, jdata[2], jdata[3]])
+            ctx_layer_1.clearRect(0, 0, lW, lH)
             canvas_to_layer(cur_canvas, cur_ctx_layer)
         }
         original_image_buf = "data:image/png;base64," + jdata[1]
@@ -208,10 +232,10 @@ ws.onmessage = function(event)
 
 //ws.onopen = function(){alert("open");} 
 
-/*ws.onclose = function() // Убрать
+ws.onclose = function() // Убрать
 {
     alert("Соединение разорвано");
-}*/
+}
 
 //ws.onerror = function(){alert("error");}
 
@@ -246,7 +270,7 @@ window.onresize = function()
     canvas_background.width = cW
     canvas_additional.height = cH
     canvas_additional.width = cW
-    replay_actions(pstack)
+    replay_actions(pstack, true)
 }
 
 ratio_field.onchange = function() 
@@ -285,7 +309,7 @@ ratio_field.onchange = function()
         pstack.pop()
     }
     pstack.push(['r', new_dfw, new_dfh, true])
-    replay_actions(pstack) //Повторная отрисовка с новым разрешением
+    replay_actions(pstack, true) //Повторная отрисовка с новым разрешением
     return get_visual_ratio(true, new_dfw, new_dfh)
 }
 
@@ -350,14 +374,14 @@ function closeNav()
     setTimeout(closeNav_border, 490);
 }
 
-let backBtn = document.querySelector(".arrow_back")
+let backBtn = document.getElementById("arrow_back")
 
 backBtn.addEventListener("click", () => 
 {
     undo_action()
 })
 
-let nextBtn = document.querySelector(".arrow_next")
+let nextBtn = document.getElementById("arrow_next")
 
 nextBtn.addEventListener("click", () => 
 {
@@ -378,6 +402,15 @@ function handleclr_PointerMove()
     on_clr_window = true
     let ccv = cur_color.value
     let rgb = [0, 0, 0]
+    if (ccv == "#NaNNaNNaN")
+    {
+        ccv = "#" + colourBtn.style.background.split("(")[1].split(")")[0].split(",").map(function(x) 
+        {
+            x = parseInt(x).toString(16)
+            return (x.length==1) ? "0" + x : x
+        }).join("")
+        cur_color.value = ccv
+    }
     rgb[0], rgb[1], rgb[2] = hexDec(ccv)
     if (rgb[0] + rgb[1] + rgb[2] > 255)
     {
@@ -473,20 +506,30 @@ function close_clr_window()
     clr_w.removeEventListener("pointermove", handleclr_PointerMove)
     ctype_clr_btn.removeEventListener("click", handlet_clr_Click)
     is_clr_window = false
+    let ccv = cur_color.value
+    if (ccv == "#NaNNaNNaN")
+    {
+        ccv = "#" + colourBtn.style.background.split("(")[1].split(")")[0].split(",").map(function(x) 
+        {
+            x = parseInt(x).toString(16)
+            return (x.length==1) ? "0" + x : x
+        }).join("")
+        cur_color.value = ccv
+    }
     if (!is_clr_brash)
     {
-        new_background_clr = cur_color.value
+        new_background_clr = ccv
         is_clr_brash = true
     }
     else
     {
-        cur_brush_clr = cur_color.value
+        cur_brush_clr = ccv
     }
     if (is_background_used)
     {
         if (cur_background_clr != new_background_clr) //почему-то не работает, из-за этого пришлось сделать костыль строчкой сверху. Убрать
         {
-            pstack.push(['i', new_background_clr]) //залить фон
+            pstack.push(['i', ctx_background, new_background_clr]) //залить фон
             ctx_background.fillStyle = new_background_clr; //заливка фона белым, костыль, убрать
             ctx_background.fillRect(0, 0, cW, cH);
             canvas_to_layer(canvas_background, ctx_layer_2)
@@ -496,8 +539,8 @@ function close_clr_window()
             is_background_used = false
         }
     }
-    ctx.strokeStyle = cur_brush_clr
-    ctx.fillStyle = cur_brush_clr
+    ctx_foreground.strokeStyle = cur_brush_clr
+    ctx_foreground.fillStyle = cur_brush_clr
     ctx_add.strokeStyle = cur_brush_clr
     ctx_add.fillStyle = cur_brush_clr
     ctx_background.strokeStyle = cur_brush_clr
@@ -508,14 +551,14 @@ const select_first_layerBtn = document.getElementById("layer_button_1")
 
 select_first_layerBtn.addEventListener("click", () => 
 {
-    if (!is_foregraund_selected)
+    if (!is_foreground_selected)
     {
         layer_1.style.border = "5px solid #000000"
         layer_2.style.border = "1px solid #707070"
-        cur_draw_ctx = ctx
+        cur_draw_ctx = ctx_foreground
         cur_canvas = canvas_layer_1
         cur_ctx_layer = canvas_foreground
-        is_foregraund_selected = true
+        is_foreground_selected = true
     }
 })
 
@@ -523,18 +566,136 @@ const select_second_layerBtn = document.getElementById("layer_button_2")
 
 select_second_layerBtn.addEventListener("click", () => 
 {
-    if (is_foregraund_selected)
+    if (is_foreground_selected)
     {
+        is_background_used = true
         layer_1.style.border = "1px solid #707070"
         layer_2.style.border = "5px solid #000000"
         cur_draw_ctx = ctx_background
         cur_canvas = canvas_background
         cur_ctx_layer = ctx_layer_2
-        is_foregraund_selected = false
+        is_foreground_selected = false
     }
 })
 
-const graphic_tabletBtn = document.querySelector(".graphic_tablet")
+const first_layer_visibilityBtn = document.getElementById("layer_1_visibility_button")
+const first_layer_visibility_img = document.getElementById("layer_1_visibility_img")
+
+first_layer_visibilityBtn.addEventListener("click", () => 
+{
+    if (is_foreground_visible)
+    {
+        is_foreground_visible = false
+        canvas_foreground.style.display = "none"
+        first_layer_visibility_img.setAttribute('src', "visibility_off.png")
+    }
+    else
+    {
+        is_foreground_visible = true
+        canvas_foreground.style.display = "block"
+        first_layer_visibility_img.setAttribute('src', "visibility_on.png")
+    }
+})
+
+const second_layer_visibilityBtn = document.getElementById("layer_2_visibility_button")
+const second_layer_visibility_img = document.getElementById("layer_2_visibility_img")
+
+second_layer_visibilityBtn.addEventListener("click", () => 
+{
+    if (is_background_visible)
+    {
+        is_background_visible = false
+        is_background_used = false
+        canvas_background.style.display = "none"
+        second_layer_visibility_img.setAttribute('src', "visibility_off.png")
+    }
+    else
+    {
+        is_background_visible = true
+        is_background_used = true
+        canvas_background.style.display = "block"
+        second_layer_visibility_img.setAttribute('src', "visibility_on.png")
+    }
+})
+
+const merge_layersBtn = document.getElementById("merge_layers")
+
+function merge_layers_in_stack(stack, local_ctx)
+{
+    let id_list = ['p', 'i', 'u', 'f']
+    let substack_1 = []
+    let substack_2 = []
+    if (local_ctx == ctx_foreground)
+    {
+        for (let i = 0; i < stack.length; i++)
+        {
+            if (id_list.includes(stack[i][0]) && stack[i][1] == ctx_background)
+            {
+                stack[i][1] = local_ctx
+                substack_2.push(stack[i])
+            }
+            else
+            {
+                substack_1.push(stack[i])
+            }
+        }
+    }
+    else
+    {
+        for (let i = 0; i < stack.length; i++)
+        {
+            if (id_list.includes(stack[i][0]) && stack[i][1] == ctx_foreground)
+            {
+                stack[i][1] = local_ctx
+                substack_1.push(stack[i])
+            }
+            else
+            {
+                substack_2.push(stack[i])
+            }
+        }
+    }
+    stack = substack_2.concat(substack_1)
+    return stack
+}
+
+merge_layersBtn.addEventListener("click", () => 
+{
+    pstack = merge_layers_in_stack(pstack, cur_draw_ctx)
+    nstack = merge_layers_in_stack(nstack, cur_draw_ctx)
+    replay_actions(pstack, true)
+})
+
+const swap_layersBtn = document.getElementById("swap_layers")
+
+function swap_layers_in_stack(stack)
+{
+    let id_list = ['p', 'i', 'u', 'f']
+    for (let i = 0; i < stack.length; i++)
+    {
+        if (id_list.includes(stack[i][0]))
+        {
+            if (stack[i][1] == ctx_foreground)
+            {
+                stack[i][1] = ctx_background
+            }
+            else
+            {
+                stack[i][1] = ctx_foreground
+            }
+        }
+    }
+    return stack
+}
+
+swap_layersBtn.addEventListener("click", () => 
+{
+    pstack = swap_layers_in_stack(pstack)
+    nstack = swap_layers_in_stack(nstack)
+    replay_actions(pstack, true)
+})
+
+const graphic_tabletBtn = document.getElementById("graphic_tablet")
 
 graphic_tabletBtn.addEventListener("click", () => 
 {
@@ -550,7 +711,8 @@ graphic_tabletBtn.addEventListener("click", () =>
     }
 })
 
-let colourBtn = document.querySelector(".clr")
+let colourBtn = document.getElementById("palette")
+colourBtn.style.background = "#000000"
 let ok_clr = document.querySelector(".ok_clr_btn")
 let ctype_clr_btn = document.querySelector(".ctype_clr_btn")
 
@@ -558,9 +720,9 @@ colourBtn.addEventListener("click", () =>
 {
     if (is_pencil_window || is_eraser_window)
     {
-        pencil_window.style.display = 'none'
+        pencil_w.style.display = 'none'
         is_pencil_window = false
-        eraser_window.style.display = 'none'
+        eraser_w.style.display = 'none'
         is_eraser_window = false
     }
     cur_color.value = cur_brush_clr
@@ -613,7 +775,7 @@ function change_thickness(flag)
     l_width = 1 + Math.max(cW, cH) * thickness_k
     W_f = (W - cW) / 2 + cW / 86 - l_width / 2 + 5
     H_f = (H - cH) / 2 + cH / 86 - l_width / 2 + 5
-    ctx.lineWidth = l_width
+    ctx_foreground.lineWidth = l_width
     ctx_add.lineWidth = l_width
     ctx_background.lineWidth = l_width
 }
@@ -666,7 +828,8 @@ smoothing_field.onchange = function()
     change_smoothing()
 }
 
-const setpencilBtn = document.querySelector(".pencil")
+const setpencilBtn = document.getElementById("pencil")
+setpencilBtn.style.border = "5px solid #000000"
 let cur_tool = ['k', setpencilBtn, 'aero_pen.cur'] //текущий инструмент (карандаш)
 
 setpencilBtn.addEventListener("click", () =>
@@ -680,13 +843,13 @@ setpencilBtn.addEventListener("click", () =>
         if (cur_tool[0] == 'e')
         {
             change_thickness()
-            eraser_window.style.display = 'none'
+            eraser_w.style.display = 'none'
             is_eraser_window = false
-            ctx.globalCompositeOperation="source-over";
+            ctx_foreground.globalCompositeOperation="source-over";
             ctx_background.globalCompositeOperation="source-over";
         }
         is_pencil_window = true
-        pencil_window.style.display = 'block'
+        pencil_w.style.display = 'block'
         setpencilBtn.style.border = "5px solid #000000"
         cur_tool[1].style.border = "1px solid #707070"
         cur_tool = ['k', setpencilBtn, 'aero_pen.cur']
@@ -696,18 +859,18 @@ setpencilBtn.addEventListener("click", () =>
         if (is_pencil_window)
         {
             change_thickness()
-            pencil_window.style.display = 'none'
+            pencil_w.style.display = 'none'
             is_pencil_window = false
         }
         else
         {
-            pencil_window.style.display = 'block'
+            pencil_w.style.display = 'block'
             is_pencil_window = true
         }
     }
 })
 
-const seteraserBtn = document.querySelector(".eraser")
+const seteraserBtn = document.getElementById("eraser")
 
 seteraserBtn.addEventListener("click", () => 
 {
@@ -720,13 +883,13 @@ seteraserBtn.addEventListener("click", () =>
         if (cur_tool[0] == 'k')
         {
             change_thickness()
-            pencil_window.style.display = 'none'
+            pencil_w.style.display = 'none'
             is_pencil_window = false
             ctx.globalCompositeOperation="destination-out";
             ctx_background.globalCompositeOperation="destination-out";
         }
         is_eraser_window = true
-        eraser_window.style.display = 'block'
+        eraser_w.style.display = 'block'
         seteraserBtn.style.border = "5px solid #000000"
         cur_tool[1].style.border = "1px solid #707070"
         cur_tool = ['e', seteraserBtn, 'aero_eraser.png']
@@ -736,18 +899,18 @@ seteraserBtn.addEventListener("click", () =>
         if (is_eraser_window)
         {
             change_thickness()
-            eraser_window.style.display = 'none'
+            eraser_w.style.display = 'none'
             is_eraser_window = false
         }
         else
         {
-            eraser_window.style.display = 'block'
+            eraser_w.style.display = 'block'
             is_eraser_window = true
         }
     }
 })
 
-const setbucketBtn = document.querySelector(".bucket")
+const setbucketBtn = document.getElementById("bucket")
 
 setbucketBtn.addEventListener("click", () => 
 {
@@ -755,12 +918,12 @@ setbucketBtn.addEventListener("click", () =>
     {
         if (cur_tool[0] == 'k' || cur_tool[0] == 'e')
         {
-            pencil_window.style.display = 'none'
+            pencil_w.style.display = 'none'
             is_pencil_window = false
-            eraser_window.style.display = 'none'
+            eraser_w.style.display = 'none'
             is_eraser_window = false
             change_thickness()
-            pencil_window.style.display = 'none'
+            pencil_w.style.display = 'none'
         }
         setbucketBtn.style.border = "5px solid #000000"
         cur_tool[1].style.border = "1px solid #707070"
@@ -768,7 +931,7 @@ setbucketBtn.addEventListener("click", () =>
     }
 })
 
-const setpipetteBtn = document.querySelector(".pipette")
+const setpipetteBtn = document.getElementById("pipette")
 
 setpipetteBtn.addEventListener("click", () => 
 {
@@ -776,12 +939,12 @@ setpipetteBtn.addEventListener("click", () =>
     {
         if (cur_tool[0] == 'k' || cur_tool[0] == 'e')
         {
-            pencil_window.style.display = 'none'
+            pencil_w.style.display = 'none'
             is_pencil_window = false
-            eraser_window.style.display = 'none'
+            eraser_w.style.display = 'none'
             is_eraser_window = false
             change_thickness()
-            pencil_window.style.display = 'none'
+            pencil_w.style.display = 'none'
         }
         setpipetteBtn.style.border = "5px solid #000000"
         cur_tool[1].style.border = "1px solid #707070"
@@ -789,7 +952,7 @@ setpipetteBtn.addEventListener("click", () =>
     }
 })
 
-const clearBtn = document.querySelector(".clear")
+const clearBtn = document.getElementById("clear")
 
 function clear_drawfield()
 {
@@ -797,7 +960,8 @@ function clear_drawfield()
     cur_background_clr = "#fff"
     ctx_background.fillStyle = cur_background_clr
     ctx_background.fillRect(0, 0, cW, cH)
-    ctx.clearRect(0, 0, cW, cH)
+    ctx_layer_1.clearRect(0, 0, lW, lH)
+    ctx_foreground.clearRect(0, 0, cW, cH)
 }
 
 clearBtn.addEventListener("click", () => 
@@ -816,7 +980,7 @@ clearBtn.addEventListener("click", () =>
 })
 
 const mhf = document.getElementById('my_hidden_file')
-const uploadBtn = document.querySelector('.upload')
+const uploadBtn = document.getElementById("upload")
 
 uploadBtn.addEventListener("click", () => 
 {
@@ -862,15 +1026,16 @@ uploadBtn.addEventListener("click", () =>
                 change_drawfield_size(new_dfw, new_dfh)
                 cur_ratio_val = get_visual_ratio(false, cW, cH)
                 ratio_field.value = cur_ratio_val //устанавливаем соотношение сторон
-                replay_actions(pstack) //воспроизводим действия
+                replay_actions(pstack, true) //воспроизводим действия
                 if (ps_size != 0 && pstack[ps_size - 1][0] == 'r')
                 {
                     pstack.pop()
                 }
                 pstack.push(['r', new_dfw, new_dfh, false])
-                ctx.clearRect(0, 0, cW, cH) //очищаем верхний слой
-                ctx.drawImage(img, 0, 0, new_img_w, new_img_h);
+                cur_draw_ctx.clearRect(0, 0, cW, cH) //очищаем текущий слой
+                cur_draw_ctx.drawImage(img, 0, 0, new_img_w, new_img_h, 0, 0, cW, cH)
                 pstack.push(['u', cur_draw_ctx, img, new_img_w, new_img_h])
+                cur_ctx_layer.clearRect(0, 0, lW, lH)
                 canvas_to_layer(cur_canvas, cur_ctx_layer)
             }, 
             { 
@@ -889,21 +1054,29 @@ uploadBtn.addEventListener("click", () =>
     });
 })
 
-const saveBtn = document.querySelector(".save")
+const saveBtn = document.getElementById("save")
 
 saveBtn.addEventListener("click", () => 
 {
     let image = new Image()
     if (original_image_buf == "")
     {
-        image.onload = function() 
+        if (!is_foreground_visible)
         {
-            ctx_background.drawImage(image, 0, 0)
+            ctx_foreground.clearRect(0, 0, cW, cH)
+        }
+        if (!is_background_visible)
+        {
+            ctx_background.clearRect(0, 0, cW, cH)
+        }
+        image.onload = function()
+        {
             let a = document.createElement("a")
+            ctx_background.drawImage(image, 0, 0, image.width, image.height, 0, 0, cW, cH)
             a.href = canvas_background.toDataURL("imag/png")
             a.download = "sketch.png"
             a.click()
-            replay_actions(pstack)
+            replay_actions(pstack, true)
         }
         image.src = canvas_foreground.toDataURL()
     }
@@ -916,17 +1089,33 @@ saveBtn.addEventListener("click", () =>
     }
 })
 
-const generateBtn = document.querySelector(".generate")
+const generateBtn = document.getElementById("generate")
 
 generateBtn.addEventListener("click", () => 
 {
     let send_data
     let data
+    let background_data
     if (!iscaption) //убрать
     {
         if (original_image_buf == "")
         {
-            data = canvas_foreground.toDataURL("imag/png")
+            if (is_foreground_visible)
+            {
+                data = canvas_foreground.toDataURL("imag/png")
+            }
+            else
+            {
+                if (is_background_visible)
+                {
+                    data = canvas_background.toDataURL("imag/png")
+                }
+                else
+                {
+                    alert("Выключены оба слоя, вы не можете отправить изображение")
+                    return
+                }
+            }
         }
         else
         {
@@ -934,22 +1123,19 @@ generateBtn.addEventListener("click", () =>
         }
         if (!ispicture)
         {
-            if (is_background_used == true)
+            if (is_background_used == true && is_background_visible)
             {
-                send_data = JSON.stringify({ 
-                    "type": "d", //рисунок
-                    "data": data,
-                    "backgroung": canvas_background.toDataURL("imag/png")
-                });
+                background_data = canvas_background.toDataURL("imag/png")
             }
             else
             {
-                send_data = JSON.stringify({ 
-                    "type": "d", //рисунок
-                    "data": data,
-                    "backgroung": ""
-                });
+                background_data = ""
             }
+            send_data = JSON.stringify({ 
+                "type": "d", //рисунок
+                "data": data,
+                "backgroung": background_data
+            });
             iscaption = true
         }
         else //удаление фона
@@ -988,7 +1174,7 @@ document.addEventListener('pointerenter', (e) =>
     cursor.style.top = (cY + 7.5) + "px";
 }, { once: true });
 
-function replay_actions(cur_pstack)
+function replay_actions(cur_pstack, flag)
 {
     clear_drawfield()
     let act_type
@@ -999,11 +1185,11 @@ function replay_actions(cur_pstack)
     let k_X = fW_pred / f_dW
     let k_Y = fH_pred / f_dH
     let cur_thickness = 1
-    ctx.lineWidth = cur_thickness
+    ctx_foreground.lineWidth = cur_thickness
     ctx_background.lineWidth = cur_thickness
     ctx_background.strokeStyle = "#000000"
-    ctx.lineCap = 'round'
-    ctx.lineJoin = 'round'
+    ctx_foreground.lineCap = 'round'
+    ctx_foreground.lineJoin = 'round'
     ctx_add.lineCap = 'round'
     ctx_add.lineJoin = 'round'
     ctx_background.lineCap = 'round'
@@ -1014,14 +1200,22 @@ function replay_actions(cur_pstack)
         switch (act_type)
         {
             case 'p': //если это примитив
+                let prim = act[2]
                 act[1].strokeStyle = act[3]
-                drawLines(act[1], act[2])
+                act[1].beginPath()
+                for (i = 1; i < prim.length; i++) 
+                {
+                    act[1].lineWidth = prim[i][2]
+                    act[1].moveTo(prim[i - 1][0] / k_X, prim[i - 1][1] / k_Y)
+                    act[1].lineTo(prim[i][0] / k_X, prim[i][1] / k_Y)
+                }
+                act[1].stroke()
                 break
             case 'd': //если очистка экрана
                 cur_background_clr = "#fff"
-                ctx_background.fillStyle = cur_background_clr;
-                ctx_background.fillRect(0, 0, cW, cH);
-                ctx.clearRect(0, 0, canvas_foreground.width, canvas_foreground.height)
+                ctx_background.fillStyle = cur_background_clr
+                ctx_background.fillRect(0, 0, cW, cH)
+                ctx_foreground.clearRect(0, 0, canvas_foreground.width, canvas_foreground.height)
                 break
             case 'r': //если изменение размеров экрана
                 k_X = (k_X * act[1]) / fW_pred
@@ -1029,30 +1223,34 @@ function replay_actions(cur_pstack)
                 fW_pred = act[1]
                 fH_pred = act[2]
                 break
-            case 'i': //если изменение цвета фона
-                cur_background_clr = act[2]
-                ctx_background.fillStyle = act[2]
-                ctx_background.fillRect(0, 0, cW, cH);
+            case 'i': //если заливка слоя целиком
+                act[1].fillStyle = act[2]
+                act[1].fillRect(0, 0, cW, cH);
                 break
             case 'u': //если добавление изображения с ПК
                 act[1].clearRect(0, 0, cW, cH) //очищаем нужный слой
-                act[1].drawImage(act[2], 0, 0, act[3], act[4])
+                act[1].drawImage(act[2], 0, 0, act[3], act[4], 0, 0, cW, cH)
                 break
             case 'f': //если заливка
                 floodFill(act[1], act[2], act[3], act[4])
                 break
         }
     }
-    ctx.strokeStyle = cur_brush_clr
-    ctx.fillStyle = cur_brush_clr
-    ctx.lineWidth = l_width
+    ctx_foreground.strokeStyle = cur_brush_clr
+    ctx_foreground.fillStyle = cur_brush_clr
+    ctx_foreground.lineWidth = l_width
     ctx_background.lineWidth = l_width
     if (change_bash_clr)
     {
         cur_brush_clr = new_bash_clr
     }
-    canvas_to_layer(canvas_foreground, ctx_layer_1)
-    canvas_to_layer(canvas_background, ctx_layer_2)
+    if (flag) //отрисовка на иконках слоёв занимает слишком много времени, поэтому нельзя её всегда использовать
+    {
+        ctx_layer_1.clearRect(0, 0, lW, lH)
+        ctx_layer_2.clearRect(0, 0, lW, lH)
+        canvas_to_layer(canvas_foreground, ctx_layer_1)
+        canvas_to_layer(canvas_background, ctx_layer_2)
+    }
 }
 
 function canvas_to_layer(local_canvas, local_layer)
@@ -1093,7 +1291,7 @@ function undo_action()
             cur_ratio_val = get_visual_ratio(buf_r_elem[3], cW, cH)
             ratio_field.value = cur_ratio_val
         }
-        replay_actions(pstack)
+        replay_actions(pstack, true)
     }
 }
 
@@ -1111,7 +1309,7 @@ function repeat_action()
             cur_ratio_val = get_visual_ratio(cur_act[3], cW, cH)
             ratio_field.value = cur_ratio_val
         }
-        replay_actions(pstack)
+        replay_actions(pstack, true)
     }
 }
 
@@ -1152,6 +1350,56 @@ document.addEventListener('keyup', (event) =>
 
 canvas_additional.addEventListener("pointerdown", (e) => 
 {
+    if (is_foreground_selected)
+    {
+        if (!is_foreground_visible)
+        {
+            if (!is_background_visible)
+            {
+                is_foreground_visible = true
+                is_background_used = true
+                canvas_foreground.style.display = "block"
+                first_layer_visibility_img.setAttribute('src', "visibility_on.png")
+            }
+            else
+            {
+                layer_1.style.border = "1px solid #707070"
+                layer_2.style.border = "5px solid #000000"
+                cur_draw_ctx = ctx_background
+                cur_canvas = canvas_layer_2
+                cur_ctx_layer = canvas_background
+                is_foreground_selected = false
+            }
+        }
+    }
+    else
+    {
+        if (!is_background_visible)
+        {
+            if (!is_foreground_visible)
+            {
+                is_foreground_visible = true
+                is_background_used = true
+                canvas_foreground.style.display = "block"
+                first_layer_visibility_img.setAttribute('src', "visibility_on.png")
+                layer_1.style.border = "5px solid #000000"
+                layer_2.style.border = "1px solid #707070"
+                cur_draw_ctx = ctx_foreground
+                cur_canvas = canvas_layer_1
+                cur_ctx_layer = canvas_foreground
+                is_foreground_selected = true
+            }
+            else
+            {
+                layer_1.style.border = "5px solid #000000"
+                layer_2.style.border = "1px solid #707070"
+                cur_draw_ctx = ctx_foreground
+                cur_canvas = canvas_layer_1
+                cur_ctx_layer = canvas_foreground
+                is_foreground_selected = true
+            }
+        }
+    }
     let cur_x = e.clientX
     let cur_y = e.clientY
     prevX = cur_x - W_f
@@ -1356,7 +1604,7 @@ d_frame.addEventListener("pointerdown", (e) =>
                 if (is_pencil_window)
                 {
                     change_thickness()
-                    pencil_window.style.display = 'none'
+                    pencil_w.style.display = 'none'
                     is_pencil_window = false
                 }
             }
@@ -1368,6 +1616,10 @@ window.addEventListener("pointerup", (e) =>
 {
     enddraw = true
     end_f_move = true
+    ctx_layer_1.clearRect(0, 0, lW, lH)
+    ctx_layer_2.clearRect(0, 0, lW, lH)
+    canvas_to_layer(canvas_foreground, ctx_layer_1)
+    canvas_to_layer(canvas_background, ctx_layer_2)
 })
 
 function addGraphicTabletButton(e)
@@ -1620,13 +1872,30 @@ function change_drawfield_size(new_dfw, new_dfh)//функция изменен�
     d_frame.style.height = f_dH + "px"
     cW = cW * (f_dW / prev_f_dW)
     cH = cH * (f_dH / prev_f_dH)
+    cD = cW / cH
+    if (cD > orig_lD)
+    {
+        lW = orig_lW
+        lH = orig_lW / cD
+    }
+    else
+    {
+        lH = orig_lH
+        lW = orig_lH * cD
+    }
+    lWp = Math.round(995 * (lW / orig_lW)) / 10 + "%"
+    lHp = Math.round(1000 * (lH / orig_lH)) / 10 + "%"
+    canvas_layer_1.style.width = lWp
+    canvas_layer_2.style.width = lWp
+    canvas_layer_1.style.height = lHp
+    canvas_layer_2.style.height = lHp
     canvas_foreground.width = cW
     canvas_foreground.height = cH
     canvas_background.width = cW
     canvas_background.height = cH
     canvas_additional.height = cH
     canvas_additional.width = cW
-    ctx.lineWidth = l_width
+    ctx_foreground.lineWidth = l_width
     ctx_background.lineWidth = l_width
     W_f = (W - cW) / 2 + cW / 86 - l_width / 2 + 5
     W_min = (W - f_dW) / 4
@@ -1723,7 +1992,7 @@ window.addEventListener("pointermove", (e) => //проверка курсора 
             pstack.pop()
         }
         pstack.push(['r', cur_new_dfw, cur_new_dfh, false])
-        replay_actions(pstack) //Повторная отрисовка с новым разрешением
+        replay_actions(pstack, false) //Повторная отрисовка с новым разрешением
     }
     if(cursor_type != 0 && cursor_type != 3)
     {

@@ -323,6 +323,7 @@ body
 .layer_button
 {
     touch-action: none;
+    position: relative;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -332,15 +333,16 @@ body
 }
 .layer_display_canvas
 {
-    position: relative;
+    position: absolute;
     touch-action: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    left: 0%;
-    margin-top: auto;
+    top: 53%;
+    transform: translate(0, -50%);
+    margin: 0;
     border: 1px solid rgb(0, 0, 0);
-    width: 80%;
+    width: 99.5%;
     height: 100%;
 }
 .openbtn 
@@ -423,62 +425,6 @@ body
     display: inline-block;
     width: 100%;
 }
-.arrow_back
-{
-    touch-action: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    cursor: pointer;
-    height: 40px;
-    width: 50px;
-}
-.arrow_back_image
-{
-    touch-action: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    pointer-events: none;
-    height: 100%;
-    width: 100%;
-}
-.arrow_next
-{
-    touch-action: none;
-    cursor: pointer;
-    height: 40px;
-    width: 50px;
-}
-.arrow_next_image
-{
-    touch-action: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    pointer-events: none;
-    height: 100%;
-    width: 100%;
-}
-.clr
-{
-    touch-action: none;
-    background-color:#000000;
-    cursor: pointer;
-    height: 40px;
-    width: 50px;
-}
-.clrimg
-{
-    touch-action: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    cursor: pointer;
-    pointer-events: none;
-    height: 100%;
-    width: 100%;
-}
 .clr_window
 {
     touch-action: none;
@@ -489,12 +435,12 @@ body
     top: 6%;
     margin-right: 21.6%;
     border: 2px solid rgb(29, 29, 29);
-    background-color:#fff;
+    background-color:#ffffff;
 }
 .ctype_clr_btn
 {
     touch-action: none;
-    color: rgb(0, 0, 0);
+    color: #000000;
     background-color:#ffffff;
     height: 30%;
     width: 40%;
@@ -505,7 +451,7 @@ body
 .ok_clr_btn
 {
     touch-action: none;
-    color: #fff;
+    color: #ffffff;
     background-color:#000000;
     height: 30%;
     width: 40%;
@@ -569,25 +515,6 @@ body
     touch-action: none;
     width: 20%;
 }
-.pencil
-{
-    touch-action: none;
-    cursor: pointer;
-    border: 5px solid #000000;
-    border-radius: 3px;
-    height: 40px;
-    width: 50px;
-}
-.pencil_image
-{
-    touch-action: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    pointer-events: none;
-    height: 100%;
-    width: 100%;
-}
 .eraser_window
 {
     touch-action: none;
@@ -614,84 +541,12 @@ body
     touch-action: none;
     width: 20%;
 }
-.eraser
+.up_panel_button_tool
 {
     touch-action: none;
     cursor: pointer;
     border: 1px solid #707070;
     border-radius: 3px;
-    height: 40px;
-    width: 50px;
-}
-.eraser_image
-{
-    touch-action: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    pointer-events: none;
-    height: 100%;
-    width: 100%;
-}
-.bucket
-{
-    touch-action: none;
-    cursor: pointer;
-    border: 1px solid #707070;
-    border-radius: 3px;
-    height: 40px;
-    width: 50px;
-}
-.bucket_image
-{
-    touch-action: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    pointer-events: none;
-    height: 100%;
-    width: 100%;
-}
-.pipette
-{
-    touch-action: none;
-    cursor: pointer;
-    border: 1px solid #707070;
-    border-radius: 3px;
-    height: 40px;
-    width: 50px;
-}
-.pipette_image
-{
-    touch-action: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    pointer-events: none;
-    height: 100%;
-    width: 100%;
-}
-.clear
-{
-    touch-action: none;
-    cursor: pointer;
-    height: 40px;
-    width: 50px;
-}
-.clearimg
-{
-    touch-action: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    pointer-events: none;
-    height: 100%;
-    width: 100%;
-}
-.upload
-{
-    touch-action: none;
-    cursor: pointer;
     height: 40px;
     width: 50px;
 }
@@ -704,41 +559,14 @@ body
     height:0px;  
     width:0px;  
 }
-.uploadimg
-{
-    touch-action: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    pointer-events: none;
-    height: 100%;
-    width: 100%;
-}
-.save
+.up_panel_button
 {
     touch-action: none;
     cursor: pointer;
     height: 40px;
     width: 50px;
 }
-.saveimg
-{
-    touch-action: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    pointer-events: none;
-    height: 100%;
-    width: 100%;
-}
-.generate
-{
-    touch-action: none;
-    cursor: pointer;
-    height: 40px;
-    width: 50px;
-}
-.generateimg
+.up_panel_button_image
 {
     touch-action: none;
     -webkit-user-select: none;
@@ -809,6 +637,7 @@ canvas
 }
 .foreground_canvas
 {
+    display: block;
     touch-action: none;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -820,6 +649,7 @@ canvas
 }
 .background_canvas
 {
+    display: block;
     touch-action: none;
     -webkit-user-select: none;
     -moz-user-select: none;
