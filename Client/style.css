@@ -553,9 +553,9 @@ body
 .hiddenInput
 {   
     touch-action: none;
-    position:absolute;
+    position: absolute;
     overflow: hidden;
-    display:block;  
+    display: block;  
     height:0px;  
     width:0px;  
 }
@@ -610,21 +610,11 @@ body
     -moz-user-select: none;
     -ms-user-select: none;
     position: relative;
-    width: 100%;
-    height: 100%;
+    width: 98.7%;
+    height: 98.7%;
     border: 4px solid rgb(154, 154, 154);
 }
-canvas
-{
-    touch-action: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-}
-.current_canvas
+.additional_canvas
 {
     touch-action: none;
     -webkit-user-select: none;

@@ -87,9 +87,9 @@
     </div>
     <div class="d_frame" id="d_frame">
         <div class="v_frame" id="v_frame">
-            <canvas class = "current_canvas" id="canvas_current"></canvas>
-            <canvas class = "foreground_canvas" id="canvas_foreground"></canvas>
-            <canvas class = "background_canvas" id="canvas_background"></canvas>
+            <canvas class = "additional_canvas" id = "canvas_additional"></canvas>
+            <canvas class = "foreground_canvas" id = "canvas_foreground"></canvas>
+            <canvas class = "background_canvas" id = "canvas_background"></canvas>
             <div class = "alpha_img" id="alpha_img"></div>
         </div>
     </div>
@@ -130,7 +130,7 @@
             <input class = "e_thickness_field" type = "number" id = "e_thickness_rangeValue" min = "1" max = "100" value = "1" oninput = "e_thickness_sliderValue.value = this.value"/>
         </div>
     </div>
-    <button class = "up_panel_button_tool" id = "graphic_tablet" title = "Учитывать силу нажатия">
+    <button class = "up_panel_button_tool" id = "graphic_tablet" title = "Учитывать силу нажатия" style = "display: none">
         <img class = "up_panel_button_image" id = "graphic_tablet_image" src="graphic_tablet.png">
     </button>
     <div class="nav">

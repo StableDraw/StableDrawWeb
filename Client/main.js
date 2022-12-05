@@ -6,7 +6,7 @@ const nav_panel = document.querySelector('.nav')
 
 const canvas_foreground = document.getElementById("canvas_foreground") 
 const canvas_background = document.getElementById("canvas_background")
-const canvas_additional = document.getElementById("canvas_current") 
+const canvas_additional = document.getElementById("canvas_additional") 
 
 const canvas_layer_1 = document.getElementById("layer_1_display_canvas")
 const canvas_layer_2 = document.getElementById("layer_2_display_canvas") 
@@ -42,6 +42,8 @@ const layer_1 = document.getElementById("layer_1")
 
 const EL = (sel) => document.querySelector(sel)
 
+const id_list = ['p', 'i', 'u', 'f']
+
 let nstack = []
 let pstack = []
 let curprim = []
@@ -59,9 +61,7 @@ let Y_move = null
 let cX
 let cY
 
-let shift_k = false
-let shift_x = false
-let shift_y = false
+let is_shift_on = false
 
 let fup = false
 let fdown = false
@@ -112,10 +112,10 @@ let cur_real_ratio = cH / cW
 
 let l_width = 1
 
-let W_f = (W - cW) / 2 + cW / 86 - l_width / 2 + 5
-let H_f = (H - cH) / 2 + cH / 86 - l_width / 2 + 5
-let f_dW = d_frame.offsetWidth * 0.971
-let f_dH = d_frame.offsetHeight * 0.971 // костыли
+let W_f = (W - cW) / 2 + cW / 105 - l_width / 2 + 5
+let H_f = (H - cH) / 2 + cH / 135 - l_width / 2 + 5
+let f_dW = d_frame.offsetWidth * 0.96
+let f_dH = d_frame.offsetHeight * 0.96 // костыли
 let orig_f_dW = f_dW
 let orig_f_dH = f_dH
 let cmp_W = 1
@@ -232,7 +232,7 @@ ws.onmessage = function(event)
 
 //ws.onopen = function(){alert("open");} 
 
-ws.onclose = function() // Убрать
+ws.onclose = function() //Убрать
 {
     alert("Соединение разорвано");
 }
@@ -252,10 +252,10 @@ window.onresize = function()
     Max_cW = cW
     Max_cH = cH
     cur_real_ratio = cH / cW
-    W_f = (W - cW) / 2 + cW / 86 - l_width / 2 + 5
-    H_f = (H - cH) / 2 + cH / 86 - l_width / 2 + 5
-    f_dW = d_frame.offsetWidth * 0.971
-    f_dH = d_frame.offsetHeight * 0.971 // костыли
+    W_f = (W - cW) / 2 + cW / 105 - l_width / 2 + 5
+    H_f = (H - cH) / 2 + cH / 135 - l_width / 2 + 5
+    f_dW = d_frame.offsetWidth
+    f_dH = d_frame.offsetHeight
     orig_f_dW = f_dW
     orig_f_dH = f_dH
     d_frame.style.width = f_dW + "px"
@@ -270,7 +270,7 @@ window.onresize = function()
     canvas_background.width = cW
     canvas_additional.height = cH
     canvas_additional.width = cW
-    replay_actions(pstack, true)
+    replay_actions(pstack)
 }
 
 ratio_field.onchange = function() 
@@ -309,7 +309,7 @@ ratio_field.onchange = function()
         pstack.pop()
     }
     pstack.push(['r', new_dfw, new_dfh, true])
-    replay_actions(pstack, true) //Повторная отрисовка с новым разрешением
+    replay_actions(pstack) //Повторная отрисовка с новым разрешением
     return get_visual_ratio(true, new_dfw, new_dfh)
 }
 
@@ -556,8 +556,8 @@ select_first_layerBtn.addEventListener("click", () =>
         layer_1.style.border = "5px solid #000000"
         layer_2.style.border = "1px solid #707070"
         cur_draw_ctx = ctx_foreground
-        cur_canvas = canvas_layer_1
-        cur_ctx_layer = canvas_foreground
+        cur_canvas = canvas_foreground
+        cur_ctx_layer = ctx_layer_1
         is_foreground_selected = true
     }
 })
@@ -622,7 +622,6 @@ const merge_layersBtn = document.getElementById("merge_layers")
 
 function merge_layers_in_stack(stack, local_ctx)
 {
-    let id_list = ['p', 'i', 'u', 'f']
     let substack_1 = []
     let substack_2 = []
     if (local_ctx == ctx_foreground)
@@ -663,14 +662,23 @@ merge_layersBtn.addEventListener("click", () =>
 {
     pstack = merge_layers_in_stack(pstack, cur_draw_ctx)
     nstack = merge_layers_in_stack(nstack, cur_draw_ctx)
-    replay_actions(pstack, true)
+    replay_actions(pstack)
+    if (is_foreground_selected)
+    {
+        ctx_layer_2.clearRect(0, 0, lW, lH)
+    }
+    else
+    {
+        ctx_layer_1.clearRect(0, 0, lW, lH)
+    }
+    cur_ctx_layer.clearRect(0, 0, lW, lH)
+    canvas_to_layer(cur_canvas, cur_ctx_layer)
 })
 
 const swap_layersBtn = document.getElementById("swap_layers")
 
 function swap_layers_in_stack(stack)
 {
-    let id_list = ['p', 'i', 'u', 'f']
     for (let i = 0; i < stack.length; i++)
     {
         if (id_list.includes(stack[i][0]))
@@ -692,7 +700,11 @@ swap_layersBtn.addEventListener("click", () =>
 {
     pstack = swap_layers_in_stack(pstack)
     nstack = swap_layers_in_stack(nstack)
-    replay_actions(pstack, true)
+    replay_actions(pstack)
+    ctx_layer_1.clearRect(0, 0, lW, lH)
+    canvas_to_layer(canvas_foreground, ctx_layer_1)
+    ctx_layer_2.clearRect(0, 0, lW, lH)
+    canvas_to_layer(canvas_background, ctx_layer_2)
 })
 
 const graphic_tabletBtn = document.getElementById("graphic_tablet")
@@ -771,10 +783,10 @@ function change_thickness(flag)
     e_thickness_field.value = t_v + 1
     thickness_slider.value = t_v + 1
     e_thickness_slider.value = t_v + 1
-    let thickness_k = t_v * t_v * 0.0001 //коэффициент, чтобы толщина не увеличивалась так резко, сейчас это четвертьокружность
+    let thickness_k = t_v * t_v * 0.0001 //коэффициент, чтобы толщина не увеличивалась так резко, сейчас это квадрат
     l_width = 1 + Math.max(cW, cH) * thickness_k
-    W_f = (W - cW) / 2 + cW / 86 - l_width / 2 + 5
-    H_f = (H - cH) / 2 + cH / 86 - l_width / 2 + 5
+    W_f = (W - cW) / 2 + cW / 105 - l_width / 2 + 5
+    H_f = (H - cH) / 2 + cH / 135 - l_width / 2 + 5
     ctx_foreground.lineWidth = l_width
     ctx_add.lineWidth = l_width
     ctx_background.lineWidth = l_width
@@ -960,7 +972,7 @@ function clear_drawfield()
     cur_background_clr = "#fff"
     ctx_background.fillStyle = cur_background_clr
     ctx_background.fillRect(0, 0, cW, cH)
-    ctx_layer_1.clearRect(0, 0, lW, lH)
+    //ctx_layer_1.clearRect(0, 0, lW, lH)
     ctx_foreground.clearRect(0, 0, cW, cH)
 }
 
@@ -1026,7 +1038,7 @@ uploadBtn.addEventListener("click", () =>
                 change_drawfield_size(new_dfw, new_dfh)
                 cur_ratio_val = get_visual_ratio(false, cW, cH)
                 ratio_field.value = cur_ratio_val //устанавливаем соотношение сторон
-                replay_actions(pstack, true) //воспроизводим действия
+                replay_actions(pstack) //воспроизводим действия
                 if (ps_size != 0 && pstack[ps_size - 1][0] == 'r')
                 {
                     pstack.pop()
@@ -1076,7 +1088,7 @@ saveBtn.addEventListener("click", () =>
             a.href = canvas_background.toDataURL("imag/png")
             a.download = "sketch.png"
             a.click()
-            replay_actions(pstack, true)
+            replay_actions(pstack)
         }
         image.src = canvas_foreground.toDataURL()
     }
@@ -1174,10 +1186,53 @@ document.addEventListener('pointerenter', (e) =>
     cursor.style.top = (cY + 7.5) + "px";
 }, { once: true });
 
-function replay_actions(cur_pstack, flag)
+function replay_action(act, k_X, k_Y, fW_pred, fH_pred)
+{
+    let act_type = act[0]
+    switch (act_type)
+    {
+        case 'p': //если это примитив
+            let prim = act[2]
+            act[1].strokeStyle = act[3]
+            act[1].beginPath()
+            for (i = 1; i < prim.length; i++) 
+            {
+                act[1].lineWidth = prim[i][2]
+                act[1].moveTo(prim[i - 1][0] / k_X, prim[i - 1][1] / k_Y)
+                act[1].lineTo(prim[i][0] / k_X, prim[i][1] / k_Y)
+            }
+            act[1].stroke()
+            break
+        case 'd': //если очистка экрана
+            cur_background_clr = "#fff"
+            ctx_background.fillStyle = cur_background_clr
+            ctx_background.fillRect(0, 0, cW, cH)
+            ctx_foreground.clearRect(0, 0, canvas_foreground.width, canvas_foreground.height)
+            break
+        case 'r': //если изменение размеров экрана
+            k_X = (k_X * act[1]) / fW_pred
+            k_Y = (k_Y * act[2]) / fH_pred
+            fW_pred = act[1]
+            fH_pred = act[2]
+            break
+        case 'i': //если заливка слоя целиком
+            act[1].fillStyle = act[2]
+            act[1].fillRect(0, 0, cW, cH);
+            break
+        case 'u': //если добавление изображения с ПК
+            act[1].clearRect(0, 0, cW, cH) //очищаем нужный слой
+            act[1].drawImage(act[2], 0, 0, act[3], act[4], 0, 0, cW, cH)
+            break
+        case 'f': //если заливка
+            floodFill(act[1], act[2], act[3], act[4])
+            break
+    }
+    return k_X, k_Y, fW_pred, fH_pred
+}
+
+function replay_actions(cur_pstack)
 {
     clear_drawfield()
-    let act_type
     let change_bash_clr = false
     let new_bash_clr
     let fW_pred = orig_f_dW
@@ -1196,45 +1251,7 @@ function replay_actions(cur_pstack, flag)
     ctx_background.lineJoin = 'round'
     for (let act of cur_pstack) 
     {
-        act_type = act[0]
-        switch (act_type)
-        {
-            case 'p': //если это примитив
-                let prim = act[2]
-                act[1].strokeStyle = act[3]
-                act[1].beginPath()
-                for (i = 1; i < prim.length; i++) 
-                {
-                    act[1].lineWidth = prim[i][2]
-                    act[1].moveTo(prim[i - 1][0] / k_X, prim[i - 1][1] / k_Y)
-                    act[1].lineTo(prim[i][0] / k_X, prim[i][1] / k_Y)
-                }
-                act[1].stroke()
-                break
-            case 'd': //если очистка экрана
-                cur_background_clr = "#fff"
-                ctx_background.fillStyle = cur_background_clr
-                ctx_background.fillRect(0, 0, cW, cH)
-                ctx_foreground.clearRect(0, 0, canvas_foreground.width, canvas_foreground.height)
-                break
-            case 'r': //если изменение размеров экрана
-                k_X = (k_X * act[1]) / fW_pred
-                k_Y = (k_Y * act[2]) / fH_pred
-                fW_pred = act[1]
-                fH_pred = act[2]
-                break
-            case 'i': //если заливка слоя целиком
-                act[1].fillStyle = act[2]
-                act[1].fillRect(0, 0, cW, cH);
-                break
-            case 'u': //если добавление изображения с ПК
-                act[1].clearRect(0, 0, cW, cH) //очищаем нужный слой
-                act[1].drawImage(act[2], 0, 0, act[3], act[4], 0, 0, cW, cH)
-                break
-            case 'f': //если заливка
-                floodFill(act[1], act[2], act[3], act[4])
-                break
-        }
+        k_X, k_Y, fW_pred, fH_pred = replay_action(act, k_X, k_Y, fW_pred, fH_pred)
     }
     ctx_foreground.strokeStyle = cur_brush_clr
     ctx_foreground.fillStyle = cur_brush_clr
@@ -1244,23 +1261,16 @@ function replay_actions(cur_pstack, flag)
     {
         cur_brush_clr = new_bash_clr
     }
-    if (flag) //отрисовка на иконках слоёв занимает слишком много времени, поэтому нельзя её всегда использовать
-    {
-        ctx_layer_1.clearRect(0, 0, lW, lH)
-        ctx_layer_2.clearRect(0, 0, lW, lH)
-        canvas_to_layer(canvas_foreground, ctx_layer_1)
-        canvas_to_layer(canvas_background, ctx_layer_2)
-    }
 }
 
 function canvas_to_layer(local_canvas, local_layer)
 {
-    let image = new Image()
-    image.onload = function() 
+    let image_layer = new Image()
+    image_layer.onload = function() 
     {
-        local_layer.drawImage(image, 0, 0, cW, cH, 0, 0, lW, lH)
+        local_layer.drawImage(image_layer, 0, 0, cW, cH, 0, 0, lW, lH)
     }
-    image.src = local_canvas.toDataURL()
+    image_layer.src = local_canvas.toDataURL()
 }
 
 function undo_action()
@@ -1270,9 +1280,24 @@ function undo_action()
     {
         let cur_act = pstack.pop()
         let is_r = false
-        if (cur_act[0] == 'r')
+        let local_cur_ctx_layer = cur_ctx_layer
+        let local_cur_canvas = cur_canvas
+        if (id_list.includes(cur_act[0]))
         {
-            is_r = true
+            if (cur_act[0] == 'r')
+            {
+                is_r = true
+            }
+            if (cur_act[1] == ctx_foreground)
+            {
+                local_cur_ctx_layer = ctx_layer_1
+                local_cur_canvas = canvas_foreground
+            }
+            else
+            {
+                local_cur_ctx_layer = ctx_layer_2
+                local_cur_canvas = canvas_background
+            }
         }
         pstack_size--
         nstack.push(cur_act)
@@ -1291,7 +1316,9 @@ function undo_action()
             cur_ratio_val = get_visual_ratio(buf_r_elem[3], cW, cH)
             ratio_field.value = cur_ratio_val
         }
-        replay_actions(pstack, true)
+        replay_actions(pstack)
+        local_cur_ctx_layer.clearRect(0, 0, lW, lH)
+        canvas_to_layer(local_cur_canvas, local_cur_ctx_layer)
     }
 }
 
@@ -1301,6 +1328,21 @@ function repeat_action()
     {
         let cur_act = nstack.pop()
         let cur_acts = []
+        let local_cur_ctx_layer = cur_ctx_layer
+        let local_cur_canvas = cur_canvas
+        if (id_list.includes(cur_act[0]))
+        {
+            if (cur_act[1] == ctx_foreground)
+            {
+                local_cur_ctx_layer = ctx_layer_1
+                local_cur_canvas = canvas_foreground
+            }
+            else
+            {
+                local_cur_ctx_layer = ctx_layer_2
+                local_cur_canvas = canvas_background
+            }
+        }
         cur_acts.push(cur_act)
         pstack.push(cur_act)
         if (cur_act[0] == 'r')
@@ -1309,7 +1351,8 @@ function repeat_action()
             cur_ratio_val = get_visual_ratio(cur_act[3], cW, cH)
             ratio_field.value = cur_ratio_val
         }
-        replay_actions(pstack, true)
+        replay_action(cur_act, orig_f_dW / f_dW, orig_f_dH / f_dH, orig_f_dW, orig_f_dH)
+        canvas_to_layer(local_cur_canvas, local_cur_ctx_layer)
     }
 }
 
@@ -1322,7 +1365,7 @@ document.addEventListener('keydown', (event) =>
     }
     if (event.shiftKey)
     {
-        shift_k = true
+        is_shift_on = true
         return
     }
     if (event.ctrlKey) 
@@ -1342,9 +1385,9 @@ document.addEventListener('keydown', (event) =>
 
 document.addEventListener('keyup', (event) => 
 {
-    if (event.code == 'Shift')
+    if (event.code.slice(0, 5) == 'Shift')
     {
-        shift_k = false
+        is_shift_on = false
     }
 }, false);
 
@@ -1616,10 +1659,6 @@ window.addEventListener("pointerup", (e) =>
 {
     enddraw = true
     end_f_move = true
-    ctx_layer_1.clearRect(0, 0, lW, lH)
-    ctx_layer_2.clearRect(0, 0, lW, lH)
-    canvas_to_layer(canvas_foreground, ctx_layer_1)
-    canvas_to_layer(canvas_background, ctx_layer_2)
 })
 
 function addGraphicTabletButton(e)
@@ -1780,8 +1819,6 @@ d_frame.addEventListener("pointermove", (e) => //проверка курсора
             }
             draw = false
             enddraw = false
-            shift_x = false
-            shift_y = false
             prevX = pX
             prevY = pY
             fp = true
@@ -1798,7 +1835,7 @@ d_frame.addEventListener("pointermove", (e) => //проверка курсора
             curprim = []
             return 
         }
-        let currentX = pX * cmp_W + (pX - W_min) * 0.01 - l_width
+        let currentX = pX * cmp_W + (pX - W_min) * 0.025 - l_width
         let currentY = pY * cmp_H - l_width / 2
         let currentW
         if (graphic_tablet_mode)
@@ -1817,28 +1854,29 @@ d_frame.addEventListener("pointermove", (e) => //проверка курсора
             cur_smooth_prim = []
             fp = false
             curprim.push([currentX, currentY, currentW])
-            if(shift_k)
-            {
-                if (Math.abs(currentX - prevX) > Math.abs(currentY - prevY))
-                {
-                    shift_x = true
-                }
-                else
-                {
-                    shift_y = true
-                }
-            }
             prevX = currentX
             prevY = currentY
             return
         }
-        if (shift_x)
+        if(is_shift_on)
         {
-            currentY = prevY
-        }
-        if (shift_y)
-        {
-            currentX = prevX
+            let delta_x = currentX - prevX
+            let delta_y = currentY - prevY
+            console.log(Math.round(Math.atan(delta_y / delta_x) / (Math.PI / 4)))
+            if (Math.abs(delta_x) > Math.abs(delta_y))
+            {
+                currentY = prevY + delta_x * Math.sin(Math.round(Math.atan(delta_y / delta_x) / (Math.PI / 4)) * Math.PI / 4)
+            }
+            else
+            {
+                currentX = prevX + delta_y * Math.sin(Math.round(Math.atan(delta_y / delta_x) / (Math.PI / 4)) * Math.PI / 4)
+            }
+            ctx_add.clearRect(0, 0, cW, cH)
+            ctx_add.beginPath()
+            ctx_add.moveTo(prevX, prevY)
+            ctx_add.lineTo(currentX, currentY)
+            ctx_add.stroke()
+            return
         }
         cur_draw_ctx.beginPath()
         if (cur_smoothing == 0 || cur_tool[0] == 'e')
@@ -1897,10 +1935,10 @@ function change_drawfield_size(new_dfw, new_dfh)//функция изменен�
     canvas_additional.width = cW
     ctx_foreground.lineWidth = l_width
     ctx_background.lineWidth = l_width
-    W_f = (W - cW) / 2 + cW / 86 - l_width / 2 + 5
+    W_f = (W - cW) / 2 + cW / 105 - l_width / 2 + 5
     W_min = (W - f_dW) / 4
     W_max = f_dW + W_min
-    H_f = (H - cH) / 2 + cH / 86 - l_width / 2 + 5
+    H_f = (H - cH) / 2 + cH / 135 - l_width / 2 + 5
     H_min = (H - f_dH) / 4
     H_max = f_dH + H_min
     X_move = f_dW - prev_f_dW
@@ -1992,7 +2030,7 @@ window.addEventListener("pointermove", (e) => //проверка курсора 
             pstack.pop()
         }
         pstack.push(['r', cur_new_dfw, cur_new_dfh, false])
-        replay_actions(pstack, false) //Повторная отрисовка с новым разрешением
+        replay_actions(pstack) //Повторная отрисовка с новым разрешением
     }
     if(cursor_type != 0 && cursor_type != 3)
     {
