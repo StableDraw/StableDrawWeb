@@ -44,6 +44,8 @@ const EL = (sel) => document.querySelector(sel)
 
 const id_list = ['p', 'i', 'u', 'f']
 
+const Pi_div_4 = Math.PI / 4
+
 let nstack = []
 let pstack = []
 let curprim = []
@@ -84,8 +86,8 @@ let cD = cW / cH
 let Max_cW = cW
 let Max_cH = cH
 
-let lW = canvas_layer_1.width
-let lH = canvas_layer_1.height
+let lW = canvas_layer_1.offsetWidth
+let lH = canvas_layer_1.offsetHeight
 let orig_lW = lW
 let orig_lH = lH
 let orig_lD = lW / lH
@@ -540,9 +542,7 @@ function close_clr_window()
         }
     }
     ctx_foreground.strokeStyle = cur_brush_clr
-    ctx_foreground.fillStyle = cur_brush_clr
     ctx_add.strokeStyle = cur_brush_clr
-    ctx_add.fillStyle = cur_brush_clr
     ctx_background.strokeStyle = cur_brush_clr
     clr_w.style.display = "none"
 }
@@ -1253,8 +1253,11 @@ function replay_actions(cur_pstack)
     {
         k_X, k_Y, fW_pred, fH_pred = replay_action(act, k_X, k_Y, fW_pred, fH_pred)
     }
+    ctx_add.strokeStyle = cur_brush_clr
     ctx_foreground.strokeStyle = cur_brush_clr
-    ctx_foreground.fillStyle = cur_brush_clr
+    ctx_background.strokeStyle = cur_brush_clr
+    ctx_background.fillStyle = cur_brush_clr
+    ctx_add.lineWidth = l_width
     ctx_foreground.lineWidth = l_width
     ctx_background.lineWidth = l_width
     if (change_bash_clr)
@@ -1268,7 +1271,7 @@ function canvas_to_layer(local_canvas, local_layer)
     let image_layer = new Image()
     image_layer.onload = function() 
     {
-        local_layer.drawImage(image_layer, 0, 0, cW, cH, 0, 0, lW, lH)
+        local_layer.drawImage(image_layer, 0, 0, cW, cH, 0, 0, canvas_layer_1.width, canvas_layer_1.height)
     }
     image_layer.src = local_canvas.toDataURL()
 }
@@ -1387,6 +1390,11 @@ document.addEventListener('keyup', (event) =>
 {
     if (event.code.slice(0, 5) == 'Shift')
     {
+        ctx_add.clearRect(0, 0, cW, cH)
+        drawLines(cur_draw_ctx, curprim)
+        let cpl = curprim.length - 1
+        prevX = curprim[cpl][0]
+        prevY = curprim[cpl][1]
         is_shift_on = false
     }
 }, false);
@@ -1693,8 +1701,7 @@ function getBezierBasis(i, n, t) //Базисная функция i - номе�
 	return (f(n)/(f(i)*f(n - i)))* Math.pow(t, i)*Math.pow(1 - t, n - i);
 }
 
-// arr - массив опорных точек. Точка - двухэлементный массив, (x = arr[0], y = arr[1])
-// step - шаг при расчете кривой (0 < step < 1), по умолчанию 0.01
+// arr - массив опорных точек. Точка - двухэлементный массив, (x = arr[0], y = arr[1]), step - шаг при расчете кривой (0 < step < 1), по умолчанию 0.01
 function getBezierCurve(arr, step) 
 {
 	step = 1.0 / step
@@ -1854,6 +1861,10 @@ d_frame.addEventListener("pointermove", (e) => //проверка курсора
             cur_smooth_prim = []
             fp = false
             curprim.push([currentX, currentY, currentW])
+            if(is_shift_on)
+            {
+                curprim.push([currentX, currentY, currentW])
+            }
             prevX = currentX
             prevY = currentY
             return
@@ -1862,15 +1873,20 @@ d_frame.addEventListener("pointermove", (e) => //проверка курсора
         {
             let delta_x = currentX - prevX
             let delta_y = currentY - prevY
-            console.log(Math.round(Math.atan(delta_y / delta_x) / (Math.PI / 4)))
+            let k_tan = Math.round(Math.atan(delta_y / delta_x) / Pi_div_4)
+            if (k_tan == 2 || k_tan == -2)
+            {
+                k_tan = 0
+            }
             if (Math.abs(delta_x) > Math.abs(delta_y))
             {
-                currentY = prevY + delta_x * Math.sin(Math.round(Math.atan(delta_y / delta_x) / (Math.PI / 4)) * Math.PI / 4)
+                currentY = prevY + delta_x * k_tan
             }
             else
             {
-                currentX = prevX + delta_y * Math.sin(Math.round(Math.atan(delta_y / delta_x) / (Math.PI / 4)) * Math.PI / 4)
+                currentX = prevX + delta_y * k_tan
             }
+            curprim[curprim.length - 1] = [currentX, currentY, currentW]
             ctx_add.clearRect(0, 0, cW, cH)
             ctx_add.beginPath()
             ctx_add.moveTo(prevX, prevY)
@@ -1921,6 +1937,7 @@ function change_drawfield_size(new_dfw, new_dfh)//функция изменен�
         lH = orig_lH
         lW = orig_lH * cD
     }
+
     lWp = Math.round(995 * (lW / orig_lW)) / 10 + "%"
     lHp = Math.round(1000 * (lH / orig_lH)) / 10 + "%"
     canvas_layer_1.style.width = lWp

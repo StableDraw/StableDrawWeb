@@ -96,7 +96,7 @@ body
     border-right-style: hidden;
     border-bottom-style: hidden;
 }
-.txt_to_img_btn
+.work_mode_img_btn
 {
     touch-action: none;
     pointer-events: none;
@@ -113,13 +113,6 @@ body
     border-right-style: hidden;
     border-bottom-style: 1px solid rgb(0, 0, 0);
 }
-.img_to_img_btn
-{
-    touch-action: none;
-    pointer-events: none;
-    height: 100%;
-    width: 100%;
-}
 .photo_to_img_href
 {
     touch-action: none;
@@ -128,13 +121,6 @@ body
     border-right-style: hidden;
     border-top-style: hidden;
 }
-.photo_to_img_btn
-{
-    touch-action: none;
-    pointer-events: none;
-    height: 100%;
-    width: 100%;
-}
 .frames_to_animation_href
 {
     touch-action: none;
@@ -142,13 +128,6 @@ body
     border-top-style: hidden;
     border-left-style: hidden;
     border-right-style: hidden;
-}
-.frames_to_animation_btn
-{
-    touch-action: none;
-    pointer-events: none;
-    height: 100%;
-    width: 100%;
 }
 .sidepanel .setting_buttons
 {

@@ -18,12 +18,22 @@
 </head>
 <body>
     <div id="mySidepanel" class="sidepanel">
-        <a class="closebtn" onclick="closeNav()">&times;</a>
+        <a class="closebtn" onclick="closeNav()">
+            &times;
+        </a>
         <div id="mods_of_work" class="mods_of_work">
-            <a href="#" class = "txt_to_img_href" title = "Картина по текстовому описанию"><img class = "txt_to_img_btn" src="text_to_image.png"></a>
-            <a href="" class = "img_to_img_href" title = "Картина из рисунка (выбрано)"><img class = "img_to_img_btn" src="image_to_image.png"></a> 
-            <a href="#" class = "photo_to_img_href" title = "Обработка изображений с комьютера"><img class = "photo_to_img_btn" src="photo_to_image.png"></a>
-            <a href="#" class = "frames_to_animation_href" title = "Создание аримации"><img class = "frames_to_animation_btn" src="frames_to_animation.png"></a>
+            <a href = "#" class = "txt_to_img_href" title = "Картина по текстовому описанию">
+                <img class = "work_mode_img_btn" src="text_to_image.png">
+            </a>
+            <a href = "" class = "img_to_img_href" title = "Картина из рисунка (выбрано)">
+                <img class = "work_mode_img_btn" src="image_to_image.png">
+            </a> 
+            <a href = "#" class = "photo_to_img_href" title = "Обработка изображений с комьютера">
+                <img class = "work_mode_img_btn" src="photo_to_image.png">
+            </a>
+            <a href = "#" class = "frames_to_animation_href" title = "Создание аримации">
+                <img class = "work_mode_img_btn" src="frames_to_animation.png">
+            </a>
         </div>
         <div id="setting_buttons" class="setting_buttons">
             <button class = "settings_btn" title = "Настройки">
@@ -48,16 +58,16 @@
     </div>
     <div class = layers>
         <div class = layers_buttons>
-            <button class = layers_mini_button id = merge_layers>
+            <button class = layers_mini_button id = merge_layers title = "Объединить слои">
                 <img class = "layers_mini_button_image" src="merge.png">
             </button>
-            <button class = layers_mini_button id = swap_layers>
+            <button class = layers_mini_button id = swap_layers title = "Поменять слои местами">
                 <img class = "layers_mini_button_image" src="swap.png">
             </button>
         </div>
         <div class = layer_box>
             <div class = layer id = layer_1>
-                <button class = layer_visibility_button id = layer_1_visibility_button>
+                <button class = layer_visibility_button id = layer_1_visibility_button title = "Включить/выключить видимость">
                     <img class = "layers_visibility_button_image" id = layer_1_visibility_img src = "visibility_on.png">
                 </button>
                 <div class = layer_button id = layer_button_1>
@@ -65,7 +75,7 @@
                 </div>
             </div>
             <div class = layer id = layer_2>
-                <button class = layer_visibility_button id = layer_2_visibility_button>
+                <button class = layer_visibility_button id = layer_2_visibility_button title = "Включить/выключить видимость">
                     <img class = "layers_visibility_button_image" id = layer_2_visibility_img src = "visibility_on.png">
                 </button>
                 <div class = layer_button id = layer_button_2>
@@ -147,7 +157,7 @@
             <button class = "up_panel_button_tool" id = "pencil" title = "Карандаш">
                 <img class = "up_panel_button_image" id = "pencil_image" src="pencil.png">
             </button>
-            <button class = "up_panel_button_tool" id = "eraser" title = "ластик">
+            <button class = "up_panel_button_tool" id = "eraser" title = "Ластик">
                 <img class = "up_panel_button_image" id = "eraser_image" src="eraser.png">
             </button>
             <button class = "up_panel_button_tool" id = "bucket" title = "Заливка">
