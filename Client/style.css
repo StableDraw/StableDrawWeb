@@ -88,13 +88,22 @@ body
     height: 100%;
     width: 100%;
 }
-.txt_to_img_href
+.work_mode_href
 {
     touch-action: none;
     border: 1px solid rgb(76, 76, 76);
     border-left-style: hidden;
     border-right-style: hidden;
-    border-bottom-style: hidden;
+}
+.work_mode_href#selected_work_mode:hover
+{
+    background: none;
+}
+.work_mode_href#selected_work_mode
+{
+    cursor: auto; 
+    border: 5px solid rgb(0, 0, 0);
+    border-bottom-style: 1px solid rgb(0, 0, 0);
 }
 .work_mode_img_btn
 {
@@ -103,33 +112,7 @@ body
     height: 100%;
     width: 100%;
 }
-.img_to_img_href
-{
-    touch-action: none;
-    outline: 4px solid rgb(0, 0, 0);
-    outline-offset: 2px;
-    border: 3px solid rgb(0, 0, 0);
-    border-left-style: hidden;
-    border-right-style: hidden;
-    border-bottom-style: 1px solid rgb(0, 0, 0);
-}
-.photo_to_img_href
-{
-    touch-action: none;
-    border: 1px solid rgb(76, 76, 76);
-    border-left-style: hidden;
-    border-right-style: hidden;
-    border-top-style: hidden;
-}
-.frames_to_animation_href
-{
-    touch-action: none;
-    border: 1px solid rgb(76, 76, 76);
-    border-top-style: hidden;
-    border-left-style: hidden;
-    border-right-style: hidden;
-}
-.sidepanel .setting_buttons
+.sidepanel .sidepanel_bottom_buttons
 {
     touch-action: none;
     -webkit-user-select: none;
@@ -137,6 +120,7 @@ body
     -ms-user-select: none;
     font-size: 25px;
     position: absolute;
+    display: flex;
     height: 7%;
     width: 100%;
     bottom: 15%;
@@ -144,41 +128,16 @@ body
     border-left-style: hidden;
     border-right-style: hidden;
 }
-.settings_btn
+.sidepanel_bottom_button
 {
     cursor: pointer;
+    margin: 0 auto;
     touch-action: none;
     margin-top: 1%;
-    display: flex;
-    margin-left: 10%;
-    float: left;
-    display: inline-block;
     height: 90%;
-    width: 30%;
+    width: 25%;
 }
-.settings_btn_img
-{
-    touch-action: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    pointer-events: none;
-    height: 100%;
-    width: auto;
-}
-.language_btn
-{
-    cursor: pointer;
-    touch-action: none;
-    margin-top: 1%;
-    display: flex;
-    margin-right: 10%;
-    float: right;
-    display: inline-block;
-    height: 90%;
-    width: 30%;
-}
-.language_btn_img
+.sidepanel_bottom_button_img
 {
     touch-action: none;
     -webkit-user-select: none;
@@ -205,17 +164,7 @@ body
     touch-action: none;
     text-decoration: underline;
 }
-.about_us_href
-{
-    touch-action: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    text-align: center;
-    width: 49%;
-    display: inline-block;
-}
-.help_href
+.helpfull_link
 {
     touch-action: none;
     -webkit-user-select: none;
@@ -310,7 +259,7 @@ body
     width: 82%;
     height: 95%;
 }
-.layer_display_canvas
+.layer_display_icon
 {
     position: absolute;
     touch-action: none;
@@ -324,7 +273,17 @@ body
     width: 99.5%;
     height: 100%;
 }
-.openbtn 
+.layer_display_canvas
+{
+    position: absolute;
+    touch-action: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    width: 100%;
+    height: 100%;
+}
+.openbtn
 {
     touch-action: none;
     -webkit-user-select: none;
@@ -593,7 +552,7 @@ body
     height: 98.7%;
     border: 4px solid rgb(154, 154, 154);
 }
-.additional_canvas
+.drawfield
 {
     touch-action: none;
     -webkit-user-select: none;
@@ -602,42 +561,4 @@ body
     position: absolute;
     width: 100%;
     height: 100%;
-    z-index: 10;
-}
-.foreground_canvas
-{
-    display: block;
-    touch-action: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 9;
-}
-.background_canvas
-{
-    display: block;
-    touch-action: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 8;
-}
-.alpha_img
-{
-    touch-action: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    position: relative;
-    width: 100%;
-    height: 100%;
-    z-index: 7;
-    background-image: url(alpha_pattern.png);
-    background-repeat: repeat;
 }

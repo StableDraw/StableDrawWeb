@@ -1,3 +1,4 @@
+const body = document.querySelector("body")
 const cursor = document.querySelector(".cursor")
 const cursor_image = document.querySelector('.cursimg')
 let cursor_type = -1
@@ -10,9 +11,12 @@ const canvas_additional = document.getElementById("canvas_additional")
 
 const canvas_layer_1 = document.getElementById("layer_1_display_canvas")
 const canvas_layer_2 = document.getElementById("layer_2_display_canvas") 
+const layer_icon_1 = document.getElementById("layer_display_icon_1")
+const layer_icon_2 = document.getElementById("layer_display_icon_2")
 
 const d_frame = document.getElementById("d_frame")
 const spanel = document.getElementById("mySidepanel")
+const spanel_openbtn = document.querySelector(".openbtn")
 
 const clr_w = document.getElementById("clr_window")
 const pencil_w = document.getElementById("pencil_window")
@@ -20,6 +24,7 @@ const eraser_w = document.getElementById("eraser_window")
 const ok_clr_btn = document.getElementById("ok_clr_btn") 
 const cur_color = document.getElementById("color") 
 const clrimg = document.getElementById('clrimg')
+
 const ctx_foreground = canvas_foreground.getContext("2d", { willReadFrequently: true })
 const ctx_background = canvas_background.getContext("2d", { willReadFrequently: true })
 const ctx_add = canvas_additional.getContext("2d", { willReadFrequently: true })
@@ -39,6 +44,12 @@ const smoothing_slider = document.querySelector('.smoothing_slider')
 const smoothing_field = document.querySelector('.smoothing_field')
 
 const layer_1 = document.getElementById("layer_1")
+const layer_2 = document.getElementById("layer_2")
+
+const scale_field = document.querySelector('.scale_field')
+const layers_buttons = document.querySelector('.layers_buttons')
+const layer_visibility_button_1 = document.getElementById('layer_1_visibility_button')
+const layer_visibility_button_2 = document.getElementById('layer_2_visibility_button')
 
 const EL = (sel) => document.querySelector(sel)
 
@@ -86,8 +97,10 @@ let cD = cW / cH
 let Max_cW = cW
 let Max_cH = cH
 
-let lW = canvas_layer_1.offsetWidth
-let lH = canvas_layer_1.offsetHeight
+let lW = layer_icon_1.offsetWidth
+let lH = layer_icon_1.offsetHeight
+let lwW = canvas_layer_1.width
+let lwH = canvas_layer_1.height
 let orig_lW = lW
 let orig_lH = lH
 let orig_lD = lW / lH
@@ -105,10 +118,14 @@ else
 
 let lWp = Math.round(995 * (lW / orig_lW)) / 10 + "%"
 let lHp = Math.round(1000 * (lH / orig_lH)) / 10 + "%"
-canvas_layer_1.style.width = lWp
-canvas_layer_2.style.width = lWp
-canvas_layer_1.style.height = lHp
-canvas_layer_2.style.height = lHp
+layer_icon_1.style.width = lWp
+layer_icon_2.style.width = lWp
+layer_icon_1.style.height = lHp
+layer_icon_2.style.height = lHp
+layer_alpha_img_1.width = lWp
+layer_alpha_img_1.height = lHp
+layer_alpha_img_2.width = lWp
+layer_alpha_img_2.height = lHp
 
 let cur_real_ratio = cH / cW
 
@@ -156,7 +173,9 @@ let new_background_clr = cur_background_clr
 let cur_brush_clr = "#000000"
 
 ctx_background.fillStyle = cur_background_clr //заливка фона белым, костыль, убрать
+ctx_layer_2.fillStyle = cur_background_clr //заливка иконки фона белым, костыль, убрать
 ctx_background.fillRect(0, 0, cW, cH)
+ctx_layer_2.fillRect(0, 0, cW, cH)
 let is_clr_brash = true
 
 let cur_ratio_val = get_visual_ratio(false, cW, cH)
@@ -194,6 +213,8 @@ ctx_background.lineJoin = 'round'
 layer_1.style.border = "5px solid #000000"
 layer_2.style.border = "1px solid #707070"
 
+is_dark_mode = false //тёмная тема (отключена по-умолчанию)
+
 ws = new WebSocket('wss://stabledraw.com:8081')
 let chain_id = -1
 let task_id
@@ -222,7 +243,7 @@ ws.onmessage = function(event)
             ctx_foreground.clearRect(0, 0, cW, cH) // очищаем верхний холст
             ctx_foreground.drawImage(image, 0, 0, jdata[2], jdata[3], 0, 0, cW, cH)
             pstack.push(['u', cur_draw_ctx, image, jdata[2], jdata[3]])
-            ctx_layer_1.clearRect(0, 0, lW, lH)
+            ctx_layer_1.clearRect(0, 0, lwW, lwH)
             canvas_to_layer(cur_canvas, cur_ctx_layer)
         }
         original_image_buf = "data:image/png;base64," + jdata[1]
@@ -392,18 +413,17 @@ nextBtn.addEventListener("click", () =>
 
 function hexDec(h)
 {
-    let m=h.slice(1).match(/.{2}/g)
-    m[0]=parseInt(m[0], 16)
-    m[1]=parseInt(m[1], 16)
-    m[2]=parseInt(m[2], 16)
-    return m[0], m[1], m[2]
+    let m = h.slice(1).match(/.{2}/g)
+    m[0] = parseInt(m[0], 16)
+    m[1] = parseInt(m[1], 16)
+    m[2] = parseInt(m[2], 16)
+    return m[0] + m[1] + m[2]
 }
 
 function handleclr_PointerMove() 
 {
     on_clr_window = true
     let ccv = cur_color.value
-    let rgb = [0, 0, 0]
     if (ccv == "#NaNNaNNaN")
     {
         ccv = "#" + colourBtn.style.background.split("(")[1].split(")")[0].split(",").map(function(x) 
@@ -413,14 +433,13 @@ function handleclr_PointerMove()
         }).join("")
         cur_color.value = ccv
     }
-    rgb[0], rgb[1], rgb[2] = hexDec(ccv)
-    if (rgb[0] + rgb[1] + rgb[2] > 255)
+    if (hexDec(ccv) > 382)
     {
         if(!old_btn_clr)
         {
             old_btn_clr = true
             ok_clr_btn.style.color = '#000000'
-            clrimg.setAttribute('src', 'palette.png');
+            clrimg.style.filter = "invert(0)"
         }
     }
     else
@@ -429,7 +448,7 @@ function handleclr_PointerMove()
         {
             old_btn_clr = false
             ok_clr_btn.style.color = '#fff'
-            clrimg.setAttribute('src', 'palette_w.png');
+            clrimg.style.filter = "invert(1)"
         }
     }
     if (is_clr_brash)
@@ -442,23 +461,21 @@ function handleclr_PointerMove()
 
 function handlet_clr_Click()
 {
-    let rgb = [0, 0, 0]
     if (is_clr_brash)
     {
         is_background_used = true
         cur_brush_clr = cur_color.value
         ctype_clr_btn.textContent = "Цвет кисти"
         cur_color.value = cur_background_clr
-        rgb[0], rgb[1], rgb[2] = hexDec(cur_brush_clr)
-        if (rgb[0] + rgb[1] + rgb[2] > 255)
+        if (hexDec(cur_brush_clr) > 382)
         {
             ctype_clr_btn.style.color = '#000000'
-            clrimg.setAttribute('src', 'palette_w.png');
+            clrimg.style.filter = "invert(0)"
         }
         else
         {
             ctype_clr_btn.style.color = '#fff'
-            clrimg.setAttribute('src', 'palette.png');
+            clrimg.style.filter = "invert(1)"
         }
         ctype_clr_btn.style.background = cur_brush_clr
         is_clr_brash = false
@@ -469,24 +486,23 @@ function handlet_clr_Click()
         let ccv = cur_brush_clr
         new_background_clr = cur_color.value
         cur_color.value = ccv
-        rgb[0], rgb[1], rgb[2] = hexDec(new_background_clr)
-        if (rgb[0] + rgb[1] + rgb[2] > 255)
+        if (hexDec(new_background_clr) > 382)
         {
             ctype_clr_btn.style.color = '#000000'
-            clrimg.setAttribute('src', 'palette_w.png');
+            clrimg.style.filter = "invert(0)"
         }
         else
         {
             ctype_clr_btn.style.color = '#fff'
+            clrimg.style.filter = "invert(1)"
         }
         ctype_clr_btn.style.background = new_background_clr
-        rgb[0], rgb[1], rgb[2] = hexDec(ccv)
-        if (rgb[0] + rgb[1] + rgb[2] > 255)
+        if (hexDec(ccv) > 382)
         {
             if(!old_btn_clr)
             {
                 old_btn_clr = true
-                clrimg.setAttribute('src', 'palette.png');
+                clrimg.style.filter = "invert(0)"
             }
         }
         else
@@ -494,7 +510,7 @@ function handlet_clr_Click()
             if(old_btn_clr)
             {
                 old_btn_clr = false
-                clrimg.setAttribute('src', 'palette_w.png');
+                clrimg.style.filter = "invert(1)"
             }
         }
         ok_clr_btn.style.background = ccv
@@ -546,6 +562,49 @@ function close_clr_window()
     ctx_background.strokeStyle = cur_brush_clr
     clr_w.style.display = "none"
 }
+
+const change_themeBtn = document.getElementById("change_theme")
+const tmimg = document.getElementById("theme_mode_img")
+
+change_themeBtn.addEventListener("click", () => 
+{
+    if (is_dark_mode)
+    {
+        tmimg.setAttribute('src', 'dark mode.png')
+        change_themeBtn.title = "Тёмная тема"
+        is_dark_mode = false
+        nav_panel.style.filter = "invert(0)"
+        spanel.style.filter = "invert(0)"
+        spanel_openbtn.style.filter = "invert(0)"
+        colourBtn.style.filter = "invert(0)"
+        scale_field.style.filter = "invert(0)"
+        layers_buttons.style.filter = "invert(0)"
+        layer_visibility_button_1.style.filter = "invert(0)"
+        layer_visibility_button_2.style.filter = "invert(0)"
+        pencil_w.style.filter = "invert(0)"
+        eraser_w.style.filter = "invert(0)"
+        clr_w.style.backgroundColor = "#ffffff"
+        body.style.backgroundColor = "#ffffff"
+    }
+    else
+    {
+        tmimg.setAttribute('src', 'light mode.png')
+        change_themeBtn.title = "Светлая тема"
+        is_dark_mode = true
+        nav_panel.style.filter = "invert(0.9)"
+        spanel.style.filter = "invert(0.9)"
+        spanel_openbtn.style.filter = "invert(0.9)"
+        colourBtn.style.filter = "invert(1.1)"
+        scale_field.style.filter = "invert(0.9)"
+        layers_buttons.style.filter = "invert(0.9)"
+        layer_visibility_button_1.style.filter = "invert(0.9)"
+        layer_visibility_button_2.style.filter = "invert(0.9)"
+        pencil_w.style.filter = "invert(0.9)"
+        eraser_w.style.filter = "invert(0.9)"
+        clr_w.style.backgroundColor = "#303030"
+        body.style.backgroundColor = "#303030"
+    }
+})
 
 const select_first_layerBtn = document.getElementById("layer_button_1")
 
@@ -624,65 +683,160 @@ function merge_layers_in_stack(stack, local_ctx)
 {
     let substack_1 = []
     let substack_2 = []
+    let is_changed_stack = []
+    let another_ctx
+    let is_foreground
     if (local_ctx == ctx_foreground)
     {
-        for (let i = 0; i < stack.length; i++)
-        {
-            if (id_list.includes(stack[i][0]) && stack[i][1] == ctx_background)
-            {
-                stack[i][1] = local_ctx
-                substack_2.push(stack[i])
-            }
-            else
-            {
-                substack_1.push(stack[i])
-            }
-        }
+        another_ctx = ctx_background
+        is_foreground = true
     }
     else
     {
-        for (let i = 0; i < stack.length; i++)
+        another_ctx = ctx_foreground
+        is_foreground = false
+    }
+    for (let i = 0; i < stack.length; i++)
+    {
+        if (id_list.includes(stack[i][0]) && stack[i][1] == another_ctx)
         {
-            if (id_list.includes(stack[i][0]) && stack[i][1] == ctx_foreground)
-            {
-                stack[i][1] = local_ctx
-                substack_1.push(stack[i])
-            }
-            else
-            {
-                substack_2.push(stack[i])
-            }
+            stack[i][1] = local_ctx
+            substack_1.push(stack[i])
+            is_merged = true
+            is_changed_stack.push(true)
+        }
+        else
+        {
+            substack_2.push(stack[i])
+            is_changed_stack.push(false)
         }
     }
-    stack = substack_2.concat(substack_1)
-    return stack
+    if (is_foreground)
+    {
+        if (substack_1.length == 0)
+        {
+            return [stack, []]
+        }
+        return [substack_1.concat(substack_2), is_changed_stack]
+    }
+    else
+    {
+        if (substack_1.length == 0)
+        {
+            return [stack, []]
+        }
+        return [substack_2.concat(substack_1), is_changed_stack]
+    }
+}
+
+function unmerge_layers_in_stack(stack, local_ctx, local_ics)
+{
+    if (local_ics.length == 0)
+    {
+        return stack
+    }
+    let substack_1 = []
+    let substack_2 = []
+    let another_ctx
+    let is_foreground
+    if (local_ctx == ctx_foreground)
+    {
+        another_ctx = ctx_background
+        is_foreground = true
+    }
+    else
+    {
+        another_ctx = ctx_foreground
+        is_foreground = false
+    }
+    for (let i = 0; i < stack.length; i++)
+    {
+        if (local_ics[i] == true)
+        {
+            stack[i][1] = another_ctx
+            substack_1.push(stack[i])
+        }
+        else
+        {
+            substack_2.push(stack[i])
+        }
+    }
+    if (is_foreground)
+    {
+        return substack_1.concat(substack_2)
+    }
+    else
+    {
+        return substack_2.concat(substack_1)
+    }
+}
+
+function unmerge_layers(local_ctx, local_ics_1, local_ics_2)
+{
+    pstack = unmerge_layers_in_stack(pstack, local_ctx, local_ics_1)
+    nstack = unmerge_layers_in_stack(nstack, local_ctx, local_ics_2)
+    replay_actions(pstack)
+    ctx_layer_1.clearRect(0, 0, lwW, lwH)
+    canvas_to_layer(canvas_foreground, ctx_layer_1)
+    ctx_layer_2.clearRect(0, 0, lwW, lwH)
+    canvas_to_layer(canvas_background, ctx_layer_2)
+}
+
+function merge_layers(local_draw_ctx)
+{
+    let is_changed_stack_1 = []
+    let is_changed_stack_2 = []
+    let input_value = []
+    input_value = merge_layers_in_stack(pstack, local_draw_ctx)
+    pstack = input_value[0]
+    is_changed_stack_1 = input_value[1]
+    if (is_changed_stack_1.length == 0)
+    {
+        return [[], []]
+    }
+    input_value = merge_layers_in_stack(nstack, local_draw_ctx)
+    nstack = input_value[0]
+    is_changed_stack_2 = input_value[1]
+    replay_actions(pstack)
+    if (local_draw_ctx == ctx_foreground)
+    {
+        ctx_layer_2.clearRect(0, 0, lwW, lwH)
+        canvas_to_layer(canvas_foreground, ctx_layer_1)
+    }
+    else
+    {
+        ctx_layer_1.clearRect(0, 0, lwW, lwH)
+        canvas_to_layer(canvas_background, ctx_layer_2)
+    }
+    return [is_changed_stack_1, is_changed_stack_2]
 }
 
 merge_layersBtn.addEventListener("click", () => 
 {
-    pstack = merge_layers_in_stack(pstack, cur_draw_ctx)
-    nstack = merge_layers_in_stack(nstack, cur_draw_ctx)
-    replay_actions(pstack)
-    if (is_foreground_selected)
+    let is_changed_stack = []
+    is_changed_stack = merge_layers(cur_draw_ctx)
+    if (is_changed_stack[0].length == 0 && is_changed_stack[1].length == 0)
     {
-        ctx_layer_2.clearRect(0, 0, lW, lH)
+        return
     }
-    else
+    let pstack_length = pstack.length -1
+    if (pstack_length != -1 && pstack[pstack_length][0] == 'm' && pstack[pstack_length][1] == cur_draw_ctx)
     {
-        ctx_layer_1.clearRect(0, 0, lW, lH)
+        pstack.pop()
     }
-    cur_ctx_layer.clearRect(0, 0, lW, lH)
-    canvas_to_layer(cur_canvas, cur_ctx_layer)
+    pstack.push(['m', cur_draw_ctx, is_changed_stack[0], is_changed_stack[1]])
 })
 
 const swap_layersBtn = document.getElementById("swap_layers")
 
 function swap_layers_in_stack(stack)
 {
+    is_swapped = false
     for (let i = 0; i < stack.length; i++)
     {
         if (id_list.includes(stack[i][0]))
         {
+            is_swapped = true
             if (stack[i][1] == ctx_foreground)
             {
                 stack[i][1] = ctx_background
@@ -693,18 +847,42 @@ function swap_layers_in_stack(stack)
             }
         }
     }
-    return stack
+    return [stack, is_swapped]
+}
+
+function swap_layers()
+{
+    let input_value
+    input_value = swap_layers_in_stack(pstack)
+    pstack = input_value[0]
+    if (is_swapped[1] == false)
+    {
+        return
+    }
+    input_value = swap_layers_in_stack(nstack)
+    nstack = input_value[0]
+    replay_actions(pstack)
+    ctx_layer_1.clearRect(0, 0, lwW, lwH)
+    canvas_to_layer(canvas_foreground, ctx_layer_1)
+    ctx_layer_2.clearRect(0, 0, lwW, lwH)
+    canvas_to_layer(canvas_background, ctx_layer_2)
 }
 
 swap_layersBtn.addEventListener("click", () => 
 {
-    pstack = swap_layers_in_stack(pstack)
-    nstack = swap_layers_in_stack(nstack)
-    replay_actions(pstack)
-    ctx_layer_1.clearRect(0, 0, lW, lH)
-    canvas_to_layer(canvas_foreground, ctx_layer_1)
-    ctx_layer_2.clearRect(0, 0, lW, lH)
-    canvas_to_layer(canvas_background, ctx_layer_2)
+    swap_layers()
+    let pstack_length = pstack.length - 1
+    if (pstack_length != -1) 
+    {
+        if (pstack[pstack_length][0] != 's') 
+        {
+            pstack.push(['s'])
+        }
+    }
+    else
+    {
+        pstack.push(['s'])
+    }
 })
 
 const graphic_tabletBtn = document.getElementById("graphic_tablet")
@@ -857,8 +1035,8 @@ setpencilBtn.addEventListener("click", () =>
             change_thickness()
             eraser_w.style.display = 'none'
             is_eraser_window = false
-            ctx_foreground.globalCompositeOperation="source-over";
-            ctx_background.globalCompositeOperation="source-over";
+            ctx_foreground.globalCompositeOperation = "source-over";
+            ctx_background.globalCompositeOperation = "source-over";
         }
         is_pencil_window = true
         pencil_w.style.display = 'block'
@@ -897,8 +1075,8 @@ seteraserBtn.addEventListener("click", () =>
             change_thickness()
             pencil_w.style.display = 'none'
             is_pencil_window = false
-            ctx.globalCompositeOperation="destination-out";
-            ctx_background.globalCompositeOperation="destination-out";
+            ctx_foreground.globalCompositeOperation = "destination-out";
+            ctx_background.globalCompositeOperation = "destination-out";
         }
         is_eraser_window = true
         eraser_w.style.display = 'block'
@@ -972,8 +1150,9 @@ function clear_drawfield()
     cur_background_clr = "#fff"
     ctx_background.fillStyle = cur_background_clr
     ctx_background.fillRect(0, 0, cW, cH)
-    //ctx_layer_1.clearRect(0, 0, lW, lH)
+    ctx_layer_1.clearRect(0, 0, lwW, lwH)
     ctx_foreground.clearRect(0, 0, cW, cH)
+    ctx_layer_2.fillRect(0, 0, lwW, lwH)
 }
 
 clearBtn.addEventListener("click", () => 
@@ -1047,7 +1226,7 @@ uploadBtn.addEventListener("click", () =>
                 cur_draw_ctx.clearRect(0, 0, cW, cH) //очищаем текущий слой
                 cur_draw_ctx.drawImage(img, 0, 0, new_img_w, new_img_h, 0, 0, cW, cH)
                 pstack.push(['u', cur_draw_ctx, img, new_img_w, new_img_h])
-                cur_ctx_layer.clearRect(0, 0, lW, lH)
+                cur_ctx_layer.clearRect(0, 0, lwW, lwH)
                 canvas_to_layer(cur_canvas, cur_ctx_layer)
             }, 
             { 
@@ -1226,6 +1405,8 @@ function replay_action(act, k_X, k_Y, fW_pred, fH_pred)
         case 'f': //если заливка
             floodFill(act[1], act[2], act[3], act[4])
             break
+        default:
+            break
     }
     return k_X, k_Y, fW_pred, fH_pred
 }
@@ -1271,7 +1452,7 @@ function canvas_to_layer(local_canvas, local_layer)
     let image_layer = new Image()
     image_layer.onload = function() 
     {
-        local_layer.drawImage(image_layer, 0, 0, cW, cH, 0, 0, canvas_layer_1.width, canvas_layer_1.height)
+        local_layer.drawImage(image_layer, 0, 0, cW, cH, 0, 0, lwW, lwH)
     }
     image_layer.src = local_canvas.toDataURL()
 }
@@ -1283,27 +1464,28 @@ function undo_action()
     {
         let cur_act = pstack.pop()
         let is_r = false
-        let local_cur_ctx_layer = cur_ctx_layer
-        let local_cur_canvas = cur_canvas
         if (id_list.includes(cur_act[0]))
         {
             if (cur_act[0] == 'r')
             {
                 is_r = true
             }
-            if (cur_act[1] == ctx_foreground)
-            {
-                local_cur_ctx_layer = ctx_layer_1
-                local_cur_canvas = canvas_foreground
-            }
-            else
-            {
-                local_cur_ctx_layer = ctx_layer_2
-                local_cur_canvas = canvas_background
-            }
         }
         pstack_size--
         nstack.push(cur_act)
+        if (cur_act[0] == 's')
+        {
+            swap_layers()
+            return
+        }
+        else
+        {
+            if (cur_act[0] == 'm')
+            {
+                unmerge_layers(cur_act[1], cur_act[2], cur_act[3])
+                return
+            }
+        }
         if (is_r)
         {
             let buf_r_elem = ['r', fW_max, fH_max, false]
@@ -1320,8 +1502,10 @@ function undo_action()
             ratio_field.value = cur_ratio_val
         }
         replay_actions(pstack)
-        local_cur_ctx_layer.clearRect(0, 0, lW, lH)
-        canvas_to_layer(local_cur_canvas, local_cur_ctx_layer)
+        ctx_layer_1.clearRect(0, 0, lwW, lwH)
+        canvas_to_layer(canvas_foreground, ctx_layer_1)
+        ctx_layer_2.clearRect(0, 0, lwW, lwH)
+        canvas_to_layer(canvas_background, ctx_layer_2)
     }
 }
 
@@ -1348,6 +1532,19 @@ function repeat_action()
         }
         cur_acts.push(cur_act)
         pstack.push(cur_act)
+        if (cur_act[0] == 's')
+        {
+            swap_layers()
+            return
+        }
+        else
+        {
+            if (cur_act[0] == 'm')
+            {
+                merge_layers(cur_act[1])
+                return
+            }
+        }
         if (cur_act[0] == 'r')
         {
             change_drawfield_size(cur_act[1], cur_act[2])
@@ -1390,11 +1587,14 @@ document.addEventListener('keyup', (event) =>
 {
     if (event.code.slice(0, 5) == 'Shift')
     {
-        ctx_add.clearRect(0, 0, cW, cH)
-        drawLines(cur_draw_ctx, curprim)
-        let cpl = curprim.length - 1
-        prevX = curprim[cpl][0]
-        prevY = curprim[cpl][1]
+        if (draw)
+        {
+            ctx_add.clearRect(0, 0, cW, cH)
+            drawLines(cur_draw_ctx, curprim)
+            let cpl = curprim.length - 1
+            prevX = curprim[cpl][0]
+            prevY = curprim[cpl][1]
+        }
         is_shift_on = false
     }
 }, false);
@@ -1619,13 +1819,13 @@ d_frame.addEventListener("pointerdown", (e) =>
                 hex = "#" + ("000000" + rgbToHex(rgba[0], rgba[1], rgba[2])).slice(-6)
                 cur_brush_clr = hex
                 cur_draw_ctx.strokeStyle = cur_brush_clr
-                if (rgba[0] + rgba[1] + rgba[2] > 255)
+                if (rgba[0] + rgba[1] + rgba[2] > 382)
                 {
-                    clrimg.setAttribute('src', 'palette.png');
+                    clrimg.style.filter = "invert(0)"
                 }
                 else
                 {
-                    clrimg.setAttribute('src', 'palette_w.png');
+                    clrimg.style.filter = "invert(1)"
                 }
                 colourBtn.style.background = cur_brush_clr
             }
@@ -1940,10 +2140,14 @@ function change_drawfield_size(new_dfw, new_dfh)//функция изменен�
 
     lWp = Math.round(995 * (lW / orig_lW)) / 10 + "%"
     lHp = Math.round(1000 * (lH / orig_lH)) / 10 + "%"
-    canvas_layer_1.style.width = lWp
-    canvas_layer_2.style.width = lWp
-    canvas_layer_1.style.height = lHp
-    canvas_layer_2.style.height = lHp
+    layer_icon_1.style.width = lWp
+    layer_icon_2.style.width = lWp
+    layer_icon_1.style.height = lHp
+    layer_icon_2.style.height = lHp
+    layer_alpha_img_1.width = lWp
+    layer_alpha_img_1.height = lHp
+    layer_alpha_img_2.width = lWp
+    layer_alpha_img_2.height = lHp
     canvas_foreground.width = cW
     canvas_foreground.height = cH
     canvas_background.width = cW
