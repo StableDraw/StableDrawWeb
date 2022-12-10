@@ -17,6 +17,9 @@
     <title>Stable Draw</title>
 </head>
 <body>
+    <div class = "blackout">
+        <img class = "loading" src = "loading.webp">
+    </div>
     <div id = "mySidepanel" class = "sidepanel">
         <a class = "closebtn" onclick = "closeNav()">
             &times;
@@ -129,7 +132,7 @@
     <div class = "clr_window" id = "clr_window">
         <form action = "">
             <div class = "form-item">
-                <label for = "color">
+                <label id = "text_label_clr" for = "color">
                     Цвет:
                 </label>
                 <input type = "text" id = "color" name = "color" value = "#000000" />
@@ -144,28 +147,31 @@
             Сохранить
         </button>
     </div>
-    <div class = "pencil_window" id="pencil_window">
-        <div class="pencil_window_thickness_block">
+    <div class = "up_add_window" id = "pencil_window" style = "margin-right: 14.5%; display: block">
+        <div class = "pencil_window_thickness_block">
             <img class = "thicknessimg" src = "thickness.png">
-            <input class = "thickness_slider" type = "range" id = "thickness_sliderValue" min = "1" max = "100" value = "1" oninput = "thickness_rangeValue.value = this.value">
-            <input class = "thickness_field" type = "number" id = "thickness_rangeValue" min = "1" max = "100" value = "1" oninput = "thickness_sliderValue.value = this.value"/>
+            <input class = "up_add_window_slider" type = "range" id = "thickness_sliderValue" min = "1" max = "100" value = "1" oninput = "thickness_rangeValue.value = this.value">
+            <input class = "up_add_window_field" type = "number" id = "thickness_rangeValue" min = "1" max = "100" value = "1" oninput = "thickness_sliderValue.value = this.value"/>
         </div>
         <div class = "pencil_window_smoothing_block">
             <img class = "smoothingimg" src = "smoothing.png">
-            <input class = "smoothing_slider" type = "range" id = "smoothing_sliderValue" min = "0" max = "100" value = "0" oninput = "smoothing_rangeValue.value = this.value">
-            <input class = "smoothing_field" type = "number" id = "smoothing_rangeValue" min = "0" max = "100" value = "0" oninput = "smoothing_sliderValue.value = this.value"/>
+            <input class = "up_add_window_slider" type = "range" id = "smoothing_sliderValue" min = "0" max = "100" value = "0" oninput = "smoothing_rangeValue.value = this.value">
+            <input class = "up_add_window_field" type = "number" id = "smoothing_rangeValue" min = "0" max = "100" value = "0" oninput = "smoothing_sliderValue.value = this.value"/>
         </div>
     </div>
-    <div class = "eraser_window" id = "eraser_window">
+    <div class = "up_add_window" id = "eraser_window" style = "margin-right: 7.5%; display: none">
         <div class = "eraser_window_thickness_block">
             <img class = "thicknessimg" src = "thickness.png">
-            <input class = "e_thickness_slider" type = "range" id = "e_thickness_sliderValue" min = "1" max = "100" value = "1" oninput = "e_thickness_rangeValue.value = this.value">
-            <input class = "e_thickness_field" type = "number" id = "e_thickness_rangeValue" min = "1" max = "100" value = "1" oninput = "e_thickness_sliderValue.value = this.value"/>
+            <input class = "up_add_window_slider" type = "range" id = "e_thickness_sliderValue" min = "1" max = "100" value = "1" oninput = "e_thickness_rangeValue.value = this.value">
+            <input class = "up_add_window_field" type = "number" id = "e_thickness_rangeValue" min = "1" max = "100" value = "1" oninput = "e_thickness_sliderValue.value = this.value"/>
         </div>
     </div>
     <button class = "up_panel_button_tool" id = "graphic_tablet" title = "Учитывать силу нажатия" style = "display: none">
         <img class = "up_panel_button_image" id = "graphic_tablet_image" src = "graphic_tablet.png">
     </button>
+    <div class = "palette_nav">
+        
+    </div>
     <div class = "nav">
         <div class = "icon_buttons">
             <button class = "up_panel_button" id = "arrow_back" title = "Отменить">
@@ -194,14 +200,14 @@
             </button>
             <button class = "up_panel_button" id = "upload" title = "Загрузить изображение на сайт">
                 <img class = "up_panel_button_image" id = "uploadimg" src = "upload.png"/>
-                <div class="hiddenInput">
-                    <input type="file" id="my_hidden_file" name="loadfile">  
+                <div class = "hiddenInput">
+                    <input type = "file" id = "my_hidden_file" name = "loadfile">  
                 </div>
             </button>
             <button class = "up_panel_button" id = "save" title = "Сохранить изображение">
                 <img class = "up_panel_button_image" id = "saveimg" src = "save.png">
             </button>
-            <button class = "up_panel_button" id = "generate" title = "Отправить изображение в нейросеть для генерации">
+            <button class = "up_panel_button" id = "generate" data-toggle = "modal" title = "Отправить изображение в нейросеть для генерации">
                 <img class = "up_panel_button_image" id = "generateimg" src = "generate.png">
             </button>
         </div>
