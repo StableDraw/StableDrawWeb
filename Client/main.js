@@ -179,6 +179,10 @@ $modal = function (options)
         }
         else if (e.target.dataset.handler === 'modalHandlerGenSD1') 
         {
+            if (caption_field.value == "")
+            {
+                gen_caption_for_image()
+            }
             let full_prompt = caption_field.value + " " + style_field.value
             gen_picture_by_promot(false, full_prompt)
             //modal.hide();
@@ -186,6 +190,10 @@ $modal = function (options)
         }
         else if (e.target.dataset.handler === 'modalHandlerGenSD2') 
         {
+            if (caption_field.value == "")
+            {
+                gen_caption_for_image()
+            }
             let full_prompt = caption_field.value + " " + style_field.value
             gen_picture_by_promot(true, full_prompt)
             //modal.hide();
