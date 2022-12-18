@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\StableDraw_ASP.NET.props" />
+</Project>
