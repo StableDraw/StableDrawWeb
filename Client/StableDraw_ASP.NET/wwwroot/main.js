@@ -10,7 +10,7 @@ $modal = function (options)
     _eventHideModal,
     _hiding = false,
     _destroyed = false,
-    _animationSpeed = 200;
+    _animationSpeed = 200
     function _createModal(options) 
     {
         var elemModal = document.createElement("div"),
@@ -35,39 +35,41 @@ $modal = function (options)
         modalHTML = modalHTML.replace("{{footer}}", modalFooterHTML)
         elemModal.innerHTML = modalHTML
         document.body.appendChild(elemModal)
-        return elemModal;
+        return elemModal
     }
     function _showModal() 
     {
+        is_modal_open = true
         if (!_destroyed && !_hiding) 
         {
-            _elemModal.classList.add("modal__show");
-            document.dispatchEvent(_eventShowModal);
+            _elemModal.classList.add("modal__show")
+            document.dispatchEvent(_eventShowModal)
         }
     }
     function _hideModal() 
     {
-        _hiding = true;
-        _elemModal.classList.remove("modal__show");
-        _elemModal.classList.add("modal__hiding");
+        is_modal_open = false
+        _hiding = true
+        _elemModal.classList.remove("modal__show")
+        _elemModal.classList.add("modal__hiding")
         setTimeout(function () 
         {
-            _elemModal.classList.remove("modal__hiding");
-            _hiding = false;
-        }, _animationSpeed);
-        document.dispatchEvent(_eventHideModal);
+            _elemModal.classList.remove("modal__hiding")
+            _hiding = false
+        }, _animationSpeed)
+        document.dispatchEvent(_eventHideModal)
     }
     function _handlerCloseModal(e) 
     {
         if (e.target.dataset.dismiss === "modal") 
         {
-            _hideModal();
+            _hideModal()
         }
     }
-    _elemModal = _createModal(options);
-    _elemModal.addEventListener("click", _handlerCloseModal);
-    _eventShowModal = new CustomEvent("show.modal", { detail: _elemModal });
-    _eventHideModal = new CustomEvent("hide.modal", { detail: _elemModal });
+    _elemModal = _createModal(options)
+    _elemModal.addEventListener("click", _handlerCloseModal)
+    _eventShowModal = new CustomEvent("show.modal", { detail: _elemModal })
+    _eventHideModal = new CustomEvent("hide.modal", { detail: _elemModal })
     return {
         show: _showModal,
         hide: _hideModal,
@@ -99,21 +101,21 @@ $modal = function (options)
     })
     document.addEventListener("show.modal", function (e) 
     {
-        //document.querySelector(".actions").textContent = "Действия при открытии модального окна...";
+        //document.querySelector(".actions").textContent = "Действия при открытии модального окна..."
         // получить ссылку на DOM-элемент показываемого модального окна (.modal)
-        //console.log(e.detail);
+        //console.log(e.detail)
     })
     document.addEventListener("hide.modal", function (e) 
     {
-        //document.querySelector(".actions").textContent = "Действия при закрытии модального окна...";
+        //document.querySelector(".actions").textContent = "Действия при закрытии модального окна..."
         // получить ссылку на DOM-элемент скрываемого модального окна (.modal)
-        //console.log(e.detail);
+        //console.log(e.detail)
     })
     document.addEventListener("click", function (e) 
     {
         if (e.target.dataset.toggle === "modal") 
         {
-            elemTarget = e.target;
+            elemTarget = e.target
             let content
             if (original_image_buf == "")
             {
@@ -123,14 +125,14 @@ $modal = function (options)
             {
                 content = 'Подпись:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"/><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image()">Сгенерировать автоматически</button><button class = "modal_btn modal_btn-4" onclick = "delete_background()">Удалить фон</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"/>'
             }
-            modal.show();
-            modal.setContent(content);
+            modal.show()
+            modal.setContent(content)
             caption_field = document.getElementById("caption_input")
             style_field = document.getElementById("style_input")
             ws.onmessage = function(event)
             {
                 var jdata = JSON.parse(event.data)
-                var type = jdata[0];
+                var type = jdata[0]
                 if (type == 't') //если текстовое сообщение
                 {
                     //alert(jdata[1])
@@ -160,20 +162,20 @@ $modal = function (options)
                     image.src = original_image_buf
                     chain_id = jdata[4]
                     blackout.style.display = "none"
-                    modal.hide();
+                    modal.hide()
                     return
                 }
             }
         } 
         else if (e.target.dataset.handler === "modalHandlerCancel")
         {
-            modal.hide();
-            //document.querySelector(".message").textContent = "Вы нажали на кнопку Отмена, а открыли окно с помощью кнопки " + elemTarget.textContent;
+            modal.hide()
+            //document.querySelector(".message").textContent = "Вы нажали на кнопку Отмена, а открыли окно с помощью кнопки " + elemTarget.textContent
         }
         else if (e.target.dataset.handler === "modalHandlerParams")
         {
-            //modal.hide();
-            //document.querySelector(".message").textContent = "Вы нажали на кнопку ОК, а открыли окно с помощью кнопки " + elemTarget.textContent;
+            //modal.hide()
+            //document.querySelector(".message").textContent = "Вы нажали на кнопку ОК, а открыли окно с помощью кнопки " + elemTarget.textContent
         }
         else if (e.target.dataset.handler === "modalHandlerGenSD1") 
         {
@@ -183,8 +185,8 @@ $modal = function (options)
             }
             let full_prompt = caption_field.value + " " + style_field.value
             gen_picture_by_promot(false, full_prompt)
-            //modal.hide();
-            //document.querySelector(".message").textContent = "Вы нажали на кнопку ОК, а открыли окно с помощью кнопки " + elemTarget.textContent;
+            //modal.hide()
+            //document.querySelector(".message").textContent = "Вы нажали на кнопку ОК, а открыли окно с помощью кнопки " + elemTarget.textContent
         }
         else if (e.target.dataset.handler === "modalHandlerGenSD2") 
         {
@@ -194,15 +196,15 @@ $modal = function (options)
             }
             let full_prompt = caption_field.value + " " + style_field.value
             gen_picture_by_promot(true, full_prompt)
-            //modal.hide();
-            //document.querySelector(".message").textContent = "Вы нажали на кнопку ОК, а открыли окно с помощью кнопки " + elemTarget.textContent;
+            //modal.hide()
+            //document.querySelector(".message").textContent = "Вы нажали на кнопку ОК, а открыли окно с помощью кнопки " + elemTarget.textContent
         }
         else if (e.target.dataset.dismiss === "modal") 
         {
-            //document.querySelector(".message").textContent = "Вы закрыли модальное окно нажав на крестик или на область вне модального окна, а открыли окно с помощью кнопки " + elemTarget.textContent;
+            //document.querySelector(".message").textContent = "Вы закрыли модальное окно нажав на крестик или на область вне модального окна, а открыли окно с помощью кнопки " + elemTarget.textContent
         }
-    });
-})();
+    })
+})()
 
 const body = document.querySelector("body")
 const cursor = document.querySelector(".cursor")
@@ -262,7 +264,8 @@ const modal_body = document.querySelector(".modal__body")
 const modal_footer = document.querySelector(".modal__footer")
 
 const text_label_clr = document.getElementById("text_label_clr")
-const blackout = document.querySelector(".blackout")
+const blackout = document.getElementById("full_blackout")
+const side_panel_blackout = document.getElementById("side_panel_blackout")
 
 const EL = (sel) => document.querySelector(sel)
 
@@ -379,7 +382,6 @@ let end_f_move = false
 let old_btn_clr = false //изначально чёрный текст у кнопок цвета
 let on_clr_window = false
 
-let is_background_used = false //костыль. При отправке на сервер нужно проверять сам стек на предмет того, использовался ли каждый из слоёв
 let cur_background_clr = "#fff"
 let new_background_clr = cur_background_clr
 let cur_brush_clr = "#000000"
@@ -426,6 +428,9 @@ layer_2.style.border = "1px solid #707070"
 
 is_dark_mode = false //тёмная тема (отключена по-умолчанию)
 
+is_modal_open = false
+is_side_panel_open = false
+
 ws = new WebSocket("wss://stabledraw.com:8081")
 let chain_id = -1
 let task_id
@@ -438,6 +443,229 @@ ws.onclose = function() //Убрать
 }
 
 //ws.onerror = function(){alert("error");}
+
+function check_data_before_sending() //проверяет что именно будет отправляться. Функция временная, нужна для сбора статистики по рисункам. Её потом нужно будет заменить прочто на проверку использован ли передний план или фон
+{
+    let local_is_foreground_used = false
+    let local_is_backgroung_used = false
+    let local_is_drawing_on_foreground = true
+    let local_is_drawing_on_background = true
+    let local_sure_on_foreground = true
+    let local_sure_on_background = true
+    let local_how_many_prims_on_foreground = 0
+    let local_how_many_dots_on_foreground = 0
+    let local_how_many_prims_on_background = 0
+    let local_how_many_dots_on_background = 0
+    for (let i = 0; i < pstack.length; i++)
+    {
+        switch (pstack[i][0])
+        {
+            case 'p':
+                if (pstack[i][1] == ctx_foreground)
+                {
+                    if (local_is_drawing_on_foreground == false && local_sure_on_foreground == true)
+                    {
+                        local_sure_on_foreground = false
+                    }
+                    local_is_drawing_on_foreground = true
+                    local_is_foreground_used = true
+                    local_how_many_prims_on_foreground++
+                    local_how_many_dots_on_foreground += pstack[i][2].length
+                }
+                else
+                {
+                    if (local_is_drawing_on_background == false && local_sure_on_background == true)
+                    {
+                        local_sure_on_background = false
+                    }
+                    local_is_drawing_on_background = true
+                    local_is_background_used = true
+                    local_how_many_prims_on_background++
+                    local_how_many_dots_on_background += pstack[i][2].length
+                }
+                break
+            case 'f':
+                if (pstack[i][1] == ctx_foreground)
+                {
+                    if (local_is_drawing_on_foreground == false && local_sure_on_foreground == true)
+                    {
+                        local_sure_on_foreground = false
+                    }
+                    local_is_drawing_on_foreground = true
+                    local_is_foreground_used = true
+                    local_how_many_prims_on_foreground++
+                }
+                else
+                {
+                    if (local_is_drawing_on_background == false && local_sure_on_background == true)
+                    {
+                        local_sure_on_background = false
+                    }
+                    local_is_drawing_on_background = true
+                    local_is_background_used = true
+                    local_how_many_prims_on_background++
+                }
+                break
+            case 'd':
+                local_is_foreground_used = false
+                local_is_backgroung_used = false
+                local_is_drawing_on_foreground = true
+                local_is_drawing_on_background = true
+                local_sure_on_foreground = true
+                local_sure_on_background = true
+                local_how_many_prims_on_foreground = 0
+                local_how_many_dots_on_foreground = 0
+                local_how_many_prims_on_background = 0
+                local_how_many_dots_on_background = 0
+                break
+            case 'i':
+                if (pstack[i][2] == "#fff")
+                {
+                    if (pstack[i][1] == ctx_foreground)
+                    {
+                        local_is_foreground_used = false
+                        local_is_drawing_on_foreground = true
+                        local_sure_on_foreground = true
+                        local_how_many_prims_on_foreground = 0
+                        local_how_many_dots_on_foreground = 0
+                    }
+                    else
+                    {
+                        local_is_background_used = false
+                        local_is_drawing_on_background = true
+                        local_sure_on_background = true
+                        local_how_many_prims_on_background = 0
+                        local_how_many_dots_on_background = 0
+                    }
+                }
+                else
+                {
+                    if (pstack[i][1] == ctx_foreground)
+                    {
+                        local_sure_on_foreground = true
+                        local_is_drawing_on_foreground = true
+                        local_is_foreground_used = true
+                        local_how_many_prims_on_foreground++
+                        local_how_many_prims_on_foreground = 0
+                        local_how_many_dots_on_foreground = 0
+
+                    }
+                    else
+                    {
+                        local_sure_on_background = false
+                        local_is_drawing_on_background = true
+                        local_is_background_used = true
+                        local_how_many_prims_on_background++
+                        local_how_many_prims_on_background = 0
+                        local_how_many_dots_on_background = 0
+                    }
+                }
+                break
+            case 'c':
+                if (pstack[i][1] == ctx_foreground)
+                {
+                    local_is_foreground_used = false
+                    local_is_drawing_on_foreground = true
+                    local_sure_on_foreground = true
+                    local_how_many_prims_on_foreground = 0
+                    local_how_many_dots_on_foreground = 0
+                }
+                else
+                {
+                    local_is_background_used = false
+                    local_is_drawing_on_background = true
+                    local_sure_on_background = true
+                    local_how_many_prims_on_background = 0
+                    local_how_many_dots_on_background = 0
+                }
+                break
+            case 'u':
+                if (pstack[i][1] == ctx_foreground)
+                {
+                    if (local_is_drawing_on_foreground == true && local_sure_on_foreground == true)
+                    {
+                        local_sure_on_foreground = false
+                    }
+                    local_is_drawing_on_foreground = false
+                    local_is_foreground_used = true
+                    local_how_many_prims_on_foreground = 0
+                    local_how_many_dots_on_foreground = 0
+                }
+                else
+                {
+                    if (local_is_drawing_on_background == true && local_sure_on_background == true)
+                    {
+                        local_sure_on_background = false
+                    }
+                    local_is_drawing_on_background = false
+                    local_is_background_used = true
+                    local_how_many_prims_on_background = 0
+                    local_how_many_dots_on_background = 0
+                }
+                break
+            default:
+                break
+        }
+    }
+    let local_is_drawing
+    let local_sure
+    let local_how_many_prims
+    let local_how_many_dots
+    if (!local_is_foreground_used)
+    {
+        local_how_many_prims_on_foreground = 0
+        local_how_many_dots_on_foreground = 0
+        local_sure_on_foreground = true
+        local_is_drawing_on_foreground = true
+    }
+    if (!local_is_background_used)
+    {
+        local_how_many_prims_on_background = 0
+        local_how_many_dots_on_background = 0
+        local_sure_on_background = true
+        local_is_drawing_on_background = true
+    }
+    if (local_sure_on_foreground && local_sure_on_background)
+    {
+        local_sure = true
+    }
+    else
+    {
+        local_sure = false
+    }
+    if (local_is_drawing_on_foreground && !local_is_drawing_on_background)
+    {
+        local_is_drawing = true
+        local_sure = false
+    }
+    else
+    {
+        if (!local_is_drawing_on_foreground && local_is_drawing_on_background)
+        {
+            local_is_drawing = false
+            local_sure = false
+        }
+        else
+        {
+            if (local_is_drawing_on_foreground && local_is_drawing_on_background)
+            {
+                local_is_drawing = true
+            }
+            else
+            {
+                local_is_drawing = false
+            }
+        }
+    }
+    local_how_many_prims = local_how_many_prims_on_foreground + local_how_many_prims_on_background
+    local_how_many_dots = local_how_many_dots_on_foreground + local_how_many_dots_on_background
+    if (local_how_many_prims == 0)
+    {
+        local_is_drawing = false
+        local_sure = true
+    }
+    return [local_is_foreground_used, local_is_backgroung_used, local_is_drawing, local_sure, local_how_many_prims, local_how_many_dots]
+}
 
 function gen_picture_by_promot(is_SD2, full_prompt)
 {
@@ -478,7 +706,9 @@ function gen_picture_by_promot(is_SD2, full_prompt)
         {
             data = original_image_buf
         }
-        if (is_background_used == true && is_background_visible)
+        let statistics_data = []
+        statistics_data = check_data_before_sending()
+        if (statistics_data[1] && is_background_visible)
         {
             background_data = canvas_background.toDataURL("imag/png")
         }
@@ -486,12 +716,24 @@ function gen_picture_by_promot(is_SD2, full_prompt)
         {
             background_data = ""
         }
-        send_data = JSON.stringify({ 
+
+        send_data = JSON.stringify({
+            "type": "hg" + local_type, //рисунок
+            "data": data,
+            "backgroung": background_data,
+            "prompt": full_prompt, //подпись к изображению
+            "is_drawing": statistics_data[2],
+            "sure": statistics_data[3],
+            "prims_count": statistics_data[4],
+            "dots_count": statistics_data[5]
+        })
+
+        /*send_data = JSON.stringify({ 
             "type": "hg" + local_type, //рисунок
             "data": data,
             "backgroung": background_data,
             "prompt": full_prompt //подпись к изображению
-        })
+        })*/
     }
     else
     {
@@ -660,6 +902,8 @@ function get_visual_ratio(abs, w, h)
 // Установить ширину боковой панели на 250 пикселей (показать)
 function openNav() 
 {
+    is_side_panel_open = true
+    side_panel_blackout.style.display = "block"
     spanel.style.width = "250px";
     spanel.style.border = "2px solid #4c4c4c";
     spanel.style.borderLeftStyle = "hidden"
@@ -674,8 +918,10 @@ function closeNav_border()
 
 function closeNav() 
 {
+    is_side_panel_open = false
+    side_panel_blackout.style.display = "none"
     spanel.style.width = "0"
-    setTimeout(closeNav_border, 490);
+    setTimeout(closeNav_border, 490)
 }
 
 let backBtn = document.getElementById("arrow_back")
@@ -749,7 +995,6 @@ function handlet_clr_Click()
 {
     if (is_clr_brash)
     {
-        is_background_used = true
         cur_brush_clr = cur_color.value
         ctype_clr_btn.textContent = "Цвет кисти"
         cur_color.value = cur_background_clr
@@ -832,8 +1077,8 @@ function close_clr_window()
     if (cur_background_clr != new_background_clr) //почему-то не работает, из-за этого пришлось сделать костыль строчкой сверху. Убрать
     {
         pstack.push(['i', ctx_background, new_background_clr]) //залить фон
-        ctx_background.fillStyle = new_background_clr; //заливка фона
-        ctx_background.fillRect(0, 0, cW, cH);
+        ctx_background.fillStyle = new_background_clr //заливка фона
+        ctx_background.fillRect(0, 0, cW, cH)
         canvas_to_layer(canvas_background, ctx_layer_2)
     }
     ctx_foreground.strokeStyle = cur_brush_clr
@@ -957,7 +1202,6 @@ select_second_layerBtn.addEventListener("click", () =>
 {
     if (is_foreground_selected)
     {
-        is_background_used = true
         layer_1.style.border = "1px solid #707070"
         if (is_dark_mode)
         {
@@ -1016,14 +1260,12 @@ second_layer_visibilityBtn.addEventListener("click", () =>
     if (is_background_visible)
     {
         is_background_visible = false
-        is_background_used = false
         canvas_background.style.display = "none"
         second_layer_visibility_img.setAttribute("src", "visibility_off.png")
     }
     else
     {
         is_background_visible = true
-        is_background_used = true
         canvas_background.style.display = "block"
         second_layer_visibility_img.setAttribute("src", "visibility_on.png")
     }
@@ -1032,7 +1274,6 @@ second_layer_visibilityBtn.addEventListener("click", () =>
 const clear_second_layer_Btn = document.getElementById("clear_layer_2")
 
 clear_second_layer_Btn.addEventListener("click", () => {
-    is_background_used = false
     let ps_size = pstack.length
     let new_stack_elem = ['c', ctx_background]
     new_stack_elem[1].clearRect(0, 0, cW, cH)
@@ -1294,8 +1535,8 @@ colourBtn.addEventListener("click", () =>
         {
             cursor_type = 3
             cursor_image.setAttribute("src", cur_tool[2])
-            cursor.style.left = (cX + 7.5) + "px";
-            cursor.style.top = (cY + 7.5) + "px";
+            cursor.style.left = (cX + 7.5) + "px"
+            cursor.style.top = (cY + 7.5) + "px"
             cursor.style.display = "block"
             close_clr_window()
         }, 
@@ -1533,7 +1774,6 @@ const clearBtn = document.getElementById("clear")
 clearBtn.addEventListener("click", () => 
 {
     let inds = pstack.length
-    is_background_used = false
     if(inds != 0)
     {
         if(pstack[inds - 1][0] != 'd')
@@ -1558,14 +1798,14 @@ uploadBtn.addEventListener("click", () =>
     mhf.click()
     mhf.addEventListener("change", function readImage()
     {
-        if (!this.files || !this.files[0]) return;
+        if (!this.files || !this.files[0]) return
         chain_id = -1
-        const FR = new FileReader();
+        const FR = new FileReader()
         FR.addEventListener("load", (evt) => 
         {
             let new_img_w
             let new_img_h
-            let img = new Image();
+            let img = new Image()
             img.addEventListener("load", () => 
             {
                 let img_w = img.width
@@ -1585,9 +1825,10 @@ uploadBtn.addEventListener("click", () =>
                 {
                     i = 0
                 }
+                let local_id_list = ['r', 'p', 'i', 'u', 'f']
                 for (i; i < ps_size; i++)
                 {
-                    if (id_list.includes(pstack[i][0]))
+                    if (local_id_list.includes(pstack[i][0]))
                     {
                         is_drawfield_used = true
                         break
@@ -1648,18 +1889,18 @@ uploadBtn.addEventListener("click", () =>
             }, 
             { 
                 once: true 
-            });
+            })
             original_image_buf = evt.target.result
             img.src = original_image_buf
         }, 
         { 
             once: true 
-        });
-        FR.readAsDataURL(this.files[0]);
+        })
+        FR.readAsDataURL(this.files[0])
     }, 
     { 
         once: true 
-    });
+    })
 })
 
 const saveBtn = document.getElementById("save")
@@ -1727,7 +1968,9 @@ function gen_caption_for_image()
     {
         data = original_image_buf
     }
-    if (is_background_used == true && is_background_visible)
+    let statistics_data = []
+    statistics_data = check_data_before_sending()
+    if (statistics_data[1] && is_background_visible)
     {
         background_data = canvas_background.toDataURL("imag/png")
     }
@@ -1735,11 +1978,23 @@ function gen_caption_for_image()
     {
          background_data = ""
     }
+
+    send_data = JSON.stringify({
+        "type": "d", //рисунок
+        "data": data,
+        "backgroung": background_data,
+        "is_drawing": statistics_data[2],
+        "sure": statistics_data[3],
+        "prims_count": statistics_data[4],
+        "dots_count": statistics_data[5]
+    })
+
+    /*
     send_data = JSON.stringify({ 
         "type": "d", //рисунок
         "data": data,
         "backgroung": background_data
-    });
+    })*/
     iscaption = true
     ws.send(send_data)
 }
@@ -1748,9 +2003,9 @@ document.addEventListener("pointerenter", (e) =>
 {
     let cX = e.clientX
     let cY = e.clientY
-    cursor.style.left = (cX + 7.5) + "px";
-    cursor.style.top = (cY + 7.5) + "px";
-}, { once: true });
+    cursor.style.left = (cX + 7.5) + "px"
+    cursor.style.top = (cY + 7.5) + "px"
+}, { once: true })
 
 function replay_action(act, k_X, k_Y, fW_pred, fH_pred)
 {
@@ -1769,7 +2024,7 @@ function replay_action(act, k_X, k_Y, fW_pred, fH_pred)
                 act[1].lineTo(prim[i][0] / k_X, prim[i][1] / k_Y)
             }
             act[1].stroke()
-            act[1].globalCompositeOperation = "source-over";
+            act[1].globalCompositeOperation = "source-over"
             break
         case 'd': //если очистка экрана
             cur_background_clr = "#fff"
@@ -1785,7 +2040,7 @@ function replay_action(act, k_X, k_Y, fW_pred, fH_pred)
             break
         case 'i': //если заливка слоя целиком
             act[1].fillStyle = act[2]
-            act[1].fillRect(0, 0, cW, cH);
+            act[1].fillRect(0, 0, cW, cH)
             break
         case 'u': //если добавление изображения с ПК
             act[1].clearRect(0, 0, cW, cH) //очищаем нужный слой
@@ -1948,6 +2203,10 @@ function repeat_action()
 
 document.addEventListener("keydown", (event) => 
 {
+    if (is_modal_open || is_side_panel_open)
+    {
+        return
+    }
     switch(event.code)
     {
         case "KeyT": //Режим графического планшета
@@ -2018,7 +2277,7 @@ document.addEventListener("keydown", (event) =>
                 }
             }
     }
-}, false);
+}, false)
 
 document.addEventListener("keyup", (event) => 
 {
@@ -2034,7 +2293,7 @@ document.addEventListener("keyup", (event) =>
         }
         is_shift_on = false
     }
-}, false);
+}, false)
 
 canvas_additional.addEventListener("pointerdown", (e) => 
 {
@@ -2045,7 +2304,6 @@ canvas_additional.addEventListener("pointerdown", (e) =>
             if (!is_background_visible)
             {
                 is_foreground_visible = true
-                is_background_used = true
                 canvas_foreground.style.display = "block"
                 first_layer_visibility_img.setAttribute("src", "visibility_on.png")
             }
@@ -2067,7 +2325,6 @@ canvas_additional.addEventListener("pointerdown", (e) =>
             if (!is_foreground_visible)
             {
                 is_foreground_visible = true
-                is_background_used = true
                 canvas_foreground.style.display = "block"
                 first_layer_visibility_img.setAttribute("src", "visibility_on.png")
                 layer_1.style.border = "5px solid #000000"
@@ -2106,23 +2363,23 @@ canvas_additional.addEventListener("pointerdown", (e) =>
 
 function rgbToHex(r, g, b) 
 {
-    return ((r << 16) | (g << 8) | b).toString(16);
+    return ((r << 16) | (g << 8) | b).toString(16)
 }
 
 function rgbaToHex(r, g, b, a) 
 {
-    return ((r << 24) | (g << 16) | (b << 8) | a).toString(16);
+    return ((r << 24) | (g << 16) | (b << 8) | a).toString(16)
 }
 
 function getPixel(pixelData, x, y) 
 {
     if (x < 0 || y < 0 || x >= pixelData.width || y >= pixelData.height) 
     {
-        return -1;
+        return -1
     } 
     else 
     {
-        return pixelData.data[y * pixelData.width + x];
+        return pixelData.data[y * pixelData.width + x]
     }
 }
 
@@ -2130,13 +2387,13 @@ function floodFill(local_ctx, x, y, fillColor)
 {
     let dex_clr = parseInt("FF" + fillColor.slice(6, 8) + fillColor.slice(4, 6) + fillColor.slice(2, 4), 16)
     let ff = true
-    let imageData = local_ctx.getImageData(0, 0, local_ctx.canvas.width, local_ctx.canvas.height);
+    let imageData = local_ctx.getImageData(0, 0, local_ctx.canvas.width, local_ctx.canvas.height)
     let pixelData = {
         width: imageData.width,
         height: imageData.height,
         data: new Uint32Array(imageData.data.buffer),
     }
-    let targetColor = getPixel(pixelData, x, y);
+    let targetColor = getPixel(pixelData, x, y)
     if (targetColor !== fillColor) 
     {
         let spansToCheck = []
@@ -2146,12 +2403,12 @@ function floodFill(local_ctx, x, y, fillColor)
         }
         function checkSpan(left, right, y, direction) 
         {
-            let inSpan = false;
-            let start;
-            let x;
+            let inSpan = false
+            let start
+            let x
             for (x = left; x < right; ++x) 
             {
-                let color = getPixel(pixelData, x, y);
+                let color = getPixel(pixelData, x, y)
                 if (color === targetColor) 
                 {
                     if (!inSpan) 
@@ -2165,14 +2422,14 @@ function floodFill(local_ctx, x, y, fillColor)
                     if (inSpan) 
                     {
                         inSpan = false
-                        addSpan(start, x - 1, y, direction);
+                        addSpan(start, x - 1, y, direction)
                     }
                 }
             }
             if (inSpan) 
             {
                 inSpan = false
-                addSpan(start, x - 1, y, direction);
+                addSpan(start, x - 1, y, direction)
             }
         }
         addSpan(x, x, y, 0)
@@ -2182,7 +2439,7 @@ function floodFill(local_ctx, x, y, fillColor)
         {
             iter++
             let {left, right, y, direction} = spansToCheck.pop()
-            let l = left;
+            let l = left
             let iter_l_max = left - cH / 2
             while (true)
             {
@@ -2198,7 +2455,7 @@ function floodFill(local_ctx, x, y, fillColor)
             let iter_r_max = right + cW / 2
             while (true)
             {
-                ++r;
+                ++r
                 let color = getPixel(pixelData, r, y)
                 if (color !== targetColor || r > iter_r_max)
                 {
@@ -2209,24 +2466,24 @@ function floodFill(local_ctx, x, y, fillColor)
             pixelData.data.fill(dex_clr, lineOffset + l, lineOffset + r)
             if (direction <= 0) 
             {
-                checkSpan(l, r, y - 1, -1);
+                checkSpan(l, r, y - 1, -1)
             } 
             else
             {
-                checkSpan(l, left, y - 1, -1);
-                checkSpan(right, r, y - 1, -1);
+                checkSpan(l, left, y - 1, -1)
+                checkSpan(right, r, y - 1, -1)
             }
             if (direction >= 0) 
             {
-                checkSpan(l, r, y + 1, +1);
+                checkSpan(l, r, y + 1, +1)
             } 
             else 
             {
-                checkSpan(l, left, y + 1, +1);
-                checkSpan(right, r, y + 1, +1);
+                checkSpan(l, left, y + 1, +1)
+                checkSpan(right, r, y + 1, +1)
             }     
         }
-        local_ctx.putImageData(imageData, 0, 0);
+        local_ctx.putImageData(imageData, 0, 0)
     }
 }
 
@@ -2293,7 +2550,7 @@ d_frame.addEventListener("pointerdown", (e) =>
                 if (cur_brush_clr + "ff" != hex) //если цвет выбранной точки не равен текущему
                 {
                     let cur_form_clr = "0x" + cur_brush_clr.slice(1) + "FF"
-                    floodFill(cur_draw_ctx, cur_x, cur_y, cur_form_clr);
+                    floodFill(cur_draw_ctx, cur_x, cur_y, cur_form_clr)
                     pstack.push(['f', cur_draw_ctx, cur_x, cur_y, cur_form_clr])
                     canvas_to_layer(cur_canvas, cur_ctx_layer)
                 }
@@ -2345,10 +2602,10 @@ function getBezierBasis(i, n, t) //Базисная функция i - номе�
 	// Факториал
 	function f(n)
     {
-		return (n <= 1) ? 1 : n * f(n - 1);
+		return (n <= 1) ? 1 : n * f(n - 1)
 	}
 	// считаем i-й элемент полинома Берштейна
-	return (f(n)/(f(i)*f(n - i)))* Math.pow(t, i)*Math.pow(1 - t, n - i);
+	return (f(n)/(f(i)*f(n - i)))* Math.pow(t, i)*Math.pow(1 - t, n - i)
 }
 
 // arr - массив опорных точек. Точка - двухэлементный массив, (x = arr[0], y = arr[1]), step - шаг при расчете кривой (0 < step < 1), по умолчанию 0.01
@@ -2359,17 +2616,17 @@ function getBezierCurve(arr, step)
 	for (let t = 0; t < 1 + step; t += step) 
     {
 		t = Math.min(1, t)
-		let ind = res.length;
-		res[ind] = new Array(0, 0, 0);
+		let ind = res.length
+		res[ind] = new Array(0, 0, 0)
 		for (let i = 0; i < arr.length; i++) 
         {
-			let b = getBezierBasis(i, arr.length - 1, t);
-			res[ind][0] += arr[i][0] * b;
-			res[ind][1] += arr[i][1] * b;
-            res[ind][2] += arr[i][2] * b;
+			let b = getBezierBasis(i, arr.length - 1, t)
+			res[ind][0] += arr[i][0] * b
+			res[ind][1] += arr[i][1] * b
+            res[ind][2] += arr[i][2] * b
 		}
 	}
-	return res;
+	return res
 }
 
 function drawLines(local_ctx, arr) 
@@ -2422,7 +2679,7 @@ d_frame.addEventListener("pointermove", (e) => //проверка курсора
             if(cursor_type != 4)
             {
                 cursor_type = 4
-                cursor_image.setAttribute("src", "aero_nwse.cur");
+                cursor_image.setAttribute("src", "aero_nwse.cur")
             }
         }
         else
@@ -2432,7 +2689,7 @@ d_frame.addEventListener("pointermove", (e) => //проверка курсора
                 if(cursor_type != 5)
                 {
                     cursor_type = 5
-                    cursor_image.setAttribute("src", "aero_nesw.cur");
+                    cursor_image.setAttribute("src", "aero_nesw.cur")
                 }
             }
             else
@@ -2442,7 +2699,7 @@ d_frame.addEventListener("pointermove", (e) => //проверка курсора
                     if(cursor_type != 2)
                     {
                         cursor_type = 2
-                        cursor_image.setAttribute("src", "aero_ew.cur");
+                        cursor_image.setAttribute("src", "aero_ew.cur")
                     }
                 }
                 else
@@ -2450,7 +2707,7 @@ d_frame.addEventListener("pointermove", (e) => //проверка курсора
                     if(cursor_type != 1)
                     {
                         cursor_type = 1
-                        cursor_image.setAttribute("src", "aero_ns.cur");
+                        cursor_image.setAttribute("src", "aero_ns.cur")
                     }
                 }
             }
@@ -2557,7 +2814,6 @@ d_frame.addEventListener("pointermove", (e) => //проверка курсора
                 currentX = prevX + delta_y * k_tan
             }
             curprim[curprim.length - 1] = [currentX, currentY, currentW]
-            console.log(curprim)
             ctx_add.clearRect(0, 0, cW, cH)
             ctx_add.beginPath()
             ctx_add.moveTo(prevX, prevY)
@@ -2647,7 +2903,7 @@ window.addEventListener("pointermove", (e) => //проверка курсора 
             if(cursor_type != 0)
             {
                 cursor_type = 0
-                cursor.style.display = "block";
+                cursor.style.display = "block"
             }
         }
         else
@@ -2655,7 +2911,7 @@ window.addEventListener("pointermove", (e) => //проверка курсора 
             if(cursor_type != -1)
             {
                 cursor_type = -1
-                cursor.style.display = "none";
+                cursor.style.display = "none"
             }
             on_clr_window = false
             return
@@ -2669,7 +2925,7 @@ window.addEventListener("pointermove", (e) => //проверка курсора 
             {
                 cursor_type = -1
                 cursor.display
-                cursor.style.display = "none";
+                cursor.style.display = "none"
             }
         }
         else
@@ -2677,7 +2933,7 @@ window.addEventListener("pointermove", (e) => //проверка курсора 
             if(cursor_type != 0)
             {
                 cursor_type = 0
-                cursor.style.display = "block";
+                cursor.style.display = "block"
             }
         }
     }
@@ -2730,13 +2986,13 @@ window.addEventListener("pointermove", (e) => //проверка курсора 
     }
     if(cursor_type != 0 && cursor_type != 3)
     {
-        cursor.style.left = cX + "px";
-        cursor.style.top = cY + "px";
+        cursor.style.left = cX + "px"
+        cursor.style.top = cY + "px"
     }
     else
     {
-        cursor.style.left = (cX + 7.5) + "px";
-        cursor.style.top = (cY + 7.5) + "px";
+        cursor.style.left = (cX + 7.5) + "px"
+        cursor.style.top = (cY + 7.5) + "px"
     }
     move_prevX = cX
     move_prevY = cY

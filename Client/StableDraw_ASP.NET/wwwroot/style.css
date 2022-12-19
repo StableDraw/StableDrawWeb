@@ -61,7 +61,7 @@ body
     height: 100%;
     width: 0;
     position: fixed;
-    z-index: 20;
+    z-index: 30;
     top: 0;
     left: 0;
     background-color: rgb(255, 255, 255);
@@ -98,6 +98,7 @@ body
     right: 0px;
     font-size: 36px;
     width: 45px;
+    height: 44px;
 }
 .sidepanel .mods_of_work
 {
@@ -144,7 +145,7 @@ body
     display: flex;
     height: 7%;
     width: 100%;
-    bottom: 15%;
+    bottom: 25%;
     border: 2px solid rgb(76, 76, 76);
     border-left-style: hidden;
     border-right-style: hidden;
@@ -168,7 +169,7 @@ body
     height: 100%;
     width: auto;
 }
-.sidepanel .helpfull_links
+.helpfull_links
 {
     touch-action: none;
     -webkit-user-select: none;
