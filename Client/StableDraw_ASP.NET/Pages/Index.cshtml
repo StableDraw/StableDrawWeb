@@ -1,5 +1,20 @@
 ﻿@page
 @model IndexModel
-@{
-    ViewData["Title"] = "Home page";
-}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset = "utf-8"/>
+    <title>
+        HTML5
+    </title>
+</head>
+<body>
+    <img src = "logo.png" alt = "альтернативный текст" style = "display: block; margin-left: auto; margin-right: auto; width: 30%" />
+    <p>Stable draw - рисование с применением обработки при помощи нейронных сетей</p>
+    <form class="main_start_form" asp-area="Identity" asp-page="/Account/Register" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post" style="position:center; width: 10%; height: 10%">
+        <button type="submit" class="main_start_button" style="position:absolute; left: 45%; width: 10%; height: 10%; font-size: 200%">
+            Начать
+        </button>
+    </form>
+</body>
+</html>
