@@ -4,22 +4,8 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <div class="blackout">
-        <img class="loading" src="loading.webp">
-    </div>
-    <div class = "authbar" style = "position: fixed; right: 5px; top: 0px; text-align: right;">
-        <div class = "auth-item">
-            <a  class = "auth-link text-dark" asp-area = "Identity" asp-page = "/Account/Manage/Index" title = "Manage">
-                @User.Identity?.Name
-            </a>
-        </div>
-        <div class="authbar">
-            <form class = "form-inline" asp-area = "Identity" asp-page = "/Account/Logout" asp-route-returnUrl = "@Url.Page("/", new { area = "" })" method = "post" >
-                <button  type = "submit" class = "auth-link btn btn-link text-dark">
-                    Выйти
-                </button>
-            </form>
-        </div>
+    <div class = "blackout" id = "full_blackout">
+        <img class = "loading" src = "loading.webp">
     </div>
     <div id = "mySidepanel" class = "sidepanel">
         <a class = "closebtn" onclick = "closeNav()">
@@ -50,6 +36,16 @@
                 <img class = "sidepanel_bottom_button_img" src = "language.png">
             </button>
         </div>
+        <div class = "helpfull_links" font-size = 2px style = "bottom: 15%">
+            <a class = "helpfull_link" asp-area = "Identity" asp-page = "/Account/Manage/Index" title = "Профиль" style = "width: 95%;">
+                @User.Identity?.Name
+            </a>
+            <form class = "form-inline" asp-area = "Identity" asp-page = "/Account/Logout" asp-route-returnUrl = "@Url.Page("/", new { area = "" })" method = "post" style = "position:relative; left: 37%;">
+                <button type = "submit" class = "auth-link btn btn-link text-dark">
+                    Выйти
+                </button>
+            </form>
+        </div>
         <div class = "helpfull_links" font-size = 2px>
             <div class = "helpfull_link">
                 <a href = "#">
@@ -63,6 +59,7 @@
             </div>
         </div>
     </div>
+    <div class = "blackout" id = "side_panel_blackout" style = "z-index: 20;"></div>
     <button class = "openbtn" onclick = "openNav()">
         &#9776;
     </button>
@@ -226,16 +223,16 @@
 }
 else
 {
-    <ul class = "authbar" style = "position: fixed; right: 5px; top: 0px; text-align: right;">
-        <li class="auth-item">
-            <a class="auth-link text-dark" asp-area="Identity" asp-page="/Account/Register">
+    <ul class = "helpfull_links" style = "position: fixed; right: 5px; top: 0px; text-align: right; width: 20%">
+        <a class = "helpfull_link" asp-area = "Identity" asp-page = "/Account/Register" style = "position: fixed; top: 0%; text-align: right; right: 5px; text-decoration: none;">
+            <font color="#000000">
                 Регистрация
-            </a>
-        </li>
-        <li class="auth-item">
-            <a class="auth-link text-dark" asp-area="Identity" asp-page="/Account/Login">
+            </font>
+        </a>
+        <a class = "helpfull_link" asp-area = "Identity" asp-page = "/Account/Login" style = "position: fixed; top: 30px; text-align: right; right: 5px; text-decoration: none;">
+            <font color="#000000">
                 Вход
-            </a>
-        </li>
+            </font>
+        </a>
     </ul>
 }
