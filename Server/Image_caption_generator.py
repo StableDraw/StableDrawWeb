@@ -1,7 +1,6 @@
 import torch
 import numpy as np
-from fairseq import utils, tasks
-from fairseq import checkpoint_utils
+from fairseq import utils, tasks, checkpoint_utils
 from tasks.mm_tasks.caption import CaptionTask
 from PIL import Image
 from torchvision import transforms

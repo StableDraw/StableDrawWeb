@@ -1,5 +1,4 @@
 import asyncio
-from fnmatch import translate
 import websockets
 import requests
 import base64
@@ -232,16 +231,16 @@ async def handler(websocket):
                 return
             if(dictData["type"] == "d"):
                 binary_data = base64.b64decode(bytes(dictData["data"][22:], 'utf-8'))
-                pillow_img = Image.open(io.BytesIO(binary_data))
+                pillow_img = Image.open(io.BytesIO(binary_data)).convert("RGBA")
                 (w, h) = pillow_img.size
                 if dictData["backgroung"] == "":
                     noback = True
-                    background_img = Image.new('RGB', (w, h), (255, 255, 255))
+                    background_img = Image.new('RGBA', (w, h), (255, 255, 255))
                 else:
                     print("\nback")
                     noback = False
                     binary_data2 = base64.b64decode(bytes(dictData["backgroung"][22:], 'utf-8'))
-                    background_img = Image.open(io.BytesIO(binary_data2))
+                    background_img = Image.open(io.BytesIO(binary_data2)).convert("RGBA")
                     background_img = background_img.resize((w, h))
                 drawing_img = background_img
                 drawing_img.paste(pillow_img, (0,0),  pillow_img)
@@ -253,6 +252,19 @@ async def handler(websocket):
                 message_id = get_message_id(req)
                 task_dir = user_path + "/" + str(message_id)
                 os.mkdir(task_dir)
+
+                with open(task_dir + "/drawing_info.txt", "w") as f:#сбор статистики по рисунку
+                    if dictData["is_drawing"]:
+                        f.write("1\n")
+                    else:
+                        f.write("0\n")
+                    if dictData["sure"]:
+                        f.write("1\n")
+                    else:
+                        f.write("0\n")
+                    f.write(str(dictData["prims_count"]) + "\n")
+                    f.write(str(dictData["dots_count"]))
+
                 with open(task_dir + "/drawing.png", "wb") as f:
                     f.write(result_binary_data)
                 if noback == False:
@@ -295,6 +307,19 @@ async def handler(websocket):
                 task_id = get_message_id(req)
                 task_dir = user_path + "/" + str(task_id)
                 os.mkdir(task_dir)
+
+                with open(task_dir + "/drawing_info.txt", "w") as f:#сбор статистики по рисунку
+                    if dictData["is_drawing"]:
+                        f.write("1\n")
+                    else:
+                        f.write("0\n")
+                    if dictData["sure"]:
+                        f.write("1\n")
+                    else:
+                        f.write("0\n")
+                    f.write(str(dictData["prims_count"]) + "\n")
+                    f.write(str(dictData["dots_count"]))
+
                 with open(task_dir + "/drawing.png", "wb") as f:
                     f.write(result_binary_data)
                 if noback == False:
