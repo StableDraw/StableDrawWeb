@@ -1,0 +1,100 @@
+import torch
+import numpy as np
+from fairseq import utils, tasks, checkpoint_utils
+from tasks.mm_tasks.caption import CaptionTask
+from PIL import Image
+from torchvision import transforms
+from utils.eval_utils import eval_caption
+
+checkpoint_path = 'caption.pt'
+
+# Подготовка теста
+def encode_text(text, task, length=None, append_bos=False, append_eos=False):
+    bos_item = torch.LongTensor([task.src_dict.bos()])
+    eos_item = torch.LongTensor([task.src_dict.eos()])
+    s = task.tgt_dict.encode_line(
+        line=task.bpe.encode(text),
+        add_if_not_exist=False,
+        append_eos=False
+    ).long()
+    if length is not None:
+        s = s[:length]
+    if append_bos:
+        s = torch.cat([bos_item, s])
+    if append_eos:
+        s = torch.cat([s, eos_item])
+    return s
+
+# Формирование выхода для задания подписи
+def construct_sample(image: Image, task, patch_resize_transform):
+    pad_idx = task.src_dict.pad()
+    patch_image = patch_resize_transform(image).unsqueeze(0)
+    patch_mask = torch.tensor([True])
+    src_text = encode_text(" what does the image describe?", task, append_bos=True, append_eos=True).unsqueeze(0)
+    src_length = torch.LongTensor([s.ne(pad_idx).long().sum() for s in src_text])
+    sample = {
+        "id": np.array(['42']),
+        "net_input": {
+            "src_tokens": src_text,
+            "src_lengths": src_length,
+            "patch_images": patch_image,
+            "patch_masks": patch_mask
+        }
+    }
+    return sample
+
+# Функция, меняющая FP32 на FP16
+def apply_half(t):
+    if t.dtype is torch.float32:
+        return t.to(dtype=torch.half)
+    return t
+
+async def Gen_caption(ws, img_path):
+    tasks.register_task('caption', CaptionTask)
+    use_cuda = torch.cuda.is_available()
+    use_fp16 = False
+
+    # Загрузка претренированных ckpt и config
+    #await ws.send(json.dumps({'0' : "t", '1' : "Загрузка претренированных чекпоинтов и настроек конфигурации..."}))
+    overrides = {"eval_cider":False, "beam":5, "max_len_b":16, "no_repeat_ngram_size":3, "seed":7}
+    models, cfg, task = checkpoint_utils.load_model_ensemble_and_task(utils.split_paths(checkpoint_path), arg_overrides=overrides)
+
+    # Перемещение моделей на GPU
+    for model in models:
+        model.eval()
+        if use_fp16:
+            model.half()
+        if use_cuda and not cfg.distributed_training.pipeline_model_parallel:
+            model.cuda()
+        model.prepare_for_inference_(cfg)
+
+    # Инициализация генератора
+    generator = task.build_generator(models, cfg.generation)
+
+    # Преобразование изображений
+    mean = [0.5, 0.5, 0.5]
+    std = [0.5, 0.5, 0.5]
+    patch_resize_transform = transforms.Compose(
+        [
+            lambda image: image.convert("RGB"),
+            transforms.Resize((cfg.task.patch_image_size, cfg.task.patch_image_size), interpolation=Image.Resampling.BICUBIC),
+            transforms.ToTensor(),
+            transforms.Normalize(mean=mean, std=std),
+        ]
+    )
+
+    image = Image.open(img_path)
+
+    # Построение выходного образца и подготовка GPU, если доступна CUDA
+    #await ws.send(json.dumps({'0' : "t", '1' : "Построение выходного образца..."}))
+    sample = construct_sample(image, task, patch_resize_transform)
+    sample = utils.move_to_cuda(sample) if use_cuda else sample
+    sample = utils.apply_to_sample(apply_half, sample) if use_fp16 else sample
+
+    # Запуск эволюционного шага для подписи
+    #await ws.send(json.dumps({'0' : "t", '1' : "Вычисление подписи..."}))
+    with torch.no_grad():
+        result, scores = eval_caption(task, generator, models, sample)
+
+    caption = result[0]['caption']
+    return caption
