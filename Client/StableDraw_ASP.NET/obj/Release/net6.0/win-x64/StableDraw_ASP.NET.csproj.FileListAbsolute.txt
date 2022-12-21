@@ -404,9 +404,9 @@ C:\repos\StableDraw_ASP.NET\StableDraw_ASP.NET\bin\Release\net6.0\win-x64\dbgshi
 C:\repos\StableDraw_ASP.NET\StableDraw_ASP.NET\bin\Release\net6.0\win-x64\hostfxr.dll
 C:\repos\StableDraw_ASP.NET\StableDraw_ASP.NET\bin\Release\net6.0\win-x64\hostpolicy.dll
 C:\repos\StableDraw_ASP.NET\StableDraw_ASP.NET\bin\Release\net6.0\win-x64\mscordaccore.dll
-C:\repos\StableDraw_ASP.NET\StableDraw_ASP.NET\bin\Release\net6.0\win-x64\mscordaccore_amd64_amd64_6.0.1122.52304.dll
 C:\repos\StableDraw_ASP.NET\StableDraw_ASP.NET\bin\Release\net6.0\win-x64\mscordbi.dll
 C:\repos\StableDraw_ASP.NET\StableDraw_ASP.NET\bin\Release\net6.0\win-x64\mscorrc.dll
 C:\repos\StableDraw_ASP.NET\StableDraw_ASP.NET\bin\Release\net6.0\win-x64\msquic.dll
 C:\repos\StableDraw_ASP.NET\StableDraw_ASP.NET\bin\Release\net6.0\win-x64\ucrtbase.dll
 C:\repos\StableDraw_ASP.NET\StableDraw_ASP.NET\bin\Release\net6.0\win-x64\aspnetcorev2_inprocess.dll
+C:\repos\StableDraw_ASP.NET\StableDraw_ASP.NET\bin\Release\net6.0\win-x64\mscordaccore_amd64_amd64_6.0.1222.56807.dll

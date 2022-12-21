@@ -37,7 +37,7 @@ $modal = function (options)
         document.body.appendChild(elemModal)
         return elemModal
     }
-    function _showModal() 
+    function _showModal()
     {
         is_modal_open = true
         if (!_destroyed && !_hiding) 
@@ -46,7 +46,7 @@ $modal = function (options)
             document.dispatchEvent(_eventShowModal)
         }
     }
-    function _hideModal() 
+    function _hideModal()
     {
         is_modal_open = false
         _hiding = true
@@ -123,7 +123,7 @@ $modal = function (options)
             }
             else
             {
-                content = 'Подпись:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"/><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image()">Сгенерировать автоматически</button><button class = "modal_btn modal_btn-4" onclick = "delete_background()">Удалить фон</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"/>'
+                content = 'Подпись:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"/><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image()">Сгенерировать автоматически</button><button class = "modal_btn modal_btn-4" style = "right: 25%" onclick = "upscale()">Апскейл</button><button class = "modal_btn modal_btn-4" onclick = "delete_background()">Удалить фон</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"/>'
             }
             modal.show()
             modal.setContent(content)
@@ -143,6 +143,7 @@ $modal = function (options)
                     task_id = jdata[1]
                     caption_field.value = jdata[2]
                     chain_id = jdata[3]
+                    last_task_image_name = jdata[4]
                     is_human_caption = false
                     blackout.style.display = "none"
                     return
@@ -154,13 +155,14 @@ $modal = function (options)
                     {
                         ctx_foreground.clearRect(0, 0, cW, cH) // очищаем верхний холст
                         ctx_foreground.drawImage(image, 0, 0, jdata[2], jdata[3], 0, 0, cW, cH)
-                        pstack.push(['u', cur_draw_ctx, image, jdata[2], jdata[3]])
+                        push_action_to_stack(['u', cur_draw_ctx, image, jdata[2], jdata[3]])
                         ctx_layer_1.clearRect(0, 0, lwW, lwH)
                         canvas_to_layer(cur_canvas, cur_ctx_layer)
                     }
                     original_image_buf = "data:image/png;base64," + jdata[1]
                     image.src = original_image_buf
                     chain_id = jdata[4]
+                    last_task_image_name = jdata[5]
                     blackout.style.display = "none"
                     modal.hide()
                     return
@@ -435,6 +437,8 @@ ws = new WebSocket("wss://stabledraw.com:8081")
 let chain_id = -1
 let task_id
 
+let last_task_image_name = "drawing.png"
+
 //ws.onopen = function(){alert("open");} 
 
 ws.onclose = function() //Убрать
@@ -667,6 +671,21 @@ function check_data_before_sending() //проверяет что именно б
     return [local_is_foreground_used, local_is_backgroung_used, local_is_drawing, local_sure, local_how_many_prims, local_how_many_dots]
 }
 
+function push_action_to_stack(local_act)
+{
+    let need_add = true
+    let pstack_length = pstack.length - 1
+    if (pstack_length != -1 && pstack[pstack_length][0] == local_act[0] && local_act[0] != 'p' && local_act[0] != 'u' && pstack[pstack_length] == local_act)
+    {
+        need_add = false
+    }
+    if (need_add)
+    {
+        pstack.push(local_act)
+        nstack = []
+    }
+}
+
 function gen_picture_by_promot(is_SD2, full_prompt)
 {
     blackout.style.display = "block"
@@ -708,31 +727,48 @@ function gen_picture_by_promot(is_SD2, full_prompt)
         }
         let statistics_data = []
         statistics_data = check_data_before_sending()
-        if (statistics_data[1] && is_background_visible)
+        if (original_image_buf == "")
         {
-            background_data = canvas_background.toDataURL("imag/png")
+            if (statistics_data[1] && is_background_visible)
+            {
+                background_data = canvas_background.toDataURL("imag/png")
+            }
+            else
+            {
+                background_data = ""
+            }
         }
         else
         {
             background_data = ""
         }
-
+        if (chain_id != -1)
+        {
+            data = ""
+            background_data = ""
+        }
         send_data = JSON.stringify({
             "type": "hg" + local_type, //рисунок
+            "chain_id": chain_id, //id последнего звена цепочки
+            "task_id": task_id, //id задания
             "data": data,
             "backgroung": background_data,
             "prompt": full_prompt, //подпись к изображению
             "is_drawing": statistics_data[2],
             "sure": statistics_data[3],
             "prims_count": statistics_data[4],
-            "dots_count": statistics_data[5]
+            "dots_count": statistics_data[5],
+            "img_name": last_task_image_name
         })
 
         /*send_data = JSON.stringify({ 
             "type": "hg" + local_type, //рисунок
+            "chain_id": chain_id, //id последнего звена цепочки
+            "task_id": task_id, //id задания
             "data": data,
             "backgroung": background_data,
-            "prompt": full_prompt //подпись к изображению
+            "prompt": full_prompt, //подпись к изображению
+            "img_name": last_task_image_name
         })*/
     }
     else
@@ -762,6 +798,24 @@ function delete_background()
         "task_id": task_id //id задания
     });
     ws.send(send_data_del)
+}
+
+function upscale()
+{
+    blackout.style.display = "block"
+    let task_id = -1
+    let data = original_image_buf
+    if (chain_id != -1)
+    {
+        data = ""
+    }
+    let send_data_ups = JSON.stringify({
+        "type": "a", //просьба апскейлить изображение
+        "data": data,
+        "chain_id": chain_id, //id последнего звена цепочки
+        "task_id": task_id //id задания
+    });
+    ws.send(send_data_ups)
 }
 
 window.onresize = function()
@@ -843,18 +897,10 @@ ratio_field.onchange = function()
         new_dfw = Math.max(fW_min, (fH_max / new_r_h) * new_r_w)
         new_dfh = fH_max
     }
+    fW_pred = f_dW
+    fH_pred = f_dH
     change_drawfield_size(new_dfw, new_dfh)
-    let ps_size = pstack.length
-    if (ps_size != 0 && pstack[ps_size - 1][0] == 'r')
-    {
-        pstack.pop()
-    }
-    else
-    {
-        fW_pred = f_dW
-        fH_pred = f_dH
-    }
-    pstack.push(['r', new_dfw, new_dfh, true])
+    push_action_to_stack(['r', new_dfw, new_dfh, true])
     replay_actions(pstack) //Повторная отрисовка с новым разрешением
     return get_visual_ratio(true, new_dfw, new_dfh)
 }
@@ -1076,7 +1122,7 @@ function close_clr_window()
     }
     if (cur_background_clr != new_background_clr) //почему-то не работает, из-за этого пришлось сделать костыль строчкой сверху. Убрать
     {
-        pstack.push(['i', ctx_background, new_background_clr]) //залить фон
+        push_action_to_stack(['i', ctx_background, new_background_clr])//залить фон
         ctx_background.fillStyle = new_background_clr //заливка фона
         ctx_background.fillRect(0, 0, cW, cH)
         canvas_to_layer(canvas_background, ctx_layer_2)
@@ -1241,15 +1287,9 @@ const clear_first_layer_Btn = document.getElementById("clear_layer_1")
 
 clear_first_layer_Btn.addEventListener("click", () =>
 {
-    let ps_size = pstack.length
-    let new_stack_elem = ['c', ctx_foreground]
-    new_stack_elem[1].clearRect(0, 0, cW, cH)
+    ctx_foreground.clearRect(0, 0, cW, cH)
     ctx_layer_1.clearRect(0, 0, lwW, lwH)
-    if (ps_size != 0 && pstack[ps_size - 1] == new_stack_elem)
-    {
-        pstack.pop()
-    }
-    pstack.push(new_stack_elem)
+    push_action_to_stack(['c', ctx_foreground])
 })
 
 const second_layer_visibilityBtn = document.getElementById("layer_2_visibility_button")
@@ -1274,15 +1314,9 @@ second_layer_visibilityBtn.addEventListener("click", () =>
 const clear_second_layer_Btn = document.getElementById("clear_layer_2")
 
 clear_second_layer_Btn.addEventListener("click", () => {
-    let ps_size = pstack.length
-    let new_stack_elem = ['c', ctx_background]
-    new_stack_elem[1].clearRect(0, 0, cW, cH)
+    ctx_background.clearRect(0, 0, cW, cH)
     ctx_layer_2.clearRect(0, 0, lwW, lwH)
-    if (ps_size != 0 && pstack[ps_size - 1] == new_stack_elem)
-    {
-        pstack.pop()
-    }
-    pstack.push(new_stack_elem)
+    push_action_to_stack(['c', ctx_background])
 })
 
 const merge_layersBtn = document.getElementById("merge_layers")
@@ -1427,12 +1461,7 @@ merge_layersBtn.addEventListener("click", () =>
     {
         return
     }
-    let pstack_length = pstack.length -1
-    if (pstack_length != -1 && pstack[pstack_length][0] == 'm' && pstack[pstack_length][1] == cur_draw_ctx)
-    {
-        pstack.pop()
-    }
-    pstack.push(['m', cur_draw_ctx, is_changed_stack[0], is_changed_stack[1]])
+    push_action_to_stack(['m', cur_draw_ctx, is_changed_stack[0], is_changed_stack[1]])
 })
 
 const swap_layersBtn = document.getElementById("swap_layers")
@@ -1479,18 +1508,7 @@ function swap_layers()
 swap_layersBtn.addEventListener("click", () => 
 {
     swap_layers()
-    let pstack_length = pstack.length - 1
-    if (pstack_length != -1) 
-    {
-        if (pstack[pstack_length][0] != 's') 
-        {
-            pstack.push(['s'])
-        }
-    }
-    else
-    {
-        pstack.push(['s'])
-    }
+    push_action_to_stack(['s'])
 })
 
 const graphic_tabletBtn = document.getElementById("graphic_tablet")
@@ -1773,15 +1791,8 @@ const clearBtn = document.getElementById("clear")
 
 clearBtn.addEventListener("click", () => 
 {
-    let inds = pstack.length
-    if(inds != 0)
-    {
-        if(pstack[inds - 1][0] != 'd')
-        {
-            pstack.push(['d']) //тип - очистка экрана
-        }
-    }
     clear_drawfield()
+    push_action_to_stack(['d']) //тип - очистка экрана
 })
 
 const mhf = document.getElementById("my_hidden_file")
@@ -1870,19 +1881,12 @@ uploadBtn.addEventListener("click", () =>
                     cur_ratio_val = get_visual_ratio(false, cW, cH)
                     ratio_field.value = cur_ratio_val //устанавливаем соотношение сторон
                     replay_actions(pstack) //воспроизводим действия
-                    if (ps_size != 0 && pstack[ps_size - 1][0] == 'r')
-                    {
-                        pstack.pop()
-                    }
-                    else
-                    {
-                        fW_pred = f_dW
-                        fH_pred = f_dH
-                    }
-                    pstack.push(['r', new_dfw, new_dfh, false])
+                    fW_pred = f_dW
+                    fH_pred = f_dH
+                    push_action_to_stack(['r', new_dfw, new_dfh, false])
                 }   
                 cur_draw_ctx.drawImage(img, 0, 0, img_w, img_h, x_paste_pos, y_paste_pos, cW - x_paste_pos * 2, cH - y_paste_pos * 2)
-                pstack.push(['u', cur_draw_ctx, img, img_w, img_h, x_paste_pos, y_paste_pos])
+                push_action_to_stack(['u', cur_draw_ctx, img, img_w, img_h, x_paste_pos, y_paste_pos])
                 original_image_buf = img.src
                 cur_ctx_layer.clearRect(0, 0, lwW, lwH)
                 canvas_to_layer(cur_canvas, cur_ctx_layer)
@@ -2551,7 +2555,7 @@ d_frame.addEventListener("pointerdown", (e) =>
                 {
                     let cur_form_clr = "0x" + cur_brush_clr.slice(1) + "FF"
                     floodFill(cur_draw_ctx, cur_x, cur_y, cur_form_clr)
-                    pstack.push(['f', cur_draw_ctx, cur_x, cur_y, cur_form_clr])
+                    push_action_to_stack(['f', cur_draw_ctx, cur_x, cur_y, cur_form_clr])
                     canvas_to_layer(cur_canvas, cur_ctx_layer)
                 }
                 draw = false
@@ -2754,11 +2758,11 @@ d_frame.addEventListener("pointermove", (e) => //проверка курсора
             }
             if (cur_smoothing == 0)
             {
-                pstack.push(['p', cur_draw_ctx, curprim, cur_brush_clr, drawing_mode])
+                push_action_to_stack(['p', cur_draw_ctx, curprim, cur_brush_clr, drawing_mode])
             }
             else
             {
-                pstack.push(['p', cur_draw_ctx, cur_smooth_prim, cur_brush_clr, drawing_mode])
+                push_action_to_stack(['p', cur_draw_ctx, cur_smooth_prim, cur_brush_clr, drawing_mode])
             }
             canvas_to_layer(cur_canvas, cur_ctx_layer)
             nstack = []
@@ -2968,19 +2972,11 @@ window.addEventListener("pointermove", (e) => //проверка курсора 
         }
         let cur_new_dfw = f_dW + X_move
         let cur_new_dfh = f_dH + Y_move
-        let ps_size = pstack.length
         change_drawfield_size(cur_new_dfw, cur_new_dfh)
         cur_ratio_val = get_visual_ratio(false, cW, cH)
         ratio_field.value = cur_ratio_val //устанавливаем соотношение сторон
-        if (ps_size != 0 && pstack[ps_size - 1][0] == 'r')
-        {
-            pstack.pop()
-        }
-        else
-        {
-            fW_pred = f_dW
-            fH_pred = f_dH
-        }
+        fW_pred = f_dW
+        fH_pred = f_dH
         pstack.push(['r', cur_new_dfw, cur_new_dfh, false])
         replay_actions(pstack) //Повторная отрисовка с новым разрешением
     }
