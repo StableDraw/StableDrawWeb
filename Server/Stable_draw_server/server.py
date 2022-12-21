@@ -13,6 +13,7 @@ from Image_caption_generator import Gen_caption
 from Image_to_image import Stable_diffusion
 from Image_to_image_2 import Stable_diffusion_2
 from Delete_background import Delete_background
+from Upscaler import Upscale
 
 checkpoint_path = 'caption.pt'
 if not os.path.exists(checkpoint_path):
@@ -122,15 +123,15 @@ async def neural_processing(process, nprocess):
             task = task_list.pop(0)
             websocket = task[0]
             #await websocket.send(json.dumps({'0' : "t", '1' : "Обработка началась"})) #костыль
-            path_to_task_dir = "log\\" + task[3] + "\\"  + task[2]
+            path_to_task_dir = "log\\" + task[4] + "\\" + task[3]
             if task[1] == 'c': #если нужно сгенерировать подпись
-                client_message = await Gen_caption(websocket, path_to_task_dir + "/drawing.png")
-                client_message, rep_mess_id = del_prompt_about_drawing(client_message, task[2], task[5])
+                client_message = await Gen_caption(websocket, path_to_task_dir + "\\" + task[2])
+                client_message, rep_mess_id = del_prompt_about_drawing(client_message, task[5], task[7])
                 with open(path_to_task_dir + "/AI_caption.txt", "w") as f:
                     f.write(client_message)
                 req = requests.post(URL + "sendMessage?text=" + client_message + "&reply_to_message_id=" + rep_mess_id + "&chat_id=-1001784737051")
                 message_id = get_message_id(req)
-                if task[4] == True:
+                if task[6] == True:
                     translator = Translator()
                     client_message = translator.translate(client_message, src = 'en', dest = 'ru').text
                     with open(path_to_task_dir + "/AI_caption_ru.txt", "w") as f:
@@ -139,40 +140,95 @@ async def neural_processing(process, nprocess):
                     req = requests.post(URL + "sendMessage?text=" + client_message + "&reply_to_message_id=" + message_id + "&chat_id=-1001784737051")
                     message_id = get_message_id(req)
                 resp_data = {
-                    '0' : "c",
-                    '1' : task[2],
-                    '2' : client_message,
-                    '3' : message_id
+                    '0': 'c',
+                    '1': task[3],
+                    '2': client_message,
+                    '3': message_id,
+                    '4': task[2]
                 }
             elif task[1] == 'p': #если нужно сгенерировать изображение по AI подписи
                 #w, h, binary_data = await Stable_diffusion(websocket, path_to_task_dir, True) #передаю сокет, путь к рабочей папке, и true если AI подпись, false если человеческая
-                if (task[5]):
-                    w, h, binary_data = await Stable_diffusion_2(websocket, path_to_task_dir, task[6]) #передаю сокет, путь к рабочей папке, и true если AI подпись, false если человеческая
+                if (task[6]):
+                    args = {
+                        'style': "4k photorealistic", #стиль изображения для рендеринга
+                        'ddim_steps': 50,             #количество шагов выборки ddim
+                        'ddim_eta': 0.0,              #ddim η (η=0.0 соответствует детерминированной выборке)
+                        'n_iter': 1,                  #определяет частоту дискретизации
+                        'C': 4,                       #латентные каналы
+                        'f': 8,                       #коэффициент понижающей дискретизации, чаще всего 8 или 16
+                        'scale': 9.0,                 #безусловная навигационная величина: eps = eps(x, empty) + scale * (eps(x, cond) - eps(x, empty))
+                        'strength': 0.7,              #сила увеличения/уменьшения шума. 1.0 соответствует полному уничтожению информации в инициализирующем образе
+                        'ckpt': 1,                    #выбор контрольной точки модели (от 0 до 9)
+                        'seed': 42,                   #сид (для воспроизводимой генерации изображений)
+                        'precision': "autocast"       #оценивать с этой точностью ("full" или "autocast")
+                        }
+                    w, h, binary_data = await Stable_diffusion_2(websocket, path_to_task_dir, task[2], task[7], args) #передаю сокет, путь к рабочей папке, имя файла, и true если AI подпись, false если человеческая
                 else:
-                    w, h, binary_data = await Stable_diffusion(websocket, path_to_task_dir, task[6]) #передаю сокет, путь к рабочей папке, и true если AI подпись, false если человеческая
+                    args = {
+                        'style': "4k photorealistic", #стиль изображения для рендеринга
+                        'ddim_steps': 50,             #количество шагов выборки ddim
+                        'ddim_eta': 0.0,              #ddim η (η=0.0 соответствует детерминированной выборке)
+                        'n_iter': 1,                  #определяет частоту дискретизации
+                        'C': 4,                       #латентные каналы
+                        'f': 8,                       #коэффициент понижающей дискретизации, чаще всего 8 или 16
+                        'scale': 5.0,                 #безусловная навигационная величина: eps = eps(x, empty) + scale * (eps(x, cond) - eps(x, empty))
+                        'strength': 0.7,              #сила увеличения/уменьшения шума. 1.0 соответствует полному уничтожению информации в инициализирующем образе
+                        'ckpt': 1,                    #выбор контрольной точки модели (от 0 до 9)
+                        'seed': 42,                   #сид (для воспроизводимой генерации изображений)
+                        'precision': "autocast"       #оценивать с этой точностью ("full" или "autocast")
+                        }
+                    w, h, binary_data = await Stable_diffusion(websocket, path_to_task_dir, task[2], task[7], args) #передаю сокет, путь к рабочей папке, имя файла, true если AI подпись, false если человеческая
                 img = base64.b64encode(binary_data).decode('utf-8')
                 files = {'document': ('drawing.png', binary_data)}
-                req = requests.post(URL + "sendDocument?&reply_to_message_id=" + task[4] + "&chat_id=-1001784737051", files = files)
+                req = requests.post(URL + "sendDocument?&reply_to_message_id=" + task[5] + "&chat_id=-1001784737051", files = files)
                 message_id = get_message_id(req)
                 resp_data = {
-                    '0' : "i",
-                    '1' : str(img),
-                    '2' : w,
-                    '3' : h,
-                    '4' : message_id
+                    '0': "i",
+                    '1': str(img),
+                    '2': w,
+                    '3': h,
+                    '4': message_id,
+                    '5': "picture.png"
                 }
             elif task[1] == 'f': #если нужно удалить фон у изображения
-                w, h, binary_data = Delete_background(path_to_task_dir) #передаю путь к рабочей папке
+                w, h, binary_data = Delete_background(path_to_task_dir, task[2]) #передаю путь к рабочей папке и имя файла
                 img = base64.b64encode(binary_data).decode('utf-8')
                 files = {'document': ('object.png', binary_data)}
-                req = requests.post(URL + "sendDocument?&reply_to_message_id=" + task[4] + "&chat_id=-1001784737051", files = files)
+                req = requests.post(URL + "sendDocument?&reply_to_message_id=" + task[5] + "&chat_id=-1001784737051", files = files)
                 message_id = get_message_id(req)
                 resp_data = {
-                    '0' : "i",
-                    '1' : str(img),
-                    '2' : w,
-                    '3' : h,
-                    '4' : message_id
+                    '0': "i",
+                    '1': str(img),
+                    '2': w,
+                    '3': h,
+                    '4': message_id,
+                    '5': "object.png"
+                }
+            elif task[1] == 'a': #если нужно апскейлить изображение
+                args = {
+                    "model": 0,                         #Номер модели для обработки (0-5)
+                    "denoise_strength": 0.5,            #Сила удаления шума. 0 для слабого удаления шума (шум сохраняется), 1 для сильного удаления шума. Используется только для модели 5 (realesr-general-x4v3 model)
+                    "outscale": 4,                      #Величина того, во сколько раз увеличть разшрешение изображения
+                    "tile": 0,                          #Размер плитки, 0 для отсутствия плитки во время тестирования
+                    "tile_pad": 10,                     #Заполнение плитки
+                    "pre_pad": 0,                       #Предварительный размер заполнения на каждой границе
+                    "face_enhance": True,               #Использовать GFPGAN улучшения лиц
+                    "fp32": True,                       #Использовать точность fp32 во время вывода. По умолчанию fp16 (половинная точность)
+                    "alpha_upsampler": "realesrgan",    #Апсемплер для альфа-каналов. Варианты: realesrgan | bicubic
+                    "gpu-id": None                      #Устройство gpu для использования (по умолчанию = None) может быть 0, 1, 2 для обработки на нескольких GPU
+                    }
+                w, h, binary_data = Upscale(path_to_task_dir, task[2], args) #передаю путь к рабочей папке
+                img = base64.b64encode(binary_data).decode('utf-8')
+                files = {'document': ('big_image.png', binary_data)}
+                req = requests.post(URL + "sendDocument?&reply_to_message_id=" + task[5] + "&chat_id=-1001784737051", files = files)
+                message_id = get_message_id(req)
+                resp_data = {
+                    '0': "i",
+                    '1': str(img),
+                    '2': w,
+                    '3': h,
+                    '4': message_id,
+                    '5': "big_image.png"
                 }
             await websocket.send(json.dumps(resp_data))
         else:
@@ -230,121 +286,133 @@ async def handler(websocket):
             if user_path == False:
                 return
             if(dictData["type"] == "d"):
-                binary_data = base64.b64decode(bytes(dictData["data"][22:], 'utf-8'))
-                pillow_img = Image.open(io.BytesIO(binary_data)).convert("RGBA")
-                (w, h) = pillow_img.size
-                if dictData["backgroung"] == "":
-                    noback = True
-                    background_img = Image.new('RGBA', (w, h), (255, 255, 255))
+                if dictData["chain_id"] == -1:
+                    binary_data = base64.b64decode(bytes(dictData["data"][22:], 'utf-8'))
+                    pillow_img = Image.open(io.BytesIO(binary_data)).convert("RGBA")
+                    (w, h) = pillow_img.size
+                    if dictData["backgroung"] == "":
+                        noback = True
+                        background_img = Image.new('RGBA', (w, h), (255, 255, 255))
+                    else:
+                        print("\nback")
+                        noback = False
+                        binary_data2 = base64.b64decode(bytes(dictData["backgroung"][22:], 'utf-8'))
+                        background_img = Image.open(io.BytesIO(binary_data2)).convert("RGBA")
+                        background_img = background_img.resize((w, h))
+                    drawing_img = background_img
+                    drawing_img.paste(pillow_img, (0,0),  pillow_img)
+                    buf = io.BytesIO()
+                    drawing_img.save(buf, format = 'PNG')
+                    result_binary_data = buf.getvalue()
+                    files = {'document': ('drawing.png', result_binary_data)}
+                    req = requests.post(URL + "sendDocument?chat_id=-1001784737051", files = files)
+                    message_id = get_message_id(req)
+                    task_dir = user_path + "/" + str(message_id)
+                    os.mkdir(task_dir)
+
+                    with open(task_dir + "/drawing_info.txt", "w") as f:#сбор статистики по рисунку
+                        if dictData["is_drawing"]:
+                            f.write("1\n")
+                        else:
+                            f.write("0\n")
+                        if dictData["sure"]:
+                            f.write("1\n")
+                        else:
+                            f.write("0\n")
+                        f.write(str(dictData["prims_count"]) + "\n")
+                        f.write(str(dictData["dots_count"]))
+                    img_name = "drawing.png"
+
+                    with open(task_dir + "/drawing.png", "wb") as f:
+                        f.write(result_binary_data)
+                    if noback == False:
+                        with open(task_dir + "/background.png", "wb") as f:
+                            f.write(binary_data2)
+                        with open(task_dir + "/foreground.png", "wb") as f:
+                            f.write(binary_data)
+                    task_id = message_id
                 else:
-                    print("\nback")
-                    noback = False
-                    binary_data2 = base64.b64decode(bytes(dictData["backgroung"][22:], 'utf-8'))
-                    background_img = Image.open(io.BytesIO(binary_data2)).convert("RGBA")
-                    background_img = background_img.resize((w, h))
-                drawing_img = background_img
-                drawing_img.paste(pillow_img, (0,0),  pillow_img)
-                buf = io.BytesIO()
-                drawing_img.save(buf, format='PNG')
-                result_binary_data = buf.getvalue()
-                files = {'document': ('drawing.png', result_binary_data)}
-                req = requests.post(URL + "sendDocument?chat_id=-1001784737051", files = files)
-                message_id = get_message_id(req)
-                task_dir = user_path + "/" + str(message_id)
-                os.mkdir(task_dir)
-
-                with open(task_dir + "/drawing_info.txt", "w") as f:#сбор статистики по рисунку
-                    if dictData["is_drawing"]:
-                        f.write("1\n")
-                    else:
-                        f.write("0\n")
-                    if dictData["sure"]:
-                        f.write("1\n")
-                    else:
-                        f.write("0\n")
-                    f.write(str(dictData["prims_count"]) + "\n")
-                    f.write(str(dictData["dots_count"]))
-
-                with open(task_dir + "/drawing.png", "wb") as f:
-                    f.write(result_binary_data)
-                if noback == False:
-                    with open(task_dir + "/background.png", "wb") as f:
-                        f.write(binary_data2)
-                    with open(task_dir + "/foreground.png", "wb") as f:
-                        f.write(binary_data)
-                task_list.append([websocket, "c", message_id, user_id, need_translate, noback]) #нужна подпись
+                    message_id = dictData["chain_id"]
+                    task_id = dictData["task_id"]
+                    img_name = dictData["img_name"]
+                task_list.append([websocket, "c", img_name, task_id, user_id, message_id, need_translate, noback]) #нужна подпись
             elif(dictData["type"] == "g1" or dictData["type"] == "g2"): #нужна картина по AI подписи
                 if dictData["type"] == "g1":
                     is_SD2 = False
                 else:
                     is_SD2 = True
-                cur_task = [websocket, "p", dictData["task_id"], user_id, dictData["chain_id"], is_SD2, True] #дескриптор сокета, тип задания, номер сообщения ТГ (id задания), user_id, номер последнего ответа ТГ
+                cur_task = [websocket, "p", dictData["img_name"], dictData["task_id"], user_id, dictData["chain_id"], is_SD2, True] #дескриптор сокета, тип задания, номер сообщения ТГ (id задания), user_id, номер последнего ответа ТГ
                 task_list.append(cur_task)
             elif(dictData["type"] == "hg1" or dictData["type"] == "hg2"): #нужна картина по человеческой подписи
                 if dictData["type"] == "hg1":
                     is_SD2 = False
                 else:
                     is_SD2 = True
-                binary_data = base64.b64decode(bytes(dictData["data"][22:], 'utf-8'))
-                pillow_img = Image.open(io.BytesIO(binary_data))
-                (w, h) = pillow_img.size
-                if dictData["backgroung"] == "":
-                    noback = True
-                    background_img = Image.new('RGB', (w, h), (255, 255, 255))
-                else:
-                    print("\nback")
-                    noback = False
-                    binary_data2 = base64.b64decode(bytes(dictData["backgroung"][22:], 'utf-8'))
-                    background_img = Image.open(io.BytesIO(binary_data2))
-                    background_img = background_img.resize((w, h))
-                drawing_img = background_img
-                drawing_img.paste(pillow_img, (0,0),  pillow_img)
-                buf = io.BytesIO()
-                drawing_img.save(buf, format = 'PNG')
-                result_binary_data = buf.getvalue()
-                files = {'document': ('drawing.png', result_binary_data)}
-                req = requests.post(URL + "sendDocument?caption=" + dictData["prompt"] + "&chat_id=-1001784737051", files = files)
-                task_id = get_message_id(req)
-                task_dir = user_path + "/" + str(task_id)
-                os.mkdir(task_dir)
-
-                with open(task_dir + "/drawing_info.txt", "w") as f:#сбор статистики по рисунку
-                    if dictData["is_drawing"]:
-                        f.write("1\n")
+                if dictData["chain_id"] == -1:
+                    binary_data = base64.b64decode(bytes(dictData["data"][22:], 'utf-8'))
+                    pillow_img = Image.open(io.BytesIO(binary_data))
+                    (w, h) = pillow_img.size
+                    if dictData["backgroung"] == "":
+                        noback = True
+                        background_img = Image.new('RGB', (w, h), (255, 255, 255))
                     else:
-                        f.write("0\n")
-                    if dictData["sure"]:
-                        f.write("1\n")
-                    else:
-                        f.write("0\n")
-                    f.write(str(dictData["prims_count"]) + "\n")
-                    f.write(str(dictData["dots_count"]))
+                        print("\nback")
+                        noback = False
+                        binary_data2 = base64.b64decode(bytes(dictData["backgroung"][22:], 'utf-8'))
+                        background_img = Image.open(io.BytesIO(binary_data2))
+                        background_img = background_img.resize((w, h))
+                    drawing_img = background_img
+                    drawing_img.paste(pillow_img, (0,0),  pillow_img)
+                    buf = io.BytesIO()
+                    drawing_img.save(buf, format = 'PNG')
+                    result_binary_data = buf.getvalue()
+                    files = {'document': ('drawing.png', result_binary_data)}
+                    req = requests.post(URL + "sendDocument?caption=" + dictData["prompt"] + "&chat_id=-1001784737051", files = files)
+                    task_id = get_message_id(req)
+                    task_dir = user_path + "/" + str(task_id)
+                    os.mkdir(task_dir)
 
-                with open(task_dir + "/drawing.png", "wb") as f:
-                    f.write(result_binary_data)
-                if noback == False:
-                    with open(task_dir + "/background.png", "wb") as f:
-                        f.write(binary_data2)
-                    with open(task_dir + "/foreground.png", "wb") as f:
-                        f.write(binary_data)
-                translator = Translator()
-                lang = translator.detect(dictData["prompt"]).lang
-                if lang != 'en':
-                    with open(task_dir + "/AI_caption_ru.txt", "w") as f:
-                        f.write(dictData["prompt"])
-                    time.sleep(0.3) #иметь ввиду, что тут слип, убрать его потом, после отключения от Телеги (убрать)
-                    result_text = translator.translate(dictData["prompt"], src = lang, dest = 'en').text
-                    req = requests.post(URL + "sendMessage?text=" + result_text + "&reply_to_message_id=" + task_id + "&chat_id=-1001784737051")
-                    message_id = get_message_id(req)
+                    with open(task_dir + "/drawing_info.txt", "w") as f:#сбор статистики по рисунку
+                        if dictData["is_drawing"]:
+                            f.write("1\n")
+                        else:
+                            f.write("0\n")
+                        if dictData["sure"]:
+                            f.write("1\n")
+                        else:
+                            f.write("0\n")
+                        f.write(str(dictData["prims_count"]) + "\n")
+                        f.write(str(dictData["dots_count"]))
+
+                    with open(task_dir + "/drawing.png", "wb") as f:
+                        f.write(result_binary_data)
+                    if noback == False:
+                        with open(task_dir + "/background.png", "wb") as f:
+                            f.write(binary_data2)
+                        with open(task_dir + "/foreground.png", "wb") as f:
+                            f.write(binary_data)
+                    translator = Translator()
+                    lang = translator.detect(dictData["prompt"]).lang
+                    if lang != 'en':
+                        with open(task_dir + "/AI_caption_ru.txt", "w") as f:
+                            f.write(dictData["prompt"])
+                        time.sleep(0.3) #иметь ввиду, что тут слип, убрать его потом, после отключения от Телеги (убрать)
+                        result_text = translator.translate(dictData["prompt"], src = lang, dest = 'en').text
+                        req = requests.post(URL + "sendMessage?text=" + result_text + "&reply_to_message_id=" + task_id + "&chat_id=-1001784737051")
+                        message_id = get_message_id(req)
+                    else:
+                        result_text = dictData["prompt"]
+                        message_id = task_id
+                    with open(task_dir + "/Human_caption.txt", "w") as f:
+                        f.write(result_text)
+                    img_name = "drawing.png"
                 else:
-                    result_text = dictData["prompt"]
-                    message_id = task_id
-                with open(task_dir + "/Human_caption.txt", "w") as f:
-                    f.write(result_text)
-                cur_task = [websocket, "p", task_id, user_id, message_id, is_SD2, False] #дескриптор сокета, тип задания, номер сообщения ТГ (id задания), user_id, номер последнего ответа ТГ
+                    message_id = dictData["chain_id"]
+                    task_id = dictData["task_id"]
+                    img_name = dictData["img_name"]
+                cur_task = [websocket, "p", img_name, task_id, user_id, message_id, is_SD2, False] #дескриптор сокета, тип задания, номер сообщения ТГ (id задания), user_id, номер последнего ответа ТГ
                 task_list.append(cur_task)
             elif(dictData["type"] == "b"): #нужно удалить фон у изображения
-                print(dictData)
                 if dictData["chain_id"] == -1:
                     binary_data = base64.b64decode(bytes(dictData["data"][22:], 'utf-8'))
                     pillow_img = Image.open(io.BytesIO(binary_data))
@@ -359,10 +427,34 @@ async def handler(websocket):
                     os.mkdir(task_dir)
                     with open(task_dir + "/picture.png", "wb") as f:
                         f.write(result_binary_data)
+                    img_name = "picture.png"
                 else:
                     message_id = dictData["chain_id"]
                     task_id = dictData["task_id"]
-                cur_task = [websocket, "f", task_id, user_id, message_id] #дескриптор сокета, тип задания, номер сообщения ТГ (id задания), user_id, номер последнего ответа ТГ, ширину и высоту исходного изображения
+                    img_name = dictData["img_name"]
+                cur_task = [websocket, "f", img_name, task_id, user_id, message_id] #дескриптор сокета, тип задания, номер сообщения ТГ (id задания), user_id, номер последнего ответа ТГ, ширину и высоту исходного изображения
+                task_list.append(cur_task)
+            elif(dictData["type"] == "a"): #нужно апскейлить изображение
+                if dictData["chain_id"] == -1:
+                    binary_data = base64.b64decode(bytes(dictData["data"][22:], 'utf-8'))
+                    pillow_img = Image.open(io.BytesIO(binary_data))
+                    buf = io.BytesIO()
+                    pillow_img.save(buf, format = 'PNG')
+                    result_binary_data = buf.getvalue()
+                    files = {'document': ('drawing.png', result_binary_data)}
+                    req = requests.post(URL + "sendDocument?caption=Изображение для апскейлинга&chat_id=-1001784737051", files = files)
+                    message_id = get_message_id(req)
+                    task_id = message_id
+                    task_dir = user_path + "/" + str(message_id)
+                    os.mkdir(task_dir)
+                    with open(task_dir + "/picture.png", "wb") as f:
+                        f.write(result_binary_data)
+                    img_name = "picture.png"
+                else:
+                    message_id = dictData["chain_id"]
+                    task_id = dictData["task_id"]
+                    img_name = dictData["img_name"]
+                cur_task = [websocket, "a", img_name, task_id, user_id, message_id] #дескриптор сокета, тип задания, номер сообщения ТГ (id задания), user_id, номер последнего ответа ТГ, ширину и высоту исходного изображения
                 task_list.append(cur_task)
             tls = len(task_list)
             if tls > 1:

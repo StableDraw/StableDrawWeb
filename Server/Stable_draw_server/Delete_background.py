@@ -11,18 +11,18 @@ from model.data_loader import SalObjDataset
 from model import U2NET
 
 #Директория для весов
-model_dir = 'saved_models\\u2net.pth'
+model_dir = "saved_models\\u2net.pth"
 
-def Delete_background(workpath):
-    img_name_list = [workpath + '\\picture.png']
+def Delete_background(workpath, img_name):
+    img_name_list = [workpath + "\\" + img_name]
     test_salobj_dataset = SalObjDataset(img_name_list = img_name_list, lbl_name_list = [], transform=transforms.Compose([RescaleT(320), ToTensorLab(flag=0)])) #Загрузчик даных
-    test_salobj_dataloader = DataLoader(test_salobj_dataset, batch_size=1, shuffle=False, num_workers=1)
+    test_salobj_dataloader = DataLoader(test_salobj_dataset, batch_size=1, shuffle = False, num_workers=1)
     net = U2NET(3, 1)
     if torch.cuda.is_available():
         net.load_state_dict(torch.load(model_dir))
         net.cuda()
     else:
-        net.load_state_dict(torch.load(model_dir, map_location='cuda'))
+        net.load_state_dict(torch.load(model_dir, map_location = 'cuda'))
     net.eval()
     for data in test_salobj_dataloader: #вывод для каждого изображения
         image_name = img_name_list[0]
@@ -39,10 +39,10 @@ def Delete_background(workpath):
         im = Image.fromarray(predict_np * 255).convert('L')
         image = skio.imread(image_name)
         orig = Image.open(image_name).convert('RGB')
-        imo = im.resize((image.shape[1], image.shape[0]), resample=Image.BILINEAR)
+        imo = im.resize((image.shape[1], image.shape[0]), resample = Image.BILINEAR)
         orig.putalpha(imo)
         buf = io.BytesIO()
-        orig.save(buf, format='PNG')
+        orig.save(buf, format = 'PNG')
         result_binary_data = buf.getvalue()
         (w, h) = orig.size
         orig.save(workpath + '\\object.png')
