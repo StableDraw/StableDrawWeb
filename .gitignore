@@ -1,5 +1,6 @@
 *.pt
 *.ckpt
+*.pth
 Server\Stable_draw_server\token.txt
 Server\Stable_draw_server\env\Lib\site-packages\cv2\cv2.pyd
 Server\Stable_draw_server\env\Lib\site-packages\llvmlite\binding\llvmlite.dll
