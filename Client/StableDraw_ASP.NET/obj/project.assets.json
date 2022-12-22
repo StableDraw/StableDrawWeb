@@ -2460,11 +2460,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\StableDraw_ASP.NET.csproj",
+      "projectUniqueName": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\StableDraw_ASP.NET.csproj",
       "projectName": "StableDraw_ASP.NET",
-      "projectPath": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\StableDraw_ASP.NET.csproj",
+      "projectPath": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\StableDraw_ASP.NET.csproj",
       "packagesPath": "C:\\Users\\irobo\\.nuget\\packages\\",
-      "outputPath": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\obj\\",
+      "outputPath": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

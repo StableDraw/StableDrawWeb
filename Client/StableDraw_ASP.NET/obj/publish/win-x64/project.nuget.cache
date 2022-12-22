@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "xxhHKsCpOiSXWExXcRas48uiWIALdUzWwf51oeMSxUxQCyqoU+R+tpTND0NSmUSJipzbNG0UKWwB8NBOiFtW7w==",
+  "dgSpecHash": "kk7/KCntQPgcok470x7aEXx4gow3IAJp2U9Fc4mqXNZj+cmUh3aJR7G25422j3b9FOghl350jRZ+3DxQ7Z5ycA==",
   "success": true,
-  "projectFilePath": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\StableDraw_ASP.NET.csproj",
+  "projectFilePath": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\StableDraw_ASP.NET.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\irobo\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\irobo\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.10\\microsoft.aspnetcore.cryptography.internal.6.0.10.nupkg.sha512",

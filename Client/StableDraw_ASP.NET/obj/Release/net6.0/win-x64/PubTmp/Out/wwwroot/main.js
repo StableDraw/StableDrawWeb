@@ -214,7 +214,6 @@ const cursor_image = document.querySelector(".cursimg")
 let cursor_type = -1
 
 const nav_panel = document.querySelector(".nav")
-const authbar = document.querySelector(".authbar")
 
 const canvas_foreground = document.getElementById("canvas_foreground") 
 const canvas_background = document.getElementById("canvas_background")
@@ -437,7 +436,7 @@ ws = new WebSocket("wss://stabledraw.com:8081")
 let chain_id = -1
 let task_id
 
-let last_task_image_name = "drawing.png"
+let last_task_image_name = "drawing_0.png"
 
 //ws.onopen = function(){alert("open");} 
 
@@ -774,9 +773,10 @@ function gen_picture_by_promot(is_SD2, full_prompt)
     else
     {
         send_data = JSON.stringify({ 
-            "type": "g" + local_type, //просьба сгенерировать с машинной подписью
+            "type": 'g' + local_type, //просьба сгенерировать с машинной подписью
             "chain_id": chain_id, //id последнего звена цепочки
-            "task_id": task_id //id задания
+            "task_id": task_id, //id задания
+            "img_name": last_task_image_name //имя последнего файла изображения
         });
     }
     ws.send(send_data)
@@ -792,10 +792,11 @@ function delete_background()
         data = ""
     }
     let send_data_del = JSON.stringify({ 
-        "type": "b", //просьба удалить фон
+        "type": 'b', //просьба удалить фон
         "data": data,
         "chain_id": chain_id, //id последнего звена цепочки
-        "task_id": task_id //id задания
+        "task_id": task_id, //id задания
+        "img_name": last_task_image_name //имя последнего файла изображения
     });
     ws.send(send_data_del)
 }
@@ -810,10 +811,11 @@ function upscale()
         data = ""
     }
     let send_data_ups = JSON.stringify({
-        "type": "a", //просьба апскейлить изображение
+        "type": 'a', //просьба апскейлить изображение
         "data": data,
         "chain_id": chain_id, //id последнего звена цепочки
-        "task_id": task_id //id задания
+        "task_id": task_id, //id задания
+        "img_name": last_task_image_name //имя последнего файла изображения
     });
     ws.send(send_data_ups)
 }
@@ -1153,7 +1155,6 @@ change_themeBtn.addEventListener("click", () =>
         second_layer_visibilityBtn.style.filter = "invert(0)"
         clear_first_layer_Btn.style.filter = "invert(0)"
         clear_second_layer_Btn.style.filter = "invert(0)"
-        authbar.style.filter = "invert(0)"
         pencil_w.style.filter = "invert(0)"
         pencil_w.style.border = "2px solid #292929"
         eraser_w.style.filter = "invert(0)"
@@ -1193,7 +1194,6 @@ change_themeBtn.addEventListener("click", () =>
         second_layer_visibilityBtn.style.filter = "invert(0.9)"
         clear_first_layer_Btn.style.filter = "invert(0.9)"
         clear_second_layer_Btn.style.filter = "invert(0.9)"
-        authbar.style.filter = "invert(0.9)"
         pencil_w.style.filter = "invert(0.9)"
         pencil_w.style.border = "2px solid #aaaaaa"
         eraser_w.style.filter = "invert(0.9)"
@@ -1984,20 +1984,26 @@ function gen_caption_for_image()
     }
 
     send_data = JSON.stringify({
-        "type": "d", //рисунок
+        "type": 'd', //просьба сгенерировать подпись для изображения
+        "chain_id": chain_id, //id последнего звена цепочки
+        "task_id": task_id, //id задания
         "data": data,
         "backgroung": background_data,
         "is_drawing": statistics_data[2],
         "sure": statistics_data[3],
         "prims_count": statistics_data[4],
-        "dots_count": statistics_data[5]
+        "dots_count": statistics_data[5],
+        "img_name": last_task_image_name
     })
 
     /*
     send_data = JSON.stringify({ 
-        "type": "d", //рисунок
+        "type": 'd', //просьба сгенерировать подпись для изображения
+        "chain_id": chain_id, //id последнего звена цепочки
+        "task_id": task_id, //id задания
         "data": data,
-        "backgroung": background_data
+        "backgroung": background_data,
+        "img_name": last_task_image_name
     })*/
     iscaption = true
     ws.send(send_data)

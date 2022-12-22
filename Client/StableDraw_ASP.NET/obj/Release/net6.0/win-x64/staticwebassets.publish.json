@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "8m852sv5eXo+HdO41PbvXLwrpjAEDdM/BOfboHU8Bgc=",
+  "Hash": "FwUxlbzfB9c/y7tR36cR95dqoTWnFAGV3a97C3Pfyhw=",
   "Source": "StableDraw_ASP.NET",
   "BasePath": "_content/StableDraw_ASP.NET",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "StableDraw_ASP.NET\\wwwroot",
       "Source": "StableDraw_ASP.NET",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\obj\\Release\\net6.0\\win-x64\\scopedcss\\bundle\\StableDraw_ASP.NET.styles.css",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\obj\\Release\\net6.0\\win-x64\\scopedcss\\bundle\\StableDraw_ASP.NET.styles.css",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\obj\\Release\\net6.0\\win-x64\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\obj\\Release\\net6.0\\win-x64\\scopedcss\\bundle\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "StableDraw_ASP.NET.styles.css",
       "AssetKind": "All",
@@ -31,13 +31,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\obj\\Release\\net6.0\\win-x64\\scopedcss\\bundle\\StableDraw_ASP.NET.styles.css"
+      "OriginalItemSpec": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\obj\\Release\\net6.0\\win-x64\\scopedcss\\bundle\\StableDraw_ASP.NET.styles.css"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\obj\\Release\\net6.0\\win-x64\\scopedcss\\projectbundle\\StableDraw_ASP.NET.bundle.scp.css",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\obj\\Release\\net6.0\\win-x64\\scopedcss\\projectbundle\\StableDraw_ASP.NET.bundle.scp.css",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\obj\\Release\\net6.0\\win-x64\\scopedcss\\projectbundle\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\obj\\Release\\net6.0\\win-x64\\scopedcss\\projectbundle\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "StableDraw_ASP.NET.bundle.scp.css",
       "AssetKind": "All",
@@ -48,13 +48,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\obj\\Release\\net6.0\\win-x64\\scopedcss\\projectbundle\\StableDraw_ASP.NET.bundle.scp.css"
+      "OriginalItemSpec": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\obj\\Release\\net6.0\\win-x64\\scopedcss\\projectbundle\\StableDraw_ASP.NET.bundle.scp.css"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\aero_arrow.cur",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\aero_arrow.cur",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "aero_arrow.cur",
       "AssetKind": "All",
@@ -68,10 +68,10 @@
       "OriginalItemSpec": "wwwroot\\aero_arrow.cur"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\aero_bucket.png",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\aero_bucket.png",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "aero_bucket.png",
       "AssetKind": "All",
@@ -85,10 +85,10 @@
       "OriginalItemSpec": "wwwroot\\aero_bucket.png"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\aero_eraser.png",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\aero_eraser.png",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "aero_eraser.png",
       "AssetKind": "All",
@@ -102,10 +102,10 @@
       "OriginalItemSpec": "wwwroot\\aero_eraser.png"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\aero_ew.cur",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\aero_ew.cur",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "aero_ew.cur",
       "AssetKind": "All",
@@ -119,10 +119,10 @@
       "OriginalItemSpec": "wwwroot\\aero_ew.cur"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\aero_nesw.cur",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\aero_nesw.cur",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "aero_nesw.cur",
       "AssetKind": "All",
@@ -136,10 +136,10 @@
       "OriginalItemSpec": "wwwroot\\aero_nesw.cur"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\aero_ns.cur",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\aero_ns.cur",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "aero_ns.cur",
       "AssetKind": "All",
@@ -153,10 +153,10 @@
       "OriginalItemSpec": "wwwroot\\aero_ns.cur"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\aero_nwse.cur",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\aero_nwse.cur",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "aero_nwse.cur",
       "AssetKind": "All",
@@ -170,10 +170,10 @@
       "OriginalItemSpec": "wwwroot\\aero_nwse.cur"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\aero_pen.cur",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\aero_pen.cur",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "aero_pen.cur",
       "AssetKind": "All",
@@ -187,10 +187,10 @@
       "OriginalItemSpec": "wwwroot\\aero_pen.cur"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\aero_pipette.png",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\aero_pipette.png",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "aero_pipette.png",
       "AssetKind": "All",
@@ -204,10 +204,10 @@
       "OriginalItemSpec": "wwwroot\\aero_pipette.png"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\alpha_pattern.png",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\alpha_pattern.png",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "alpha_pattern.png",
       "AssetKind": "All",
@@ -221,10 +221,10 @@
       "OriginalItemSpec": "wwwroot\\alpha_pattern.png"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\bucket.png",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\bucket.png",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "bucket.png",
       "AssetKind": "All",
@@ -238,10 +238,10 @@
       "OriginalItemSpec": "wwwroot\\bucket.png"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\clear.png",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\clear.png",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "clear.png",
       "AssetKind": "All",
@@ -255,10 +255,10 @@
       "OriginalItemSpec": "wwwroot\\clear.png"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\css\\site.css",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\css\\site.css",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "css/site.css",
       "AssetKind": "All",
@@ -272,10 +272,10 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\dark mode.png",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\dark mode.png",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "dark mode.png",
       "AssetKind": "All",
@@ -289,10 +289,10 @@
       "OriginalItemSpec": "wwwroot\\dark mode.png"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\eraser.png",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\eraser.png",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "eraser.png",
       "AssetKind": "All",
@@ -306,10 +306,10 @@
       "OriginalItemSpec": "wwwroot\\eraser.png"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\farbtastic.css",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\farbtastic.css",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "farbtastic.css",
       "AssetKind": "All",
@@ -323,10 +323,10 @@
       "OriginalItemSpec": "wwwroot\\farbtastic.css"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\farbtastic.js",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\farbtastic.js",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "farbtastic.js",
       "AssetKind": "All",
@@ -340,10 +340,10 @@
       "OriginalItemSpec": "wwwroot\\farbtastic.js"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\favicon.ico",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\favicon.ico",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "favicon.ico",
       "AssetKind": "All",
@@ -357,10 +357,10 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\frames_to_animation.png",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\frames_to_animation.png",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "frames_to_animation.png",
       "AssetKind": "All",
@@ -374,10 +374,10 @@
       "OriginalItemSpec": "wwwroot\\frames_to_animation.png"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\generate.png",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\generate.png",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "generate.png",
       "AssetKind": "All",
@@ -391,10 +391,10 @@
       "OriginalItemSpec": "wwwroot\\generate.png"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\graphic_tablet.png",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\graphic_tablet.png",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "graphic_tablet.png",
       "AssetKind": "All",
@@ -408,10 +408,10 @@
       "OriginalItemSpec": "wwwroot\\graphic_tablet.png"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\image_to_image.png",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\image_to_image.png",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "image_to_image.png",
       "AssetKind": "All",
@@ -425,10 +425,10 @@
       "OriginalItemSpec": "wwwroot\\image_to_image.png"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\js\\site.js",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\js\\site.js",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "js/site.js",
       "AssetKind": "All",
@@ -442,10 +442,10 @@
       "OriginalItemSpec": "wwwroot\\js\\site.js"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\language.png",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\language.png",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "language.png",
       "AssetKind": "All",
@@ -459,10 +459,10 @@
       "OriginalItemSpec": "wwwroot\\language.png"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.css",
       "AssetKind": "All",
@@ -476,10 +476,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.css.map",
       "AssetKind": "All",
@@ -493,10 +493,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.min.css",
       "AssetKind": "All",
@@ -510,10 +510,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.min.css.map",
       "AssetKind": "All",
@@ -527,10 +527,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.css",
       "AssetKind": "All",
@@ -544,10 +544,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.css.map",
       "AssetKind": "All",
@@ -561,10 +561,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.min.css",
       "AssetKind": "All",
@@ -578,10 +578,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.min.css.map",
       "AssetKind": "All",
@@ -595,10 +595,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.css",
       "AssetKind": "All",
@@ -612,10 +612,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.css.map",
       "AssetKind": "All",
@@ -629,10 +629,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.min.css",
       "AssetKind": "All",
@@ -646,10 +646,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.min.css.map",
       "AssetKind": "All",
@@ -663,10 +663,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.css",
       "AssetKind": "All",
@@ -680,10 +680,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.css.map",
       "AssetKind": "All",
@@ -697,10 +697,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css",
       "AssetKind": "All",
@@ -714,10 +714,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css.map",
       "AssetKind": "All",
@@ -731,10 +731,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.css",
       "AssetKind": "All",
@@ -748,10 +748,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.css.map",
       "AssetKind": "All",
@@ -765,10 +765,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.min.css",
       "AssetKind": "All",
@@ -782,10 +782,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.min.css.map",
       "AssetKind": "All",
@@ -799,10 +799,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.css",
       "AssetKind": "All",
@@ -816,10 +816,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.css.map",
       "AssetKind": "All",
@@ -833,10 +833,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css",
       "AssetKind": "All",
@@ -850,10 +850,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css.map",
       "AssetKind": "All",
@@ -867,10 +867,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.css",
       "AssetKind": "All",
@@ -884,10 +884,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.css.map",
       "AssetKind": "All",
@@ -901,10 +901,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.min.css",
       "AssetKind": "All",
@@ -918,10 +918,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.min.css.map",
       "AssetKind": "All",
@@ -935,10 +935,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.css",
       "AssetKind": "All",
@@ -952,10 +952,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.css.map",
       "AssetKind": "All",
@@ -969,10 +969,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css",
       "AssetKind": "All",
@@ -986,10 +986,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css.map",
       "AssetKind": "All",
@@ -1003,10 +1003,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.js",
       "AssetKind": "All",
@@ -1020,10 +1020,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.js.map",
       "AssetKind": "All",
@@ -1037,10 +1037,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.min.js",
       "AssetKind": "All",
@@ -1054,10 +1054,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.min.js.map",
       "AssetKind": "All",
@@ -1071,10 +1071,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.js",
       "AssetKind": "All",
@@ -1088,10 +1088,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.js.map",
       "AssetKind": "All",
@@ -1105,10 +1105,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.min.js",
       "AssetKind": "All",
@@ -1122,10 +1122,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.min.js.map",
       "AssetKind": "All",
@@ -1139,10 +1139,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.js",
       "AssetKind": "All",
@@ -1156,10 +1156,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.js.map",
       "AssetKind": "All",
@@ -1173,10 +1173,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.min.js",
       "AssetKind": "All",
@@ -1190,10 +1190,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.min.js.map",
       "AssetKind": "All",
@@ -1207,10 +1207,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\bootstrap\\LICENSE",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/bootstrap/LICENSE",
       "AssetKind": "All",
@@ -1224,10 +1224,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\LICENSE"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\jquery\\dist\\jquery.js",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/jquery/dist/jquery.js",
       "AssetKind": "All",
@@ -1241,10 +1241,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\dist\\jquery.js"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/jquery/dist/jquery.min.js",
       "AssetKind": "All",
@@ -1258,10 +1258,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\dist\\jquery.min.js"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/jquery/dist/jquery.min.map",
       "AssetKind": "All",
@@ -1275,10 +1275,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\jquery\\LICENSE.txt",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/jquery/LICENSE.txt",
       "AssetKind": "All",
@@ -1292,10 +1292,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\LICENSE.txt"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/jquery-validation/dist/additional-methods.js",
       "AssetKind": "All",
@@ -1309,10 +1309,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/jquery-validation/dist/additional-methods.min.js",
       "AssetKind": "All",
@@ -1326,10 +1326,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/jquery-validation/dist/jquery.validate.js",
       "AssetKind": "All",
@@ -1343,10 +1343,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/jquery-validation/dist/jquery.validate.min.js",
       "AssetKind": "All",
@@ -1360,10 +1360,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/jquery-validation/LICENSE.md",
       "AssetKind": "All",
@@ -1377,10 +1377,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\LICENSE.md"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
       "AssetKind": "All",
@@ -1394,10 +1394,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js",
       "AssetKind": "All",
@@ -1411,10 +1411,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "lib/jquery-validation-unobtrusive/LICENSE.txt",
       "AssetKind": "All",
@@ -1428,10 +1428,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\light mode.png",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\light mode.png",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "light mode.png",
       "AssetKind": "All",
@@ -1445,10 +1445,10 @@
       "OriginalItemSpec": "wwwroot\\light mode.png"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\loading.webp",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\loading.webp",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "loading.webp",
       "AssetKind": "All",
@@ -1462,10 +1462,10 @@
       "OriginalItemSpec": "wwwroot\\loading.webp"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\logo.png",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\logo.png",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "logo.png",
       "AssetKind": "All",
@@ -1479,10 +1479,10 @@
       "OriginalItemSpec": "wwwroot\\logo.png"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\main.js",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\main.js",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "main.js",
       "AssetKind": "All",
@@ -1496,10 +1496,10 @@
       "OriginalItemSpec": "wwwroot\\main.js"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\marker.png",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\marker.png",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "marker.png",
       "AssetKind": "All",
@@ -1513,10 +1513,10 @@
       "OriginalItemSpec": "wwwroot\\marker.png"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\mask.png",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\mask.png",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "mask.png",
       "AssetKind": "All",
@@ -1530,10 +1530,10 @@
       "OriginalItemSpec": "wwwroot\\mask.png"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\merge.png",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\merge.png",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "merge.png",
       "AssetKind": "All",
@@ -1547,10 +1547,10 @@
       "OriginalItemSpec": "wwwroot\\merge.png"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\mini_alpha_pattern.png",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\mini_alpha_pattern.png",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "mini_alpha_pattern.png",
       "AssetKind": "All",
@@ -1564,10 +1564,10 @@
       "OriginalItemSpec": "wwwroot\\mini_alpha_pattern.png"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\palette.png",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\palette.png",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "palette.png",
       "AssetKind": "All",
@@ -1581,10 +1581,10 @@
       "OriginalItemSpec": "wwwroot\\palette.png"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\pencil.png",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\pencil.png",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "pencil.png",
       "AssetKind": "All",
@@ -1598,10 +1598,10 @@
       "OriginalItemSpec": "wwwroot\\pencil.png"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\photo_to_image.png",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\photo_to_image.png",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "photo_to_image.png",
       "AssetKind": "All",
@@ -1615,10 +1615,10 @@
       "OriginalItemSpec": "wwwroot\\photo_to_image.png"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\pipette.png",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\pipette.png",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "pipette.png",
       "AssetKind": "All",
@@ -1632,10 +1632,10 @@
       "OriginalItemSpec": "wwwroot\\pipette.png"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\repeat_arrow.png",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\repeat_arrow.png",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "repeat_arrow.png",
       "AssetKind": "All",
@@ -1649,10 +1649,10 @@
       "OriginalItemSpec": "wwwroot\\repeat_arrow.png"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\save.png",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\save.png",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "save.png",
       "AssetKind": "All",
@@ -1666,10 +1666,10 @@
       "OriginalItemSpec": "wwwroot\\save.png"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\settings.png",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\settings.png",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "settings.png",
       "AssetKind": "All",
@@ -1683,10 +1683,10 @@
       "OriginalItemSpec": "wwwroot\\settings.png"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\smoothing.png",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\smoothing.png",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "smoothing.png",
       "AssetKind": "All",
@@ -1700,10 +1700,10 @@
       "OriginalItemSpec": "wwwroot\\smoothing.png"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\style.css",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\style.css",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "style.css",
       "AssetKind": "All",
@@ -1717,10 +1717,10 @@
       "OriginalItemSpec": "wwwroot\\style.css"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\swap.png",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\swap.png",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "swap.png",
       "AssetKind": "All",
@@ -1734,10 +1734,10 @@
       "OriginalItemSpec": "wwwroot\\swap.png"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\text_to_image.png",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\text_to_image.png",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "text_to_image.png",
       "AssetKind": "All",
@@ -1751,10 +1751,10 @@
       "OriginalItemSpec": "wwwroot\\text_to_image.png"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\thickness.png",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\thickness.png",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "thickness.png",
       "AssetKind": "All",
@@ -1768,10 +1768,10 @@
       "OriginalItemSpec": "wwwroot\\thickness.png"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\undo_arrow.png",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\undo_arrow.png",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "undo_arrow.png",
       "AssetKind": "All",
@@ -1785,10 +1785,10 @@
       "OriginalItemSpec": "wwwroot\\undo_arrow.png"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\upload.png",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\upload.png",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "upload.png",
       "AssetKind": "All",
@@ -1802,10 +1802,10 @@
       "OriginalItemSpec": "wwwroot\\upload.png"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\visibility_off.png",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\visibility_off.png",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "visibility_off.png",
       "AssetKind": "All",
@@ -1819,10 +1819,10 @@
       "OriginalItemSpec": "wwwroot\\visibility_off.png"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\visibility_on.png",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\visibility_on.png",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "visibility_on.png",
       "AssetKind": "All",
@@ -1836,10 +1836,10 @@
       "OriginalItemSpec": "wwwroot\\visibility_on.png"
     },
     {
-      "Identity": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\wheel.png",
+      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\wheel.png",
       "SourceId": "StableDraw_ASP.NET",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\repos\\StableDraw_ASP.NET\\StableDraw_ASP.NET\\wwwroot\\",
+      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
       "BasePath": "_content/StableDraw_ASP.NET",
       "RelativePath": "wheel.png",
       "AssetKind": "All",
