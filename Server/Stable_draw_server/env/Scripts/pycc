@@ -1,0 +1,3 @@
+#!C:\repos\Stable_draw_server\Stable_draw_server\env\Scripts\python.exe
+from numba.pycc import main
+main()
