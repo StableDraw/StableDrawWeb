@@ -8,11 +8,9 @@ from __future__ import print_function
 import copy
 from collections import defaultdict
 import numpy as np
-import pdb
 import math
 import six
 from six.moves import cPickle
-import os
 
 def precook(s, n=4, out=False):
     """
