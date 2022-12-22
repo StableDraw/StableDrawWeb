@@ -124,7 +124,7 @@ async def neural_processing(process, nprocess):
             websocket = task[0]
             #await websocket.send(json.dumps({'0' : "t", '1' : "Обработка началась"})) #костыль
             path_to_task_dir = "log\\" + task[4] + "\\" + task[3]
-            if task[1] == 'c': #если нужно сгенерировать подпись
+            if task[1] == 'c': #если нужно сгенерировать описание
                 client_message = await Gen_caption(websocket, path_to_task_dir + "\\" + task[2])
                 client_message, rep_mess_id = del_prompt_about_drawing(client_message, task[5], task[7])
                 with open(path_to_task_dir + "/AI_caption.txt", "w") as f:
@@ -146,8 +146,8 @@ async def neural_processing(process, nprocess):
                     '3': message_id,
                     '4': task[2]
                 }
-            elif task[1] == 'p': #если нужно сгенерировать изображение по AI подписи
-                #w, h, binary_data = await Stable_diffusion(websocket, path_to_task_dir, True) #передаю сокет, путь к рабочей папке, и true если AI подпись, false если человеческая
+            elif task[1] == 'p': #если нужно сгенерировать изображение по AI описанию
+                #w, h, binary_data = await Stable_diffusion(websocket, path_to_task_dir, True) #передаю сокет, путь к рабочей папке, и true если AI описание, false если человеческая
                 if (task[6]):
                     args = {
                         'style': "4k photorealistic", #стиль изображения для рендеринга
@@ -162,7 +162,7 @@ async def neural_processing(process, nprocess):
                         'seed': 42,                   #сид (для воспроизводимой генерации изображений)
                         'precision': "autocast"       #оценивать с этой точностью ("full" или "autocast")
                         }
-                    w, h, binary_data = await Stable_diffusion_2(websocket, path_to_task_dir, task[2], task[7], args) #передаю сокет, путь к рабочей папке, имя файла, и true если AI подпись, false если человеческая
+                    w, h, binary_data = await Stable_diffusion_2(websocket, path_to_task_dir, task[2], task[7], args) #передаю сокет, путь к рабочей папке, имя файла, и true если AI описание, false если человеческая
                 else:
                     args = {
                         'style': "4k photorealistic", #стиль изображения для рендеринга
@@ -177,7 +177,7 @@ async def neural_processing(process, nprocess):
                         'seed': 42,                   #сид (для воспроизводимой генерации изображений)
                         'precision': "autocast"       #оценивать с этой точностью ("full" или "autocast")
                         }
-                    w, h, binary_data = await Stable_diffusion(websocket, path_to_task_dir, task[2], task[7], args) #передаю сокет, путь к рабочей папке, имя файла, true если AI подпись, false если человеческая
+                    w, h, binary_data = await Stable_diffusion(websocket, path_to_task_dir, task[2], task[7], args) #передаю сокет, путь к рабочей папке, имя файла, true если AI описание, false если человеческая
                 img = base64.b64encode(binary_data).decode('utf-8')
                 files = {'document': ('drawing.png', binary_data)}
                 req = requests.post(URL + "sendDocument?&reply_to_message_id=" + task[5] + "&chat_id=-1001784737051", files = files)
@@ -285,7 +285,7 @@ async def handler(websocket):
             user_path = build_connection(websocket, user_id, istask)
             if user_path == False:
                 return
-            if(dictData["type"] == "d"):
+            if(dictData["type"] == "d"): #нужно описание
                 if dictData["chain_id"] == -1:
                     binary_data = base64.b64decode(bytes(dictData["data"][22:], 'utf-8'))
                     pillow_img = Image.open(io.BytesIO(binary_data)).convert("RGBA")
@@ -335,15 +335,15 @@ async def handler(websocket):
                     message_id = dictData["chain_id"]
                     task_id = dictData["task_id"]
                     img_name = dictData["img_name"]
-                task_list.append([websocket, "c", img_name, task_id, user_id, message_id, need_translate, noback]) #нужна подпись
-            elif(dictData["type"] == "g1" or dictData["type"] == "g2"): #нужна картина по AI подписи
+                task_list.append([websocket, "c", img_name, task_id, user_id, message_id, need_translate, noback]) #нужно описание
+            elif(dictData["type"] == "g1" or dictData["type"] == "g2"): #нужна картина по AI описанию
                 if dictData["type"] == "g1":
                     is_SD2 = False
                 else:
                     is_SD2 = True
                 cur_task = [websocket, "p", dictData["img_name"], dictData["task_id"], user_id, dictData["chain_id"], is_SD2, True] #дескриптор сокета, тип задания, номер сообщения ТГ (id задания), user_id, номер последнего ответа ТГ
                 task_list.append(cur_task)
-            elif(dictData["type"] == "hg1" or dictData["type"] == "hg2"): #нужна картина по человеческой подписи
+            elif(dictData["type"] == "hg1" or dictData["type"] == "hg2"): #нужна картина по человеческому описанию
                 if dictData["type"] == "hg1":
                     is_SD2 = False
                 else:
