@@ -1,9 +1,9 @@
 *.pt
 *.ckpt
 *.pth
-Server\Stable_draw_server\token.txt
-Server\Stable_draw_server\env\Lib\site-packages\cv2\cv2.pyd
-Server\Stable_draw_server\env\Lib\site-packages\llvmlite\binding\llvmlite.dll
-Server\Stable_draw_server\env\Lib\site-packages\gfpgan\weights\GFPGANv1.3.pth
-Server\Stable_draw_server\env\Lib\site-packages\torch\lib\dnnl.lib
-Server\Stable_draw_server\env\Lib\site-packages\torch\lib\torch_cpu.dll
+*token.txt
+*cv2.pyd
+*llvmlite.dll
+*GFPGANv1.3.pth
+*dnnl.lib
+*torch_cpu.dll
