@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Mwr84KDe1whNKDmGiu1uO66qizzdc8M7hRXVRvEFSLidqhq+m8iWrgPohBtQrNxPAnGDYCvwfbe092QgZdo8fg==",
+  "dgSpecHash": "vAyxppWkKUGa1lfiIbVX7LnB98T6HR4a3bnrBJJ6dSJX3eTDvZCnNqBsu5F+kbHzChTooVHA9FeyRDHLfS5MYw==",
   "success": true,
   "projectFilePath": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\StableDraw_ASP.NET.csproj",
   "expectedPackageFiles": [
@@ -40,6 +40,7 @@
     "C:\\Users\\irobo\\.nuget\\packages\\microsoft.identitymodel.protocols.openidconnect\\6.8.0\\microsoft.identitymodel.protocols.openidconnect.6.8.0.nupkg.sha512",
     "C:\\Users\\irobo\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.8.0\\microsoft.identitymodel.tokens.6.8.0.nupkg.sha512",
     "C:\\Users\\irobo\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
+    "C:\\Users\\irobo\\.nuget\\packages\\microsoft.typescript.msbuild\\4.9.4\\microsoft.typescript.msbuild.4.9.4.nupkg.sha512",
     "C:\\Users\\irobo\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\irobo\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
     "C:\\Users\\irobo\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",

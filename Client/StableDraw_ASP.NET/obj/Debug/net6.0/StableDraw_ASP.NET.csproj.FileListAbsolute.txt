@@ -74,8 +74,6 @@ C:\repos\StableDraw_ASP.NET\StableDraw_ASP.NET\obj\Debug\net6.0\refint\StableDra
 C:\repos\StableDraw_ASP.NET\StableDraw_ASP.NET\obj\Debug\net6.0\StableDraw_ASP.NET.pdb
 C:\repos\StableDraw_ASP.NET\StableDraw_ASP.NET\obj\Debug\net6.0\StableDraw_ASP.NET.genruntimeconfig.cache
 C:\repos\StableDraw_ASP.NET\StableDraw_ASP.NET\obj\Debug\net6.0\ref\StableDraw_ASP.NET.dll
-C:\Stable-Draw\Client\StableDraw_ASP.NET\bin\Debug\net6.0\appsettings.Development.json
-C:\Stable-Draw\Client\StableDraw_ASP.NET\bin\Debug\net6.0\appsettings.json
 C:\Stable-Draw\Client\StableDraw_ASP.NET\bin\Debug\net6.0\StableDraw_ASP.NET.staticwebassets.runtime.json
 C:\Stable-Draw\Client\StableDraw_ASP.NET\bin\Debug\net6.0\StableDraw_ASP.NET.exe
 C:\Stable-Draw\Client\StableDraw_ASP.NET\bin\Debug\net6.0\StableDraw_ASP.NET.deps.json
@@ -150,3 +148,4 @@ C:\Stable-Draw\Client\StableDraw_ASP.NET\obj\Debug\net6.0\refint\StableDraw_ASP.
 C:\Stable-Draw\Client\StableDraw_ASP.NET\obj\Debug\net6.0\StableDraw_ASP.NET.pdb
 C:\Stable-Draw\Client\StableDraw_ASP.NET\obj\Debug\net6.0\StableDraw_ASP.NET.genruntimeconfig.cache
 C:\Stable-Draw\Client\StableDraw_ASP.NET\obj\Debug\net6.0\ref\StableDraw_ASP.NET.dll
+C:\Stable-Draw\Client\StableDraw_ASP.NET\bin\Debug\net6.0\tsconfig.json

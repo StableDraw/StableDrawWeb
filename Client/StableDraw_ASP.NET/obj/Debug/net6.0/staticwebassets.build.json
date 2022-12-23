@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "XcGgRs0QpjBrtDFpmeAiTZIpwKwSdDAywZbxAG9js1U=",
+  "Hash": "7Fmgbts79VTdvd9Kgg5VLuajEmeOXq5CfEV9rzKZkBA=",
   "Source": "StableDraw_ASP.NET",
   "BasePath": "_content/StableDraw_ASP.NET",
   "Mode": "Default",
@@ -1477,23 +1477,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\logo.png"
-    },
-    {
-      "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\main.js",
-      "SourceId": "StableDraw_ASP.NET",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\",
-      "BasePath": "_content/StableDraw_ASP.NET",
-      "RelativePath": "main.js",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\main.js"
     },
     {
       "Identity": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\marker.png",
