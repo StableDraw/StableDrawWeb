@@ -1,92 +1,91 @@
 "use strict";
-var body = document.querySelector("body");
-var cursor = document.querySelector(".cursor");
-var cursor_image = document.querySelector(".cursimg");
-var cursor_type = -1;
-var nav_panel = document.querySelector(".nav");
-var canvas_foreground = document.getElementById("canvas_foreground");
-var canvas_background = document.getElementById("canvas_background");
-var canvas_additional = document.getElementById("canvas_additional");
-var canvas_layer_1 = document.getElementById("layer_1_display_canvas");
-var canvas_layer_2 = document.getElementById("layer_2_display_canvas");
-var layer_icon_1 = document.getElementById("layer_display_icon_1");
-var layer_icon_2 = document.getElementById("layer_display_icon_2");
-var d_frame = document.getElementById("d_frame");
-var spanel = document.getElementById("mySidepanel");
-var spanel_openbtn = document.querySelector(".openbtn");
-var generateBtn = document.getElementById("generate");
-var clr_w = document.getElementById("clr_window");
-var pencil_w = document.getElementById("pencil_window");
-var eraser_w = document.getElementById("eraser_window");
-var ok_clr_btn = document.getElementById("ok_clr_btn");
-var cur_color = document.getElementById("color");
-var clrimg = document.getElementById("clrimg");
-var ctx_foreground = canvas_foreground.getContext("2d", { willReadFrequently: true });
-var ctx_background = canvas_background.getContext("2d", { willReadFrequently: true });
-var ctx_add = canvas_additional.getContext("2d", { willReadFrequently: true });
-var ctx_layer_1 = canvas_layer_1.getContext("2d", { willReadFrequently: true });
-var ctx_layer_2 = canvas_layer_2.getContext("2d", { willReadFrequently: true });
-var ratio_field = document.querySelector(".f_ratio");
-var ratio_tooltip = document.querySelector("ratio_tooltip");
-var thickness_slider = document.getElementById("thickness_sliderValue");
-var thickness_field = document.getElementById("thickness_rangeValue");
-var smoothing_slider = document.getElementById("smoothing_sliderValue");
-var smoothing_field = document.getElementById("smoothing_rangeValue");
-var e_thickness_slider = document.getElementById("e_thickness_sliderValue");
-var e_thickness_field = document.getElementById("e_thickness_rangeValue");
-var layer_1 = document.getElementById("layer_1");
-var layer_2 = document.getElementById("layer_2");
-var scale_field = document.querySelector(".scale_field");
-var div_layers = document.querySelector(".layers");
-var layers_buttons = document.querySelector(".layers_buttons");
-var modal_header = document.querySelector(".modal__header");
-var modal_body = document.querySelector(".modal__body");
-var modal_footer = document.querySelector(".modal__footer");
-var text_label_clr = document.getElementById("text_label_clr");
-var blackout = document.getElementById("full_blackout");
-var side_panel_blackout = document.getElementById("side_panel_blackout");
-var EL = function (sel) { return document.querySelector(sel); };
-var id_list = ['p', 'i', 'u', 'f'];
-var Pi_div_4 = Math.PI / 4;
-var nstack = [];
-var pstack = [];
-var curprim = [];
-var fp = true;
-var on_d_frame = false;
-var on_d_fiend = false;
-var prevX = null;
-var prevY = null;
-var move_prevX = null;
-var move_prevY = null;
-var X_move = null;
-var Y_move = null;
-var cX;
-var cY;
-var is_shift_on = false;
-var fup = false;
-var fdown = false;
-var fright = false;
-var fleft = false;
-var cfup = false;
-var cfleft = false;
-var W = window.innerWidth;
-var H = window.innerHeight;
-var fW_max = W * 0.8;
-var fH_max = H * 0.8;
-var fW_min = W * 0.1;
-var fH_min = H * 0.1;
-var cW = canvas_foreground.offsetWidth;
-var cH = canvas_foreground.offsetHeight;
-var cD = cW / cH;
-var Max_cW = cW;
-var Max_cH = cH;
-var lW = layer_icon_1.offsetWidth;
-var lH = layer_icon_1.offsetHeight;
-var lwW = canvas_layer_1.width;
-var lwH = canvas_layer_1.height;
-var orig_lW = lW;
-var orig_lH = lH;
-var orig_lD = lW / lH;
+const body = document.querySelector("body");
+const cursor = document.querySelector(".cursor");
+const cursor_image = document.querySelector(".cursimg");
+let cursor_type = -1;
+const nav_panel = document.querySelector(".nav");
+const canvas_foreground = document.getElementById("canvas_foreground");
+const canvas_background = document.getElementById("canvas_background");
+const canvas_additional = document.getElementById("canvas_additional");
+const canvas_layer_1 = document.getElementById("layer_1_display_canvas");
+const canvas_layer_2 = document.getElementById("layer_2_display_canvas");
+const layer_icon_1 = document.getElementById("layer_display_icon_1");
+const layer_icon_2 = document.getElementById("layer_display_icon_2");
+const d_frame = document.getElementById("d_frame");
+const spanel = document.getElementById("mySidepanel");
+const spanel_openbtn = document.querySelector(".openbtn");
+const generateBtn = document.getElementById("generate");
+const clr_w = document.getElementById("clr_window");
+const pencil_w = document.getElementById("pencil_window");
+const eraser_w = document.getElementById("eraser_window");
+const ok_clr_btn = document.getElementById("ok_clr_btn");
+const cur_color = document.getElementById("color");
+const clrimg = document.getElementById("clrimg");
+const ctx_foreground = canvas_foreground.getContext("2d", { willReadFrequently: true });
+const ctx_background = canvas_background.getContext("2d", { willReadFrequently: true });
+const ctx_add = canvas_additional.getContext("2d", { willReadFrequently: true });
+const ctx_layer_1 = canvas_layer_1.getContext("2d", { willReadFrequently: true });
+const ctx_layer_2 = canvas_layer_2.getContext("2d", { willReadFrequently: true });
+const ratio_field = document.querySelector(".f_ratio");
+const ratio_tooltip = document.querySelector("ratio_tooltip");
+const thickness_slider = document.getElementById("thickness_sliderValue");
+const thickness_field = document.getElementById("thickness_rangeValue");
+const smoothing_slider = document.getElementById("smoothing_sliderValue");
+const smoothing_field = document.getElementById("smoothing_rangeValue");
+const e_thickness_slider = document.getElementById("e_thickness_sliderValue");
+const e_thickness_field = document.getElementById("e_thickness_rangeValue");
+const layer_1 = document.getElementById("layer_1");
+const layer_2 = document.getElementById("layer_2");
+const scale_field = document.querySelector(".scale_field");
+const div_layers = document.querySelector(".layers");
+const layers_buttons = document.querySelector(".layers_buttons");
+const modal_header = document.querySelector(".modal__header");
+const modal_body = document.querySelector(".modal__body");
+const modal_footer = document.querySelector(".modal__footer");
+const text_label_clr = document.getElementById("text_label_clr");
+const blackout = document.getElementById("full_blackout");
+const side_panel_blackout = document.getElementById("side_panel_blackout");
+const id_list = ['p', 'i', 'u', 'f'];
+const Pi_div_4 = Math.PI / 4;
+let nstack = [];
+let pstack = [];
+let curprim = [];
+let fp = true;
+let on_d_frame = false;
+let on_d_fiend = false;
+let prevX;
+let prevY;
+let move_prevX;
+let move_prevY;
+let X_move;
+let Y_move;
+let cX;
+let cY;
+let is_shift_on = false;
+let fup = false;
+let fdown = false;
+let fright = false;
+let fleft = false;
+let cfup = false;
+let cfleft = false;
+let W = window.innerWidth;
+let H = window.innerHeight;
+let fW_max = W * 0.8;
+let fH_max = H * 0.8;
+let fW_min = W * 0.1;
+let fH_min = H * 0.1;
+let cW = canvas_foreground.offsetWidth;
+let cH = canvas_foreground.offsetHeight;
+let cD = cW / cH;
+let Max_cW = cW;
+let Max_cH = cH;
+let lW = layer_icon_1.offsetWidth;
+let lH = layer_icon_1.offsetHeight;
+let lwW = canvas_layer_1.width;
+let lwH = canvas_layer_1.height;
+let orig_lW = lW;
+let orig_lH = lH;
+let orig_lD = lW / lH;
 if (cD > orig_lD) {
     lW = orig_lW;
     lH = orig_lW / cD;
@@ -95,8 +94,8 @@ else {
     lH = orig_lH;
     lW = orig_lH * cD;
 }
-var lWp = Math.round(995 * (lW / orig_lW)) / 10 + "%";
-var lHp = Math.round(1000 * (lH / orig_lH)) / 10 + "%";
+let lWp = Math.round(995 * (lW / orig_lW)) / 10 + "%";
+let lHp = Math.round(1000 * (lH / orig_lH)) / 10 + "%";
 layer_icon_1.style.width = lWp;
 layer_icon_2.style.width = lWp;
 layer_icon_1.style.height = lHp;
@@ -105,63 +104,63 @@ layer_icon_2.style.height = lHp;
 layer_alpha_img_1.height = lHp
 layer_alpha_img_2.width = lWp
 layer_alpha_img_2.height = lHp*/
-var cur_real_ratio = cH / cW;
-var l_width = 1;
-var W_f = (W - cW) / 2 - l_width / 2 + 12;
-var H_f = (H - cH) / 2 - l_width / 2 + 12;
-var f_dW = d_frame.offsetWidth;
-var f_dH = d_frame.offsetHeight;
-var orig_f_dW = f_dW;
-var orig_f_dH = f_dH;
-var fW_pred = orig_f_dW;
-var fH_pred = orig_f_dH;
-var cmp_W = 1;
-var cmp_H = 1;
-var cmp_W_b = 0;
-var cmp_H_b = 0;
+let cur_real_ratio = cH / cW;
+let l_width = 1;
+let W_f = (W - cW) / 2 - l_width / 2 + 12;
+let H_f = (H - cH) / 2 - l_width / 2 + 12;
+let f_dW = d_frame.offsetWidth;
+let f_dH = d_frame.offsetHeight;
+let orig_f_dW = f_dW;
+let orig_f_dH = f_dH;
+let fW_pred = orig_f_dW;
+let fH_pred = orig_f_dH;
+let cmp_W = 1;
+let cmp_H = 1;
+let cmp_W_b = 0;
+let cmp_H_b = 0;
 d_frame.width = f_dW;
 d_frame.height = f_dH;
-var H_min = (H - f_dH) / 4;
-var H_max = f_dH + H_min;
-var W_min = (W - f_dW) / 4;
-var W_max = f_dW + W_min;
+let H_min = (H - f_dH) / 4;
+let H_max = f_dH + H_min;
+let W_min = (W - f_dW) / 4;
+let W_max = f_dW + W_min;
 canvas_foreground.height = cH;
 canvas_foreground.width = cW;
 canvas_background.height = cH;
 canvas_background.width = cW;
 canvas_additional.height = cH;
 canvas_additional.width = cW;
-var draw = false;
-var enddraw = false;
-var f_move = false;
-var end_f_move = false;
-var old_btn_clr = false; //изначально чёрный текст у кнопок цвета
-var on_clr_window = false;
-var cur_background_clr = "#fff";
-var new_background_clr = cur_background_clr;
-var cur_brush_clr = "#000000";
+let draw = false;
+let enddraw = false;
+let f_move = false;
+let end_f_move = false;
+let old_btn_clr = false; //изначально чёрный текст у кнопок цвета
+let on_clr_window = false;
+let cur_background_clr = "#fff";
+let new_background_clr = cur_background_clr;
+let cur_brush_clr = "#000000";
 ctx_background.fillStyle = cur_background_clr; //заливка фона белым, костыль, убрать
 ctx_layer_2.fillStyle = cur_background_clr; //заливка иконки фона белым, костыль, убрать
 pstack.push(['i', ctx_background, cur_background_clr]);
 ctx_background.fillRect(0, 0, cW, cH);
 ctx_layer_2.fillRect(0, 0, cW, cH);
-var is_clr_brash = true;
-var cur_ratio_val = get_visual_ratio(false, cW, cH);
+let is_clr_brash = true;
+let cur_ratio_val = get_visual_ratio(false, cW, cH);
 ratio_field.value = cur_ratio_val; //устанавливаем соотношение сторон при запуске
-var is_first_upload_btn_click = true; //костыль, чтобы кнопка не срабатывала дважды
-var is_foreground_selected = true; //выбран ли верхний слой, по-умолчанию выбран
-var cur_draw_ctx = ctx_foreground; //текущий выбранный слой для рисования, по-умолчанию верхний
-var cur_canvas = canvas_foreground; //текущий выбранный слой для рисования ввиде слоя, не контекста, по-умолчанию верхний
-var cur_ctx_layer = ctx_layer_1; //текущий выбранный слой для рисования ввиде контекста кнопки который в углу, по-умолчанию верхний
-var graphic_tablet_mode = false; //режим графического планшета
-var is_clr_window = false; //отображение окна с палитрой
-var is_pencil_window = true; //отображение окна настроек кисти
-var is_eraser_window = false; //отображение окна настроек ластика
-var cur_smoothing = 0; //параметр сглаживания
-var cur_smooth_prim = []; //текущий сглаженный примитив
-var k_smooth = 0; //текущий коэффициент сглаживания
-var is_foreground_visible = true; //включена ли видимость переднего слоя
-var is_background_visible = true; //включена ли видимость заднего слоя
+let is_first_upload_btn_click = true; //костыль, чтобы кнопка не срабатывала дважды
+let is_foreground_selected = true; //выбран ли верхний слой, по-умолчанию выбран
+let cur_draw_ctx = ctx_foreground; //текущий выбранный слой для рисования, по-умолчанию верхний
+let cur_canvas = canvas_foreground; //текущий выбранный слой для рисования ввиде слоя, не контекста, по-умолчанию верхний
+let cur_ctx_layer = ctx_layer_1; //текущий выбранный слой для рисования ввиде контекста кнопки который в углу, по-умолчанию верхний
+let graphic_tablet_mode = false; //режим графического планшета
+let is_clr_window = false; //отображение окна с палитрой
+let is_pencil_window = true; //отображение окна настроек кисти
+let is_eraser_window = false; //отображение окна настроек ластика
+let cur_smoothing = 0; //параметр сглаживания
+let cur_smooth_prim = []; //текущий сглаженный примитив
+let k_smooth = 0; //текущий коэффициент сглаживания
+let is_foreground_visible = true; //включена ли видимость переднего слоя
+let is_background_visible = true; //включена ли видимость заднего слоя
 ctx_foreground.lineCap = "round";
 ctx_foreground.lineJoin = "round";
 ctx_add.lineCap = "round";
@@ -170,16 +169,16 @@ ctx_background.lineCap = "round";
 ctx_background.lineJoin = "round";
 layer_1.style.border = "5px solid #000000";
 layer_2.style.border = "1px solid #707070";
-var is_dark_mode = false; //тёмная тема (отключена по-умолчанию)
-var is_modal_open = false;
-var is_side_panel_open = false;
-var caption_field;
-var style_field;
-var is_human_caption;
-var original_image_buf = ""; //переменная для хранения исходных изображений
-var ws = new WebSocket("wss://stabledraw.com:8081");
-var chain_id = -1;
-var task_id;
+let is_dark_mode = false; //тёмная тема (отключена по-умолчанию)
+let is_modal_open = false;
+let is_side_panel_open = false;
+let caption_field;
+let style_field;
+let is_human_caption;
+let original_image_buf = ""; //переменная для хранения исходных изображений
+let ws = new WebSocket("wss://stabledraw.com:8081");
+let chain_id = -1;
+let task_id;
 var main_modal = function (options) {
     var _elemModal;
     var _eventShowModal;
@@ -233,7 +232,7 @@ var main_modal = function (options) {
     _elemModal.addEventListener("click", _handlerCloseModal);
     _eventShowModal = new CustomEvent("show.modal", { detail: _elemModal });
     _eventHideModal = new CustomEvent("hide.modal", { detail: _elemModal });
-    return {
+    let return_elem = {
         show: _showModal,
         hide: _hideModal,
         destroy: function () {
@@ -246,6 +245,7 @@ var main_modal = function (options) {
             _elemModal.querySelector('[data-modal="title"]').innerHTML = text;
         }
     };
+    return return_elem;
 };
 (function () {
     var modal = main_modal({
@@ -258,20 +258,21 @@ var main_modal = function (options) {
             { class: "modal_btn modal_btn-1", text: "Отмена", handler: "modalHandlerCancel" }
         ]
     });
-    document.addEventListener("show.modal", function (e) {
-        //document.querySelector(".actions").textContent = "Действия при открытии модального окна..."
+    /*document.addEventListener("show.modal", function (e: any)
+    {
+        document.querySelector(".actions").textContent = "Действия при открытии модального окна..."
         // получить ссылку на DOM-элемент показываемого модального окна (.modal)
-        //console.log(e.detail)
-    });
-    document.addEventListener("hide.modal", function (e) {
-        //document.querySelector(".actions").textContent = "Действия при закрытии модального окна..."
+        console.log(e.detail)
+    })
+    document.addEventListener("hide.modal", function (e: any)
+    {
+        document.querySelector(".actions").textContent = "Действия при закрытии модального окна..."
         // получить ссылку на DOM-элемент скрываемого модального окна (.modal)
-        //console.log(e.detail)
-    });
+        console.log(e.detail)
+    })*/
     document.addEventListener("click", function (e) {
         if (e.target.dataset.toggle === "modal") {
-            var elemTarget = e.target;
-            var content = void 0;
+            let content;
             if (original_image_buf == "") {
                 content = 'Подпись:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"/><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image()">Сгенерировать автоматически</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"/>';
             }
@@ -283,8 +284,8 @@ var main_modal = function (options) {
             caption_field = document.getElementById("caption_input");
             style_field = document.getElementById("style_input");
             ws.onmessage = function (event) {
-                var jdata = JSON.parse(event.data);
-                var type = jdata[0];
+                let jdata = JSON.parse(event.data);
+                let type = jdata[0];
                 if (type == 't') //если текстовое сообщение
                  {
                     //alert(jdata[1])
@@ -302,16 +303,16 @@ var main_modal = function (options) {
                 }
                 if (type == 'i') //если изображение
                  {
-                    var image_1 = new Image();
-                    image_1.onload = function () {
+                    let image = new Image();
+                    image.onload = function () {
                         ctx_foreground.clearRect(0, 0, cW, cH); // очищаем верхний холст
-                        ctx_foreground.drawImage(image_1, 0, 0, jdata[2], jdata[3], 0, 0, cW, cH);
-                        push_action_to_stack(['u', cur_draw_ctx, image_1, jdata[2], jdata[3]]);
+                        ctx_foreground.drawImage(image, 0, 0, jdata[2], jdata[3], 0, 0, cW, cH);
+                        push_action_to_stack(['u', cur_draw_ctx, image, jdata[2], jdata[3]]);
                         ctx_layer_1.clearRect(0, 0, lwW, lwH);
                         canvas_to_layer(cur_canvas, cur_ctx_layer);
                     };
                     original_image_buf = "data:image/png;base64," + jdata[1];
-                    image_1.src = original_image_buf;
+                    image.src = original_image_buf;
                     chain_id = jdata[4];
                     last_task_image_name = jdata[5];
                     blackout.style.display = "none";
@@ -332,7 +333,7 @@ var main_modal = function (options) {
             if (caption_field.value == "") {
                 gen_caption_for_image();
             }
-            var full_prompt = caption_field.value + " " + style_field.value;
+            let full_prompt = caption_field.value + " " + style_field.value;
             gen_picture_by_promot(false, full_prompt);
             //modal.hide()
             //document.querySelector(".message").textContent = "Вы нажали на кнопку ОК, а открыли окно с помощью кнопки " + elemTarget.textContent
@@ -341,7 +342,7 @@ var main_modal = function (options) {
             if (caption_field.value == "") {
                 gen_caption_for_image();
             }
-            var full_prompt = caption_field.value + " " + style_field.value;
+            let full_prompt = caption_field.value + " " + style_field.value;
             gen_picture_by_promot(true, full_prompt);
             //modal.hide()
             //document.querySelector(".message").textContent = "Вы нажали на кнопку ОК, а открыли окно с помощью кнопки " + elemTarget.textContent
@@ -351,24 +352,24 @@ var main_modal = function (options) {
         }
     });
 })();
-var last_task_image_name = "drawing_0.png";
+let last_task_image_name = "drawing_0.png";
 //ws.onopen = function(){alert("open");} 
 ws.onclose = function () {
     alert("Соединение разорвано");
 };
 //ws.onerror = function(){alert("error");}
 function check_data_before_sending() {
-    var local_is_foreground_used = false;
-    var local_is_background_used = false;
-    var local_is_drawing_on_foreground = true;
-    var local_is_drawing_on_background = true;
-    var local_sure_on_foreground = true;
-    var local_sure_on_background = true;
-    var local_how_many_prims_on_foreground = 0;
-    var local_how_many_dots_on_foreground = 0;
-    var local_how_many_prims_on_background = 0;
-    var local_how_many_dots_on_background = 0;
-    for (var i = 0; i < pstack.length; i++) {
+    let local_is_foreground_used = false;
+    let local_is_background_used = false;
+    let local_is_drawing_on_foreground = true;
+    let local_is_drawing_on_background = true;
+    let local_sure_on_foreground = true;
+    let local_sure_on_background = true;
+    let local_how_many_prims_on_foreground = 0;
+    let local_how_many_dots_on_foreground = 0;
+    let local_how_many_prims_on_background = 0;
+    let local_how_many_dots_on_background = 0;
+    for (let i = 0; i < pstack.length; i++) {
         switch (pstack[i][0]) {
             case 'p':
                 if (pstack[i][1] == ctx_foreground) {
@@ -496,10 +497,10 @@ function check_data_before_sending() {
                 break;
         }
     }
-    var local_is_drawing;
-    var local_sure;
-    var local_how_many_prims;
-    var local_how_many_dots;
+    let local_is_drawing;
+    let local_sure;
+    let local_how_many_prims;
+    let local_how_many_dots;
     if (!local_is_foreground_used) {
         local_how_many_prims_on_foreground = 0;
         local_how_many_dots_on_foreground = 0;
@@ -542,11 +543,11 @@ function check_data_before_sending() {
         local_is_drawing = false;
         local_sure = true;
     }
-    return { local_is_foreground_used: local_is_foreground_used, local_is_background_used: local_is_background_used, local_is_drawing: local_is_drawing, local_sure: local_sure, local_how_many_prims: local_how_many_prims, local_how_many_dots: local_how_many_dots };
+    return { local_is_foreground_used, local_is_background_used, local_is_drawing, local_sure, local_how_many_prims, local_how_many_dots };
 }
 function push_action_to_stack(local_act) {
-    var need_add = true;
-    var pstack_length = pstack.length - 1;
+    let need_add = true;
+    let pstack_length = pstack.length - 1;
     if (pstack_length != -1 && pstack[pstack_length][0] == local_act[0] && local_act[0] != 'p' && local_act[0] != 'u' && pstack[pstack_length] == local_act) {
         need_add = false;
     }
@@ -557,8 +558,8 @@ function push_action_to_stack(local_act) {
 }
 function gen_picture_by_promot(is_SD2, full_prompt) {
     blackout.style.display = "block";
-    var local_type;
-    var send_data;
+    let local_type;
+    let send_data;
     if (is_SD2) {
         local_type = "2";
     }
@@ -566,8 +567,8 @@ function gen_picture_by_promot(is_SD2, full_prompt) {
         local_type = "1";
     }
     if (is_human_caption) {
-        var data = void 0;
-        var background_data = void 0;
+        let data;
+        let background_data;
         if (original_image_buf == "") {
             if (is_foreground_visible) {
                 data = canvas_foreground.toDataURL("imag/png");
@@ -585,7 +586,7 @@ function gen_picture_by_promot(is_SD2, full_prompt) {
         else {
             data = original_image_buf;
         }
-        var _a = check_data_before_sending(), local_is_foreground_used = _a.local_is_foreground_used, local_is_background_used = _a.local_is_background_used, local_is_drawing = _a.local_is_drawing, local_sure = _a.local_sure, local_how_many_prims = _a.local_how_many_prims, local_how_many_dots = _a.local_how_many_dots;
+        let { local_is_foreground_used, local_is_background_used, local_is_drawing, local_sure, local_how_many_prims, local_how_many_dots } = check_data_before_sending();
         if (original_image_buf == "") {
             if (local_is_background_used && is_background_visible) {
                 background_data = canvas_background.toDataURL("imag/png");
@@ -636,12 +637,12 @@ function gen_picture_by_promot(is_SD2, full_prompt) {
 }
 function delete_background() {
     blackout.style.display = "block";
-    var task_id = -1;
-    var data = original_image_buf;
+    let task_id = -1;
+    let data = original_image_buf;
     if (chain_id != -1) {
         data = "";
     }
-    var send_data_del = JSON.stringify({
+    let send_data_del = JSON.stringify({
         "type": 'b',
         "data": data,
         "chain_id": chain_id,
@@ -652,12 +653,12 @@ function delete_background() {
 }
 function upscale() {
     blackout.style.display = "block";
-    var task_id = -1;
-    var data = original_image_buf;
+    let task_id = -1;
+    let data = original_image_buf;
     if (chain_id != -1) {
         data = "";
     }
-    var send_data_ups = JSON.stringify({
+    let send_data_ups = JSON.stringify({
         "type": 'a',
         "data": data,
         "chain_id": chain_id,
@@ -698,26 +699,22 @@ window.onresize = function () {
     canvas_additional.width = cW;
     replay_actions(pstack);
 };
-var slider_range = document.querySelectorAll('input[type="range"]');
+let slider_range = document.querySelectorAll('input[type="range"]');
+let slider_element;
 function update_slider() {
-    for (var _i = 0, slider_range_2 = slider_range; _i < slider_range_2.length; _i++) {
-        var e = slider_range_2[_i];
-        e.style.setProperty('--value', e.value);
+    for (slider_element of slider_range) {
+        slider_element.style.setProperty('--value', slider_element.value);
     }
 }
-var _loop_1 = function (e) {
-    e.style.setProperty("--value", e.value);
-    e.style.setProperty("--min", e.min == "" ? '0' : e.min);
-    e.style.setProperty("--max", e.max == "" ? "100" : e.max);
-    e.addEventListener("input", function () { return e.style.setProperty("--value", e.value); });
-};
-for (var _i = 0, slider_range_1 = slider_range; _i < slider_range_1.length; _i++) {
-    var e = slider_range_1[_i];
-    _loop_1(e);
+for (slider_element of slider_range) {
+    slider_element.style.setProperty("--value", slider_element.value);
+    slider_element.style.setProperty("--min", slider_element.min == "" ? '0' : slider_element.min);
+    slider_element.style.setProperty("--max", slider_element.max == "" ? "100" : slider_element.max);
+    slider_element.addEventListener("input", () => slider_element.style.setProperty("--value", slider_element.value));
 }
 ratio_field.onchange = function () {
-    var t_v = ratio_field.value;
-    var pos = t_v.indexOf(':');
+    let t_v = ratio_field.value;
+    let pos = t_v.indexOf(':');
     if (pos == -1) {
         ratio_field.value = cur_ratio_val;
         return;
@@ -726,12 +723,12 @@ ratio_field.onchange = function () {
         t_v = t_v.slice(1);
         pos--;
     }
-    var new_r_w_s = t_v.slice(0, pos);
-    var new_r_h_s = t_v.slice(pos + 1);
-    var new_r_w = parseInt(new_r_w_s);
-    var new_r_h = parseInt(new_r_h_s);
-    var new_dfw;
-    var new_dfh;
+    let new_r_w_s = t_v.slice(0, pos);
+    let new_r_h_s = t_v.slice(pos + 1);
+    let new_r_w = parseInt(new_r_w_s);
+    let new_r_h = parseInt(new_r_h_s);
+    let new_dfw;
+    let new_dfh;
     if (new_r_w / new_r_h > Max_cW / Max_cH) {
         new_dfh = Math.max(fH_min, (fW_max / new_r_w) * new_r_h);
         new_dfw = fW_max;
@@ -748,19 +745,18 @@ ratio_field.onchange = function () {
     return get_visual_ratio(true, new_dfw, new_dfh);
 };
 function get_visual_ratio(abs, w, h) {
-    var rat = [[2.0556, 21, 9], [1.5556, 16, 9], [1.1667, 4, 3], [0.875, 1, 1], [0.6562, 3, 4], [0.4955, 9, 16]];
-    var cur_ratio = w / h;
-    var v_w;
-    var v_h;
-    var cur_k;
+    const rat = [[2.0556, 21, 9], [1.5556, 16, 9], [1.1667, 4, 3], [0.875, 1, 1], [0.6562, 3, 4], [0.4955, 9, 16]];
+    let cur_ratio = w / h;
+    let v_w = 0;
+    let v_h = 0;
+    let cur_k;
     if (cur_ratio <= 0.4955) {
         v_w = 9;
         v_h = 21;
     }
     else {
-        var r = void 0;
-        for (var _i = 0, rat_1 = rat; _i < rat_1.length; _i++) {
-            r = rat_1[_i];
+        let r;
+        for (r of rat) {
             if (cur_ratio > r[0]) {
                 v_w = r[1];
                 v_h = r[2];
@@ -776,7 +772,7 @@ function get_visual_ratio(abs, w, h) {
         cur_k = w / v_w;
         v_h = Math.round(h / cur_k);
     }
-    var res = (v_w).toString() + ":" + (v_h).toString();
+    let res = (v_w).toString() + ":" + (v_h).toString();
     if (!abs) {
         res = "≈" + res;
     }
@@ -801,32 +797,33 @@ function closeNav() {
     spanel.style.width = "0";
     setTimeout(closeNav_border, 490);
 }
-var backBtn = document.getElementById("arrow_back");
-backBtn.addEventListener("click", function () {
+let backBtn = document.getElementById("arrow_back");
+backBtn.addEventListener("click", () => {
     undo_action();
 });
-var nextBtn = document.getElementById("arrow_next");
-nextBtn.addEventListener("click", function () {
+let nextBtn = document.getElementById("arrow_next");
+nextBtn.addEventListener("click", () => {
     repeat_action();
 });
-var initial_picker = $(document).ready(function () {
-    var picker = $("#picker");
-    var picker_fabritastic = picker.farbtastic("#color");
+const initial_picker = $(document).ready(function () {
+    let picker = $("#picker");
+    picker.farbtastic("#color");
 });
 function hexDec(h) {
-    var m = h.slice(1).match(/.{2}/g);
-    m[0] = parseInt(m[0], 16);
-    m[1] = parseInt(m[1], 16);
-    m[2] = parseInt(m[2], 16);
-    return m[0] + m[1] + m[2];
+    let m_s = h.slice(1).match(/.{2}/g);
+    let m_n = [];
+    m_n[0] = parseInt(m_s[0], 16);
+    m_n[1] = parseInt(m_s[1], 16);
+    m_n[2] = parseInt(m_s[2], 16);
+    return m_n[0] + m_n[1] + m_n[2];
 }
-var colourBtn = document.getElementById("palette");
+let colourBtn = document.getElementById("palette");
 colourBtn.style.background = "#000000";
-var ok_clr = document.querySelector(".ok_clr_btn");
-var ctype_clr_btn = document.querySelector(".ctype_clr_btn");
+let ok_clr = document.querySelector(".ok_clr_btn");
+let ctype_clr_btn = document.querySelector(".ctype_clr_btn");
 function handleclr_PointerMove() {
     on_clr_window = true;
-    var ccv = cur_color.value;
+    let ccv = cur_color.value;
     if (ccv == "#NaNNaNNaN") {
         ccv = "#" + colourBtn.style.background.split("(")[1].split(")")[0].split(",").map(function (x) {
             x = parseInt(x).toString(16);
@@ -849,7 +846,7 @@ function handleclr_PointerMove() {
         }
     }
     if (is_clr_brash) {
-        ctype_clr_btn.background = ccv;
+        ctype_clr_btn.style.background = ccv;
     }
     ok_clr_btn.style.background = ccv;
     colourBtn.style.background = ccv;
@@ -872,7 +869,7 @@ function handlet_clr_Click() {
     }
     else {
         ctype_clr_btn.textContent = "Цвет фона";
-        var ccv = cur_brush_clr;
+        let ccv = cur_brush_clr;
         new_background_clr = cur_color.value;
         cur_color.value = ccv;
         if (hexDec(new_background_clr) > 382) {
@@ -905,7 +902,7 @@ function close_clr_window() {
     clr_w.removeEventListener("pointermove", handleclr_PointerMove);
     ctype_clr_btn.removeEventListener("click", handlet_clr_Click);
     is_clr_window = false;
-    var ccv = cur_color.value;
+    let ccv = cur_color.value;
     if (ccv == "#NaNNaNNaN") {
         ccv = "#" + colourBtn.style.background.split("(")[1].split(")")[0].split(",").map(function (x) {
             x = parseInt(x).toString(16);
@@ -932,16 +929,16 @@ function close_clr_window() {
     ctx_background.strokeStyle = cur_brush_clr;
     clr_w.style.display = "none";
 }
-var change_themeBtn = document.getElementById("change_theme");
-var tmimg = document.getElementById("theme_mode_img");
-var graphic_tabletBtn = document.getElementById("graphic_tablet");
-var first_layer_visibilityBtn = document.getElementById("layer_1_visibility_button");
-var first_layer_visibility_img = document.getElementById("layer_1_visibility_img");
-var second_layer_visibilityBtn = document.getElementById("layer_2_visibility_button");
-var second_layer_visibility_img = document.getElementById("layer_2_visibility_img");
-var clear_first_layer_Btn = document.getElementById("clear_layer_1");
-var clear_second_layer_Btn = document.getElementById("clear_layer_2");
-change_themeBtn.addEventListener("click", function () {
+const change_themeBtn = document.getElementById("change_theme");
+const tmimg = document.getElementById("theme_mode_img");
+const graphic_tabletBtn = document.getElementById("graphic_tablet");
+const first_layer_visibilityBtn = document.getElementById("layer_1_visibility_button");
+const first_layer_visibility_img = document.getElementById("layer_1_visibility_img");
+const second_layer_visibilityBtn = document.getElementById("layer_2_visibility_button");
+const second_layer_visibility_img = document.getElementById("layer_2_visibility_img");
+const clear_first_layer_Btn = document.getElementById("clear_layer_1");
+const clear_second_layer_Btn = document.getElementById("clear_layer_2");
+change_themeBtn.addEventListener("click", () => {
     if (is_dark_mode) {
         tmimg.setAttribute("src", "dark mode.png");
         is_dark_mode = false;
@@ -1015,8 +1012,8 @@ change_themeBtn.addEventListener("click", function () {
         }
     }
 });
-var select_first_layerBtn = document.getElementById("layer_button_1");
-select_first_layerBtn.addEventListener("click", function () {
+const select_first_layerBtn = document.getElementById("layer_button_1");
+select_first_layerBtn.addEventListener("click", () => {
     if (!is_foreground_selected) {
         if (is_dark_mode) {
             layer_1.style.border = "5px solid #cccccc";
@@ -1031,8 +1028,8 @@ select_first_layerBtn.addEventListener("click", function () {
         is_foreground_selected = true;
     }
 });
-var select_second_layerBtn = document.getElementById("layer_button_2");
-select_second_layerBtn.addEventListener("click", function () {
+const select_second_layerBtn = document.getElementById("layer_button_2");
+select_second_layerBtn.addEventListener("click", () => {
     if (is_foreground_selected) {
         layer_1.style.border = "1px solid #707070";
         if (is_dark_mode) {
@@ -1047,7 +1044,7 @@ select_second_layerBtn.addEventListener("click", function () {
         is_foreground_selected = false;
     }
 });
-first_layer_visibilityBtn.addEventListener("click", function () {
+first_layer_visibilityBtn.addEventListener("click", () => {
     if (is_foreground_visible) {
         is_foreground_visible = false;
         canvas_foreground.style.display = "none";
@@ -1059,12 +1056,12 @@ first_layer_visibilityBtn.addEventListener("click", function () {
         first_layer_visibility_img.setAttribute("src", "visibility_on.png");
     }
 });
-clear_first_layer_Btn.addEventListener("click", function () {
+clear_first_layer_Btn.addEventListener("click", () => {
     ctx_foreground.clearRect(0, 0, cW, cH);
     ctx_layer_1.clearRect(0, 0, lwW, lwH);
     push_action_to_stack(['c', ctx_foreground]);
 });
-second_layer_visibilityBtn.addEventListener("click", function () {
+second_layer_visibilityBtn.addEventListener("click", () => {
     if (is_background_visible) {
         is_background_visible = false;
         canvas_background.style.display = "none";
@@ -1076,18 +1073,19 @@ second_layer_visibilityBtn.addEventListener("click", function () {
         second_layer_visibility_img.setAttribute("src", "visibility_on.png");
     }
 });
-clear_second_layer_Btn.addEventListener("click", function () {
+clear_second_layer_Btn.addEventListener("click", () => {
     ctx_background.clearRect(0, 0, cW, cH);
     ctx_layer_2.clearRect(0, 0, lwW, lwH);
     push_action_to_stack(['c', ctx_background]);
 });
-var merge_layersBtn = document.getElementById("merge_layers");
+const merge_layersBtn = document.getElementById("merge_layers");
 function merge_layers_in_stack(stack, local_ctx) {
-    var substack_1 = [];
-    var substack_2 = [];
-    var is_changed_stack = [];
-    var another_ctx;
-    var is_foreground;
+    let substack_1 = [];
+    let substack_2 = [];
+    let is_changed_stack = [];
+    let another_ctx;
+    let is_foreground;
+    let return_value;
     if (local_ctx == ctx_foreground) {
         another_ctx = ctx_background;
         is_foreground = true;
@@ -1096,7 +1094,7 @@ function merge_layers_in_stack(stack, local_ctx) {
         another_ctx = ctx_foreground;
         is_foreground = false;
     }
-    for (var i = 0; i < stack.length; i++) {
+    for (let i = 0; i < stack.length; i++) {
         if (id_list.includes(stack[i][0]) && stack[i][1] == another_ctx) {
             stack[i][1] = local_ctx;
             substack_1.push(stack[i]);
@@ -1109,29 +1107,29 @@ function merge_layers_in_stack(stack, local_ctx) {
     }
     if (is_foreground) {
         if (substack_1.length == 0) {
-            is_changed_stack = [];
-            return { stack: stack, is_changed_stack: is_changed_stack };
+            return_value = [stack, []];
+            return return_value;
         }
-        substack_1 = substack_1.concat(substack_2);
-        return { substack_1: substack_1, is_changed_stack: is_changed_stack };
+        return_value = [substack_1.concat(substack_2), is_changed_stack];
+        return return_value;
     }
     else {
         if (substack_1.length == 0) {
-            is_changed_stack = [];
-            return { stack: stack, is_changed_stack: is_changed_stack };
+            return_value = [stack, []];
+            return return_value;
         }
-        substack_2 = substack_2.concat(substack_1);
-        return { substack_2: substack_2, is_changed_stack: is_changed_stack };
+        return_value = [substack_2.concat(substack_1), is_changed_stack];
+        return return_value;
     }
 }
 function unmerge_layers_in_stack(stack, local_ctx, local_ics) {
     if (local_ics.length == 0) {
         return stack;
     }
-    var substack_1 = [];
-    var substack_2 = [];
-    var another_ctx;
-    var is_foreground;
+    let substack_1 = [];
+    let substack_2 = [];
+    let another_ctx;
+    let is_foreground;
     if (local_ctx == ctx_foreground) {
         another_ctx = ctx_background;
         is_foreground = true;
@@ -1140,7 +1138,7 @@ function unmerge_layers_in_stack(stack, local_ctx, local_ics) {
         another_ctx = ctx_foreground;
         is_foreground = false;
     }
-    for (var i = 0; i < stack.length; i++) {
+    for (let i = 0; i < stack.length; i++) {
         if (local_ics[i] == true) {
             stack[i][1] = another_ctx;
             substack_1.push(stack[i]);
@@ -1166,13 +1164,16 @@ function unmerge_layers(local_ctx, local_ics_1, local_ics_2) {
     canvas_to_layer(canvas_background, ctx_layer_2);
 }
 function merge_layers(local_draw_ctx) {
-    var _a = merge_layers_in_stack(pstack, local_draw_ctx), local_stack_1 = _a.local_stack_1, is_changed_stack_1 = _a.is_changed_stack_1;
-    pstack = local_stack_1;
-    if (is_changed_stack_1.length == 0) {
-        return [[], []];
+    let merge_elem = merge_layers_in_stack(pstack, local_draw_ctx);
+    let return_value = [merge_elem[1], []];
+    pstack = merge_elem[0];
+    if (return_value[0].length == 0) {
+        return_value[1] = [];
+        return return_value;
     }
-    var _b = merge_layers_in_stack(nstack, local_draw_ctx), local_stack_2 = _b.local_stack_2, is_changed_stack_2 = _b.is_changed_stack_2;
-    nstack = local_stack_2;
+    merge_elem = merge_layers_in_stack(nstack, local_draw_ctx);
+    return_value[1] = merge_elem[1];
+    nstack = merge_elem[0];
     replay_actions(pstack);
     if (local_draw_ctx == ctx_foreground) {
         ctx_layer_2.clearRect(0, 0, lwW, lwH);
@@ -1182,22 +1183,21 @@ function merge_layers(local_draw_ctx) {
         ctx_layer_1.clearRect(0, 0, lwW, lwH);
         canvas_to_layer(canvas_background, ctx_layer_2);
     }
-    return [is_changed_stack_1, is_changed_stack_2];
+    return return_value;
 }
-merge_layersBtn.addEventListener("click", function () {
-    var is_changed_stack = [];
-    is_changed_stack = merge_layers(cur_draw_ctx);
+merge_layersBtn.addEventListener("click", () => {
+    let is_changed_stack = merge_layers(cur_draw_ctx);
     if (is_changed_stack[0].length == 0 && is_changed_stack[1].length == 0) {
         return;
     }
     push_action_to_stack(['m', cur_draw_ctx, is_changed_stack[0], is_changed_stack[1]]);
 });
-var swap_layersBtn = document.getElementById("swap_layers");
+const swap_layersBtn = document.getElementById("swap_layers");
 function swap_layers_in_stack(stack) {
-    var is_swapped = false;
-    for (var i = 0; i < stack.length; i++) {
+    let return_value = [[], false];
+    for (let i = 0; i < stack.length; i++) {
         if (id_list.includes(stack[i][0])) {
-            is_swapped = true;
+            return_value[1] = true;
             if (stack[i][1] == ctx_foreground) {
                 stack[i][1] = ctx_background;
             }
@@ -1206,11 +1206,10 @@ function swap_layers_in_stack(stack) {
             }
         }
     }
-    return [stack, is_swapped];
+    return return_value;
 }
 function swap_layers() {
-    var input_value;
-    input_value = swap_layers_in_stack(pstack);
+    let input_value = swap_layers_in_stack(pstack);
     pstack = input_value[0];
     if (input_value[1] == false) {
         return;
@@ -1223,11 +1222,11 @@ function swap_layers() {
     ctx_layer_2.clearRect(0, 0, lwW, lwH);
     canvas_to_layer(canvas_background, ctx_layer_2);
 }
-swap_layersBtn.addEventListener("click", function () {
+swap_layersBtn.addEventListener("click", () => {
     swap_layers();
     push_action_to_stack(['s']);
 });
-graphic_tabletBtn.addEventListener("click", function () {
+graphic_tabletBtn.addEventListener("click", () => {
     if (graphic_tablet_mode) {
         graphic_tabletBtn.style.border = "1px solid #707070";
         graphic_tablet_mode = false;
@@ -1237,7 +1236,7 @@ graphic_tabletBtn.addEventListener("click", function () {
         graphic_tablet_mode = true;
     }
 });
-colourBtn.addEventListener("click", function () {
+colourBtn.addEventListener("click", () => {
     if (is_pencil_window || is_eraser_window) {
         pencil_w.style.display = "none";
         is_pencil_window = false;
@@ -1251,7 +1250,7 @@ colourBtn.addEventListener("click", function () {
         is_clr_window = true;
         clr_w.addEventListener("pointermove", handleclr_PointerMove);
         ctype_clr_btn.addEventListener("click", handlet_clr_Click);
-        ok_clr.addEventListener("click", function () {
+        ok_clr.addEventListener("click", () => {
             cursor_type = 3;
             cursor_image.setAttribute("src", cur_tool[2]);
             cursor.style.left = (cX + 7.5) + "px";
@@ -1267,22 +1266,23 @@ colourBtn.addEventListener("click", function () {
     }
 });
 function change_thickness(flag) {
-    var t_v;
+    let t_v;
     if (flag) {
-        t_v = thickness_field.value - 1;
+        t_v = parseInt(thickness_field.value);
     }
     else {
-        t_v = e_thickness_field.value - 1;
+        t_v = parseInt(e_thickness_field.value);
     }
-    var real_t_v = Math.min(100, Math.max(0, t_v));
+    t_v -= 1;
+    let real_t_v = Math.min(100, Math.max(0, t_v));
     if (t_v != real_t_v) {
         t_v = real_t_v;
     }
-    thickness_field.value = t_v + 1;
-    e_thickness_field.value = t_v + 1;
-    thickness_slider.value = t_v + 1;
-    e_thickness_slider.value = t_v + 1;
-    var thickness_k = t_v * t_v * 0.0001; //коэффициент, чтобы толщина не увеличивалась так резко, сейчас это квадрат
+    thickness_field.value = (t_v + 1).toString();
+    e_thickness_field.value = (t_v + 1).toString();
+    thickness_slider.value = (t_v + 1).toString();
+    e_thickness_slider.value = (t_v + 1).toString();
+    let thickness_k = t_v * t_v * 0.0001; //коэффициент, чтобы толщина не увеличивалась так резко, сейчас это квадрат
     l_width = 1 + Math.max(cW, cH) * thickness_k;
     W_f = (W - cW) / 2 - l_width / 2 + 12;
     H_f = (H - cH) / 2 - l_width / 2 + 12;
@@ -1303,15 +1303,15 @@ e_thickness_field.onchange = function () {
     change_thickness(false);
 };
 function change_smoothing() {
-    cur_smoothing = smoothing_field.value;
-    var real_s_v = Math.min(100, Math.max(0, cur_smoothing));
+    cur_smoothing = parseInt(smoothing_field.value);
+    let real_s_v = Math.min(100, Math.max(0, cur_smoothing));
     if (cur_smoothing != real_s_v) {
         cur_smoothing = real_s_v;
-        smoothing_field.value = cur_smoothing;
+        smoothing_field.value = cur_smoothing.toString();
     }
     k_smooth = 0;
-    var step = 1.0 / cur_smoothing;
-    for (var t = 0; t < 1 + step; t += step) //очень странный костыль, исправлю позже
+    let step = 1.0 / cur_smoothing;
+    for (let t = 0; t < 1 + step; t += step) //очень странный костыль, исправлю позже
      {
         t = Math.min(1, t);
         k_smooth++;
@@ -1323,10 +1323,10 @@ smoothing_slider.onchange = function () {
 smoothing_field.onchange = function () {
     change_smoothing();
 };
-var setpencilBtn = document.getElementById("pencil");
+const setpencilBtn = document.getElementById("pencil");
 setpencilBtn.style.border = "5px solid #000000";
-var cur_tool = ['k', setpencilBtn, "aero_pen.cur"]; //текущий инструмент (карандаш)
-setpencilBtn.addEventListener("click", function () {
+let cur_tool = ['k', setpencilBtn, "aero_pen.cur"]; //текущий инструмент (карандаш)
+setpencilBtn.addEventListener("click", () => {
     if (is_clr_window) {
         close_clr_window();
     }
@@ -1356,8 +1356,8 @@ setpencilBtn.addEventListener("click", function () {
         }
     }
 });
-var seteraserBtn = document.getElementById("eraser");
-seteraserBtn.addEventListener("click", function () {
+const seteraserBtn = document.getElementById("eraser");
+seteraserBtn.addEventListener("click", () => {
     if (is_clr_window) {
         close_clr_window();
     }
@@ -1387,8 +1387,8 @@ seteraserBtn.addEventListener("click", function () {
         }
     }
 });
-var setbucketBtn = document.getElementById("bucket");
-setbucketBtn.addEventListener("click", function () {
+const setbucketBtn = document.getElementById("bucket");
+setbucketBtn.addEventListener("click", () => {
     if (cur_tool[0] != 'b') {
         if (cur_tool[0] == 'k' || cur_tool[0] == 'e') {
             pencil_w.style.display = "none";
@@ -1408,8 +1408,8 @@ setbucketBtn.addEventListener("click", function () {
         cur_tool = ['b', setbucketBtn, "aero_bucket.png"];
     }
 });
-var setpipetteBtn = document.getElementById("pipette");
-setpipetteBtn.addEventListener("click", function () {
+const setpipetteBtn = document.getElementById("pipette");
+setpipetteBtn.addEventListener("click", () => {
     if (cur_tool[0] != 'p') {
         if (cur_tool[0] == 'k' || cur_tool[0] == 'e') {
             pencil_w.style.display = "none";
@@ -1443,14 +1443,14 @@ function clear_drawfield() {
     ctx_foreground.clearRect(0, 0, cW, cH);
     ctx_background.fillRect(0, 0, cW, cH);
 }
-var clearBtn = document.getElementById("clear");
-clearBtn.addEventListener("click", function () {
+const clearBtn = document.getElementById("clear");
+clearBtn.addEventListener("click", () => {
     clear_drawfield();
     push_action_to_stack(['d']); //тип - очистка экрана
 });
-var mhf = document.getElementById("my_hidden_file");
-var uploadBtn = document.getElementById("upload");
-uploadBtn.addEventListener("click", function () {
+const mhf = document.getElementById("my_hidden_file");
+const uploadBtn = document.getElementById("upload");
+uploadBtn.addEventListener("click", () => {
     if (!is_first_upload_btn_click) //костыль чтобы кнопка не срабатывала дважды
      {
         is_first_upload_btn_click = true;
@@ -1462,28 +1462,28 @@ uploadBtn.addEventListener("click", function () {
         if (!this.files || !this.files[0])
             return;
         chain_id = -1;
-        var FR = new FileReader();
-        FR.addEventListener("load", function (evt) {
-            var new_img_w;
-            var new_img_h;
-            var img = new Image();
-            img.addEventListener("load", function () {
-                var img_w = img.width;
-                var img_h = img.height;
-                var new_dfw;
-                var new_dfh;
-                var is_drawfield_used = false;
-                var ps_size = pstack.length;
-                var x_paste_pos = 0;
-                var y_paste_pos = 0;
-                var i;
+        const FR = new FileReader();
+        FR.addEventListener("load", (evt) => {
+            let new_img_w;
+            let new_img_h;
+            let img = new Image();
+            img.addEventListener("load", () => {
+                let img_w = img.width;
+                let img_h = img.height;
+                let new_dfw;
+                let new_dfh;
+                let is_drawfield_used = false;
+                let ps_size = pstack.length;
+                let x_paste_pos = 0;
+                let y_paste_pos = 0;
+                let i;
                 if (ps_size != 0 && pstack[0] == 'i', ctx_background, "#fff") {
                     i = 1;
                 }
                 else {
                     i = 0;
                 }
-                var local_id_list = ['r', 'p', 'i', 'u', 'f'];
+                let local_id_list = ['r', 'p', 'i', 'u', 'f'];
                 for (i; i < ps_size; i++) {
                     if (local_id_list.includes(pstack[i][0])) {
                         is_drawfield_used = true;
@@ -1542,9 +1542,9 @@ uploadBtn.addEventListener("click", function () {
         once: true
     });
 });
-var saveBtn = document.getElementById("save");
-saveBtn.addEventListener("click", function () {
-    var image = new Image();
+const saveBtn = document.getElementById("save");
+saveBtn.addEventListener("click", () => {
+    let image = new Image();
     if (original_image_buf == "") {
         if (!is_foreground_visible) {
             ctx_foreground.clearRect(0, 0, cW, cH);
@@ -1553,7 +1553,7 @@ saveBtn.addEventListener("click", function () {
             ctx_background.clearRect(0, 0, cW, cH);
         }
         image.onload = function () {
-            var a = document.createElement("a");
+            let a = document.createElement("a");
             ctx_background.drawImage(image, 0, 0, image.width, image.height, 0, 0, cW, cH);
             a.href = canvas_background.toDataURL("imag/png");
             a.download = "sketch.png";
@@ -1565,7 +1565,7 @@ saveBtn.addEventListener("click", function () {
         image.src = canvas_foreground.toDataURL();
     }
     else {
-        var a = document.createElement("a");
+        let a = document.createElement("a");
         a.href = original_image_buf;
         a.download = "sketch.png";
         a.click();
@@ -1573,9 +1573,9 @@ saveBtn.addEventListener("click", function () {
 });
 function gen_caption_for_image() {
     blackout.style.display = "block";
-    var send_data;
-    var data;
-    var background_data;
+    let send_data;
+    let data;
+    let background_data;
     if (original_image_buf == "") {
         if (is_foreground_visible) {
             data = canvas_foreground.toDataURL("imag/png");
@@ -1593,7 +1593,7 @@ function gen_caption_for_image() {
     else {
         data = original_image_buf;
     }
-    var _a = check_data_before_sending(), local_is_foreground_used = _a.local_is_foreground_used, local_is_background_used = _a.local_is_background_used, local_is_drawing = _a.local_is_drawing, local_sure = _a.local_sure, local_how_many_prims = _a.local_how_many_prims, local_how_many_dots = _a.local_how_many_dots;
+    let { local_is_foreground_used, local_is_background_used, local_is_drawing, local_sure, local_how_many_prims, local_how_many_dots } = check_data_before_sending();
     if (local_is_background_used && is_background_visible) {
         background_data = canvas_background.toDataURL("imag/png");
     }
@@ -1623,21 +1623,21 @@ function gen_caption_for_image() {
     })*/
     ws.send(send_data);
 }
-document.addEventListener("pointerenter", function (e) {
-    var cX = e.clientX;
-    var cY = e.clientY;
+document.addEventListener("pointerenter", (e) => {
+    let cX = e.clientX;
+    let cY = e.clientY;
     cursor.style.left = (cX + 7.5) + "px";
     cursor.style.top = (cY + 7.5) + "px";
 }, { once: true });
 function replay_action(act, k_X, k_Y, fW_pred, fH_pred) {
-    var act_type = act[0];
+    let act_type = act[0];
     switch (act_type) {
         case 'p': //если это примитив
-            var prim = act[2];
+            let prim = act[2];
             act[1].strokeStyle = act[3];
             act[1].globalCompositeOperation = act[4];
             act[1].beginPath();
-            for (var i = 1; i < prim.length; i++) {
+            for (let i = 1; i < prim.length; i++) {
                 act[1].lineWidth = prim[i][2];
                 act[1].moveTo(prim[i - 1][0] / k_X, prim[i - 1][1] / k_Y);
                 act[1].lineTo(prim[i][0] / k_X, prim[i][1] / k_Y);
@@ -1678,11 +1678,9 @@ function replay_action(act, k_X, k_Y, fW_pred, fH_pred) {
 }
 function replay_actions(cur_pstack) {
     full_clear_drawfield();
-    var change_bash_clr = false;
-    var new_bash_clr;
-    var k_X = fW_pred / f_dW;
-    var k_Y = fH_pred / f_dH;
-    var cur_thickness = 1;
+    let k_X = fW_pred / f_dW;
+    let k_Y = fH_pred / f_dH;
+    let cur_thickness = 1;
     ctx_foreground.lineWidth = cur_thickness;
     ctx_background.lineWidth = cur_thickness;
     ctx_background.strokeStyle = "#000000";
@@ -1692,9 +1690,8 @@ function replay_actions(cur_pstack) {
     ctx_add.lineJoin = "round";
     ctx_background.lineCap = "round";
     ctx_background.lineJoin = "round";
-    var elem;
-    for (var _i = 0, cur_pstack_1 = cur_pstack; _i < cur_pstack_1.length; _i++) {
-        var act = cur_pstack_1[_i];
+    let elem;
+    for (let act of cur_pstack) {
         elem = replay_action(act, k_X, k_Y, fW_pred, fH_pred);
         k_X = elem[0];
         k_Y = elem[1];
@@ -1708,22 +1705,19 @@ function replay_actions(cur_pstack) {
     ctx_add.lineWidth = l_width;
     ctx_foreground.lineWidth = l_width;
     ctx_background.lineWidth = l_width;
-    if (change_bash_clr) {
-        cur_brush_clr = new_bash_clr;
-    }
 }
 function canvas_to_layer(local_canvas, local_layer) {
-    var image_layer = new Image();
+    let image_layer = new Image();
     image_layer.onload = function () {
         local_layer.drawImage(image_layer, 0, 0, cW, cH, 0, 0, lwW, lwH);
     };
     image_layer.src = local_canvas.toDataURL();
 }
 function undo_action() {
-    var pstack_size = pstack.length;
+    let pstack_size = pstack.length;
     if (pstack_size != 0) {
-        var cur_act = pstack.pop();
-        var is_r = false;
+        let cur_act = pstack.pop();
+        let is_r = false;
         if (id_list.includes(cur_act[0])) {
             if (cur_act[0] == 'r') {
                 is_r = true;
@@ -1742,8 +1736,8 @@ function undo_action() {
             }
         }
         if (is_r) {
-            var buf_r_elem = ['r', fW_max, fH_max, false];
-            for (var i = pstack_size - 1; i > -1; i--) {
+            let buf_r_elem = ['r', fW_max, fH_max, false];
+            for (let i = pstack_size - 1; i > -1; i--) {
                 if (pstack[i][0] == 'r') {
                     buf_r_elem = pstack[i];
                     break;
@@ -1762,10 +1756,9 @@ function undo_action() {
 }
 function repeat_action() {
     if (nstack.length != 0) {
-        var cur_act = nstack.pop();
-        var cur_acts = [];
-        var local_cur_ctx_layer = cur_ctx_layer;
-        var local_cur_canvas = cur_canvas;
+        let cur_act = nstack.pop();
+        let local_cur_ctx_layer = cur_ctx_layer;
+        let local_cur_canvas = cur_canvas;
         if (id_list.includes(cur_act[0])) {
             if (cur_act[1] == ctx_foreground) {
                 local_cur_ctx_layer = ctx_layer_1;
@@ -1776,7 +1769,6 @@ function repeat_action() {
                 local_cur_canvas = canvas_background;
             }
         }
-        cur_acts.push(cur_act);
         pstack.push(cur_act);
         if (cur_act[0] == 's') {
             swap_layers();
@@ -1797,7 +1789,7 @@ function repeat_action() {
         canvas_to_layer(local_cur_canvas, local_cur_ctx_layer);
     }
 }
-document.addEventListener("keydown", function (event) {
+document.addEventListener("keydown", (event) => {
     if (is_modal_open || is_side_panel_open) {
         return;
     }
@@ -1865,19 +1857,19 @@ document.addEventListener("keydown", function (event) {
             }
     }
 }, false);
-document.addEventListener("keyup", function (event) {
+document.addEventListener("keyup", (event) => {
     if (event.code.slice(0, 5) == "Shift") {
         if (draw) {
             ctx_add.clearRect(0, 0, cW, cH);
             drawLines(cur_draw_ctx, curprim);
-            var cpl = curprim.length - 1;
+            let cpl = curprim.length - 1;
             prevX = curprim[cpl][0];
             prevY = curprim[cpl][1];
         }
         is_shift_on = false;
     }
 }, false);
-canvas_additional.addEventListener("pointerdown", function (e) {
+canvas_additional.addEventListener("pointerdown", (e) => {
     if (is_foreground_selected) {
         if (!is_foreground_visible) {
             if (!is_background_visible) {
@@ -1890,7 +1882,7 @@ canvas_additional.addEventListener("pointerdown", function (e) {
                 layer_2.style.border = "5px solid #000000";
                 cur_draw_ctx = ctx_background;
                 cur_canvas = canvas_layer_2;
-                cur_ctx_layer = canvas_background;
+                cur_ctx_layer = ctx_layer_2;
                 is_foreground_selected = false;
             }
         }
@@ -1905,7 +1897,7 @@ canvas_additional.addEventListener("pointerdown", function (e) {
                 layer_2.style.border = "1px solid #707070";
                 cur_draw_ctx = ctx_foreground;
                 cur_canvas = canvas_layer_1;
-                cur_ctx_layer = canvas_foreground;
+                cur_ctx_layer = ctx_layer_1;
                 is_foreground_selected = true;
             }
             else {
@@ -1913,13 +1905,13 @@ canvas_additional.addEventListener("pointerdown", function (e) {
                 layer_2.style.border = "1px solid #707070";
                 cur_draw_ctx = ctx_foreground;
                 cur_canvas = canvas_layer_1;
-                cur_ctx_layer = canvas_foreground;
+                cur_ctx_layer = ctx_layer_1;
                 is_foreground_selected = true;
             }
         }
     }
-    var cur_x = e.clientX;
-    var cur_y = e.clientY;
+    let cur_x = e.clientX;
+    let cur_y = e.clientY;
     prevX = cur_x - W_f;
     prevY = cur_y - H_f;
     draw = true;
@@ -1946,14 +1938,14 @@ function getPixel(pixelData, x, y) {
     }
 }
 function addSpan(spansToCheck, left, right, y, direction) {
-    spansToCheck.push({ left: left, right: right, y: y, direction: direction });
+    spansToCheck.push({ left, right, y, direction });
 }
 function checkSpan(pixelData, targetColor, spansToCheck, left, right, y, direction) {
-    var inSpan = false;
-    var start;
-    var x;
+    let inSpan = false;
+    let start = 0;
+    let x;
     for (x = left; x < right; ++x) {
-        var color = getPixel(pixelData, x, y);
+        let color = getPixel(pixelData, x, y);
         if (color === targetColor) {
             if (!inSpan) {
                 inSpan = true;
@@ -1973,62 +1965,62 @@ function checkSpan(pixelData, targetColor, spansToCheck, left, right, y, directi
     }
 }
 function floodFill(local_ctx, x, y, fillColor) {
-    var dex_clr = parseInt("FF" + fillColor.slice(6, 8) + fillColor.slice(4, 6) + fillColor.slice(2, 4), 16);
-    var imageData = local_ctx.getImageData(0, 0, local_ctx.canvas.width, local_ctx.canvas.height);
-    var pixelData = {
+    let dex_clr = parseInt("FF" + fillColor.slice(6, 8) + fillColor.slice(4, 6) + fillColor.slice(2, 4), 16);
+    let imageData = local_ctx.getImageData(0, 0, local_ctx.canvas.width, local_ctx.canvas.height);
+    let pixelData = {
         width: imageData.width,
         height: imageData.height,
         data: new Uint32Array(imageData.data.buffer),
     };
-    var targetColor = getPixel(pixelData, x, y);
+    let targetColor = getPixel(pixelData, x, y);
     if (targetColor !== fillColor) {
-        var spansToCheck = [];
+        let spansToCheck = [];
         addSpan(spansToCheck, x, x, y, 0);
-        var iter_max = Math.round(cH) * 2;
-        var iter = 0;
+        let iter_max = Math.round(cH) * 2;
+        let iter = 0;
         while (spansToCheck.length > 0 && iter <= iter_max) {
             iter++;
-            var _a = spansToCheck.pop(), left = _a.left, right = _a.right, y_1 = _a.y, direction = _a.direction;
-            var l = left;
-            var iter_l_max = left - cH / 2;
+            let { left, right, y, direction } = spansToCheck.pop();
+            let l = left;
+            let iter_l_max = left - cH / 2;
             while (true) {
                 --l;
-                var color = getPixel(pixelData, l, y_1);
+                let color = getPixel(pixelData, l, y);
                 if (color !== targetColor || l < iter_l_max) {
                     break;
                 }
             }
             ++l;
-            var r = right;
-            var iter_r_max = right + cW / 2;
+            let r = right;
+            let iter_r_max = right + cW / 2;
             while (true) {
                 ++r;
-                var color = getPixel(pixelData, r, y_1);
+                let color = getPixel(pixelData, r, y);
                 if (color !== targetColor || r > iter_r_max) {
                     break;
                 }
             }
-            var lineOffset = y_1 * pixelData.width;
+            let lineOffset = y * pixelData.width;
             pixelData.data.fill(dex_clr, lineOffset + l, lineOffset + r);
             if (direction <= 0) {
-                checkSpan(pixelData, targetColor, spansToCheck, l, r, y_1 - 1, -1);
+                checkSpan(pixelData, targetColor, spansToCheck, l, r, y - 1, -1);
             }
             else {
-                checkSpan(pixelData, targetColor, spansToCheck, l, left, y_1 - 1, -1);
-                checkSpan(pixelData, targetColor, spansToCheck, right, r, y_1 - 1, -1);
+                checkSpan(pixelData, targetColor, spansToCheck, l, left, y - 1, -1);
+                checkSpan(pixelData, targetColor, spansToCheck, right, r, y - 1, -1);
             }
             if (direction >= 0) {
-                checkSpan(pixelData, targetColor, spansToCheck, l, r, y_1 + 1, +1);
+                checkSpan(pixelData, targetColor, spansToCheck, l, r, y + 1, +1);
             }
             else {
-                checkSpan(pixelData, targetColor, spansToCheck, l, left, y_1 + 1, +1);
-                checkSpan(pixelData, targetColor, spansToCheck, right, r, y_1 + 1, +1);
+                checkSpan(pixelData, targetColor, spansToCheck, l, left, y + 1, +1);
+                checkSpan(pixelData, targetColor, spansToCheck, right, r, y + 1, +1);
             }
         }
         local_ctx.putImageData(imageData, 0, 0);
     }
 }
-d_frame.addEventListener("pointerdown", function (e) {
+d_frame.addEventListener("pointerdown", (e) => {
     if (!draw) {
         prevX = e.clientX - W_f;
         prevY = e.clientY - H_f;
@@ -2038,16 +2030,16 @@ d_frame.addEventListener("pointerdown", function (e) {
         end_f_move = false;
     }
     else {
-        var cur_x = e.clientX - W_f;
-        var cur_y = e.clientY - H_f;
+        let cur_x = e.clientX - W_f;
+        let cur_y = e.clientY - H_f;
         if (cur_tool[0] == 'p') //если выбрана пипетка
          {
-            var rgba = void 0;
-            if (is_foreground_visible) {
-                rgba = ctx_foreground.getImageData(cur_x - 1, cur_y - 1, 1, 1).data;
+            let rgba = ctx_foreground.getImageData(cur_x - 1, cur_y - 1, 1, 1).data;
+            if (!is_foreground_visible) {
+                rgba[3] = 0;
             }
-            var hex = void 0;
-            if (!is_foreground_visible || rgba[3] == 0) {
+            let hex;
+            if (rgba[3] == 0) {
                 if (cur_draw_ctx == ctx_foreground && is_background_visible) {
                     rgba = ctx_background.getImageData(cur_x - 1, cur_y - 1, 1, 1).data;
                 }
@@ -2075,11 +2067,11 @@ d_frame.addEventListener("pointerdown", function (e) {
              {
                 cur_x = Math.floor(cur_x + 2);
                 cur_y = Math.floor(cur_y + 18);
-                var rgba = cur_draw_ctx.getImageData(cur_x, cur_y, 1, 1).data;
-                var hex = '#' + ("00000000" + rgbaToHex(rgba[0], rgba[1], rgba[2], rgba[3])).slice(-8);
+                let rgba = cur_draw_ctx.getImageData(cur_x, cur_y, 1, 1).data;
+                let hex = '#' + ("00000000" + rgbaToHex(rgba[0], rgba[1], rgba[2], rgba[3])).slice(-8);
                 if (cur_brush_clr + "ff" != hex) //если цвет выбранной точки не равен текущему
                  {
-                    var cur_form_clr = "0x" + cur_brush_clr.slice(1) + "FF";
+                    let cur_form_clr = "0x" + cur_brush_clr.slice(1) + "FF";
                     floodFill(cur_draw_ctx, cur_x, cur_y, cur_form_clr);
                     push_action_to_stack(['f', cur_draw_ctx, cur_x, cur_y, cur_form_clr]);
                     canvas_to_layer(cur_canvas, cur_ctx_layer);
@@ -2102,7 +2094,7 @@ d_frame.addEventListener("pointerdown", function (e) {
         }
     }
 });
-window.addEventListener("pointerup", function (e) {
+window.addEventListener("pointerup", (e) => {
     enddraw = true;
     end_f_move = true;
 });
@@ -2113,7 +2105,8 @@ function addGraphicTabletButton(e) {
     }
 }
 nav_panel.addEventListener("pointermove", addGraphicTabletButton); //проверка курсора на поле с кнопками
-canvas_additional.addEventListener("pointermove", function (e) {
+canvas_additional.addEventListener("pointermove", (e) => //проверка курсора на поле для рисования
+ {
     on_d_fiend = true;
     if (cursor_type != 3 && !f_move) {
         cursor_type = 3;
@@ -2131,13 +2124,13 @@ function getBezierBasis(i, n, t) {
 // arr - массив опорных точек. Точка - двухэлементный массив, (x = arr[0], y = arr[1]), step - шаг при расчете кривой (0 < step < 1), по умолчанию 0.01
 function getBezierCurve(arr, step) {
     step = 1.0 / step;
-    var res = new Array();
-    for (var t = 0; t < 1 + step; t += step) {
+    let res = new Array();
+    for (let t = 0; t < 1 + step; t += step) {
         t = Math.min(1, t);
-        var ind = res.length;
-        res[ind] = new Array(0, 0, 0);
-        for (var i = 0; i < arr.length; i++) {
-            var b = getBezierBasis(i, arr.length - 1, t);
+        let ind = res.length;
+        res[ind] = [0, 0, 0];
+        for (let i = 0; i < arr.length; i++) {
+            let b = getBezierBasis(i, arr.length - 1, t);
             res[ind][0] += arr[i][0] * b;
             res[ind][1] += arr[i][1] * b;
             res[ind][2] += arr[i][2] * b;
@@ -2147,18 +2140,19 @@ function getBezierCurve(arr, step) {
 }
 function drawLines(local_ctx, arr) {
     local_ctx.beginPath();
-    for (var i = 0; i < arr.length - 1; i++) {
+    for (let i = 0; i < arr.length - 1; i++) {
         local_ctx.lineWidth = arr[i][2];
         local_ctx.moveTo(arr[i][0], arr[i][1]);
         local_ctx.lineTo(arr[i + 1][0], arr[i + 1][1]);
         local_ctx.stroke();
     }
 }
-d_frame.addEventListener("pointermove", function (e) {
+d_frame.addEventListener("pointermove", (e) => //проверка курсора на поле вместе с рамкой
+ {
     on_d_frame = true;
     if (!on_d_fiend && !draw) {
-        var X = e.clientX - W_min;
-        var Y = e.clientY - H_min;
+        let X = e.clientX - W_min;
+        let Y = e.clientY - H_min;
         fup = false;
         fdown = false;
         fright = false;
@@ -2216,9 +2210,9 @@ d_frame.addEventListener("pointermove", function (e) {
     if (!draw && !f_move) {
         return;
     }
-    var pX = e.clientX - W_f;
-    var pY = e.clientY - H_f;
-    var pW = e.pressure;
+    let pX = e.clientX - W_f;
+    let pY = e.clientY - H_f;
+    let pW = e.pressure;
     //Рисование
     if (draw) {
         if (enddraw) {
@@ -2235,7 +2229,7 @@ d_frame.addEventListener("pointermove", function (e) {
             prevX = pX;
             prevY = pY;
             fp = true;
-            var drawing_mode = void 0;
+            let drawing_mode;
             if (cur_tool[0] == 'e') {
                 cur_ctx_layer.clearRect(0, 0, lwW, lwH);
                 drawing_mode = "destination-out";
@@ -2255,9 +2249,9 @@ d_frame.addEventListener("pointermove", function (e) {
             curprim = [];
             return;
         }
-        var currentX = pX * cmp_W - l_width / 2;
-        var currentY = pY * cmp_H - l_width / 2;
-        var currentW = void 0;
+        let currentX = pX * cmp_W - l_width / 2;
+        let currentY = pY * cmp_H - l_width / 2;
+        let currentW;
         if (graphic_tablet_mode) {
             currentW = pW * l_width;
             cur_draw_ctx.lineWidth = currentW;
@@ -2282,9 +2276,9 @@ d_frame.addEventListener("pointermove", function (e) {
             return;
         }
         if (is_shift_on) {
-            var delta_x = currentX - prevX;
-            var delta_y = currentY - prevY;
-            var k_tan = Math.round(Math.atan(delta_y / delta_x) / Pi_div_4);
+            let delta_x = currentX - prevX;
+            let delta_y = currentY - prevY;
+            let k_tan = Math.round(Math.atan(delta_y / delta_x) / Pi_div_4);
             if (k_tan == 2 || k_tan == -2) {
                 k_tan = 0;
             }
@@ -2321,8 +2315,8 @@ d_frame.addEventListener("pointermove", function (e) {
     }
 });
 function change_drawfield_size(new_dfw, new_dfh) {
-    var prev_f_dW = f_dW;
-    var prev_f_dH = f_dH;
+    let prev_f_dW = f_dW;
+    let prev_f_dH = f_dH;
     f_dW = Math.min(fW_max, Math.max(fW_min, new_dfw));
     f_dH = Math.min(fH_max, Math.max(fH_min, new_dfh));
     d_frame.style.width = f_dW + "px";
@@ -2361,7 +2355,8 @@ function change_drawfield_size(new_dfw, new_dfh) {
     X_move = f_dW - prev_f_dW;
     Y_move = f_dH - prev_f_dH;
 }
-window.addEventListener("pointermove", function (e) {
+window.addEventListener("pointermove", (e) => //проверка курсора на всём окне
+ {
     cX = e.clientX - 7.5;
     cY = e.clientY - 7.5;
     if (is_clr_window) {
@@ -2384,7 +2379,6 @@ window.addEventListener("pointermove", function (e) {
         if (!on_d_frame && !draw) {
             if (cursor_type != -1) {
                 cursor_type = -1;
-                cursor.display;
                 cursor.style.display = "none";
             }
         }
@@ -2420,8 +2414,8 @@ window.addEventListener("pointermove", function (e) {
         if (cfup == true) {
             Y_move *= -1;
         }
-        var cur_new_dfw = f_dW + X_move;
-        var cur_new_dfh = f_dH + Y_move;
+        let cur_new_dfw = f_dW + X_move;
+        let cur_new_dfh = f_dH + Y_move;
         change_drawfield_size(cur_new_dfw, cur_new_dfh);
         cur_ratio_val = get_visual_ratio(false, cW, cH);
         ratio_field.value = cur_ratio_val; //устанавливаем соотношение сторон

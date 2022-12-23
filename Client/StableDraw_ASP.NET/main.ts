@@ -1,116 +1,114 @@
-const body: any = document.querySelector("body")
-const cursor: any = document.querySelector(".cursor")
-const cursor_image: any = document.querySelector(".cursimg")
-let cursor_type: any = -1
+const body: HTMLElement = <HTMLElement> document.querySelector("body")
+const cursor: HTMLElement = <HTMLElement> document.querySelector(".cursor")
+const cursor_image: HTMLElement = <HTMLElement> document.querySelector(".cursimg")
+let cursor_type: number = -1
 
-const nav_panel: any = document.querySelector(".nav")
+const nav_panel: HTMLElement = <HTMLElement> document.querySelector(".nav")
 
-const canvas_foreground: any = document.getElementById("canvas_foreground") 
-const canvas_background: any = document.getElementById("canvas_background")
-const canvas_additional: any = document.getElementById("canvas_additional") 
+const canvas_foreground: HTMLCanvasElement = <HTMLCanvasElement> document.getElementById("canvas_foreground") 
+const canvas_background: HTMLCanvasElement = <HTMLCanvasElement> document.getElementById("canvas_background")
+const canvas_additional: HTMLCanvasElement = <HTMLCanvasElement> document.getElementById("canvas_additional") 
 
-const canvas_layer_1: any = document.getElementById("layer_1_display_canvas")
-const canvas_layer_2: any = document.getElementById("layer_2_display_canvas") 
-const layer_icon_1: any = document.getElementById("layer_display_icon_1")
-const layer_icon_2: any = document.getElementById("layer_display_icon_2")
+const canvas_layer_1: HTMLCanvasElement = <HTMLCanvasElement> document.getElementById("layer_1_display_canvas")
+const canvas_layer_2: HTMLCanvasElement = <HTMLCanvasElement> document.getElementById("layer_2_display_canvas") 
+const layer_icon_1: HTMLElement = <HTMLElement> document.getElementById("layer_display_icon_1")
+const layer_icon_2: HTMLElement = <HTMLElement> document.getElementById("layer_display_icon_2")
 
-const d_frame: any = document.getElementById("d_frame")
-const spanel: any = document.getElementById("mySidepanel")
-const spanel_openbtn: any = document.querySelector(".openbtn")
-const generateBtn: any = document.getElementById("generate")
+const d_frame: HTMLInputElement = <HTMLInputElement> document.getElementById("d_frame")
+const spanel: HTMLElement = <HTMLElement> document.getElementById("mySidepanel")
+const spanel_openbtn: HTMLElement = <HTMLElement> document.querySelector(".openbtn")
+const generateBtn: HTMLElement = <HTMLElement> document.getElementById("generate")
 
-const clr_w: any = document.getElementById("clr_window")
-const pencil_w: any = document.getElementById("pencil_window")
-const eraser_w: any = document.getElementById("eraser_window")
-const ok_clr_btn: any = document.getElementById("ok_clr_btn") 
-const cur_color: any = document.getElementById("color") 
-const clrimg: any = document.getElementById("clrimg")
+const clr_w: HTMLElement = <HTMLElement> document.getElementById("clr_window")
+const pencil_w: HTMLElement = <HTMLElement> document.getElementById("pencil_window")
+const eraser_w: HTMLElement = <HTMLElement> document.getElementById("eraser_window")
+const ok_clr_btn: HTMLElement = <HTMLElement> document.getElementById("ok_clr_btn") 
+const cur_color: HTMLInputElement = <HTMLInputElement> document.getElementById("color") 
+const clrimg: HTMLElement = <HTMLElement> document.getElementById("clrimg")
 
-const ctx_foreground: any = canvas_foreground.getContext("2d", { willReadFrequently: true })
-const ctx_background: any = canvas_background.getContext("2d", { willReadFrequently: true })
-const ctx_add: any = canvas_additional.getContext("2d", { willReadFrequently: true })
+const ctx_foreground: CanvasRenderingContext2D = <CanvasRenderingContext2D> canvas_foreground.getContext("2d", { willReadFrequently: true })
+const ctx_background: CanvasRenderingContext2D = <CanvasRenderingContext2D> canvas_background.getContext("2d", { willReadFrequently: true })
+const ctx_add: CanvasRenderingContext2D = <CanvasRenderingContext2D> canvas_additional.getContext("2d", { willReadFrequently: true })
 
-const ctx_layer_1: any = canvas_layer_1.getContext("2d", { willReadFrequently: true })
-const ctx_layer_2: any = canvas_layer_2.getContext("2d", { willReadFrequently: true })
+const ctx_layer_1: CanvasRenderingContext2D = <CanvasRenderingContext2D> canvas_layer_1.getContext("2d", { willReadFrequently: true })
+const ctx_layer_2: CanvasRenderingContext2D = <CanvasRenderingContext2D> canvas_layer_2.getContext("2d", { willReadFrequently: true })
 
-const ratio_field: any = document.querySelector(".f_ratio")
-const ratio_tooltip: any = document.querySelector("ratio_tooltip")
+const ratio_field: HTMLInputElement = <HTMLInputElement> document.querySelector(".f_ratio")
+const ratio_tooltip: HTMLElement = <HTMLElement> document.querySelector("ratio_tooltip")
 
-const thickness_slider: any = document.getElementById("thickness_sliderValue")
-const thickness_field: any = document.getElementById("thickness_rangeValue")
-const smoothing_slider: any = document.getElementById("smoothing_sliderValue")
-const smoothing_field: any = document.getElementById("smoothing_rangeValue")
-const e_thickness_slider: any = document.getElementById("e_thickness_sliderValue")
-const e_thickness_field: any = document.getElementById("e_thickness_rangeValue")
+const thickness_slider: HTMLInputElement = <HTMLInputElement> document.getElementById("thickness_sliderValue")
+const thickness_field: HTMLInputElement = <HTMLInputElement> document.getElementById("thickness_rangeValue")
+const smoothing_slider: HTMLInputElement = <HTMLInputElement> document.getElementById("smoothing_sliderValue")
+const smoothing_field: HTMLInputElement = <HTMLInputElement> document.getElementById("smoothing_rangeValue")
+const e_thickness_slider: HTMLInputElement = <HTMLInputElement> document.getElementById("e_thickness_sliderValue")
+const e_thickness_field: HTMLInputElement = <HTMLInputElement> document.getElementById("e_thickness_rangeValue")
 
-const layer_1: any = document.getElementById("layer_1")
-const layer_2: any = document.getElementById("layer_2")
+const layer_1: HTMLElement = <HTMLElement> document.getElementById("layer_1")
+const layer_2: HTMLElement = <HTMLElement> document.getElementById("layer_2")
 
-const scale_field: any = document.querySelector(".scale_field")
-const div_layers: any = document.querySelector(".layers")
-const layers_buttons: any = document.querySelector(".layers_buttons")
+const scale_field: HTMLElement = <HTMLElement> document.querySelector(".scale_field")
+const div_layers: HTMLElement = <HTMLElement> document.querySelector(".layers")
+const layers_buttons: HTMLElement = <HTMLElement> document.querySelector(".layers_buttons")
 
-const modal_header: any = document.querySelector(".modal__header")
-const modal_body: any = document.querySelector(".modal__body")
-const modal_footer: any = document.querySelector(".modal__footer")
+const modal_header: HTMLElement = <HTMLElement> document.querySelector(".modal__header")
+const modal_body: HTMLElement = <HTMLElement> document.querySelector(".modal__body")
+const modal_footer: HTMLElement = <HTMLElement> document.querySelector(".modal__footer")
 
-const text_label_clr: any = document.getElementById("text_label_clr")
-const blackout: any = document.getElementById("full_blackout")
-const side_panel_blackout: any = document.getElementById("side_panel_blackout")
+const text_label_clr: HTMLElement = <HTMLElement> document.getElementById("text_label_clr")
+const blackout: HTMLElement = <HTMLElement> document.getElementById("full_blackout")
+const side_panel_blackout: HTMLElement = <HTMLElement> document.getElementById("side_panel_blackout")
 
-const EL: any = (sel: any) => document.querySelector(sel)
+const id_list: string[] = ['p', 'i', 'u', 'f']
 
-const id_list: any = ['p', 'i', 'u', 'f']
-
-const Pi_div_4: any = Math.PI / 4
+const Pi_div_4: number = Math.PI / 4
 
 let nstack: any = []
 let pstack: any = []
-let curprim: any = []
-let fp: any = true
-let on_d_frame: any = false
-let on_d_fiend: any = false
+let curprim: [number, number, number][] = []
+let fp: boolean = true
+let on_d_frame: boolean = false
+let on_d_fiend: boolean = false
 
-let prevX: any = null
-let prevY: any = null
-let move_prevX: any = null
-let move_prevY: any = null
-let X_move: any = null
-let Y_move: any = null
+let prevX: number
+let prevY: number
+let move_prevX: number
+let move_prevY: number
+let X_move: number
+let Y_move: number
 
-let cX: any
-let cY: any
+let cX: number
+let cY: number
 
-let is_shift_on: any = false
+let is_shift_on: boolean = false
 
-let fup: any = false
-let fdown: any = false
-let fright: any = false
-let fleft: any = false 
-let cfup: any = false
-let cfleft: any = false
+let fup: boolean = false
+let fdown: boolean = false
+let fright: boolean = false
+let fleft: boolean = false 
+let cfup: boolean = false
+let cfleft: boolean = false
 
-let W: any = window.innerWidth
-let H: any = window.innerHeight
+let W: number = window.innerWidth
+let H: number = window.innerHeight
 
-let fW_max: any = W * 0.8
-let fH_max: any = H * 0.8
-let fW_min: any = W * 0.1
-let fH_min: any = H * 0.1
+let fW_max: number = W * 0.8
+let fH_max: number = H * 0.8
+let fW_min: number = W * 0.1
+let fH_min: number = H * 0.1
 
-let cW: any = canvas_foreground.offsetWidth
-let cH: any = canvas_foreground.offsetHeight
-let cD: any = cW / cH
-let Max_cW: any = cW
-let Max_cH: any = cH
+let cW: number = canvas_foreground.offsetWidth
+let cH: number = canvas_foreground.offsetHeight
+let cD: number = cW / cH
+let Max_cW: number = cW
+let Max_cH: number = cH
 
-let lW: any = layer_icon_1.offsetWidth
-let lH: any = layer_icon_1.offsetHeight
-let lwW: any = canvas_layer_1.width
-let lwH: any = canvas_layer_1.height
-let orig_lW: any = lW
-let orig_lH: any = lH
-let orig_lD: any = lW / lH
+let lW: number = layer_icon_1.offsetWidth
+let lH: number = layer_icon_1.offsetHeight
+let lwW: number = canvas_layer_1.width
+let lwH: number = canvas_layer_1.height
+let orig_lW: number = lW
+let orig_lH: number = lH
+let orig_lD: number = lW / lH
 
 if (cD > orig_lD)
 {
@@ -123,8 +121,8 @@ else
     lW = orig_lH * cD
 }
 
-let lWp: any = Math.round(995 * (lW / orig_lW)) / 10 + "%"
-let lHp: any = Math.round(1000 * (lH / orig_lH)) / 10 + "%"
+let lWp: string = Math.round(995 * (lW / orig_lW)) / 10 + "%"
+let lHp: string = Math.round(1000 * (lH / orig_lH)) / 10 + "%"
 layer_icon_1.style.width = lWp
 layer_icon_2.style.width = lWp
 layer_icon_1.style.height = lHp
@@ -134,29 +132,29 @@ layer_alpha_img_1.height = lHp
 layer_alpha_img_2.width = lWp
 layer_alpha_img_2.height = lHp*/
 
-let cur_real_ratio: any = cH / cW
+let cur_real_ratio: number = cH / cW
 
-let l_width: any = 1
+let l_width: number = 1
 
-let W_f: any = (W - cW) / 2 - l_width / 2 + 12
-let H_f: any = (H - cH) / 2 - l_width / 2 + 12
-let f_dW: any = d_frame.offsetWidth
-let f_dH: any = d_frame.offsetHeight
-let orig_f_dW: any = f_dW
-let orig_f_dH: any = f_dH
-let fW_pred: any = orig_f_dW
-let fH_pred: any = orig_f_dH
-let cmp_W: any = 1
-let cmp_H: any = 1
-let cmp_W_b: any = 0
-let cmp_H_b: any = 0
+let W_f: number = (W - cW) / 2 - l_width / 2 + 12
+let H_f: number = (H - cH) / 2 - l_width / 2 + 12
+let f_dW: number = d_frame.offsetWidth
+let f_dH: number = d_frame.offsetHeight
+let orig_f_dW: number = f_dW
+let orig_f_dH: number = f_dH
+let fW_pred: number = orig_f_dW
+let fH_pred: number = orig_f_dH
+let cmp_W: number = 1
+let cmp_H: number = 1
+let cmp_W_b: number = 0
+let cmp_H_b: number = 0
 d_frame.width = f_dW
 d_frame.height = f_dH
-let H_min: any = (H - f_dH) / 4
-let H_max: any = f_dH + H_min
+let H_min: number = (H - f_dH) / 4
+let H_max: number = f_dH + H_min
 
-let W_min: any = (W - f_dW) / 4
-let W_max: any = f_dW + W_min
+let W_min: number = (W - f_dW) / 4
+let W_max: number = f_dW + W_min
 
 canvas_foreground.height = cH
 canvas_foreground.width = cW
@@ -165,47 +163,47 @@ canvas_background.width = cW
 canvas_additional.height = cH
 canvas_additional.width = cW
 
-let draw: any = false
-let enddraw: any = false
-let f_move: any = false
-let end_f_move: any = false
+let draw: boolean = false
+let enddraw: boolean = false
+let f_move: boolean = false
+let end_f_move: boolean = false
 
-let old_btn_clr: any = false //изначально чёрный текст у кнопок цвета
-let on_clr_window: any = false
+let old_btn_clr: boolean = false //изначально чёрный текст у кнопок цвета
+let on_clr_window: boolean = false
 
-let cur_background_clr: any = "#fff"
-let new_background_clr: any = cur_background_clr
-let cur_brush_clr: any = "#000000"
+let cur_background_clr: string = "#fff"
+let new_background_clr: string = cur_background_clr
+let cur_brush_clr: string = "#000000"
 
 ctx_background.fillStyle = cur_background_clr //заливка фона белым, костыль, убрать
 ctx_layer_2.fillStyle = cur_background_clr //заливка иконки фона белым, костыль, убрать
 pstack.push(['i', ctx_background, cur_background_clr])
 ctx_background.fillRect(0, 0, cW, cH)
 ctx_layer_2.fillRect(0, 0, cW, cH)
-let is_clr_brash: any = true
+let is_clr_brash: boolean = true
 
-let cur_ratio_val: any = get_visual_ratio(false, cW, cH)
+let cur_ratio_val: string = get_visual_ratio(false, cW, cH)
 ratio_field.value = cur_ratio_val //устанавливаем соотношение сторон при запуске
 
-let is_first_upload_btn_click: any = true //костыль, чтобы кнопка не срабатывала дважды
+let is_first_upload_btn_click: boolean = true //костыль, чтобы кнопка не срабатывала дважды
 
-let is_foreground_selected: any = true //выбран ли верхний слой, по-умолчанию выбран
-let cur_draw_ctx: any = ctx_foreground //текущий выбранный слой для рисования, по-умолчанию верхний
-let cur_canvas: any = canvas_foreground //текущий выбранный слой для рисования ввиде слоя, не контекста, по-умолчанию верхний
-let cur_ctx_layer: any = ctx_layer_1 //текущий выбранный слой для рисования ввиде контекста кнопки который в углу, по-умолчанию верхний
+let is_foreground_selected: boolean = true //выбран ли верхний слой, по-умолчанию выбран
+let cur_draw_ctx: CanvasRenderingContext2D = ctx_foreground //текущий выбранный слой для рисования, по-умолчанию верхний
+let cur_canvas: HTMLCanvasElement = canvas_foreground //текущий выбранный слой для рисования ввиде слоя, не контекста, по-умолчанию верхний
+let cur_ctx_layer: CanvasRenderingContext2D = ctx_layer_1 //текущий выбранный слой для рисования ввиде контекста кнопки который в углу, по-умолчанию верхний
 
-let graphic_tablet_mode: any = false //режим графического планшета
+let graphic_tablet_mode: boolean = false //режим графического планшета
 
-let is_clr_window: any = false //отображение окна с палитрой
-let is_pencil_window: any = true //отображение окна настроек кисти
-let is_eraser_window: any = false //отображение окна настроек ластика
+let is_clr_window: boolean = false //отображение окна с палитрой
+let is_pencil_window: boolean = true //отображение окна настроек кисти
+let is_eraser_window: boolean = false //отображение окна настроек ластика
 
-let cur_smoothing: any = 0 //параметр сглаживания
-let cur_smooth_prim: any = [] //текущий сглаженный примитив
-let k_smooth: any = 0 //текущий коэффициент сглаживания
+let cur_smoothing: number = 0 //параметр сглаживания
+let cur_smooth_prim: [number, number, number][] = [] //текущий сглаженный примитив
+let k_smooth: number = 0 //текущий коэффициент сглаживания
 
-let is_foreground_visible: any = true //включена ли видимость переднего слоя
-let is_background_visible: any = true //включена ли видимость заднего слоя
+let is_foreground_visible: boolean = true //включена ли видимость переднего слоя
+let is_background_visible: boolean = true //включена ли видимость заднего слоя
 
 ctx_foreground.lineCap = "round"
 ctx_foreground.lineJoin = "round"
@@ -217,31 +215,31 @@ ctx_background.lineJoin = "round"
 layer_1.style.border = "5px solid #000000"
 layer_2.style.border = "1px solid #707070"
 
-let is_dark_mode: any = false //тёмная тема (отключена по-умолчанию)
-let is_modal_open: any = false
-let is_side_panel_open: any = false
+let is_dark_mode: boolean = false //тёмная тема (отключена по-умолчанию)
+let is_modal_open: boolean = false
+let is_side_panel_open: boolean = false
 
-let caption_field: any
-let style_field: any
-let is_human_caption: any
-let original_image_buf: any = "" //переменная для хранения исходных изображений
+let caption_field: HTMLInputElement
+let style_field: HTMLInputElement
+let is_human_caption: boolean
+let original_image_buf: string = "" //переменная для хранения исходных изображений
 
 
-let ws: any = new WebSocket("wss://stabledraw.com:8081")
-let chain_id: any = -1
-let task_id: any
+let ws: WebSocket = new WebSocket("wss://stabledraw.com:8081")
+let chain_id: number = -1
+let task_id: number
 
-var main_modal: any = function (options: any) 
+var main_modal: any = function (options: object) 
 {
     var _elemModal: any
     var _eventShowModal: any
     var _eventHideModal: any
-    var _hiding: any = false
-    var _destroyed: any = false
-    var _animationSpeed: any = 200
-    function _createModal(options: any) 
+    var _hiding: boolean = false
+    var _destroyed: boolean = false
+    var _animationSpeed: number = 200
+    function _createModal (options: any) 
     {
-        var elemModal: any = document.createElement("div"),
+        var elemModal: HTMLElement = document.createElement("div"),
         modalTemplate = '<div class="modal__backdrop" data-dismiss="modal"><div class="modal__content"><div class="modal__header"><div class="modal__title" data-modal="title">{{title}}</div><span class="modal__btn-close" data-dismiss="modal" title="Закрыть">&times;</span></div><div class="modal__body" data-modal="content">{{content}}</div>{{footer}}</div></div>',
         modalFooterTemplate = '<div class = "modal__footer">{{buttons}}</div>',
         modalButtonTemplate = '<button type = "button" class="{{button_class}}" data-handler={{button_handler}}>{{button_text}}</button>',
@@ -251,7 +249,7 @@ var main_modal: any = function (options: any)
         modalHTML = modalHTML.replace("{{content}}", options.content || "")
         if (options.footerButtons) 
         {
-            for (var i: any = 0, length = options.footerButtons.length; i < length; i++) 
+            for (var i: number = 0, length = options.footerButtons.length; i < length; i++) 
             {
                 var modalFooterButton = modalButtonTemplate.replace("{{button_class}}", options.footerButtons[i].class)
                 modalFooterButton = modalFooterButton.replace("{{button_handler}}", options.footerButtons[i].handler)
@@ -298,7 +296,7 @@ var main_modal: any = function (options: any)
     _elemModal.addEventListener("click", _handlerCloseModal)
     _eventShowModal = new CustomEvent("show.modal", { detail: _elemModal })
     _eventHideModal = new CustomEvent("hide.modal", { detail: _elemModal })
-    return {
+    let return_elem: Object = {
         show: _showModal,
         hide: _hideModal,
         destroy: function () 
@@ -306,14 +304,15 @@ var main_modal: any = function (options: any)
             _elemModal.parentElement.removeChild(_elemModal),
             _elemModal.removeEventListener("click", _handlerCloseModal),
             _destroyed = true;
-        }, setContent: function (html: any) 
+        }, setContent: function (html: HTMLElement) 
         {
             _elemModal.querySelector('[data-modal="content"]').innerHTML = html;
-        }, setTitle: function (text: any) 
+        }, setTitle: function (text: HTMLElement) 
         {
             _elemModal.querySelector('[data-modal="title"]').innerHTML = text;
         }
     }
+    return return_elem
 };
 (function () 
 {
@@ -327,24 +326,23 @@ var main_modal: any = function (options: any)
             { class: "modal_btn modal_btn-1", text: "Отмена", handler: "modalHandlerCancel" }
         ]
     })
-    document.addEventListener("show.modal", function (e: any) 
+    /*document.addEventListener("show.modal", function (e: any)
     {
-        //document.querySelector(".actions").textContent = "Действия при открытии модального окна..."
+        document.querySelector(".actions").textContent = "Действия при открытии модального окна..."
         // получить ссылку на DOM-элемент показываемого модального окна (.modal)
-        //console.log(e.detail)
+        console.log(e.detail)
     })
     document.addEventListener("hide.modal", function (e: any) 
     {
-        //document.querySelector(".actions").textContent = "Действия при закрытии модального окна..."
+        document.querySelector(".actions").textContent = "Действия при закрытии модального окна..."
         // получить ссылку на DOM-элемент скрываемого модального окна (.modal)
-        //console.log(e.detail)
-    })
+        console.log(e.detail)
+    })*/
     document.addEventListener("click", function (e: any) 
     {
         if (e.target.dataset.toggle === "modal") 
         {
-            let elemTarget: any = e.target
-            let content: any
+            let content: string
             if (original_image_buf == "")
             {
                 content = 'Подпись:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"/><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image()">Сгенерировать автоматически</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"/>'
@@ -355,12 +353,12 @@ var main_modal: any = function (options: any)
             }
             modal.show()
             modal.setContent(content)
-            caption_field = document.getElementById("caption_input")
-            style_field = document.getElementById("style_input")
+            caption_field = <HTMLInputElement> document.getElementById("caption_input")
+            style_field = <HTMLInputElement> document.getElementById("style_input")
             ws.onmessage = function (event: any)
             {
-                var jdata: any = JSON.parse(event.data)
-                var type: any = jdata[0]
+                let jdata: any = JSON.parse(event.data)
+                let type: string = jdata[0]
                 if (type == 't') //если текстовое сообщение
                 {
                     //alert(jdata[1])
@@ -378,7 +376,7 @@ var main_modal: any = function (options: any)
                 }
                 if (type == 'i') //если изображение
                 {
-                    let image: any = new Image()
+                    let image: HTMLImageElement = new Image()
                     image.onload = function() 
                     {
                         ctx_foreground.clearRect(0, 0, cW, cH) // очищаем верхний холст
@@ -413,7 +411,7 @@ var main_modal: any = function (options: any)
             {
                 gen_caption_for_image()
             }
-            let full_prompt: any = caption_field.value + " " + style_field.value
+            let full_prompt: string = caption_field.value + " " + style_field.value
             gen_picture_by_promot(false, full_prompt)
             //modal.hide()
             //document.querySelector(".message").textContent = "Вы нажали на кнопку ОК, а открыли окно с помощью кнопки " + elemTarget.textContent
@@ -436,7 +434,7 @@ var main_modal: any = function (options: any)
     })
 })()
 
-let last_task_image_name: any = "drawing_0.png"
+let last_task_image_name: string = "drawing_0.png"
 
 //ws.onopen = function(){alert("open");} 
 
@@ -449,17 +447,17 @@ ws.onclose = function() //Убрать
 
 function check_data_before_sending() //проверяет что именно будет отправляться. Функция временная, нужна для сбора статистики по рисункам. Её потом нужно будет заменить прочто на проверку использован ли передний план или фон
 {
-    let local_is_foreground_used: any = false
-    let local_is_background_used: any = false
-    let local_is_drawing_on_foreground: any = true
-    let local_is_drawing_on_background: any = true
-    let local_sure_on_foreground: any = true
-    let local_sure_on_background: any = true
-    let local_how_many_prims_on_foreground: any = 0
-    let local_how_many_dots_on_foreground: any = 0
-    let local_how_many_prims_on_background: any = 0
-    let local_how_many_dots_on_background: any = 0
-    for (let i: any = 0; i < pstack.length; i++)
+    let local_is_foreground_used: boolean = false
+    let local_is_background_used: boolean = false
+    let local_is_drawing_on_foreground: boolean = true
+    let local_is_drawing_on_background: boolean = true
+    let local_sure_on_foreground: boolean = true
+    let local_sure_on_background: boolean = true
+    let local_how_many_prims_on_foreground: number = 0
+    let local_how_many_dots_on_foreground: number = 0
+    let local_how_many_prims_on_background: number = 0
+    let local_how_many_dots_on_background: number = 0
+    for (let i: number = 0; i < pstack.length; i++)
     {
         switch (pstack[i][0])
         {
@@ -610,10 +608,10 @@ function check_data_before_sending() //проверяет что именно б
                 break
         }
     }
-    let local_is_drawing: any
-    let local_sure: any
-    let local_how_many_prims: any
-    let local_how_many_dots: any
+    let local_is_drawing: boolean
+    let local_sure: boolean
+    let local_how_many_prims: number
+    let local_how_many_dots: number
     if (!local_is_foreground_used)
     {
         local_how_many_prims_on_foreground = 0
@@ -672,8 +670,8 @@ function check_data_before_sending() //проверяет что именно б
 
 function push_action_to_stack(local_act: any)
 {
-    let need_add: any = true
-    let pstack_length: any = pstack.length - 1
+    let need_add: boolean = true
+    let pstack_length: number = pstack.length - 1
     if (pstack_length != -1 && pstack[pstack_length][0] == local_act[0] && local_act[0] != 'p' && local_act[0] != 'u' && pstack[pstack_length] == local_act)
     {
         need_add = false
@@ -685,10 +683,10 @@ function push_action_to_stack(local_act: any)
     }
 }
 
-function gen_picture_by_promot(is_SD2: any, full_prompt: any)
+function gen_picture_by_promot(is_SD2: boolean, full_prompt: string)
 {
     blackout.style.display = "block"
-    let local_type: any
+    let local_type: string
     let send_data: any
     if (is_SD2)
     {
@@ -700,8 +698,8 @@ function gen_picture_by_promot(is_SD2: any, full_prompt: any)
     }
     if (is_human_caption)
     {
-        let data: any
-        let background_data: any
+        let data: string
+        let background_data: string
         if (original_image_buf == "")
         {
             if (is_foreground_visible)
@@ -785,13 +783,13 @@ function gen_picture_by_promot(is_SD2: any, full_prompt: any)
 function delete_background()
 {
     blackout.style.display = "block"
-    let task_id: any = -1
-    let data: any = original_image_buf
+    let task_id: number = -1
+    let data: string = original_image_buf
     if (chain_id != -1) 
     {
         data = ""
     }
-    let send_data_del: any = JSON.stringify({ 
+    let send_data_del: string = JSON.stringify({ 
         "type": 'b', //просьба удалить фон
         "data": data,
         "chain_id": chain_id, //id последнего звена цепочки
@@ -804,13 +802,13 @@ function delete_background()
 function upscale()
 {
     blackout.style.display = "block"
-    let task_id: any = -1
-    let data: any = original_image_buf
+    let task_id: number = -1
+    let data: string = original_image_buf
     if (chain_id != -1)
     {
         data = ""
     }
-    let send_data_ups: any = JSON.stringify({
+    let send_data_ups: string = JSON.stringify({
         "type": 'a', //просьба апскейлить изображение
         "data": data,
         "chain_id": chain_id, //id последнего звена цепочки
@@ -854,28 +852,29 @@ window.onresize = function()
     replay_actions(pstack)
 }
 
-let slider_range: any = document.querySelectorAll('input[type="range"]')
+let slider_range: NodeListOf<Element> = document.querySelectorAll('input[type="range"]')
+let slider_element: any
 
 function update_slider() //заменить на обдновление одного слайдера, а не всех (костыль)
 {
-    for (let e of slider_range)
+    for (slider_element of slider_range)
     {
-        e.style.setProperty('--value', e.value);
+        slider_element.style.setProperty('--value', slider_element.value)
     }
 }
 
-for (let e of slider_range)
+for (slider_element of slider_range)
 {
-    e.style.setProperty("--value", e.value);
-    e.style.setProperty("--min", e.min == "" ? '0' : e.min);
-    e.style.setProperty("--max", e.max == "" ? "100" : e.max);
-    e.addEventListener("input", () => e.style.setProperty("--value", e.value));
+    slider_element.style.setProperty("--value", slider_element.value)
+    slider_element.style.setProperty("--min", slider_element.min == "" ? '0' : slider_element.min)
+    slider_element.style.setProperty("--max", slider_element.max == "" ? "100" : slider_element.max)
+    slider_element.addEventListener("input", () => slider_element.style.setProperty("--value", slider_element.value))
 }
 
 ratio_field.onchange = function() 
 {
-    let t_v: any = ratio_field.value
-    let pos: any = t_v.indexOf(':')
+    let t_v: string = ratio_field.value
+    let pos: number = t_v.indexOf(':')
     if (pos == -1) 
     {
         ratio_field.value = cur_ratio_val
@@ -886,12 +885,12 @@ ratio_field.onchange = function()
         t_v = t_v.slice(1)
         pos--
     }
-    let new_r_w_s: any = t_v.slice(0, pos)
-    let new_r_h_s: any = t_v.slice(pos + 1)
-    let new_r_w: any = parseInt(new_r_w_s)
-    let new_r_h: any = parseInt(new_r_h_s)
-    let new_dfw: any
-    let new_dfh: any
+    let new_r_w_s: string = t_v.slice(0, pos)
+    let new_r_h_s: string = t_v.slice(pos + 1)
+    let new_r_w: number = parseInt(new_r_w_s)
+    let new_r_h: number = parseInt(new_r_h_s)
+    let new_dfw: number
+    let new_dfh: number
     if(new_r_w / new_r_h > Max_cW / Max_cH)
     {
         new_dfh = Math.max(fH_min, (fW_max / new_r_w) * new_r_h)
@@ -910,13 +909,13 @@ ratio_field.onchange = function()
     return get_visual_ratio(true, new_dfw, new_dfh)
 }
 
-function get_visual_ratio(abs: any, w: any, h: any)
+function get_visual_ratio(abs: boolean, w: number, h: number)
 {
-    let rat: any = [[2.0556, 21, 9], [1.5556, 16, 9], [1.1667, 4, 3], [0.875, 1, 1], [0.6562, 3, 4], [0.4955, 9, 16]]
-    let cur_ratio: any = w / h
-    let v_w: any
-    let v_h: any
-    let cur_k: any
+    const rat: [number, number, number][] = [[2.0556, 21, 9], [1.5556, 16, 9], [1.1667, 4, 3], [0.875, 1, 1], [0.6562, 3, 4], [0.4955, 9, 16]]
+    let cur_ratio: number = w / h
+    let v_w: number = 0
+    let v_h: number = 0
+    let cur_k: number
     if (cur_ratio <= 0.4955)
     {
         v_w = 9
@@ -924,7 +923,7 @@ function get_visual_ratio(abs: any, w: any, h: any)
     }
     else
     {
-        let r: any
+        let r: [number, number, number]
         for (r of rat)
         {
             if (cur_ratio > r[0])
@@ -945,7 +944,7 @@ function get_visual_ratio(abs: any, w: any, h: any)
         cur_k = w / v_w
         v_h = Math.round(h / cur_k)
     }
-    let res: any = (v_w).toString() + ":" + (v_h).toString()
+    let res: string = (v_w).toString() + ":" + (v_h).toString()
     if (!abs)
     {
         res = "≈" + res
@@ -978,14 +977,14 @@ function closeNav()
     setTimeout(closeNav_border, 490)
 }
 
-let backBtn: any = document.getElementById("arrow_back")
+let backBtn: HTMLElement = <HTMLElement> document.getElementById("arrow_back")
 
 backBtn.addEventListener("click", () => 
 {
     undo_action()
 })
 
-let nextBtn: any = document.getElementById("arrow_next")
+let nextBtn: HTMLElement = <HTMLElement> document.getElementById("arrow_next")
 
 nextBtn.addEventListener("click", () => 
 {
@@ -995,30 +994,31 @@ nextBtn.addEventListener("click", () =>
 const initial_picker = $(document).ready(function ()
 {
     let picker: any = $("#picker")
-    let picker_fabritastic: any = picker.farbtastic("#color")
+    picker.farbtastic("#color")
 })
 
-function hexDec(h: any)
+function hexDec(h: string)
 {
-    let m: any = h.slice(1).match(/.{2}/g)
-    m[0] = parseInt(m[0], 16)
-    m[1] = parseInt(m[1], 16)
-    m[2] = parseInt(m[2], 16)
-    return m[0] + m[1] + m[2]
+    let m_s: RegExpMatchArray = <RegExpMatchArray> h.slice(1).match(/.{2}/g)
+    let m_n: number[] = []
+    m_n[0] = parseInt(m_s[0], 16)
+    m_n[1] = parseInt(m_s[1], 16)
+    m_n[2] = parseInt(m_s[2], 16)
+    return m_n[0] + m_n[1] + m_n[2]
 }
 
-let colourBtn: any = document.getElementById("palette")
+let colourBtn: HTMLElement = <HTMLElement> document.getElementById("palette")
 colourBtn.style.background = "#000000"
-let ok_clr: any = document.querySelector(".ok_clr_btn")
-let ctype_clr_btn: any = document.querySelector(".ctype_clr_btn")
+let ok_clr: HTMLElement = <HTMLElement> document.querySelector(".ok_clr_btn")
+let ctype_clr_btn: HTMLElement = <HTMLElement> document.querySelector(".ctype_clr_btn")
 
-function handleclr_PointerMove() 
+function handleclr_PointerMove()
 {
     on_clr_window = true
-    let ccv: any = cur_color.value
+    let ccv: string = cur_color.value
     if (ccv == "#NaNNaNNaN")
     {
-        ccv = "#" + colourBtn.style.background.split("(")[1].split(")")[0].split(",").map(function (x: any) 
+        ccv = "#" + colourBtn.style.background.split("(")[1].split(")")[0].split(",").map(function (x: string) 
         {
             x = parseInt(x).toString(16)
             return (x.length==1) ? "0" + x : x
@@ -1045,7 +1045,7 @@ function handleclr_PointerMove()
     }
     if (is_clr_brash)
     {
-        ctype_clr_btn.background = ccv
+        ctype_clr_btn.style.background = ccv
     }
     ok_clr_btn.style.background = ccv
     colourBtn.style.background = ccv
@@ -1115,10 +1115,10 @@ function close_clr_window()
     clr_w.removeEventListener("pointermove", handleclr_PointerMove)
     ctype_clr_btn.removeEventListener("click", handlet_clr_Click)
     is_clr_window = false
-    let ccv: any = cur_color.value
+    let ccv: string = cur_color.value
     if (ccv == "#NaNNaNNaN")
     {
-        ccv = "#" + colourBtn.style.background.split("(")[1].split(")")[0].split(",").map(function (x: any) 
+        ccv = "#" + colourBtn.style.background.split("(")[1].split(")")[0].split(",").map(function (x: string) 
         {
             x = parseInt(x).toString(16)
             return (x.length==1) ? "0" + x : x
@@ -1147,15 +1147,15 @@ function close_clr_window()
     clr_w.style.display = "none"
 }
 
-const change_themeBtn: any = document.getElementById("change_theme")
-const tmimg: any = document.getElementById("theme_mode_img")
-const graphic_tabletBtn: any = document.getElementById("graphic_tablet")
-const first_layer_visibilityBtn: any = document.getElementById("layer_1_visibility_button")
-const first_layer_visibility_img: any = document.getElementById("layer_1_visibility_img")
-const second_layer_visibilityBtn: any = document.getElementById("layer_2_visibility_button")
-const second_layer_visibility_img: any = document.getElementById("layer_2_visibility_img")
-const clear_first_layer_Btn: any = document.getElementById("clear_layer_1")
-const clear_second_layer_Btn: any = document.getElementById("clear_layer_2")
+const change_themeBtn: HTMLElement = <HTMLElement> document.getElementById("change_theme")
+const tmimg: HTMLElement = <HTMLElement> document.getElementById("theme_mode_img")
+const graphic_tabletBtn: HTMLElement = <HTMLElement> document.getElementById("graphic_tablet")
+const first_layer_visibilityBtn: HTMLElement = <HTMLElement> document.getElementById("layer_1_visibility_button")
+const first_layer_visibility_img: HTMLElement = <HTMLElement> document.getElementById("layer_1_visibility_img")
+const second_layer_visibilityBtn: HTMLElement = <HTMLElement> document.getElementById("layer_2_visibility_button")
+const second_layer_visibility_img: HTMLElement = <HTMLElement> document.getElementById("layer_2_visibility_img")
+const clear_first_layer_Btn: HTMLElement = <HTMLElement> document.getElementById("clear_layer_1")
+const clear_second_layer_Btn: HTMLElement = <HTMLElement> document.getElementById("clear_layer_2")
 
 change_themeBtn.addEventListener("click", () => 
 {
@@ -1239,7 +1239,7 @@ change_themeBtn.addEventListener("click", () =>
     }
 })
 
-const select_first_layerBtn: any = document.getElementById("layer_button_1")
+const select_first_layerBtn: HTMLElement = <HTMLElement> document.getElementById("layer_button_1")
 
 select_first_layerBtn.addEventListener("click", () => 
 {
@@ -1261,7 +1261,7 @@ select_first_layerBtn.addEventListener("click", () =>
     }
 })
 
-const select_second_layerBtn: any = document.getElementById("layer_button_2")
+const select_second_layerBtn: HTMLElement = <HTMLElement> document.getElementById("layer_button_2")
 
 select_second_layerBtn.addEventListener("click", () => 
 {
@@ -1328,15 +1328,16 @@ clear_second_layer_Btn.addEventListener("click", () => {
     push_action_to_stack(['c', ctx_background])
 })
 
-const merge_layersBtn: any = document.getElementById("merge_layers")
+const merge_layersBtn: HTMLElement = <HTMLElement> document.getElementById("merge_layers")
 
-function merge_layers_in_stack(stack: any, local_ctx: any)
+function merge_layers_in_stack(stack: any[], local_ctx: CanvasRenderingContext2D)
 {
-    let substack_1: any = []
-    let substack_2: any = []
-    let is_changed_stack: any = []
-    let another_ctx: any
-    let is_foreground: any
+    let substack_1: any[] = []
+    let substack_2: any[] = []
+    let is_changed_stack: boolean[] = []
+    let another_ctx: CanvasRenderingContext2D
+    let is_foreground: boolean
+    let return_value: [any[], boolean[]]
     if (local_ctx == ctx_foreground)
     {
         another_ctx = ctx_background
@@ -1347,7 +1348,7 @@ function merge_layers_in_stack(stack: any, local_ctx: any)
         another_ctx = ctx_foreground
         is_foreground = false
     }
-    for (let i = 0; i < stack.length; i++)
+    for (let i: number = 0; i < stack.length; i++)
     {
         if (id_list.includes(stack[i][0]) && stack[i][1] == another_ctx)
         {
@@ -1365,25 +1366,25 @@ function merge_layers_in_stack(stack: any, local_ctx: any)
     {
         if (substack_1.length == 0)
         {
-            is_changed_stack = []
-            return { stack, is_changed_stack }
+            return_value = [stack, []]
+            return return_value
         }
-        substack_1 = substack_1.concat(substack_2)
-        return { substack_1, is_changed_stack }
+        return_value = [substack_1.concat(substack_2), is_changed_stack]
+        return return_value
     }
     else
     {
         if (substack_1.length == 0)
         {
-            is_changed_stack = []
-            return { stack, is_changed_stack }
+            return_value = [stack, []]
+            return return_value
         }
-        substack_2 = substack_2.concat(substack_1)
-        return { substack_2, is_changed_stack }
+        return_value = [substack_2.concat(substack_1), is_changed_stack]
+        return return_value
     }
 }
 
-function unmerge_layers_in_stack(stack: any, local_ctx: any, local_ics: any)
+function unmerge_layers_in_stack(stack: any, local_ctx: CanvasRenderingContext2D, local_ics: boolean[])
 {
     if (local_ics.length == 0)
     {
@@ -1391,8 +1392,8 @@ function unmerge_layers_in_stack(stack: any, local_ctx: any, local_ics: any)
     }
     let substack_1: any = []
     let substack_2: any = []
-    let another_ctx: any
-    let is_foreground: any
+    let another_ctx: CanvasRenderingContext2D
+    let is_foreground: boolean
     if (local_ctx == ctx_foreground)
     {
         another_ctx = ctx_background
@@ -1425,7 +1426,7 @@ function unmerge_layers_in_stack(stack: any, local_ctx: any, local_ics: any)
     }
 }
 
-function unmerge_layers(local_ctx: any, local_ics_1: any, local_ics_2: any)
+function unmerge_layers(local_ctx: CanvasRenderingContext2D, local_ics_1: boolean[], local_ics_2: boolean[])
 {
     pstack = unmerge_layers_in_stack(pstack, local_ctx, local_ics_1)
     nstack = unmerge_layers_in_stack(nstack, local_ctx, local_ics_2)
@@ -1436,16 +1437,19 @@ function unmerge_layers(local_ctx: any, local_ics_1: any, local_ics_2: any)
     canvas_to_layer(canvas_background, ctx_layer_2)
 }
 
-function merge_layers(local_draw_ctx: any)
+function merge_layers(local_draw_ctx: CanvasRenderingContext2D)
 {
-    let { local_stack_1, is_changed_stack_1 }: any = merge_layers_in_stack(pstack, local_draw_ctx)
-    pstack = local_stack_1
-    if (is_changed_stack_1.length == 0)
+    let merge_elem: [any[], boolean[]] = merge_layers_in_stack(pstack, local_draw_ctx)
+    let return_value: [boolean[], boolean[]] = [merge_elem[1], []]
+    pstack = merge_elem[0]
+    if (return_value[0].length == 0)
     {
-        return [[], []]
+        return_value[1] = []
+        return return_value
     }
-    let { local_stack_2, is_changed_stack_2 }: any = merge_layers_in_stack(nstack, local_draw_ctx)
-    nstack = local_stack_2
+    merge_elem = merge_layers_in_stack(nstack, local_draw_ctx)
+    return_value[1] = merge_elem[1]
+    nstack = merge_elem[0]
     replay_actions(pstack)
     if (local_draw_ctx == ctx_foreground)
     {
@@ -1457,13 +1461,12 @@ function merge_layers(local_draw_ctx: any)
         ctx_layer_1.clearRect(0, 0, lwW, lwH)
         canvas_to_layer(canvas_background, ctx_layer_2)
     }
-    return [is_changed_stack_1, is_changed_stack_2]
+    return return_value
 }
 
 merge_layersBtn.addEventListener("click", () => 
 {
-    let is_changed_stack: any = []
-    is_changed_stack = merge_layers(cur_draw_ctx)
+    let is_changed_stack: [boolean[], boolean[]] = merge_layers(cur_draw_ctx)
     if (is_changed_stack[0].length == 0 && is_changed_stack[1].length == 0)
     {
         return
@@ -1471,16 +1474,16 @@ merge_layersBtn.addEventListener("click", () =>
     push_action_to_stack(['m', cur_draw_ctx, is_changed_stack[0], is_changed_stack[1]])
 })
 
-const swap_layersBtn: any = document.getElementById("swap_layers")
+const swap_layersBtn: HTMLElement = <HTMLElement> document.getElementById("swap_layers")
 
-function swap_layers_in_stack(stack: any)
+function swap_layers_in_stack(stack: any[])
 {
-    let is_swapped: any = false
+    let return_value: [any[], boolean] = [[], false]
     for (let i = 0; i < stack.length; i++)
     {
         if (id_list.includes(stack[i][0]))
         {
-            is_swapped = true
+            return_value[1] = true
             if (stack[i][1] == ctx_foreground)
             {
                 stack[i][1] = ctx_background
@@ -1491,13 +1494,12 @@ function swap_layers_in_stack(stack: any)
             }
         }
     }
-    return [stack, is_swapped]
+    return return_value
 }
 
 function swap_layers()
 {
-    let input_value: any
-    input_value = swap_layers_in_stack(pstack)
+    let input_value: [any[], boolean] = swap_layers_in_stack(pstack)
     pstack = input_value[0]
     if (input_value[1] == false)
     {
@@ -1568,27 +1570,28 @@ colourBtn.addEventListener("click", () =>
     }
 })
 
-function change_thickness(flag: any)
+function change_thickness(flag: boolean)
 {
-    let t_v: any
+    let t_v: number
     if (flag)
     {
-        t_v = thickness_field.value - 1
+        t_v = parseInt(thickness_field.value)
     }
     else
     {
-        t_v = e_thickness_field.value - 1
+        t_v = parseInt(e_thickness_field.value)
     }
-    let real_t_v: any = Math.min(100, Math.max(0, t_v))
+    t_v -= 1
+    let real_t_v: number = Math.min(100, Math.max(0, t_v))
     if (t_v != real_t_v)
     {
         t_v = real_t_v
     }
-    thickness_field.value = t_v + 1
-    e_thickness_field.value = t_v + 1
-    thickness_slider.value = t_v + 1
-    e_thickness_slider.value = t_v + 1
-    let thickness_k: any = t_v * t_v * 0.0001 //коэффициент, чтобы толщина не увеличивалась так резко, сейчас это квадрат
+    thickness_field.value = (t_v + 1).toString()
+    e_thickness_field.value = (t_v + 1).toString()
+    thickness_slider.value = (t_v + 1).toString()
+    e_thickness_slider.value = (t_v + 1).toString()
+    let thickness_k: number = t_v * t_v * 0.0001 //коэффициент, чтобы толщина не увеличивалась так резко, сейчас это квадрат
     l_width = 1 + Math.max(cW, cH) * thickness_k
     W_f = (W - cW) / 2 - l_width / 2 + 12
     H_f = (H - cH) / 2 - l_width / 2 + 12
@@ -1619,16 +1622,16 @@ e_thickness_field.onchange = function()
 
 function change_smoothing()
 {
-    cur_smoothing = smoothing_field.value
-    let real_s_v: any = Math.min(100, Math.max(0, cur_smoothing))
+    cur_smoothing = parseInt(smoothing_field.value)
+    let real_s_v: number = Math.min(100, Math.max(0, cur_smoothing))
     if (cur_smoothing != real_s_v)
     {
         cur_smoothing = real_s_v
-        smoothing_field.value = cur_smoothing
+        smoothing_field.value = cur_smoothing.toString()
     }
     k_smooth = 0
-    let step: any = 1.0 / cur_smoothing
-    for (let t: any = 0; t < 1 + step; t += step) //очень странный костыль, исправлю позже
+    let step: number = 1.0 / cur_smoothing
+    for (let t: number = 0; t < 1 + step; t += step) //очень странный костыль, исправлю позже
     {
         t = Math.min(1, t)
         k_smooth++
@@ -1645,9 +1648,9 @@ smoothing_field.onchange = function()
     change_smoothing()
 }
 
-const setpencilBtn: any = document.getElementById("pencil")
+const setpencilBtn: HTMLElement = <HTMLElement> document.getElementById("pencil")
 setpencilBtn.style.border = "5px solid #000000"
-let cur_tool: any = ['k', setpencilBtn, "aero_pen.cur"] //текущий инструмент (карандаш)
+let cur_tool: [string, HTMLElement, string] = ['k', setpencilBtn, "aero_pen.cur"] //текущий инструмент (карандаш)
 
 setpencilBtn.addEventListener("click", () =>
 {
@@ -1687,7 +1690,7 @@ setpencilBtn.addEventListener("click", () =>
     }
 })
 
-const seteraserBtn: any = document.getElementById("eraser")
+const seteraserBtn: HTMLElement = <HTMLElement> document.getElementById("eraser")
 
 seteraserBtn.addEventListener("click", () => 
 {
@@ -1727,7 +1730,7 @@ seteraserBtn.addEventListener("click", () =>
     }
 })
 
-const setbucketBtn: any = document.getElementById("bucket")
+const setbucketBtn: HTMLElement = <HTMLElement> document.getElementById("bucket")
 
 setbucketBtn.addEventListener("click", () => 
 {
@@ -1755,7 +1758,7 @@ setbucketBtn.addEventListener("click", () =>
     }
 })
 
-const setpipetteBtn: any = document.getElementById("pipette")
+const setpipetteBtn: HTMLElement = <HTMLElement> document.getElementById("pipette")
 
 setpipetteBtn.addEventListener("click", () => 
 {
@@ -1801,7 +1804,7 @@ function clear_drawfield()
     ctx_background.fillRect(0, 0, cW, cH)
 }
 
-const clearBtn: any = document.getElementById("clear")
+const clearBtn: HTMLElement = <HTMLElement> document.getElementById("clear")
 
 clearBtn.addEventListener("click", () => 
 {
@@ -1809,8 +1812,8 @@ clearBtn.addEventListener("click", () =>
     push_action_to_stack(['d']) //тип - очистка экрана
 })
 
-const mhf: any = document.getElementById("my_hidden_file")
-const uploadBtn: any = document.getElementById("upload")
+const mhf: HTMLElement = <HTMLElement> document.getElementById("my_hidden_file")
+const uploadBtn: HTMLElement = <HTMLElement> document.getElementById("upload")
 
 uploadBtn.addEventListener("click", () => 
 {
@@ -1821,27 +1824,27 @@ uploadBtn.addEventListener("click", () =>
     }
     is_first_upload_btn_click = false
     mhf.click()
-    mhf.addEventListener("change", function readImage(this: any)
+    mhf.addEventListener("change", function readImage(this: HTMLInputElement)
     {
         if (!this.files || !this.files[0]) return
         chain_id = -1
-        const FR: any = new FileReader()
+        const FR: FileReader = new FileReader()
         FR.addEventListener("load", (evt: any) => 
         {
-            let new_img_w: any
-            let new_img_h: any
+            let new_img_w: number
+            let new_img_h: number
             let img = new Image()
             img.addEventListener("load", () => 
             {
-                let img_w: any = img.width
-                let img_h: any = img.height
-                let new_dfw: any
-                let new_dfh: any
-                let is_drawfield_used: any = false
-                let ps_size: any = pstack.length
-                let x_paste_pos: any = 0
-                let y_paste_pos: any = 0
-                let i: any
+                let img_w: number = img.width
+                let img_h: number = img.height
+                let new_dfw: number
+                let new_dfh: number
+                let is_drawfield_used: boolean = false
+                let ps_size: number = pstack.length
+                let x_paste_pos: number = 0
+                let y_paste_pos: number = 0
+                let i: number
                 if (ps_size != 0 && pstack[0] == 'i', ctx_background, "#fff")
                 {
                     i = 1
@@ -1850,7 +1853,7 @@ uploadBtn.addEventListener("click", () =>
                 {
                     i = 0
                 }
-                let local_id_list: any = ['r', 'p', 'i', 'u', 'f']
+                let local_id_list: string[] = ['r', 'p', 'i', 'u', 'f']
                 for (i; i < ps_size; i++)
                 {
                     if (local_id_list.includes(pstack[i][0]))
@@ -1921,11 +1924,11 @@ uploadBtn.addEventListener("click", () =>
     })
 })
 
-const saveBtn: any = document.getElementById("save")
+const saveBtn: HTMLElement = <HTMLElement> document.getElementById("save")
 
 saveBtn.addEventListener("click", () => 
 {
-    let image: any = new Image()
+    let image: HTMLImageElement = new Image()
     if (original_image_buf == "")
     {
         if (!is_foreground_visible)
@@ -1938,7 +1941,7 @@ saveBtn.addEventListener("click", () =>
         }
         image.onload = function()
         {
-            let a: any = document.createElement("a")
+            let a: HTMLAnchorElement = document.createElement("a")
             ctx_background.drawImage(image, 0, 0, image.width, image.height, 0, 0, cW, cH)
             a.href = canvas_background.toDataURL("imag/png")
             a.download = "sketch.png"
@@ -1951,7 +1954,7 @@ saveBtn.addEventListener("click", () =>
     }
     else
     {
-        let a: any = document.createElement("a")
+        let a: HTMLAnchorElement = document.createElement("a")
         a.href = original_image_buf
         a.download = "sketch.png"
         a.click()
@@ -1961,9 +1964,9 @@ saveBtn.addEventListener("click", () =>
 function gen_caption_for_image()
 {
     blackout.style.display = "block"
-    let send_data: any
-    let data: any
-    let background_data: any
+    let send_data: string
+    let data: string
+    let background_data: string
     if (original_image_buf == "")
     {
         if (is_foreground_visible)
@@ -2030,9 +2033,9 @@ document.addEventListener("pointerenter", (e) =>
     cursor.style.top = (cY + 7.5) + "px"
 }, { once: true })
 
-function replay_action(act: any, k_X: any, k_Y: any, fW_pred: any, fH_pred: any)
+function replay_action(act: any, k_X: number, k_Y: number, fW_pred: number, fH_pred: number)
 {
-    let act_type: any = act[0]
+    let act_type: string = act[0]
     switch (act_type)
     {
         case 'p': //если это примитив
@@ -2040,7 +2043,7 @@ function replay_action(act: any, k_X: any, k_Y: any, fW_pred: any, fH_pred: any)
             act[1].strokeStyle = act[3]
             act[1].globalCompositeOperation = act[4]
             act[1].beginPath()
-            for (let i: any = 1; i < prim.length; i++)
+            for (let i: number = 1; i < prim.length; i++)
             {
                 act[1].lineWidth = prim[i][2]
                 act[1].moveTo(prim[i - 1][0] / k_X, prim[i - 1][1] / k_Y)
@@ -2084,11 +2087,9 @@ function replay_action(act: any, k_X: any, k_Y: any, fW_pred: any, fH_pred: any)
 function replay_actions(cur_pstack: any)
 {
     full_clear_drawfield()
-    let change_bash_clr = false
-    let new_bash_clr
-    let k_X = fW_pred / f_dW
-    let k_Y = fH_pred / f_dH
-    let cur_thickness = 1
+    let k_X: number = fW_pred / f_dW
+    let k_Y: number = fH_pred / f_dH
+    let cur_thickness: number = 1
     ctx_foreground.lineWidth = cur_thickness
     ctx_background.lineWidth = cur_thickness
     ctx_background.strokeStyle = "#000000"
@@ -2098,7 +2099,7 @@ function replay_actions(cur_pstack: any)
     ctx_add.lineJoin = "round"
     ctx_background.lineCap = "round"
     ctx_background.lineJoin = "round"
-    let elem: any
+    let elem: number[]
     for (let act of cur_pstack) 
     {
         elem = replay_action(act, k_X, k_Y, fW_pred, fH_pred)
@@ -2114,15 +2115,11 @@ function replay_actions(cur_pstack: any)
     ctx_add.lineWidth = l_width
     ctx_foreground.lineWidth = l_width
     ctx_background.lineWidth = l_width
-    if (change_bash_clr)
-    {
-        cur_brush_clr = new_bash_clr
-    }
 }
 
-function canvas_to_layer(local_canvas: any, local_layer: any)
+function canvas_to_layer(local_canvas: HTMLCanvasElement, local_layer: CanvasRenderingContext2D)
 {
-    let image_layer: any = new Image()
+    let image_layer: HTMLImageElement = new Image()
     image_layer.onload = function() 
     {
         local_layer.drawImage(image_layer, 0, 0, cW, cH, 0, 0, lwW, lwH)
@@ -2132,11 +2129,11 @@ function canvas_to_layer(local_canvas: any, local_layer: any)
 
 function undo_action()
 {
-    let pstack_size: any = pstack.length
+    let pstack_size: number = pstack.length
     if (pstack_size != 0)
     {
         let cur_act: any = pstack.pop()
-        let is_r: any = false
+        let is_r: boolean = false
         if (id_list.includes(cur_act[0]))
         {
             if (cur_act[0] == 'r')
@@ -2161,8 +2158,8 @@ function undo_action()
         }
         if (is_r)
         {
-            let buf_r_elem = ['r', fW_max, fH_max, false]
-            for (let i: any = pstack_size - 1; i > -1; i--)
+            let buf_r_elem: [string, number, number, boolean] = ['r', fW_max, fH_max, false]
+            for (let i: number = pstack_size - 1; i > -1; i--)
             {
                 if (pstack[i][0] == 'r')
                 {
@@ -2187,9 +2184,8 @@ function repeat_action()
     if (nstack.length != 0)
     {
         let cur_act: any = nstack.pop()
-        let cur_acts: any = []
-        let local_cur_ctx_layer: any = cur_ctx_layer
-        let local_cur_canvas: any = cur_canvas
+        let local_cur_ctx_layer: CanvasRenderingContext2D = cur_ctx_layer
+        let local_cur_canvas: HTMLCanvasElement = cur_canvas
         if (id_list.includes(cur_act[0]))
         {
             if (cur_act[1] == ctx_foreground)
@@ -2203,7 +2199,6 @@ function repeat_action()
                 local_cur_canvas = canvas_background
             }
         }
-        cur_acts.push(cur_act)
         pstack.push(cur_act)
         if (cur_act[0] == 's')
         {
@@ -2315,7 +2310,7 @@ document.addEventListener("keyup", (event) =>
         {
             ctx_add.clearRect(0, 0, cW, cH)
             drawLines(cur_draw_ctx, curprim)
-            let cpl: any = curprim.length - 1
+            let cpl: number = curprim.length - 1
             prevX = curprim[cpl][0]
             prevY = curprim[cpl][1]
         }
@@ -2323,7 +2318,7 @@ document.addEventListener("keyup", (event) =>
     }
 }, false)
 
-canvas_additional.addEventListener("pointerdown", (e: any) => 
+canvas_additional.addEventListener("pointerdown", (e: PointerEvent) => 
 {
     if (is_foreground_selected)
     {
@@ -2341,7 +2336,7 @@ canvas_additional.addEventListener("pointerdown", (e: any) =>
                 layer_2.style.border = "5px solid #000000"
                 cur_draw_ctx = ctx_background
                 cur_canvas = canvas_layer_2
-                cur_ctx_layer = canvas_background
+                cur_ctx_layer = ctx_layer_2
                 is_foreground_selected = false
             }
         }
@@ -2359,7 +2354,7 @@ canvas_additional.addEventListener("pointerdown", (e: any) =>
                 layer_2.style.border = "1px solid #707070"
                 cur_draw_ctx = ctx_foreground
                 cur_canvas = canvas_layer_1
-                cur_ctx_layer = canvas_foreground
+                cur_ctx_layer = ctx_layer_1
                 is_foreground_selected = true
             }
             else
@@ -2368,13 +2363,13 @@ canvas_additional.addEventListener("pointerdown", (e: any) =>
                 layer_2.style.border = "1px solid #707070"
                 cur_draw_ctx = ctx_foreground
                 cur_canvas = canvas_layer_1
-                cur_ctx_layer = canvas_foreground
+                cur_ctx_layer = ctx_layer_1
                 is_foreground_selected = true
             }
         }
     }
-    let cur_x: any = e.clientX
-    let cur_y: any = e.clientY
+    let cur_x: number = e.clientX
+    let cur_y: number = e.clientY
     prevX = cur_x - W_f
     prevY = cur_y - H_f
     draw = true
@@ -2389,17 +2384,17 @@ canvas_additional.addEventListener("pointerdown", (e: any) =>
     }
 })
 
-function rgbToHex(r: any, g: any, b: any) 
+function rgbToHex(r: number, g: number, b: number) 
 {
     return ((r << 16) | (g << 8) | b).toString(16)
 }
 
-function rgbaToHex(r: any, g: any, b: any, a: any) 
+function rgbaToHex(r: number, g: number, b: number, a: number) 
 {
     return ((r << 24) | (g << 16) | (b << 8) | a).toString(16)
 }
 
-function getPixel(pixelData: any, x: any, y: any) 
+function getPixel(pixelData: any, x: number, y: number) 
 {
     if (x < 0 || y < 0 || x >= pixelData.width || y >= pixelData.height) 
     {
@@ -2411,19 +2406,19 @@ function getPixel(pixelData: any, x: any, y: any)
     }
 }
 
-function addSpan(spansToCheck: any, left: any, right: any, y: any, direction: any)
+function addSpan(spansToCheck: any, left: number, right: number, y: number, direction: number)
 {
     spansToCheck.push({ left, right, y, direction })
 }
 
-function checkSpan(pixelData: any, targetColor: any, spansToCheck: any, left: any, right: any, y: any, direction: any)
+function checkSpan(pixelData: any, targetColor: string, spansToCheck: any, left: number, right: number, y: number, direction: number)
 {
-    let inSpan: any = false
-    let start: any
-    let x: any
+    let inSpan: boolean = false
+    let start: number = 0
+    let x: number
     for (x = left; x < right; ++x)
     {
-        let color: any = getPixel(pixelData, x, y)
+        let color: string = getPixel(pixelData, x, y)
         if (color === targetColor)
         {
             if (!inSpan)
@@ -2450,48 +2445,48 @@ function checkSpan(pixelData: any, targetColor: any, spansToCheck: any, left: an
 
 function floodFill(local_ctx: any, x: any, y: any, fillColor: any) 
 {
-    let dex_clr: any = parseInt("FF" + fillColor.slice(6, 8) + fillColor.slice(4, 6) + fillColor.slice(2, 4), 16)
-    let imageData: any = local_ctx.getImageData(0, 0, local_ctx.canvas.width, local_ctx.canvas.height)
+    let dex_clr: number = parseInt("FF" + fillColor.slice(6, 8) + fillColor.slice(4, 6) + fillColor.slice(2, 4), 16)
+    let imageData: ImageData = local_ctx.getImageData(0, 0, local_ctx.canvas.width, local_ctx.canvas.height)
     let pixelData: any = {
         width: imageData.width,
         height: imageData.height,
         data: new Uint32Array(imageData.data.buffer),
     }
-    let targetColor: any = getPixel(pixelData, x, y)
+    let targetColor: string = getPixel(pixelData, x, y)
     if (targetColor !== fillColor) 
     {
-        let spansToCheck: any = []
+        let spansToCheck: [number, number, number, number][] = []
         addSpan(spansToCheck, x, x, y, 0)
-        let iter_max: any = Math.round(cH) * 2
-        let iter: any = 0
+        let iter_max: number = Math.round(cH) * 2
+        let iter: number = 0
         while (spansToCheck.length > 0 && iter <= iter_max) 
         {
             iter++
             let { left, right, y, direction }: any = spansToCheck.pop()
-            let l: any = left
-            let iter_l_max: any = left - cH / 2
+            let l: number = left
+            let iter_l_max: number = left - cH / 2
             while (true)
             {
                 --l
-                let color: any = getPixel(pixelData, l, y)
+                let color: string = getPixel(pixelData, l, y)
                 if (color !== targetColor || l < iter_l_max) 
                 {
                     break
                 }
             }
             ++l
-            let r: any = right
-            let iter_r_max: any = right + cW / 2
+            let r: number = right
+            let iter_r_max: number = right + cW / 2
             while (true)
             {
                 ++r
-                let color: any = getPixel(pixelData, r, y)
+                let color: string = getPixel(pixelData, r, y)
                 if (color !== targetColor || r > iter_r_max)
                 {
                     break
                 }
             }
-            let lineOffset: any = y * pixelData.width
+            let lineOffset: number = y * pixelData.width
             pixelData.data.fill(dex_clr, lineOffset + l, lineOffset + r)
             if (direction <= 0) 
             {
@@ -2516,7 +2511,7 @@ function floodFill(local_ctx: any, x: any, y: any, fillColor: any)
     }
 }
 
-d_frame.addEventListener("pointerdown", (e: any) => 
+d_frame.addEventListener("pointerdown", (e: PointerEvent) => 
 {
     if(!draw)
     {
@@ -2529,17 +2524,17 @@ d_frame.addEventListener("pointerdown", (e: any) =>
     }
     else
     {
-        let cur_x: any = e.clientX - W_f
-        let cur_y: any = e.clientY - H_f
+        let cur_x: number = e.clientX - W_f
+        let cur_y: number = e.clientY - H_f
         if (cur_tool[0] == 'p') //если выбрана пипетка
         {
-            let rgba: any
-            if (is_foreground_visible)
+            let rgba: Uint8ClampedArray = ctx_foreground.getImageData(cur_x - 1, cur_y - 1, 1, 1).data
+            if (!is_foreground_visible)
             {
-                rgba = ctx_foreground.getImageData(cur_x - 1, cur_y - 1, 1, 1).data
+                rgba[3] = 0
             }
             let hex: any
-            if (!is_foreground_visible || rgba[3] == 0)
+            if (rgba[3] == 0)
             {
                 if (cur_draw_ctx == ctx_foreground && is_background_visible)
                 {
@@ -2574,11 +2569,11 @@ d_frame.addEventListener("pointerdown", (e: any) =>
             {
                 cur_x = Math.floor(cur_x + 2)
                 cur_y = Math.floor(cur_y + 18)
-                let rgba: any = cur_draw_ctx.getImageData(cur_x, cur_y, 1, 1).data
-                let hex: any = '#' + ("00000000" + rgbaToHex(rgba[0], rgba[1], rgba[2], rgba[3])).slice(-8)
+                let rgba: Uint8ClampedArray = cur_draw_ctx.getImageData(cur_x, cur_y, 1, 1).data
+                let hex: string = '#' + ("00000000" + rgbaToHex(rgba[0], rgba[1], rgba[2], rgba[3])).slice(-8)
                 if (cur_brush_clr + "ff" != hex) //если цвет выбранной точки не равен текущему
                 {
-                    let cur_form_clr: any = "0x" + cur_brush_clr.slice(1) + "FF"
+                    let cur_form_clr: string = "0x" + cur_brush_clr.slice(1) + "FF"
                     floodFill(cur_draw_ctx, cur_x, cur_y, cur_form_clr)
                     push_action_to_stack(['f', cur_draw_ctx, cur_x, cur_y, cur_form_clr])
                     canvas_to_layer(cur_canvas, cur_ctx_layer)
@@ -2612,7 +2607,7 @@ window.addEventListener("pointerup", (e) =>
     end_f_move = true
 })
 
-function addGraphicTabletButton(e: any)
+function addGraphicTabletButton(e: PointerEvent)
 {
     if (e.pointerType == "pen")
     {
@@ -2623,7 +2618,7 @@ function addGraphicTabletButton(e: any)
 
 nav_panel.addEventListener("pointermove", addGraphicTabletButton) //проверка курсора на поле с кнопками
 
-canvas_additional.addEventListener("pointermove", (e: any) => //проверка курсора на поле для рисования
+canvas_additional.addEventListener("pointermove", (e: PointerEvent) => //проверка курсора на поле для рисования
 {
     on_d_fiend = true
     if(cursor_type != 3 && !f_move)
@@ -2633,10 +2628,10 @@ canvas_additional.addEventListener("pointermove", (e: any) => //проверка
     }
 })
 
-function getBezierBasis(i: any, n: any, t: any) //Базисная функция i - номер вершины, n - количество вершин, t - положение кривой (от 0 до 1)
+function getBezierBasis(i: number, n: number, t: number) //Базисная функция i - номер вершины, n - количество вершин, t - положение кривой (от 0 до 1)
 {
 	// Факториал
-	function f(n: any): any
+	function f(n: number): number
     {
 		return (n <= 1) ? 1 : n * f(n - 1)
 	}
@@ -2645,18 +2640,18 @@ function getBezierBasis(i: any, n: any, t: any) //Базисная функци�
 }
 
 // arr - массив опорных точек. Точка - двухэлементный массив, (x = arr[0], y = arr[1]), step - шаг при расчете кривой (0 < step < 1), по умолчанию 0.01
-function getBezierCurve(arr: any, step: any) 
+function getBezierCurve(arr: [number, number, number][], step: number) 
 {
 	step = 1.0 / step
-    let res: any = new Array()
-    for (let t: any = 0; t < 1 + step; t += step) 
+    let res: [number, number, number][] = new Array()
+    for (let t: number = 0; t < 1 + step; t += step) 
     {
 		t = Math.min(1, t)
-        let ind: any = res.length
-		res[ind] = new Array(0, 0, 0)
-        for (let i: any = 0; i < arr.length; i++) 
+        let ind: number = res.length
+		res[ind] = [0, 0, 0]
+        for (let i: number = 0; i < arr.length; i++) 
         {
-            let b: any = getBezierBasis(i, arr.length - 1, t)
+            let b: number = getBezierBasis(i, arr.length - 1, t)
 			res[ind][0] += arr[i][0] * b
 			res[ind][1] += arr[i][1] * b
             res[ind][2] += arr[i][2] * b
@@ -2665,10 +2660,10 @@ function getBezierCurve(arr: any, step: any)
 	return res
 }
 
-function drawLines(local_ctx: any, arr: any) 
+function drawLines(local_ctx: CanvasRenderingContext2D, arr: [number, number, number][]) 
 {
     local_ctx.beginPath()
-    for (let i: any = 0; i < arr.length - 1; i++)
+    for (let i: number = 0; i < arr.length - 1; i++)
     {
         local_ctx.lineWidth = arr[i][2]
 		local_ctx.moveTo(arr[i][0], arr[i][1])
@@ -2677,13 +2672,13 @@ function drawLines(local_ctx: any, arr: any)
     }
 }
 
-d_frame.addEventListener("pointermove", (e: any) => //проверка курсора на поле вместе с рамкой
+d_frame.addEventListener("pointermove", (e: PointerEvent) => //проверка курсора на поле вместе с рамкой
 {
     on_d_frame = true
     if(!on_d_fiend && !draw)
     {
-        let X: any = e.clientX - W_min
-        let Y: any = e.clientY - H_min
+        let X: number = e.clientX - W_min
+        let Y: number = e.clientY - H_min
         fup = false
         fdown = false
         fright = false
@@ -2754,9 +2749,9 @@ d_frame.addEventListener("pointermove", (e: any) => //проверка курс�
     {
         return
     }
-    let pX: any = e.clientX - W_f
-    let pY: any = e.clientY - H_f
-    let pW: any = e.pressure
+    let pX: number = e.clientX - W_f
+    let pY: number = e.clientY - H_f
+    let pW: number = e.pressure
     //Рисование
     if(draw)
     {
@@ -2777,7 +2772,7 @@ d_frame.addEventListener("pointermove", (e: any) => //проверка курс�
             prevX = pX
             prevY = pY
             fp = true
-            let drawing_mode: any
+            let drawing_mode: string
             if (cur_tool[0] == 'e')
             {
                 cur_ctx_layer.clearRect(0, 0, lwW, lwH)
@@ -2801,9 +2796,9 @@ d_frame.addEventListener("pointermove", (e: any) => //проверка курс�
             curprim = []
             return 
         }
-        let currentX: any = pX * cmp_W - l_width / 2
-        let currentY: any = pY * cmp_H - l_width / 2
-        let currentW: any
+        let currentX: number = pX * cmp_W - l_width / 2
+        let currentY: number = pY * cmp_H - l_width / 2
+        let currentW: number
         if (graphic_tablet_mode)
         {
             currentW = pW * l_width
@@ -2834,9 +2829,9 @@ d_frame.addEventListener("pointermove", (e: any) => //проверка курс�
         }
         if(is_shift_on)
         {
-            let delta_x: any = currentX - prevX
-            let delta_y: any = currentY - prevY
-            let k_tan: any = Math.round(Math.atan(delta_y / delta_x) / Pi_div_4)
+            let delta_x: number = currentX - prevX
+            let delta_y: number = currentY - prevY
+            let k_tan: number = Math.round(Math.atan(delta_y / delta_x) / Pi_div_4)
             if (k_tan == 2 || k_tan == -2)
             {
                 k_tan = 0
@@ -2881,8 +2876,8 @@ d_frame.addEventListener("pointermove", (e: any) => //проверка курс�
 
 function change_drawfield_size(new_dfw: any, new_dfh: any)//функция изменения размеров окна
 {
-    let prev_f_dW: any = f_dW
-    let prev_f_dH: any = f_dH
+    let prev_f_dW: number = f_dW
+    let prev_f_dH: number = f_dH
     f_dW = Math.min(fW_max, Math.max(fW_min, new_dfw))
     f_dH = Math.min(fH_max, Math.max(fH_min, new_dfh))
     d_frame.style.width = f_dW + "px"
@@ -2956,7 +2951,6 @@ window.addEventListener("pointermove", (e) => //проверка курсора 
             if(cursor_type != -1)
             {
                 cursor_type = -1
-                cursor.display
                 cursor.style.display = "none"
             }
         }
@@ -2998,8 +2992,8 @@ window.addEventListener("pointermove", (e) => //проверка курсора 
         {
             Y_move *= -1
         }
-        let cur_new_dfw: any = f_dW + X_move
-        let cur_new_dfh: any = f_dH + Y_move
+        let cur_new_dfw: number = f_dW + X_move
+        let cur_new_dfh: number = f_dH + Y_move
         change_drawfield_size(cur_new_dfw, cur_new_dfh)
         cur_ratio_val = get_visual_ratio(false, cW, cH)
         ratio_field.value = cur_ratio_val //устанавливаем соотношение сторон

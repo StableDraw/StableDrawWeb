@@ -341,6 +341,10 @@
       "PackagePath": "staticwebassets\\logo.png"
     },
     {
+      "Id": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\main.js",
+      "PackagePath": "staticwebassets\\main.js"
+    },
+    {
       "Id": "C:\\Stable-Draw\\Client\\StableDraw_ASP.NET\\wwwroot\\marker.png",
       "PackagePath": "staticwebassets\\marker.png"
     },
