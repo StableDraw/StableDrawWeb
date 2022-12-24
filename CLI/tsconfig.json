@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "target": "es2021"
+  },
+  "include": [
+    "main.ts"
+  ],
+  "exclude": [
+    "ClientApp"
+  ]
+}

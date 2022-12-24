@@ -1,10 +1,12 @@
 {
   "compilerOptions": {
     "strict": true,
-    "target": "es2021",
-    "outDir": "wwwroot"
+    "target": "es2021"
   },
   "include": [
     "main.ts"
+  ],
+  "exclude": [
+    "wwwroot"
   ]
 }

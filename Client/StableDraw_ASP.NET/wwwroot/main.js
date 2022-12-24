@@ -787,6 +787,10 @@ function openNav() {
     spanel.style.borderLeftStyle = "hidden";
     spanel.style.borderTopStyle = "hidden";
 }
+const openBtn = document.querySelector(".openbtn");
+openBtn.addEventListener("click", () => {
+    openNav();
+});
 function closeNav_border() {
     spanel.style.borderLeftStyle = "hidden";
     spanel.style.borderRightStyle = "hidden";
@@ -797,11 +801,15 @@ function closeNav() {
     spanel.style.width = "0";
     setTimeout(closeNav_border, 490);
 }
-let backBtn = document.getElementById("arrow_back");
+const closeeBtn = document.querySelector(".closebtn");
+closeeBtn.addEventListener("pointerup", () => {
+    closeNav();
+});
+const backBtn = document.getElementById("arrow_back");
 backBtn.addEventListener("click", () => {
     undo_action();
 });
-let nextBtn = document.getElementById("arrow_next");
+const nextBtn = document.getElementById("arrow_next");
 nextBtn.addEventListener("click", () => {
     repeat_action();
 });
@@ -1289,19 +1297,8 @@ function change_thickness(flag) {
     ctx_foreground.lineWidth = l_width;
     ctx_add.lineWidth = l_width;
     ctx_background.lineWidth = l_width;
+    update_slider();
 }
-thickness_slider.onchange = function () {
-    change_thickness(true);
-};
-thickness_field.onchange = function () {
-    change_thickness(true);
-};
-e_thickness_slider.onchange = function () {
-    change_thickness(false);
-};
-e_thickness_field.onchange = function () {
-    change_thickness(false);
-};
 function change_smoothing() {
     cur_smoothing = parseInt(smoothing_field.value);
     let real_s_v = Math.min(100, Math.max(0, cur_smoothing));
@@ -1316,16 +1313,35 @@ function change_smoothing() {
         t = Math.min(1, t);
         k_smooth++;
     }
+    update_slider();
 }
-smoothing_slider.onchange = function () {
-    change_smoothing();
-};
-smoothing_field.onchange = function () {
-    change_smoothing();
-};
 const setpencilBtn = document.getElementById("pencil");
 setpencilBtn.style.border = "5px solid #000000";
 let cur_tool = ['k', setpencilBtn, "aero_pen.cur"]; //текущий инструмент (карандаш)
+thickness_slider.oninput = function () {
+    thickness_field.value = thickness_slider.value;
+    change_thickness(true);
+};
+smoothing_slider.oninput = function () {
+    smoothing_field.value = smoothing_slider.value;
+    change_smoothing();
+};
+e_thickness_slider.oninput = function () {
+    e_thickness_field.value = e_thickness_slider.value;
+    change_thickness(false);
+};
+thickness_field.oninput = function () {
+    thickness_slider.value = thickness_field.value;
+    change_thickness(true);
+};
+smoothing_field.oninput = function () {
+    smoothing_slider.value = smoothing_field.value;
+    change_smoothing();
+};
+e_thickness_field.oninput = function () {
+    e_thickness_slider.value = e_thickness_field.value;
+    change_thickness(false);
+};
 setpencilBtn.addEventListener("click", () => {
     if (is_clr_window) {
         close_clr_window();
