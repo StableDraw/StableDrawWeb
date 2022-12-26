@@ -1,12 +1,11 @@
 {
+  "compileOnSave": true,
   "compilerOptions": {
     "strict": true,
-    "target": "es2021"
+    "target": "es2021",
+    "outDir": "ClientApp/public"
   },
   "include": [
     "main.ts"
-  ],
-  "exclude": [
-    "ClientApp"
   ]
 }

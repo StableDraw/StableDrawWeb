@@ -3,6 +3,7 @@ import { NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import authService from './AuthorizeService';
 import { ApplicationPaths } from './ApiAuthorizationConstants';
+import { Helmet } from 'react-helmet';
 
 export class LoginMenu extends Component
 {
@@ -70,13 +71,13 @@ export class LoginMenu extends Component
     authenticatedView(userName, profilePath, logoutPath, logoutState)
     {
         return (
-            <>
+            <div className = "subbody">
                 <div className = "blackout" id = "full_blackout">
                     <img className = "loading" src = "loading.webp"></img>
                 </div>
                 <div id = "mySidepanel" className = "sidepanel">
                     <a className = "closebtn">
-                        &times,
+                        &times;
                     </a>
                     <div id = "mods_of_work" className = "mods_of_work">
                         <a href = "#" className = "work_mode_href" title = "Картина по текстовому описанию" style = {{ borderBottomStyle: "hidden" }}>
@@ -108,7 +109,7 @@ export class LoginMenu extends Component
                             {userName}
                         </NavLink>
                         <form className = "formInline" style = {{ position: "relative", left: "37%" }} >
-                            <NavLink className = "authLink btn btnLink textDark" replace tag = {Link} to = {logoutPath} state = {logoutState}>
+                            <NavLink className = "authLink btn btnLink textDark" style = {{ width: "23%" }} replace tag = {Link} to = {logoutPath} state = {logoutState}>
                                 Выйти
                             </NavLink>
                         </form>
@@ -131,7 +132,7 @@ export class LoginMenu extends Component
                     &#9776;
                 </button>
                 <div className = "cursor">
-                    <img className = "cursimg" style = {{ display: "none", width: "30px", height: "30px" }}></img>
+                    <img className = "cursimg" style = {{ width: "30px", height: "30px" }}></img>
                 </div>
                 <div className = "layers">
                     <div className = "layers_buttons">
@@ -269,12 +270,17 @@ export class LoginMenu extends Component
                         <button className = "up_panel_button" id = "save" title = "Сохранить изображение">
                             <img className = "up_panel_button_image" id = "saveimg" src = "save.png"></img>
                         </button>
-                        <button className = "up_panel_button" id = "generate" datatoggle = "modal" title = "ИИ обработка">
+                        <button className = "up_panel_button" id = "generate" data-toggle = "modal" title = "ИИ обработка">
                             <img className = "up_panel_button_image" id = "generateimg" src = "generate.png"></img>
                         </button>
                     </div>
                 </div>
-            </>
+                <React.Fragment>
+                    <Helmet>
+                        <script src = 'main.js'></script>
+                    </Helmet>
+                </React.Fragment>
+            </div>
         );
     }
 

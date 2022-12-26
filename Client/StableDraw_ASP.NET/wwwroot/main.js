@@ -805,11 +805,11 @@ const closeeBtn = document.querySelector(".closebtn");
 closeeBtn.addEventListener("pointerup", () => {
     closeNav();
 });
-const backBtn = document.getElementById("arrow_back");
+let backBtn = document.getElementById("arrow_back");
 backBtn.addEventListener("click", () => {
     undo_action();
 });
-const nextBtn = document.getElementById("arrow_next");
+let nextBtn = document.getElementById("arrow_next");
 nextBtn.addEventListener("click", () => {
     repeat_action();
 });
@@ -1315,9 +1315,6 @@ function change_smoothing() {
     }
     update_slider();
 }
-const setpencilBtn = document.getElementById("pencil");
-setpencilBtn.style.border = "5px solid #000000";
-let cur_tool = ['k', setpencilBtn, "aero_pen.cur"]; //текущий инструмент (карандаш)
 thickness_slider.oninput = function () {
     thickness_field.value = thickness_slider.value;
     change_thickness(true);
@@ -1342,6 +1339,9 @@ e_thickness_field.oninput = function () {
     e_thickness_slider.value = e_thickness_field.value;
     change_thickness(false);
 };
+const setpencilBtn = document.getElementById("pencil");
+setpencilBtn.style.border = "5px solid #000000";
+let cur_tool = ['k', setpencilBtn, "aero_pen.cur"]; //текущий инструмент (карандаш)
 setpencilBtn.addEventListener("click", () => {
     if (is_clr_window) {
         close_clr_window();

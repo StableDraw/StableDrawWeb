@@ -2815,20 +2815,20 @@ d_frame.addEventListener("pointermove", (e: PointerEvent) => //проверка 
             curprim = []
             return 
         }
+        let currentW: number
         let currentX: number = pX * cmp_W - l_width / 2
         let currentY: number = pY * cmp_H - l_width / 2
-        let currentW: number
         if (graphic_tablet_mode)
         {
             currentW = pW * l_width
             cur_draw_ctx.lineWidth = currentW
             ctx_add.lineWidth = currentW
-            currentX += (l_width - currentW) / 2
         }
         else
         {
             currentW = l_width
         }
+        console.log(currentX)
         if(fp)
         {
             if (cur_tool[0] == 'e')
