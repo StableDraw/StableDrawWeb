@@ -108,11 +108,9 @@ export class LoginMenu extends Component
                         <NavLink className = "helpfull_link" title = "Профиль" style = {{ width: "95%" }} tag = {Link} to = {profilePath}>
                             {userName}
                         </NavLink>
-                        <form className = "formInline" style = {{ position: "relative", left: "37%" }} >
-                            <NavLink className = "authLink btn btnLink textDark" style = {{ width: "23%" }} replace tag = {Link} to = {logoutPath} state = {logoutState}>
-                                Выйти
-                            </NavLink>
-                        </form>
+                        <NavLink className = "authLink btn btnLink textDark" style = {{ width: "23%", marginRight: "auto", marginLeft: "auto" }} replace tag = {Link} to = {logoutPath} state = {logoutState}>
+                            Выйти
+                        </NavLink>
                     </div>
                     <div className = "helpfull_links" fontSize = "2px">
                         <div className = "helpfull_link">
@@ -265,7 +263,7 @@ export class LoginMenu extends Component
                         </button>
                         <button className = "up_panel_button" id = "upload" title = "Загрузить изображение на сайт">
                             <img className = "up_panel_button_image" id = "uploadimg" src = "upload.png"></img>
-                            <input className = "hiddenInput" type = "file" id = "my_hidden_file" name = "loadfile"></input>
+                            <input className = "hiddenInput" type = "file" accept = "image/*,.png,.jpg,.gif,.web,.bmp" id = "my_hidden_file" name = "loadfile"></input>
                         </button>
                         <button className = "up_panel_button" id = "save" title = "Сохранить изображение">
                             <img className = "up_panel_button_image" id = "saveimg" src = "save.png"></img>
@@ -283,16 +281,32 @@ export class LoginMenu extends Component
             </div>
         );
     }
-
     anonymousView(registerPath, loginPath)
     {
-        return (<Fragment>
-        <NavItem>
-            <NavLink tag = {Link} className="text-dark" to={registerPath}>Register</NavLink>
-        </NavItem>
-        <NavItem>
-        <NavLink tag={Link} className="text-dark" to={loginPath}>Login</NavLink>
-        </NavItem>
-        </Fragment>);
+        return (
+            <Fragment>
+                <NavItem>
+                    <NavLink tag = {Link} className = "auth_text" to = {registerPath}>
+                        Регистрация
+                    </NavLink>
+                </NavItem>
+                <NavItem>
+                    <NavLink tag = {Link} className = "auth_text" to = {loginPath}>
+                        Вход
+                    </NavLink>
+                </NavItem>
+                <div className = "start_page">
+                    <img src = "logo.png" alt = "альтернативный текст" style = {{ border: "solid 4px #000000", borderRadius: "4px", position: "absolute", top: "10%", left: "45%", width: "10%" }}></img>
+                    <div style = {{ position: "fixed", top: "40%", left: "15%", width: "70%", textAlign: "center" }}>
+                        <p>
+                            Веб платформа с нейронными сетями в качестве инструментов для упрощения работы художников, ретушёров, и, в перспективе, мультипликаторов. Внедрение нейронных сетей в процесс создания рисунков и обработанных фотографий позволяет значительно повысить скорость, эффективность и качество конечного результата. Для рисования анимаций, особенно малым коллективном, этот инструмент смог бы стать просто незаменимым, поскольку будет иметь возможность лишь по набору набросков опорных кадров в кратчайшие сроки воссоздать как отдельные детали самих кадров, так и сгенерировать промежуточные и улучшить их качество. В перспективе также планируется возможность добавления генерации саундтреков, звуков и возможно даже озвучания, и всё это на одной удобной платформе.
+                        </p>
+                    </div>
+                    <NavLink className = "authLink btn btnLink textDark" tag = {Link} to = {registerPath} style = {{ position: "fixed",  left: "47.4%", top: "60%", width: "10%", height: "10%", fontSize: "200%" }}>
+                        Начать
+                    </NavLink>
+                </div>
+            </Fragment>
+        );
     }
 }
