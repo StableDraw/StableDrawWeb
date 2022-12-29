@@ -7,3 +7,5 @@
 *GFPGANv1.3.pth
 *dnnl.lib
 *torch_cpu.dll
+*.key
+*.crt
