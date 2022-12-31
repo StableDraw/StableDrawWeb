@@ -1,6 +1,6 @@
 C:\Stable-Draw\Client\StableDraw_ASP.NET\obj\Release\net6.0\win-x64\PubTmp\Out\StableDraw_ASP.NET.exe
-C:\Stable-Draw\Client\StableDraw_ASP.NET\obj\Release\net6.0\win-x64\PubTmp\Out\appsettings.Development.json
 C:\Stable-Draw\Client\StableDraw_ASP.NET\obj\Release\net6.0\win-x64\PubTmp\Out\appsettings.json
+C:\Stable-Draw\Client\StableDraw_ASP.NET\obj\Release\net6.0\win-x64\PubTmp\Out\tsconfig.json
 C:\Stable-Draw\Client\StableDraw_ASP.NET\obj\Release\net6.0\win-x64\PubTmp\Out\StableDraw_ASP.NET.dll
 C:\Stable-Draw\Client\StableDraw_ASP.NET\obj\Release\net6.0\win-x64\PubTmp\Out\StableDraw_ASP.NET.runtimeconfig.json
 C:\Stable-Draw\Client\StableDraw_ASP.NET\obj\Release\net6.0\win-x64\PubTmp\Out\StableDraw_ASP.NET.pdb

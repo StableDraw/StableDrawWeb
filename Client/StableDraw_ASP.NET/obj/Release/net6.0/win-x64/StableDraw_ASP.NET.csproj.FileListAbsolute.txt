@@ -410,8 +410,6 @@ C:\repos\StableDraw_ASP.NET\StableDraw_ASP.NET\bin\Release\net6.0\win-x64\msquic
 C:\repos\StableDraw_ASP.NET\StableDraw_ASP.NET\bin\Release\net6.0\win-x64\ucrtbase.dll
 C:\repos\StableDraw_ASP.NET\StableDraw_ASP.NET\bin\Release\net6.0\win-x64\aspnetcorev2_inprocess.dll
 C:\repos\StableDraw_ASP.NET\StableDraw_ASP.NET\bin\Release\net6.0\win-x64\mscordaccore_amd64_amd64_6.0.1222.56807.dll
-C:\Stable-Draw\Client\StableDraw_ASP.NET\bin\Release\net6.0\win-x64\appsettings.Development.json
-C:\Stable-Draw\Client\StableDraw_ASP.NET\bin\Release\net6.0\win-x64\appsettings.json
 C:\Stable-Draw\Client\StableDraw_ASP.NET\bin\Release\net6.0\win-x64\StableDraw_ASP.NET.staticwebassets.runtime.json
 C:\Stable-Draw\Client\StableDraw_ASP.NET\bin\Release\net6.0\win-x64\StableDraw_ASP.NET.exe
 C:\Stable-Draw\Client\StableDraw_ASP.NET\bin\Release\net6.0\win-x64\StableDraw_ASP.NET.deps.json
@@ -822,3 +820,5 @@ C:\Stable-Draw\Client\StableDraw_ASP.NET\obj\Release\net6.0\win-x64\refint\Stabl
 C:\Stable-Draw\Client\StableDraw_ASP.NET\obj\Release\net6.0\win-x64\StableDraw_ASP.NET.pdb
 C:\Stable-Draw\Client\StableDraw_ASP.NET\obj\Release\net6.0\win-x64\StableDraw_ASP.NET.genruntimeconfig.cache
 C:\Stable-Draw\Client\StableDraw_ASP.NET\obj\Release\net6.0\win-x64\ref\StableDraw_ASP.NET.dll
+C:\Stable-Draw\Client\StableDraw_ASP.NET\bin\Release\net6.0\win-x64\tsconfig.json
+C:\Stable-Draw\Client\StableDraw_ASP.NET\bin\Release\net6.0\win-x64\appsettings.json
