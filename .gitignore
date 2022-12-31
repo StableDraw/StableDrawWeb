@@ -2,10 +2,5 @@
 *.ckpt
 *.pth
 *token.txt
-*cv2.pyd
-*llvmlite.dll
-*GFPGANv1.3.pth
-*dnnl.lib
-*torch_cpu.dll
 *.key
 *.crt
