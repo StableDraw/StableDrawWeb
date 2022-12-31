@@ -474,7 +474,7 @@ async def handler(websocket):
 
 if __name__ == "__main__":
     ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
-    ssl_context.load_cert_chain("C:/Apache24/ssl/domain_name.crt", "C:/Apache24/ssl/private.key")
+    ssl_context.load_cert_chain("domain_name.crt", "private.key")
     start_server = websockets.serve(handler, "stabledraw.com", 8081, ssl = ssl_context, max_size = None)
     asyncio.get_event_loop().run_until_complete(start_server)
     asyncio.get_event_loop().run_forever()
