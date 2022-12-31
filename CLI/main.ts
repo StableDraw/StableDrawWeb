@@ -1,16 +1,16 @@
-const body: HTMLElement = document.querySelector("body")
-const cursor: HTMLElement = document.querySelector(".cursor")
-const cursor_image: HTMLElement = document.querySelector(".cursimg")
+const body: HTMLElement = <HTMLElement> document.querySelector("body")
+const cursor: HTMLElement = <HTMLElement> document.querySelector(".cursor")
+const cursor_image: HTMLElement = <HTMLElement> document.querySelector(".cursimg")
 let cursor_type: number = -1
 
-const nav_panel: HTMLElement = document.querySelector(".nav")
+const nav_panel: HTMLElement = <HTMLElement> document.querySelector(".nav")
 
-const canvas_foreground: HTMLElement = document.getElementById("canvas_foreground") 
-const canvas_background: HTMLElement = document.getElementById("canvas_background")
-const canvas_additional: HTMLElement = document.getElementById("canvas_additional") 
+const canvas_foreground: HTMLCanvasElement = <HTMLCanvasElement> document.getElementById("canvas_foreground") 
+const canvas_background: HTMLCanvasElement = <HTMLCanvasElement> document.getElementById("canvas_background")
+const canvas_additional: HTMLCanvasElement = <HTMLCanvasElement> document.getElementById("canvas_additional") 
 
-const canvas_layer_1: HTMLElement = document.getElementById("layer_1_display_canvas")
-const canvas_layer_2: HTMLElement = <HTMLCanvasElement> document.getElementById("layer_2_display_canvas") 
+const canvas_layer_1: HTMLCanvasElement = <HTMLCanvasElement> document.getElementById("layer_1_display_canvas")
+const canvas_layer_2: HTMLCanvasElement = <HTMLCanvasElement> document.getElementById("layer_2_display_canvas") 
 const layer_icon_1: HTMLElement = <HTMLElement> document.getElementById("layer_display_icon_1")
 const layer_icon_2: HTMLElement = <HTMLElement> document.getElementById("layer_display_icon_2")
 

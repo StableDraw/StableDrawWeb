@@ -285,16 +285,18 @@ export class LoginMenu extends Component
     {
         return (
             <Fragment>
-                <NavItem>
-                    <NavLink tag = {Link} className = "auth_text" to = {registerPath}>
-                        Регистрация
+                <ul className = "helpfull_links" style = {{ position: "fixed", right: "5px", top: "0px", textAlign: "right", width: "16%", height: "7%" }}>
+                    <NavLink tag = {Link} className = "helpfull_link" to = {registerPath} style = {{ position: "fixed", top: "0%", width: "16%", textAlign: "right", right: "5px", textDecoration: "none" }}>
+                        <font color = "#000000">
+                            Регистрация
+                        </font>
                     </NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink tag = {Link} className = "auth_text" to = {loginPath}>
-                        Вход
+                    <NavLink tag = {Link} className = "helpfull_link" to = {loginPath} style = {{ position: "fixed", top: "30px", width: "16%", textAlign: "right", right: "5px", textDecoration: "none" }}>
+                        <font color = "#000000">
+                            Вход
+                        </font>
                     </NavLink>
-                </NavItem>
+                </ul>
                 <div className = "start_page">
                     <img src = "logo.png" alt = "альтернативный текст" style = {{ border: "solid 4px #000000", borderRadius: "4px", position: "absolute", top: "10%", left: "45%", width: "10%" }}></img>
                     <div style = {{ position: "fixed", top: "40%", left: "15%", width: "70%", textAlign: "center" }}>
