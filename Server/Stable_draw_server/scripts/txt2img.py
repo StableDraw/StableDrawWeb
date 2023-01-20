@@ -178,7 +178,16 @@ def parse_args():
 def put_watermark(img, wm_encoder=None):
     if wm_encoder is not None:
         img = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+        h, w, _ = img.shape
+        new_d = 1
+        if h < 256 or w < 256:
+            new_d = 256 / min(h, w)
+            new_w = round(w * new_d)
+            new_h = round(h * new_d)
+            img = cv2.resize(img, (new_w, new_h))
         img = wm_encoder.encode(img, 'dwtDct')
+        if new_d != 1:
+            img = cv2.resize(img, (w, h))
         img = Image.fromarray(img[:, :, ::-1])
     return img
 

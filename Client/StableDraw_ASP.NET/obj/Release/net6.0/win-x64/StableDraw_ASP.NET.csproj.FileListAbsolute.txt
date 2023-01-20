@@ -789,7 +789,6 @@ C:\Stable-Draw\Client\StableDraw_ASP.NET\bin\Release\net6.0\win-x64\dbgshim.dll
 C:\Stable-Draw\Client\StableDraw_ASP.NET\bin\Release\net6.0\win-x64\hostfxr.dll
 C:\Stable-Draw\Client\StableDraw_ASP.NET\bin\Release\net6.0\win-x64\hostpolicy.dll
 C:\Stable-Draw\Client\StableDraw_ASP.NET\bin\Release\net6.0\win-x64\mscordaccore.dll
-C:\Stable-Draw\Client\StableDraw_ASP.NET\bin\Release\net6.0\win-x64\mscordaccore_amd64_amd64_6.0.1222.56807.dll
 C:\Stable-Draw\Client\StableDraw_ASP.NET\bin\Release\net6.0\win-x64\mscordbi.dll
 C:\Stable-Draw\Client\StableDraw_ASP.NET\bin\Release\net6.0\win-x64\mscorrc.dll
 C:\Stable-Draw\Client\StableDraw_ASP.NET\bin\Release\net6.0\win-x64\msquic.dll
@@ -822,3 +821,4 @@ C:\Stable-Draw\Client\StableDraw_ASP.NET\obj\Release\net6.0\win-x64\StableDraw_A
 C:\Stable-Draw\Client\StableDraw_ASP.NET\obj\Release\net6.0\win-x64\ref\StableDraw_ASP.NET.dll
 C:\Stable-Draw\Client\StableDraw_ASP.NET\bin\Release\net6.0\win-x64\tsconfig.json
 C:\Stable-Draw\Client\StableDraw_ASP.NET\bin\Release\net6.0\win-x64\appsettings.json
+C:\Stable-Draw\Client\StableDraw_ASP.NET\bin\Release\net6.0\win-x64\mscordaccore_amd64_amd64_6.0.1322.58009.dll

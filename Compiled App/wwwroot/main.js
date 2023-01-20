@@ -176,8 +176,9 @@ let caption_field;
 let style_field;
 let is_human_caption;
 let original_image_buf = ""; //переменная для хранения исходных изображений
+let need_gen_after_caption = [false, false];
 let ws = new WebSocket("wss://stabledraw.com:8081");
-let chain_id = -1;
+let chain_id = "";
 let task_id;
 var main_modal = function (options) {
     var _elemModal;
@@ -299,6 +300,10 @@ var main_modal = function (options) {
                     last_task_image_name = jdata[4];
                     is_human_caption = false;
                     blackout.style.display = "none";
+                    if (need_gen_after_caption[0]) {
+                        gen_picture_by_promot(need_gen_after_caption[1], caption_field.value + " " + style_field.value);
+                        need_gen_after_caption[0] = false;
+                    }
                     return;
                 }
                 if (type == 'i') //если изображение
@@ -314,6 +319,7 @@ var main_modal = function (options) {
                     original_image_buf = "data:image/png;base64," + jdata[1];
                     image.src = original_image_buf;
                     chain_id = jdata[4];
+                    task_id = jdata[6];
                     last_task_image_name = jdata[5];
                     blackout.style.display = "none";
                     modal.hide();
@@ -332,18 +338,26 @@ var main_modal = function (options) {
         else if (e.target.dataset.handler === "modalHandlerGenSD1") {
             if (caption_field.value == "") {
                 gen_caption_for_image();
+                need_gen_after_caption[0] = true;
+                need_gen_after_caption[1] = false;
             }
-            let full_prompt = caption_field.value + " " + style_field.value;
-            gen_picture_by_promot(false, full_prompt);
+            else {
+                let full_prompt = caption_field.value + " " + style_field.value;
+                gen_picture_by_promot(false, full_prompt);
+            }
             //modal.hide()
             //document.querySelector(".message").textContent = "Вы нажали на кнопку ОК, а открыли окно с помощью кнопки " + elemTarget.textContent
         }
         else if (e.target.dataset.handler === "modalHandlerGenSD2") {
             if (caption_field.value == "") {
                 gen_caption_for_image();
+                need_gen_after_caption[0] = true;
+                need_gen_after_caption[1] = true;
             }
-            let full_prompt = caption_field.value + " " + style_field.value;
-            gen_picture_by_promot(true, full_prompt);
+            else {
+                let full_prompt = caption_field.value + " " + style_field.value;
+                gen_picture_by_promot(true, full_prompt);
+            }
             //modal.hide()
             //document.querySelector(".message").textContent = "Вы нажали на кнопку ОК, а открыли окно с помощью кнопки " + elemTarget.textContent
         }
@@ -559,7 +573,7 @@ function push_action_to_stack(local_act) {
 function gen_picture_by_promot(is_SD2, full_prompt) {
     blackout.style.display = "block";
     let local_type;
-    let send_data;
+    let send_data_pbp;
     if (is_SD2) {
         local_type = "2";
     }
@@ -598,11 +612,11 @@ function gen_picture_by_promot(is_SD2, full_prompt) {
         else {
             background_data = "";
         }
-        if (chain_id != -1) {
+        if (chain_id != "") {
             data = "";
             background_data = "";
         }
-        send_data = JSON.stringify({
+        send_data_pbp = JSON.stringify({
             "type": "hg" + local_type,
             "chain_id": chain_id,
             "task_id": task_id,
@@ -626,20 +640,19 @@ function gen_picture_by_promot(is_SD2, full_prompt) {
         })*/
     }
     else {
-        send_data = JSON.stringify({
+        send_data_pbp = JSON.stringify({
             "type": 'g' + local_type,
             "chain_id": chain_id,
             "task_id": task_id,
             "img_name": last_task_image_name //имя последнего файла изображения
         });
     }
-    ws.send(send_data);
+    ws.send(send_data_pbp);
 }
 function delete_background() {
     blackout.style.display = "block";
-    let task_id = -1;
     let data = original_image_buf;
-    if (chain_id != -1) {
+    if (chain_id != "") {
         data = "";
     }
     let send_data_del = JSON.stringify({
@@ -653,9 +666,8 @@ function delete_background() {
 }
 function upscale() {
     blackout.style.display = "block";
-    let task_id = -1;
     let data = original_image_buf;
-    if (chain_id != -1) {
+    if (chain_id != "") {
         data = "";
     }
     let send_data_ups = JSON.stringify({
@@ -1477,7 +1489,7 @@ uploadBtn.addEventListener("click", () => {
     mhf.addEventListener("change", function readImage() {
         if (!this.files || !this.files[0])
             return;
-        chain_id = -1;
+        chain_id = "";
         const FR = new FileReader();
         FR.addEventListener("load", (evt) => {
             let new_img_w;
@@ -1589,7 +1601,7 @@ saveBtn.addEventListener("click", () => {
 });
 function gen_caption_for_image() {
     blackout.style.display = "block";
-    let send_data;
+    let send_data_cpt;
     let data;
     let background_data;
     if (original_image_buf == "") {
@@ -1616,7 +1628,7 @@ function gen_caption_for_image() {
     else {
         background_data = "";
     }
-    send_data = JSON.stringify({
+    send_data_cpt = JSON.stringify({
         "type": 'd',
         "chain_id": chain_id,
         "task_id": task_id,
@@ -1637,7 +1649,7 @@ function gen_caption_for_image() {
         "backgroung": background_data,
         "img_name": last_task_image_name
     })*/
-    ws.send(send_data);
+    ws.send(send_data_cpt);
 }
 document.addEventListener("pointerenter", (e) => {
     let cX = e.clientX;
@@ -2121,6 +2133,15 @@ function addGraphicTabletButton(e) {
     }
 }
 nav_panel.addEventListener("pointermove", addGraphicTabletButton); //проверка курсора на поле с кнопками
+window.addEventListener("pointermove", (e) => //проверка курсора на всём окне, но только один раз
+ {
+    if (e.pointerType == "pen") {
+        graphic_tabletBtn.style.display = "block";
+        nav_panel.removeEventListener("pointermove", addGraphicTabletButton);
+    }
+}, {
+    once: true
+});
 canvas_additional.addEventListener("pointermove", (e) => //проверка курсора на поле для рисования
  {
     on_d_fiend = true;
@@ -2265,18 +2286,18 @@ d_frame.addEventListener("pointermove", (e) => //проверка курсора
             curprim = [];
             return;
         }
-        let currentW;
         let currentX = pX * cmp_W - l_width / 2;
         let currentY = pY * cmp_H - l_width / 2;
+        let currentW;
         if (graphic_tablet_mode) {
             currentW = pW * l_width;
             cur_draw_ctx.lineWidth = currentW;
             ctx_add.lineWidth = currentW;
+            currentX += (l_width - currentW) / 2;
         }
         else {
             currentW = l_width;
         }
-        console.log(currentX);
         if (fp) {
             if (cur_tool[0] == 'e') {
                 cur_draw_ctx.globalCompositeOperation = "destination-out";

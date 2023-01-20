@@ -6,12 +6,12 @@ from realesrgan import RealESRGANer
 from realesrgan.archs.srvgg_arch import SRVGGNetCompact
 
 models_list = [
-    "RealESRGAN_x4plus", # модель x4 RRDBNet
-    "RealESRNet_x4plus", # модель x4 RRDBNet
-    "RealESRGAN_x4plus_anime_6B", # модель x4 RRDBNet с 6 блоками
-    "RealESRGAN_x2plus", # модель x2 RRDBNet
-    "realesr-animevideov3", # модель x4 VGG-стиля (размера XS)
-    "realesr-general-x4v3" # модель x4 VGG-стиля (размера S)
+    "RealESRGAN_x4plus",            # модель x4 RRDBNet
+    "RealESRNet_x4plus",            # модель x4 RRDBNet
+    "RealESRGAN_x4plus_anime_6B",   # модель x4 RRDBNet с 6 блоками
+    "RealESRGAN_x2plus",            # модель x2 RRDBNet
+    "realesr-animevideov3",         # модель x4 VGG-стиля (размера XS)
+    "realesr-general-x4v3"          # модель x4 VGG-стиля (размера S)
     ]
 
 def Upscale(workpath, img_name, args):

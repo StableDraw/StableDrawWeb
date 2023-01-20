@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using CLI.Data;
 using CLI.Models;
+using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,21 @@ builder.Services.AddAuthentication().AddIdentityServerJwt();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+
+builder.Services.AddHsts(options =>
+{
+    options.Preload = true;
+    options.IncludeSubDomains = true;
+    options.MaxAge = TimeSpan.FromDays(60);
+    options.ExcludedHosts.Add("stabledraw.com");
+    options.ExcludedHosts.Add("www.stabledraw.com");
+});
+
+builder.Services.AddHttpsRedirection(options =>
+{
+    options.RedirectStatusCode = (int)HttpStatusCode.TemporaryRedirect;
+    options.HttpsPort = 443;
+});
 
 var app = builder.Build();
 

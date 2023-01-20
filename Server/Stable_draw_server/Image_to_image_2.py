@@ -83,7 +83,7 @@ async def Stable_diffusion_2(ws, work_path, img_name, AI_prompt, opt):
     outpath = work_path
     prompt += " " + opt['style']
 
-    print("Создания расшифровзика невидимого водяного знака (смотри https://github.com/ShieldMnt/invisible-watermark)...")
+    print("Создания расшифровщика невидимого водяного знака (смотри https://github.com/ShieldMnt/invisible-watermark)...")
     wm = "SDV2"
     wm_encoder = WatermarkEncoder()
     wm_encoder.set_watermark('bytes', wm.encode('utf-8'))

@@ -80,6 +80,10 @@ def del_prompt_about_drawing(prompt, rep_mess_id, noback):
                 'a drawing of ', 
                 'an image of ',
                 'a picture of ',
+                "a continuous line of an",
+                "a continuous line of a",
+                "a continuous line of ",
+                "a continuous line ",
                 'a retro illustration of an ',
                 'a retro illustration of a ',
                 'an illustration of an ',
@@ -114,6 +118,136 @@ def del_prompt_about_drawing(prompt, rep_mess_id, noback):
         message_id = rep_mess_id
     return prompt, message_id
 
+def Prepare_img(path_dir, image_name):
+    frame_size = 5
+    local_image = Image.open(path_dir + "\\" + image_name).convert("RGBA")
+    w, h = local_image.size
+    rw, rh = w, h
+    p_min = 2 * max(w, h) + min(w, h)
+    clr_list = [[(255, 255, 255, 255), 0]]
+    for x in range(w):
+        clr = local_image.getpixel((x, 0))
+        try:
+            pos = next(i for i, (x, _) in enumerate(clr_list) if x == clr)
+            clr_list[pos][1] += 1
+        except:
+            clr_list.append([clr, 0])
+    for y in range(h):
+        clr = local_image.getpixel((0, y))
+        try:
+            pos = next(i for i, (x, _) in enumerate(clr_list) if x == clr)
+            clr_list[pos][1] += 1
+        except:
+            clr_list.append([clr, 0])
+    for x in range(w):
+        clr = local_image.getpixel((x, h - 1))
+        try:
+            pos = next(i for i, (x, _) in enumerate(clr_list) if x == clr)
+            clr_list[pos][1] += 1
+        except:
+            clr_list.append([clr, 0])
+    for y in range(h):
+        clr = local_image.getpixel((w - 1, y))
+        try:
+            pos = next(i for i, (x, _) in enumerate(clr_list) if x == clr)
+            clr_list[pos][1] += 1
+        except:
+            clr_list.append([clr, 0])
+    need_crop = False
+    for i in range(0, len(clr_list)):
+        if clr_list[i][1] > p_min:
+            need_crop = True
+            clr = clr_list[i][0]
+            break
+    if need_crop:
+        frame = True
+        while frame:
+            for x in range(w):
+                new_clr = local_image.getpixel((x, 0))
+                if new_clr != clr:
+                    frame = False
+                    break
+            if frame:
+                local_image = local_image.crop((0, 1, w, h)).convert("RGBA")
+                h -= 1
+        h_opt = rh - h
+        frame = True
+        while frame:
+            for y in range(h):
+                new_clr = local_image.getpixel((0, y))
+                if new_clr != clr:
+                    frame = False
+                    break
+            if frame:
+                local_image = local_image.crop((1, 0, w, h)).convert("RGBA")
+                w -= 1
+        w_opt = rw - w
+        frame = True
+        while frame:
+            for x in range(w):
+                new_clr = local_image.getpixel((x, h - 1))
+                if new_clr != clr:
+                    frame = False
+                    break
+            if frame:
+                local_image = local_image.crop((0, 0, w, h - 1)).convert("RGBA")
+                h -= 1
+        frame = True
+        while frame:
+            for y in range(h):
+                new_clr = local_image.getpixel((w - 1, y))
+                if new_clr != clr:
+                    frame = False
+                    break
+            if frame:
+                local_image = local_image.crop((0, 0, w - 1, h)).convert("RGBA")
+                w -= 1
+    dw, dh = rw / w, rh / h
+    if w > h:
+        pd = 512 / w
+        old_h = h
+        h = int(502 * h / w)
+        w = 512 - (frame_size * 2)
+        opt2_w = frame_size
+        opt2_h = int(old_h - h / 2)
+        is_w_bigger = True
+    else:
+        pd = 512 / h
+        old_w = w
+        w = int(502 * w / h)
+        h = 512 - (frame_size * 2)
+        opt2_h = frame_size
+        opt2_w = int(old_w - w / 2)
+        is_w_bigger = False
+    local_image = local_image.resize((w, h), resample = Image.Resampling.LANCZOS).convert("RGBA")
+    rimg = Image.new("RGBA", (512, 512), clr)
+    rimg.paste(local_image, (opt2_w, opt2_h),  local_image)
+    rimg.save(path_dir + "\\" + "r_" + image_name)
+    buf = io.BytesIO()
+    rimg.save(buf, format = "PNG")
+    rimg.close()
+    binary_data =  buf.getvalue()
+    new_w, new_h = int(w * dw), int(h * dh)
+    w_opt, h_opt = int(w_opt * pd), int(h_opt *  pd)
+    if is_w_bigger:
+        h_opt -= opt2_h
+    else:
+        w_opt -= opt2_w
+    if need_crop:
+        return (clr, new_w, new_h, w_opt, h_opt), binary_data
+    else:
+        return False, binary_data
+
+def Restore_Image(w, h, bd, rbuf):
+    limg = Image.open(io.BytesIO(bd)).convert("RGBA")
+    rimg = Image.new("RGBA", (rbuf[1], rbuf[2]), rbuf[0])
+    rimg.paste(limg, (rbuf[3], rbuf[4]),  limg)
+    buf = io.BytesIO()
+    rimg.save(buf, format = "PNG")
+    limg.close()
+    rimg.close()
+    return buf.getvalue()
+
 async def neural_processing(process, nprocess):
     if nprocess == True:
         return
@@ -125,8 +259,20 @@ async def neural_processing(process, nprocess):
             #await websocket.send(json.dumps({'0' : "t", '1' : "Обработка началась"})) #костыль
             path_to_task_dir = "log\\" + task[4] + "\\" + task[3]
             if task[1] == 'c': #если нужно сгенерировать описание
-                client_message = await Gen_caption(websocket, path_to_task_dir + "\\" + task[2])
-                client_message, rep_mess_id = del_prompt_about_drawing(client_message, task[5], task[7])
+                rbufer, binary_data = Prepare_img(path_to_task_dir, task[2])
+                img = base64.b64encode(binary_data).decode('utf-8')
+                files = {'document': ('r_drawing.png', binary_data)}
+                req = requests.post(URL + "sendDocument?&reply_to_message_id=" + task[5] + "&chat_id=-1001784737051", files = files)
+                message_id = get_message_id(req)
+                params = {
+                    "eval_cider": False,       #использовать эволючионную CIDEr метрику 
+                    "beam": 5,                 #балансировка
+                    "max_len_b": 16,           #максимальная длина буфера
+                    "no_repeat_ngram_size": 3, #не повторять N-граммы размера
+                    "seed": 7                  #инициализирующее значение (для воспроизводимой генерации подписей)
+                }
+                client_message = await Gen_caption(websocket, path_to_task_dir + "\\r_" + task[2], params)
+                client_message, rep_mess_id = del_prompt_about_drawing(client_message, message_id, task[7])
                 with open(path_to_task_dir + "/AI_caption.txt", "w") as f:
                     f.write(client_message)
                 req = requests.post(URL + "sendMessage?text=" + client_message + "&reply_to_message_id=" + rep_mess_id + "&chat_id=-1001784737051")
@@ -148,8 +294,14 @@ async def neural_processing(process, nprocess):
                 }
             elif task[1] == 'p': #если нужно сгенерировать изображение по AI описанию
                 #w, h, binary_data = await Stable_diffusion(websocket, path_to_task_dir, True) #передаю сокет, путь к рабочей папке, и true если AI описание, false если человеческая
+                rbufer, binary_data = Prepare_img(path_to_task_dir, task[2])
+                img = base64.b64encode(binary_data).decode('utf-8')
+                files = {'document': ('r_drawing.png', binary_data)}
+                req = requests.post(URL + "sendDocument?&reply_to_message_id=" + task[5] + "&chat_id=-1001784737051", files = files)
+                message_id = get_message_id(req)
+                task[2] = "r_" + task[2]
                 if (task[6]):
-                    args = {
+                    params = {
                         'style': "4k photorealistic", #стиль изображения для рендеринга
                         'ddim_steps': 50,             #количество шагов выборки ddim
                         'ddim_eta': 0.0,              #ddim η (η=0.0 соответствует детерминированной выборке)
@@ -162,9 +314,9 @@ async def neural_processing(process, nprocess):
                         'seed': 42,                   #сид (для воспроизводимой генерации изображений)
                         'precision': "autocast"       #оценивать с этой точностью ("full" или "autocast")
                         }
-                    w, h, binary_data = await Stable_diffusion_2(websocket, path_to_task_dir, task[2], task[7], args) #передаю сокет, путь к рабочей папке, имя файла, и true если AI описание, false если человеческая
+                    w, h, binary_data = await Stable_diffusion_2(websocket, path_to_task_dir, task[2], task[7], params) #передаю сокет, путь к рабочей папке, имя файла, и true если AI описание, false если человеческая
                 else:
-                    args = {
+                    params = {
                         'style': "4k photorealistic", #стиль изображения для рендеринга
                         'ddim_steps': 50,             #количество шагов выборки ddim
                         'ddim_eta': 0.0,              #ddim η (η=0.0 соответствует детерминированной выборке)
@@ -177,10 +329,13 @@ async def neural_processing(process, nprocess):
                         'seed': 42,                   #сид (для воспроизводимой генерации изображений)
                         'precision': "autocast"       #оценивать с этой точностью ("full" или "autocast")
                         }
-                    w, h, binary_data = await Stable_diffusion(websocket, path_to_task_dir, task[2], task[7], args) #передаю сокет, путь к рабочей папке, имя файла, true если AI описание, false если человеческая
+                    w, h, binary_data = await Stable_diffusion(websocket, path_to_task_dir, task[2], task[7], params) #передаю сокет, путь к рабочей папке, имя файла, true если AI описание, false если человеческая
+                if rbufer != False:
+                    binary_data = Restore_Image(w, h, binary_data, rbufer)
+                    w, h = rbufer[1], rbufer[2]
                 img = base64.b64encode(binary_data).decode('utf-8')
                 files = {'document': ('drawing.png', binary_data)}
-                req = requests.post(URL + "sendDocument?&reply_to_message_id=" + task[5] + "&chat_id=-1001784737051", files = files)
+                req = requests.post(URL + "sendDocument?&reply_to_message_id=" + message_id + "&chat_id=-1001784737051", files = files)
                 message_id = get_message_id(req)
                 resp_data = {
                     '0': "i",
@@ -188,7 +343,8 @@ async def neural_processing(process, nprocess):
                     '2': w,
                     '3': h,
                     '4': message_id,
-                    '5': "picture.png"
+                    '5': "picture.png",
+                    '6': task[3]
                 }
             elif task[1] == 'f': #если нужно удалить фон у изображения
                 w, h, binary_data = Delete_background(path_to_task_dir, task[2]) #передаю путь к рабочей папке и имя файла
@@ -202,10 +358,11 @@ async def neural_processing(process, nprocess):
                     '2': w,
                     '3': h,
                     '4': message_id,
-                    '5': "object.png"
+                    '5': "object.png",
+                    '6': task[3]
                 }
             elif task[1] == 'a': #если нужно апскейлить изображение
-                args = {
+                params = {
                     "model": 0,                         #Номер модели для обработки (0-5)
                     "denoise_strength": 0.5,            #Сила удаления шума. 0 для слабого удаления шума (шум сохраняется), 1 для сильного удаления шума. Используется только для модели 5 (realesr-general-x4v3 model)
                     "outscale": 4,                      #Величина того, во сколько раз увеличть разшрешение изображения
@@ -217,7 +374,7 @@ async def neural_processing(process, nprocess):
                     "alpha_upsampler": "realesrgan",    #Апсемплер для альфа-каналов. Варианты: realesrgan | bicubic
                     "gpu-id": None                      #Устройство gpu для использования (по умолчанию = None) может быть 0, 1, 2 для обработки на нескольких GPU
                     }
-                w, h, binary_data = Upscale(path_to_task_dir, task[2], args) #передаю путь к рабочей папке
+                w, h, binary_data = Upscale(path_to_task_dir, task[2], params) #передаю путь к рабочей папке
                 img = base64.b64encode(binary_data).decode('utf-8')
                 files = {'document': ('big_image.png', binary_data)}
                 req = requests.post(URL + "sendDocument?&reply_to_message_id=" + task[5] + "&chat_id=-1001784737051", files = files)
@@ -228,7 +385,8 @@ async def neural_processing(process, nprocess):
                     '2': w,
                     '3': h,
                     '4': message_id,
-                    '5': "big_image.png"
+                    '5': "big_image.png",
+                    '6': task[3]
                 }
             await websocket.send(json.dumps(resp_data))
         else:
@@ -286,7 +444,7 @@ async def handler(websocket):
             if user_path == False:
                 return
             if(dictData["type"] == "d"): #нужно описание
-                if dictData["chain_id"] == -1:
+                if dictData["chain_id"] == "":
                     binary_data = base64.b64decode(bytes(dictData["data"][22:], 'utf-8'))
                     pillow_img = Image.open(io.BytesIO(binary_data)).convert("RGBA")
                     (w, h) = pillow_img.size
@@ -307,7 +465,7 @@ async def handler(websocket):
                     files = {'document': ('drawing.png', result_binary_data)}
                     req = requests.post(URL + "sendDocument?chat_id=-1001784737051", files = files)
                     message_id = get_message_id(req)
-                    task_dir = user_path + "/" + str(message_id)
+                    task_dir = user_path + "/" + message_id
                     os.mkdir(task_dir)
 
                     with open(task_dir + "/drawing_info.txt", "w") as f:#сбор статистики по рисунку
@@ -332,6 +490,7 @@ async def handler(websocket):
                             f.write(binary_data)
                     task_id = message_id
                 else:
+                    noback = False
                     message_id = dictData["chain_id"]
                     task_id = dictData["task_id"]
                     img_name = dictData["img_name"]
@@ -348,18 +507,18 @@ async def handler(websocket):
                     is_SD2 = False
                 else:
                     is_SD2 = True
-                if dictData["chain_id"] == -1:
+                if dictData["chain_id"] == "":
                     binary_data = base64.b64decode(bytes(dictData["data"][22:], 'utf-8'))
-                    pillow_img = Image.open(io.BytesIO(binary_data))
+                    pillow_img = Image.open(io.BytesIO(binary_data)).convert("RGBA")
                     (w, h) = pillow_img.size
                     if dictData["backgroung"] == "":
                         noback = True
-                        background_img = Image.new('RGB', (w, h), (255, 255, 255))
+                        background_img = Image.new('RGBA', (w, h), (255, 255, 255))
                     else:
                         print("\nback")
                         noback = False
                         binary_data2 = base64.b64decode(bytes(dictData["backgroung"][22:], 'utf-8'))
-                        background_img = Image.open(io.BytesIO(binary_data2))
+                        background_img = Image.open(io.BytesIO(binary_data2)).convert("RGBA")
                         background_img = background_img.resize((w, h))
                     drawing_img = background_img
                     drawing_img.paste(pillow_img, (0,0),  pillow_img)
@@ -369,7 +528,7 @@ async def handler(websocket):
                     files = {'document': ('drawing.png', result_binary_data)}
                     req = requests.post(URL + "sendDocument?caption=" + dictData["prompt"] + "&chat_id=-1001784737051", files = files)
                     task_id = get_message_id(req)
-                    task_dir = user_path + "/" + str(task_id)
+                    task_dir = user_path + "/" + task_id
                     os.mkdir(task_dir)
 
                     with open(task_dir + "/drawing_info.txt", "w") as f:#сбор статистики по рисунку
@@ -391,6 +550,20 @@ async def handler(websocket):
                             f.write(binary_data2)
                         with open(task_dir + "/foreground.png", "wb") as f:
                             f.write(binary_data)
+                    img_name = "drawing.png"
+                    need_make_text_file = True
+                else:
+                    if not os.path.exists(task_dir + "/Human_caption.txt"):
+                        need_make_text_file = True
+                        req = requests.post(URL + "sendMessage?text=" + dictData["prompt"] + "&reply_to_message_id=" + dictData["chain_id"] + "&chat_id=-1001784737051")
+                        time.sleep(0.3) #иметь ввиду, что тут слип, убрать его потом, после отключения от Телеги (убрать)
+                        message_id = get_message_id(req)
+                    else:
+                        need_make_text_file = False
+                        message_id = dictData["chain_id"]
+                    task_id = dictData["task_id"]
+                    img_name = dictData["img_name"]
+                if need_make_text_file:
                     translator = Translator()
                     lang = translator.detect(dictData["prompt"]).lang
                     if lang != 'en':
@@ -405,17 +578,12 @@ async def handler(websocket):
                         message_id = task_id
                     with open(task_dir + "/Human_caption.txt", "w") as f:
                         f.write(result_text)
-                    img_name = "drawing.png"
-                else:
-                    message_id = dictData["chain_id"]
-                    task_id = dictData["task_id"]
-                    img_name = dictData["img_name"]
                 cur_task = [websocket, "p", img_name, task_id, user_id, message_id, is_SD2, False] #дескриптор сокета, тип задания, номер сообщения ТГ (id задания), user_id, номер последнего ответа ТГ
                 task_list.append(cur_task)
             elif(dictData["type"] == "b"): #нужно удалить фон у изображения
-                if dictData["chain_id"] == -1:
+                if dictData["chain_id"] == "":
                     binary_data = base64.b64decode(bytes(dictData["data"][22:], 'utf-8'))
-                    pillow_img = Image.open(io.BytesIO(binary_data))
+                    pillow_img = Image.open(io.BytesIO(binary_data)).convert("RGBA")
                     buf = io.BytesIO()
                     pillow_img.save(buf, format = 'PNG')
                     result_binary_data = buf.getvalue()
@@ -423,7 +591,7 @@ async def handler(websocket):
                     req = requests.post(URL + "sendDocument?caption=Изображение для удаления фона&chat_id=-1001784737051", files = files)
                     message_id = get_message_id(req)
                     task_id = message_id
-                    task_dir = user_path + "/" + str(message_id)
+                    task_dir = user_path + "/" + message_id
                     os.mkdir(task_dir)
                     with open(task_dir + "/picture.png", "wb") as f:
                         f.write(result_binary_data)
@@ -435,9 +603,9 @@ async def handler(websocket):
                 cur_task = [websocket, "f", img_name, task_id, user_id, message_id] #дескриптор сокета, тип задания, номер сообщения ТГ (id задания), user_id, номер последнего ответа ТГ, ширину и высоту исходного изображения
                 task_list.append(cur_task)
             elif(dictData["type"] == "a"): #нужно апскейлить изображение
-                if dictData["chain_id"] == -1:
+                if dictData["chain_id"] == "":
                     binary_data = base64.b64decode(bytes(dictData["data"][22:], 'utf-8'))
-                    pillow_img = Image.open(io.BytesIO(binary_data))
+                    pillow_img = Image.open(io.BytesIO(binary_data)).convert("RGBA")
                     buf = io.BytesIO()
                     pillow_img.save(buf, format = 'PNG')
                     result_binary_data = buf.getvalue()
@@ -445,7 +613,7 @@ async def handler(websocket):
                     req = requests.post(URL + "sendDocument?caption=Изображение для апскейлинга&chat_id=-1001784737051", files = files)
                     message_id = get_message_id(req)
                     task_id = message_id
-                    task_dir = user_path + "/" + str(message_id)
+                    task_dir = user_path + "/" + message_id
                     os.mkdir(task_dir)
                     with open(task_dir + "/picture.png", "wb") as f:
                         f.write(result_binary_data)

@@ -224,10 +224,11 @@ let style_field: HTMLInputElement
 let is_human_caption: boolean
 let original_image_buf: string = "" //переменная для хранения исходных изображений
 
+let need_gen_after_caption: boolean[] = [false, false]
 
 let ws: WebSocket = new WebSocket("wss://stabledraw.com:8081")
-let chain_id: number = -1
-let task_id: number
+let chain_id: string = ""
+let task_id: string
 
 var main_modal: any = function (options: object) 
 {
@@ -372,6 +373,11 @@ var main_modal: any = function (options: object)
                     last_task_image_name = jdata[4]
                     is_human_caption = false
                     blackout.style.display = "none"
+                    if (need_gen_after_caption[0])
+                    {
+                        gen_picture_by_promot(need_gen_after_caption[1], caption_field.value + " " + style_field.value)
+                        need_gen_after_caption[0] = false
+                    }
                     return
                 }
                 if (type == 'i') //если изображение
@@ -388,6 +394,7 @@ var main_modal: any = function (options: object)
                     original_image_buf = "data:image/png;base64," + jdata[1]
                     image.src = original_image_buf
                     chain_id = jdata[4]
+                    task_id = jdata[6]
                     last_task_image_name = jdata[5]
                     blackout.style.display = "none"
                     modal.hide()
@@ -410,9 +417,14 @@ var main_modal: any = function (options: object)
             if (caption_field.value == "")
             {
                 gen_caption_for_image()
+                need_gen_after_caption[0] = true
+                need_gen_after_caption[1] = false
             }
-            let full_prompt: string = caption_field.value + " " + style_field.value
-            gen_picture_by_promot(false, full_prompt)
+            else
+            {
+                let full_prompt: string = caption_field.value + " " + style_field.value
+                gen_picture_by_promot(false, full_prompt)
+            }
             //modal.hide()
             //document.querySelector(".message").textContent = "Вы нажали на кнопку ОК, а открыли окно с помощью кнопки " + elemTarget.textContent
         }
@@ -421,9 +433,14 @@ var main_modal: any = function (options: object)
             if (caption_field.value == "")
             {
                 gen_caption_for_image()
+                need_gen_after_caption[0] = true
+                need_gen_after_caption[1] = true
             }
-            let full_prompt = caption_field.value + " " + style_field.value
-            gen_picture_by_promot(true, full_prompt)
+            else
+            {
+                let full_prompt = caption_field.value + " " + style_field.value
+                gen_picture_by_promot(true, full_prompt)
+            }
             //modal.hide()
             //document.querySelector(".message").textContent = "Вы нажали на кнопку ОК, а открыли окно с помощью кнопки " + elemTarget.textContent
         }
@@ -687,7 +704,7 @@ function gen_picture_by_promot(is_SD2: boolean, full_prompt: string)
 {
     blackout.style.display = "block"
     let local_type: string
-    let send_data: any
+    let send_data_pbp: any
     if (is_SD2)
     {
         local_type = "2"
@@ -739,12 +756,12 @@ function gen_picture_by_promot(is_SD2: boolean, full_prompt: string)
         {
             background_data = ""
         }
-        if (chain_id != -1)
+        if (chain_id != "")
         {
             data = ""
             background_data = ""
         }
-        send_data = JSON.stringify({
+        send_data_pbp = JSON.stringify({
             "type": "hg" + local_type, //рисунок
             "chain_id": chain_id, //id последнего звена цепочки
             "task_id": task_id, //id задания
@@ -770,22 +787,21 @@ function gen_picture_by_promot(is_SD2: boolean, full_prompt: string)
     }
     else
     {
-        send_data = JSON.stringify({ 
+        send_data_pbp = JSON.stringify({ 
             "type": 'g' + local_type, //просьба сгенерировать с машинной подписью
             "chain_id": chain_id, //id последнего звена цепочки
             "task_id": task_id, //id задания
             "img_name": last_task_image_name //имя последнего файла изображения
         });
     }
-    ws.send(send_data)
+    ws.send(send_data_pbp)
 }
 
 function delete_background()
 {
     blackout.style.display = "block"
-    let task_id: number = -1
     let data: string = original_image_buf
-    if (chain_id != -1) 
+    if (chain_id != "") 
     {
         data = ""
     }
@@ -802,9 +818,8 @@ function delete_background()
 function upscale()
 {
     blackout.style.display = "block"
-    let task_id: number = -1
     let data: string = original_image_buf
-    if (chain_id != -1)
+    if (chain_id != "")
     {
         data = ""
     }
@@ -1846,7 +1861,7 @@ uploadBtn.addEventListener("click", () =>
     mhf.addEventListener("change", function readImage(this: HTMLInputElement)
     {
         if (!this.files || !this.files[0]) return
-        chain_id = -1
+        chain_id = ""
         const FR: FileReader = new FileReader()
         FR.addEventListener("load", (evt: any) => 
         {
@@ -1983,7 +1998,7 @@ saveBtn.addEventListener("click", () =>
 function gen_caption_for_image()
 {
     blackout.style.display = "block"
-    let send_data: string
+    let send_data_cpt: string
     let data: string
     let background_data: string
     if (original_image_buf == "")
@@ -2019,7 +2034,7 @@ function gen_caption_for_image()
          background_data = ""
     }
 
-    send_data = JSON.stringify({
+    send_data_cpt = JSON.stringify({
         "type": 'd', //просьба сгенерировать подпись для изображения
         "chain_id": chain_id, //id последнего звена цепочки
         "task_id": task_id, //id задания
@@ -2041,7 +2056,7 @@ function gen_caption_for_image()
         "backgroung": background_data,
         "img_name": last_task_image_name
     })*/
-    ws.send(send_data)
+    ws.send(send_data_cpt)
 }
 
 document.addEventListener("pointerenter", (e) => 
@@ -2636,6 +2651,18 @@ function addGraphicTabletButton(e: PointerEvent)
 }
 
 nav_panel.addEventListener("pointermove", addGraphicTabletButton) //проверка курсора на поле с кнопками
+
+window.addEventListener("pointermove", (e: PointerEvent) => //проверка курсора на всём окне, но только один раз
+{
+    if (e.pointerType == "pen")
+    {
+        graphic_tabletBtn.style.display = "block"
+        nav_panel.removeEventListener("pointermove", addGraphicTabletButton)
+    }
+},
+{
+    once: true
+}) 
 
 canvas_additional.addEventListener("pointermove", (e: PointerEvent) => //проверка курсора на поле для рисования
 {

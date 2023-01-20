@@ -1,10 +1,8 @@
 {
-  "compileOnSave": true,
   "compilerOptions": {
     "strict": true,
     "target": "es2021",
-    "outDir": "ClientApp/public",
-    "moduleResolution": "node"
+    "outDir": "wwwroot"
   },
   "include": [
     "main.ts"

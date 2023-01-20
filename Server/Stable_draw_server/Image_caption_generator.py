@@ -9,14 +9,10 @@ from utils.eval_utils import eval_caption
 checkpoint_path = 'caption.pt'
 
 # Подготовка теста
-def encode_text(text, task, length=None, append_bos=False, append_eos=False):
+def encode_text(text, task, length = None, append_bos = False, append_eos = False):
     bos_item = torch.LongTensor([task.src_dict.bos()])
     eos_item = torch.LongTensor([task.src_dict.eos()])
-    s = task.tgt_dict.encode_line(
-        line=task.bpe.encode(text),
-        add_if_not_exist=False,
-        append_eos=False
-    ).long()
+    s = task.tgt_dict.encode_line(line = task.bpe.encode(text), add_if_not_exist = False, append_eos = False).long()
     if length is not None:
         s = s[:length]
     if append_bos:
@@ -30,7 +26,7 @@ def construct_sample(image: Image, task, patch_resize_transform):
     pad_idx = task.src_dict.pad()
     patch_image = patch_resize_transform(image).unsqueeze(0)
     patch_mask = torch.tensor([True])
-    src_text = encode_text(" what does the image describe?", task, append_bos=True, append_eos=True).unsqueeze(0)
+    src_text = encode_text("Что описывает изображение?", task, append_bos = True, append_eos = True).unsqueeze(0)
     src_length = torch.LongTensor([s.ne(pad_idx).long().sum() for s in src_text])
     sample = {
         "id": np.array(['42']),
@@ -46,18 +42,17 @@ def construct_sample(image: Image, task, patch_resize_transform):
 # Функция, меняющая FP32 на FP16
 def apply_half(t):
     if t.dtype is torch.float32:
-        return t.to(dtype=torch.half)
+        return t.to(dtype = torch.half)
     return t
 
-async def Gen_caption(ws, img_path):
+async def Gen_caption(ws, img_path, overrides):
     tasks.register_task('caption', CaptionTask)
     use_cuda = torch.cuda.is_available()
     use_fp16 = False
 
     # Загрузка претренированных ckpt и config
     #await ws.send(json.dumps({'0' : "t", '1' : "Загрузка претренированных чекпоинтов и настроек конфигурации..."}))
-    overrides = {"eval_cider":False, "beam":5, "max_len_b":16, "no_repeat_ngram_size":3, "seed":7}
-    models, cfg, task = checkpoint_utils.load_model_ensemble_and_task(utils.split_paths(checkpoint_path), arg_overrides=overrides)
+    models, cfg, task = checkpoint_utils.load_model_ensemble_and_task(utils.split_paths(checkpoint_path), arg_overrides = overrides)
 
     # Перемещение моделей на GPU
     for model in models:
@@ -77,9 +72,9 @@ async def Gen_caption(ws, img_path):
     patch_resize_transform = transforms.Compose(
         [
             lambda image: image.convert("RGB"),
-            transforms.Resize((cfg.task.patch_image_size, cfg.task.patch_image_size), interpolation=Image.Resampling.BICUBIC),
+            transforms.Resize((cfg.task.patch_image_size, cfg.task.patch_image_size), interpolation = Image.Resampling.BICUBIC),
             transforms.ToTensor(),
-            transforms.Normalize(mean=mean, std=std),
+            transforms.Normalize(mean = mean, std = std)
         ]
     )
 
