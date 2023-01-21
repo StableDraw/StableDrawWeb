@@ -21,16 +21,17 @@ def encode_text(text, task, length = None, append_bos = False, append_eos = Fals
         s = torch.cat([s, eos_item])
     return s
 
-# Формирование выхода для задания подписи
+# Формирование выхода для задания описания
 def construct_sample(image: Image, task, patch_resize_transform):
     pad_idx = task.src_dict.pad()
     patch_image = patch_resize_transform(image).unsqueeze(0)
     patch_mask = torch.tensor([True])
-    src_text = encode_text("Что описывает изображение?", task, append_bos = True, append_eos = True).unsqueeze(0)
+    src_text = encode_text(" what does the image describe?", task, append_bos=True, append_eos=True).unsqueeze(0)
     src_length = torch.LongTensor([s.ne(pad_idx).long().sum() for s in src_text])
     sample = {
         "id": np.array(['42']),
-        "net_input": {
+        "net_input": 
+        {
             "src_tokens": src_text,
             "src_lengths": src_length,
             "patch_images": patch_image,
@@ -42,7 +43,7 @@ def construct_sample(image: Image, task, patch_resize_transform):
 # Функция, меняющая FP32 на FP16
 def apply_half(t):
     if t.dtype is torch.float32:
-        return t.to(dtype = torch.half)
+        return t.to(dtype=torch.half)
     return t
 
 async def Gen_caption(ws, img_path, overrides):
@@ -52,7 +53,7 @@ async def Gen_caption(ws, img_path, overrides):
 
     # Загрузка претренированных ckpt и config
     #await ws.send(json.dumps({'0' : "t", '1' : "Загрузка претренированных чекпоинтов и настроек конфигурации..."}))
-    models, cfg, task = checkpoint_utils.load_model_ensemble_and_task(utils.split_paths(checkpoint_path), arg_overrides = overrides)
+    models, cfg, task = checkpoint_utils.load_model_ensemble_and_task(utils.split_paths(checkpoint_path), arg_overrides=overrides)
 
     # Перемещение моделей на GPU
     for model in models:
@@ -72,7 +73,7 @@ async def Gen_caption(ws, img_path, overrides):
     patch_resize_transform = transforms.Compose(
         [
             lambda image: image.convert("RGB"),
-            transforms.Resize((cfg.task.patch_image_size, cfg.task.patch_image_size), interpolation = Image.Resampling.BICUBIC),
+            transforms.Resize((cfg.task.patch_image_size, cfg.task.patch_image_size), interpolation=Image.Resampling.BICUBIC),
             transforms.ToTensor(),
             transforms.Normalize(mean = mean, std = std)
         ]
@@ -86,10 +87,7 @@ async def Gen_caption(ws, img_path, overrides):
     sample = utils.move_to_cuda(sample) if use_cuda else sample
     sample = utils.apply_to_sample(apply_half, sample) if use_fp16 else sample
 
-    # Запуск эволюционного шага для подписи
-    #await ws.send(json.dumps({'0' : "t", '1' : "Вычисление подписи..."}))
+    # Запуск эволюционного шага для описания
+    #await ws.send(json.dumps({'0' : "t", '1' : "Вычисление описания..."}))
     with torch.no_grad():
-        result, scores = eval_caption(task, generator, models, sample)
-
-    caption = result[0]['caption']
-    return caption
+        return eval_caption(task, generator, models, sample)[0][0]['caption']

@@ -58,6 +58,25 @@ const text_label_clr: HTMLElement = <HTMLElement> document.getElementById("text_
 const blackout: HTMLElement = <HTMLElement> document.getElementById("full_blackout")
 const side_panel_blackout: HTMLElement = <HTMLElement> document.getElementById("side_panel_blackout")
 
+const before_gen_block: HTMLElement = <HTMLElement>document.getElementById("before_gen_block")
+const close_before_gen_block: HTMLElement = <HTMLElement>document.getElementById("close_before_gen_block")
+const before_gen: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("before_gen")
+const before_gen_ctx: CanvasRenderingContext2D = <CanvasRenderingContext2D>before_gen.getContext("2d", { willReadFrequently: true })
+
+const change_themeBtn: HTMLElement = <HTMLElement>document.getElementById("change_theme")
+const tmimg: HTMLElement = <HTMLElement>document.getElementById("theme_mode_img")
+const graphic_tabletBtn: HTMLElement = <HTMLElement>document.getElementById("graphic_tablet")
+const first_layer_visibilityBtn: HTMLElement = <HTMLElement>document.getElementById("layer_1_visibility_button")
+const first_layer_visibility_img: HTMLElement = <HTMLElement>document.getElementById("layer_1_visibility_img")
+const second_layer_visibilityBtn: HTMLElement = <HTMLElement>document.getElementById("layer_2_visibility_button")
+const second_layer_visibility_img: HTMLElement = <HTMLElement>document.getElementById("layer_2_visibility_img")
+const clear_first_layer_Btn: HTMLElement = <HTMLElement>document.getElementById("clear_layer_1")
+const clear_second_layer_Btn: HTMLElement = <HTMLElement>document.getElementById("clear_layer_2")
+const select_first_layerBtn: HTMLElement = <HTMLElement>document.getElementById("layer_button_1")
+const colourBtn: HTMLElement = <HTMLElement>document.getElementById("palette")
+const ok_clr: HTMLElement = <HTMLElement>document.querySelector(".ok_clr_btn")
+const ctype_clr_btn: HTMLElement = <HTMLElement>document.querySelector(".ctype_clr_btn")
+
 const id_list: string[] = ['p', 'i', 'u', 'f']
 
 const Pi_div_4: number = Math.PI / 4
@@ -226,6 +245,9 @@ let original_image_buf: string = "" //переменная для хранени
 
 let need_gen_after_caption: boolean[] = [false, false]
 
+const Max_bib_w: number = W * 0.2
+const Max_bib_h: number = H * 0.2
+
 let ws: WebSocket = new WebSocket("wss://stabledraw.com:8081")
 let chain_id: string = ""
 let task_id: string
@@ -320,7 +342,8 @@ var main_modal: any = function (options: object)
     var modal: any = main_modal({
         title: "Генерация",
         content: "<p>Содержмиое модального окна...<p>",
-        footerButtons: [
+        footerButtons:
+        [
             { class: "modal_btn modal_btn-3", id: "cur_gen_params_btn", text: "Параметры", handler: "modalHandlerParams" },
             { class: "modal_btn modal_btn-2", id: "SD1_btn", text: "StableDiffusion 1", handler: "modalHandlerGenSD1" },
             { class: "modal_btn modal_btn-2", id: "SD2_btn", text: "StableDiffusion 2", handler: "modalHandlerGenSD2" },
@@ -346,11 +369,11 @@ var main_modal: any = function (options: object)
             let content: string
             if (original_image_buf == "")
             {
-                content = 'Подпись:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"/><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image()">Сгенерировать автоматически</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"/>'
+                content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"/><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image()">Сгенерировать автоматически</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"/>'
             }
             else
             {
-                content = 'Подпись:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"/><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image()">Сгенерировать автоматически</button><button class = "modal_btn modal_btn-4" style = "right: 25%" onclick = "upscale()">Апскейл</button><button class = "modal_btn modal_btn-4" onclick = "delete_background()">Удалить фон</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"/>'
+                content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"/><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image()">Сгенерировать автоматически</button><button class = "modal_btn modal_btn-4" style = "right: 25%" onclick = "upscale()">Апскейл</button><button class = "modal_btn modal_btn-4" onclick = "delete_background()">Удалить фон</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"/>'
             }
             modal.show()
             modal.setContent(content)
@@ -365,7 +388,7 @@ var main_modal: any = function (options: object)
                     //alert(jdata[1])
                     return
                 }
-                if (type == 'c') //если подпись
+                if (type == 'c') //если описание
                 {
                     task_id = jdata[1]
                     caption_field.value = jdata[2]
@@ -383,13 +406,65 @@ var main_modal: any = function (options: object)
                 if (type == 'i') //если изображение
                 {
                     let image: HTMLImageElement = new Image()
+                    let image_on_before_block_bg: HTMLImageElement = new Image()
+                    let image_on_before_block_fg: HTMLImageElement = new Image()
                     image.onload = function() 
                     {
-                        ctx_foreground.clearRect(0, 0, cW, cH) // очищаем верхний холст
-                        ctx_foreground.drawImage(image, 0, 0, jdata[2], jdata[3], 0, 0, cW, cH)
-                        push_action_to_stack(['u', cur_draw_ctx, image, jdata[2], jdata[3]])
-                        ctx_layer_1.clearRect(0, 0, lwW, lwH)
-                        canvas_to_layer(cur_canvas, cur_ctx_layer)
+                        image_on_before_block_bg.src = canvas_background.toDataURL("imag/png")
+                        image_on_before_block_bg.onload = function ()
+                        {
+                            let bW: number
+                            let bH: number
+                            if (cW / cH > Max_bib_w / Max_bib_h)
+                            {
+                                bW = Max_bib_w
+                                bH = Max_bib_w * cH / cW
+                            }
+                            else
+                            {
+                                bH = Max_bib_h
+                                bW = Max_bib_h * cW / cH
+                            }
+                            before_gen_block.style.width = bW.toString() + "px"
+                            before_gen_block.style.height = bH.toString() + "px" 
+                            before_gen_ctx.drawImage(image_on_before_block_bg, 0, 0, cW, cH, 0, 0, bW, bH + 2)
+                            image_on_before_block_fg.src = canvas_foreground.toDataURL("imag/png")
+                            image_on_before_block_fg.onload = function ()
+                            {
+                                close_all_add_windows()
+                                if (jdata[7] == "1")
+                                {
+                                    before_gen_ctx.drawImage(image_on_before_block_fg, 0, 0, cW, cH, 0, 0, bW, bH + 2)
+                                    ctx_foreground.clearRect(0, 0, cW, cH) // очищаем верхний холст
+                                    before_gen_block.style.display = "block"
+                                }
+                                else
+                                {
+                                    let new_dfw: number
+                                    let new_dfh: number
+                                    if (cD > 1)
+                                    {
+                                        new_dfh = Max_cH
+                                        new_dfw = Max_cH
+                                    }
+                                    else
+                                    {
+                                        new_dfh = Max_cW
+                                        new_dfw = Max_cW
+                                    }
+                                    change_drawfield_size(new_dfw, new_dfh)
+                                    cur_ratio_val = get_visual_ratio(false, cW, cH)
+                                    ratio_field.value = cur_ratio_val //устанавливаем соотношение сторон
+                                    fW_pred = f_dW
+                                    fH_pred = f_dH
+                                    push_action_to_stack(['r', new_dfw, new_dfh, false])
+                                }
+                                ctx_foreground.drawImage(image, 0, 0, jdata[2], jdata[3], 0, 0, cW, cH)
+                                push_action_to_stack(['u', cur_draw_ctx, image, jdata[2], jdata[3]])
+                                ctx_layer_1.clearRect(0, 0, lwW, lwH)
+                                canvas_to_layer(cur_canvas, cur_ctx_layer)
+                            }
+                        }
                     }
                     original_image_buf = "data:image/png;base64," + jdata[1]
                     image.src = original_image_buf
@@ -767,7 +842,7 @@ function gen_picture_by_promot(is_SD2: boolean, full_prompt: string)
             "task_id": task_id, //id задания
             "data": data,
             "backgroung": background_data,
-            "prompt": full_prompt, //подпись к изображению
+            "prompt": full_prompt, //описание изображения
             "is_drawing": local_is_drawing,
             "sure": local_sure,
             "prims_count": local_how_many_prims,
@@ -781,14 +856,14 @@ function gen_picture_by_promot(is_SD2: boolean, full_prompt: string)
             "task_id": task_id, //id задания
             "data": data,
             "backgroung": background_data,
-            "prompt": full_prompt, //подпись к изображению
+            "prompt": full_prompt, //описание изображения
             "img_name": last_task_image_name
         })*/
     }
     else
     {
         send_data_pbp = JSON.stringify({ 
-            "type": 'g' + local_type, //просьба сгенерировать с машинной подписью
+            "type": 'g' + local_type, //просьба сгенерировать с машинным описанием
             "chain_id": chain_id, //id последнего звена цепочки
             "task_id": task_id, //id задания
             "img_name": last_task_image_name //имя последнего файла изображения
@@ -999,11 +1074,21 @@ function closeNav()
     setTimeout(closeNav_border, 490)
 }
 
-const closeeBtn: HTMLElement = <HTMLElement> document.querySelector(".closebtn")
+const closeeBtn: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("size_panel_closebtn")
 
 closeeBtn.addEventListener("pointerup", () => 
 {
     closeNav()
+})
+
+close_before_gen_block.addEventListener("pointerup", () =>
+{
+    before_gen_block.style.display = "none"
+})
+
+before_gen.addEventListener("pointerup", () =>
+{
+    undo_action()
 })
 
 let backBtn: HTMLElement = <HTMLElement> document.getElementById("arrow_back")
@@ -1036,10 +1121,7 @@ function hexDec(h: string)
     return m_n[0] + m_n[1] + m_n[2]
 }
 
-let colourBtn: HTMLElement = <HTMLElement> document.getElementById("palette")
 colourBtn.style.background = "#000000"
-let ok_clr: HTMLElement = <HTMLElement> document.querySelector(".ok_clr_btn")
-let ctype_clr_btn: HTMLElement = <HTMLElement> document.querySelector(".ctype_clr_btn")
 
 function handleclr_PointerMove()
 {
@@ -1176,16 +1258,6 @@ function close_clr_window()
     clr_w.style.display = "none"
 }
 
-const change_themeBtn: HTMLElement = <HTMLElement> document.getElementById("change_theme")
-const tmimg: HTMLElement = <HTMLElement> document.getElementById("theme_mode_img")
-const graphic_tabletBtn: HTMLElement = <HTMLElement> document.getElementById("graphic_tablet")
-const first_layer_visibilityBtn: HTMLElement = <HTMLElement> document.getElementById("layer_1_visibility_button")
-const first_layer_visibility_img: HTMLElement = <HTMLElement> document.getElementById("layer_1_visibility_img")
-const second_layer_visibilityBtn: HTMLElement = <HTMLElement> document.getElementById("layer_2_visibility_button")
-const second_layer_visibility_img: HTMLElement = <HTMLElement> document.getElementById("layer_2_visibility_img")
-const clear_first_layer_Btn: HTMLElement = <HTMLElement> document.getElementById("clear_layer_1")
-const clear_second_layer_Btn: HTMLElement = <HTMLElement> document.getElementById("clear_layer_2")
-
 change_themeBtn.addEventListener("click", () => 
 {
     if (is_dark_mode)
@@ -1268,8 +1340,6 @@ change_themeBtn.addEventListener("click", () =>
     }
 })
 
-const select_first_layerBtn: HTMLElement = <HTMLElement> document.getElementById("layer_button_1")
-
 select_first_layerBtn.addEventListener("click", () => 
 {
     if (!is_foreground_selected)
@@ -1330,6 +1400,8 @@ first_layer_visibilityBtn.addEventListener("click", () =>
 
 clear_first_layer_Btn.addEventListener("click", () =>
 {
+    original_image_buf = ""
+    before_gen_block.style.display = "none"
     ctx_foreground.clearRect(0, 0, cW, cH)
     ctx_layer_1.clearRect(0, 0, lwW, lwH)
     push_action_to_stack(['c', ctx_foreground])
@@ -1351,7 +1423,10 @@ second_layer_visibilityBtn.addEventListener("click", () =>
     }
 })
 
-clear_second_layer_Btn.addEventListener("click", () => {
+clear_second_layer_Btn.addEventListener("click", () =>
+{
+    original_image_buf = ""
+    before_gen_block.style.display = "none"
     ctx_background.clearRect(0, 0, cW, cH)
     ctx_layer_2.clearRect(0, 0, lwW, lwH)
     push_action_to_stack(['c', ctx_background])
@@ -1562,6 +1637,16 @@ graphic_tabletBtn.addEventListener("click", () =>
         graphic_tablet_mode = true
     }
 })
+
+function close_all_add_windows()
+{
+    pencil_w.style.display = "none"
+    is_pencil_window = false
+    eraser_w.style.display = "none"
+    is_eraser_window = false
+    clr_w.style.display = "none"
+    is_clr_window == false
+}
 
 colourBtn.addEventListener("click", () => 
 {
@@ -1823,6 +1908,7 @@ setpipetteBtn.addEventListener("click", () =>
 function full_clear_drawfield()
 {
     original_image_buf = ""
+    before_gen_block.style.display = "none"
     cur_background_clr = "#fff"
     ctx_background.fillStyle = cur_background_clr
     ctx_foreground.clearRect(0, 0, cW, cH)
@@ -1832,6 +1918,7 @@ function full_clear_drawfield()
 function clear_drawfield()
 {
     original_image_buf = ""
+    before_gen_block.style.display = "none"
     cur_background_clr = "#fff"
     ctx_background.fillStyle = cur_background_clr
     ctx_foreground.clearRect(0, 0, cW, cH)
@@ -2035,7 +2122,7 @@ function gen_caption_for_image()
     }
 
     send_data_cpt = JSON.stringify({
-        "type": 'd', //просьба сгенерировать подпись для изображения
+        "type": 'd', //просьба сгенерировать описание изображения
         "chain_id": chain_id, //id последнего звена цепочки
         "task_id": task_id, //id задания
         "data": data,
@@ -2049,7 +2136,7 @@ function gen_caption_for_image()
 
     /*
     send_data = JSON.stringify({ 
-        "type": 'd', //просьба сгенерировать подпись для изображения
+        "type": 'd', //просьба сгенерировать описание изображения
         "chain_id": chain_id, //id последнего звена цепочки
         "task_id": task_id, //id задания
         "data": data,
@@ -2314,6 +2401,9 @@ document.addEventListener("keydown", (event) =>
             return
         case "KeyM": //объединить слои
             merge_layersBtn.click()
+            return
+        case "Escape": //скрыть окно просмотра изображения до генерации
+            before_gen_block.style.display = "none"
             return
         default:
             if (event.shiftKey)
@@ -2856,8 +2946,10 @@ d_frame.addEventListener("pointermove", (e: PointerEvent) => //проверка 
         {
             currentW = l_width
         }
-        if(fp)
+        if (fp)
         {
+            original_image_buf = ""
+            before_gen_block.style.display = "none"
             if (cur_tool[0] == 'e')
             {
                 cur_draw_ctx.globalCompositeOperation = "destination-out"

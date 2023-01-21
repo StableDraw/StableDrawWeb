@@ -1,4 +1,4 @@
-﻿import io
+import io
 import PIL
 import torch
 import numpy as np
@@ -23,7 +23,6 @@ checkpoint_list = ["512-depth-ema.ckpt",
 async def chunk(it, size):
     it = iter(it)
     return iter(lambda: tuple(islice(it, size)), ())
-
 
 async def load_model_from_config(ws, config, ckpt, verbose=False):
     print(f"Загрузка модели из {ckpt}")
@@ -53,15 +52,13 @@ def load_img(path):
         sk = float(k**(0.5))
         w = int(w / sk)
         h = int(h / sk)
-
-    print(f"загружено входное изображение размера ({w}, {h}) из папки {path}")
+    print("загружено входное изображение размера ({w}, {h}) из папки {path}")
     w, h = map(lambda x: x - x % 64, (w, h))  # изменение размера в целое число, кратное 64-м
     image = image.resize((w, h), resample = PIL.Image.LANCZOS)
     image = np.array(image).astype(np.float32) / 255.0
     image = image[None].transpose(0, 3, 1, 2)
     image = torch.from_numpy(image)
     return 2. * image - 1.
-
 
 async def Stable_diffusion_2(ws, work_path, img_name, AI_prompt, opt):
     init_img = work_path + "/" + img_name
@@ -72,58 +69,45 @@ async def Stable_diffusion_2(ws, work_path, img_name, AI_prompt, opt):
     with open(pfile, "r") as f:
         prompt = f.read()
     seed_everything(opt['seed'])
-
     config = OmegaConf.load("configs/stable-diffusion/v2-inference.yaml")
-    model = await load_model_from_config(ws, config, "models/ldm/stable-diffusion-v2/" + checkpoint_list[opt["ckpt"]])
-
+    model = await load_model_from_config(ws, config, checkpoint_path + checkpoint_list[opt["ckpt"]])
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
     model = model.to(device)
     sampler = DDIMSampler(model)
-
-    outpath = work_path
-    prompt += " " + opt['style']
-
     print("Создания расшифровщика невидимого водяного знака (смотри https://github.com/ShieldMnt/invisible-watermark)...")
     wm = "SDV2"
     wm_encoder = WatermarkEncoder()
     wm_encoder.set_watermark('bytes', wm.encode('utf-8'))
-
     init_image = load_img(init_img).to(device)
     init_image = repeat(init_image, '1 ... -> b ...', b = 1)
     init_latent = model.get_first_stage_encoding(model.encode_first_stage(init_image))  # move to latent space
-
     sampler.make_schedule(ddim_num_steps=opt['ddim_steps'], ddim_eta=opt['ddim_eta'], verbose=False)
-
     assert 0. <= opt['strength'] <= 1., 'can only work with strength in [0.0, 1.0]'
     t_enc = int(opt['strength'] * opt['ddim_steps'])
-    print(f"Целевое декодирование t_enc из {t_enc} шагов")
-
+    print("Целевое декодирование t_enc из {t_enc} шагов")
     precision_scope = autocast if opt['precision'] == "autocast" else nullcontext
     with torch.no_grad():
         with precision_scope("cuda"):
             with model.ema_scope():
-                for n in trange(opt['n_iter'], desc="Sampling"):
+                for n in trange(1, desc = "Sampling"):
                     uc = None
                     if opt['scale'] != 1.0:
                         uc = model.get_learned_conditioning([""])
                     c = model.get_learned_conditioning(prompt)
-
                     # закодировать (скрытое масштабирование)
                     z_enc = sampler.stochastic_encode(init_latent, torch.tensor([t_enc]).to(device))
                     # раскодировать
                     samples = sampler.decode(z_enc, c, t_enc, unconditional_guidance_scale=opt['scale'], unconditional_conditioning=uc, )
-
                     x_samples = model.decode_first_stage(samples)
                     x_samples = torch.clamp((x_samples + 1.0) / 2.0, min=0.0, max=1.0)
-
                     x_sample = x_samples[0]
                     x_sample = 255. * rearrange(x_sample.cpu().numpy(), 'c h w -> h w c')
                     img = Image.fromarray(x_sample.astype(np.uint8))
                     img = put_watermark(img, wm_encoder)
                     w, h = img.size
                     buf = io.BytesIO()
-                    img.save(buf, format='PNG')
+                    img.save(buf, format = "PNG")
                     b_data = buf.getvalue()
-                    img.save(outpath + "/picture.png")
+                    img.save(work_path + "/picture.png")
                     img.close
     return w, h, b_data

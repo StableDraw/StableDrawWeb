@@ -59,7 +59,6 @@ def load_img(path):
         sk = float(k**(0.5))
         w = int(w / sk)
         h = int(h / sk)
-
     #print(f"загруженно изображение размера ({w}, {h})")
     w, h = map(lambda x: x - x % 64, (w, h))  # resize to integer multiple of 64
     image = image.resize((w, h), resample=PIL.Image.LANCZOS)
@@ -77,16 +76,12 @@ async def Stable_diffusion(ws, work_path, img_name, AI_prompt, opt):
     with open(pfile, "r") as f:
         prompt = f.read()
     seed_everything(opt['seed'])
-
     config = OmegaConf.load("configs/stable-diffusion/v1-inference.yaml") #путь к конфигурационному файлу строения модели
     model = await load_model_from_config(ws, config, "models/ldm/stable-diffusion-v1/" + checkpoint_list[opt["ckpt"]])
-
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
     model = model.to(device)
     sampler = DDIMSampler(model)
-
     outpath = work_path
-    prompt += " " + opt['style']
     '''
     with Image.open(init_img).convert("RGB") as image:
         orig_w, orig_h = image.size
@@ -95,32 +90,26 @@ async def Stable_diffusion(ws, work_path, img_name, AI_prompt, opt):
     init_image = load_img(init_img).to(device)
     init_image = repeat(init_image, '1 ... -> b ...', b = 1)
     init_latent = model.get_first_stage_encoding(model.encode_first_stage(init_image))  # move to latent space
-
     sampler.make_schedule(ddim_num_steps=opt['ddim_steps'], ddim_eta=opt['ddim_eta'], verbose=False)
-
     assert 0. <= opt['strength'] <= 1., 'возможна работа только с силой шума в диапозоне [0.0, 1.0]'
     t_enc = int(opt['strength'] * opt['ddim_steps'])
     #print(f"target t_enc is {t_enc} steps")
     #await ws.send(json.dumps({'0' : "t", '1' : "Целевое декодирование из {t_enc} шагов"}))
-
     precision_scope = autocast if opt['precision'] == "autocast" else nullcontext
     with torch.no_grad():
         with precision_scope("cuda"):
             with model.ema_scope():
-                for n in trange(opt['n_iter'], desc="Sampling"):
+                for n in trange(1, desc = "Sampling"):
                     uc = None
                     if opt['scale'] != 1.0:
                         uc = model.get_learned_conditioning([""])
                     c = model.get_learned_conditioning(prompt)
-
                     # закодировать (скрытое масштабирование)
                     z_enc = sampler.stochastic_encode(init_latent, torch.tensor([t_enc]).to(device))
                     # раскодировать
                     samples = sampler.decode(z_enc, c, t_enc, unconditional_guidance_scale=opt['scale'], unconditional_conditioning=uc)
-
                     x_samples = model.decode_first_stage(samples)
-                    x_samples = torch.clamp((x_samples + 1.0) / 2.0, min=0.0, max=1.0)
-
+                    x_samples = torch.clamp((x_samples + 1.0) / 2.0, min = 0.0, max = 1.0)
                     x_sample = x_samples[0]
                     x_sample = 255. * rearrange(x_sample.cpu().numpy(), 'c h w -> h w c')
                     img = Image.fromarray(x_sample.astype(np.uint8))

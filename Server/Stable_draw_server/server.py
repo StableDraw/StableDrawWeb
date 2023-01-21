@@ -14,6 +14,7 @@ from Image_to_image import Stable_diffusion
 from Image_to_image_2 import Stable_diffusion_2
 from Delete_background import Delete_background
 from Upscaler import Upscale
+from Text_to_image_2 import Stable_diffusion_2_text_to_image
 
 checkpoint_path = 'caption.pt'
 if not os.path.exists(checkpoint_path):
@@ -56,7 +57,7 @@ task_list = [] #дескриптор сокета, тип задания, ном
 
 user_id = "0" #Пока что мы не знаем id (убрать)
 need_translate = True #пока нет настроек, будем переводить всё (убрать)
-
+dest_lang = "ru"
 
 process = False
 nprocess = False
@@ -170,6 +171,8 @@ def Prepare_img(path_dir, image_name):
             if frame:
                 local_image = local_image.crop((0, 1, w, h)).convert("RGBA")
                 h -= 1
+                if h == 0:
+                    return True, b''
         h_opt = rh - h
         frame = True
         while frame:
@@ -205,19 +208,17 @@ def Prepare_img(path_dir, image_name):
     dw, dh = rw / w, rh / h
     if w > h:
         pd = 512 / w
-        old_h = h
         h = int(502 * h / w)
         w = 512 - (frame_size * 2)
         opt2_w = frame_size
-        opt2_h = int(old_h - h / 2)
+        opt2_h = int((512 - h) / 2)
         is_w_bigger = True
     else:
         pd = 512 / h
-        old_w = w
         w = int(502 * w / h)
         h = 512 - (frame_size * 2)
         opt2_h = frame_size
-        opt2_w = int(old_w - w / 2)
+        opt2_w = int((512 - w) / 2)
         is_w_bigger = False
     local_image = local_image.resize((w, h), resample = Image.Resampling.LANCZOS).convert("RGBA")
     rimg = Image.new("RGBA", (512, 512), clr)
@@ -260,26 +261,30 @@ async def neural_processing(process, nprocess):
             path_to_task_dir = "log\\" + task[4] + "\\" + task[3]
             if task[1] == 'c': #если нужно сгенерировать описание
                 rbufer, binary_data = Prepare_img(path_to_task_dir, task[2])
-                img = base64.b64encode(binary_data).decode('utf-8')
-                files = {'document': ('r_drawing.png', binary_data)}
-                req = requests.post(URL + "sendDocument?&reply_to_message_id=" + task[5] + "&chat_id=-1001784737051", files = files)
-                message_id = get_message_id(req)
-                params = {
-                    "eval_cider": False,       #использовать эволючионную CIDEr метрику 
-                    "beam": 5,                 #балансировка
-                    "max_len_b": 16,           #максимальная длина буфера
-                    "no_repeat_ngram_size": 3, #не повторять N-граммы размера
-                    "seed": 7                  #инициализирующее значение (для воспроизводимой генерации подписей)
-                }
-                client_message = await Gen_caption(websocket, path_to_task_dir + "\\r_" + task[2], params)
-                client_message, rep_mess_id = del_prompt_about_drawing(client_message, message_id, task[7])
+                if (rbufer): #если это просто одноцветный фон, то выдать описание "solid color background"
+                    client_message = "solid color background"
+                    message_id = task[5]
+                else:
+                    img = base64.b64encode(binary_data).decode('utf-8')
+                    files = {'document': ('r_drawing.png', binary_data)}
+                    req = requests.post(URL + "sendDocument?&reply_to_message_id=" + task[5] + "&chat_id=-1001784737051", files = files)
+                    message_id = get_message_id(req)
+                    params = {
+                        "eval_cider": False,       #использовать эволюционную CIDEr метрику 
+                        "beam": 5,                 #балансировка
+                        "max_len_b": 16,           #максимальная длина буфера
+                        "no_repeat_ngram_size": 3, #не повторять N-граммы размера
+                        "seed": 7                  #инициализирующее значение (для воспроизводимой генерации подписей)
+                    }
+                    client_message = await Gen_caption(websocket, path_to_task_dir + "\\r_" + task[2], params)
+                    client_message, rep_mess_id = del_prompt_about_drawing(client_message, message_id, task[7])
                 with open(path_to_task_dir + "/AI_caption.txt", "w") as f:
                     f.write(client_message)
                 req = requests.post(URL + "sendMessage?text=" + client_message + "&reply_to_message_id=" + rep_mess_id + "&chat_id=-1001784737051")
                 message_id = get_message_id(req)
                 if task[6] == True:
                     translator = Translator()
-                    client_message = translator.translate(client_message, src = 'en', dest = 'ru').text
+                    client_message = translator.translate(client_message, src = "en", dest = dest_lang).text
                     with open(path_to_task_dir + "/AI_caption_ru.txt", "w") as f:
                         f.write(client_message)
                     time.sleep(0.3) #иметь ввиду, что тут слип, убрать его потом, после отключения от Телеги (убрать)
@@ -291,60 +296,6 @@ async def neural_processing(process, nprocess):
                     '2': client_message,
                     '3': message_id,
                     '4': task[2]
-                }
-            elif task[1] == 'p': #если нужно сгенерировать изображение по AI описанию
-                #w, h, binary_data = await Stable_diffusion(websocket, path_to_task_dir, True) #передаю сокет, путь к рабочей папке, и true если AI описание, false если человеческая
-                rbufer, binary_data = Prepare_img(path_to_task_dir, task[2])
-                img = base64.b64encode(binary_data).decode('utf-8')
-                files = {'document': ('r_drawing.png', binary_data)}
-                req = requests.post(URL + "sendDocument?&reply_to_message_id=" + task[5] + "&chat_id=-1001784737051", files = files)
-                message_id = get_message_id(req)
-                task[2] = "r_" + task[2]
-                if (task[6]):
-                    params = {
-                        'style': "4k photorealistic", #стиль изображения для рендеринга
-                        'ddim_steps': 50,             #количество шагов выборки ddim
-                        'ddim_eta': 0.0,              #ddim η (η=0.0 соответствует детерминированной выборке)
-                        'n_iter': 1,                  #определяет частоту дискретизации
-                        'C': 4,                       #латентные каналы
-                        'f': 8,                       #коэффициент понижающей дискретизации, чаще всего 8 или 16
-                        'scale': 9.0,                 #безусловная навигационная величина: eps = eps(x, empty) + scale * (eps(x, cond) - eps(x, empty))
-                        'strength': 0.7,              #сила увеличения/уменьшения шума. 1.0 соответствует полному уничтожению информации в инициализирующем образе
-                        'ckpt': 1,                    #выбор контрольной точки модели (от 0 до 9)
-                        'seed': 42,                   #сид (для воспроизводимой генерации изображений)
-                        'precision': "autocast"       #оценивать с этой точностью ("full" или "autocast")
-                        }
-                    w, h, binary_data = await Stable_diffusion_2(websocket, path_to_task_dir, task[2], task[7], params) #передаю сокет, путь к рабочей папке, имя файла, и true если AI описание, false если человеческая
-                else:
-                    params = {
-                        'style': "4k photorealistic", #стиль изображения для рендеринга
-                        'ddim_steps': 50,             #количество шагов выборки ddim
-                        'ddim_eta': 0.0,              #ddim η (η=0.0 соответствует детерминированной выборке)
-                        'n_iter': 1,                  #определяет частоту дискретизации
-                        'C': 4,                       #латентные каналы
-                        'f': 8,                       #коэффициент понижающей дискретизации, чаще всего 8 или 16
-                        'scale': 5.0,                 #безусловная навигационная величина: eps = eps(x, empty) + scale * (eps(x, cond) - eps(x, empty))
-                        'strength': 0.7,              #сила увеличения/уменьшения шума. 1.0 соответствует полному уничтожению информации в инициализирующем образе
-                        'ckpt': 1,                    #выбор контрольной точки модели (от 0 до 9)
-                        'seed': 42,                   #сид (для воспроизводимой генерации изображений)
-                        'precision': "autocast"       #оценивать с этой точностью ("full" или "autocast")
-                        }
-                    w, h, binary_data = await Stable_diffusion(websocket, path_to_task_dir, task[2], task[7], params) #передаю сокет, путь к рабочей папке, имя файла, true если AI описание, false если человеческая
-                if rbufer != False:
-                    binary_data = Restore_Image(w, h, binary_data, rbufer)
-                    w, h = rbufer[1], rbufer[2]
-                img = base64.b64encode(binary_data).decode('utf-8')
-                files = {'document': ('drawing.png', binary_data)}
-                req = requests.post(URL + "sendDocument?&reply_to_message_id=" + message_id + "&chat_id=-1001784737051", files = files)
-                message_id = get_message_id(req)
-                resp_data = {
-                    '0': "i",
-                    '1': str(img),
-                    '2': w,
-                    '3': h,
-                    '4': message_id,
-                    '5': "picture.png",
-                    '6': task[3]
                 }
             elif task[1] == 'f': #если нужно удалить фон у изображения
                 w, h, binary_data = Delete_background(path_to_task_dir, task[2]) #передаю путь к рабочей папке и имя файла
@@ -359,7 +310,8 @@ async def neural_processing(process, nprocess):
                     '3': h,
                     '4': message_id,
                     '5': "object.png",
-                    '6': task[3]
+                    '6': task[3],
+                    '7': 1
                 }
             elif task[1] == 'a': #если нужно апскейлить изображение
                 params = {
@@ -373,10 +325,10 @@ async def neural_processing(process, nprocess):
                     "fp32": True,                       #Использовать точность fp32 во время вывода. По умолчанию fp16 (половинная точность)
                     "alpha_upsampler": "realesrgan",    #Апсемплер для альфа-каналов. Варианты: realesrgan | bicubic
                     "gpu-id": None                      #Устройство gpu для использования (по умолчанию = None) может быть 0, 1, 2 для обработки на нескольких GPU
-                    }
+                }
                 w, h, binary_data = Upscale(path_to_task_dir, task[2], params) #передаю путь к рабочей папке
                 img = base64.b64encode(binary_data).decode('utf-8')
-                files = {'document': ('big_image.png', binary_data)}
+                files = { 'document': ('big_image.png', binary_data) }
                 req = requests.post(URL + "sendDocument?&reply_to_message_id=" + task[5] + "&chat_id=-1001784737051", files = files)
                 message_id = get_message_id(req)
                 resp_data = {
@@ -386,8 +338,101 @@ async def neural_processing(process, nprocess):
                     '3': h,
                     '4': message_id,
                     '5': "big_image.png",
-                    '6': task[3]
+                    '6': task[3],
+                    '7': 1
                 }
+            elif task[1] == 'p': #если нужно сгенерировать изображение по описанию
+                rbufer, binary_data = Prepare_img(path_to_task_dir, task[2])
+                if (rbufer): #если это просто одноцветный фон, то выдать описание "solid color background"
+                    task[1] = 't'
+                else:
+                    img = base64.b64encode(binary_data).decode('utf-8')
+                    files = {'document': ('r_drawing.png', binary_data)}
+                    req = requests.post(URL + "sendDocument?&reply_to_message_id=" + task[5] + "&chat_id=-1001784737051", files = files)
+                    message_id = get_message_id(req)
+                    task[2] = "r_" + task[2]
+                    if (task[6]):
+                        params = {
+                            'ddim_steps': 50,             #количество шагов выборки ddim
+                            'ddim_eta': 0.0,              #ddim η (η=0.0 соответствует детерминированной выборке)
+                            'C': 4,                       #латентные каналы
+                            'f': 8,                       #коэффициент понижающей дискретизации, чаще всего 8 или 16
+                            'scale': 9.0,                 #безусловная навигационная величина: eps = eps(x, empty) + scale * (eps(x, cond) - eps(x, empty))
+                            'strength': 0.7,              #сила увеличения/уменьшения шума. 1.0 соответствует полному уничтожению информации в инициализирующем образе
+                            'ckpt': 1,                    #выбор контрольной точки модели (от 0 до 9)
+                            'seed': 42,                   #сид (для воспроизводимой генерации изображений)
+                            'precision': "autocast"       #оценивать с этой точностью ("full" или "autocast")
+                        }
+                        w, h, binary_data = await Stable_diffusion_2(websocket, path_to_task_dir, task[2], task[7], params) #передаю сокет, путь к рабочей папке, имя файла, и true если AI описание, false если человеческая
+                    else:
+                        params = {
+                            'ddim_steps': 50,             #количество шагов выборки ddim
+                            'ddim_eta': 0.0,              #ddim η (η=0.0 соответствует детерминированной выборке)
+                            'C': 4,                       #латентные каналы
+                            'f': 8,                       #коэффициент понижающей дискретизации, чаще всего 8 или 16
+                            'scale': 5.0,                 #безусловная навигационная величина: eps = eps(x, empty) + scale * (eps(x, cond) - eps(x, empty))
+                            'strength': 0.7,              #сила увеличения/уменьшения шума. 1.0 соответствует полному уничтожению информации в инициализирующем образе
+                            'ckpt': 1,                    #выбор контрольной точки модели (от 0 до 9)
+                            'seed': 42,                   #сид (для воспроизводимой генерации изображений)
+                            'precision': "autocast"       #оценивать с этой точностью ("full" или "autocast")
+                        }
+                        w, h, binary_data = await Stable_diffusion(websocket, path_to_task_dir, task[2], task[7], params) #передаю сокет, путь к рабочей папке, имя файла, true если AI описание, false если человеческая
+                    if rbufer != False:
+                        binary_data = Restore_Image(w, h, binary_data, rbufer)
+                        w, h = rbufer[1], rbufer[2]
+                    img = base64.b64encode(binary_data).decode('utf-8')
+                    files = {'document': ('drawing.png', binary_data)}
+                    req = requests.post(URL + "sendDocument?&reply_to_message_id=" + message_id + "&chat_id=-1001784737051", files = files)
+                    message_id = get_message_id(req)
+                    resp_data = {
+                        '0': "i",
+                        '1': str(img),
+                        '2': w,
+                        '3': h,
+                        '4': message_id,
+                        '5': "picture.png",
+                        '6': task[3],
+                        '7': 1
+                    }
+            if task[1] == 't': #если нужно сгенерировать изображение по описанию
+                if (task[7]):
+                    error_msg_no_human_text_caption = "Please either add/draw an image or write a description"
+                    if need_translate:
+                        translator = Translator()
+                        error_msg_no_human_text_caption = translator.translate(error_msg_no_human_text_caption, src = "en", dest = dest_lang).text
+                    if (not os.path.exists(path_to_task_dir + "\\" + task[2] + "\\Human_caption.txt")):
+                        resp_data = {
+                            '0': "t",
+                            '1': error_msg_no_human_text_caption,
+                        }
+                else:
+                    params = {
+                        "steps": 50, #количество шагов выборки
+                        "plms": True, #использовать выборку plms
+                        "dpm": True, #использовать выборку DPM (2)
+                        "ddim_eta": 0.0, #ddim η (η = 0.0 соответствует детерминированной выборке)
+                        "C": 4, #латентные каналы
+                        "f": 8, #коэффициент понижающей дискретизации, чаще всего 8 или 16
+                        "scale": 9.0, #безусловная навигационная величина: eps = eps(x, empty) + scale * (eps(x, cond) - eps(x, empty))
+                        "ckpt": 0, #выбор контрольной точки модели (0 или 1 для размерностей 512 или 768 соответственно)
+                        "seed": 42, #сид (для воспроизводимой генерации изображений)
+                        "precision": "autocast" #оценивать с этой точностью ("full" или "autocast")
+                    }
+                    w, h, binary_data = await Stable_diffusion_2_text_to_image(websocket, path_to_task_dir, params) #передаю сокет, путь к рабочей папке, имя файла и параметры генерации
+                    img = base64.b64encode(binary_data).decode('utf-8')
+                    files = {'document': ('drawing.png', binary_data)}
+                    req = requests.post(URL + "sendDocument?&reply_to_message_id=" + task[5] + "&chat_id=-1001784737051", files = files)
+                    message_id = get_message_id(req)
+                    resp_data = {
+                        '0': 'i',
+                        '1': str(img),
+                        '2': w,
+                        '3': h,
+                        '4': message_id,
+                        '5': "tpicture.png",
+                        '6': task[3],
+                        '7': 0
+                    }
             await websocket.send(json.dumps(resp_data))
         else:
             process = False
@@ -566,11 +611,11 @@ async def handler(websocket):
                 if need_make_text_file:
                     translator = Translator()
                     lang = translator.detect(dictData["prompt"]).lang
-                    if lang != 'en':
+                    if lang != "en":
                         with open(task_dir + "/AI_caption_ru.txt", "w") as f:
                             f.write(dictData["prompt"])
                         time.sleep(0.3) #иметь ввиду, что тут слип, убрать его потом, после отключения от Телеги (убрать)
-                        result_text = translator.translate(dictData["prompt"], src = lang, dest = 'en').text
+                        result_text = translator.translate(dictData["prompt"], src = lang, dest = "en").text
                         req = requests.post(URL + "sendMessage?text=" + result_text + "&reply_to_message_id=" + task_id + "&chat_id=-1001784737051")
                         message_id = get_message_id(req)
                     else:

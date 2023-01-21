@@ -8,7 +8,7 @@
         <img class = "loading" src = "loading.webp"></img>
     </div>
     <div id = "mySidepanel" class = "sidepanel">
-        <div class = "closebtn">
+        <div class = "closebtn" id = "size_panel_closebtn">
             &times
         </div>
         <div id = "mods_of_work" class = "mods_of_work">
@@ -64,7 +64,7 @@
         &#9776;
     </button>
     <div class = "cursor">
-        <img class="cursimg" style="display: 'none'; width: 30px; height: 30px"></img>
+        <img class = "cursimg" style = "display: 'none'; width: 30px; height: 30px"></img>
     </div>
     <div class = layers>
         <div class = layers_buttons>
@@ -94,8 +94,8 @@
             </div>
             <div class = layer id = layer_2>
                 <div class = layer_button_box>
-                    <button class=layer_left_mini_button id=layer_2_visibility_button title="Включить/выключить видимость">
-                        <img class="layer_left_mini_button_image" id=layer_2_visibility_img src="visibility_on.png"></img>
+                    <button class = layer_left_mini_button id = layer_2_visibility_button title = "Включить/выключить видимость">
+                        <img class = "layer_left_mini_button_image" id = layer_2_visibility_img src = "visibility_on.png"></img>
                     </button>
                     <button class = layer_left_mini_button id = clear_layer_2 title = "Очистить слой">
                         <img class = "layer_left_mini_button_image" src = "/clear.png"></img>
@@ -120,6 +120,12 @@
             <option value = "9:16"></option>
             <option value = "9:21"></option>
         </datalist>
+    </div>
+    <div id = "before_gen_block" style = "position: fixed; top: 50px; left: 5%; height: 20%; width: 20%; border: 2px solid #111111; z-index: 15; display: none">
+        <div class = "closebtn" id = "close_before_gen_block" style = "position: absolute; z-index: 16; right: -2px; top: -2px; width: 20px; height: 20px; cursor: pointer; text-align: center; background: #ffffff; border: 2px solid #111111">
+            <a style = "position: relative; top: -40%; font-size: 25px;">&times</a>
+        </div>
+        <canvas id = "before_gen" style = "position: relative; width: 100%; height: 100%; cursor: pointer;"></canvas>
     </div>
     <div class = "d_frame" id = "d_frame">
         <div class = "v_frame" id = "v_frame">
@@ -177,7 +183,7 @@
                 <img class = "up_panel_button_image" id = "arrow_back_image" src = "undo_arrow.png"></img>
             </button>
             <button class = "up_panel_button" id = "arrow_next" title = "Повторить">
-                <img class="up_panel_button_image" id="arrow_next_image" src="repeat_arrow.png"></img>
+                <img class="up_panel_button_image" id = "arrow_next_image" src="repeat_arrow.png"></img>
             </button>
             <button class = "up_panel_button" id = "palette" title = "Выбор цвета">
                 <img class = "up_panel_button_image" id = "clrimg" src = "palette.png" style = "filter: invert(1);"></img>
@@ -210,20 +216,20 @@
         </div>
     </div>
     <script src = "~/lib/jquery/dist/jquery.min.js"></script>
-    <script src = "~/main.js?v=<?=time();?>"></script>
+    <script src = "~/main.js"></script>
     <script type = "text/javascript" src = "~/farbtastic.js"></script>
 }
 else
 {
-    <style>.container {display:block;}</style>
+    <style>.container { display: block; }</style>
     <ul class = "helpfull_links" style = "position: fixed; right: 5px; top: 0px; text-align: right; width: 16%; height: 7%;">
         <a class = "helpfull_link" asp-area = "Identity" asp-page = "/Account/Register" style = "position: fixed; top: 0%; width: 16%; text-align: right; right: 5px; text-decoration: none;">
-            <font color="#000000">
+            <font color = "#000000">
                 Регистрация
             </font>
         </a>
         <a class = "helpfull_link" asp-area = "Identity" asp-page = "/Account/Login" style = "position: fixed; top: 30px; width: 16%; text-align: right; right: 5px; text-decoration: none;">
-            <font color="#000000">
+            <font color = "#000000">
                 Вход
             </font>
         </a>
