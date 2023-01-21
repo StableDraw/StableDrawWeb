@@ -76,7 +76,7 @@ export class LoginMenu extends Component
                     <img className = "loading" src = "loading.webp"></img>
                 </div>
                 <div id = "mySidepanel" className = "sidepanel">
-                    <a className = "closebtn">
+                    <a className = "closebtn"  id = "size_panel_closebtn">
                         &times;
                     </a>
                     <div id = "mods_of_work" className = "mods_of_work">
@@ -186,6 +186,12 @@ export class LoginMenu extends Component
                         <option value = "9:16"></option>
                         <option value = "9:21"></option>
                     </datalist>
+                </div>
+                <div id = "before_gen_block" style = {{ position: "fixed", top: "50px", left: "5%", height: "20%", width: "20%", border: "2px solid #111111", zIndex: "15", display: "none" }}>
+                    <div class = "closebtn" id = "close_before_gen_block" style =  {{ position: "absolute", right: "-2px", top: "-2px", width: "20px", height: "20px", cursor: "pointer", textAlign: "center", background: "#ffffff", border: "2px solid #111111" }}>
+                        <a style = {{ position: relative, top: "-40%", fontSize: "25px" }}>&times</a>
+                    </div>
+                    <canvas id = "before_gen" style = {{ position: "relative", width: "100%", height: "100%", cursor: "pointer" }}></canvas>
                 </div>
                 <div className = "d_frame" id = "d_frame">
                     <div className = "v_frame" id = "v_frame">
