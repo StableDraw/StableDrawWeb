@@ -43,18 +43,16 @@ def construct_sample(image: Image, task, patch_resize_transform):
 # Функция, меняющая FP32 на FP16
 def apply_half(t):
     if t.dtype is torch.float32:
-        return t.to(dtype=torch.half)
+        return t.to(dtype = torch.half)
     return t
 
 async def Gen_caption(ws, img_path, overrides):
     tasks.register_task('caption', CaptionTask)
     use_cuda = torch.cuda.is_available()
     use_fp16 = False
-
     # Загрузка претренированных ckpt и config
     #await ws.send(json.dumps({'0' : "t", '1' : "Загрузка претренированных чекпоинтов и настроек конфигурации..."}))
     models, cfg, task = checkpoint_utils.load_model_ensemble_and_task(utils.split_paths(checkpoint_path), arg_overrides=overrides)
-
     # Перемещение моделей на GPU
     for model in models:
         model.eval()
@@ -63,10 +61,8 @@ async def Gen_caption(ws, img_path, overrides):
         if use_cuda and not cfg.distributed_training.pipeline_model_parallel:
             model.cuda()
         model.prepare_for_inference_(cfg)
-
     # Инициализация генератора
     generator = task.build_generator(models, cfg.generation)
-
     # Преобразование изображений
     mean = [0.5, 0.5, 0.5]
     std = [0.5, 0.5, 0.5]
@@ -78,15 +74,12 @@ async def Gen_caption(ws, img_path, overrides):
             transforms.Normalize(mean = mean, std = std)
         ]
     )
-
     image = Image.open(img_path)
-
     # Построение выходного образца и подготовка GPU, если доступна CUDA
     #await ws.send(json.dumps({'0' : "t", '1' : "Построение выходного образца..."}))
     sample = construct_sample(image, task, patch_resize_transform)
     sample = utils.move_to_cuda(sample) if use_cuda else sample
     sample = utils.apply_to_sample(apply_half, sample) if use_fp16 else sample
-
     # Запуск эволюционного шага для описания
     #await ws.send(json.dumps({'0' : "t", '1' : "Вычисление описания..."}))
     with torch.no_grad():

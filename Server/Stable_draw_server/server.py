@@ -172,7 +172,11 @@ def Prepare_img(path_dir, image_name):
                 local_image = local_image.crop((0, 1, w, h)).convert("RGBA")
                 h -= 1
                 if h == 0:
-                    return True, b''
+                    buf = io.BytesIO()
+                    local_image.save(buf, format = "PNG")
+                    local_image.close()
+                    binary_data =  buf.getvalue()
+                    return True, binary_data
         h_opt = rh - h
         frame = True
         while frame:
@@ -205,41 +209,43 @@ def Prepare_img(path_dir, image_name):
             if frame:
                 local_image = local_image.crop((0, 0, w - 1, h)).convert("RGBA")
                 w -= 1
-    dw, dh = rw / w, rh / h
-    if w > h:
-        pd = 512 / w
-        h = int(502 * h / w)
-        w = 512 - (frame_size * 2)
-        opt2_w = frame_size
-        opt2_h = int((512 - h) / 2)
-        is_w_bigger = True
-    else:
-        pd = 512 / h
-        w = int(502 * w / h)
-        h = 512 - (frame_size * 2)
-        opt2_h = frame_size
-        opt2_w = int((512 - w) / 2)
-        is_w_bigger = False
-    local_image = local_image.resize((w, h), resample = Image.Resampling.LANCZOS).convert("RGBA")
-    rimg = Image.new("RGBA", (512, 512), clr)
-    rimg.paste(local_image, (opt2_w, opt2_h),  local_image)
-    rimg.save(path_dir + "\\" + "r_" + image_name)
+        dw, dh = rw / w, rh / h
+        if w > h:
+            pd = 512 / w
+            h = int(502 * h / w)
+            w = 512 - (frame_size * 2)
+            opt2_w = frame_size
+            opt2_h = int((512 - h) / 2)
+            is_w_bigger = True
+        else:
+            pd = 512 / h
+            w = int(502 * w / h)
+            h = 512 - (frame_size * 2)
+            opt2_h = frame_size
+            opt2_w = int((512 - w) / 2)
+            is_w_bigger = False
+        local_image = local_image.resize((w, h), resample = Image.Resampling.LANCZOS).convert("RGBA")
+        rimg = Image.new("RGBA", (512, 512), clr)
+        rimg.paste(local_image, (opt2_w, opt2_h),  local_image)
+        rimg.save(path_dir + "\\" + "r_" + image_name)
+        new_w, new_h = int(w * dw), int(h * dh)
+        w_opt, h_opt = int(w_opt * pd), int(h_opt *  pd)
+        if is_w_bigger:
+            h_opt -= opt2_h
+        else:
+            w_opt -= opt2_w
+    elif need_crop == False:
+        rimg = local_image
+    local_image.close()
     buf = io.BytesIO()
     rimg.save(buf, format = "PNG")
     rimg.close()
     binary_data =  buf.getvalue()
-    new_w, new_h = int(w * dw), int(h * dh)
-    w_opt, h_opt = int(w_opt * pd), int(h_opt *  pd)
-    if is_w_bigger:
-        h_opt -= opt2_h
-    else:
-        w_opt -= opt2_w
-    if need_crop:
+    if need_crop == True:
         return (clr, new_w, new_h, w_opt, h_opt), binary_data
-    else:
-        return False, binary_data
+    return False, binary_data
 
-def Restore_Image(w, h, bd, rbuf):
+def Restore_Image(bd, rbuf):
     limg = Image.open(io.BytesIO(bd)).convert("RGBA")
     rimg = Image.new("RGBA", (rbuf[1], rbuf[2]), rbuf[0])
     rimg.paste(limg, (rbuf[3], rbuf[4]),  limg)
@@ -261,12 +267,14 @@ async def neural_processing(process, nprocess):
             path_to_task_dir = "log\\" + task[4] + "\\" + task[3]
             if task[1] == 'c': #если нужно сгенерировать описание
                 rbufer, binary_data = Prepare_img(path_to_task_dir, task[2])
-                if (rbufer): #если это просто одноцветный фон, то выдать описание "solid color background"
+                if (rbufer == True): #если это просто одноцветный фон, то выдать описание "solid color background"
                     client_message = "solid color background"
-                    message_id = task[5]
+                    rep_mess_id = task[5]
                 else:
-                    img = base64.b64encode(binary_data).decode('utf-8')
-                    files = {'document': ('r_drawing.png', binary_data)}
+                    if (rbufer != False): #если нужна обрезка
+                        task[2] = "r_" + task[2]
+                    img = base64.b64encode(binary_data).decode("utf-8")
+                    files = { "document": (task[2], binary_data) }
                     req = requests.post(URL + "sendDocument?&reply_to_message_id=" + task[5] + "&chat_id=-1001784737051", files = files)
                     message_id = get_message_id(req)
                     params = {
@@ -276,7 +284,7 @@ async def neural_processing(process, nprocess):
                         "no_repeat_ngram_size": 3, #не повторять N-граммы размера
                         "seed": 7                  #инициализирующее значение (для воспроизводимой генерации подписей)
                     }
-                    client_message = await Gen_caption(websocket, path_to_task_dir + "\\r_" + task[2], params)
+                    client_message = await Gen_caption(websocket, path_to_task_dir + "\\" + task[2], params)
                     client_message, rep_mess_id = del_prompt_about_drawing(client_message, message_id, task[7])
                 with open(path_to_task_dir + "/AI_caption.txt", "w") as f:
                     f.write(client_message)
@@ -298,6 +306,8 @@ async def neural_processing(process, nprocess):
                     '4': task[2]
                 }
             elif task[1] == 'f': #если нужно удалить фон у изображения
+                with open(path_to_task_dir + "\\" + task[2], "rb") as f:
+                    postview = f.read()
                 w, h, binary_data = Delete_background(path_to_task_dir, task[2]) #передаю путь к рабочей папке и имя файла
                 img = base64.b64encode(binary_data).decode('utf-8')
                 files = {'document': ('object.png', binary_data)}
@@ -311,7 +321,7 @@ async def neural_processing(process, nprocess):
                     '4': message_id,
                     '5': "object.png",
                     '6': task[3],
-                    '7': 1
+                    '7': postview
                 }
             elif task[1] == 'a': #если нужно апскейлить изображение
                 params = {
@@ -339,73 +349,61 @@ async def neural_processing(process, nprocess):
                     '4': message_id,
                     '5': "big_image.png",
                     '6': task[3],
-                    '7': 1
+                    '7': ""
                 }
-            elif task[1] == 'p': #если нужно сгенерировать изображение по описанию
+            elif task[1] == 'p': #если нужно сгенерировать изображение по изображению
                 rbufer, binary_data = Prepare_img(path_to_task_dir, task[2])
-                if (rbufer): #если это просто одноцветный фон, то выдать описание "solid color background"
-                    task[1] = 't'
-                else:
-                    img = base64.b64encode(binary_data).decode('utf-8')
-                    files = {'document': ('r_drawing.png', binary_data)}
-                    req = requests.post(URL + "sendDocument?&reply_to_message_id=" + task[5] + "&chat_id=-1001784737051", files = files)
-                    message_id = get_message_id(req)
-                    task[2] = "r_" + task[2]
-                    if (task[6]):
-                        params = {
-                            'ddim_steps': 50,             #количество шагов выборки ddim
-                            'ddim_eta': 0.0,              #ddim η (η=0.0 соответствует детерминированной выборке)
-                            'C': 4,                       #латентные каналы
-                            'f': 8,                       #коэффициент понижающей дискретизации, чаще всего 8 или 16
-                            'scale': 9.0,                 #безусловная навигационная величина: eps = eps(x, empty) + scale * (eps(x, cond) - eps(x, empty))
-                            'strength': 0.7,              #сила увеличения/уменьшения шума. 1.0 соответствует полному уничтожению информации в инициализирующем образе
-                            'ckpt': 1,                    #выбор контрольной точки модели (от 0 до 9)
-                            'seed': 42,                   #сид (для воспроизводимой генерации изображений)
-                            'precision': "autocast"       #оценивать с этой точностью ("full" или "autocast")
-                        }
-                        w, h, binary_data = await Stable_diffusion_2(websocket, path_to_task_dir, task[2], task[7], params) #передаю сокет, путь к рабочей папке, имя файла, и true если AI описание, false если человеческая
-                    else:
-                        params = {
-                            'ddim_steps': 50,             #количество шагов выборки ddim
-                            'ddim_eta': 0.0,              #ddim η (η=0.0 соответствует детерминированной выборке)
-                            'C': 4,                       #латентные каналы
-                            'f': 8,                       #коэффициент понижающей дискретизации, чаще всего 8 или 16
-                            'scale': 5.0,                 #безусловная навигационная величина: eps = eps(x, empty) + scale * (eps(x, cond) - eps(x, empty))
-                            'strength': 0.7,              #сила увеличения/уменьшения шума. 1.0 соответствует полному уничтожению информации в инициализирующем образе
-                            'ckpt': 1,                    #выбор контрольной точки модели (от 0 до 9)
-                            'seed': 42,                   #сид (для воспроизводимой генерации изображений)
-                            'precision': "autocast"       #оценивать с этой точностью ("full" или "autocast")
-                        }
-                        w, h, binary_data = await Stable_diffusion(websocket, path_to_task_dir, task[2], task[7], params) #передаю сокет, путь к рабочей папке, имя файла, true если AI описание, false если человеческая
-                    if rbufer != False:
-                        binary_data = Restore_Image(w, h, binary_data, rbufer)
-                        w, h = rbufer[1], rbufer[2]
-                    img = base64.b64encode(binary_data).decode('utf-8')
-                    files = {'document': ('drawing.png', binary_data)}
-                    req = requests.post(URL + "sendDocument?&reply_to_message_id=" + message_id + "&chat_id=-1001784737051", files = files)
-                    message_id = get_message_id(req)
-                    resp_data = {
-                        '0': "i",
-                        '1': str(img),
-                        '2': w,
-                        '3': h,
-                        '4': message_id,
-                        '5': "picture.png",
-                        '6': task[3],
-                        '7': 1
+                postview = str(base64.b64encode(binary_data).decode('utf-8'))   
+                img = base64.b64encode(binary_data).decode('utf-8')
+                files = {'document': ('r_drawing.png', binary_data)}
+                req = requests.post(URL + "sendDocument?&reply_to_message_id=" + task[5] + "&chat_id=-1001784737051", files = files)
+                message_id = get_message_id(req)
+                task[2] = "r_" + task[2]
+                if (task[6]):
+                    params = {
+                        'ddim_steps': 50,             #количество шагов выборки ddim
+                        'ddim_eta': 0.0,              #ddim η (η = 0.0 соответствует детерминированной выборке)
+                        'C': 4,                       #латентные каналы
+                        'f': 8,                       #коэффициент понижающей дискретизации, чаще всего 8 или 16
+                        'scale': 9.0,                 #безусловная навигационная величина: eps = eps(x, empty) + scale * (eps(x, cond) - eps(x, empty))
+                        'strength': 0.7,              #сила увеличения/уменьшения шума. 1.0 соответствует полному уничтожению информации в инициализирующем образе
+                        'ckpt': 1,                    #выбор контрольной точки модели (от 0 до 9)
+                        'seed': 42,                   #сид (для воспроизводимой генерации изображений)
+                        'precision': "autocast"       #оценивать с этой точностью ("full" или "autocast")
                     }
-            if task[1] == 't': #если нужно сгенерировать изображение по описанию
-                if (task[7]):
-                    error_msg_no_human_text_caption = "Please either add/draw an image or write a description"
-                    if need_translate:
-                        translator = Translator()
-                        error_msg_no_human_text_caption = translator.translate(error_msg_no_human_text_caption, src = "en", dest = dest_lang).text
-                    if (not os.path.exists(path_to_task_dir + "\\" + task[2] + "\\Human_caption.txt")):
-                        resp_data = {
-                            '0': "t",
-                            '1': error_msg_no_human_text_caption,
-                        }
+                    w, h, binary_data = await Stable_diffusion_2(websocket, path_to_task_dir, task[2], task[7], params) #передаю сокет, путь к рабочей папке, имя файла, и true если AI описание, false если человеческая
                 else:
+                    params = {
+                        'ddim_steps': 50,             #количество шагов выборки ddim
+                        'ddim_eta': 0.0,              #ddim η (η = 0.0 соответствует детерминированной выборке)
+                        'C': 4,                       #латентные каналы
+                        'f': 8,                       #коэффициент понижающей дискретизации, чаще всего 8 или 16
+                        'scale': 5.0,                 #безусловная навигационная величина: eps = eps(x, empty) + scale * (eps(x, cond) - eps(x, empty))
+                        'strength': 0.7,              #сила увеличения/уменьшения шума. 1.0 соответствует полному уничтожению информации в инициализирующем образе
+                        'ckpt': 1,                    #выбор контрольной точки модели (от 0 до 9)
+                        'seed': 42,                   #сид (для воспроизводимой генерации изображений)
+                        'precision': "autocast"       #оценивать с этой точностью ("full" или "autocast")
+                    }
+                    w, h, binary_data = await Stable_diffusion(websocket, path_to_task_dir, task[2], task[7], params) #передаю сокет, путь к рабочей папке, имя файла, true если AI описание, false если человеческая
+                if rbufer != True and rbufer != False: #если нужна обрезка
+                    binary_data = Restore_Image(binary_data, rbufer)
+                    w, h = rbufer[1], rbufer[2]
+                img = str(base64.b64encode(binary_data).decode('utf-8'))
+                files = {'document': ('drawing.png', binary_data)}
+                req = requests.post(URL + "sendDocument?&reply_to_message_id=" + message_id + "&chat_id=-1001784737051", files = files)
+                message_id = get_message_id(req)
+                resp_data = {
+                    '0': "i",
+                    '1': img,
+                    '2': w,
+                    '3': h,
+                    '4': message_id,
+                    '5': "picture.png",
+                    '6': task[3],
+                    '7': postview
+                }
+            if task[1] == 't': #если нужно сгенерировать изображение по описанию
+                if task[6] == True:
                     params = {
                         "steps": 50, #количество шагов выборки
                         "plms": True, #использовать выборку plms
@@ -418,21 +416,35 @@ async def neural_processing(process, nprocess):
                         "seed": 42, #сид (для воспроизводимой генерации изображений)
                         "precision": "autocast" #оценивать с этой точностью ("full" или "autocast")
                     }
-                    w, h, binary_data = await Stable_diffusion_2_text_to_image(websocket, path_to_task_dir, params) #передаю сокет, путь к рабочей папке, имя файла и параметры генерации
-                    img = base64.b64encode(binary_data).decode('utf-8')
-                    files = {'document': ('drawing.png', binary_data)}
-                    req = requests.post(URL + "sendDocument?&reply_to_message_id=" + task[5] + "&chat_id=-1001784737051", files = files)
-                    message_id = get_message_id(req)
-                    resp_data = {
-                        '0': 'i',
-                        '1': str(img),
-                        '2': w,
-                        '3': h,
-                        '4': message_id,
-                        '5': "tpicture.png",
-                        '6': task[3],
-                        '7': 0
+                    w, h, binary_data = await Stable_diffusion_2_text_to_image(websocket, path_to_task_dir, task[2], params) #передаю сокет, путь к рабочей папке, имя файла и параметры генерации
+                else:#подключить dall-e 2
+                    params = {
+                        "steps": 50, #количество шагов выборки
+                        "plms": True, #использовать выборку plms
+                        "dpm": True, #использовать выборку DPM (2)
+                        "ddim_eta": 0.0, #ddim η (η = 0.0 соответствует детерминированной выборке)
+                        "C": 4, #латентные каналы
+                        "f": 8, #коэффициент понижающей дискретизации, чаще всего 8 или 16
+                        "scale": 9.0, #безусловная навигационная величина: eps = eps(x, empty) + scale * (eps(x, cond) - eps(x, empty))
+                        "ckpt": 0, #выбор контрольной точки модели (0 или 1 для размерностей 512 или 768 соответственно)
+                        "seed": 42, #сид (для воспроизводимой генерации изображений)
+                        "precision": "autocast" #оценивать с этой точностью ("full" или "autocast")
                     }
+                    w, h, binary_data = await Stable_diffusion_2_text_to_image(websocket, path_to_task_dir, task[2], params) #передаю сокет, путь к рабочей папке, имя файла и параметры генерации
+                img = base64.b64encode(binary_data).decode('utf-8')
+                files = {'document': ('drawing.png', binary_data)}
+                req = requests.post(URL + "sendDocument?&reply_to_message_id=" + task[5] + "&chat_id=-1001784737051", files = files)
+                message_id = get_message_id(req)
+                resp_data = {
+                    '0': 'i',
+                    '1': str(img),
+                    '2': w,
+                    '3': h,
+                    '4': message_id,
+                    '5': "tpicture.png",
+                    '6': task[3],
+                    '7': ""
+                }
             await websocket.send(json.dumps(resp_data))
         else:
             process = False
@@ -545,7 +557,7 @@ async def handler(websocket):
                     is_SD2 = False
                 else:
                     is_SD2 = True
-                cur_task = [websocket, "p", dictData["img_name"], dictData["task_id"], user_id, dictData["chain_id"], is_SD2, True] #дескриптор сокета, тип задания, номер сообщения ТГ (id задания), user_id, номер последнего ответа ТГ
+                cur_task = [websocket, "p", img_name, task_id, user_id, message_id, is_SD2, True] #дескриптор сокета, тип задания, номер сообщения ТГ (id задания), user_id, номер последнего ответа ТГ
                 task_list.append(cur_task)
             elif(dictData["type"] == "hg1" or dictData["type"] == "hg2"): #нужна картина по человеческому описанию
                 if dictData["type"] == "hg1":
@@ -654,7 +666,7 @@ async def handler(websocket):
                     buf = io.BytesIO()
                     pillow_img.save(buf, format = 'PNG')
                     result_binary_data = buf.getvalue()
-                    files = {'document': ('drawing.png', result_binary_data)}
+                    files = { "document": ('drawing.png', result_binary_data)}
                     req = requests.post(URL + "sendDocument?caption=Изображение для апскейлинга&chat_id=-1001784737051", files = files)
                     message_id = get_message_id(req)
                     task_id = message_id
@@ -668,6 +680,28 @@ async def handler(websocket):
                     task_id = dictData["task_id"]
                     img_name = dictData["img_name"]
                 cur_task = [websocket, "a", img_name, task_id, user_id, message_id] #дескриптор сокета, тип задания, номер сообщения ТГ (id задания), user_id, номер последнего ответа ТГ, ширину и высоту исходного изображения
+                task_list.append(cur_task)
+            elif(dictData["type"] == "ts" or dictData["type"] == "td"): #нужно сгенерировать изображение по описанию
+                if dictData["type"] == "ts":
+                    is_SD2 = True
+                prompt = dictData["prompt"]
+                req = requests.post(URL + "sendMessage?text=" + prompt + "&chat_id=-1001784737051")
+                task_id = get_message_id(req)
+                translator = Translator()
+                lang = translator.detect(prompt).lang
+                if lang != "en":
+                    time.sleep(0.3) #иметь ввиду, что тут слип, убрать его потом, после отключения от Телеги (убрать)
+                    result_text = translator.translate(prompt, src = lang, dest = "en").text
+                    req = requests.post(URL + "sendMessage?text=" + result_text + "&reply_to_message_id=" + task_id + "&chat_id=-1001784737051")
+                    message_id = get_message_id(req)
+                else:
+                    message_id = task_id
+                    result_text = prompt
+                task_dir = user_path + "\\" + task_id
+                os.mkdir(task_dir)
+                with open(task_dir + "\\Human_caption.txt", "w") as f:
+                    f.write(result_text)
+                cur_task = [websocket, "t", result_text, task_id, user_id, message_id, is_SD2] #дескриптор сокета, тип задания, текст описания, номер сообщения ТГ (id задания), user_id, номер последнего ответа ТГ, Использовать ли SD2, или Dall-e 2
                 task_list.append(cur_task)
             tls = len(task_list)
             if tls > 1:

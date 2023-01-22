@@ -49,9 +49,7 @@ def put_watermark(img, wm_encoder=None):
         img = Image.fromarray(img[:, :, ::-1])
     return img
 
-async def Stable_diffusion_2_text_to_image(ws, work_path, opt):
-    with open(work_path + "\\Human_caption.txt", "r") as f:
-        prompt = f.read()
+async def Stable_diffusion_2_text_to_image(ws, work_path, prompt, opt):
     if (opt["ckpt"] == 0):
         w = 512
         h = 512
@@ -77,7 +75,6 @@ async def Stable_diffusion_2_text_to_image(ws, work_path, opt):
     with torch.no_grad(), \
         precision_scope("cuda"), \
         model.ema_scope():
-            trange(1, desc = "Sampling")
             if opt["scale"] != 1.0:
                 uc = model.get_learned_conditioning([""])
             else:

@@ -99,24 +99,21 @@ async def Stable_diffusion(ws, work_path, img_name, AI_prompt, opt):
     with torch.no_grad():
         with precision_scope("cuda"):
             with model.ema_scope():
-                for n in trange(1, desc = "Sampling"):
+                if opt['scale'] != 1.0:
+                    uc = model.get_learned_conditioning([""])
+                else:
                     uc = None
-                    if opt['scale'] != 1.0:
-                        uc = model.get_learned_conditioning([""])
-                    c = model.get_learned_conditioning(prompt)
-                    # закодировать (скрытое масштабирование)
-                    z_enc = sampler.stochastic_encode(init_latent, torch.tensor([t_enc]).to(device))
-                    # раскодировать
-                    samples = sampler.decode(z_enc, c, t_enc, unconditional_guidance_scale=opt['scale'], unconditional_conditioning=uc)
-                    x_samples = model.decode_first_stage(samples)
-                    x_samples = torch.clamp((x_samples + 1.0) / 2.0, min = 0.0, max = 1.0)
-                    x_sample = x_samples[0]
-                    x_sample = 255. * rearrange(x_sample.cpu().numpy(), 'c h w -> h w c')
-                    img = Image.fromarray(x_sample.astype(np.uint8))
-                    w, h = img.size
-                    buf = io.BytesIO()
-                    img.save(buf, format='PNG')
-                    b_data = buf.getvalue()
-                    img.save(outpath + "/picture.png")
-                    img.close
+                c = model.get_learned_conditioning(prompt)
+                # закодировать (скрытое масштабирование)
+                z_enc = sampler.stochastic_encode(init_latent, torch.tensor([t_enc]).to(device))
+                # раскодировать
+                samples = sampler.decode(z_enc, c, t_enc, unconditional_guidance_scale = opt['scale'], unconditional_conditioning=uc)
+                x_sample = 255. * rearrange(torch.clamp((model.decode_first_stage(samples) + 1.0) / 2.0, min = 0.0, max = 1.0)[0].cpu().numpy(), 'c h w -> h w c')
+                img = Image.fromarray(x_sample.astype(np.uint8))
+                w, h = img.size
+                buf = io.BytesIO()
+                img.save(buf, format = 'PNG')
+                b_data = buf.getvalue()
+                img.save(outpath + "/picture.png")
+                img.close
     return w, h, b_data
