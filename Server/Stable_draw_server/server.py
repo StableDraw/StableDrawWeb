@@ -306,8 +306,10 @@ async def neural_processing(process, nprocess):
                     '4': task[2]
                 }
             elif task[1] == 'f': #если нужно удалить фон у изображения
-                with open(path_to_task_dir + "\\" + task[2], "rb") as f:
-                    postview = f.read()
+                pimg = Image.open(path_to_task_dir + "\\" + task[2])
+                buf = io.BytesIO()
+                pimg.save(buf, format = 'PNG')
+                postview = str(base64.b64encode(buf.getvalue()).decode('utf-8'))
                 w, h, binary_data = Delete_background(path_to_task_dir, task[2]) #передаю путь к рабочей папке и имя файла
                 img = base64.b64encode(binary_data).decode('utf-8')
                 files = {'document': ('object.png', binary_data)}
@@ -337,13 +339,13 @@ async def neural_processing(process, nprocess):
                     "gpu-id": None                      #Устройство gpu для использования (по умолчанию = None) может быть 0, 1, 2 для обработки на нескольких GPU
                 }
                 w, h, binary_data = Upscale(path_to_task_dir, task[2], params) #передаю путь к рабочей папке
-                img = base64.b64encode(binary_data).decode('utf-8')
+                img = str(base64.b64encode(binary_data).decode('utf-8'))
                 files = { 'document': ('big_image.png', binary_data) }
                 req = requests.post(URL + "sendDocument?&reply_to_message_id=" + task[5] + "&chat_id=-1001784737051", files = files)
                 message_id = get_message_id(req)
                 resp_data = {
                     '0': "i",
-                    '1': str(img),
+                    '1': img,
                     '2': w,
                     '3': h,
                     '4': message_id,
@@ -431,13 +433,13 @@ async def neural_processing(process, nprocess):
                         "precision": "autocast" #оценивать с этой точностью ("full" или "autocast")
                     }
                     w, h, binary_data = await Stable_diffusion_2_text_to_image(websocket, path_to_task_dir, task[2], params) #передаю сокет, путь к рабочей папке, имя файла и параметры генерации
-                img = base64.b64encode(binary_data).decode('utf-8')
+                img = str(base64.b64encode(binary_data).decode('utf-8'))
                 files = {'document': ('drawing.png', binary_data)}
                 req = requests.post(URL + "sendDocument?&reply_to_message_id=" + task[5] + "&chat_id=-1001784737051", files = files)
                 message_id = get_message_id(req)
                 resp_data = {
                     '0': 'i',
-                    '1': str(img),
+                    '1': img,
                     '2': w,
                     '3': h,
                     '4': message_id,
@@ -684,6 +686,8 @@ async def handler(websocket):
             elif(dictData["type"] == "ts" or dictData["type"] == "td"): #нужно сгенерировать изображение по описанию
                 if dictData["type"] == "ts":
                     is_SD2 = True
+                else:
+                    is_SD2 = False
                 prompt = dictData["prompt"]
                 req = requests.post(URL + "sendMessage?text=" + prompt + "&chat_id=-1001784737051")
                 task_id = get_message_id(req)

@@ -374,7 +374,7 @@ var main_modal: any = function (options: object)
                             { class: "modal_btn modal_btn-1", text: "Отмена", handler: "modalHandlerCancel" }
                         ]
                 })
-                content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"/><p><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"/>'
+                content = 'Стиль:<p><input class = "modal_input" id = "style_input" value = "профессиональная фотография" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"></input><p><p>Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"</input>'
             }
             else
             {
@@ -391,7 +391,7 @@ var main_modal: any = function (options: object)
                 })
                 if (original_image_buf == "")
                 {
-                    content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"/><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image(data_prop)">Сгенерировать автоматически</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"/>'
+                    content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"></input><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image(data_prop)">Сгенерировать автоматически</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"></input>'
                 }
                 else
                 {
@@ -455,7 +455,6 @@ var main_modal: any = function (options: object)
                                 before_gen_block.style.height = bH.toString() + "px"
                                 before_gen.width = bW
                                 before_gen.height = bH
-                                console.log(iw, ih, bW, bH, before_gen_block.offsetWidth, before_gen_block.offsetHeight, before_gen.offsetWidth, before_gen.offsetHeight)
                                 before_gen_ctx.drawImage(image_on_before_block, 0, 0, iw, ih, 0, 0, bW, bH)
                                 before_gen_block.style.display = "block"
                                 show_gen_result(jdata, image)
@@ -497,7 +496,15 @@ var main_modal: any = function (options: object)
             }
             else
             {
-                let full_prompt: string = caption_field.value + " " + style_field.value
+                let full_prompt: string
+                if (style_field.value == "")
+                {
+                    full_prompt = caption_field.value
+                }
+                else
+                {
+                    full_prompt = caption_field.value + " " + style_field.value
+                }
                 gen_picture_by_drawing(false, full_prompt, data_prop)
             }
             //modal.hide()
@@ -513,7 +520,15 @@ var main_modal: any = function (options: object)
             }
             else
             {
-                let full_prompt = caption_field.value + " " + style_field.value
+                let full_prompt: string
+                if (style_field.value == "")
+                {
+                    full_prompt = caption_field.value
+                }
+                else
+                {
+                    full_prompt = caption_field.value + " " + style_field.value
+                }
                 gen_picture_by_drawing(true, full_prompt, data_prop)
             }
             //modal.hide()
@@ -528,7 +543,15 @@ var main_modal: any = function (options: object)
             }
             else
             {
-                let full_prompt = caption_field.value + " " + style_field.value
+                let full_prompt: string
+                if (style_field.value = "")
+                {
+                    full_prompt = caption_field.value
+                }
+                else
+                {
+                    full_prompt = style_field.value + " " + caption_field.value
+                }
                 gen_picture_by_prompt(true, full_prompt)
             }
             //modal.hide()
@@ -543,7 +566,15 @@ var main_modal: any = function (options: object)
             }
             else
             {
-                let full_prompt = caption_field.value + " " + style_field.value
+                let full_prompt: string
+                if (style_field.value = "")
+                {
+                    full_prompt = caption_field.value
+                }
+                else
+                {
+                    full_prompt = style_field.value + " " +  caption_field.value
+                }
                 gen_picture_by_prompt(false, full_prompt)
             }
             //modal.hide()
@@ -581,7 +612,6 @@ function show_gen_result(jdata: any[], image: HTMLImageElement)
         fH_pred = f_dH
         push_action_to_stack(['r', new_dfw, new_dfh, false])
     }
-    console.log(jdata[2], jdata[3], cW, cH, d_frame.offsetWidth, d_frame.offsetHeight, canvas_foreground.offsetWidth, canvas_foreground.offsetHeight)
     ctx_foreground.drawImage(image, 0, 0, jdata[2], jdata[3], 0, 0, cW, cH)
     push_action_to_stack(['u', cur_draw_ctx, image, jdata[2], jdata[3]])
     ctx_layer_1.clearRect(0, 0, lwW, lwH)

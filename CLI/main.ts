@@ -245,8 +245,10 @@ let original_image_buf: string = "" //переменная для хранени
 
 let need_gen_after_caption: boolean[] = [false, false]
 
-const Max_bib_w: number = before_gen_block.offsetWidth
-const Max_bib_h: number = before_gen_block.offsetHeight
+const Max_bib_w: number = W * 0.2
+const Max_bib_h: number = H * 0.2
+
+let data_prop: any
 
 let ws: WebSocket = new WebSocket("wss://stabledraw.com:8081")
 let chain_id: string = ""
@@ -339,17 +341,7 @@ var main_modal: any = function (options: object)
 };
 (function () 
 {
-    var modal: any = main_modal({
-        title: "Генерация",
-        content: "<p>Содержмиое модального окна...<p>",
-        footerButtons:
-        [
-            { class: "modal_btn modal_btn-3", id: "cur_gen_params_btn", text: "Параметры", handler: "modalHandlerParams" },
-            { class: "modal_btn modal_btn-2", id: "SD1_btn", text: "StableDiffusion 1", handler: "modalHandlerGenSD1" },
-            { class: "modal_btn modal_btn-2", id: "SD2_btn", text: "StableDiffusion 2", handler: "modalHandlerGenSD2" },
-            { class: "modal_btn modal_btn-1", text: "Отмена", handler: "modalHandlerCancel" }
-        ]
-    })
+    var modal: any
     /*document.addEventListener("show.modal", function (e: any)
     {
         document.querySelector(".actions").textContent = "Действия при открытии модального окна..."
@@ -364,16 +356,47 @@ var main_modal: any = function (options: object)
     })*/
     document.addEventListener("click", function (e: any) 
     {
+        data_prop = check_data_before_sending()
+        let { local_is_foreground_used, local_is_background_used, local_is_drawing, local_sure, local_how_many_prims, local_how_many_dots }: any = data_prop
         if (e.target.dataset.toggle === "modal") 
         {
             let content: string
-            if (original_image_buf == "")
+            if ((!local_is_foreground_used && !local_is_background_used) || (!is_background_visible && !is_foreground_visible))
             {
-                content = 'Подпись:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"/><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image()">Сгенерировать автоматически</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"/>'
+                modal = main_modal({
+                    title: "Генерация",
+                    content: "<p>Содержмиое модального окна...<p>",
+                    footerButtons:
+                        [
+                            { class: "modal_btn modal_btn-3", id: "cur_gen_params_btn", text: "Параметры", handler: "modalHandlerParams" },
+                            { class: "modal_btn modal_btn-2", id: "SD2_btn", text: "StableDiffusion 2", handler: "modalHandlerGenSD2_text_to_image" },
+                            { class: "modal_btn modal_btn-2", id: "Dalle2_btn", text: "Dall-e 2", handler: "modalHandlerGenDalle2" },
+                            { class: "modal_btn modal_btn-1", text: "Отмена", handler: "modalHandlerCancel" }
+                        ]
+                })
+                content = 'Стиль:<p><input class = "modal_input" id = "style_input" value = "профессиональная фотография" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"></input><p><p>Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"</input>'
             }
             else
             {
-                content = 'Подпись:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"/><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image()">Сгенерировать автоматически</button><button class = "modal_btn modal_btn-4" style = "right: 25%" onclick = "upscale()">Апскейл</button><button class = "modal_btn modal_btn-4" onclick = "delete_background()">Удалить фон</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"/>'
+                modal = main_modal({
+                    title: "Генерация",
+                    content: "<p>Содержмиое модального окна...<p>",
+                    footerButtons:
+                        [
+                            { class: "modal_btn modal_btn-3", id: "cur_gen_params_btn", text: "Параметры", handler: "modalHandlerParams" },
+                            { class: "modal_btn modal_btn-2", id: "SD1_btn", text: "StableDiffusion 1", handler: "modalHandlerGenSD1" },
+                            { class: "modal_btn modal_btn-2", id: "SD2_btn", text: "StableDiffusion 2", handler: "modalHandlerGenSD2" },
+                            { class: "modal_btn modal_btn-1", text: "Отмена", handler: "modalHandlerCancel" }
+                        ]
+                })
+                if (original_image_buf == "")
+                {
+                    content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"></input><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image(data_prop)">Сгенерировать автоматически</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"></input>'
+                }
+                else
+                {
+                    content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"/><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image(data_prop)">Сгенерировать автоматически</button><button class = "modal_btn modal_btn-4" style = "right: 25%" onclick = "upscale()">Апскейл</button><button class = "modal_btn modal_btn-4" onclick = "delete_background()">Удалить фон</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"/>'
+                }
             }
             modal.show()
             modal.setContent(content)
@@ -388,7 +411,7 @@ var main_modal: any = function (options: object)
                     //alert(jdata[1])
                     return
                 }
-                if (type == 'c') //если подпись
+                if (type == 'c') //если описание
                 {
                     task_id = jdata[1]
                     caption_field.value = jdata[2]
@@ -398,7 +421,7 @@ var main_modal: any = function (options: object)
                     blackout.style.display = "none"
                     if (need_gen_after_caption[0])
                     {
-                        gen_picture_by_promot(need_gen_after_caption[1], caption_field.value + " " + style_field.value)
+                        gen_picture_by_drawing(need_gen_after_caption[1], caption_field.value + " " + style_field.value, data_prop)
                         need_gen_after_caption[0] = false
                     }
                     return
@@ -406,39 +429,40 @@ var main_modal: any = function (options: object)
                 if (type == 'i') //если изображение
                 {
                     let image: HTMLImageElement = new Image()
-                    let image_on_before_block_bg: HTMLImageElement = new Image()
-                    let image_on_before_block_fg: HTMLImageElement = new Image()
+                    let image_on_before_block: HTMLImageElement = new Image()
                     image.onload = function() 
                     {
-                        image_on_before_block_bg.src = canvas_background.toDataURL("imag/png")
-                        image_on_before_block_bg.onload = function ()
+                        if (jdata[7] != "")
                         {
-                            let bW: number
-                            let bH: number
-                            if (cW / cH > Max_bib_w / Max_bib_h)
+                            image_on_before_block.src = "data:image/png;base64," + jdata[7]
+                            image_on_before_block.onload = function ()
                             {
-                                bW = Max_bib_w
-                                bH = Max_bib_w * cH / cW
-                            }
-                            else
-                            {
-                                bH = Max_bib_h
-                                bW = Max_bib_h * cW / cH
-                            }
-                            before_gen_block.style.width = bW.toString() + "px"
-                            before_gen_block.style.height = bH.toString() + "px" 
-                            before_gen_ctx.drawImage(image_on_before_block_bg, 0, 0, cW, cH, 0, 0, bW, bH)
-                            image_on_before_block_fg.src = canvas_foreground.toDataURL("imag/png")
-                            image_on_before_block_fg.onload = function ()
-                            {
-                                before_gen_ctx.drawImage(image_on_before_block_fg, 0, 0, cW, cH, 0, 0, bW, bH)
-                                ctx_foreground.clearRect(0, 0, cW, cH) // очищаем верхний холст
-                                ctx_foreground.drawImage(image, 0, 0, jdata[2], jdata[3], 0, 0, cW, cH)
-                                push_action_to_stack(['u', cur_draw_ctx, image, jdata[2], jdata[3]])
-                                ctx_layer_1.clearRect(0, 0, lwW, lwH)
-                                canvas_to_layer(cur_canvas, cur_ctx_layer)
+                                let bW: number
+                                let bH: number
+                                let iw: number = image_on_before_block.width
+                                let ih: number = image_on_before_block.height
+                                if (iw / ih > Max_bib_w / Max_bib_h)
+                                {
+                                    bW = Max_bib_w
+                                    bH = Max_bib_w * ih / iw
+                                }
+                                else
+                                {
+                                    bH = Max_bib_h
+                                    bW = Max_bib_h * iw / ih
+                                }
+                                before_gen_block.style.width = bW.toString() + "px"
+                                before_gen_block.style.height = bH.toString() + "px"
+                                before_gen.width = bW
+                                before_gen.height = bH
+                                before_gen_ctx.drawImage(image_on_before_block, 0, 0, iw, ih, 0, 0, bW, bH)
                                 before_gen_block.style.display = "block"
+                                show_gen_result(jdata, image)
                             }
+                        }
+                        else
+                        {
+                            show_gen_result(jdata, image)
                         }
                     }
                     original_image_buf = "data:image/png;base64," + jdata[1]
@@ -466,14 +490,22 @@ var main_modal: any = function (options: object)
         {
             if (caption_field.value == "")
             {
-                gen_caption_for_image()
+                gen_caption_for_image(data_prop)
                 need_gen_after_caption[0] = true
                 need_gen_after_caption[1] = false
             }
             else
             {
-                let full_prompt: string = caption_field.value + " " + style_field.value
-                gen_picture_by_promot(false, full_prompt)
+                let full_prompt: string
+                if (style_field.value == "")
+                {
+                    full_prompt = caption_field.value
+                }
+                else
+                {
+                    full_prompt = caption_field.value + " " + style_field.value
+                }
+                gen_picture_by_drawing(false, full_prompt, data_prop)
             }
             //modal.hide()
             //document.querySelector(".message").textContent = "Вы нажали на кнопку ОК, а открыли окно с помощью кнопки " + elemTarget.textContent
@@ -482,14 +514,68 @@ var main_modal: any = function (options: object)
         {
             if (caption_field.value == "")
             {
-                gen_caption_for_image()
+                gen_caption_for_image(data_prop)
                 need_gen_after_caption[0] = true
                 need_gen_after_caption[1] = true
             }
             else
             {
-                let full_prompt = caption_field.value + " " + style_field.value
-                gen_picture_by_promot(true, full_prompt)
+                let full_prompt: string
+                if (style_field.value == "")
+                {
+                    full_prompt = caption_field.value
+                }
+                else
+                {
+                    full_prompt = caption_field.value + " " + style_field.value
+                }
+                gen_picture_by_drawing(true, full_prompt, data_prop)
+            }
+            //modal.hide()
+            //document.querySelector(".message").textContent = "Вы нажали на кнопку ОК, а открыли окно с помощью кнопки " + elemTarget.textContent
+        }
+        else if (e.target.dataset.handler === "modalHandlerGenSD2_text_to_image") 
+        {
+            if (caption_field.value == "")
+            {
+                caption_field.setCustomValidity("Ввод описания в этом режиме обязателен")
+                caption_field.reportValidity()
+            }
+            else
+            {
+                let full_prompt: string
+                if (style_field.value = "")
+                {
+                    full_prompt = caption_field.value
+                }
+                else
+                {
+                    full_prompt = style_field.value + " " + caption_field.value
+                }
+                gen_picture_by_prompt(true, full_prompt)
+            }
+            //modal.hide()
+            //document.querySelector(".message").textContent = "Вы нажали на кнопку ОК, а открыли окно с помощью кнопки " + elemTarget.textContent
+        }
+        else if (e.target.dataset.handler === "modalHandlerGenDalle2") 
+        {
+            if (caption_field.value == "")
+            {
+                caption_field.setCustomValidity("Ввод описания в этом режиме обязателен")
+                caption_field.reportValidity()
+            }
+            else
+            {
+                let full_prompt: string
+                if (style_field.value = "")
+                {
+                    full_prompt = caption_field.value
+                }
+                else
+                {
+                    full_prompt = style_field.value + " " +  caption_field.value
+                }
+                gen_picture_by_prompt(false, full_prompt)
             }
             //modal.hide()
             //document.querySelector(".message").textContent = "Вы нажали на кнопку ОК, а открыли окно с помощью кнопки " + elemTarget.textContent
@@ -500,6 +586,37 @@ var main_modal: any = function (options: object)
         }
     })
 })()
+
+function show_gen_result(jdata: any[], image: HTMLImageElement)
+{
+    close_all_add_windows()
+    ctx_foreground.clearRect(0, 0, cW, cH) // очищаем верхний холст
+    if (jdata[2] / jdata[3] == 1 && cW / cH != 1)
+    {
+        let new_dfw: number
+        let new_dfh: number
+        if (cD > 1)
+        {
+            new_dfh = Max_cH
+            new_dfw = Max_cH
+        }
+        else
+        {
+            new_dfh = Max_cW
+            new_dfw = Max_cW
+        }
+        change_drawfield_size(new_dfw, new_dfh)
+        cur_ratio_val = get_visual_ratio(false, cW, cH)
+        ratio_field.value = cur_ratio_val //устанавливаем соотношение сторон
+        fW_pred = f_dW
+        fH_pred = f_dH
+        push_action_to_stack(['r', new_dfw, new_dfh, false])
+    }
+    ctx_foreground.drawImage(image, 0, 0, jdata[2], jdata[3], 0, 0, cW, cH)
+    push_action_to_stack(['u', cur_draw_ctx, image, jdata[2], jdata[3]])
+    ctx_layer_1.clearRect(0, 0, lwW, lwH)
+    canvas_to_layer(cur_canvas, cur_ctx_layer)
+}
 
 let last_task_image_name: string = "drawing_0.png"
 
@@ -512,7 +629,7 @@ ws.onclose = function() //Убрать
 
 //ws.onerror = function(){alert("error");}
 
-function check_data_before_sending() //проверяет что именно будет отправляться. Функция временная, нужна для сбора статистики по рисункам. Её потом нужно будет заменить прочто на проверку использован ли передний план или фон
+function check_data_before_sending() //проверяет что именно будет отправляться. Функция временная, нужна для сбора статистики по рисункам. Её потом нужно будет заменить проcто на проверку использован ли передний план или фон
 {
     let local_is_foreground_used: boolean = false
     let local_is_background_used: boolean = false
@@ -750,7 +867,7 @@ function push_action_to_stack(local_act: any)
     }
 }
 
-function gen_picture_by_promot(is_SD2: boolean, full_prompt: string)
+function gen_picture_by_drawing(is_SD2: boolean, full_prompt: string, data_prop: any)
 {
     blackout.style.display = "block"
     let local_type: string
@@ -790,7 +907,7 @@ function gen_picture_by_promot(is_SD2: boolean, full_prompt: string)
         {
             data = original_image_buf
         }
-        let { local_is_foreground_used, local_is_background_used, local_is_drawing, local_sure, local_how_many_prims, local_how_many_dots }: any = check_data_before_sending()
+        let { local_is_foreground_used, local_is_background_used, local_is_drawing, local_sure, local_how_many_prims, local_how_many_dots }: any = data_prop
         if (original_image_buf == "")
         {
             if (local_is_background_used && is_background_visible)
@@ -817,7 +934,7 @@ function gen_picture_by_promot(is_SD2: boolean, full_prompt: string)
             "task_id": task_id, //id задания
             "data": data,
             "backgroung": background_data,
-            "prompt": full_prompt, //подпись к изображению
+            "prompt": full_prompt, //описание изображения
             "is_drawing": local_is_drawing,
             "sure": local_sure,
             "prims_count": local_how_many_prims,
@@ -825,26 +942,46 @@ function gen_picture_by_promot(is_SD2: boolean, full_prompt: string)
             "img_name": last_task_image_name
         })
 
-        /*send_data = JSON.stringify({ 
+        /*send_data_pbp = JSON.stringify({ 
             "type": "hg" + local_type, //рисунок
             "chain_id": chain_id, //id последнего звена цепочки
             "task_id": task_id, //id задания
             "data": data,
             "backgroung": background_data,
-            "prompt": full_prompt, //подпись к изображению
+            "prompt": full_prompt, //описание изображения
             "img_name": last_task_image_name
         })*/
     }
     else
     {
         send_data_pbp = JSON.stringify({ 
-            "type": 'g' + local_type, //просьба сгенерировать с машинной подписью
+            "type": 'g' + local_type, //просьба сгенерировать с машинным описанием
             "chain_id": chain_id, //id последнего звена цепочки
             "task_id": task_id, //id задания
             "img_name": last_task_image_name //имя последнего файла изображения
         });
     }
     ws.send(send_data_pbp)
+}
+
+function gen_picture_by_prompt(is_SD2: boolean, full_prompt: string)
+{
+    blackout.style.display = "block"
+    let local_type: string
+    let send_data_pbt: any
+    if (is_SD2)
+    {
+        local_type = 's'
+    }
+    else
+    {
+        local_type = 'd'
+    }
+    send_data_pbt = JSON.stringify({
+        "type": "t" + local_type, //текст
+        "prompt": full_prompt //описание изображения
+    })
+    ws.send(send_data_pbt)
 }
 
 function delete_background()
@@ -1375,6 +1512,8 @@ first_layer_visibilityBtn.addEventListener("click", () =>
 
 clear_first_layer_Btn.addEventListener("click", () =>
 {
+    original_image_buf = ""
+    before_gen_block.style.display = "none"
     ctx_foreground.clearRect(0, 0, cW, cH)
     ctx_layer_1.clearRect(0, 0, lwW, lwH)
     push_action_to_stack(['c', ctx_foreground])
@@ -1396,7 +1535,10 @@ second_layer_visibilityBtn.addEventListener("click", () =>
     }
 })
 
-clear_second_layer_Btn.addEventListener("click", () => {
+clear_second_layer_Btn.addEventListener("click", () =>
+{
+    original_image_buf = ""
+    before_gen_block.style.display = "none"
     ctx_background.clearRect(0, 0, cW, cH)
     ctx_layer_2.clearRect(0, 0, lwW, lwH)
     push_action_to_stack(['c', ctx_background])
@@ -1607,6 +1749,16 @@ graphic_tabletBtn.addEventListener("click", () =>
         graphic_tablet_mode = true
     }
 })
+
+function close_all_add_windows()
+{
+    pencil_w.style.display = "none"
+    is_pencil_window = false
+    eraser_w.style.display = "none"
+    is_eraser_window = false
+    clr_w.style.display = "none"
+    is_clr_window == false
+}
 
 colourBtn.addEventListener("click", () => 
 {
@@ -2042,7 +2194,7 @@ saveBtn.addEventListener("click", () =>
     }
 })
 
-function gen_caption_for_image()
+function gen_caption_for_image(data_prop: any)
 {
     blackout.style.display = "block"
     let send_data_cpt: string
@@ -2056,22 +2208,14 @@ function gen_caption_for_image()
         }
         else
         {
-            if (is_background_visible)
-            {
-                data = canvas_background.toDataURL("imag/png")
-            }
-            else
-            {
-                alert("Выключены оба слоя, вы не можете отправить изображение")
-                return
-            }
+            data = canvas_background.toDataURL("imag/png")
         }
     }
     else
     {
         data = original_image_buf
     }
-    let { local_is_foreground_used, local_is_background_used, local_is_drawing, local_sure, local_how_many_prims, local_how_many_dots }: any = check_data_before_sending()
+    let { local_is_foreground_used, local_is_background_used, local_is_drawing, local_sure, local_how_many_prims, local_how_many_dots }: any = data_prop
     if (local_is_background_used && is_background_visible)
     {
         background_data = canvas_background.toDataURL("imag/png")
@@ -2082,7 +2226,7 @@ function gen_caption_for_image()
     }
 
     send_data_cpt = JSON.stringify({
-        "type": 'd', //просьба сгенерировать подпись для изображения
+        "type": 'd', //просьба сгенерировать описание изображения
         "chain_id": chain_id, //id последнего звена цепочки
         "task_id": task_id, //id задания
         "data": data,
@@ -2096,7 +2240,7 @@ function gen_caption_for_image()
 
     /*
     send_data = JSON.stringify({ 
-        "type": 'd', //просьба сгенерировать подпись для изображения
+        "type": 'd', //просьба сгенерировать описание изображения
         "chain_id": chain_id, //id последнего звена цепочки
         "task_id": task_id, //id задания
         "data": data,
@@ -2906,8 +3050,10 @@ d_frame.addEventListener("pointermove", (e: PointerEvent) => //проверка 
         {
             currentW = l_width
         }
-        if(fp)
+        if (fp)
         {
+            original_image_buf = ""
+            before_gen_block.style.display = "none"
             if (cur_tool[0] == 'e')
             {
                 cur_draw_ctx.globalCompositeOperation = "destination-out"

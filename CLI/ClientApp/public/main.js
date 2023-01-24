@@ -45,6 +45,23 @@ const modal_footer = document.querySelector(".modal__footer");
 const text_label_clr = document.getElementById("text_label_clr");
 const blackout = document.getElementById("full_blackout");
 const side_panel_blackout = document.getElementById("side_panel_blackout");
+const before_gen_block = document.getElementById("before_gen_block");
+const close_before_gen_block = document.getElementById("close_before_gen_block");
+const before_gen = document.getElementById("before_gen");
+const before_gen_ctx = before_gen.getContext("2d", { willReadFrequently: true });
+const change_themeBtn = document.getElementById("change_theme");
+const tmimg = document.getElementById("theme_mode_img");
+const graphic_tabletBtn = document.getElementById("graphic_tablet");
+const first_layer_visibilityBtn = document.getElementById("layer_1_visibility_button");
+const first_layer_visibility_img = document.getElementById("layer_1_visibility_img");
+const second_layer_visibilityBtn = document.getElementById("layer_2_visibility_button");
+const second_layer_visibility_img = document.getElementById("layer_2_visibility_img");
+const clear_first_layer_Btn = document.getElementById("clear_layer_1");
+const clear_second_layer_Btn = document.getElementById("clear_layer_2");
+const select_first_layerBtn = document.getElementById("layer_button_1");
+const colourBtn = document.getElementById("palette");
+const ok_clr = document.querySelector(".ok_clr_btn");
+const ctype_clr_btn = document.querySelector(".ctype_clr_btn");
 const id_list = ['p', 'i', 'u', 'f'];
 const Pi_div_4 = Math.PI / 4;
 let nstack = [];
@@ -176,8 +193,12 @@ let caption_field;
 let style_field;
 let is_human_caption;
 let original_image_buf = ""; //переменная для хранения исходных изображений
+let need_gen_after_caption = [false, false];
+const Max_bib_w = W * 0.2;
+const Max_bib_h = H * 0.2;
+let data_prop;
 let ws = new WebSocket("wss://stabledraw.com:8081");
-let chain_id = -1;
+let chain_id = "";
 let task_id;
 var main_modal = function (options) {
     var _elemModal;
@@ -248,16 +269,7 @@ var main_modal = function (options) {
     return return_elem;
 };
 (function () {
-    var modal = main_modal({
-        title: "Генерация",
-        content: "<p>Содержмиое модального окна...<p>",
-        footerButtons: [
-            { class: "modal_btn modal_btn-3", id: "cur_gen_params_btn", text: "Параметры", handler: "modalHandlerParams" },
-            { class: "modal_btn modal_btn-2", id: "SD1_btn", text: "StableDiffusion 1", handler: "modalHandlerGenSD1" },
-            { class: "modal_btn modal_btn-2", id: "SD2_btn", text: "StableDiffusion 2", handler: "modalHandlerGenSD2" },
-            { class: "modal_btn modal_btn-1", text: "Отмена", handler: "modalHandlerCancel" }
-        ]
-    });
+    var modal;
     /*document.addEventListener("show.modal", function (e: any)
     {
         document.querySelector(".actions").textContent = "Действия при открытии модального окна..."
@@ -271,13 +283,40 @@ var main_modal = function (options) {
         console.log(e.detail)
     })*/
     document.addEventListener("click", function (e) {
+        data_prop = check_data_before_sending();
+        let { local_is_foreground_used, local_is_background_used, local_is_drawing, local_sure, local_how_many_prims, local_how_many_dots } = data_prop;
         if (e.target.dataset.toggle === "modal") {
             let content;
-            if (original_image_buf == "") {
-                content = 'Подпись:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"/><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image()">Сгенерировать автоматически</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"/>';
+            if ((!local_is_foreground_used && !local_is_background_used) || (!is_background_visible && !is_foreground_visible)) {
+                modal = main_modal({
+                    title: "Генерация",
+                    content: "<p>Содержмиое модального окна...<p>",
+                    footerButtons: [
+                        { class: "modal_btn modal_btn-3", id: "cur_gen_params_btn", text: "Параметры", handler: "modalHandlerParams" },
+                        { class: "modal_btn modal_btn-2", id: "SD2_btn", text: "StableDiffusion 2", handler: "modalHandlerGenSD2_text_to_image" },
+                        { class: "modal_btn modal_btn-2", id: "Dalle2_btn", text: "Dall-e 2", handler: "modalHandlerGenDalle2" },
+                        { class: "modal_btn modal_btn-1", text: "Отмена", handler: "modalHandlerCancel" }
+                    ]
+                });
+                content = 'Стиль:<p><input class = "modal_input" id = "style_input" value = "профессиональная фотография" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"></input><p><p>Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"</input>';
             }
             else {
-                content = 'Подпись:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"/><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image()">Сгенерировать автоматически</button><button class = "modal_btn modal_btn-4" style = "right: 25%" onclick = "upscale()">Апскейл</button><button class = "modal_btn modal_btn-4" onclick = "delete_background()">Удалить фон</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"/>';
+                modal = main_modal({
+                    title: "Генерация",
+                    content: "<p>Содержмиое модального окна...<p>",
+                    footerButtons: [
+                        { class: "modal_btn modal_btn-3", id: "cur_gen_params_btn", text: "Параметры", handler: "modalHandlerParams" },
+                        { class: "modal_btn modal_btn-2", id: "SD1_btn", text: "StableDiffusion 1", handler: "modalHandlerGenSD1" },
+                        { class: "modal_btn modal_btn-2", id: "SD2_btn", text: "StableDiffusion 2", handler: "modalHandlerGenSD2" },
+                        { class: "modal_btn modal_btn-1", text: "Отмена", handler: "modalHandlerCancel" }
+                    ]
+                });
+                if (original_image_buf == "") {
+                    content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"></input><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image(data_prop)">Сгенерировать автоматически</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"></input>';
+                }
+                else {
+                    content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"/><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image(data_prop)">Сгенерировать автоматически</button><button class = "modal_btn modal_btn-4" style = "right: 25%" onclick = "upscale()">Апскейл</button><button class = "modal_btn modal_btn-4" onclick = "delete_background()">Удалить фон</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"/>';
+                }
             }
             modal.show();
             modal.setContent(content);
@@ -291,7 +330,7 @@ var main_modal = function (options) {
                     //alert(jdata[1])
                     return;
                 }
-                if (type == 'c') //если подпись
+                if (type == 'c') //если описание
                  {
                     task_id = jdata[1];
                     caption_field.value = jdata[2];
@@ -299,21 +338,49 @@ var main_modal = function (options) {
                     last_task_image_name = jdata[4];
                     is_human_caption = false;
                     blackout.style.display = "none";
+                    if (need_gen_after_caption[0]) {
+                        gen_picture_by_drawing(need_gen_after_caption[1], caption_field.value + " " + style_field.value, data_prop);
+                        need_gen_after_caption[0] = false;
+                    }
                     return;
                 }
                 if (type == 'i') //если изображение
                  {
                     let image = new Image();
+                    let image_on_before_block = new Image();
                     image.onload = function () {
-                        ctx_foreground.clearRect(0, 0, cW, cH); // очищаем верхний холст
-                        ctx_foreground.drawImage(image, 0, 0, jdata[2], jdata[3], 0, 0, cW, cH);
-                        push_action_to_stack(['u', cur_draw_ctx, image, jdata[2], jdata[3]]);
-                        ctx_layer_1.clearRect(0, 0, lwW, lwH);
-                        canvas_to_layer(cur_canvas, cur_ctx_layer);
+                        if (jdata[7] != "") {
+                            image_on_before_block.src = "data:image/png;base64," + jdata[7];
+                            image_on_before_block.onload = function () {
+                                let bW;
+                                let bH;
+                                let iw = image_on_before_block.width;
+                                let ih = image_on_before_block.height;
+                                if (iw / ih > Max_bib_w / Max_bib_h) {
+                                    bW = Max_bib_w;
+                                    bH = Max_bib_w * ih / iw;
+                                }
+                                else {
+                                    bH = Max_bib_h;
+                                    bW = Max_bib_h * iw / ih;
+                                }
+                                before_gen_block.style.width = bW.toString() + "px";
+                                before_gen_block.style.height = bH.toString() + "px";
+                                before_gen.width = bW;
+                                before_gen.height = bH;
+                                before_gen_ctx.drawImage(image_on_before_block, 0, 0, iw, ih, 0, 0, bW, bH);
+                                before_gen_block.style.display = "block";
+                                show_gen_result(jdata, image);
+                            };
+                        }
+                        else {
+                            show_gen_result(jdata, image);
+                        }
                     };
                     original_image_buf = "data:image/png;base64," + jdata[1];
                     image.src = original_image_buf;
                     chain_id = jdata[4];
+                    task_id = jdata[6];
                     last_task_image_name = jdata[5];
                     blackout.style.display = "none";
                     modal.hide();
@@ -331,19 +398,75 @@ var main_modal = function (options) {
         }
         else if (e.target.dataset.handler === "modalHandlerGenSD1") {
             if (caption_field.value == "") {
-                gen_caption_for_image();
+                gen_caption_for_image(data_prop);
+                need_gen_after_caption[0] = true;
+                need_gen_after_caption[1] = false;
             }
-            let full_prompt = caption_field.value + " " + style_field.value;
-            gen_picture_by_promot(false, full_prompt);
+            else {
+                let full_prompt;
+                if (style_field.value == "") {
+                    full_prompt = caption_field.value;
+                }
+                else {
+                    full_prompt = caption_field.value + " " + style_field.value;
+                }
+                gen_picture_by_drawing(false, full_prompt, data_prop);
+            }
             //modal.hide()
             //document.querySelector(".message").textContent = "Вы нажали на кнопку ОК, а открыли окно с помощью кнопки " + elemTarget.textContent
         }
         else if (e.target.dataset.handler === "modalHandlerGenSD2") {
             if (caption_field.value == "") {
-                gen_caption_for_image();
+                gen_caption_for_image(data_prop);
+                need_gen_after_caption[0] = true;
+                need_gen_after_caption[1] = true;
             }
-            let full_prompt = caption_field.value + " " + style_field.value;
-            gen_picture_by_promot(true, full_prompt);
+            else {
+                let full_prompt;
+                if (style_field.value == "") {
+                    full_prompt = caption_field.value;
+                }
+                else {
+                    full_prompt = caption_field.value + " " + style_field.value;
+                }
+                gen_picture_by_drawing(true, full_prompt, data_prop);
+            }
+            //modal.hide()
+            //document.querySelector(".message").textContent = "Вы нажали на кнопку ОК, а открыли окно с помощью кнопки " + elemTarget.textContent
+        }
+        else if (e.target.dataset.handler === "modalHandlerGenSD2_text_to_image") {
+            if (caption_field.value == "") {
+                caption_field.setCustomValidity("Ввод описания в этом режиме обязателен");
+                caption_field.reportValidity();
+            }
+            else {
+                let full_prompt;
+                if (style_field.value = "") {
+                    full_prompt = caption_field.value;
+                }
+                else {
+                    full_prompt = style_field.value + " " + caption_field.value;
+                }
+                gen_picture_by_prompt(true, full_prompt);
+            }
+            //modal.hide()
+            //document.querySelector(".message").textContent = "Вы нажали на кнопку ОК, а открыли окно с помощью кнопки " + elemTarget.textContent
+        }
+        else if (e.target.dataset.handler === "modalHandlerGenDalle2") {
+            if (caption_field.value == "") {
+                caption_field.setCustomValidity("Ввод описания в этом режиме обязателен");
+                caption_field.reportValidity();
+            }
+            else {
+                let full_prompt;
+                if (style_field.value = "") {
+                    full_prompt = caption_field.value;
+                }
+                else {
+                    full_prompt = style_field.value + " " + caption_field.value;
+                }
+                gen_picture_by_prompt(false, full_prompt);
+            }
             //modal.hide()
             //document.querySelector(".message").textContent = "Вы нажали на кнопку ОК, а открыли окно с помощью кнопки " + elemTarget.textContent
         }
@@ -352,6 +475,32 @@ var main_modal = function (options) {
         }
     });
 })();
+function show_gen_result(jdata, image) {
+    close_all_add_windows();
+    ctx_foreground.clearRect(0, 0, cW, cH); // очищаем верхний холст
+    if (jdata[2] / jdata[3] == 1 && cW / cH != 1) {
+        let new_dfw;
+        let new_dfh;
+        if (cD > 1) {
+            new_dfh = Max_cH;
+            new_dfw = Max_cH;
+        }
+        else {
+            new_dfh = Max_cW;
+            new_dfw = Max_cW;
+        }
+        change_drawfield_size(new_dfw, new_dfh);
+        cur_ratio_val = get_visual_ratio(false, cW, cH);
+        ratio_field.value = cur_ratio_val; //устанавливаем соотношение сторон
+        fW_pred = f_dW;
+        fH_pred = f_dH;
+        push_action_to_stack(['r', new_dfw, new_dfh, false]);
+    }
+    ctx_foreground.drawImage(image, 0, 0, jdata[2], jdata[3], 0, 0, cW, cH);
+    push_action_to_stack(['u', cur_draw_ctx, image, jdata[2], jdata[3]]);
+    ctx_layer_1.clearRect(0, 0, lwW, lwH);
+    canvas_to_layer(cur_canvas, cur_ctx_layer);
+}
 let last_task_image_name = "drawing_0.png";
 //ws.onopen = function(){alert("open");} 
 ws.onclose = function () {
@@ -556,10 +705,10 @@ function push_action_to_stack(local_act) {
         nstack = [];
     }
 }
-function gen_picture_by_promot(is_SD2, full_prompt) {
+function gen_picture_by_drawing(is_SD2, full_prompt, data_prop) {
     blackout.style.display = "block";
     let local_type;
-    let send_data;
+    let send_data_pbp;
     if (is_SD2) {
         local_type = "2";
     }
@@ -586,7 +735,7 @@ function gen_picture_by_promot(is_SD2, full_prompt) {
         else {
             data = original_image_buf;
         }
-        let { local_is_foreground_used, local_is_background_used, local_is_drawing, local_sure, local_how_many_prims, local_how_many_dots } = check_data_before_sending();
+        let { local_is_foreground_used, local_is_background_used, local_is_drawing, local_sure, local_how_many_prims, local_how_many_dots } = data_prop;
         if (original_image_buf == "") {
             if (local_is_background_used && is_background_visible) {
                 background_data = canvas_background.toDataURL("imag/png");
@@ -598,11 +747,11 @@ function gen_picture_by_promot(is_SD2, full_prompt) {
         else {
             background_data = "";
         }
-        if (chain_id != -1) {
+        if (chain_id != "") {
             data = "";
             background_data = "";
         }
-        send_data = JSON.stringify({
+        send_data_pbp = JSON.stringify({
             "type": "hg" + local_type,
             "chain_id": chain_id,
             "task_id": task_id,
@@ -615,31 +764,46 @@ function gen_picture_by_promot(is_SD2, full_prompt) {
             "dots_count": local_how_many_dots,
             "img_name": last_task_image_name
         });
-        /*send_data = JSON.stringify({
+        /*send_data_pbp = JSON.stringify({
             "type": "hg" + local_type, //рисунок
             "chain_id": chain_id, //id последнего звена цепочки
             "task_id": task_id, //id задания
             "data": data,
             "backgroung": background_data,
-            "prompt": full_prompt, //подпись к изображению
+            "prompt": full_prompt, //описание изображения
             "img_name": last_task_image_name
         })*/
     }
     else {
-        send_data = JSON.stringify({
+        send_data_pbp = JSON.stringify({
             "type": 'g' + local_type,
             "chain_id": chain_id,
             "task_id": task_id,
             "img_name": last_task_image_name //имя последнего файла изображения
         });
     }
-    ws.send(send_data);
+    ws.send(send_data_pbp);
+}
+function gen_picture_by_prompt(is_SD2, full_prompt) {
+    blackout.style.display = "block";
+    let local_type;
+    let send_data_pbt;
+    if (is_SD2) {
+        local_type = 's';
+    }
+    else {
+        local_type = 'd';
+    }
+    send_data_pbt = JSON.stringify({
+        "type": "t" + local_type,
+        "prompt": full_prompt //описание изображения
+    });
+    ws.send(send_data_pbt);
 }
 function delete_background() {
     blackout.style.display = "block";
-    let task_id = -1;
     let data = original_image_buf;
-    if (chain_id != -1) {
+    if (chain_id != "") {
         data = "";
     }
     let send_data_del = JSON.stringify({
@@ -653,9 +817,8 @@ function delete_background() {
 }
 function upscale() {
     blackout.style.display = "block";
-    let task_id = -1;
     let data = original_image_buf;
-    if (chain_id != -1) {
+    if (chain_id != "") {
         data = "";
     }
     let send_data_ups = JSON.stringify({
@@ -801,9 +964,15 @@ function closeNav() {
     spanel.style.width = "0";
     setTimeout(closeNav_border, 490);
 }
-const closeeBtn = document.querySelector(".closebtn");
+const closeeBtn = document.getElementById("size_panel_closebtn");
 closeeBtn.addEventListener("pointerup", () => {
     closeNav();
+});
+close_before_gen_block.addEventListener("pointerup", () => {
+    before_gen_block.style.display = "none";
+});
+before_gen.addEventListener("pointerup", () => {
+    undo_action();
 });
 let backBtn = document.getElementById("arrow_back");
 backBtn.addEventListener("click", () => {
@@ -825,10 +994,7 @@ function hexDec(h) {
     m_n[2] = parseInt(m_s[2], 16);
     return m_n[0] + m_n[1] + m_n[2];
 }
-let colourBtn = document.getElementById("palette");
 colourBtn.style.background = "#000000";
-let ok_clr = document.querySelector(".ok_clr_btn");
-let ctype_clr_btn = document.querySelector(".ctype_clr_btn");
 function handleclr_PointerMove() {
     on_clr_window = true;
     let ccv = cur_color.value;
@@ -937,15 +1103,6 @@ function close_clr_window() {
     ctx_background.strokeStyle = cur_brush_clr;
     clr_w.style.display = "none";
 }
-const change_themeBtn = document.getElementById("change_theme");
-const tmimg = document.getElementById("theme_mode_img");
-const graphic_tabletBtn = document.getElementById("graphic_tablet");
-const first_layer_visibilityBtn = document.getElementById("layer_1_visibility_button");
-const first_layer_visibility_img = document.getElementById("layer_1_visibility_img");
-const second_layer_visibilityBtn = document.getElementById("layer_2_visibility_button");
-const second_layer_visibility_img = document.getElementById("layer_2_visibility_img");
-const clear_first_layer_Btn = document.getElementById("clear_layer_1");
-const clear_second_layer_Btn = document.getElementById("clear_layer_2");
 change_themeBtn.addEventListener("click", () => {
     if (is_dark_mode) {
         tmimg.setAttribute("src", "dark mode.png");
@@ -1020,7 +1177,6 @@ change_themeBtn.addEventListener("click", () => {
         }
     }
 });
-const select_first_layerBtn = document.getElementById("layer_button_1");
 select_first_layerBtn.addEventListener("click", () => {
     if (!is_foreground_selected) {
         if (is_dark_mode) {
@@ -1065,6 +1221,8 @@ first_layer_visibilityBtn.addEventListener("click", () => {
     }
 });
 clear_first_layer_Btn.addEventListener("click", () => {
+    original_image_buf = "";
+    before_gen_block.style.display = "none";
     ctx_foreground.clearRect(0, 0, cW, cH);
     ctx_layer_1.clearRect(0, 0, lwW, lwH);
     push_action_to_stack(['c', ctx_foreground]);
@@ -1082,6 +1240,8 @@ second_layer_visibilityBtn.addEventListener("click", () => {
     }
 });
 clear_second_layer_Btn.addEventListener("click", () => {
+    original_image_buf = "";
+    before_gen_block.style.display = "none";
     ctx_background.clearRect(0, 0, cW, cH);
     ctx_layer_2.clearRect(0, 0, lwW, lwH);
     push_action_to_stack(['c', ctx_background]);
@@ -1244,6 +1404,14 @@ graphic_tabletBtn.addEventListener("click", () => {
         graphic_tablet_mode = true;
     }
 });
+function close_all_add_windows() {
+    pencil_w.style.display = "none";
+    is_pencil_window = false;
+    eraser_w.style.display = "none";
+    is_eraser_window = false;
+    clr_w.style.display = "none";
+    is_clr_window == false;
+}
 colourBtn.addEventListener("click", () => {
     if (is_pencil_window || is_eraser_window) {
         pencil_w.style.display = "none";
@@ -1447,6 +1615,7 @@ setpipetteBtn.addEventListener("click", () => {
 });
 function full_clear_drawfield() {
     original_image_buf = "";
+    before_gen_block.style.display = "none";
     cur_background_clr = "#fff";
     ctx_background.fillStyle = cur_background_clr;
     ctx_foreground.clearRect(0, 0, cW, cH);
@@ -1454,6 +1623,7 @@ function full_clear_drawfield() {
 }
 function clear_drawfield() {
     original_image_buf = "";
+    before_gen_block.style.display = "none";
     cur_background_clr = "#fff";
     ctx_background.fillStyle = cur_background_clr;
     ctx_foreground.clearRect(0, 0, cW, cH);
@@ -1477,7 +1647,7 @@ uploadBtn.addEventListener("click", () => {
     mhf.addEventListener("change", function readImage() {
         if (!this.files || !this.files[0])
             return;
-        chain_id = -1;
+        chain_id = "";
         const FR = new FileReader();
         FR.addEventListener("load", (evt) => {
             let new_img_w;
@@ -1587,9 +1757,9 @@ saveBtn.addEventListener("click", () => {
         a.click();
     }
 });
-function gen_caption_for_image() {
+function gen_caption_for_image(data_prop) {
     blackout.style.display = "block";
-    let send_data;
+    let send_data_cpt;
     let data;
     let background_data;
     if (original_image_buf == "") {
@@ -1597,26 +1767,20 @@ function gen_caption_for_image() {
             data = canvas_foreground.toDataURL("imag/png");
         }
         else {
-            if (is_background_visible) {
-                data = canvas_background.toDataURL("imag/png");
-            }
-            else {
-                alert("Выключены оба слоя, вы не можете отправить изображение");
-                return;
-            }
+            data = canvas_background.toDataURL("imag/png");
         }
     }
     else {
         data = original_image_buf;
     }
-    let { local_is_foreground_used, local_is_background_used, local_is_drawing, local_sure, local_how_many_prims, local_how_many_dots } = check_data_before_sending();
+    let { local_is_foreground_used, local_is_background_used, local_is_drawing, local_sure, local_how_many_prims, local_how_many_dots } = data_prop;
     if (local_is_background_used && is_background_visible) {
         background_data = canvas_background.toDataURL("imag/png");
     }
     else {
         background_data = "";
     }
-    send_data = JSON.stringify({
+    send_data_cpt = JSON.stringify({
         "type": 'd',
         "chain_id": chain_id,
         "task_id": task_id,
@@ -1630,14 +1794,14 @@ function gen_caption_for_image() {
     });
     /*
     send_data = JSON.stringify({
-        "type": 'd', //просьба сгенерировать подпись для изображения
+        "type": 'd', //просьба сгенерировать описание изображения
         "chain_id": chain_id, //id последнего звена цепочки
         "task_id": task_id, //id задания
         "data": data,
         "backgroung": background_data,
         "img_name": last_task_image_name
     })*/
-    ws.send(send_data);
+    ws.send(send_data_cpt);
 }
 document.addEventListener("pointerenter", (e) => {
     let cX = e.clientX;
@@ -1855,6 +2019,9 @@ document.addEventListener("keydown", (event) => {
             return;
         case "KeyM": //объединить слои
             merge_layersBtn.click();
+            return;
+        case "Escape": //скрыть окно просмотра изображения до генерации
+            before_gen_block.style.display = "none";
             return;
         default:
             if (event.shiftKey) {
@@ -2121,6 +2288,15 @@ function addGraphicTabletButton(e) {
     }
 }
 nav_panel.addEventListener("pointermove", addGraphicTabletButton); //проверка курсора на поле с кнопками
+window.addEventListener("pointermove", (e) => //проверка курсора на всём окне, но только один раз
+ {
+    if (e.pointerType == "pen") {
+        graphic_tabletBtn.style.display = "block";
+        nav_panel.removeEventListener("pointermove", addGraphicTabletButton);
+    }
+}, {
+    once: true
+});
 canvas_additional.addEventListener("pointermove", (e) => //проверка курсора на поле для рисования
  {
     on_d_fiend = true;
@@ -2265,19 +2441,21 @@ d_frame.addEventListener("pointermove", (e) => //проверка курсора
             curprim = [];
             return;
         }
-        let currentW;
         let currentX = pX * cmp_W - l_width / 2;
         let currentY = pY * cmp_H - l_width / 2;
+        let currentW;
         if (graphic_tablet_mode) {
             currentW = pW * l_width;
             cur_draw_ctx.lineWidth = currentW;
             ctx_add.lineWidth = currentW;
+            currentX += (l_width - currentW) / 2;
         }
         else {
             currentW = l_width;
         }
-        console.log(currentX);
         if (fp) {
+            original_image_buf = "";
+            before_gen_block.style.display = "none";
             if (cur_tool[0] == 'e') {
                 cur_draw_ctx.globalCompositeOperation = "destination-out";
             }

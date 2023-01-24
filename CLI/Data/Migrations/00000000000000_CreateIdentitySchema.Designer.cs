@@ -98,7 +98,7 @@ namespace CLI.Data.Migrations
 
                     b.Property<string>("Data")
                         .IsRequired()
-                        .HasMaxLength(51410)
+                        .HasMaxLength(50600)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
@@ -147,7 +147,7 @@ namespace CLI.Data.Migrations
 
                     b.Property<string>("Data")
                         .IsRequired()
-                        .HasMaxLength(51410)
+                        .HasMaxLength(50600)
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("DataProtected")
@@ -189,7 +189,7 @@ namespace CLI.Data.Migrations
 
                     b.Property<string>("Data")
                         .IsRequired()
-                        .HasMaxLength(51410)
+                        .HasMaxLength(50600)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
