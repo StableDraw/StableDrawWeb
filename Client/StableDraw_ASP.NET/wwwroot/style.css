@@ -260,6 +260,10 @@ body
 }
 .modal__btn-close 
 {
+    touch-action: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     float: right;
     font-family: sans-serif;
     font-size: 24px;

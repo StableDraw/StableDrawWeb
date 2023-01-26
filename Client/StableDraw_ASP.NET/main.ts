@@ -265,7 +265,7 @@ var main_modal: any = function (options: object)
     function _createModal (options: any) 
     {
         var elemModal: HTMLElement = document.createElement("div"),
-        modalTemplate = '<div class="modal__backdrop" data-dismiss="modal"><div class="modal__content"><div class="modal__header"><div class="modal__title" data-modal="title">{{title}}</div><span class="modal__btn-close" data-dismiss="modal" title="Закрыть">&times;</span></div><div class="modal__body" data-modal="content">{{content}}</div>{{footer}}</div></div>',
+        modalTemplate = '<div class="modal__backdrop"><div class="modal__content"><div class="modal__header"><div class="modal__title" data-modal="title">{{title}}</div><span class="modal__btn-close" data-dismiss="modal" title="Закрыть">&times;</span></div><div class="modal__body" data-modal="content">{{content}}</div>{{footer}}</div></div>',
         modalFooterTemplate = '<div class = "modal__footer">{{buttons}}</div>',
         modalButtonTemplate = '<button type = "button" class="{{button_class}}" data-handler={{button_handler}}>{{button_text}}</button>',
         modalHTML, modalFooterHTML = ""
@@ -544,7 +544,7 @@ var main_modal: any = function (options: object)
             else
             {
                 let full_prompt: string
-                if (style_field.value = "")
+                if (style_field.value == "")
                 {
                     full_prompt = caption_field.value
                 }
@@ -567,7 +567,7 @@ var main_modal: any = function (options: object)
             else
             {
                 let full_prompt: string
-                if (style_field.value = "")
+                if (style_field.value == "")
                 {
                     full_prompt = caption_field.value
                 }
