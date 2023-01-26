@@ -15,6 +15,7 @@ from Image_to_image_2 import Stable_diffusion_2
 from Delete_background import Delete_background
 from Upscaler import Upscale
 from Text_to_image_2 import Stable_diffusion_2_text_to_image
+from Text_to_image_Dall_e_2 import Dall_e_2_text_to_image
 
 checkpoint_path = 'caption.pt'
 if not os.path.exists(checkpoint_path):
@@ -122,6 +123,7 @@ def del_prompt_about_drawing(prompt, rep_mess_id, noback):
 def Prepare_img(path_dir, image_name):
     frame_size = 5
     local_image = Image.open(path_dir + "\\" + image_name).convert("RGBA")
+    b_image = local_image
     w, h = local_image.size
     rw, rh = w, h
     p_min = 2 * max(w, h) + min(w, h)
@@ -173,8 +175,8 @@ def Prepare_img(path_dir, image_name):
                 h -= 1
                 if h == 0:
                     buf = io.BytesIO()
-                    local_image.save(buf, format = "PNG")
-                    local_image.close()
+                    b_image.save(buf, format = "PNG")
+                    b_image.close()
                     binary_data =  buf.getvalue()
                     return True, binary_data
         h_opt = rh - h
@@ -306,18 +308,17 @@ async def neural_processing(process, nprocess):
                     '4': task[2]
                 }
             elif task[1] == 'f': #если нужно удалить фон у изображения
-                pimg = Image.open(path_to_task_dir + "\\" + task[2])
-                buf = io.BytesIO()
-                pimg.save(buf, format = 'PNG')
-                postview = str(base64.b64encode(buf.getvalue()).decode('utf-8'))
+                if task[2][-5] != 'r' and os.path.exists(path_to_task_dir + "\\" + task[2][:-4] + "_r.png") == True:
+                    task[2] = task[2][:-4] + "_r.png"
+                postview = str(base64.b64encode(open(path_to_task_dir + "\\" + task[2], "rb").read()).decode("utf-8"))
                 w, h, binary_data = Delete_background(path_to_task_dir, task[2]) #передаю путь к рабочей папке и имя файла
-                img = base64.b64encode(binary_data).decode('utf-8')
+                img = str(base64.b64encode(binary_data).decode('utf-8'))
                 files = {'document': ('object.png', binary_data)}
                 req = requests.post(URL + "sendDocument?&reply_to_message_id=" + task[5] + "&chat_id=-1001784737051", files = files)
                 message_id = get_message_id(req)
                 resp_data = {
                     '0': "i",
-                    '1': str(img),
+                    '1': img,
                     '2': w,
                     '3': h,
                     '4': message_id,
@@ -326,6 +327,8 @@ async def neural_processing(process, nprocess):
                     '7': postview
                 }
             elif task[1] == 'a': #если нужно апскейлить изображение
+                if task[2][-5] != 'r' and os.path.exists(path_to_task_dir + "\\" + task[2][:-4] + "_r.png") == True:
+                    task[2] = task[2][:-4] + "_r.png"
                 params = {
                     "model": 0,                         #Номер модели для обработки (0-5)
                     "denoise_strength": 0.5,            #Сила удаления шума. 0 для слабого удаления шума (шум сохраняется), 1 для сильного удаления шума. Используется только для модели 5 (realesr-general-x4v3 model)
@@ -407,32 +410,25 @@ async def neural_processing(process, nprocess):
             if task[1] == 't': #если нужно сгенерировать изображение по описанию
                 if task[6] == True:
                     params = {
-                        "steps": 50, #количество шагов выборки
-                        "plms": True, #использовать выборку plms
-                        "dpm": True, #использовать выборку DPM (2)
-                        "ddim_eta": 0.0, #ddim η (η = 0.0 соответствует детерминированной выборке)
-                        "C": 4, #латентные каналы
-                        "f": 8, #коэффициент понижающей дискретизации, чаще всего 8 или 16
-                        "scale": 9.0, #безусловная навигационная величина: eps = eps(x, empty) + scale * (eps(x, cond) - eps(x, empty))
-                        "ckpt": 0, #выбор контрольной точки модели (0 или 1 для размерностей 512 или 768 соответственно)
-                        "seed": 42, #сид (для воспроизводимой генерации изображений)
+                        "steps": 50,            #количество шагов выборки
+                        "plms": True,           #использовать выборку plms
+                        "dpm": True,            #использовать выборку DPM (2)
+                        "ddim_eta": 0.0,        #ddim η (η = 0.0 соответствует детерминированной выборке)
+                        "C": 4,                 #латентные каналы
+                        "f": 8,                 #коэффициент понижающей дискретизации, чаще всего 8 или 16
+                        "scale": 9.0,           #безусловная навигационная величина: eps = eps(x, empty) + scale * (eps(x, cond) - eps(x, empty))
+                        "ckpt": 0,              #выбор контрольной точки модели (0 или 1 для размерностей 512 или 768 соответственно)
+                        "seed": 42,             #сид (для воспроизводимой генерации изображений)
                         "precision": "autocast" #оценивать с этой точностью ("full" или "autocast")
                     }
                     w, h, binary_data = await Stable_diffusion_2_text_to_image(websocket, path_to_task_dir, task[2], params) #передаю сокет, путь к рабочей папке, имя файла и параметры генерации
-                else:#подключить dall-e 2
+                else:
                     params = {
-                        "steps": 50, #количество шагов выборки
-                        "plms": True, #использовать выборку plms
-                        "dpm": True, #использовать выборку DPM (2)
-                        "ddim_eta": 0.0, #ddim η (η = 0.0 соответствует детерминированной выборке)
-                        "C": 4, #латентные каналы
-                        "f": 8, #коэффициент понижающей дискретизации, чаще всего 8 или 16
-                        "scale": 9.0, #безусловная навигационная величина: eps = eps(x, empty) + scale * (eps(x, cond) - eps(x, empty))
-                        "ckpt": 0, #выбор контрольной точки модели (0 или 1 для размерностей 512 или 768 соответственно)
-                        "seed": 42, #сид (для воспроизводимой генерации изображений)
-                        "precision": "autocast" #оценивать с этой точностью ("full" или "autocast")
+                        "verbose": True,            #Печатать подробный вывод
+                        "suppress_updates": False,  #Подавить обновление моделей, если контрольные суммы не совпадают
+                        "decoder-batch-size": 10,   #Размер набора для декодера
                     }
-                    w, h, binary_data = await Stable_diffusion_2_text_to_image(websocket, path_to_task_dir, task[2], params) #передаю сокет, путь к рабочей папке, имя файла и параметры генерации
+                    w, h, binary_data = await Dall_e_2_text_to_image(websocket, path_to_task_dir, task[2], params) #передаю сокет, путь к рабочей папке, имя файла и параметры генерации
                 img = str(base64.b64encode(binary_data).decode('utf-8'))
                 files = {'document': ('drawing.png', binary_data)}
                 req = requests.post(URL + "sendDocument?&reply_to_message_id=" + task[5] + "&chat_id=-1001784737051", files = files)

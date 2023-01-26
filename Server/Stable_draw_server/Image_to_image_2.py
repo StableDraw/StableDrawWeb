@@ -4,7 +4,6 @@ import torch
 import numpy as np
 from omegaconf import OmegaConf
 from PIL import Image
-from tqdm import trange
 from itertools import islice
 from einops import rearrange, repeat
 from torch import autocast
@@ -74,10 +73,10 @@ async def Stable_diffusion_2(ws, work_path, img_name, AI_prompt, opt):
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
     model = model.to(device)
     sampler = DDIMSampler(model)
-    print("Создания расшифровщика невидимого водяного знака (смотри https://github.com/ShieldMnt/invisible-watermark)...")
-    wm = "SDV2"
-    wm_encoder = WatermarkEncoder()
-    wm_encoder.set_watermark('bytes', wm.encode('utf-8'))
+    #print("Создания расшифровщика невидимого водяного знака (смотри https://github.com/ShieldMnt/invisible-watermark)...")
+    #wm = "SDV2"
+    #wm_encoder = WatermarkEncoder()
+    #wm_encoder.set_watermark('bytes', wm.encode('utf-8'))
     init_image = load_img(init_img).to(device)
     init_image = repeat(init_image, '1 ... -> b ...', b = 1)
     init_latent = model.get_first_stage_encoding(model.encode_first_stage(init_image))  # move to latent space
@@ -100,7 +99,7 @@ async def Stable_diffusion_2(ws, work_path, img_name, AI_prompt, opt):
                 samples = sampler.decode(z_enc, c, t_enc, unconditional_guidance_scale = opt['scale'], unconditional_conditioning = uc, )
                 x_sample = 255. * rearrange(torch.clamp((model.decode_first_stage(samples) + 1.0) / 2.0, min = 0.0, max = 1.0)[0].cpu().numpy(), 'c h w -> h w c')
                 img = Image.fromarray(x_sample.astype(np.uint8))
-                img = put_watermark(img, wm_encoder)
+                #img = put_watermark(img, wm_encoder)
                 w, h = img.size
                 buf = io.BytesIO()
                 img.save(buf, format = "PNG")
