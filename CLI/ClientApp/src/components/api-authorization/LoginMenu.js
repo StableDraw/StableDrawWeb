@@ -1,5 +1,5 @@
 ﻿import React, { Component, Fragment } from 'react';
-import { NavItem, NavLink } from 'reactstrap';
+import { NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import authService from './AuthorizeService';
 import { ApplicationPaths } from './ApiAuthorizationConstants';
@@ -188,8 +188,10 @@ export class LoginMenu extends Component
                     </datalist>
                 </div>
                 <div id = "before_gen_block" style = {{ position: "fixed", top: "50px", left: "5%", height: "20%", width: "20%", border: "2px solid #111111", zIndex: "15", display: "none" }}>
-                    <div class = "closebtn" id = "close_before_gen_block" style =  {{ position: "absolute", zIndex: "16", right: "-2px", top: "-2px", width: "20px", height: "20px", cursor: "pointer", textAlign: "center", background: "#ffffff", border: "2px solid #111111" }}>
-                        <a style = {{ position: "relative", top: "-40%", fontSize: "25px" }}>&times</a>
+                    <div className = "closebtn" id = "close_before_gen_block" style =  {{ position: "absolute", zIndex: "16", right: "-2px", top: "-2px", width: "20px", height: "20px", cursor: "pointer", textAlign: "center", background: "#ffffff", border: "2px solid #111111" }}>
+                        <a style = {{ position: "relative", top: "-40%", fontSize: "25px" }}>
+                            &times;
+                        </a>
                     </div>
                     <canvas id = "before_gen" style = {{ position: "relative", width: "100%", height: "100%", cursor: "pointer" }}></canvas>
                 </div>
@@ -203,7 +205,7 @@ export class LoginMenu extends Component
                 </div>
                 <div className = "clr_window" id = "clr_window">
                     <form action = "">
-                        <div className = "formItem">
+                        <div className = "form-item">
                             <label id = "text_label_clr" htmlFor = "color">
                                 Цвет:
                             </label>
@@ -247,7 +249,7 @@ export class LoginMenu extends Component
                             <img className = "up_panel_button_image" id = "arrow_back_image" src = "undo_arrow.png"></img>
                         </button>
                         <button className = "up_panel_button" id = "arrow_next" title = "Повторить">
-                            <img className="up_panel_button_image" id="arrow_next_image" src = "repeat_arrow.png"></img>
+                            <img className = "up_panel_button_image" id = "arrow_next_image" src = "repeat_arrow.png"></img>
                         </button>
                         <button className = "up_panel_button" id = "palette" title = "Выбор цвета">
                             <img className = "up_panel_button_image" id = "clrimg" src = "palette.png" style = {{ filter: "invert(1)" }} ></img>

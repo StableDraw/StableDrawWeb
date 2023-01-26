@@ -200,6 +200,7 @@ let data_prop;
 let ws = new WebSocket("wss://stabledraw.com:8081");
 let chain_id = "";
 let task_id;
+const subbody = document.querySelector(".subbody");
 var main_modal = function (options) {
     var _elemModal;
     var _eventShowModal;
@@ -208,7 +209,7 @@ var main_modal = function (options) {
     var _destroyed = false;
     var _animationSpeed = 200;
     function _createModal(options) {
-        var elemModal = document.createElement("div"), modalTemplate = '<div class="modal__backdrop" data-dismiss="modal"><div class="modal__content"><div class="modal__header"><div class="modal__title" data-modal="title">{{title}}</div><span class="modal__btn-close" data-dismiss="modal" title="Закрыть">&times;</span></div><div class="modal__body" data-modal="content">{{content}}</div>{{footer}}</div></div>', modalFooterTemplate = '<div class = "modal__footer">{{buttons}}</div>', modalButtonTemplate = '<button type = "button" class="{{button_class}}" data-handler={{button_handler}}>{{button_text}}</button>', modalHTML, modalFooterHTML = "";
+        var elemModal = document.createElement("div"), modalTemplate = '<div class = "modal__backdrop"><div class="modal__content"><div class="modal__header"><div class="modal__title" data-modal="title">{{title}}</div><span class="modal__btn-close" data-dismiss="modal" title="Закрыть">&times;</span></div><div class="modal__body" data-modal="content">{{content}}</div>{{footer}}</div></div>', modalFooterTemplate = '<div class = "modal__footer">{{buttons}}</div>', modalButtonTemplate = '<button type = "button" class="{{button_class}}" data-handler={{button_handler}}>{{button_text}}</button>', modalHTML, modalFooterHTML = "";
         elemModal.classList.add("modal");
         modalHTML = modalTemplate.replace("{{title}}", options.title || "");
         modalHTML = modalHTML.replace("{{content}}", options.content || "");
@@ -223,7 +224,7 @@ var main_modal = function (options) {
         modalFooterHTML = modalFooterTemplate.replace("{{buttons}}", modalFooterHTML);
         modalHTML = modalHTML.replace("{{footer}}", modalFooterHTML);
         elemModal.innerHTML = modalHTML;
-        document.body.appendChild(elemModal);
+        subbody.appendChild(elemModal);
         return elemModal;
     }
     function _showModal() {
@@ -441,7 +442,7 @@ var main_modal = function (options) {
             }
             else {
                 let full_prompt;
-                if (style_field.value = "") {
+                if (style_field.value == "") {
                     full_prompt = caption_field.value;
                 }
                 else {
@@ -459,7 +460,7 @@ var main_modal = function (options) {
             }
             else {
                 let full_prompt;
-                if (style_field.value = "") {
+                if (style_field.value == "") {
                     full_prompt = caption_field.value;
                 }
                 else {
