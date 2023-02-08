@@ -58,24 +58,24 @@ const text_label_clr: HTMLElement = <HTMLElement> document.getElementById("text_
 const blackout: HTMLElement = <HTMLElement> document.getElementById("full_blackout")
 const side_panel_blackout: HTMLElement = <HTMLElement> document.getElementById("side_panel_blackout")
 
-const before_gen_block: HTMLElement = <HTMLElement>document.getElementById("before_gen_block")
-const close_before_gen_block: HTMLElement = <HTMLElement>document.getElementById("close_before_gen_block")
-const before_gen: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("before_gen")
-const before_gen_ctx: CanvasRenderingContext2D = <CanvasRenderingContext2D>before_gen.getContext("2d", { willReadFrequently: true })
+const before_gen_block: HTMLElement = <HTMLElement> document.getElementById("before_gen_block")
+const close_before_gen_block: HTMLElement = <HTMLElement> document.getElementById("close_before_gen_block")
+const before_gen: HTMLCanvasElement = <HTMLCanvasElement> document.getElementById("before_gen")
+const before_gen_ctx: CanvasRenderingContext2D = <CanvasRenderingContext2D> before_gen.getContext("2d", { willReadFrequently: true })
 
-const change_themeBtn: HTMLElement = <HTMLElement>document.getElementById("change_theme")
-const tmimg: HTMLElement = <HTMLElement>document.getElementById("theme_mode_img")
-const graphic_tabletBtn: HTMLElement = <HTMLElement>document.getElementById("graphic_tablet")
-const first_layer_visibilityBtn: HTMLElement = <HTMLElement>document.getElementById("layer_1_visibility_button")
-const first_layer_visibility_img: HTMLElement = <HTMLElement>document.getElementById("layer_1_visibility_img")
-const second_layer_visibilityBtn: HTMLElement = <HTMLElement>document.getElementById("layer_2_visibility_button")
-const second_layer_visibility_img: HTMLElement = <HTMLElement>document.getElementById("layer_2_visibility_img")
-const clear_first_layer_Btn: HTMLElement = <HTMLElement>document.getElementById("clear_layer_1")
-const clear_second_layer_Btn: HTMLElement = <HTMLElement>document.getElementById("clear_layer_2")
-const select_first_layerBtn: HTMLElement = <HTMLElement>document.getElementById("layer_button_1")
-const colourBtn: HTMLElement = <HTMLElement>document.getElementById("palette")
-const ok_clr: HTMLElement = <HTMLElement>document.querySelector(".ok_clr_btn")
-const ctype_clr_btn: HTMLElement = <HTMLElement>document.querySelector(".ctype_clr_btn")
+const change_themeBtn: HTMLElement = <HTMLElement> document.getElementById("change_theme")
+const tmimg: HTMLElement = <HTMLElement> document.getElementById("theme_mode_img")
+const graphic_tabletBtn: HTMLElement = <HTMLElement> document.getElementById("graphic_tablet")
+const first_layer_visibilityBtn: HTMLElement = <HTMLElement> document.getElementById("layer_1_visibility_button")
+const first_layer_visibility_img: HTMLElement = <HTMLElement> document.getElementById("layer_1_visibility_img")
+const second_layer_visibilityBtn: HTMLElement = <HTMLElement> document.getElementById("layer_2_visibility_button")
+const second_layer_visibility_img: HTMLElement = <HTMLElement> document.getElementById("layer_2_visibility_img")
+const clear_first_layer_Btn: HTMLElement = <HTMLElement> document.getElementById("clear_layer_1")
+const clear_second_layer_Btn: HTMLElement = <HTMLElement> document.getElementById("clear_layer_2")
+const select_first_layerBtn: HTMLElement = <HTMLElement> document.getElementById("layer_button_1")
+const colourBtn: HTMLElement = <HTMLElement> document.getElementById("palette")
+const ok_clr: HTMLElement = <HTMLElement> document.querySelector(".ok_clr_btn")
+const ctype_clr_btn: HTMLElement = <HTMLElement> document.querySelector(".ctype_clr_btn")
 
 const id_list: string[] = ['p', 'i', 'u', 'f']
 
@@ -242,6 +242,8 @@ let caption_field: HTMLInputElement
 let style_field: HTMLInputElement
 let is_human_caption: boolean
 let original_image_buf: string = "" //переменная для хранения исходных изображений
+let original_image_w: number //переменная для хранения ширины исходного изображения
+let original_image_h: number //переменная для хранения высоты исходного изображения
 
 let need_gen_after_caption: boolean[] = [false, false]
 
@@ -254,7 +256,7 @@ let ws: WebSocket = new WebSocket("wss://stabledraw.com:8081")
 let chain_id: string = ""
 let task_id: string
 
-const subbody: HTMLElement = <HTMLElement>document.querySelector(".subbody")
+const subbody: HTMLElement = <HTMLElement> document.querySelector(".subbody")
 
 var main_modal: any = function (options: object) 
 {
@@ -397,7 +399,14 @@ var main_modal: any = function (options: object)
                 }
                 else
                 {
-                    content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"/><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image(data_prop)">Сгенерировать автоматически</button><button class = "modal_btn modal_btn-4" style = "right: 25%" onclick = "upscale()">Апскейл</button><button class = "modal_btn modal_btn-4" onclick = "delete_background()">Удалить фон</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"/>'
+                    if (original_image_h * original_image_w > 262144)
+                    {
+                        content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"/><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image(data_prop)">Сгенерировать автоматически</button><button class = "modal_btn modal_btn-4" onclick = "delete_background()">Удалить фон</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"/>'
+                    }
+                    else
+                    {
+                        content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"/><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image(data_prop)">Сгенерировать автоматически</button><button class = "modal_btn modal_btn-4" style = "right: 25%" onclick = "upscale()">Апскейл</button><button class = "modal_btn modal_btn-4" onclick = "delete_background()">Удалить фон</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"/>'
+                    }
                 }
             }
             modal.show()
@@ -419,6 +428,7 @@ var main_modal: any = function (options: object)
                     caption_field.value = jdata[2]
                     chain_id = jdata[3]
                     last_task_image_name = jdata[4]
+                    last_task_image_suffix = jdata[5]
                     is_human_caption = false
                     blackout.style.display = "none"
                     if (need_gen_after_caption[0])
@@ -437,7 +447,7 @@ var main_modal: any = function (options: object)
                         if (jdata[7] != "")
                         {
                             image_on_before_block.src = "data:image/png;base64," + jdata[7]
-                            image_on_before_block.onload = function ()
+                            image_on_before_block.onload = function()
                             {
                                 let bW: number
                                 let bH: number
@@ -459,22 +469,27 @@ var main_modal: any = function (options: object)
                                 before_gen.height = bH
                                 before_gen_ctx.drawImage(image_on_before_block, 0, 0, iw, ih, 0, 0, bW, bH)
                                 before_gen_block.style.display = "block"
-                                show_gen_result(jdata, image)
+                                show_gen_result(image)
                             }
                         }
                         else
                         {
-                            show_gen_result(jdata, image)
+                            before_gen_block.style.display = "none"
+                            show_gen_result(image)
                         }
+                        original_image_buf
+                        blackout.style.display = "none"
+                        modal.hide()
+                        original_image_buf = image.src
+                        return
                     }
-                    original_image_buf = "data:image/png;base64," + jdata[1]
-                    image.src = original_image_buf
+                    original_image_w = jdata[2]
+                    original_image_h = jdata[3]
                     chain_id = jdata[4]
-                    task_id = jdata[6]
                     last_task_image_name = jdata[5]
-                    blackout.style.display = "none"
-                    modal.hide()
-                    return
+                    task_id = jdata[6]
+                    last_task_image_suffix = jdata[8]
+                    image.src = "data:image/png;base64," + jdata[1]
                 }
             }
         } 
@@ -589,11 +604,16 @@ var main_modal: any = function (options: object)
     })
 })()
 
-function show_gen_result(jdata: any[], image: HTMLImageElement)
+function show_gen_result(image: HTMLImageElement)
 {
     close_all_add_windows()
+    is_background_visible = false
+    canvas_background.style.display = "none"
+    second_layer_visibility_img.setAttribute("src", "visibility_off.png")
     ctx_foreground.clearRect(0, 0, cW, cH) // очищаем верхний холст
-    if (jdata[2] / jdata[3] == 1 && cW / cH != 1)
+    let img_w: number = image.width
+    let img_h: number = image.height
+    if (img_w / img_h == 1 && cW / cH != 1)
     {
         let new_dfw: number
         let new_dfh: number
@@ -610,18 +630,19 @@ function show_gen_result(jdata: any[], image: HTMLImageElement)
         change_drawfield_size(new_dfw, new_dfh)
         cur_ratio_val = get_visual_ratio(false, cW, cH)
         ratio_field.value = cur_ratio_val //устанавливаем соотношение сторон
+        replay_actions(pstack) //воспроизводим действия
         fW_pred = f_dW
         fH_pred = f_dH
         push_action_to_stack(['r', new_dfw, new_dfh, false])
     }
-    ctx_foreground.drawImage(image, 0, 0, jdata[2], jdata[3], 0, 0, cW, cH)
-    push_action_to_stack(['u', cur_draw_ctx, image, jdata[2], jdata[3]])
+    ctx_foreground.drawImage(image, 0, 0, img_w, img_h, 0, 0, cW, cH)
+    push_action_to_stack(['u', cur_draw_ctx, image, img_w, img_h])
     ctx_layer_1.clearRect(0, 0, lwW, lwH)
     canvas_to_layer(cur_canvas, cur_ctx_layer)
 }
 
-let last_task_image_name: string = "drawing_0.png"
-
+let last_task_image_name: string = "drawing.png"
+let last_task_image_suffix: string = "0"
 //ws.onopen = function(){alert("open");} 
 
 ws.onclose = function() //Убрать
@@ -941,7 +962,8 @@ function gen_picture_by_drawing(is_SD2: boolean, full_prompt: string, data_prop:
             "sure": local_sure,
             "prims_count": local_how_many_prims,
             "dots_count": local_how_many_dots,
-            "img_name": last_task_image_name
+            "img_name": last_task_image_name,
+            "img_suf": last_task_image_suffix
         })
 
         /*send_data_pbp = JSON.stringify({ 
@@ -951,7 +973,8 @@ function gen_picture_by_drawing(is_SD2: boolean, full_prompt: string, data_prop:
             "data": data,
             "backgroung": background_data,
             "prompt": full_prompt, //описание изображения
-            "img_name": last_task_image_name
+            "img_name": last_task_image_name,
+            "img_suf": last_task_image_suffix
         })*/
     }
     else
@@ -960,7 +983,8 @@ function gen_picture_by_drawing(is_SD2: boolean, full_prompt: string, data_prop:
             "type": 'g' + local_type, //просьба сгенерировать с машинным описанием
             "chain_id": chain_id, //id последнего звена цепочки
             "task_id": task_id, //id задания
-            "img_name": last_task_image_name //имя последнего файла изображения
+            "img_name": last_task_image_name, //имя последнего файла изображения
+            "img_suf": last_task_image_suffix
         });
     }
     ws.send(send_data_pbp)
@@ -999,7 +1023,8 @@ function delete_background()
         "data": data,
         "chain_id": chain_id, //id последнего звена цепочки
         "task_id": task_id, //id задания
-        "img_name": last_task_image_name //имя последнего файла изображения
+        "img_name": last_task_image_name, //имя последнего файла изображения
+        "img_suf": last_task_image_suffix
     });
     ws.send(send_data_del)
 }
@@ -1017,7 +1042,8 @@ function upscale()
         "data": data,
         "chain_id": chain_id, //id последнего звена цепочки
         "task_id": task_id, //id задания
-        "img_name": last_task_image_name //имя последнего файла изображения
+        "img_name": last_task_image_name, //имя последнего файла изображения
+        "img_suf": last_task_image_suffix
     });
     ws.send(send_data_ups)
 }
@@ -2073,6 +2099,8 @@ uploadBtn.addEventListener("click", () =>
             {
                 let img_w: number = img.width
                 let img_h: number = img.height
+                original_image_w = img_w
+                original_image_h = img_h
                 let new_dfw: number
                 let new_dfh: number
                 let is_drawfield_used: boolean = false
@@ -2179,7 +2207,7 @@ saveBtn.addEventListener("click", () =>
             let a: HTMLAnchorElement = document.createElement("a")
             ctx_background.drawImage(image, 0, 0, image.width, image.height, 0, 0, cW, cH)
             a.href = canvas_background.toDataURL("imag/png")
-            a.download = "sketch.png"
+            a.download = "drawing.png"
             a.click()
             replay_actions(pstack)
             canvas_to_layer(canvas_foreground, ctx_layer_1)
@@ -2191,7 +2219,7 @@ saveBtn.addEventListener("click", () =>
     {
         let a: HTMLAnchorElement = document.createElement("a")
         a.href = original_image_buf
-        a.download = "sketch.png"
+        a.download = "drawing.png"
         a.click()
     }
 })
@@ -2237,7 +2265,8 @@ function gen_caption_for_image(data_prop: any)
         "sure": local_sure,
         "prims_count": local_how_many_prims,
         "dots_count": local_how_many_dots,
-        "img_name": last_task_image_name
+        "img_name": last_task_image_name,
+        "img_suf": last_task_image_suffix
     })
 
     /*
@@ -2247,7 +2276,8 @@ function gen_caption_for_image(data_prop: any)
         "task_id": task_id, //id задания
         "data": data,
         "backgroung": background_data,
-        "img_name": last_task_image_name
+        "img_name": last_task_image_name,
+        "img_suf": last_task_image_suffix
     })*/
     ws.send(send_data_cpt)
 }
@@ -2298,6 +2328,7 @@ function replay_action(act: any, k_X: number, k_Y: number, fW_pred: number, fH_p
         case 'u': //если добавление изображения с ПК
             act[1].clearRect(0, 0, cW, cH) //очищаем нужный слой
             act[1].drawImage(act[2], 0, 0, act[3], act[4], act[5], act[6], cW - act[5] * 2, cH - act[6] * 2)
+            original_image_buf = act[2]
             break
         case 'f': //если заливка
             floodFill(act[1], act[2], act[3], act[4])
@@ -2610,7 +2641,7 @@ canvas_additional.addEventListener("pointerdown", (e: PointerEvent) =>
     }
     else
     {
-        original_image_buf == "" //очистить буфер изображения
+        original_image_buf = "" //очистить буфер изображения
     }
 })
 
@@ -2677,10 +2708,18 @@ function floodFill(local_ctx: any, x: any, y: any, fillColor: any)
 {
     let dex_clr: number = parseInt("FF" + fillColor.slice(6, 8) + fillColor.slice(4, 6) + fillColor.slice(2, 4), 16)
     let imageData: ImageData = local_ctx.getImageData(0, 0, local_ctx.canvas.width, local_ctx.canvas.height)
+    let imageData_test_data: Uint8ClampedArray = imageData.data
+    for (let i: number = 3; i < imageData_test_data.length; i += 4)
+    {
+        if (imageData_test_data[i] != 255)
+        {
+            imageData_test_data[i] = 0
+        }
+    }
     let pixelData: any = {
         width: imageData.width,
         height: imageData.height,
-        data: new Uint32Array(imageData.data.buffer),
+        data: new Uint32Array(imageData_test_data.buffer),
     }
     let targetColor: string = getPixel(pixelData, x, y)
     if (targetColor !== fillColor) 
