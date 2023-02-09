@@ -18,11 +18,14 @@ from Text_to_image_2 import Stable_diffusion_2_text_to_image
 from Text_to_image_Dall_e_2 import Dall_e_2_text_to_image
 
 chat_id = "-1001661093241"
-checkpoint_path = 'caption.pt'
-if not os.path.exists(checkpoint_path):
-    import urllib.request
-    urllib.request.urlretrieve("https://ofa-beijing.oss-cn-beijing.aliyuncs.com/checkpoints/caption_base_best.pt", checkpoint_path)
 '''
+if not os.path.exists("caption_base_best.pt"):
+    import urllib.request
+    urllib.request.urlretrieve("https://ofa-beijing.oss-cn-beijing.aliyuncs.com/checkpoints/caption_base_best.pt", "caption_base_best.pt")
+if not os.path.exists("caption_huge_best.pt"):
+    import urllib.request
+    urllib.request.urlretrieve("https://ofa-beijing.oss-cn-beijing.aliyuncs.com/checkpoints/caption_huge_best.pt", "caption_huge_best.pt")
+
 checkpoint_path = 'models/ldm/stable-diffusion-v1/'
 checkpoint_list = ["sd-v1-1.ckpt", 
                    "sd-v1-1-full-ema.ckpt", 
@@ -336,11 +339,25 @@ async def neural_processing(process, nprocess):
                 else:
                     message_id = send_document_to_tg(URL + "sendDocument?&reply_to_message_id=" + chain_id + "&chat_id=" + chat_id, { "document": (img_name, binary_data) })
                     params = {
-                        "eval_cider": False,       #использовать эволюционную CIDEr метрику 
-                        "beam": 5,                 #балансировка
-                        "max_len_b": 16,           #максимальная длина буфера
-                        "no_repeat_ngram_size": 3, #не повторять N-граммы размера
-                        "seed": 7                  #инициализирующее значение (для воспроизводимой генерации подписей)
+                        "ckpt": "caption_huge_best.pt", #используемые чекпоинты (caption_huge_best.pt или caption_base_best.pt) 
+                        "eval_cider": True,             #оценка с помощью баллов CIDEr
+                        "eval_bleu": False,             #оценка с помощью баллов BLEU
+                        "eval_args": "{}",              #аргументы генерации для оценки BLUE или CIDEr, например, "{"beam": 4, "lenpen": 0,6}", в виде строки JSON
+                        "eval_print_samples": False,    #печатать поколения образцов во время валидации
+                        "scst": False,                  #Обучение самокритичной последовательности
+                        "scst_args": "{}",              #аргументы генерации для обучения самокритичной последовательности в виде строки JSON
+                        "beam": 5,                      #балансировка
+                        "max_len_a": 0,                 #максимальная длина буфера a
+                        "max_len_b": 200,               #максимальная длина буфера b
+                        "min_len": 1,                   #минимальная длина буфера
+                        "unnormalized": False,          #ненормализовывать
+                        "lenpen": 1,
+                        "unkpen": 0,
+                        "temperature": 1.0,             #температура
+                        "match_source_len": False,      #сопоставлять с исходной длиной
+                        "no_repeat_ngram_size": 3,      #не повторять N-граммы размера
+                        "sampling_topk": 3,             #из скольки тоненов отбирать лучший (0 - не использовать сэмплирование)
+                        "seed": 7                       #инициализирующее значение для генерации
                     }
                     client_message = await Gen_caption(websocket, path_to_task_dir, img_name, params)
                     client_message, chain_id = del_prompt_about_drawing(client_message, message_id, noback)

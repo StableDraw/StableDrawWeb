@@ -6,8 +6,6 @@ from PIL import Image
 from torchvision import transforms
 from utils.eval_utils import eval_caption
 
-checkpoint_path = 'caption.pt'
-
 # Подготовка теста
 def encode_text(text, task, length = None, append_bos = False, append_eos = False):
     bos_item = torch.LongTensor([task.src_dict.bos()])
@@ -46,13 +44,23 @@ def apply_half(t):
         return t.to(dtype = torch.half)
     return t
 
-async def Gen_caption(ws, img_path, img_name, overrides):
+def Gen_caption(ws, img_path, img_name, params):
+    overrides = {
+        "bpe_dir": "./utils/BPE",               #путь до BPE
+        "eval_cider_cached_tokens": "corpus",   #путь к кэшированному файлу cPickle, используемому для расчета оценок CIDEr
+        "sampling": True,                       #испошьзовать ли семплирование
+        "clip_model_path": "../../checkpoints/clip/ViT-B-16.pt",
+        "vqgan_model_path": "../../checkpoints/vqgan/last.ckpt",
+        "vqgan_config_path": "../../checkpoints/vqgan/model.yaml",
+    }
+    if params["sampling_topk"] == 0:
+        overrides["sampling"] == False
     tasks.register_task('caption', CaptionTask)
     use_cuda = torch.cuda.is_available()
     use_fp16 = False
     # Загрузка претренированных ckpt и config
     #await ws.send(json.dumps({'0' : "t", '1' : "Загрузка претренированных чекпоинтов и настроек конфигурации..."}))
-    models, cfg, task = checkpoint_utils.load_model_ensemble_and_task(utils.split_paths(checkpoint_path), arg_overrides=overrides)
+    models, cfg, task = checkpoint_utils.load_model_ensemble_and_task(utils.split_paths(params["ckpt"]), arg_overrides = params | overrides)
     # Перемещение моделей на GPU
     for model in models:
         model.eval()
