@@ -2708,7 +2708,9 @@ function floodFill(local_ctx: any, x: any, y: any, fillColor: any)
 {
     let dex_clr: number = parseInt("FF" + fillColor.slice(6, 8) + fillColor.slice(4, 6) + fillColor.slice(2, 4), 16)
     let imageData: ImageData = local_ctx.getImageData(0, 0, local_ctx.canvas.width, local_ctx.canvas.height)
-    let imageData_test_data: Uint8ClampedArray = imageData.data
+
+
+    /*let imageData_test_data: Uint8ClampedArray = imageData.data
     for (let i: number = 3; i < imageData_test_data.length; i += 4)
     {
         if (imageData_test_data[i] != 255)
@@ -2720,6 +2722,13 @@ function floodFill(local_ctx: any, x: any, y: any, fillColor: any)
         width: imageData.width,
         height: imageData.height,
         data: new Uint32Array(imageData_test_data.buffer),
+    }*/
+
+
+    let pixelData: any = {
+        width: imageData.width,
+        height: imageData.height,
+        data: new Uint32Array(imageData.data.buffer),
     }
     let targetColor: string = getPixel(pixelData, x, y)
     if (targetColor !== fillColor) 

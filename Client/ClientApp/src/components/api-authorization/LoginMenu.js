@@ -89,7 +89,7 @@ export class LoginMenu extends Component
                         <a href = "#" className = "work_mode_href" title = "Обработка изображений с комьютера" style = {{ borderTopStyle: "hidden" }}>
                             <img className = "work_mode_img_btn" src = "photo_to_image.png"></img>
                         </a>
-                        <a href = "#" className = "work_mode_href" title = "Создание аримации" style = {{ borderTopStyle: "hidden" }}>
+                        <a href = "#" className = "work_mode_href" title = "Создание анимации" style = {{ borderTopStyle: "hidden" }}>
                             <img className = "work_mode_img_btn" src = "frames_to_animation.png"></img>
                         </a>
                     </div>
