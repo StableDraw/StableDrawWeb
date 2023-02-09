@@ -44,7 +44,7 @@ def apply_half(t):
         return t.to(dtype = torch.half)
     return t
 
-def Gen_caption(ws, img_path, img_name, params):
+async def Gen_caption(ws, img_path, img_name, params):
     overrides = {
         "bpe_dir": "./utils/BPE",               #путь до BPE
         "eval_cider_cached_tokens": "corpus",   #путь к кэшированному файлу cPickle, используемому для расчета оценок CIDEr
