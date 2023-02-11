@@ -10,7 +10,6 @@ from einops import rearrange
 from pytorch_lightning import seed_everything
 from torch import autocast
 from contextlib import nullcontext
-from imwatermark import WatermarkEncoder
 from ldm.util import instantiate_from_config
 from ldm.models.diffusion.ddim import DDIMSampler
 from ldm.models.diffusion.plms import PLMSSampler
@@ -72,10 +71,6 @@ async def Stable_diffusion_2_text_to_image(ws, work_path, prompt, opt):
         sampler = DPMSolverSampler(model)
     else:
         sampler = DDIMSampler(model)
-    #print("Инициализация дешифровщика невидимого водяного знака...")
-    #wm = "SDV2"
-    #wm_encoder = WatermarkEncoder()
-    #wm_encoder.set_watermark('bytes', wm.encode('utf-8'))
     precision_scope = autocast if opt["precision"] == "autocast" else nullcontext
     with torch.no_grad(), \
         precision_scope("cuda"), \
@@ -89,7 +84,6 @@ async def Stable_diffusion_2_text_to_image(ws, work_path, prompt, opt):
             samples, _ = sampler.sample(S = opt["steps"], conditioning = c, batch_size = 1, shape = shape, verbose = False, unconditional_guidance_scale = opt["scale"], unconditional_conditioning = uc, eta = opt["ddim_eta"], x_T = None)
             x_sample = 255. * rearrange(torch.clamp((model.decode_first_stage(samples) + 1.0) / 2.0, min = 0.0, max = 1.0)[0].cpu().numpy(), 'c h w -> h w c')
             img = Image.fromarray(x_sample.astype(np.uint8))
-            #img = put_watermark(img, wm_encoder)
             buf = io.BytesIO()
             img.save(buf, format = "PNG")
             b_data = buf.getvalue()

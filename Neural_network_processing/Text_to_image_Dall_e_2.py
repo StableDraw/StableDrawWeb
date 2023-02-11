@@ -1,10 +1,10 @@
+import io
+import os
+import click
+from typing import List
+from pathlib import Path
 from dalle2_laion import utils
 from dalle2_laion.scripts import BasicInference, ImageVariation, BasicInpainting
-from typing import List
-import os
-import io
-import click
-from pathlib import Path
 
 model_config_upsampler = "./configs/upsampler.example.json" #Path to model config file
 model_config_variation = "./configs/variation.example.json" #Path to model config file
@@ -14,14 +14,9 @@ async def Dall_e_2_text_to_image(ws, work_path, prompt, opt):
     decoder_batch_size = opt["decoder-batch-size"]
     verbose = opt["verbose"]
     dreamer: BasicInference = BasicInference.create(model_config, verbose = verbose, check_updates = not opt['suppress_updates'])
-    #print("Инициализация дешифровщика невидимого водяного знака...")
-    #wm = "SDV2"
-    #wm_encoder = WatermarkEncoder()
-    #wm_encoder.set_watermark('bytes', wm.encode('utf-8'))
     output_map = dreamer.run([prompt], prior_sample_count = 1, decoder_batch_size = decoder_batch_size)
     for text in output_map:
         image = output_map[text][0][0]
-    #image = put_watermark(img, wm_encoder)
     w, h = image.size
     buf = io.BytesIO()
     image.save(buf, format = "PNG")

@@ -16,6 +16,13 @@ from Delete_background import Delete_background
 from Upscaler import Upscale
 from Text_to_image_2 import Stable_diffusion_2_text_to_image
 from Text_to_image_Dall_e_2 import Dall_e_2_text_to_image
+from Depth_to_image_2 import Stable_diffusion_2_depth_to_image
+from Inpainting import Stable_diffusion_2_inpainting
+from SD_Upscaler import Stable_diffusion_2_upscaler
+
+#Stable_diffusion_2_depth_to_image()
+#Stable_diffusion_2_inpainting()
+#Stable_diffusion_2_upscaler()
 
 chat_id = "-1001661093241"
 '''
