@@ -1,28 +1,26 @@
-﻿import asyncio
-import websockets
-import requests
-import base64
-import json
-import ssl
+﻿import io
 import os
-import io
+import ssl
+import cv2
+import json
 import time
+import numpy
+import base64
+import asyncio
+import requests
+import websockets
 from PIL import Image
 from googletrans import Translator
 from Image_caption_generator import Gen_caption
 from Image_to_image import Stable_diffusion
-from Image_to_image_2 import Stable_diffusion_2
 from Delete_background import Delete_background
 from Upscaler import Upscale
-from Text_to_image_2 import Stable_diffusion_2_text_to_image
-from Text_to_image_Dall_e_2 import Dall_e_2_text_to_image
-from Depth_to_image_2 import Stable_diffusion_2_depth_to_image
-from Inpainting import Stable_diffusion_2_inpainting
-from SD_Upscaler import Stable_diffusion_2_upscaler
+from Text_to_image import Stable_diffusion_text_to_image
+from Depth_to_image import Stable_diffusion_depth_to_image
+from Inpainting import Stable_diffusion_inpainting
+from SD_Upscaler import Stable_diffusion_upscaler
 
-#Stable_diffusion_2_depth_to_image()
-#Stable_diffusion_2_inpainting()
-#Stable_diffusion_2_upscaler()
+#Stable_diffusion_upscaler()
 
 chat_id = "-1001661093241"
 '''
@@ -286,6 +284,19 @@ def Restore_Image(bd, rbuf, path, restore_file_name):
     rimg.close()
     return buf.getvalue()
 
+def make_mask(img, path_to_save):
+    img_array = numpy.array(img)
+    img_array = cv2.cvtColor(img_array, cv2.COLOR_RGB2RGBA)
+    h, w, c = img_array.shape
+    A_img_array = numpy.zeros((h, w, 3), dtype = numpy.uint8)
+    A_img_array[:, :, 0] = img_array[:, :, 3]
+    A_img_array[:, :, 1] = img_array[:, :, 3]
+    A_img_array[:, :, 2] = img_array[:, :, 3]
+    cv2.imwrite(path_to_save, A_img_array)
+    im_buf_arr = cv2.imencode(".png", A_img_array)[1]
+    b_data = im_buf_arr.tobytes()
+    return b_data
+
 async def neural_processing(process, nprocess):
     if nprocess == True:
         return
@@ -366,7 +377,7 @@ async def neural_processing(process, nprocess):
                         "sampling_topk": 3,             #из скольки тоненов отбирать лучший (0 - не использовать сэмплирование)
                         "seed": 7                       #инициализирующее значение для генерации
                     }
-                    client_message = await Gen_caption(websocket, path_to_task_dir, img_name, params)
+                    client_message = Gen_caption(websocket, path_to_task_dir, img_name, params)
                     client_message, chain_id = del_prompt_about_drawing(client_message, message_id, noback)
                     with open(path_to_task_dir + "/AI_caption_" + str(img_suf) + ".txt", "w") as f:
                         f.write(client_message)
@@ -393,23 +404,34 @@ async def neural_processing(process, nprocess):
             elif task_type == 'p': #если нужно сгенерировать изображение по изображению
                 local_img_name = "picture"
                 new_img_name += local_img_name
-                is_SD2 = task[7]
-                AI_prompt = task[8]
+                AI_prompt = task[7]
+                Is_depth = task[8]
+                Is_inpainting = task[9]
                 postview = str(base64.b64encode(binary_data).decode('utf-8'))   
                 message_id = send_document_to_tg(URL + "sendDocument?&reply_to_message_id=" + chain_id + "&chat_id=" + chat_id, {"document": (img_name, binary_data)})
-                if is_SD2 == False:
+                if Is_depth == True:
                     params = {
-                        'ddim_steps': 50,             #количество шагов выборки ddim
-                        'ddim_eta': 0.0,              #ddim η (η = 0.0 соответствует детерминированной выборке)
-                        'C': 4,                       #латентные каналы
-                        'f': 8,                       #коэффициент понижающей дискретизации, чаще всего 8 или 16
-                        'scale': 5.0,                 #безусловная навигационная величина: eps = eps(x, empty) + scale * (eps(x, cond) - eps(x, empty))
-                        'strength': 0.7,              #сила увеличения/уменьшения шума. 1.0 соответствует полному уничтожению информации в инициализирующем образе
-                        'ckpt': 0,                    #выбор контрольной точки модели (от 0 до 9)
-                        'seed': 42,                   #сид (для воспроизводимой генерации изображений)
-                        'precision': "autocast"       #оценивать с этой точностью ("full" или "autocast")
+                        "ddim_steps": 50,           #Шаги DDIM, от 0 до 50
+                        "ddim_eta": 0.0,            #ddim η (η = 0.0 соответствует детерминированной выборке)
+                        "scale": 9.0,               #от 0.1 до 30.0
+                        "strength": 0.9,            #сила увеличения/уменьшения шума. 1.0 соответствует полному уничтожению информации в инициализирующем образе
+                        "ckpt": 0,                  #выбор весов модели (0)
+                        "seed": 42,                 #от 0 до 1000000
+                        "model_type": "dpt_hybrid", #тип модели
+                        "verbose": True
                     }
-                    w, h, binary_data = await Stable_diffusion(websocket, path_to_task_dir, img_name, img_suf, need_restore, AI_prompt, params) #передаю сокет, путь к рабочей папке, имя файла, true если AI описание, false если человеческая
+                    w, h, binary_data = Stable_diffusion_depth_to_image(websocket, path_to_task_dir, img_name, img_suf, need_restore, AI_prompt, params) #передаю сокет, путь к рабочей папке, имя файла, и true если AI описание, false если человеческая
+                elif Is_inpainting:
+                    params = {
+                        "ddim_steps": 50,           #Шаги DDIM, от 0 до 50
+                        "ddim_eta": 0.0,            #ddim η (от 0.0 до 1.0, η = 0.0 соответствует детерминированной выборке)
+                        "scale": 10.0,              #от 0.1 до 30.0
+                        "strength": 0.9,            #сила увеличения/уменьшения шума. 1.0 соответствует полному уничтожению информации в инициализирующем образе
+                        "ckpt": 0,                  #выбор весов модели (0)
+                        "seed": 42,                 #от 0 до 1000000
+                        "verbose": False
+                    }
+                    w, h, binary_data = Stable_diffusion_inpainting(websocket, path_to_task_dir, img_name, img_suf, need_restore, AI_prompt, params) #передаю сокет, путь к рабочей папке, имя файла, и true если AI описание, false если человеческая
                 else:
                     params = {
                         'ddim_steps': 50,             #количество шагов выборки ddim
@@ -418,11 +440,11 @@ async def neural_processing(process, nprocess):
                         'f': 8,                       #коэффициент понижающей дискретизации, чаще всего 8 или 16
                         'scale': 9.0,                 #безусловная навигационная величина: eps = eps(x, empty) + scale * (eps(x, cond) - eps(x, empty))
                         'strength': 0.7,              #сила увеличения/уменьшения шума. 1.0 соответствует полному уничтожению информации в инициализирующем образе
-                        'ckpt': 0,                    #выбор контрольной точки модели (от 0 до 9)
+                        'ckpt': 0,                    #выбор весов модели (от 0 до 10)
                         'seed': 42,                   #сид (для воспроизводимой генерации изображений)
                         'precision': "autocast"       #оценивать с этой точностью ("full" или "autocast")
                     }
-                    w, h, binary_data = await Stable_diffusion_2(websocket, path_to_task_dir, img_name, img_suf, need_restore, AI_prompt, params) #передаю сокет, путь к рабочей папке, имя файла, и true если AI описание, false если человеческая
+                    w, h, binary_data = Stable_diffusion(websocket, path_to_task_dir, img_name, img_suf, need_restore, AI_prompt, params) #передаю сокет, путь к рабочей папке, имя файла, и true если AI описание, false если человеческая
                 result_img = local_img_name + "_" + str(img_suf)
                 if need_restore == True: #если нужно восстановление
                     with open(path_to_task_dir + "\\c_" + result_img, "wb") as f:
@@ -517,28 +539,19 @@ async def neural_processing(process, nprocess):
             if task_type == 't': #если нужно сгенерировать изображение по описанию
                 local_img_name = "tpicture"
                 caption = task[2]
-                is_SD2 = task[7]
-                if is_SD2 == True:
-                    params = {
-                        "steps": 50,            #количество шагов выборки
-                        "plms": True,           #использовать выборку plms
-                        "dpm": True,            #использовать выборку DPM (2)
-                        "ddim_eta": 0.0,        #ddim η (η = 0.0 соответствует детерминированной выборке)
-                        "C": 4,                 #латентные каналы
-                        "f": 8,                 #коэффициент понижающей дискретизации, чаще всего 8 или 16
-                        "scale": 9.0,           #безусловная навигационная величина: eps = eps(x, empty) + scale * (eps(x, cond) - eps(x, empty))
-                        "ckpt": 0,              #выбор контрольной точки модели (0 или 1 для размерностей 512 или 768 соответственно)
-                        "seed": 42,             #сид (для воспроизводимой генерации изображений)
-                        "precision": "autocast" #оценивать с этой точностью ("full" или "autocast")
-                    }
-                    w, h, binary_data = await Stable_diffusion_2_text_to_image(websocket, path_to_task_dir, caption, params) #передаю сокет, путь к рабочей папке, имя файла и параметры генерации
-                else:
-                    params = {
-                        "verbose": True,            #Печатать подробный вывод
-                        "suppress_updates": False,  #Подавить обновление моделей, если контрольные суммы не совпадают
-                        "decoder-batch-size": 10,   #Размер набора для декодера
-                    }
-                    w, h, binary_data = await Dall_e_2_text_to_image(websocket, path_to_task_dir, caption, params) #передаю сокет, путь к рабочей папке, имя файла и параметры генерации
+                params = {
+                    "steps": 50,            #количество шагов выборки
+                    "plms": True,           #использовать выборку plms
+                    "dpm": True,            #использовать выборку DPM (2)
+                    "ddim_eta": 0.0,        #ddim η (η = 0.0 соответствует детерминированной выборке)
+                    "C": 4,                 #латентные каналы
+                    "f": 8,                 #коэффициент понижающей дискретизации, чаще всего 8 или 16
+                    "scale": 9.0,           #безусловная навигационная величина: eps = eps(x, empty) + scale * (eps(x, cond) - eps(x, empty))
+                    "ckpt": 0,              #выбор контрольной точки модели (0 или 1 для размерностей 512 или 768 соответственно)
+                    "seed": 42,             #сид (для воспроизводимой генерации изображений)
+                    "precision": "autocast" #оценивать с этой точностью ("full" или "autocast")
+                }
+                w, h, binary_data = Stable_diffusion_text_to_image(websocket, path_to_task_dir, caption, params) #передаю сокет, путь к рабочей папке, имя файла и параметры генерации
                 img = str(base64.b64encode(binary_data).decode('utf-8'))
                 chain_id = send_document_to_tg(URL + "sendDocument?&reply_to_message_id=" + chain_id + "&chat_id=" + chat_id, {'document': ('drawing.png', binary_data)})
                 resp_data = {
@@ -661,38 +674,34 @@ async def handler(websocket):
                     img_suf = int(dictData["img_suf"])
                 task_list.append([websocket, 'c', img_name, img_suf, task_id, user_id, message_id, need_translate, noback]) #нужно описание
             
-            elif dictData["type"] == "hg1" or dictData["type"] == "hg2" or dictData["type"] == "g1" or dictData["type"] == "g2": #нужна картина по описанию
-                if dictData["type"] == "g1" or dictData["type"] == "g2": #по машинному описанию
+            elif dictData["type"] == "hg" or dictData["type"] == "g": #нужна картина по описанию
+                Is_depth = dictData["is_depth"]
+                Is_inpainting = dictData["is_inpainting"]
+                if dictData["type"] == "g": #по машинному описанию
                     img_name = dictData["img_name"]
                     img_suf = int(dictData["img_suf"])
                     task_id = dictData["task_id"]
                     message_id = dictData["chain_id"]
                     AI_prompt = True
-                    if dictData["type"] == "g1":
-                        is_SD2 = False
-                    else:
-                        is_SD2 = True
                 else: #по человеческому описанию
                     AI_prompt = False
-                    if dictData["type"] == "hg1":
-                        is_SD2 = False
-                    else:
-                        is_SD2 = True
                     if dictData["chain_id"] == "":
-                        binary_data = base64.b64decode(bytes(dictData["data"][22:], 'utf-8'))
+                        binary_data = base64.b64decode(bytes(dictData["foreground"][22:], 'utf-8'))
                         pillow_img = Image.open(io.BytesIO(binary_data)).convert("RGBA")
                         (w, h) = pillow_img.size
                         if dictData["backgroung"] == "":
                             noback = True
                             background_img = Image.new('RGBA', (w, h), (255, 255, 255))
                         else:
-                            print("\nback")
                             noback = False
                             binary_data2 = base64.b64decode(bytes(dictData["backgroung"][22:], 'utf-8'))
                             background_img = Image.open(io.BytesIO(binary_data2)).convert("RGBA")
                             background_img = background_img.resize((w, h))
                         drawing_img = background_img
-                        drawing_img.paste(pillow_img, (0, 0),  pillow_img)
+                        if Is_inpainting == True:
+                            noback = True
+                        else:
+                            drawing_img.paste(pillow_img, (0, 0),  pillow_img)
                         buf = io.BytesIO()
                         drawing_img.save(buf, format = 'PNG')
                         result_binary_data = buf.getvalue()
@@ -747,7 +756,12 @@ async def handler(websocket):
                             message_id = task_id
                         with open(task_dir + "/Human_caption_" + str(img_suf) + ".txt", "w") as f:
                             f.write(result_text)
-                task_list.append([websocket, "p", img_name, img_suf, task_id, user_id, message_id, is_SD2, AI_prompt]) #дескриптор сокета, тип задания, номер сообщения ТГ (id задания), user_id, номер последнего ответа ТГ
+                if Is_inpainting == True:
+                    mask = make_mask(pillow_img, task_dir + "\\mask_" + str(img_suf) + ".png")
+                    message_id = send_document_to_tg(URL + "sendDocument?&reply_to_message_id=" + message_id + "caption=C маской&chat_id=" + chat_id, {"document": ("mask_" + str(img_suf) + ".png", mask)})
+                else:
+                    mask = ""
+                task_list.append([websocket, "p", img_name, img_suf, task_id, user_id, message_id, AI_prompt, Is_depth, Is_inpainting]) #дескриптор сокета, тип задания, номер сообщения ТГ (id задания), user_id, номер последнего ответа ТГ
             
             elif(dictData["type"] == "b"): #нужно удалить фон у изображения
                 if dictData["chain_id"] == "":
@@ -794,11 +808,7 @@ async def handler(websocket):
                     img_suf = int(dictData["img_suf"])
                 task_list.append([websocket, "a", img_name, img_suf, task_id, user_id, message_id]) #дескриптор сокета, тип задания, номер сообщения ТГ (id задания), user_id, номер последнего ответа ТГ, ширину и высоту исходного изображения
             
-            elif(dictData["type"] == "ts" or dictData["type"] == "td"): #нужно сгенерировать изображение по описанию
-                if dictData["type"] == "ts":
-                    is_SD2 = True
-                else:
-                    is_SD2 = False
+            elif(dictData["type"] == "t"): #нужно сгенерировать изображение по описанию
                 prompt = dictData["prompt"]
                 task_id = send_message_to_tg(URL + "sendMessage?text=" + prompt + "&chat_id=" + chat_id)
                 translator = Translator()
@@ -815,7 +825,7 @@ async def handler(websocket):
                 with open(task_dir + "\\Human_caption_0.txt", "w") as f:
                     f.write(result_text)
                 img_suf = 0
-                task_list.append([websocket, "t", result_text, img_suf, task_id, user_id, message_id, is_SD2]) #дескриптор сокета, тип задания, текст описания, номер сообщения ТГ (id задания), user_id, номер последнего ответа ТГ, Использовать ли SD2, или Dall-e 2
+                task_list.append([websocket, "t", result_text, img_suf, task_id, user_id, message_id]) #дескриптор сокета, тип задания, текст описания, номер сообщения ТГ (id задания), user_id, номер последнего ответа ТГ, Использовать ли SD2, или Dall-e 2
             
             tls = len(task_list)
             if tls > 1:

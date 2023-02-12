@@ -16,7 +16,7 @@ torch.set_grad_enabled(False)
 def initialize_model(config, ckpt):
     config = OmegaConf.load(config)
     model = instantiate_from_config(config.model)
-    model.load_state_dict(torch.load(ckpt)["state_dict"], strict=False)
+    model.load_state_dict(torch.load(ckpt)["state_dict"], strict = False)
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
     model = model.to(device)
     sampler = DDIMSampler(model)
@@ -101,7 +101,7 @@ def paint(sampler, image, prompt, seed, scale, h, w, steps, num_samples=1, callb
     return [Image.fromarray(img.astype(np.uint8)) for img in result]
 
 
-def Stable_diffusion_2_upscaler():
+def Stable_diffusion_upscaler():
     opt = {
         "prompt": "a high quality professional photograph", #Add a description of the object that should be upscaled, e.g.: "a professional photograph of a cat"
         "input": "img.png",

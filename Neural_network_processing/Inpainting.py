@@ -1,172 +1,134 @@
-import io
-import sys
-import cv2
+﻿import io
 import torch
 import numpy as np
 import safetensors.torch
+import PIL
 from PIL import Image
 from omegaconf import OmegaConf
 from einops import repeat
-from streamlit_drawable_canvas import st_canvas
 from ldm.models.diffusion.ddim import DDIMSampler
 from ldm.util import instantiate_from_config
 
 torch.set_grad_enabled(False)
 
-def initialize_model(config, ckpt):
-    config = OmegaConf.load(config)
+checkpoint_path = 'models\\ldm\\stable-diffusion\\inpainting\\'
+checkpoint_list = [
+    ["512-inpainting-ema.safetensors", 1],
+    ["galaxytimemachines_v3.safetensors", 0],
+]
+config_path = "configs\\stable-diffusion\\"
+config_list = ["v1-inpainting-inference.yaml", "v2-inpainting-inference.yaml"]
+
+def load_model_from_config(ws, config, ckpt, verbose = False):
+    print(f"Загрузка модели из {ckpt}")
+    if ckpt[ckpt.rfind('.'):] == ".safetensors":
+        pl_sd = safetensors.torch.load_file(ckpt, device = "cpu")
+    else:
+        pl_sd = torch.load(ckpt, map_location = "cpu")
+    if "global_step" in pl_sd:
+        print(f"Глобальный шаг: {pl_sd['global_step']}")
+    sd = pl_sd["state_dict"] if "state_dict" in pl_sd else pl_sd
     model = instantiate_from_config(config.model)
+    m, u = model.load_state_dict(sd, strict = False)
+    if len(m) > 0 and verbose:
+        print("Недостающие параметры:")
+        print(m)
+    if len(u) > 0 and verbose:
+        print("Некорректные параметры:")
+        print(u)
+    model.cuda()
+    model.eval()
+    return model
 
-    model.load_state_dict(torch.load(ckpt)["state_dict"], strict=False)
+def load_img(path):
+    image = Image.open(path).convert("RGB")
+    w, h = image.size
+    max_dim = pow(512, 2) + 1 # я не могу генерировать на своей видюхе картинки больше 512 на 512
+    cur_dim = w * h
+    if cur_dim > max_dim:
+        k = cur_dim / max_dim
+        sk = float(k ** (0.5))
+        w = int(w / sk)
+        h = int(h / sk)
+    print(f"загружено входное изображение размера ({w}, {h}) из папки {path}")
+    w, h = map(lambda x: x - x % 64, (w, h))  # изменение размера в целое число, кратное 64-м
+    image = image.resize((w, h), resample = PIL.Image.LANCZOS)
+    print(f"размер изображения изменён на ({w}, {h} (w, h))")
+    return image
 
-    device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
-    model = model.to(device)
-    sampler = DDIMSampler(model)
-
-    return sampler
-
-
-def make_batch_sd(
-        image,
-        mask,
-        txt,
-        device,
-        num_samples=1):
+def make_batch_sd(image, mask, txt, device):
     image = np.array(image.convert("RGB"))
     image = image[None].transpose(0, 3, 1, 2)
-    image = torch.from_numpy(image).to(dtype=torch.float32) / 127.5 - 1.0
-
+    image = torch.from_numpy(image).to(dtype = torch.float32) / 127.5 - 1.0
     mask = np.array(mask.convert("L"))
     mask = mask.astype(np.float32) / 255.0
     mask = mask[None, None]
     mask[mask < 0.5] = 0
     mask[mask >= 0.5] = 1
     mask = torch.from_numpy(mask)
-
     masked_image = image * (mask < 0.5)
-
     batch = {
-        "image": repeat(image.to(device=device), "1 ... -> n ...", n=num_samples),
-        "txt": num_samples * [txt],
-        "mask": repeat(mask.to(device=device), "1 ... -> n ...", n=num_samples),
-        "masked_image": repeat(masked_image.to(device=device), "1 ... -> n ...", n=num_samples),
+        "image": repeat(image.to(device = device), "1 ... -> n ...", n = 1),
+        "txt": [txt],
+        "mask": repeat(mask.to(device = device), "1 ... -> n ...", n = 1),
+        "masked_image": repeat(masked_image.to(device = device), "1 ... -> n ...", n = 1),
     }
     return batch
 
-
-def inpaint(sampler, image, mask, prompt, seed, scale, ddim_steps, num_samples=1, w=512, h=512, eta=1.):
+def Stable_diffusion_inpainting(ws, work_path, img_name, img_suf, need_restore, AI_prompt, opt):
+    init_img = work_path + "/" + img_name
+    mask_path = work_path + "/mask_" + str(img_suf - 1) + ".png"
+    if need_restore == True:
+        result_img = "c_picture_"
+    else:
+        result_img = "picture_"
+    if AI_prompt: 
+        pfile = work_path + "/AI_caption_" + str(img_suf - 1) + ".txt"
+    else:
+        pfile = work_path + "/Human_caption_" + str(img_suf - 1) + ".txt"
+    with open(pfile, "r") as f:
+        prompt = f.read()
+    config = OmegaConf.load(config_path + config_list[checkpoint_list[opt["ckpt"]][1]])
+    model = load_model_from_config(ws, config, checkpoint_path + checkpoint_list[opt["ckpt"]][0])
+    device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
+    model = model.to(device)
+    sampler = DDIMSampler(model)
+    sampler.make_schedule(ddim_num_steps = opt['ddim_steps'], ddim_eta = opt['ddim_eta'], verbose = opt["verbose"])
+    image = load_img(init_img)
+    w, h = image.size
+    mask = Image.open(mask_path).resize((w, h))
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
     model = sampler.model
-    prng = np.random.RandomState(seed)
-    start_code = prng.randn(num_samples, 4, h // 8, w // 8)
-    start_code = torch.from_numpy(start_code).to(device=device, dtype=torch.float32)
-
+    prng = np.random.RandomState(opt["seed"])
+    start_code = prng.randn(1, 4, h // 8, w // 8)
+    start_code = torch.from_numpy(start_code).to(device = device, dtype = torch.float32)
     with torch.no_grad(), \
             torch.autocast("cuda"):
-            batch = make_batch_sd(image, mask, txt=prompt, device=device, num_samples=num_samples)
-
-            c = model.cond_stage_model.encode(batch["txt"])
-
+            batch = make_batch_sd(image, mask, txt = prompt, device = device)
+            c = model.cond_stage_model.encode([prompt])
             c_cat = list()
             for ck in model.concat_keys:
                 cc = batch[ck].float()
                 if ck != model.masked_image_key:
-                    bchw = [num_samples, 4, h // 8, w // 8]
-                    cc = torch.nn.functional.interpolate(cc, size=bchw[-2:])
+                    bchw = [1, 4, h // 8, w // 8]
+                    cc = torch.nn.functional.interpolate(cc, size = bchw[-2:])
                 else:
                     cc = model.get_first_stage_encoding(model.encode_first_stage(cc))
                 c_cat.append(cc)
-            c_cat = torch.cat(c_cat, dim=1)
-
-            # cond
+            c_cat = torch.cat(c_cat, dim = 1)
+            # услолвие
             cond = {"c_concat": [c_cat], "c_crossattn": [c]}
-
-            # uncond cond
-            uc_cross = model.get_unconditional_conditioning(num_samples, "")
+            # безусловное условие
+            uc_cross = model.get_unconditional_conditioning(1, "")
             uc_full = {"c_concat": [c_cat], "c_crossattn": [uc_cross]}
-
             shape = [model.channels, h // 8, w // 8]
-            samples_cfg, intermediates = sampler.sample(
-                ddim_steps,
-                num_samples,
-                shape,
-                cond,
-                verbose=False,
-                eta=eta,
-                unconditional_guidance_scale=scale,
-                unconditional_conditioning=uc_full,
-                x_T=start_code,
-            )
+            samples_cfg = sampler.sample(opt["ddim_steps"], 1, shape, cond, opt["verbose"], eta = opt["ddim_eta"], unconditional_guidance_scale=opt["scale"], unconditional_conditioning=uc_full, x_T=start_code, )[0]
             x_samples_ddim = model.decode_first_stage(samples_cfg)
-            result = torch.clamp((x_samples_ddim + 1.0) / 2.0, min=0.0, max=1.0)
-            result = result.cpu().numpy().transpose(0, 2, 3, 1) * 255
-    return [Image.fromarray(img.astype(np.uint8)) for img in result]
-
-
-def Stable_diffusion_2_inpainting():
-    opt = {
-        "input": "img.png",
-        "output": "picture.png"
-    }
-    print("Stable Diffusion Inpainting")
-
-    sampler = initialize_model(sys.argv[1], sys.argv[2])
-
-    image = Image.open(opt["input"])
-    w, h = image.size
-    print("loaded input image of size ({w}, {h})")
-    width, height = map(lambda x: x - x % 64, (w, h))  # resize to integer multiple of 32
-    image = image.resize((width, height))
-
-    prompt = "an apple with green leaf 4k photorealistic"
-
-    seed = st.number_input("Seed", min_value=0, max_value=1000000, value=0)
-    num_samples = st.number_input("Number of Samples", min_value=1, max_value=64, value=1)
-    scale = st.slider("Scale", min_value=0.1, max_value=30.0, value=10., step=0.1)
-    ddim_steps = st.slider("DDIM Steps", min_value=0, max_value=50, value=50, step=1)
-    eta = st.sidebar.number_input("eta (DDIM)", value=0., min_value=0., max_value=1.)
-
-    fill_color = "rgba(255, 255, 255, 0.0)"
-    stroke_width = st.number_input("Brush Size",
-                                    value=64,
-                                    min_value=1,
-                                    max_value=100)
-    stroke_color = "rgba(255, 255, 255, 1.0)"
-    bg_color = "rgba(0, 0, 0, 1.0)"
-    drawing_mode = "freedraw"
-
-    st.write("Canvas")
-    st.caption(
-        "Draw a mask to inpaint, then click the 'Send to Streamlit' button (bottom left, with an arrow on it).")
-    canvas_result = st_canvas(
-        fill_color=fill_color,
-        stroke_width=stroke_width,
-        stroke_color=stroke_color,
-        background_color=bg_color,
-        background_image=image,
-        update_streamlit=False,
-        height=height,
-        width=width,
-        drawing_mode=drawing_mode,
-        key="canvas",
-    )
-    if canvas_result:
-        mask = canvas_result.image_data
-        mask = mask[:, :, -1] > 0
-        if mask.sum() > 0:
-            mask = Image.fromarray(mask)
-
-            result = inpaint(
-                sampler=sampler,
-                image=image,
-                mask=mask,
-                prompt=prompt,
-                seed=seed,
-                scale=scale,
-                ddim_steps=ddim_steps,
-                num_samples=num_samples,
-                h=height, w=width, eta=eta
-            )
-            st.write("Inpainted")
-            for image in result:
-                st.image(image, output_format='PNG')
+            result = torch.clamp((x_samples_ddim + 1.0) / 2.0, min = 0.0, max = 1.0).cpu().numpy().transpose(0, 2, 3, 1) * 255
+    image = [Image.fromarray(img.astype(np.uint8)) for img in result][0]
+    buf = io.BytesIO()
+    image.save(buf, format = "PNG")
+    b_data = buf.getvalue()
+    image.save(work_path + "\\" + result_img + str(img_suf) + ".png")
+    image.close
+    return w, h, b_data

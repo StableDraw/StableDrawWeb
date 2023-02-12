@@ -195,7 +195,7 @@ let is_human_caption;
 let original_image_buf = ""; //переменная для хранения исходных изображений
 let original_image_w; //переменная для хранения ширины исходного изображения
 let original_image_h; //переменная для хранения высоты исходного изображения
-let need_gen_after_caption = [false, false];
+let need_gen_after_caption = [false, false, false];
 const Max_bib_w = W * 0.2;
 const Max_bib_h = H * 0.2;
 let data_prop;
@@ -296,28 +296,52 @@ var main_modal = function (options) {
                     content: "<p>Содержмиое модального окна...<p>",
                     footerButtons: [
                         { class: "modal_btn modal_btn-3", id: "cur_gen_params_btn", text: "Параметры", handler: "modalHandlerParams" },
-                        { class: "modal_btn modal_btn-2", id: "SD2_btn", text: "StableDiffusion 2", handler: "modalHandlerGenSD2_text_to_image" },
-                        { class: "modal_btn modal_btn-2", id: "Dalle2_btn", text: "Dall-e 2", handler: "modalHandlerGenDalle2" },
+                        { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Text2Img", handler: "modalHandlerGenSD_text_to_image" },
                         { class: "modal_btn modal_btn-1", text: "Отмена", handler: "modalHandlerCancel" }
                     ]
                 });
                 content = 'Стиль:<p><input class = "modal_input" id = "style_input" value = "профессиональная фотография" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"></input><p><p>Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"</input>';
             }
             else {
-                modal = main_modal({
-                    title: "Генерация",
-                    content: "<p>Содержмиое модального окна...<p>",
-                    footerButtons: [
-                        { class: "modal_btn modal_btn-3", id: "cur_gen_params_btn", text: "Параметры", handler: "modalHandlerParams" },
-                        { class: "modal_btn modal_btn-2", id: "SD1_btn", text: "StableDiffusion 1", handler: "modalHandlerGenSD1" },
-                        { class: "modal_btn modal_btn-2", id: "SD2_btn", text: "StableDiffusion 2", handler: "modalHandlerGenSD2" },
-                        { class: "modal_btn modal_btn-1", text: "Отмена", handler: "modalHandlerCancel" }
-                    ]
-                });
                 if (original_image_buf == "") {
+                    modal = main_modal({
+                        title: "Генерация",
+                        content: "<p>Содержмиое модального окна...<p>",
+                        footerButtons: [
+                            { class: "modal_btn modal_btn-3", id: "cur_gen_params_btn", text: "Параметры", handler: "modalHandlerParams" },
+                            { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Img2Img", handler: "modalHandlerGenImg2Img" },
+                            { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Depth2Img", handler: "modalHandlerGenDepth2Img" },
+                            { class: "modal_btn modal_btn-1", text: "Отмена", handler: "modalHandlerCancel" }
+                        ]
+                    });
                     content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"></input><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image(data_prop)">Сгенерировать автоматически</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"></input>';
                 }
                 else {
+                    if (local_is_foreground_used && local_is_background_used && local_is_drawing && !local_sure) {
+                        modal = main_modal({
+                            title: "Генерация",
+                            content: "<p>Содержмиое модального окна...<p>",
+                            footerButtons: [
+                                { class: "modal_btn modal_btn-3", id: "cur_gen_params_btn", text: "Параметры", handler: "modalHandlerParams" },
+                                { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Img2Img", handler: "modalHandlerGenImg2Img" },
+                                { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Depth2Img", handler: "modalHandlerGenDepth2Img" },
+                                { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Inpainting", handler: "modalHandlerGenInpainting" },
+                                { class: "modal_btn modal_btn-1", text: "Отмена", handler: "modalHandlerCancel" }
+                            ]
+                        });
+                    }
+                    else {
+                        modal = main_modal({
+                            title: "Генерация",
+                            content: "<p>Содержмиое модального окна...<p>",
+                            footerButtons: [
+                                { class: "modal_btn modal_btn-3", id: "cur_gen_params_btn", text: "Параметры", handler: "modalHandlerParams" },
+                                { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Img2Img", handler: "modalHandlerGenImg2Img" },
+                                { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Depth2Img", handler: "modalHandlerGenDepth2Img" },
+                                { class: "modal_btn modal_btn-1", text: "Отмена", handler: "modalHandlerCancel" }
+                            ]
+                        });
+                    }
                     if (original_image_h * original_image_w > 262144) {
                         content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"/><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image(data_prop)">Сгенерировать автоматически</button><button class = "modal_btn modal_btn-4" onclick = "delete_background()">Удалить фон</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"/>';
                     }
@@ -348,7 +372,7 @@ var main_modal = function (options) {
                     is_human_caption = false;
                     blackout.style.display = "none";
                     if (need_gen_after_caption[0]) {
-                        gen_picture_by_drawing(need_gen_after_caption[1], caption_field.value + " " + style_field.value, data_prop);
+                        gen_picture_by_drawing(need_gen_after_caption[1], need_gen_after_caption[2], caption_field.value + " " + style_field.value, data_prop);
                         need_gen_after_caption[0] = false;
                     }
                     return;
@@ -386,7 +410,6 @@ var main_modal = function (options) {
                             before_gen_block.style.display = "none";
                             show_gen_result(image);
                         }
-                        original_image_buf;
                         blackout.style.display = "none";
                         modal.hide();
                         original_image_buf = image.src;
@@ -410,32 +433,25 @@ var main_modal = function (options) {
             //modal.hide()
             //document.querySelector(".message").textContent = "Вы нажали на кнопку ОК, а открыли окно с помощью кнопки " + elemTarget.textContent
         }
-        else if (e.target.dataset.handler === "modalHandlerGenSD1") {
-            if (caption_field.value == "") {
-                gen_caption_for_image(data_prop);
-                need_gen_after_caption[0] = true;
-                need_gen_after_caption[1] = false;
-            }
-            else {
-                let full_prompt;
-                if (style_field.value == "") {
-                    full_prompt = caption_field.value;
-                }
-                else {
-                    full_prompt = caption_field.value + " " + style_field.value;
-                }
-                gen_picture_by_drawing(false, full_prompt, data_prop);
-            }
-            //modal.hide()
-            //document.querySelector(".message").textContent = "Вы нажали на кнопку ОК, а открыли окно с помощью кнопки " + elemTarget.textContent
-        }
-        else if (e.target.dataset.handler === "modalHandlerGenSD2") {
-            if (caption_field.value == "") {
-                gen_caption_for_image(data_prop);
-                need_gen_after_caption[0] = true;
+        else if (e.target.dataset.handler === "modalHandlerGenImg2Img" || e.target.dataset.handler === "modalHandlerGenDepth2Img" || e.target.dataset.handler === "modalHandlerGenInpainting") {
+            if (e.target.dataset.handler === "modalHandlerGenDepth2Img") {
                 need_gen_after_caption[1] = true;
             }
             else {
+                need_gen_after_caption[1] = false;
+                if (e.target.dataset.handler === "modalHandlerGenInpainting") {
+                    need_gen_after_caption[2] = true;
+                }
+                else {
+                    need_gen_after_caption[2] = false;
+                }
+            }
+            if (caption_field.value == "") {
+                console.log(11111);
+                gen_caption_for_image(data_prop);
+                need_gen_after_caption[0] = true;
+            }
+            else {
                 let full_prompt;
                 if (style_field.value == "") {
                     full_prompt = caption_field.value;
@@ -443,12 +459,13 @@ var main_modal = function (options) {
                 else {
                     full_prompt = caption_field.value + " " + style_field.value;
                 }
-                gen_picture_by_drawing(true, full_prompt, data_prop);
+                console.log(need_gen_after_caption[2]);
+                gen_picture_by_drawing(need_gen_after_caption[1], need_gen_after_caption[2], full_prompt, data_prop);
             }
             //modal.hide()
             //document.querySelector(".message").textContent = "Вы нажали на кнопку ОК, а открыли окно с помощью кнопки " + elemTarget.textContent
         }
-        else if (e.target.dataset.handler === "modalHandlerGenSD2_text_to_image") {
+        else if (e.target.dataset.handler === "modalHandlerGenSD_text_to_image") {
             if (caption_field.value == "") {
                 caption_field.setCustomValidity("Ввод описания в этом режиме обязателен");
                 caption_field.reportValidity();
@@ -461,25 +478,7 @@ var main_modal = function (options) {
                 else {
                     full_prompt = style_field.value + " " + caption_field.value;
                 }
-                gen_picture_by_prompt(true, full_prompt);
-            }
-            //modal.hide()
-            //document.querySelector(".message").textContent = "Вы нажали на кнопку ОК, а открыли окно с помощью кнопки " + elemTarget.textContent
-        }
-        else if (e.target.dataset.handler === "modalHandlerGenDalle2") {
-            if (caption_field.value == "") {
-                caption_field.setCustomValidity("Ввод описания в этом режиме обязателен");
-                caption_field.reportValidity();
-            }
-            else {
-                let full_prompt;
-                if (style_field.value == "") {
-                    full_prompt = caption_field.value;
-                }
-                else {
-                    full_prompt = style_field.value + " " + caption_field.value;
-                }
-                gen_picture_by_prompt(false, full_prompt);
+                gen_picture_by_prompt(full_prompt);
             }
             //modal.hide()
             //document.querySelector(".message").textContent = "Вы нажали на кнопку ОК, а открыли окно с помощью кнопки " + elemTarget.textContent
@@ -726,38 +725,25 @@ function push_action_to_stack(local_act) {
         nstack = [];
     }
 }
-function gen_picture_by_drawing(is_SD2, full_prompt, data_prop) {
+function gen_picture_by_drawing(is_depth, is_inpainting, full_prompt, data_prop) {
+    console.log(is_inpainting);
     blackout.style.display = "block";
-    let local_type;
     let send_data_pbp;
-    if (is_SD2) {
-        local_type = "2";
-    }
-    else {
-        local_type = "1";
-    }
+    let foreground_data;
+    let { local_is_foreground_used, local_is_background_used, local_is_drawing, local_sure, local_how_many_prims, local_how_many_dots } = data_prop;
     if (is_human_caption) {
-        let data;
         let background_data;
         if (original_image_buf == "") {
-            if (is_foreground_visible) {
-                data = canvas_foreground.toDataURL("imag/png");
+            if (!is_foreground_visible && !is_background_visible) {
+                alert("Выключены оба слоя, вы не можете отправить изображение");
+                return;
+            }
+            if (local_is_foreground_used && is_foreground_visible) {
+                foreground_data = canvas_foreground.toDataURL("imag/png");
             }
             else {
-                if (is_background_visible) {
-                    data = canvas_background.toDataURL("imag/png");
-                }
-                else {
-                    alert("Выключены оба слоя, вы не можете отправить изображение");
-                    return;
-                }
+                foreground_data = "";
             }
-        }
-        else {
-            data = original_image_buf;
-        }
-        let { local_is_foreground_used, local_is_background_used, local_is_drawing, local_sure, local_how_many_prims, local_how_many_dots } = data_prop;
-        if (original_image_buf == "") {
             if (local_is_background_used && is_background_visible) {
                 background_data = canvas_background.toDataURL("imag/png");
             }
@@ -766,17 +752,28 @@ function gen_picture_by_drawing(is_SD2, full_prompt, data_prop) {
             }
         }
         else {
-            background_data = "";
+            if (is_inpainting) {
+                foreground_data = canvas_foreground.toDataURL("imag/png");
+                background_data = original_image_buf;
+            }
+            else {
+                foreground_data = original_image_buf;
+                background_data = "";
+            }
         }
         if (chain_id != "") {
-            data = "";
+            if (!is_inpainting) {
+                foreground_data = "";
+            }
             background_data = "";
         }
         send_data_pbp = JSON.stringify({
-            "type": "hg" + local_type,
+            "type": "hg",
+            "is_depth": is_depth,
+            "is_inpainting": is_inpainting,
             "chain_id": chain_id,
             "task_id": task_id,
-            "data": data,
+            "foreground": foreground_data,
             "backgroung": background_data,
             "prompt": full_prompt,
             "is_drawing": local_is_drawing,
@@ -787,10 +784,12 @@ function gen_picture_by_drawing(is_SD2, full_prompt, data_prop) {
             "img_suf": last_task_image_suffix
         });
         /*send_data_pbp = JSON.stringify({
-            "type": "hg" + local_type, //рисунок
+            "type": "hg", //рисунок
+            "is_depth": is_depth,
+            "is_inpainting": is_inpainting,
             "chain_id": chain_id, //id последнего звена цепочки
             "task_id": task_id, //id задания
-            "data": data,
+            "foreground": foreground_data,
             "backgroung": background_data,
             "prompt": full_prompt, //описание изображения
             "img_name": last_task_image_name,
@@ -798,28 +797,31 @@ function gen_picture_by_drawing(is_SD2, full_prompt, data_prop) {
         })*/
     }
     else {
+        if (is_inpainting) {
+            foreground_data = canvas_foreground.toDataURL("imag/png");
+        }
+        else {
+            foreground_data = "";
+        }
         send_data_pbp = JSON.stringify({
-            "type": 'g' + local_type,
+            "type": 'g',
+            "is_depth": is_depth,
+            "is_inpainting": is_inpainting,
             "chain_id": chain_id,
             "task_id": task_id,
             "img_name": last_task_image_name,
             "img_suf": last_task_image_suffix
         });
     }
+    console.log(send_data_pbp);
     ws.send(send_data_pbp);
 }
-function gen_picture_by_prompt(is_SD2, full_prompt) {
+function gen_picture_by_prompt(full_prompt) {
     blackout.style.display = "block";
     let local_type;
     let send_data_pbt;
-    if (is_SD2) {
-        local_type = 's';
-    }
-    else {
-        local_type = 'd';
-    }
     send_data_pbt = JSON.stringify({
-        "type": "t" + local_type,
+        "type": "t",
         "prompt": full_prompt //описание изображения
     });
     ws.send(send_data_pbt);
@@ -1790,8 +1792,9 @@ function gen_caption_for_image(data_prop) {
     let send_data_cpt;
     let data;
     let background_data;
+    let { local_is_foreground_used, local_is_background_used, local_is_drawing, local_sure, local_how_many_prims, local_how_many_dots } = data_prop;
     if (original_image_buf == "") {
-        if (is_foreground_visible) {
+        if (local_is_foreground_used && is_foreground_visible) {
             data = canvas_foreground.toDataURL("imag/png");
         }
         else {
@@ -1801,7 +1804,6 @@ function gen_caption_for_image(data_prop) {
     else {
         data = original_image_buf;
     }
-    let { local_is_foreground_used, local_is_background_used, local_is_drawing, local_sure, local_how_many_prims, local_how_many_dots } = data_prop;
     if (local_is_background_used && is_background_visible) {
         background_data = canvas_background.toDataURL("imag/png");
     }
@@ -2132,9 +2134,6 @@ canvas_additional.addEventListener("pointerdown", (e) => {
     enddraw = false;
     if (is_clr_window == true) {
         close_clr_window();
-    }
-    else {
-        original_image_buf = ""; //очистить буфер изображения
     }
 });
 function rgbToHex(r, g, b) {
@@ -2498,7 +2497,6 @@ d_frame.addEventListener("pointermove", (e) => //проверка курсора
             currentW = l_width;
         }
         if (fp) {
-            original_image_buf = "";
             before_gen_block.style.display = "none";
             if (cur_tool[0] == 'e') {
                 cur_draw_ctx.globalCompositeOperation = "destination-out";
