@@ -231,11 +231,11 @@ body
     border-radius: 0.3rem;
     box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.3);
 }
-@media (min-width: 576px) 
+@media (min-width: 776px) 
 {
     .modal__content 
     {
-        max-width: 500px;
+        max-width: 700px;
         margin: 50px auto;
     }
 }

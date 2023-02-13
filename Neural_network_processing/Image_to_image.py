@@ -55,10 +55,9 @@ def load_model_from_config(ws, config, ckpt, verbose = False):
     model.eval()
     return model
 
-def load_img(path):
+def load_img(path, max_dim):
     image = Image.open(path).convert("RGB")
     w, h = image.size
-    max_dim = pow(512, 2) + 1 # я не могу генерировать на своей видюхе картинки больше 512 на 512
     cur_dim = w * h
     if cur_dim > max_dim:
         k = cur_dim / max_dim
@@ -89,7 +88,7 @@ def Stable_diffusion(ws, work_path, img_name, img_suf, need_restore, AI_prompt, 
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
     model = model.to(device)
     sampler = DDIMSampler(model)
-    init_image = repeat((2. * torch.from_numpy((np.array(load_img(init_img_path)).astype(np.float32) / 255.0)[None].transpose(0, 3, 1, 2)) - 1.).to(device), '1 ... -> b ...', b = 1)
+    init_image = repeat((2. * torch.from_numpy((np.array(load_img(init_img_path, opt["max_dim"])).astype(np.float32) / 255.0)[None].transpose(0, 3, 1, 2)) - 1.).to(device), '1 ... -> b ...', b = 1)
     init_latent = model.get_first_stage_encoding(model.encode_first_stage(init_image))  # переместить в латентное пространство
     sampler.make_schedule(ddim_num_steps = opt['ddim_steps'], ddim_eta = opt['ddim_eta'], verbose = False)
     assert 0. <= opt['strength'] <= 1., 'can only work with strength in [0.0, 1.0]'

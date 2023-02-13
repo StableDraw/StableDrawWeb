@@ -245,7 +245,7 @@ let original_image_buf: string = "" //переменная для хранени
 let original_image_w: number //переменная для хранения ширины исходного изображения
 let original_image_h: number //переменная для хранения высоты исходного изображения
 
-let need_gen_after_caption: boolean[] = [false, false, false]
+let need_gen_after_caption: boolean[] = [false, false, false, false]
 
 const Max_bib_w: number = W * 0.2
 const Max_bib_h: number = H * 0.2
@@ -335,10 +335,10 @@ var main_modal: any = function (options: object)
             _destroyed = true;
         }, setContent: function (html: HTMLElement) 
         {
-            _elemModal.querySelector('[data-modal="content"]').innerHTML = html;
+            _elemModal.querySelector('[data-modal = "content"]').innerHTML = html;
         }, setTitle: function (text: HTMLElement) 
         {
-            _elemModal.querySelector('[data-modal="title"]').innerHTML = text;
+            _elemModal.querySelector('[data-modal = "title"]').innerHTML = text;
         }
     }
     return return_elem
@@ -365,67 +365,31 @@ var main_modal: any = function (options: object)
         if (e.target.dataset.toggle === "modal") 
         {
             let content: string
+            let footerButtons_list: object[] = [{ class: "modal_btn modal_btn-3", id: "cur_gen_params_btn", text: "Параметры", handler: "modalHandlerParams" }]
             if ((!local_is_foreground_used && !local_is_background_used) || (!is_background_visible && !is_foreground_visible))
             {
-                modal = main_modal({
-                    title: "Генерация",
-                    content: "<p>Содержмиое модального окна...<p>",
-                    footerButtons:
-                        [
-                            { class: "modal_btn modal_btn-3", id: "cur_gen_params_btn", text: "Параметры", handler: "modalHandlerParams" },
-                            { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Text2Img", handler: "modalHandlerGenSD_text_to_image" },
-                            { class: "modal_btn modal_btn-1", text: "Отмена", handler: "modalHandlerCancel" }
-                        ]
-                })
+                footerButtons_list.push({ class: "modal_btn modal_btn-2", id: "SD_btn", text: "Text2Img", handler: "modalHandlerGenSD_text_to_image" })
                 content = 'Стиль:<p><input class = "modal_input" id = "style_input" value = "профессиональная фотография" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"></input><p><p>Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"</input>'
             }
             else
             {
                 if (original_image_buf == "")
                 {
-                    modal = main_modal({
-                        title: "Генерация",
-                        content: "<p>Содержмиое модального окна...<p>",
-                        footerButtons:
-                            [
-                                { class: "modal_btn modal_btn-3", id: "cur_gen_params_btn", text: "Параметры", handler: "modalHandlerParams" },
-                                { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Img2Img", handler: "modalHandlerGenImg2Img" },
-                                { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Depth2Img", handler: "modalHandlerGenDepth2Img" },
-                                { class: "modal_btn modal_btn-1", text: "Отмена", handler: "modalHandlerCancel" }
-                            ]
-                    })
+                    footerButtons_list.push(
+                        { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Img2Img", handler: "modalHandlerGenImg2Img" },
+                        { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Depth2Img", handler: "modalHandlerGenDepth2Img" }
+                    )
                     content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"></input><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image(data_prop)">Сгенерировать автоматически</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"></input>'
                 }
                 else
                 {
+                    footerButtons_list.push(
+                        { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Img2Img", handler: "modalHandlerGenImg2Img" },
+                        { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Depth2Img", handler: "modalHandlerGenDepth2Img" }
+                    )
                     if (local_is_foreground_used && local_is_background_used && local_is_drawing && !local_sure)
                     {
-                        modal = main_modal({
-                            title: "Генерация",
-                            content: "<p>Содержмиое модального окна...<p>",
-                            footerButtons:
-                                [
-                                    { class: "modal_btn modal_btn-3", id: "cur_gen_params_btn", text: "Параметры", handler: "modalHandlerParams" },
-                                    { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Img2Img", handler: "modalHandlerGenImg2Img" },
-                                    { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Depth2Img", handler: "modalHandlerGenDepth2Img" },
-                                    { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Inpainting", handler: "modalHandlerGenInpainting" },
-                                    { class: "modal_btn modal_btn-1", text: "Отмена", handler: "modalHandlerCancel" }
-                                ]
-                        })
-                    }
-                    else
-                    {
-                        modal = main_modal({
-                            title: "Генерация",
-                            content: "<p>Содержмиое модального окна...<p>",
-                            footerButtons:
-                                [
-                                    { class: "modal_btn modal_btn-3", id: "cur_gen_params_btn", text: "Параметры", handler: "modalHandlerParams" },
-                                    { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Img2Img", handler: "modalHandlerGenImg2Img" },
-                                    { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Depth2Img", handler: "modalHandlerGenDepth2Img" },
-                                    { class: "modal_btn modal_btn-1", text: "Отмена", handler: "modalHandlerCancel" }
-                                ]
-                        })
+                        footerButtons_list.push({ class: "modal_btn modal_btn-2", id: "SD_btn", text: "Inpainting", handler: "modalHandlerGenInpainting" })
                     }
                     if (original_image_h * original_image_w > 262144)
                     {
@@ -433,10 +397,21 @@ var main_modal: any = function (options: object)
                     }
                     else
                     {
-                        content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"/><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image(data_prop)">Сгенерировать автоматически</button><button class = "modal_btn modal_btn-4" style = "right: 25%" onclick = "upscale()">Апскейл</button><button class = "modal_btn modal_btn-4" onclick = "delete_background()">Удалить фон</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"/>'
+                        if (original_image_h * original_image_w < 65537)
+                        {
+                            footerButtons_list.push({ class: "modal_btn modal_btn-2", id: "SD_btn", text: "SD Апскейл", handler: "modalHandlerGenUpscale" })
+                        }
+                        content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"/><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image(data_prop)">Сгенерировать автоматически</button><button class = "modal_btn modal_btn-4" style = "right: 18.5%" onclick = "upscale()">Апскейл</button><button class = "modal_btn modal_btn-4" onclick = "delete_background()">Удалить фон</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"/>'
                     }
                 }
             }
+            footerButtons_list.push({ class: "modal_btn modal_btn-1", text: "Отмена", handler: "modalHandlerCancel" })
+            modal = main_modal({
+                title: "Генерация",
+                content: "<p>Содержмиое модального окна...<p>",
+                footerButtons:
+                    footerButtons_list
+            })
             modal.show()
             modal.setContent(content)
             caption_field = <HTMLInputElement> document.getElementById("caption_input")
@@ -461,7 +436,7 @@ var main_modal: any = function (options: object)
                     blackout.style.display = "none"
                     if (need_gen_after_caption[0])
                     {
-                        gen_picture_by_drawing(need_gen_after_caption[1], need_gen_after_caption[2], caption_field.value + " " + style_field.value, data_prop)
+                        gen_picture_by_drawing(need_gen_after_caption, caption_field.value + " " + style_field.value, data_prop)
                         need_gen_after_caption[0] = false
                     }
                     return
@@ -530,46 +505,63 @@ var main_modal: any = function (options: object)
             //modal.hide()
             //document.querySelector(".message").textContent = "Вы нажали на кнопку ОК, а открыли окно с помощью кнопки " + elemTarget.textContent
         }
-        else if (e.target.dataset.handler === "modalHandlerGenImg2Img" || e.target.dataset.handler === "modalHandlerGenDepth2Img" || e.target.dataset.handler === "modalHandlerGenInpainting") 
+        else if (e.target.dataset.handler === "modalHandlerGenImg2Img" || e.target.dataset.handler === "modalHandlerGenDepth2Img" || e.target.dataset.handler === "modalHandlerGenInpainting" || e.target.dataset.handler === "modalHandlerGenUpscale") 
         {
-            if (e.target.dataset.handler === "modalHandlerGenDepth2Img")
+            while (true)
             {
-                need_gen_after_caption[1] = true
-            }
-            else
-            {
-                need_gen_after_caption[1] = false
                 if (e.target.dataset.handler === "modalHandlerGenInpainting")
                 {
+                    if (caption_field.value == "")
+                    {
+                        caption_field.setCustomValidity("Ввод описания в этом режиме обязателен")
+                        caption_field.reportValidity()
+                        break
+                    }
                     need_gen_after_caption[2] = true
                 }
                 else
                 {
                     need_gen_after_caption[2] = false
+                    if (e.target.dataset.handler === "modalHandlerGenDepth2Img")
+                    {
+                        need_gen_after_caption[1] = true
+                    }
+                    else
+                    {
+                        need_gen_after_caption[1] = false
+                        if (e.target.dataset.handler === "modalHandlerGenUpscale")
+                        {
+                            need_gen_after_caption[3] = true
+                        }
+                        else
+                        {
+                            need_gen_after_caption[3] = false
+                        }
+                    }
                 }
-            }
-            if (caption_field.value == "")
-            {
-                console.log(11111)
-                gen_caption_for_image(data_prop)
-                need_gen_after_caption[0] = true
-            }
-            else
-            {
-                let full_prompt: string
-                if (style_field.value == "")
+                if (caption_field.value == "")
                 {
-                    full_prompt = caption_field.value
+                    gen_caption_for_image(data_prop)
+                    need_gen_after_caption[0] = true
                 }
                 else
                 {
-                    full_prompt = caption_field.value + " " + style_field.value
+                    let full_prompt: string
+                    if (style_field.value == "")
+                    {
+                        full_prompt = caption_field.value
+                    }
+                    else
+                    {
+                        full_prompt = caption_field.value + " " + style_field.value
+                    }
+                    gen_picture_by_drawing(need_gen_after_caption, full_prompt, data_prop)
+                    need_gen_after_caption[2] = false
                 }
-                console.log(need_gen_after_caption[2])
-                gen_picture_by_drawing(need_gen_after_caption[1], need_gen_after_caption[2], full_prompt, data_prop)
+                //modal.hide()
+                //document.querySelector(".message").textContent = "Вы нажали на кнопку ОК, а открыли окно с помощью кнопки " + elemTarget.textContent
+                break
             }
-            //modal.hide()
-            //document.querySelector(".message").textContent = "Вы нажали на кнопку ОК, а открыли окно с помощью кнопки " + elemTarget.textContent
         }
         else if (e.target.dataset.handler === "modalHandlerGenSD_text_to_image") 
         {
@@ -887,9 +879,11 @@ function push_action_to_stack(local_act: any)
     }
 }
 
-function gen_picture_by_drawing(is_depth: boolean, is_inpainting: boolean, full_prompt: string, data_prop: any)
+function gen_picture_by_drawing(params: boolean[], full_prompt: string, data_prop: any)
 {
-    console.log(is_inpainting)
+    let is_depth: boolean = params[1]
+    let is_inpainting: boolean = params[2]
+    let is_upscale: boolean = params[3]
     blackout.style.display = "block"
     let send_data_pbp: any
     let foreground_data: string
@@ -943,9 +937,11 @@ function gen_picture_by_drawing(is_depth: boolean, is_inpainting: boolean, full_
             background_data = ""
         }
         send_data_pbp = JSON.stringify({
-            "type": "hg", //рисунок
+            "type": 'g', //рисунок
+            "is_human_caption": true,
             "is_depth": is_depth,
             "is_inpainting": is_inpainting,
+            "is_upscale": is_upscale,
             "chain_id": chain_id, //id последнего звена цепочки
             "task_id": task_id, //id задания
             "foreground": foreground_data,
@@ -960,9 +956,11 @@ function gen_picture_by_drawing(is_depth: boolean, is_inpainting: boolean, full_
         })
 
         /*send_data_pbp = JSON.stringify({ 
-            "type": "hg", //рисунок
+            "type": 'g', //рисунок
+            "is_human_caption": true,
             "is_depth": is_depth,
             "is_inpainting": is_inpainting,
+            "is_upscale": is_upscale,
             "chain_id": chain_id, //id последнего звена цепочки
             "task_id": task_id, //id задания
             "foreground": foreground_data,
@@ -974,25 +972,17 @@ function gen_picture_by_drawing(is_depth: boolean, is_inpainting: boolean, full_
     }
     else
     {
-        if (is_inpainting)
-        {
-            foreground_data = canvas_foreground.toDataURL("imag/png")
-        }
-        else
-        {
-            foreground_data = ""
-        }
         send_data_pbp = JSON.stringify({ 
             "type": 'g', //просьба сгенерировать с машинным описанием
+            "is_human_caption": false,
             "is_depth": is_depth,
-            "is_inpainting": is_inpainting,
+            "is_upscale": is_upscale,
             "chain_id": chain_id, //id последнего звена цепочки
             "task_id": task_id, //id задания
             "img_name": last_task_image_name, //имя последнего файла изображения
             "img_suf": last_task_image_suffix
         });
     }
-    console.log(send_data_pbp)
     ws.send(send_data_pbp)
 }
 

@@ -41,10 +41,9 @@ def load_model_from_config(ws, config, ckpt, verbose = False):
     model.eval()
     return model
 
-def load_img(path):
+def load_img(path, max_dim):
     image = Image.open(path).convert("RGB")
     w, h = image.size
-    max_dim = pow(512, 2) + 1 # я не могу генерировать на своей видюхе картинки больше 512 на 512
     cur_dim = w * h
     if cur_dim > max_dim:
         k = cur_dim / max_dim
@@ -57,7 +56,7 @@ def load_img(path):
     print(f"размер изображения изменён на ({w}, {h} (w, h))")
     return image
 
-def make_batch_sd(image, txt, device, model_type):
+def make_batch_sd_d2i(image, txt, device, model_type):
     image = np.array(image.convert("RGB"))
     image = torch.from_numpy(image).to(dtype = torch.float32) / 127.5 - 1.0
     # sample["jpg"] это тензор hwc в [-1, 1] в этом месте
@@ -67,8 +66,7 @@ def make_batch_sd(image, txt, device, model_type):
         "txt": [txt],
     }
     batch = midas_trafo(batch)
-    batch["jpg"] = rearrange(batch["jpg"], 'h w c -> 1 c h w')
-    batch["jpg"] = repeat(batch["jpg"].to(device = device), "1 ... -> n ...", n = 1)
+    batch["jpg"] = repeat(rearrange(batch["jpg"], 'h w c -> 1 c h w').to(device = device), "1 ... -> n ...", n = 1)
     batch["midas_in"] = repeat(torch.from_numpy(batch["midas_in"][None, ...]).to(device = device), "1 ... -> n ...", n = 1)
     return batch
 
@@ -86,7 +84,7 @@ def Stable_diffusion_depth_to_image(ws, work_path, img_name, img_suf, need_resto
         prompt = f.read()
     config = config_path + config_list[checkpoint_list[opt["ckpt"]][1]]
     seed_everything(opt['seed'])
-    image = load_img(init_img)
+    image = load_img(init_img, opt["max_dim"])
     assert 0. <= opt["strength"] <= 1., "может работать с параметром шума в интервале от 0.0 до 1.0"
     if opt["strength"] == 1.:
         do_full_sample = True
@@ -99,7 +97,7 @@ def Stable_diffusion_depth_to_image(ws, work_path, img_name, img_suf, need_resto
     model = model.to(device)
     sampler = DDIMSampler(model)
     sampler.make_schedule(ddim_num_steps = opt['ddim_steps'], ddim_eta = opt['ddim_eta'], verbose = opt["verbose"])
-    batch = make_batch_sd(image, txt = prompt, device = device, model_type = opt["model_type"])
+    batch = make_batch_sd_d2i(image, txt = prompt, device = device, model_type = opt["model_type"])
     with torch.no_grad(),\
             torch.autocast("cuda"):
         z = model.get_first_stage_encoding(model.encode_first_stage(batch[model.first_stage_key]))  # move to latent space
