@@ -12,51 +12,16 @@ import websockets
 from PIL import Image
 from googletrans import Translator
 from Image_caption_generator import Gen_caption
-from Image_to_image import Stable_diffusion
 from Delete_background import Delete_background
 from Upscaler import Upscale
-from Text_to_image import Stable_diffusion_text_to_image
-from Depth_to_image import Stable_diffusion_depth_to_image
-from Inpainting import Stable_diffusion_inpainting
-from SD_Upscaler import Stable_diffusion_upscaler
+from Stable_diffusion import Stable_diffusion_image_to_image
+from Stable_diffusion import Stable_diffusion_text_to_image
+from Stable_diffusion import Stable_diffusion_depth_to_image
+from Stable_diffusion import Stable_diffusion_inpainting
+from Stable_diffusion import Stable_diffusion_upscaler
 
 chat_id = "-1001661093241"
-'''
-if not os.path.exists("caption_base_best.pt"):
-    import urllib.request
-    urllib.request.urlretrieve("https://ofa-beijing.oss-cn-beijing.aliyuncs.com/checkpoints/caption_base_best.pt", "caption_base_best.pt")
-if not os.path.exists("caption_huge_best.pt"):
-    import urllib.request
-    urllib.request.urlretrieve("https://ofa-beijing.oss-cn-beijing.aliyuncs.com/checkpoints/caption_huge_best.pt", "caption_huge_best.pt")
 
-checkpoint_path = 'models/ldm/stable-diffusion-v1/'
-checkpoint_list = ["sd-v1-1.ckpt", 
-                   "sd-v1-1-full-ema.ckpt", 
-                   "sd-v1-2.ckpt", 
-                   "sd-v1-2-full-ema.ckpt", 
-                   "sd-v1-3.ckpt", 
-                   "sd-v1-3-full-ema.ckpt", 
-                   "sd-v1-4.ckpt", 
-                   "sd-v1-4-full-ema.ckpt", 
-                   "sd-v1-5.ckpt", 
-                   "sd-v1-5-full-ema.ckpt"]
-
-if not os.path.exists(checkpoint_path) or not os.path.exists("models\\ldm\\stable-diffusion-v2"):
-    os.mkdir(checkpoint_path)
-    import urllib.request
-    import click
-    print("сначала нужно посетить каждую страницу снизу и согласиться с лицензионными соглашениями:")
-    for i in range (1, 5):
-        print("https://huggingface.co/CompVis/stable-diffusion-v-1-" + str(i) + "-original/resolve/main/")
-    print("https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/")
-    click.pause()
-    for i in range (1, 5):
-        urllib.request.urlretrieve("https://huggingface.co/CompVis/stable-diffusion-v-1-1-original/resolve/main/sd-v1-" + str(i) + ".ckpt", checkpoint_path + checkpoint_list[2 * (i - 1)])
-        urllib.request.urlretrieve("https://huggingface.co/CompVis/stable-diffusion-v-1-1-original/resolve/main/sd-v1-" + str(i) + "-full-ema.ckpt", checkpoint_path + checkpoint_list[2 * (i - 1) + 1])
-    urllib.request.urlretrieve("https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt", checkpoint_path + checkpoint_list[4])
-    urllib.request.urlretrieve("https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned.ckpt", checkpoint_path + checkpoint_list[4])
-    urllib.request.urlretrieve("https://cdn-lfs.huggingface.co/repos/18/fc/18fcc3be3bc3077cb1e70baea3953cce46fc54fc20aeba602201371707b7c2ed/d635794c1fedfdfa261e065370bea59c651fc9bfa65dc6d67ad29e11869a1824?response-content-disposition=attachment%3B%20filename%3D%22512-base-ema.ckpt%22&Expires=1669643977&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9jZG4tbGZzLmh1Z2dpbmdmYWNlLmNvL3JlcG9zLzE4L2ZjLzE4ZmNjM2JlM2JjMzA3N2NiMWU3MGJhZWEzOTUzY2NlNDZmYzU0ZmMyMGFlYmE2MDIyMDEzNzE3MDdiN2MyZWQvZDYzNTc5NGMxZmVkZmRmYTI2MWUwNjUzNzBiZWE1OWM2NTFmYzliZmE2NWRjNmQ2N2FkMjllMTE4NjlhMTgyND9yZXNwb25zZS1jb250ZW50LWRpc3Bvc2l0aW9uPWF0dGFjaG1lbnQlM0IlMjBmaWxlbmFtZSUzRCUyMjUxMi1iYXNlLWVtYS5ja3B0JTIyIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNjY5NjQzOTc3fX19XX0_&Signature=QgW77W-DJuhMyCXnIZnF4pmcYbqGsm63nd~oRDvpZ0ZAAmfXz5MG04oFw6ghqMaaVMiph6nvEp5vqLJ0N-CNcauHGOrXbZxy0ntQTlwuxlUVQXG0-W5IZCMRLuj47Db9yCvIm8zMNt~eVDuv1lsfD3in3jO-vwnkYVUAEKdzyelnfirOBAfXfCtnMc9XPmihUUleKnbaizxojaXAFi~ERgjd90SgnCwoCIvzUofwb~GyS0vI3hTv85MtBMcV-FUMsmwgc3KCrnUKj~eO7j69NiiytKL0vzmmYNP7J7ZhktBYCP16rkEGj2OntRvRnQP-amtKOX7kPIzcXRJ-Qc3ycQ__&Key-Pair-Id=KVTP0A1DKRTAX", "models\\ldm\\stable-diffusion-v2\\512-base-ema.ckpt")
-    '''
 with open("token.txt", "r") as f:
     TOKEN = f.read()
 
@@ -92,10 +57,10 @@ def del_prompt_about_drawing(prompt, rep_mess_id, noback):
                 'an outline of an ',
                 'a outline of an ',
                 'an outline of a ',
-                'a outline of a ', 
-                'drawing of an', 
-                ' drawing of a', 
-                'a drawing of ', 
+                'a outline of a ',
+                'drawing of an',
+                ' drawing of a',
+                'a drawing of ',
                 'an image of ',
                 'a picture of ',
                 "a continuous line of an",
@@ -192,7 +157,7 @@ def Prepare_img(path_dir, image_name, img_suf, no_gen, sim_suf, no_resize):
                     buf = io.BytesIO()
                     b_image.save(buf, format = "PNG")
                     b_image.close()
-                    binary_data =  buf.getvalue()
+                    binary_data = buf.getvalue()
                     return True, binary_data
         h_opt = rh - h
         frame = True
@@ -315,7 +280,7 @@ async def neural_processing(process, nprocess):
             task_id = task[4]
             user_id = task[5]
             chain_id = task[6]
-            #await websocket.send(json.dumps({'0' : "t", '1' : "Обработка началась"})) #костыль
+            print("Обработка началась")
             path_to_task_dir = "log\\" + user_id + "\\" + task_id
             if task_type != 't': #если в обработку передаётся изображение
                 orig_img_name = task[2]
@@ -372,7 +337,7 @@ async def neural_processing(process, nprocess):
                 else:
                     message_id = send_document_to_tg(URL + "sendDocument?&reply_to_message_id=" + chain_id + "&chat_id=" + chat_id, { "document": (img_name, binary_data) })
                     params = {
-                        "ckpt": "caption_huge_best.pt", #используемые чекпоинты (caption_huge_best.pt или caption_base_best.pt) 
+                        "ckpt": "caption_huge_best.pt", #используемые чекпоинты (caption_huge_best.pt или caption_base_best.pt) #https://ofa-beijing.oss-cn-beijing.aliyuncs.com/checkpoints/caption_base_best.pt
                         "eval_cider": True,             #оценка с помощью баллов CIDEr
                         "eval_bleu": False,             #оценка с помощью баллов BLEU
                         "eval_args": "{}",              #аргументы генерации для оценки BLUE или CIDEr, например, "{"beam": 4, "lenpen": 0,6}", в виде строки JSON
@@ -392,7 +357,7 @@ async def neural_processing(process, nprocess):
                         "sampling_topk": 3,             #из скольки тоненов отбирать лучший (0 - не использовать сэмплирование)
                         "seed": 7                       #инициализирующее значение для генерации
                     }
-                    client_message = Gen_caption(websocket, path_to_task_dir, img_name, params)
+                    client_message = Gen_caption(path_to_task_dir, img_name, params)
                     client_message, chain_id = del_prompt_about_drawing(client_message, message_id, noback)
                     with open(path_to_task_dir + "/AI_caption_" + str(img_suf) + ".txt", "w") as f:
                         f.write(client_message)
@@ -440,7 +405,7 @@ async def neural_processing(process, nprocess):
                         "verbose": True,
                         "max_dim": pow(512, 2)  # я не могу генерировать на своей видюхе картинки больше 512 на 512
                     }
-                    w, h, binary_data = Stable_diffusion_depth_to_image(websocket, path_to_task_dir, img_name, img_suf, need_restore, AI_prompt, params) #передаю сокет, путь к рабочей папке, имя файла, и true если AI описание, false если человеческая
+                    w, h, binary_data = Stable_diffusion_depth_to_image(path_to_task_dir, img_name, img_suf, need_restore, AI_prompt, params) #передаю сокет, путь к рабочей папке, имя файла, и true если AI описание, false если человеческая
                 elif Is_inpainting:
                     params = {
                         "ddim_steps": 50,           #Шаги DDIM, от 0 до 50
@@ -452,7 +417,7 @@ async def neural_processing(process, nprocess):
                         "verbose": False,
                         "max_dim": pow(512, 2)  # я не могу генерировать на своей видюхе картинки больше 512 на 512
                     }
-                    w, h, binary_data = Stable_diffusion_inpainting(websocket, path_to_task_dir, img_name, img_suf, need_restore, params) #передаю сокет, путь к рабочей папке, имя файла и параметры
+                    w, h, binary_data = Stable_diffusion_inpainting(path_to_task_dir, img_name, img_suf, need_restore, params) #передаю сокет, путь к рабочей папке, имя файла и параметры
                 elif Is_upscale == True:
                     params = {
                         "ddim_steps": 50,           #Шаги DDIM, от 2 до 250
@@ -469,7 +434,7 @@ async def neural_processing(process, nprocess):
                         rbufer[2] *= 4
                         rbufer[3] *= 4
                         rbufer[4] *= 4
-                    w, h, binary_data = Stable_diffusion_upscaler(websocket, path_to_task_dir, img_name, img_suf, need_restore, AI_prompt, params) #передаю сокет, путь к рабочей папке, имя файла, и true если AI описание, false если человеческая
+                    w, h, binary_data = Stable_diffusion_upscaler(path_to_task_dir, img_name, img_suf, need_restore, AI_prompt, params) #передаю сокет, путь к рабочей папке, имя файла, и true если AI описание, false если человеческая
                 else:
                     params = {
                         'ddim_steps': 50,             #количество шагов выборки ddim
@@ -480,10 +445,10 @@ async def neural_processing(process, nprocess):
                         'strength': 0.7,              #сила увеличения/уменьшения шума. 1.0 соответствует полному уничтожению информации в инициализирующем образе
                         'ckpt': 0,                    #выбор весов модели (от 0 до 10)
                         'seed': 42,                   #сид (для воспроизводимой генерации изображений)
-                        'precision': "autocast",       #оценивать с этой точностью ("full" или "autocast")
-                        "max_dim": pow(512, 2)  # я не могу генерировать на своей видюхе картинки больше 512 на 512
+                        'precision': "autocast",      #оценивать с этой точностью ("full" или "autocast")
+                        "max_dim": pow(512, 2)        # я не могу генерировать на своей видюхе картинки больше 512 на 512
                     }
-                    w, h, binary_data = Stable_diffusion(websocket, path_to_task_dir, img_name, img_suf, need_restore, AI_prompt, params) #передаю сокет, путь к рабочей папке, имя файла, и true если AI описание, false если человеческая
+                    w, h, binary_data = Stable_diffusion_image_to_image(path_to_task_dir, img_name, img_suf, need_restore, AI_prompt, params) #передаю сокет, путь к рабочей папке, имя файла, и true если AI описание, false если человеческая
                 result_img = local_img_name + "_" + str(img_suf)
                 if need_restore == True: #если нужно восстановление
                     with open(path_to_task_dir + "\\c_" + result_img, "wb") as f:
@@ -590,7 +555,7 @@ async def neural_processing(process, nprocess):
                     "seed": 42,             #сид (для воспроизводимой генерации изображений)
                     "precision": "autocast" #оценивать с этой точностью ("full" или "autocast")
                 }
-                w, h, binary_data = Stable_diffusion_text_to_image(websocket, path_to_task_dir, caption, params) #передаю сокет, путь к рабочей папке, имя файла и параметры генерации
+                w, h, binary_data = Stable_diffusion_text_to_image(path_to_task_dir, caption, params) #передаю сокет, путь к рабочей папке, имя файла и параметры генерации
                 img = str(base64.b64encode(binary_data).decode('utf-8'))
                 chain_id = send_document_to_tg(URL + "sendDocument?&reply_to_message_id=" + chain_id + "&chat_id=" + chat_id, {'document': ('drawing_0.png', binary_data)})
                 resp_data = {

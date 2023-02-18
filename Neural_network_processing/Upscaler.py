@@ -26,19 +26,19 @@ def Upscale(workpath, img_name, img_suf, need_restore, args):
         netscale = 4
         file_url = ['https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth']
     elif model_name == 'RealESRNet_x4plus':  # модель x4 RRDBNet
-        model = RRDBNet(num_in_ch = 3, num_out_ch=3, num_feat=64, num_block=23, num_grow_ch=32, scale=4)
+        model = RRDBNet(num_in_ch = 3, num_out_ch = 3, num_feat = 64, num_block = 23, num_grow_ch = 32, scale = 4)
         netscale = 4
         file_url = ['https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.1/RealESRNet_x4plus.pth']
     elif model_name == 'RealESRGAN_x4plus_anime_6B':  # модель x4 RRDBNet с 6 блоками
-        model = RRDBNet(num_in_ch=3, num_out_ch=3, num_feat=64, num_block=6, num_grow_ch=32, scale=4)
+        model = RRDBNet(num_in_ch = 3, num_out_ch = 3, num_feat = 64, num_block = 6, num_grow_ch = 32, scale = 4)
         netscale = 4
         file_url = ['https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.2.4/RealESRGAN_x4plus_anime_6B.pth']
     elif model_name == 'RealESRGAN_x2plus':  # модель x2 RRDBNet
-        model = RRDBNet(num_in_ch=3, num_out_ch=3, num_feat=64, num_block=23, num_grow_ch=32, scale=2)
+        model = RRDBNet(num_in_ch = 3, num_out_ch = 3, num_feat = 64, num_block = 23, num_grow_ch=32, scale = 2)
         netscale = 2
         file_url = ['https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.1/RealESRGAN_x2plus.pth']
     elif model_name == 'realesr-animevideov3':  # модель x4 VGG-стиля (размера XS)
-        model = SRVGGNetCompact(num_in_ch = 3, num_out_ch=3, num_feat=64, num_conv=16, upscale=4, act_type='prelu')
+        model = SRVGGNetCompact(num_in_ch = 3, num_out_ch = 3, num_feat = 64, num_conv = 16, upscale = 4, act_type = 'prelu')
         netscale = 4
         file_url = ['https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.5.0/realesr-animevideov3.pth']
     elif model_name == 'realesr-general-x4v3':  # модель x4 VGG-стиля (размера S)

@@ -9,16 +9,6 @@ from einops import repeat
 from ldm.models.diffusion.ddim import DDIMSampler
 from ldm.util import instantiate_from_config
 
-torch.set_grad_enabled(False)
-
-checkpoint_path = 'models\\ldm\\stable-diffusion\\inpainting\\'
-checkpoint_list = [
-    ["512-inpainting-ema.safetensors", 1],
-    ["galaxytimemachines_v3.safetensors", 0],
-]
-config_path = "configs\\stable-diffusion\\"
-config_list = ["v1-inpainting-inference.yaml", "v2-inpainting-inference.yaml"]
-
 def load_model_from_config(ws, config, ckpt, verbose = False):
     print(f"Загрузка модели из {ckpt}")
     if ckpt[ckpt.rfind('.'):] == ".safetensors":
@@ -75,6 +65,14 @@ def make_batch_sd_inp(image, mask, txt, device):
     return batch
 
 def Stable_diffusion_inpainting(ws, work_path, img_name, img_suf, need_restore, opt):
+    torch.set_grad_enabled(False)
+    checkpoint_path = 'models\\ldm\\stable-diffusion\\inpainting\\'
+    checkpoint_list = [
+        ["512-inpainting-ema.safetensors", 1],
+        ["galaxytimemachines_v3.safetensors", 0],
+    ]
+    config_path = "configs\\stable-diffusion\\"
+    config_list = ["v1-inpainting-inference.yaml", "v2-inpainting-inference.yaml"]
     init_img = work_path + "/" + img_name
     mask_path = work_path + "/mask_" + str(img_suf - 1) + ".png"
     if need_restore == True:

@@ -44,7 +44,7 @@ def apply_half(t):
         return t.to(dtype = torch.half)
     return t
 
-def Gen_caption(ws, img_path, img_name, params):
+def Gen_caption(img_path, img_name, params):
     overrides = {
         "bpe_dir": "./utils/BPE",               #путь до BPE
         "eval_cider_cached_tokens": "corpus",   #путь к кэшированному файлу cPickle, используемому для расчета оценок CIDEr
@@ -59,7 +59,7 @@ def Gen_caption(ws, img_path, img_name, params):
     use_cuda = torch.cuda.is_available()
     use_fp16 = False
     # Загрузка претренированных ckpt и config
-    #await ws.send(json.dumps({'0' : "t", '1' : "Загрузка претренированных чекпоинтов и настроек конфигурации..."}))
+    print("Загрузка претренированных чекпоинтов и настроек конфигурации...")
     models, cfg, task = checkpoint_utils.load_model_ensemble_and_task(utils.split_paths(params["ckpt"]), arg_overrides = params | overrides)
     # Перемещение моделей на GPU
     for model in models:
@@ -84,11 +84,11 @@ def Gen_caption(ws, img_path, img_name, params):
     )
     image = Image.open(img_path + "\\" + img_name)
     # Построение выходного образца и подготовка GPU, если доступна CUDA
-    #await ws.send(json.dumps({'0' : "t", '1' : "Построение выходного образца..."}))
+    print("Построение выходного образца...")
     sample = construct_sample(image, task, patch_resize_transform)
     sample = utils.move_to_cuda(sample) if use_cuda else sample
     sample = utils.apply_to_sample(apply_half, sample) if use_fp16 else sample
     # Запуск эволюционного шага для описания
-    #await ws.send(json.dumps({'0' : "t", '1' : "Вычисление описания..."}))
+    print("Вычисление описания...")
     with torch.no_grad():
         return eval_caption(task, generator, models, sample)[0][0]['caption']

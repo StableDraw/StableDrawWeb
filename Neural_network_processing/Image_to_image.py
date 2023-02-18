@@ -13,23 +13,6 @@ from pytorch_lightning import seed_everything
 from ldm.util import instantiate_from_config
 from ldm.models.diffusion.ddim import DDIMSampler
 
-checkpoint_path = 'models\\ldm\\stable-diffusion\\img2img\\'
-checkpoint_list = [
-    ["sd-v1-1.ckpt", 0],
-    ["sd-v1-1-full-ema.ckpt", 0],
-    ["sd-v1-2.ckpt", 0],
-    ["sd-v1-2-full-ema.ckpt", 0],
-    ["sd-v1-3.ckpt", 0],
-    ["sd-v1-3-full-ema.ckpt", 0],
-    ["sd-v1-4.ckpt", 0],
-    ["sd-v1-4-full-ema.ckpt", 0],
-    ["sd-v1-5.ckpt", 0],
-    ["sd-v1-5-full-ema.ckpt", 0],
-    ["512-base-ema.ckpt", 1],
-]
-config_path = "configs\\stable-diffusion\\"
-config_list = ["v1-inference.yaml", "v2-midas-inference.yaml"]
-
 def chunk(it, size):
     it = iter(it)
     return iter(lambda: tuple(islice(it, size)), ())
@@ -71,6 +54,22 @@ def load_img(path, max_dim):
     return image
 
 def Stable_diffusion(ws, work_path, img_name, img_suf, need_restore, AI_prompt, opt):
+    checkpoint_path = 'models\\ldm\\stable-diffusion\\img2img\\'
+    checkpoint_list = [
+        ["sd-v1-1.ckpt", 0],
+        ["sd-v1-1-full-ema.ckpt", 0],
+        ["sd-v1-2.ckpt", 0],
+        ["sd-v1-2-full-ema.ckpt", 0],
+        ["sd-v1-3.ckpt", 0],
+        ["sd-v1-3-full-ema.ckpt", 0],
+        ["sd-v1-4.ckpt", 0],
+        ["sd-v1-4-full-ema.ckpt", 0],
+        ["sd-v1-5.ckpt", 0],
+        ["sd-v1-5-full-ema.ckpt", 0],
+        ["512-base-ema.ckpt", 1],
+    ]
+    config_path = "configs\\stable-diffusion\\"
+    config_list = ["v1-inference.yaml", "v2-midas-inference.yaml"]
     init_img_path = work_path + "/" + img_name
     if need_restore == True:
         result_img = "c_picture_"

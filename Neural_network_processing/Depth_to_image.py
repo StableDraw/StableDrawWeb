@@ -11,15 +11,6 @@ from ldm.util import instantiate_from_config
 from ldm.models.diffusion.ddim import DDIMSampler
 from ldm.data.util import AddMiDaS
 
-torch.set_grad_enabled(False)
-
-checkpoint_path = "models\\ldm\\stable-diffusion\\dept2img\\"
-checkpoint_list = [
-    ["512-depth-ema.ckpt", 0]
-]
-config_path = "configs\\stable-diffusion\\"
-config_list = ["v2-midas-inference.yaml"]
-
 def load_model_from_config(ws, config, ckpt, verbose = False):
     print(f"Загрузка модели из {ckpt}")
     if ckpt[ckpt.rfind('.'):] == ".safetensors":
@@ -71,6 +62,13 @@ def make_batch_sd_d2i(image, txt, device, model_type):
     return batch
 
 def Stable_diffusion_depth_to_image(ws, work_path, img_name, img_suf, need_restore, AI_prompt, opt):
+    torch.set_grad_enabled(False)
+    checkpoint_path = "models\\ldm\\stable-diffusion\\dept2img\\"
+    checkpoint_list = [
+        ["512-depth-ema.ckpt", 0]
+    ]
+    config_path = "configs\\stable-diffusion\\"
+    config_list = ["v2-midas-inference.yaml"]
     init_img = work_path + "/" + img_name
     if need_restore == True:
         result_img = "c_picture_"

@@ -11,15 +11,6 @@ from ldm.models.diffusion.ddim import DDIMSampler
 from ldm.util import exists, instantiate_from_config
 from ldm.models.diffusion.ddpm import LatentUpscaleDiffusion, LatentUpscaleFinetuneDiffusion
 
-torch.set_grad_enabled(False)
-
-checkpoint_path = "models\\ldm\\stable-diffusion\\upscaler\\"
-checkpoint_list = [
-    "x4-upscaler-ema.safetensors"
-]
-config_path = "configs\\stable-diffusion\\"
-config_list = ["x4-upscaling.yaml"]
-
 def load_model_from_config(ws, config, ckpt, verbose):
     print(f"Загрузка модели из {ckpt}")
     if ckpt[ckpt.rfind('.'):] == ".safetensors":
@@ -73,6 +64,13 @@ def make_noise_augmentation(model, batch, noise_level = None):
     return x_aug, noise_level
 
 def Stable_diffusion_upscaler(ws, work_path, img_name, img_suf, need_restore, AI_prompt, opt):
+    torch.set_grad_enabled(False)
+    checkpoint_path = "models\\ldm\\stable-diffusion\\upscaler\\"
+    checkpoint_list = [
+        "x4-upscaler-ema.safetensors"
+    ]
+    config_path = "configs\\stable-diffusion\\"
+    config_list = ["x4-upscaling.yaml"]
     init_img = work_path + "\\" + img_name
     if need_restore == True:
         result_img = "c_big_image_"
