@@ -5,4 +5,4 @@
 *.key
 *.crt
 *.safetensors
-./Neural_network_processing/log/*
+Neural_network_processing/log
