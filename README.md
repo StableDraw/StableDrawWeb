@@ -9,3 +9,5 @@ Website with Stable Diffusion and many additional features
 * Рисунок (профессиональный рисунок, быстрый рисунок, профессиональный лайн, быстрый набросок)
 # 
 - [ ] 
+
+Test
