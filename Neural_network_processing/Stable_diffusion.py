@@ -41,8 +41,8 @@ def load_model_from_config(config, ckpt, verbose = False):
     model.eval()
     return model
 
-def load_img(path, max_dim):
-    image = Image.open(path).convert("RGB")
+def load_img(binary_data, max_dim):
+    image = Image.open(io.BytesIO(binary_data)).convert("RGB")
     w, h = image.size
     cur_dim = w * h
     if cur_dim > max_dim:
@@ -50,13 +50,13 @@ def load_img(path, max_dim):
         sk = float(k ** (0.5))
         w = int(w / sk)
         h = int(h / sk)
-    print(f"загружено входное изображение размера ({w}, {h}) из папки {path}")
+    print(f"загружено входное изображение размера ({w}, {h})")
     w, h = map(lambda x: x - x % 64, (w, h))  # изменение размера в целое число, кратное 64-м
     image = image.resize((w, h), resample = PIL.Image.LANCZOS)
     print(f"размер изображения изменён на ({w}, {h} (w, h))")
     return image
 
-def Stable_diffusion_text_to_image(work_path, prompt, opt):
+def Stable_diffusion_text_to_image(prompt, opt):
     torch.set_grad_enabled(False)
     checkpoint_path = "models\\ldm\\stable-diffusion\\text2img\\"
     checkpoint_list = [
@@ -70,7 +70,7 @@ def Stable_diffusion_text_to_image(work_path, prompt, opt):
     config_list = ["v1-inference.yaml", "v2-inference.yaml"]
     w = 512
     h = 512
-    if (opt["ckpt"] == 1):
+    if (opt["ckpt"] == 2 or opt["ckpt"] == 3):
         w = 768
         h = 768
     seed_everything(opt["seed"])
@@ -100,12 +100,11 @@ def Stable_diffusion_text_to_image(work_path, prompt, opt):
             buf = io.BytesIO()
             img.save(buf, format = "PNG")
             b_data = buf.getvalue()
-            img.save(work_path + "\\tpicture_1.png")
             img.close
     print("Обработка успешно завершена")
     return w, h, b_data
 
-def Stable_diffusion_image_to_image(work_path, img_name, img_suf, need_restore, AI_prompt, opt):
+def Stable_diffusion_image_to_image(binary_data, prompt, opt):
     checkpoint_path = 'models\\ldm\\stable-diffusion\\img2img\\'
     checkpoint_list = [
         ["sd-v1-1.safetensors", 0],
@@ -121,24 +120,13 @@ def Stable_diffusion_image_to_image(work_path, img_name, img_suf, need_restore, 
     ]
     config_path = "configs\\stable-diffusion\\"
     config_list = ["v1-inference.yaml", "v2-inference.yaml"]
-    init_img_path = work_path + "/" + img_name
-    if need_restore == True:
-        result_img = "c_picture_"
-    else:
-        result_img = "picture_"
-    if AI_prompt: 
-        pfile = work_path + "/AI_caption_" + str(img_suf - 1) + ".txt"
-    else:
-        pfile = work_path + "/Human_caption_" + str(img_suf - 1) + ".txt"
-    with open(pfile, "r") as f:
-        prompt = f.read()
     seed_everything(opt['seed'])
     config = OmegaConf.load(config_path + config_list[checkpoint_list[opt["ckpt"]][1]])
     model = load_model_from_config(config, checkpoint_path + checkpoint_list[opt["ckpt"]][0])
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
     model = model.to(device)
     sampler = DDIMSampler(model)
-    init_image = repeat((2. * torch.from_numpy((np.array(load_img(init_img_path, opt["max_dim"])).astype(np.float32) / 255.0)[None].transpose(0, 3, 1, 2)) - 1.).to(device), '1 ... -> b ...', b = 1)
+    init_image = repeat((2. * torch.from_numpy((np.array(load_img(binary_data, opt["max_dim"])).astype(np.float32) / 255.0)[None].transpose(0, 3, 1, 2)) - 1.).to(device), '1 ... -> b ...', b = 1)
     init_latent = model.get_first_stage_encoding(model.encode_first_stage(init_image))  # переместить в латентное пространство
     sampler.make_schedule(ddim_num_steps = opt['ddim_steps'], ddim_eta = opt['ddim_eta'], verbose = False)
     assert 0. <= opt['strength'] <= 1., 'can only work with strength in [0.0, 1.0]'
@@ -163,11 +151,10 @@ def Stable_diffusion_image_to_image(work_path, img_name, img_suf, need_restore, 
                 buf = io.BytesIO()
                 img.save(buf, format = "PNG")
                 b_data = buf.getvalue()
-                img.save(work_path + "\\" + result_img + str(img_suf) + ".png")
                 img.close
     return w, h, b_data
 
-def Stable_diffusion_depth_to_image(work_path, img_name, img_suf, need_restore, AI_prompt, opt):
+def Stable_diffusion_depth_to_image(binary_data, prompt, opt):
     torch.set_grad_enabled(False)
     checkpoint_path = "models\\ldm\\stable-diffusion\\dept2img\\"
     checkpoint_list = [
@@ -175,20 +162,9 @@ def Stable_diffusion_depth_to_image(work_path, img_name, img_suf, need_restore, 
     ]
     config_path = "configs\\stable-diffusion\\"
     config_list = ["v2-midas-inference.yaml"]
-    init_img = work_path + "/" + img_name
-    if need_restore == True:
-        result_img = "c_picture_"
-    else:
-        result_img = "picture_"
-    if AI_prompt: 
-        pfile = work_path + "/AI_caption_" + str(img_suf - 1) + ".txt"
-    else:
-        pfile = work_path + "/Human_caption_" + str(img_suf - 1) + ".txt"
-    with open(pfile, "r") as f:
-        prompt = f.read()
     config = config_path + config_list[checkpoint_list[opt["ckpt"]][1]]
     seed_everything(opt['seed'])
-    image = load_img(init_img, opt["max_dim"])
+    image = load_img(binary_data, opt["max_dim"])
     assert 0. <= opt["strength"] <= 1., "может работать с параметром шума в интервале от 0.0 до 1.0"
     if opt["strength"] == 1.:
         do_full_sample = True
@@ -242,11 +218,10 @@ def Stable_diffusion_depth_to_image(work_path, img_name, img_suf, need_restore, 
     buf = io.BytesIO()
     image.save(buf, format = "PNG")
     b_data = buf.getvalue()
-    image.save(work_path + "\\" + result_img + str(img_suf) + ".png")
     image.close
     return w, h, b_data
 
-def Stable_diffusion_inpainting(work_path, img_name, img_suf, need_restore, opt):
+def Stable_diffusion_inpainting(binary_data, mask_data, prompt, opt):
     torch.set_grad_enabled(False)
     checkpoint_path = 'models\\ldm\\stable-diffusion\\inpainting\\'
     checkpoint_list = [
@@ -255,24 +230,15 @@ def Stable_diffusion_inpainting(work_path, img_name, img_suf, need_restore, opt)
     ]
     config_path = "configs\\stable-diffusion\\"
     config_list = ["v1-inpainting-inference.yaml", "v2-inpainting-inference.yaml"]
-    init_img = work_path + "/" + img_name
-    mask_path = work_path + "/mask_" + str(img_suf - 1) + ".png"
-    if need_restore == True:
-        result_img = "c_picture_"
-    else:
-        result_img = "picture_"
-    pfile = work_path + "/Human_caption_" + str(img_suf - 1) + ".txt"
-    with open(pfile, "r") as f:
-        prompt = f.read()
     config = OmegaConf.load(config_path + config_list[checkpoint_list[opt["ckpt"]][1]])
     model = load_model_from_config(config, checkpoint_path + checkpoint_list[opt["ckpt"]][0])
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
     model = model.to(device)
     sampler = DDIMSampler(model)
     sampler.make_schedule(ddim_num_steps = opt['ddim_steps'], ddim_eta = opt['ddim_eta'], verbose = opt["verbose"])
-    image = load_img(init_img, opt["max_dim"])
+    image = load_img(binary_data, opt["max_dim"])
     w, h = image.size
-    mask = Image.open(mask_path).resize((w, h))
+    mask = Image.open(io.BytesIO(mask_data)).resize((w, h))
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
     model = sampler.model
     prng = np.random.RandomState(opt["seed"])
@@ -320,11 +286,10 @@ def Stable_diffusion_inpainting(work_path, img_name, img_suf, need_restore, opt)
     buf = io.BytesIO()
     image.save(buf, format = "PNG")
     b_data = buf.getvalue()
-    image.save(work_path + "\\" + result_img + str(img_suf) + ".png")
     image.close
     return w, h, b_data
 
-def Stable_diffusion_upscaler(work_path, img_name, img_suf, need_restore, AI_prompt, opt):
+def Stable_diffusion_upscaler(binary_data, prompt, opt):
     torch.set_grad_enabled(False)
     checkpoint_path = "models\\ldm\\stable-diffusion\\upscaler\\"
     checkpoint_list = [
@@ -332,18 +297,7 @@ def Stable_diffusion_upscaler(work_path, img_name, img_suf, need_restore, AI_pro
     ]
     config_path = "configs\\stable-diffusion\\"
     config_list = ["x4-upscaling.yaml"]
-    init_img = work_path + "\\" + img_name
-    if need_restore == True:
-        result_img = "c_big_image_"
-    else:
-        result_img = "big_image_"
-    if AI_prompt: 
-        pfile = work_path + "/AI_caption_" + str(img_suf - 1) + ".txt"
-    else:
-        pfile = work_path + "/Human_caption_" + str(img_suf - 1) + ".txt"
-    with open(pfile, "r") as f:
-        prompt = f.read()
-    image = load_img(init_img, opt["max_dim"])
+    image = load_img(binary_data, opt["max_dim"])
     w, h = image.size
     config = OmegaConf.load(config_path + config_list[0])
     model = load_model_from_config(config, checkpoint_path + checkpoint_list[opt["ckpt"]], opt["verbose"])
@@ -406,6 +360,5 @@ def Stable_diffusion_upscaler(work_path, img_name, img_suf, need_restore, AI_pro
     buf = io.BytesIO()
     image.save(buf, format = "PNG")
     b_data = buf.getvalue()
-    image.save(work_path + "\\" + result_img + str(img_suf) + ".png")
     image.close
     return w, h, b_data

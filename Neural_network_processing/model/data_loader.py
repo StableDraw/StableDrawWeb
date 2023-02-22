@@ -1,10 +1,12 @@
 # data loader
 from __future__ import print_function, division
 import torch
+import io as BytesIO_io
 from skimage import io, transform, color
 import numpy as np
 import random
-from torch.utils.data import Dataset
+from torch.utils.data import Dataset  
+from PIL import Image
 
 #==========================dataset load==========================
 class RescaleT(object):
@@ -216,33 +218,32 @@ class ToTensorLab(object):
 		return {'imidx':torch.from_numpy(imidx), 'image': torch.from_numpy(tmpImg), 'label': torch.from_numpy(tmpLbl)}
 
 class SalObjDataset(Dataset):
-	def __init__(self,img_name_list,lbl_name_list,transform=None):
+	def __init__(self, binary_data, lbl_name_list, transform = None):
 		# self.root_dir = root_dir
 		# self.image_name_list = glob.glob(image_dir+'*.png')
 		# self.label_name_list = glob.glob(label_dir+'*.png')
-		self.image_name_list = img_name_list
+		self.binary_data = binary_data
 		self.label_name_list = lbl_name_list
 		self.transform = transform
 
 	def __len__(self):
-		return len(self.image_name_list)
+		return 1
 
-	def __getitem__(self,idx):
+	def __getitem__(self, idx):
 
-		# image = Image.open(self.image_name_list[idx])#io.imread(self.image_name_list[idx])
-		# label = Image.open(self.label_name_list[idx])#io.imread(self.label_name_list[idx])
+		# image = Image.open(self.binary_data)#io.imread(self.binary_data)
+		# label = Image.open(self.binary_data)#io.imread(self.binary_data)
 
-		image = io.imread(self.image_name_list[idx])
-		imname = self.image_name_list[idx]
-		imidx = np.array([idx])
+		image = np.asarray(Image.open(BytesIO_io.BytesIO(self.binary_data)).convert("RGB"))
+		imidx = np.array([1])
 
-		if(0==len(self.label_name_list)):
+		if(0 == len(self.label_name_list)):
 			label_3 = np.zeros(image.shape)
 		else:
-			label_3 = io.imread(self.label_name_list[idx])
+			label_3 = io.imread(self.binary_data)
 
 		label = np.zeros(label_3.shape[0:2])
-		if(3==len(label_3.shape)):
+		if(3 == len(label_3.shape)):
 			label = label_3[:,:,0]
 		elif(2==len(label_3.shape)):
 			label = label_3

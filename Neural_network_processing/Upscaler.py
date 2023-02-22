@@ -1,5 +1,8 @@
 import cv2
+import io
 import os
+import numpy as np
+from PIL import Image
 from basicsr.archs.rrdbnet_arch import RRDBNet
 from basicsr.utils.download_util import load_file_from_url
 from realesrgan import RealESRGANer
@@ -14,11 +17,7 @@ models_list = [
     "realesr-general-x4v3"          # модель x4 VGG-стиля (размера S)
     ]
 
-def Upscale(workpath, img_name, img_suf, need_restore, args):
-    if need_restore == True:
-        result_img = "c_big_image_"
-    else:
-        result_img = "big_image_"
+def Upscale(binary_data, args):
     # определяет модели в соответствии с выбранной моделью
     model_name = models_list[args["model"]]
     if model_name == 'RealESRGAN_x4plus':  # модель x4 RRDBNet
@@ -53,8 +52,7 @@ def Upscale(workpath, img_name, img_suf, need_restore, args):
         ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
         for url in file_url:
             # путь к модели будет обновлён
-            model_path = load_file_from_url(
-                url=url, model_dir=os.path.join(ROOT_DIR, 'weights'), progress=True, file_name=None)
+            model_path = load_file_from_url(url = url, model_dir = os.path.join(ROOT_DIR, 'weights'), progress = True, file_name = None)
     # использовать dni для контроля силы удаления шума
     dni_weight = None
     if model_name == 'realesr-general-x4v3' and args["denoise_strength"] != 1:
@@ -75,25 +73,21 @@ def Upscale(workpath, img_name, img_suf, need_restore, args):
     if args["face_enhance"]:  # Использовать GFPGAN для улучшения лиц
         from gfpgan import GFPGANer
         face_enhancer = GFPGANer(
-            model_path = 'https://github.com/TencentARC/GFPGAN/releases/download/v1.3.0/GFPGANv1.3.pth',
+            model_path = "https://github.com/TencentARC/GFPGAN/releases/download/v1.3.0/GFPGANv1.3.pth",
             upscale = args["outscale"],
-            arch = 'clean',
+            arch = "clean",
             channel_multiplier = 2,
             bg_upsampler = upsampler)
-    path = workpath + "\\" + img_name
-    img = cv2.imread(path, cv2.IMREAD_UNCHANGED)
+    img = cv2.cvtColor(np.array(Image.open(io.BytesIO(binary_data))), cv2.COLOR_RGB2BGR)
     try:
         if args["face_enhance"]:
             _, _, output = face_enhancer.enhance(img, has_aligned = False, only_center_face = False, paste_back = True)
         else:
             output, _ = upsampler.enhance(img, outscale = args["outscale"])
     except RuntimeError as error:
-        print('Ошибка', error, '\nЕсли у вас появляется ошибка "CUDA out of memory", попробуйте постаивть параметру "tile" меньшее значение')
+        print("Ошибка", error, "\nЕсли у вас появляется ошибка \"CUDA out of memory\", попробуйте постаивть параметру \"tile\" меньшее значение")
     else:
-        save_path = workpath + "\\" + result_img + str(img_suf) + ".png"
         im_buf_arr = cv2.imencode(".png", output)[1]
         h, w, _ = output.shape
         result_binary_data = im_buf_arr.tobytes()
-        with open(save_path, "wb") as f:
-            f.write(result_binary_data)
     return w, h, result_binary_data

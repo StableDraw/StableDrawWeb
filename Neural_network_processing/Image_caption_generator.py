@@ -1,3 +1,4 @@
+import io
 import torch
 import numpy as np
 from fairseq import utils, tasks, checkpoint_utils
@@ -44,7 +45,7 @@ def apply_half(t):
         return t.to(dtype = torch.half)
     return t
 
-def Gen_caption(img_path, img_name, params):
+def Gen_caption(binary_data, params):
     overrides = {
         "bpe_dir": "./utils/BPE",               #путь до BPE
         "eval_cider_cached_tokens": "corpus",   #путь к кэшированному файлу cPickle, используемому для расчета оценок CIDEr
@@ -82,7 +83,7 @@ def Gen_caption(img_path, img_name, params):
             transforms.Normalize(mean = mean, std = std)
         ]
     )
-    image = Image.open(img_path + "\\" + img_name)
+    image = Image.open(io.BytesIO(binary_data))
     # Построение выходного образца и подготовка GPU, если доступна CUDA
     print("Построение выходного образца...")
     sample = construct_sample(image, task, patch_resize_transform)
