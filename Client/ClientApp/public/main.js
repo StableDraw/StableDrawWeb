@@ -199,7 +199,6 @@ let need_gen_after_caption = [false, false, false, false];
 const Max_bib_w = W * 0.2;
 const Max_bib_h = H * 0.2;
 let data_prop;
-let original_caption = "";
 let ws = new WebSocket("wss://stabledraw.com:8081");
 let chain_id = "";
 let task_id;
@@ -342,7 +341,6 @@ var main_modal = function (options) {
                     chain_id = jdata[3];
                     last_task_image_name = jdata[4];
                     last_task_image_suffix = jdata[5];
-                    original_caption = jdata[6];
                     is_human_caption = false;
                     blackout.style.display = "none";
                     if (need_gen_after_caption[0]) {
@@ -798,8 +796,7 @@ function gen_picture_by_drawing(params, full_prompt, data_prop) {
             "chain_id": chain_id,
             "task_id": task_id,
             "img_name": last_task_image_name,
-            "img_suf": last_task_image_suffix,
-            "prompt": original_caption
+            "img_suf": last_task_image_suffix
         });
     }
     ws.send(send_data_pbp);
@@ -1778,19 +1775,19 @@ saveBtn.addEventListener("click", () => {
 function gen_caption_for_image(data_prop) {
     blackout.style.display = "block";
     let send_data_cpt;
-    let foreground_data;
+    let data;
     let background_data;
     let { local_is_foreground_used, local_is_background_used, local_is_drawing, local_sure, local_how_many_prims, local_how_many_dots } = data_prop;
     if (original_image_buf == "") {
         if (local_is_foreground_used && is_foreground_visible) {
-            foreground_data = canvas_foreground.toDataURL("imag/png");
+            data = canvas_foreground.toDataURL("imag/png");
         }
         else {
-            foreground_data = canvas_background.toDataURL("imag/png");
+            data = canvas_background.toDataURL("imag/png");
         }
     }
     else {
-        foreground_data = original_image_buf;
+        data = original_image_buf;
     }
     if (local_is_background_used && is_background_visible) {
         background_data = canvas_background.toDataURL("imag/png");
@@ -1802,7 +1799,7 @@ function gen_caption_for_image(data_prop) {
         "type": 'd',
         "chain_id": chain_id,
         "task_id": task_id,
-        "data": foreground_data,
+        "data": data,
         "backgroung": background_data,
         "is_drawing": local_is_drawing,
         "sure": local_sure,

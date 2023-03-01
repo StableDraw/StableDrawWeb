@@ -6,3 +6,4 @@
 *.crt
 *.safetensors
 Neural_network_processing/log
+*.bin

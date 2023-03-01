@@ -252,8 +252,6 @@ const Max_bib_h: number = H * 0.2
 
 let data_prop: any
 
-let original_caption: string = ""
-
 let ws: WebSocket = new WebSocket("wss://stabledraw.com:8081")
 let chain_id: string = ""
 let task_id: string
@@ -434,7 +432,6 @@ var main_modal: any = function (options: object)
                     chain_id = jdata[3]
                     last_task_image_name = jdata[4]
                     last_task_image_suffix = jdata[5]
-                    original_caption = jdata[6]
                     is_human_caption = false
                     blackout.style.display = "none"
                     if (need_gen_after_caption[0])
@@ -976,15 +973,14 @@ function gen_picture_by_drawing(params: boolean[], full_prompt: string, data_pro
     else
     {
         send_data_pbp = JSON.stringify({ 
-            "type": 'g', //рисунок
-            "is_human_caption": false, //генерация с машинным описанием
+            "type": 'g', //просьба сгенерировать с машинным описанием
+            "is_human_caption": false,
             "is_depth": is_depth,
             "is_upscale": is_upscale,
             "chain_id": chain_id, //id последнего звена цепочки
             "task_id": task_id, //id задания
             "img_name": last_task_image_name, //имя последнего файла изображения
-            "img_suf": last_task_image_suffix,
-            "prompt": original_caption
+            "img_suf": last_task_image_suffix
         });
     }
     ws.send(send_data_pbp)
@@ -2220,23 +2216,23 @@ function gen_caption_for_image(data_prop: any)
 {
     blackout.style.display = "block"
     let send_data_cpt: string
-    let foreground_data: string
+    let data: string
     let background_data: string
     let { local_is_foreground_used, local_is_background_used, local_is_drawing, local_sure, local_how_many_prims, local_how_many_dots }: any = data_prop
     if (original_image_buf == "")
     {
         if (local_is_foreground_used && is_foreground_visible)
         {
-            foreground_data = canvas_foreground.toDataURL("imag/png")
+            data = canvas_foreground.toDataURL("imag/png")
         }
         else
         {
-            foreground_data = canvas_background.toDataURL("imag/png")
+            data = canvas_background.toDataURL("imag/png")
         }
     }
     else
     {
-        foreground_data = original_image_buf
+        data = original_image_buf
     }
     if (local_is_background_used && is_background_visible)
     {
@@ -2251,7 +2247,7 @@ function gen_caption_for_image(data_prop: any)
         "type": 'd', //просьба сгенерировать описание изображения
         "chain_id": chain_id, //id последнего звена цепочки
         "task_id": task_id, //id задания
-        "data": foreground_data,
+        "data": data,
         "backgroung": background_data,
         "is_drawing": local_is_drawing,
         "sure": local_sure,
