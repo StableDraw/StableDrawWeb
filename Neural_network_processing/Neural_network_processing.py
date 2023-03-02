@@ -10,13 +10,11 @@ import base64
 import requests
 #import websockets
 
-
 from concurrent import futures
 import logging
 import grpc
 import helloworld_pb2
 import helloworld_pb2_grpc
-
 
 from PIL import Image
 from googletrans import Translator
@@ -28,6 +26,7 @@ from Stable_diffusion import Stable_diffusion_text_to_image
 from Stable_diffusion import Stable_diffusion_depth_to_image
 from Stable_diffusion import Stable_diffusion_inpainting
 from Stable_diffusion import Stable_diffusion_upscaler
+from Stable_diffusion import Stable_diffusion_upscaler_xX
 
 chat_id = "-1001661093241"
 
@@ -436,15 +435,17 @@ def neural_processing(process, nprocess):#grpc
                         "scale": 0.9,               #от 0.1 до 30.0
                         "ckpt": 0,                  #выбор весов модели (0)
                         "seed": 42,                 #от 0 до 1000000
+                        "outscale": 4,              #Величина того, во сколько раз увеличть разшрешение изображения
                         "noise_augmentation": 20,   #от 0 до 350
                         "verbose": False,
-                        "max_dim": pow(256, 2)      # я не могу генерировать на своей видюхе картинки больше 256 на 256
+                        "max_dim": pow(512, 2)      # я не могу генерировать на своей видюхе картинки больше 256 на 256
                     }
+                    outscale = params["outscale"]
                     if need_restore:
-                        rbufer[1] *= 4
-                        rbufer[2] *= 4
-                        rbufer[3] *= 4
-                        rbufer[4] *= 4
+                        rbufer[1] *= outscale
+                        rbufer[2] *= outscale
+                        rbufer[3] *= outscale
+                        rbufer[4] *= outscale
                     w, h, binary_data = Stable_diffusion_upscaler(init_img_binary_data, caption, params) #передаю сокет, путь к рабочей папке, имя файла, и true если AI описание, false если человеческая
                 else:
                     params = {

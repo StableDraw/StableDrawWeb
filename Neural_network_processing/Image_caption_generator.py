@@ -6,6 +6,7 @@ from tasks.mm_tasks.caption import CaptionTask
 from PIL import Image
 from torchvision import transforms
 from utils.eval_utils import eval_caption
+from pytorch_lightning import seed_everything
 
 # Подготовка теста
 def encode_text(text, task, length = None, append_bos = False, append_eos = False):
@@ -52,13 +53,14 @@ def Gen_caption(binary_data, params):
         "sampling": True,                       #испошьзовать ли семплирование
         "clip_model_path": "../../checkpoints/clip/ViT-B-16.pt",
         "vqgan_model_path": "../../checkpoints/vqgan/last.ckpt",
-        "vqgan_config_path": "../../checkpoints/vqgan/model.yaml",
+        "vqgan_config_path": "../../checkpoints/vqgan/model.yaml"
     }
     if params["sampling_topk"] == 0:
         overrides["sampling"] == False
     tasks.register_task('caption', CaptionTask)
     use_cuda = torch.cuda.is_available()
     use_fp16 = False
+    seed_everything(params["seed"])
     # Загрузка претренированных ckpt и config
     print("Загрузка претренированных чекпоинтов и настроек конфигурации...")
     models, cfg, task = checkpoint_utils.load_model_ensemble_and_task(utils.split_paths(params["ckpt"]), arg_overrides = params | overrides)
