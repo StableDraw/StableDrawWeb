@@ -50,7 +50,7 @@ def Gen_caption(binary_data, params):
     overrides = {
         "bpe_dir": "./utils/BPE",               #путь до BPE
         "eval_cider_cached_tokens": "corpus",   #путь к кэшированному файлу cPickle, используемому для расчета оценок CIDEr
-        "sampling": True,                       #испошьзовать ли семплирование
+        "sampling": True,                       #использовать ли семплирование
         "clip_model_path": "../../checkpoints/clip/ViT-B-16.pt",
         "vqgan_model_path": "../../checkpoints/vqgan/last.ckpt",
         "vqgan_config_path": "../../checkpoints/vqgan/model.yaml"
@@ -94,4 +94,6 @@ def Gen_caption(binary_data, params):
     # Запуск эволюционного шага для описания
     print("Вычисление описания...")
     with torch.no_grad():
-        return eval_caption(task, generator, models, sample)[0][0]['caption']
+        caption = eval_caption(task, generator, models, sample)[0][0]['caption']
+        torch.cuda.empty_cache()
+        return caption

@@ -2,6 +2,7 @@ import cv2
 import io
 import os
 import numpy as np
+import torch
 from PIL import Image
 from basicsr.archs.rrdbnet_arch import RRDBNet
 from basicsr.utils.download_util import load_file_from_url
@@ -20,27 +21,27 @@ models_list = [
 def Upscale(binary_data, args):
     # определяет модели в соответствии с выбранной моделью
     model_name = models_list[args["model"]]
-    if model_name == 'RealESRGAN_x4plus':  # модель x4 RRDBNet
+    if model_name == "RealESRGAN_x4plus":  # модель x4 RRDBNet
         model = RRDBNet(num_in_ch = 3, num_out_ch = 3, num_feat = 64, num_block = 23, num_grow_ch = 32, scale = 4)
         netscale = 4
         file_url = ['https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth']
-    elif model_name == 'RealESRNet_x4plus':  # модель x4 RRDBNet
+    elif model_name == "RealESRNet_x4plus":  # модель x4 RRDBNet
         model = RRDBNet(num_in_ch = 3, num_out_ch = 3, num_feat = 64, num_block = 23, num_grow_ch = 32, scale = 4)
         netscale = 4
         file_url = ['https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.1/RealESRNet_x4plus.pth']
-    elif model_name == 'RealESRGAN_x4plus_anime_6B':  # модель x4 RRDBNet с 6 блоками
+    elif model_name == "RealESRGAN_x4plus_anime_6B":  # модель x4 RRDBNet с 6 блоками
         model = RRDBNet(num_in_ch = 3, num_out_ch = 3, num_feat = 64, num_block = 6, num_grow_ch = 32, scale = 4)
         netscale = 4
         file_url = ['https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.2.4/RealESRGAN_x4plus_anime_6B.pth']
-    elif model_name == 'RealESRGAN_x2plus':  # модель x2 RRDBNet
+    elif model_name == "RealESRGAN_x2plus":  # модель x2 RRDBNet
         model = RRDBNet(num_in_ch = 3, num_out_ch = 3, num_feat = 64, num_block = 23, num_grow_ch=32, scale = 2)
         netscale = 2
         file_url = ['https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.1/RealESRGAN_x2plus.pth']
-    elif model_name == 'realesr-animevideov3':  # модель x4 VGG-стиля (размера XS)
+    elif model_name == "realesr-animevideov3":  # модель x4 VGG-стиля (размера XS)
         model = SRVGGNetCompact(num_in_ch = 3, num_out_ch = 3, num_feat = 64, num_conv = 16, upscale = 4, act_type = 'prelu')
         netscale = 4
         file_url = ['https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.5.0/realesr-animevideov3.pth']
-    elif model_name == 'realesr-general-x4v3':  # модель x4 VGG-стиля (размера S)
+    elif model_name == "realesr-general-x4v3":  # модель x4 VGG-стиля (размера S)
         model = SRVGGNetCompact(num_in_ch = 3, num_out_ch = 3, num_feat = 64, num_conv = 32, upscale = 4, act_type = "prelu")
         netscale = 4
         file_url = [
@@ -90,4 +91,5 @@ def Upscale(binary_data, args):
         im_buf_arr = cv2.imencode(".png", output)[1]
         h, w, _ = output.shape
         result_binary_data = im_buf_arr.tobytes()
+    torch.cuda.empty_cache()
     return w, h, result_binary_data

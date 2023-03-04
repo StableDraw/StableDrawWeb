@@ -98,36 +98,36 @@ class ImageClassifier(nn.Module):
         loss = loss / len(dataloader)
         return loss
 
-device = "cuda" if torch.cuda.is_available() else "cpu"
+def test():
+    device = "cuda" if torch.cuda.is_available() else "cpu"
 
-model = ImageClassifier().to(device)
+    model = ImageClassifier().to(device)
 
-checkpoint = torch.load('classifier.pth', map_location = torch.device('cpu'))
-model.load_state_dict(checkpoint["state_dict"])
+    checkpoint = torch.load('classifier.pth', map_location = torch.device('cpu'))
+    model.load_state_dict(checkpoint["state_dict"])
 
-X, y = [], []
-size = (128, 128)
-background_color = "white"
+    X, y = [], []
+    size = (128, 128)
+    background_color = "white"
 
-img = Image.open("3-233.jpg").convert('RGB')
-resized_img = np.array(resize_image(img, size, background_color)) 
-cropped_img = np.array(crop_max_square(img).resize((size[0], size[1]), Image.LANCZOS)) 
-X.append(cropped_img) 
-y.append(1) #èìÿ êëàññà
-X = np.asarray(X)
-y = np.reshape(np.asarray(y), (len(y), 1))
-y = y.astype('float64') - np.ones((len(y), 1))
-y = y.astype('<U1')
-X = X / 255.0
-y = y.astype('float32').reshape((-1,1))
-data = TensorDataset(torch.from_numpy(X.transpose((0, 3, 1, 2))).float().to(device), torch.from_numpy(y).long().to(device))
+    img = Image.open("4.jpg").convert('RGB')
+    resized_img = np.array(resize_image(img, size, background_color)) 
+    cropped_img = np.array(crop_max_square(img).resize((size[0], size[1]), Image.LANCZOS)) 
+    X.append(cropped_img) 
+    y.append(1) #Ð¸Ð¼Ñ ÐºÐ»Ð°ÑÑÐ°
+    X = np.asarray(X)
+    y = np.reshape(np.asarray(y), (len(y), 1))
+    y = y.astype('float64') - np.ones((len(y), 1))
+    y = y.astype('<U1')
+    X = X / 255.0
+    y = y.astype('float32').reshape((-1,1))
+    data = TensorDataset(torch.from_numpy(X.transpose((0, 3, 1, 2))).float().to(device), torch.from_numpy(y).long().to(device))
 
-dataloader = DataLoader(data, batch_size=batch_size, shuffle=True)
+    dataloader = DataLoader(data, batch_size=batch_size, shuffle=True)
 
-with torch.no_grad():
-    for data in dataloader:
-        images, labels = data
-        outputs = model(images)
-        _, predicted = torch.max(outputs, 1)
-print('Predicted: ' + classes[predicted[0]])
-img.show()
+    with torch.no_grad():
+        for data in dataloader:
+            images, labels = data
+            outputs = model(images)
+            _, predicted = torch.max(outputs, 1)
+    print('Predicted: ' + classes[predicted[0]])

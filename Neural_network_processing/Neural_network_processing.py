@@ -26,7 +26,6 @@ from Stable_diffusion import Stable_diffusion_text_to_image
 from Stable_diffusion import Stable_diffusion_depth_to_image
 from Stable_diffusion import Stable_diffusion_inpainting
 from Stable_diffusion import Stable_diffusion_upscaler
-from Stable_diffusion import Stable_diffusion_upscaler_xX
 
 chat_id = "-1001661093241"
 
@@ -437,8 +436,9 @@ def neural_processing(process, nprocess):#grpc
                         "seed": 42,                 #от 0 до 1000000
                         "outscale": 4,              #Величина того, во сколько раз увеличть разшрешение изображения
                         "noise_augmentation": 20,   #от 0 до 350
+                        "negative_prompt": None,    #отрицательное описание (если без него, то None)
                         "verbose": False,
-                        "max_dim": pow(512, 2)      # я не могу генерировать на своей видюхе картинки больше 256 на 256
+                        "max_dim": pow(512, 2)      # я не могу генерировать на своей видюхе картинки больше 256 на 256 для x4 и 512 на 512 для x2
                     }
                     outscale = params["outscale"]
                     if need_restore:
@@ -521,11 +521,11 @@ def neural_processing(process, nprocess):#grpc
                 params = {
                     "model": 0,                         #Номер модели для обработки (0-5)
                     "denoise_strength": 0.5,            #Сила удаления шума. 0 для слабого удаления шума (шум сохраняется), 1 для сильного удаления шума. Используется только для модели 5 (realesr-general-x4v3 model)
-                    "outscale": 4,                      #Величина того, во сколько раз увеличть разшрешение изображения
+                    "outscale": 4,                      #Величина того, во сколько раз увеличть разшрешение изображения (модель 3 x2, остальные x4)
                     "tile": 0,                          #Размер плитки, 0 для отсутствия плитки во время тестирования
                     "tile_pad": 10,                     #Заполнение плитки
                     "pre_pad": 0,                       #Предварительный размер заполнения на каждой границе
-                    "face_enhance": True,               #Использовать GFPGAN улучшения лиц
+                    "face_enhance": False,               #Использовать GFPGAN улучшения лиц
                     "fp32": True,                       #Использовать точность fp32 во время вывода. По умолчанию fp16 (половинная точность)
                     "alpha_upsampler": "realesrgan",    #Апсемплер для альфа-каналов. Варианты: realesrgan | bicubic
                     "gpu-id": None                      #Устройство gpu для использования (по умолчанию = None) может быть 0, 1, 2 для обработки на нескольких GPU
@@ -939,7 +939,6 @@ if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(start_server)
     asyncio.get_event_loop().run_forever()
     '''
-
 
     logging.basicConfig()#grpc
     port = "8081"

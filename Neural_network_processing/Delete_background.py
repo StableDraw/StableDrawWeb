@@ -43,4 +43,5 @@ def Delete_background(binary_data):
         orig.save(buf, format = "PNG")
         result_binary_data = buf.getvalue()
         (w, h) = orig.size
+        torch.cuda.empty_cache()
     return w, h, result_binary_data
