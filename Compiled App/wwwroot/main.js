@@ -39,9 +39,6 @@ const layer_2 = document.getElementById("layer_2");
 const scale_field = document.querySelector(".scale_field");
 const div_layers = document.querySelector(".layers");
 const layers_buttons = document.querySelector(".layers_buttons");
-const modal_header = document.querySelector(".modal__header");
-const modal_body = document.querySelector(".modal__body");
-const modal_footer = document.querySelector(".modal__footer");
 const text_label_clr = document.getElementById("text_label_clr");
 const blackout = document.getElementById("full_blackout");
 const side_panel_blackout = document.getElementById("side_panel_blackout");
@@ -191,6 +188,9 @@ let is_modal_open = false;
 let is_side_panel_open = false;
 let caption_field;
 let style_field;
+let modal_header;
+let modal_body;
+let modal_footer;
 let is_human_caption;
 let original_image_buf = ""; //переменная для хранения исходных изображений
 let original_image_w; //переменная для хранения ширины исходного изображения
@@ -326,6 +326,17 @@ var main_modal = function (options) {
             modal.setContent(content);
             caption_field = document.getElementById("caption_input");
             style_field = document.getElementById("style_input");
+            modal_header = document.querySelector(".modal__header");
+            modal_body = document.querySelector(".modal__body");
+            modal_footer = document.querySelector(".modal__footer");
+            if (is_dark_mode) {
+                modal_header.style.filter = "invert(0.9)";
+                modal_body.style.filter = "invert(0.9)";
+                modal_footer.style.filter = "invert(0.9)";
+                modal_header.style.backgroundColor = "#cccccc";
+                modal_body.style.backgroundColor = "#cccccc";
+                modal_footer.style.backgroundColor = "#cccccc";
+            }
             ws.onmessage = function (event) {
                 let jdata = JSON.parse(event.data);
                 let type = jdata[0];
@@ -995,7 +1006,7 @@ let nextBtn = document.getElementById("arrow_next");
 nextBtn.addEventListener("click", () => {
     repeat_action();
 });
-const initial_picker = $(document).ready(function () {
+const initial_picker = $(function () {
     let picker = $("#picker");
     picker.farbtastic("#color");
 });
@@ -1140,12 +1151,6 @@ change_themeBtn.addEventListener("click", () => {
         body.style.backgroundColor = "#ffffff";
         div_layers.style.backgroundColor = "#ffffff";
         text_label_clr.style.color = "#000000";
-        modal_header.style.filter = "invert(0)";
-        modal_body.style.filter = "invert(0)";
-        modal_footer.style.filter = "invert(0)";
-        modal_header.style.backgroundColor = "#ffffff";
-        modal_body.style.backgroundColor = "#ffffff";
-        modal_footer.style.backgroundColor = "#ffffff";
         if (is_foreground_selected) {
             layer_1.style.border = "5px solid #000000";
         }
@@ -1176,12 +1181,6 @@ change_themeBtn.addEventListener("click", () => {
         body.style.backgroundColor = "#303030";
         div_layers.style.backgroundColor = "#222222";
         text_label_clr.style.color = "#ffffff";
-        modal_header.style.filter = "invert(0.9)";
-        modal_body.style.filter = "invert(0.9)";
-        modal_footer.style.filter = "invert(0.9)";
-        modal_header.style.backgroundColor = "#cccccc";
-        modal_body.style.backgroundColor = "#cccccc";
-        modal_footer.style.backgroundColor = "#cccccc";
         if (is_foreground_selected) {
             layer_1.style.border = "5px solid #cccccc";
         }

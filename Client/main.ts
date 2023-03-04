@@ -50,10 +50,6 @@ const scale_field: HTMLElement = <HTMLElement> document.querySelector(".scale_fi
 const div_layers: HTMLElement = <HTMLElement> document.querySelector(".layers")
 const layers_buttons: HTMLElement = <HTMLElement> document.querySelector(".layers_buttons")
 
-const modal_header: HTMLElement = <HTMLElement> document.querySelector(".modal__header")
-const modal_body: HTMLElement = <HTMLElement> document.querySelector(".modal__body")
-const modal_footer: HTMLElement = <HTMLElement> document.querySelector(".modal__footer")
-
 const text_label_clr: HTMLElement = <HTMLElement> document.getElementById("text_label_clr")
 const blackout: HTMLElement = <HTMLElement> document.getElementById("full_blackout")
 const side_panel_blackout: HTMLElement = <HTMLElement> document.getElementById("side_panel_blackout")
@@ -240,6 +236,9 @@ let is_side_panel_open: boolean = false
 
 let caption_field: HTMLInputElement
 let style_field: HTMLInputElement
+let modal_header: HTMLElement
+let modal_body: HTMLElement
+let modal_footer: HTMLElement
 let is_human_caption: boolean
 let original_image_buf: string = "" //переменная для хранения исходных изображений
 let original_image_w: number //переменная для хранения ширины исходного изображения
@@ -416,6 +415,18 @@ var main_modal: any = function (options: object)
             modal.setContent(content)
             caption_field = <HTMLInputElement> document.getElementById("caption_input")
             style_field = <HTMLInputElement> document.getElementById("style_input")
+            modal_header = <HTMLElement>document.querySelector(".modal__header")
+            modal_body = <HTMLElement>document.querySelector(".modal__body")
+            modal_footer = <HTMLElement>document.querySelector(".modal__footer")
+            if (is_dark_mode)
+            {
+                modal_header.style.filter = "invert(0.9)"
+                modal_body.style.filter = "invert(0.9)"
+                modal_footer.style.filter = "invert(0.9)"
+                modal_header.style.backgroundColor = "#cccccc"
+                modal_body.style.backgroundColor = "#cccccc"
+                modal_footer.style.backgroundColor = "#cccccc"
+            }
             ws.onmessage = function (event: any)
             {
                 let jdata: any = JSON.parse(event.data)
@@ -1233,7 +1244,7 @@ nextBtn.addEventListener("click", () =>
     repeat_action()
 })
 
-const initial_picker = $(document).ready(function ()
+const initial_picker = $(function ()
 {
     let picker: any = $("#picker")
     picker.farbtastic("#color")
@@ -1412,12 +1423,6 @@ change_themeBtn.addEventListener("click", () =>
         body.style.backgroundColor = "#ffffff"
         div_layers.style.backgroundColor = "#ffffff"
         text_label_clr.style.color = "#000000"
-        modal_header.style.filter = "invert(0)"
-        modal_body.style.filter = "invert(0)"
-        modal_footer.style.filter = "invert(0)"
-        modal_header.style.backgroundColor = "#ffffff"
-        modal_body.style.backgroundColor = "#ffffff"
-        modal_footer.style.backgroundColor = "#ffffff"
         if (is_foreground_selected)
         {
             layer_1.style.border = "5px solid #000000"
@@ -1451,12 +1456,6 @@ change_themeBtn.addEventListener("click", () =>
         body.style.backgroundColor = "#303030"
         div_layers.style.backgroundColor = "#222222"
         text_label_clr.style.color = "#ffffff"
-        modal_header.style.filter = "invert(0.9)"
-        modal_body.style.filter = "invert(0.9)"
-        modal_footer.style.filter = "invert(0.9)"
-        modal_header.style.backgroundColor = "#cccccc"
-        modal_body.style.backgroundColor = "#cccccc"
-        modal_footer.style.backgroundColor = "#cccccc"
         if (is_foreground_selected)
         {
             layer_1.style.border = "5px solid #cccccc"
