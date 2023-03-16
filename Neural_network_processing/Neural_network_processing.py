@@ -1,21 +1,14 @@
 ﻿import io
 import os
-#import ssl
+import ssl
 import cv2
 import json
 import time
 import numpy
 import base64
-#import asyncio
+import asyncio
 import requests
-#import websockets
-
-from concurrent import futures
-import logging
-import grpc
-import helloworld_pb2
-import helloworld_pb2_grpc
-
+import websockets
 from PIL import Image
 from googletrans import Translator
 from Image_caption_generator import Gen_caption
@@ -26,6 +19,7 @@ from Stable_diffusion import Stable_diffusion_text_to_image
 from Stable_diffusion import Stable_diffusion_depth_to_image
 from Stable_diffusion import Stable_diffusion_inpainting
 from Stable_diffusion import Stable_diffusion_upscaler
+from Stable_diffusion import Stable_diffusion_upscaler_xX
 
 chat_id = "-1001661093241"
 
@@ -264,7 +258,7 @@ def Restore_Image(bd, rbuf, path, restore_file_name):
 def make_mask(img, path_to_save):
     img_array = numpy.array(img)
     img_array = cv2.cvtColor(img_array, cv2.COLOR_RGB2RGBA)
-    h, w = img_array.shape[0, 1]
+    w, h = img.size
     A_img_array = numpy.zeros((h, w, 3), dtype = numpy.uint8)
     A_img_array[:, :, 0] = img_array[:, :, 3]
     A_img_array[:, :, 1] = img_array[:, :, 3]
@@ -274,8 +268,7 @@ def make_mask(img, path_to_save):
     b_data = im_buf_arr.tobytes()
     return b_data
 
-#async def neural_processing(process, nprocess):#ngrpc
-def neural_processing(process, nprocess):#grpc
+async def neural_processing(process, nprocess):
     if nprocess == True:
         return
     while process:
@@ -307,6 +300,12 @@ def neural_processing(process, nprocess):#grpc
                     else:
                         with open(path_to_task_dir + "\\" + img_name + "_restore.json", 'r') as f:
                             rbufer = json.loads(f.read())
+
+                        if img_suf == 0:
+                            img_name = img_name[:-1] + "1"
+                            img_suf == 1
+
+
                         with open(path_to_task_dir + "\\" + img_name + ".png", "rb") as f:
                             init_img_binary_data = f.read()
                 elif os.path.exists(path_to_task_dir + "\\c_" + img_name + ".png"):
@@ -431,7 +430,7 @@ def neural_processing(process, nprocess):#grpc
                     params = {
                         "ddim_steps": 50,           #Шаги DDIM, от 2 до 250
                         "ddim_eta": 0.0,            #ddim η (от 0.0 до 1.0, η = 0.0 соответствует детерминированной выборке)
-                        "scale": 0.9,               #от 0.1 до 30.0
+                        "scale": 9.0,               #от 0.1 до 30.0
                         "ckpt": 0,                  #выбор весов модели (0)
                         "seed": 42,                 #от 0 до 1000000
                         "outscale": 4,              #Величина того, во сколько раз увеличть разшрешение изображения
@@ -462,7 +461,7 @@ def neural_processing(process, nprocess):#grpc
                     }
                     w, h, binary_data = Stable_diffusion_image_to_image(init_img_binary_data, caption, params) #передаю сокет, путь к рабочей папке, имя файла, и true если AI описание, false если человеческая
                 result_img = final_file_name + "_" + str(img_suf)
-                with open(path_to_task_dir + "\\" + result_img + str(img_suf) + ".png", "wb") as f:
+                with open(path_to_task_dir + "\\" + result_img + ".png", "wb") as f:
                     f.write(binary_data)
                 if need_restore == True: #если нужно восстановление
                     result_path = path_to_task_dir + "\\c_" + result_img
@@ -489,9 +488,12 @@ def neural_processing(process, nprocess):#grpc
 
             elif task_type == 'f': #если нужно удалить фон у изображения
                 postview = str(base64.b64encode(init_img_binary_data).decode("utf-8"))
-                w, h, binary_data = Delete_background(init_img_binary_data) #передаю путь к рабочей папке и имя файла
+                params = {
+                    "RescaleT": 320
+                    }
+                w, h, binary_data = Delete_background(init_img_binary_data, params) #передаю путь к рабочей папке и имя файла
                 result_img = final_file_name + "_" + str(img_suf)
-                with open(path_to_task_dir + "\\" + result_img + str(img_suf) + ".png", "wb") as f:
+                with open(path_to_task_dir + "\\" + result_img + ".png", "wb") as f:
                     f.write(binary_data)
                 if need_restore == True: #если нужно восстановление
                     result_path = path_to_task_dir + "\\c_" + result_img
@@ -533,7 +535,7 @@ def neural_processing(process, nprocess):#grpc
                 outscale = params["outscale"]
                 w, h, binary_data = Upscale(init_img_binary_data, params) #передаю путь к рабочей папке
                 result_img = final_file_name + "_" + str(img_suf)
-                with open(path_to_task_dir + "\\" + result_img + str(img_suf) + ".png", "wb") as f:
+                with open(path_to_task_dir + "\\" + result_img + ".png", "wb") as f:
                     f.write(binary_data)
                 if need_restore == True: #если нужно восстановление
                     result_path = path_to_task_dir + "\\c_" + result_img
@@ -593,10 +595,7 @@ def neural_processing(process, nprocess):#grpc
                     '8': "1"
                 }
 
-            #await websocket.send(json.dumps(resp_data))#ngrpc
-
-
-            return json.dumps(resp_data)#grpc
+            await websocket.send(json.dumps(resp_data))
 
 
         else:
@@ -637,11 +636,7 @@ def build_connection(ws, u_id, istask):
 
 pre_process = False
 
-
-def pre_processing(websocket, dictData_list):#grpc
-
-
-#async def pre_processing(websocket, dictData_list):#ngrpc
+async def pre_processing(websocket, dictData_list):
     global pre_process
     while pre_process == True:
         dictData = dictData_list.pop()
@@ -649,8 +644,7 @@ def pre_processing(websocket, dictData_list):#grpc
             is_task = False
         else:
             is_task = True
-        #user_path = build_connection(websocket, user_id, is_task)#ngrpc
-        user_path = build_connection(None, user_id, is_task)#grpc
+        user_path = build_connection(websocket, user_id, is_task)
         if user_path == False:
             if task_pre_list == []:
                 pre_process = False
@@ -865,7 +859,6 @@ def pre_processing(websocket, dictData_list):#grpc
                 f.write(result_text)
             img_suf = 0
             task_list.append([websocket, "t", result_text, img_suf, task_id, user_id, message_id, "tpicture"]) #дескриптор сокета, тип задания, текст описания, номер сообщения ТГ (id задания), user_id, номер последнего ответа ТГ, Использовать ли SD2, или Dall-e 2
-        '''#ngrpc
         tls = len(task_list)
         if tls > 1:
             client_message = "Ожидайте. Человек перед вами: " + str(tls - 1)
@@ -876,27 +869,13 @@ def pre_processing(websocket, dictData_list):#grpc
             '1' : client_message
         }
         await websocket.send(json.dumps(resp_data))
-        '''
-
-        
-        process = True#ngrpc
-
-
-        #neural_processing(process, nprocess)#ngrpc
-
-
-        return neural_processing(process, nprocess)#grpc
-
-
-        '''#ngrpc
+        process = True
+        await neural_processing(process, nprocess)
         if task_pre_list == []:
             pre_process = False
-        '''
 
 task_pre_list = []
 
-
-'''#ngrpc
 async def handler(websocket): #здесь нужно формировать список текущих заданий, полученных от пользователей
     try:
         while True:
@@ -910,6 +889,7 @@ async def handler(websocket): #здесь нужно формировать сп
                 break
             dictData = json.loads(jsonData)
             task_pre_list.append(dictData)
+            global pre_process
             if pre_process == False:
                 pre_process = True
                 await pre_processing(websocket, task_pre_list) #вызывать её, если задание получено, передавать в неё список dictData, пока он не пуст, пусть его обрабатывает
@@ -918,33 +898,12 @@ async def handler(websocket): #здесь нужно формировать сп
     finally:
         print("Соединение разорвано со стороны пользователя")
         task_list.pop(next(i for i, (x, _) in enumerate(task_list) if x == websocket))
-'''
 
-class Greeter(helloworld_pb2_grpc.GreeterServicer):#grpc
-    def SayHello(self, request, context):
-        json_from_client = request.name
-        dictData = json.loads(json_from_client)
-        task_pre_list.append(dictData)
-        global pre_process
-        pre_process = True
-        json_to_client = pre_processing(None, task_pre_list)
-        return_data = helloworld_pb2.HelloReply(message = json_to_client)
-        return return_data
+pre_process = False
 
 if __name__ == "__main__":
-    '''#ngrpc
     ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
     ssl_context.load_cert_chain("domain_name.crt", "private.key")
     start_server = websockets.serve(handler, "stabledraw.com", 8081, ssl = ssl_context, max_size = None)
     asyncio.get_event_loop().run_until_complete(start_server)
     asyncio.get_event_loop().run_forever()
-    '''
-
-    logging.basicConfig()#grpc
-    port = "8081"
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers = 1))
-    helloworld_pb2_grpc.add_GreeterServicer_to_server(Greeter(), server)
-    server.add_insecure_port("109.111.179.197:" + port)
-    server.start()
-    print("Server started, listening on " + port)
-    server.wait_for_termination()

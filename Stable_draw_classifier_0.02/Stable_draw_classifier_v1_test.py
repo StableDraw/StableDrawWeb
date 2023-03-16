@@ -10,7 +10,7 @@ classes = [
     "face",
     "photo no face",
     "pro drawing",
-    "quick drawing",
+    "none pro drawing",
     "pro line",
     "quick line"
 ]

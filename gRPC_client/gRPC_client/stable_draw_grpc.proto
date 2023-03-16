@@ -29,7 +29,7 @@ service StableDraw_gRPC
     "sampling_topk": 3,             #из скольки тоненов отбирать лучший (0 - не использовать сэмплирование)
     "seed": 7                       #инициализирующее значение для генерации
   }*/
-  rpc Gen_caption (FromImgRequest) returns (TextReply) {}
+  rpc Gen_caption (FromImageRequest) returns (TextReply) {}
   /*Генерация изображения по описанию
   Принимает: строку описания и параметры
   Возвращает: int высоты, int ширины сгенерированного изображения и byte самого изображения
@@ -143,7 +143,7 @@ service StableDraw_gRPC
     "alpha_upsampler": "realesrgan",    #Апсемплер для альфа-каналов. Варианты: realesrgan | bicubic
     "gpu-id": None                      #Устройство gpu для использования (по умолчанию = None) может быть 0, 1, 2 для обработки на нескольких GPU
   }*/
-  rpc Upscale (FromImgRequest) returns (ImageReply) {}
+  rpc Upscale (FromImageRequest) returns (ImageReply) {}
   /*Удаление фона изображения
   Принимает: byte входного изображения
   Возвращает: int высоты, int ширины сгенерированного изображения и byte самого изображения*/
@@ -176,8 +176,8 @@ message FromTextRequest
 message FromImageandTextRequest
 {
   bytes init_img_binary_data = 1;
-  string caption = 1;
-  Dictionary params = 2;
+  string caption = 2;
+  Dictionary params = 3;
 }
 
 message FromImgandMaskandTextRequest

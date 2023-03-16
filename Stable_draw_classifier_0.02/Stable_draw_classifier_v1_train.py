@@ -9,7 +9,7 @@ from tensorflow import keras
 from torch.utils.data import DataLoader, TensorDataset
 import os
 
-folder_path = 'Dataset_100_v1'
+folder_path = 'Dataset_350_v2'
 
 def resize_image(src_img, size, bg_color): 
     src_img.thumbnail(size, Image.LANCZOS) 
@@ -95,7 +95,7 @@ y_test = y_test.astype('float32').reshape((-1,1))
 
 loss = nn.CrossEntropyLoss()
 criterion = loss
-epoch = 10
+epoch = 1
 
 batch_size = 32
 
@@ -168,7 +168,7 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 
 model = ImageClassifier().to(device)
 
-optimizer = optim.Adam(model.parameters(), lr = 0.001)
+optimizer = optim.Adam(model.parameters(), lr = 0.00001)
 
 train_dataset = TensorDataset(torch.from_numpy(X_train.transpose((0, 3, 1, 2))).float().to(device), torch.from_numpy(y_train).long().to(device))
 test_dataset = TensorDataset(torch.from_numpy(X_test.transpose((0, 3, 1, 2))).float().to(device), torch.from_numpy(y_test).long().to(device))
@@ -191,4 +191,4 @@ torch.save(state, 'classifier.pth')
 
 from Stable_draw_classifier_v1_test import test
 
-test()#тест
+test()#С‚РµСЃС‚

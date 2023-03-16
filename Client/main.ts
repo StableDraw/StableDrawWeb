@@ -986,6 +986,7 @@ function gen_picture_by_drawing(params: boolean[], full_prompt: string, data_pro
         send_data_pbp = JSON.stringify({ 
             "type": 'g', //просьба сгенерировать с машинным описанием
             "is_human_caption": false,
+            "prompt": full_prompt, //описание изображения
             "is_depth": is_depth,
             "is_upscale": is_upscale,
             "chain_id": chain_id, //id последнего звена цепочки

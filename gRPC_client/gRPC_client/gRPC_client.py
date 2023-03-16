@@ -1,8 +1,8 @@
 from __future__ import print_function
 import logging
 import grpc
-import helloworld_pb2
-import helloworld_pb2_grpc
+import stable_draw_grpc_pb2
+import stable_draw_grpc_pb2_grpc
 import json
 import base64
 
@@ -129,11 +129,11 @@ def run():
         ('grpc.max_receive_message_length', MAX_MESSAGE_LENGTH),
     ]
     with grpc.insecure_channel("109.111.179.197:8081", options = options) as channel:
-        stub = helloworld_pb2_grpc.GreeterStub(channel)
+        stub = stable_draw_grpc_pb2_grpc.StableDraw_gRPCStub(channel)
         dict_to_server = gen_image_by_image
         json_to_server = json.dumps(dict_to_server)
-        message = helloworld_pb2.HelloRequest(name = json_to_server)
-        response = stub.SayHello(message)
+        message = stable_draw_grpc_pb2.FromImageRequest(json_to_server)
+        response = stub.Stable_diffusion_image_to_image(message)
         json_from_server = response.message
         dict_from_server = json.loads(json_from_server)
     print(dict_from_server)

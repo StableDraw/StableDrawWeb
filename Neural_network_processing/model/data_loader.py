@@ -216,12 +216,12 @@ class ToTensorLab(object):
 		return {'imidx':torch.from_numpy(imidx), 'image': torch.from_numpy(tmpImg), 'label': torch.from_numpy(tmpLbl)}
 
 class SalObjDataset(Dataset):
-	def __init__(self,img_name_list,lbl_name_list,transform=None):
+	def __init__(self, binary_data, transform=None):
 		# self.root_dir = root_dir
 		# self.image_name_list = glob.glob(image_dir+'*.png')
 		# self.label_name_list = glob.glob(label_dir+'*.png')
-		self.image_name_list = img_name_list
-		self.label_name_list = lbl_name_list
+		self.image_name_list = []
+		self.label_name_list = binary_data
 		self.transform = transform
 
 	def __len__(self):

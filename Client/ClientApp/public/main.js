@@ -802,6 +802,7 @@ function gen_picture_by_drawing(params, full_prompt, data_prop) {
         send_data_pbp = JSON.stringify({
             "type": 'g',
             "is_human_caption": false,
+            "prompt": full_prompt,
             "is_depth": is_depth,
             "is_upscale": is_upscale,
             "chain_id": chain_id,
