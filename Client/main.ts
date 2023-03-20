@@ -375,6 +375,7 @@ var main_modal: any = function (options: object)
                 if (original_image_buf == "")
                 {
                     footerButtons_list.push(
+                        { class: "modal_btn modal_btn-2", id: "SD_btn", text: "AutoCLR", handler: "modalHandlerGenBWToCLR" },
                         { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Img2Img", handler: "modalHandlerGenImg2Img" },
                         { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Depth2Img", handler: "modalHandlerGenDepth2Img" }
                     )
@@ -398,7 +399,11 @@ var main_modal: any = function (options: object)
                     {
                         if (original_image_h * original_image_w < 65537)
                         {
-                            footerButtons_list.push({ class: "modal_btn modal_btn-2", id: "SD_btn", text: "SD Апскейл", handler: "modalHandlerGenUpscale" })
+                            footerButtons_list.push({ class: "modal_btn modal_btn-2", id: "SD_btn", text: "SDx4 Апскейл", handler: "modalHandlerGenUpscale" })
+                        }
+                        else
+                        {
+                            footerButtons_list.push({ class: "modal_btn modal_btn-2", id: "SD_btn", text: "SDx2 Апскейл", handler: "modalHandlerGenUpscale_xX" })
                         }
                         content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"/><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image(data_prop)">Сгенерировать автоматически</button><button class = "modal_btn modal_btn-4" style = "right: 18.5%" onclick = "upscale()">Апскейл</button><button class = "modal_btn modal_btn-4" onclick = "delete_background()">Удалить фон</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"/>'
                     }
@@ -520,6 +525,10 @@ var main_modal: any = function (options: object)
         {
             while (true)
             {
+                need_gen_after_caption[1] = false
+                need_gen_after_caption[2] = false
+                need_gen_after_caption[3] = false
+                need_gen_after_caption[4] = false
                 if (e.target.dataset.handler === "modalHandlerGenInpainting")
                 {
                     if (caption_field.value == "")
@@ -532,21 +541,22 @@ var main_modal: any = function (options: object)
                 }
                 else
                 {
-                    need_gen_after_caption[2] = false
                     if (e.target.dataset.handler === "modalHandlerGenDepth2Img")
                     {
                         need_gen_after_caption[1] = true
                     }
                     else
                     {
-                        need_gen_after_caption[1] = false
                         if (e.target.dataset.handler === "modalHandlerGenUpscale")
                         {
                             need_gen_after_caption[3] = true
                         }
                         else
                         {
-                            need_gen_after_caption[3] = false
+                            if (e.target.dataset.handler === "modalHandlerGenUpscale_xX")
+                            {
+                                need_gen_after_caption[4] = true
+                            }
                         }
                     }
                 }
@@ -596,6 +606,10 @@ var main_modal: any = function (options: object)
             }
             //modal.hide()
             //document.querySelector(".message").textContent = "Вы нажали на кнопку ОК, а открыли окно с помощью кнопки " + elemTarget.textContent
+        }
+        else if (e.target.dataset.handler === "modalHandlerGenBWToCLR")
+        {
+            colorize_picture()
         }
         else if (e.target.dataset.dismiss === "modal") 
         {
@@ -895,6 +909,7 @@ function gen_picture_by_drawing(params: boolean[], full_prompt: string, data_pro
     let is_depth: boolean = params[1]
     let is_inpainting: boolean = params[2]
     let is_upscale: boolean = params[3]
+    let is_upscale_xX: boolean = params[4]
     blackout.style.display = "block"
     let send_data_pbp: any
     let foreground_data: string
@@ -953,6 +968,7 @@ function gen_picture_by_drawing(params: boolean[], full_prompt: string, data_pro
             "is_depth": is_depth,
             "is_inpainting": is_inpainting,
             "is_upscale": is_upscale,
+            "is_upscale_xX": is_upscale_xX,
             "chain_id": chain_id, //id последнего звена цепочки
             "task_id": task_id, //id задания
             "foreground": foreground_data,
@@ -989,6 +1005,7 @@ function gen_picture_by_drawing(params: boolean[], full_prompt: string, data_pro
             "prompt": full_prompt, //описание изображения
             "is_depth": is_depth,
             "is_upscale": is_upscale,
+            "is_upscale_xX": is_upscale_xX,
             "chain_id": chain_id, //id последнего звена цепочки
             "task_id": task_id, //id задания
             "img_name": last_task_image_name, //имя последнего файла изображения
@@ -1020,6 +1037,25 @@ function delete_background()
     }
     let send_data_del: string = JSON.stringify({ 
         "type": 'b', //просьба удалить фон
+        "data": data,
+        "chain_id": chain_id, //id последнего звена цепочки
+        "task_id": task_id, //id задания
+        "img_name": last_task_image_name, //имя последнего файла изображения
+        "img_suf": last_task_image_suffix
+    });
+    ws.send(send_data_del)
+}
+
+function colorize_picture()
+{
+    blackout.style.display = "block"
+    let data: string = original_image_buf
+    if (chain_id != "") 
+    {
+        data = ""
+    }
+    let send_data_del: string = JSON.stringify({ 
+        "type": 'c', //просьба покрасить изображение
         "data": data,
         "chain_id": chain_id, //id последнего звена цепочки
         "task_id": task_id, //id задания

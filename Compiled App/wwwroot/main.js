@@ -297,7 +297,7 @@ var main_modal = function (options) {
             }
             else {
                 if (original_image_buf == "") {
-                    footerButtons_list.push({ class: "modal_btn modal_btn-2", id: "SD_btn", text: "Img2Img", handler: "modalHandlerGenImg2Img" }, { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Depth2Img", handler: "modalHandlerGenDepth2Img" });
+                    footerButtons_list.push({ class: "modal_btn modal_btn-2", id: "SD_btn", text: "AutoCLR", handler: "modalHandlerGenBWToCLR" }, { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Img2Img", handler: "modalHandlerGenImg2Img" }, { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Depth2Img", handler: "modalHandlerGenDepth2Img" });
                     content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"></input><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image(data_prop)">Сгенерировать автоматически</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"></input>';
                 }
                 else {
@@ -310,7 +310,10 @@ var main_modal = function (options) {
                     }
                     else {
                         if (original_image_h * original_image_w < 65537) {
-                            footerButtons_list.push({ class: "modal_btn modal_btn-2", id: "SD_btn", text: "SD Апскейл", handler: "modalHandlerGenUpscale" });
+                            footerButtons_list.push({ class: "modal_btn modal_btn-2", id: "SD_btn", text: "SDx4 Апскейл", handler: "modalHandlerGenUpscale" });
+                        }
+                        else {
+                            footerButtons_list.push({ class: "modal_btn modal_btn-2", id: "SD_btn", text: "SDx2 Апскейл", handler: "modalHandlerGenUpscale_xX" });
                         }
                         content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"/><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image(data_prop)">Сгенерировать автоматически</button><button class = "modal_btn modal_btn-4" style = "right: 18.5%" onclick = "upscale()">Апскейл</button><button class = "modal_btn modal_btn-4" onclick = "delete_background()">Удалить фон</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"/>';
                     }
@@ -418,6 +421,10 @@ var main_modal = function (options) {
         }
         else if (e.target.dataset.handler === "modalHandlerGenImg2Img" || e.target.dataset.handler === "modalHandlerGenDepth2Img" || e.target.dataset.handler === "modalHandlerGenInpainting" || e.target.dataset.handler === "modalHandlerGenUpscale") {
             while (true) {
+                need_gen_after_caption[1] = false;
+                need_gen_after_caption[2] = false;
+                need_gen_after_caption[3] = false;
+                need_gen_after_caption[4] = false;
                 if (e.target.dataset.handler === "modalHandlerGenInpainting") {
                     if (caption_field.value == "") {
                         caption_field.setCustomValidity("Ввод описания в этом режиме обязателен");
@@ -427,17 +434,17 @@ var main_modal = function (options) {
                     need_gen_after_caption[2] = true;
                 }
                 else {
-                    need_gen_after_caption[2] = false;
                     if (e.target.dataset.handler === "modalHandlerGenDepth2Img") {
                         need_gen_after_caption[1] = true;
                     }
                     else {
-                        need_gen_after_caption[1] = false;
                         if (e.target.dataset.handler === "modalHandlerGenUpscale") {
                             need_gen_after_caption[3] = true;
                         }
                         else {
-                            need_gen_after_caption[3] = false;
+                            if (e.target.dataset.handler === "modalHandlerGenUpscale_xX") {
+                                need_gen_after_caption[4] = true;
+                            }
                         }
                     }
                 }
@@ -478,6 +485,9 @@ var main_modal = function (options) {
             }
             //modal.hide()
             //document.querySelector(".message").textContent = "Вы нажали на кнопку ОК, а открыли окно с помощью кнопки " + elemTarget.textContent
+        }
+        else if (e.target.dataset.handler === "modalHandlerGenBWToCLR") {
+            colorize_picture();
         }
         else if (e.target.dataset.dismiss === "modal") {
             //document.querySelector(".message").textContent = "Вы закрыли модальное окно нажав на крестик или на область вне модального окна, а открыли окно с помощью кнопки " + elemTarget.textContent
@@ -725,6 +735,7 @@ function gen_picture_by_drawing(params, full_prompt, data_prop) {
     let is_depth = params[1];
     let is_inpainting = params[2];
     let is_upscale = params[3];
+    let is_upscale_xX = params[4];
     blackout.style.display = "block";
     let send_data_pbp;
     let foreground_data;
@@ -771,6 +782,7 @@ function gen_picture_by_drawing(params, full_prompt, data_prop) {
             "is_depth": is_depth,
             "is_inpainting": is_inpainting,
             "is_upscale": is_upscale,
+            "is_upscale_xX": is_upscale_xX,
             "chain_id": chain_id,
             "task_id": task_id,
             "foreground": foreground_data,
@@ -805,6 +817,7 @@ function gen_picture_by_drawing(params, full_prompt, data_prop) {
             "prompt": full_prompt,
             "is_depth": is_depth,
             "is_upscale": is_upscale,
+            "is_upscale_xX": is_upscale_xX,
             "chain_id": chain_id,
             "task_id": task_id,
             "img_name": last_task_image_name,
@@ -831,6 +844,22 @@ function delete_background() {
     }
     let send_data_del = JSON.stringify({
         "type": 'b',
+        "data": data,
+        "chain_id": chain_id,
+        "task_id": task_id,
+        "img_name": last_task_image_name,
+        "img_suf": last_task_image_suffix
+    });
+    ws.send(send_data_del);
+}
+function colorize_picture() {
+    blackout.style.display = "block";
+    let data = original_image_buf;
+    if (chain_id != "") {
+        data = "";
+    }
+    let send_data_del = JSON.stringify({
+        "type": 'c',
         "data": data,
         "chain_id": chain_id,
         "task_id": task_id,

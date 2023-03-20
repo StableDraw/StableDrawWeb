@@ -5,7 +5,7 @@ import grpc
 import stable_draw_grpc_pb2 as stable__draw__grpc__pb2
 
 
-class StableDraw_gRPCStub(object):
+class StableDrawGRPCStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -14,57 +14,67 @@ class StableDraw_gRPCStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.Gen_caption = channel.unary_unary(
-                '/StableDraw_gRPC/Gen_caption',
+        self.GenCaption = channel.unary_unary(
+                '/greet.StableDrawGRPC/GenCaption',
                 request_serializer=stable__draw__grpc__pb2.FromImageRequest.SerializeToString,
                 response_deserializer=stable__draw__grpc__pb2.TextReply.FromString,
                 )
-        self.Stable_diffusion_text_to_image = channel.unary_unary(
-                '/StableDraw_gRPC/Stable_diffusion_text_to_image',
+        self.StableDiffusionTextToImage = channel.unary_unary(
+                '/greet.StableDrawGRPC/StableDiffusionTextToImage',
                 request_serializer=stable__draw__grpc__pb2.FromTextRequest.SerializeToString,
                 response_deserializer=stable__draw__grpc__pb2.ImageReply.FromString,
                 )
-        self.Stable_diffusion_image_to_image = channel.unary_unary(
-                '/StableDraw_gRPC/Stable_diffusion_image_to_image',
+        self.StableDiffusionImageToImage = channel.unary_unary(
+                '/greet.StableDrawGRPC/StableDiffusionImageToImage',
                 request_serializer=stable__draw__grpc__pb2.FromImageandTextRequest.SerializeToString,
                 response_deserializer=stable__draw__grpc__pb2.ImageReply.FromString,
                 )
-        self.Stable_diffusion_depth_to_image = channel.unary_unary(
-                '/StableDraw_gRPC/Stable_diffusion_depth_to_image',
+        self.StableDiffusionDepthToImage = channel.unary_unary(
+                '/greet.StableDrawGRPC/StableDiffusionDepthToImage',
                 request_serializer=stable__draw__grpc__pb2.FromImageandTextRequest.SerializeToString,
                 response_deserializer=stable__draw__grpc__pb2.ImageReply.FromString,
                 )
-        self.Stable_diffusion_inpainting = channel.unary_unary(
-                '/StableDraw_gRPC/Stable_diffusion_inpainting',
+        self.StableDiffusionInpainting = channel.unary_unary(
+                '/greet.StableDrawGRPC/StableDiffusionInpainting',
                 request_serializer=stable__draw__grpc__pb2.FromImgandMaskandTextRequest.SerializeToString,
                 response_deserializer=stable__draw__grpc__pb2.ImageReply.FromString,
                 )
-        self.Stable_diffusion_upscaler = channel.unary_unary(
-                '/StableDraw_gRPC/Stable_diffusion_upscaler',
+        self.StableDiffusionUpscaler = channel.unary_unary(
+                '/greet.StableDrawGRPC/StableDiffusionUpscaler',
                 request_serializer=stable__draw__grpc__pb2.FromImageandTextRequest.SerializeToString,
                 response_deserializer=stable__draw__grpc__pb2.ImageReply.FromString,
                 )
-        self.Stable_diffusion_upscaler_xX = channel.unary_unary(
-                '/StableDraw_gRPC/Stable_diffusion_upscaler_xX',
+        self.StableDiffusionUpscalerXX = channel.unary_unary(
+                '/greet.StableDrawGRPC/StableDiffusionUpscalerXX',
                 request_serializer=stable__draw__grpc__pb2.FromImageandTextRequest.SerializeToString,
                 response_deserializer=stable__draw__grpc__pb2.ImageReply.FromString,
                 )
         self.Upscale = channel.unary_unary(
-                '/StableDraw_gRPC/Upscale',
+                '/greet.StableDrawGRPC/Upscale',
                 request_serializer=stable__draw__grpc__pb2.FromImageRequest.SerializeToString,
                 response_deserializer=stable__draw__grpc__pb2.ImageReply.FromString,
                 )
-        self.Delete_background = channel.unary_unary(
-                '/StableDraw_gRPC/Delete_background',
+        self.DeleteBackground = channel.unary_unary(
+                '/greet.StableDrawGRPC/DeleteBackground',
+                request_serializer=stable__draw__grpc__pb2.FromImgOnlyRequest.SerializeToString,
+                response_deserializer=stable__draw__grpc__pb2.ImageReply.FromString,
+                )
+        self.GetImageClass = channel.unary_unary(
+                '/greet.StableDrawGRPC/GetImageClass',
+                request_serializer=stable__draw__grpc__pb2.FromImgOnlyRequest.SerializeToString,
+                response_deserializer=stable__draw__grpc__pb2.IntReply.FromString,
+                )
+        self.ImageColorizer = channel.unary_unary(
+                '/greet.StableDrawGRPC/ImageColorizer',
                 request_serializer=stable__draw__grpc__pb2.FromImgOnlyRequest.SerializeToString,
                 response_deserializer=stable__draw__grpc__pb2.ImageReply.FromString,
                 )
 
 
-class StableDraw_gRPCServicer(object):
+class StableDrawGRPCServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def Gen_caption(self, request, context):
+    def GenCaption(self, request, context):
         """Генерация описания к изображению
         Принимает: byte входного изображения и параметры
         Возвращает: строку описания изображения
@@ -95,17 +105,15 @@ class StableDraw_gRPCServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def Stable_diffusion_text_to_image(self, request, context):
+    def StableDiffusionTextToImage(self, request, context):
         """Генерация изображения по описанию
         Принимает: строку описания и параметры
         Возвращает: int высоты, int ширины сгенерированного изображения и byte самого изображения
         Структура словаря параметров и параметры по-умолчанию:
         params = {
         "steps": 50,            #количество шагов выборки
-        "plms": True,           #использовать выборку plms
-        "dpm": True,            #использовать выборку DPM (2)
-        "ddim_eta": 0.0,        #ddim η (η = 0.0 соответствует детерминированной выборке)
-        "C": 4,                 #латентные каналы
+        "samler": "ddim",       #обработчик (доступно "plms", "dpm" и "ddim")
+        "ddim_eta": 0.0,        #ddim η (η = 0.0 соответствует детерминированной выборке, работает только на обработчике "ddim")
         "f": 8,                 #коэффициент понижающей дискретизации, чаще всего 8 или 16
         "scale": 9.0,           #безусловная навигационная величина: eps = eps(x, empty) + scale * (eps(x, cond) - eps(x, empty))
         "ckpt": 0,              #выбор контрольной точки модели (0 или 1 для размерностей 512 или 768 соответственно)
@@ -117,7 +125,7 @@ class StableDraw_gRPCServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def Stable_diffusion_image_to_image(self, request, context):
+    def StableDiffusionImageToImage(self, request, context):
         """Генерация изображения по описанияю и изображению
         Принимает: byte входного изображения и параметры
         Возвращает: int высоты, int ширины сгенерированного изображения и byte самого изображения
@@ -125,7 +133,6 @@ class StableDraw_gRPCServicer(object):
         params = {
         'ddim_steps': 50,             #количество шагов выборки ddim
         'ddim_eta': 0.0,              #ddim η (η = 0.0 соответствует детерминированной выборке)
-        'C': 4,                       #латентные каналы
         'f': 8,                       #коэффициент понижающей дискретизации, чаще всего 8 или 16
         'scale': 9.0,                 #безусловная навигационная величина: eps = eps(x, empty) + scale * (eps(x, cond) - eps(x, empty))
         'strength': 0.7,              #сила увеличения/уменьшения шума. 1.0 соответствует полному уничтожению информации в инициализирующем образе
@@ -139,7 +146,7 @@ class StableDraw_gRPCServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def Stable_diffusion_depth_to_image(self, request, context):
+    def StableDiffusionDepthToImage(self, request, context):
         """Генерация изображения по описанияю и изображению с применением дополнительного слоя глубины
         Принимает: byte входного изображения, строку описания и параметры
         Возвращает: int высоты, int ширины сгенерированного изображения и byte самого изображения
@@ -160,7 +167,7 @@ class StableDraw_gRPCServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def Stable_diffusion_inpainting(self, request, context):
+    def StableDiffusionInpainting(self, request, context):
         """Генерация изображения с изменённым фрагментам по изображению, маске и описанию
         Принимает: byte входного изображения, byte изображения маски, строку описания и параметры
         Возвращает: int высоты, int ширины сгенерированного изображения и byte самого изображения
@@ -180,7 +187,7 @@ class StableDraw_gRPCServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def Stable_diffusion_upscaler(self, request, context):
+    def StableDiffusionUpscaler(self, request, context):
         """Четырёхкратное увеличение разрешения исходного изображения (апскейл) по изображению и описанию
         Принимает: byte входного изображения, строку описания и параметры
         Возвращает: int высоты, int ширины сгенерированного изображения и byte самого изображения
@@ -201,7 +208,7 @@ class StableDraw_gRPCServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def Stable_diffusion_upscaler_xX(self, request, context):
+    def StableDiffusionUpscalerXX(self, request, context):
         """Многократное (2 предпочтительно) увеличение разрешения исходного изображения (апскейл) по изображению и описанию
         Принимает: byte входного изображения, строку описания и параметры
         Возвращает: int высоты, int ширины сгенерированного изображения и byte самого изображения
@@ -244,7 +251,7 @@ class StableDraw_gRPCServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def Delete_background(self, request, context):
+    def DeleteBackground(self, request, context):
         """Удаление фона изображения
         Принимает: byte входного изображения
         Возвращает: int высоты, int ширины сгенерированного изображения и byte самого изображения
@@ -253,41 +260,78 @@ class StableDraw_gRPCServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetImageClass(self, request, context):
+        """Получение класса изображения
+        Принимает: byte входного изображения
+        Возвращает: int класса, где:
+        0 - фото с лицом,
+        1 - фото без лица,
+        2 - профессиональный рисунок,
+        3 - непрофессиональный рисунок,
+        4 - профессиональный лайн,
+        5 - быстрый лайн
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
-def add_StableDraw_gRPCServicer_to_server(servicer, server):
+    def ImageColorizer(self, request, context):
+        """Окрашивание чёрно-белого изображения или лайна
+        Принимает: byte входного изображения
+        Возвращает: int высоты, int ширины сгенерированного изображения и byte самого изображения
+        Структура словаря параметров и параметры по-умолчанию:
+        params = {
+        "ckpt": 0,                         #Выбор модели (от 0 до 3)
+        "steps": 1,                        #Количество шагов обработки (минимум 1)
+        "compare": False,                  #Сравнивать с оригиналом
+        "stats": ([0.7137, 0.6628, 0.6519], [0.2970, 0.3017, 0.2979]), #Инициализирующие веса
+        "artistic": True,                  #Дополнительная модель для обработки
+        "render_factor": 12,               #Фактор обработки (от 7 до 45) (лучше 12)
+        "post_process": True,              #Постобработка
+        "clr_saturation_factor": 5,        #Коэффициент увеличения цветовой насыщенности (0 - не добавлять насыщенность)
+        "line_color_limit": 50,            #минимальная яркость пикселя, при которой цветовая насыщенность увеличиваться не будет (меньше для цифровых рисунков, больше для рисунков карандашом. 1 если лайн абсолютно чёрный)
+        "clr_saturate_every_step": True    #Повышать цветовую насыщенность после каждого шага (играет роль только если количество шагов обработки больше 1)
+        }
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+
+def add_StableDrawGRPCServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'Gen_caption': grpc.unary_unary_rpc_method_handler(
-                    servicer.Gen_caption,
+            'GenCaption': grpc.unary_unary_rpc_method_handler(
+                    servicer.GenCaption,
                     request_deserializer=stable__draw__grpc__pb2.FromImageRequest.FromString,
                     response_serializer=stable__draw__grpc__pb2.TextReply.SerializeToString,
             ),
-            'Stable_diffusion_text_to_image': grpc.unary_unary_rpc_method_handler(
-                    servicer.Stable_diffusion_text_to_image,
+            'StableDiffusionTextToImage': grpc.unary_unary_rpc_method_handler(
+                    servicer.StableDiffusionTextToImage,
                     request_deserializer=stable__draw__grpc__pb2.FromTextRequest.FromString,
                     response_serializer=stable__draw__grpc__pb2.ImageReply.SerializeToString,
             ),
-            'Stable_diffusion_image_to_image': grpc.unary_unary_rpc_method_handler(
-                    servicer.Stable_diffusion_image_to_image,
+            'StableDiffusionImageToImage': grpc.unary_unary_rpc_method_handler(
+                    servicer.StableDiffusionImageToImage,
                     request_deserializer=stable__draw__grpc__pb2.FromImageandTextRequest.FromString,
                     response_serializer=stable__draw__grpc__pb2.ImageReply.SerializeToString,
             ),
-            'Stable_diffusion_depth_to_image': grpc.unary_unary_rpc_method_handler(
-                    servicer.Stable_diffusion_depth_to_image,
+            'StableDiffusionDepthToImage': grpc.unary_unary_rpc_method_handler(
+                    servicer.StableDiffusionDepthToImage,
                     request_deserializer=stable__draw__grpc__pb2.FromImageandTextRequest.FromString,
                     response_serializer=stable__draw__grpc__pb2.ImageReply.SerializeToString,
             ),
-            'Stable_diffusion_inpainting': grpc.unary_unary_rpc_method_handler(
-                    servicer.Stable_diffusion_inpainting,
+            'StableDiffusionInpainting': grpc.unary_unary_rpc_method_handler(
+                    servicer.StableDiffusionInpainting,
                     request_deserializer=stable__draw__grpc__pb2.FromImgandMaskandTextRequest.FromString,
                     response_serializer=stable__draw__grpc__pb2.ImageReply.SerializeToString,
             ),
-            'Stable_diffusion_upscaler': grpc.unary_unary_rpc_method_handler(
-                    servicer.Stable_diffusion_upscaler,
+            'StableDiffusionUpscaler': grpc.unary_unary_rpc_method_handler(
+                    servicer.StableDiffusionUpscaler,
                     request_deserializer=stable__draw__grpc__pb2.FromImageandTextRequest.FromString,
                     response_serializer=stable__draw__grpc__pb2.ImageReply.SerializeToString,
             ),
-            'Stable_diffusion_upscaler_xX': grpc.unary_unary_rpc_method_handler(
-                    servicer.Stable_diffusion_upscaler_xX,
+            'StableDiffusionUpscalerXX': grpc.unary_unary_rpc_method_handler(
+                    servicer.StableDiffusionUpscalerXX,
                     request_deserializer=stable__draw__grpc__pb2.FromImageandTextRequest.FromString,
                     response_serializer=stable__draw__grpc__pb2.ImageReply.SerializeToString,
             ),
@@ -296,23 +340,33 @@ def add_StableDraw_gRPCServicer_to_server(servicer, server):
                     request_deserializer=stable__draw__grpc__pb2.FromImageRequest.FromString,
                     response_serializer=stable__draw__grpc__pb2.ImageReply.SerializeToString,
             ),
-            'Delete_background': grpc.unary_unary_rpc_method_handler(
-                    servicer.Delete_background,
+            'DeleteBackground': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteBackground,
+                    request_deserializer=stable__draw__grpc__pb2.FromImgOnlyRequest.FromString,
+                    response_serializer=stable__draw__grpc__pb2.ImageReply.SerializeToString,
+            ),
+            'GetImageClass': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetImageClass,
+                    request_deserializer=stable__draw__grpc__pb2.FromImgOnlyRequest.FromString,
+                    response_serializer=stable__draw__grpc__pb2.IntReply.SerializeToString,
+            ),
+            'ImageColorizer': grpc.unary_unary_rpc_method_handler(
+                    servicer.ImageColorizer,
                     request_deserializer=stable__draw__grpc__pb2.FromImgOnlyRequest.FromString,
                     response_serializer=stable__draw__grpc__pb2.ImageReply.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'StableDraw_gRPC', rpc_method_handlers)
+            'greet.StableDrawGRPC', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
  # This class is part of an EXPERIMENTAL API.
-class StableDraw_gRPC(object):
+class StableDrawGRPC(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def Gen_caption(request,
+    def GenCaption(request,
             target,
             options=(),
             channel_credentials=None,
@@ -322,14 +376,14 @@ class StableDraw_gRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/StableDraw_gRPC/Gen_caption',
+        return grpc.experimental.unary_unary(request, target, '/greet.StableDrawGRPC/GenCaption',
             stable__draw__grpc__pb2.FromImageRequest.SerializeToString,
             stable__draw__grpc__pb2.TextReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def Stable_diffusion_text_to_image(request,
+    def StableDiffusionTextToImage(request,
             target,
             options=(),
             channel_credentials=None,
@@ -339,14 +393,14 @@ class StableDraw_gRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/StableDraw_gRPC/Stable_diffusion_text_to_image',
+        return grpc.experimental.unary_unary(request, target, '/greet.StableDrawGRPC/StableDiffusionTextToImage',
             stable__draw__grpc__pb2.FromTextRequest.SerializeToString,
             stable__draw__grpc__pb2.ImageReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def Stable_diffusion_image_to_image(request,
+    def StableDiffusionImageToImage(request,
             target,
             options=(),
             channel_credentials=None,
@@ -356,14 +410,14 @@ class StableDraw_gRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/StableDraw_gRPC/Stable_diffusion_image_to_image',
+        return grpc.experimental.unary_unary(request, target, '/greet.StableDrawGRPC/StableDiffusionImageToImage',
             stable__draw__grpc__pb2.FromImageandTextRequest.SerializeToString,
             stable__draw__grpc__pb2.ImageReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def Stable_diffusion_depth_to_image(request,
+    def StableDiffusionDepthToImage(request,
             target,
             options=(),
             channel_credentials=None,
@@ -373,14 +427,14 @@ class StableDraw_gRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/StableDraw_gRPC/Stable_diffusion_depth_to_image',
+        return grpc.experimental.unary_unary(request, target, '/greet.StableDrawGRPC/StableDiffusionDepthToImage',
             stable__draw__grpc__pb2.FromImageandTextRequest.SerializeToString,
             stable__draw__grpc__pb2.ImageReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def Stable_diffusion_inpainting(request,
+    def StableDiffusionInpainting(request,
             target,
             options=(),
             channel_credentials=None,
@@ -390,14 +444,14 @@ class StableDraw_gRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/StableDraw_gRPC/Stable_diffusion_inpainting',
+        return grpc.experimental.unary_unary(request, target, '/greet.StableDrawGRPC/StableDiffusionInpainting',
             stable__draw__grpc__pb2.FromImgandMaskandTextRequest.SerializeToString,
             stable__draw__grpc__pb2.ImageReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def Stable_diffusion_upscaler(request,
+    def StableDiffusionUpscaler(request,
             target,
             options=(),
             channel_credentials=None,
@@ -407,14 +461,14 @@ class StableDraw_gRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/StableDraw_gRPC/Stable_diffusion_upscaler',
+        return grpc.experimental.unary_unary(request, target, '/greet.StableDrawGRPC/StableDiffusionUpscaler',
             stable__draw__grpc__pb2.FromImageandTextRequest.SerializeToString,
             stable__draw__grpc__pb2.ImageReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def Stable_diffusion_upscaler_xX(request,
+    def StableDiffusionUpscalerXX(request,
             target,
             options=(),
             channel_credentials=None,
@@ -424,7 +478,7 @@ class StableDraw_gRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/StableDraw_gRPC/Stable_diffusion_upscaler_xX',
+        return grpc.experimental.unary_unary(request, target, '/greet.StableDrawGRPC/StableDiffusionUpscalerXX',
             stable__draw__grpc__pb2.FromImageandTextRequest.SerializeToString,
             stable__draw__grpc__pb2.ImageReply.FromString,
             options, channel_credentials,
@@ -441,14 +495,14 @@ class StableDraw_gRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/StableDraw_gRPC/Upscale',
+        return grpc.experimental.unary_unary(request, target, '/greet.StableDrawGRPC/Upscale',
             stable__draw__grpc__pb2.FromImageRequest.SerializeToString,
             stable__draw__grpc__pb2.ImageReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def Delete_background(request,
+    def DeleteBackground(request,
             target,
             options=(),
             channel_credentials=None,
@@ -458,7 +512,41 @@ class StableDraw_gRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/StableDraw_gRPC/Delete_background',
+        return grpc.experimental.unary_unary(request, target, '/greet.StableDrawGRPC/DeleteBackground',
+            stable__draw__grpc__pb2.FromImgOnlyRequest.SerializeToString,
+            stable__draw__grpc__pb2.ImageReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetImageClass(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/greet.StableDrawGRPC/GetImageClass',
+            stable__draw__grpc__pb2.FromImgOnlyRequest.SerializeToString,
+            stable__draw__grpc__pb2.IntReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ImageColorizer(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/greet.StableDrawGRPC/ImageColorizer',
             stable__draw__grpc__pb2.FromImgOnlyRequest.SerializeToString,
             stable__draw__grpc__pb2.ImageReply.FromString,
             options, channel_credentials,

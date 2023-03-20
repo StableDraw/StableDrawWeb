@@ -14,31 +14,38 @@ _sym_db = _symbol_database.Default()
 from google.protobuf import any_pb2 as google_dot_protobuf_dot_any__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x16stable_draw_grpc.proto\x1a\x19google/protobuf/any.proto\"8\n\x04Pair\x12\x0b\n\x03key\x18\x01 \x01(\t\x12#\n\x05value\x18\x02 \x01(\x0b\x32\x14.google.protobuf.Any\"\"\n\nDictionary\x12\x14\n\x05pairs\x18\x01 \x03(\x0b\x32\x05.Pair\"M\n\x10\x46romImageRequest\x12\x1c\n\x14init_img_binary_data\x18\x01 \x01(\x0c\x12\x1b\n\x06params\x18\x02 \x01(\x0b\x32\x0b.Dictionary\"?\n\x0f\x46romTextRequest\x12\x0f\n\x07\x63\x61ption\x18\x01 \x01(\t\x12\x1b\n\x06params\x18\x02 \x01(\x0b\x32\x0b.Dictionary\"e\n\x17\x46romImageandTextRequest\x12\x1c\n\x14init_img_binary_data\x18\x01 \x01(\x0c\x12\x0f\n\x07\x63\x61ption\x18\x02 \x01(\t\x12\x1b\n\x06params\x18\x03 \x01(\x0b\x32\x0b.Dictionary\"x\n\x1c\x46romImgandMaskandTextRequest\x12\x1c\n\x14init_img_binary_data\x18\x01 \x01(\x0c\x12\x0c\n\x04mask\x18\x02 \x01(\x0c\x12\x0f\n\x07\x63\x61ption\x18\x03 \x01(\t\x12\x1b\n\x06params\x18\x04 \x01(\x0b\x32\x0b.Dictionary\"2\n\x12\x46romImgOnlyRequest\x12\x1c\n\x14init_img_binary_data\x18\x01 \x01(\x0c\"\x1c\n\tTextReply\x12\x0f\n\x07\x63\x61ption\x18\x01 \x01(\t\"7\n\nImageReply\x12\t\n\x01w\x18\x01 \x01(\x03\x12\t\n\x01h\x18\x02 \x01(\x03\x12\x13\n\x0b\x62inary_data\x18\x03 \x01(\x0c\x32\xde\x04\n\x0fStableDraw_gRPC\x12.\n\x0bGen_caption\x12\x11.FromImageRequest\x1a\n.TextReply\"\x00\x12\x41\n\x1eStable_diffusion_text_to_image\x12\x10.FromTextRequest\x1a\x0b.ImageReply\"\x00\x12J\n\x1fStable_diffusion_image_to_image\x12\x18.FromImageandTextRequest\x1a\x0b.ImageReply\"\x00\x12J\n\x1fStable_diffusion_depth_to_image\x12\x18.FromImageandTextRequest\x1a\x0b.ImageReply\"\x00\x12K\n\x1bStable_diffusion_inpainting\x12\x1d.FromImgandMaskandTextRequest\x1a\x0b.ImageReply\"\x00\x12\x44\n\x19Stable_diffusion_upscaler\x12\x18.FromImageandTextRequest\x1a\x0b.ImageReply\"\x00\x12G\n\x1cStable_diffusion_upscaler_xX\x12\x18.FromImageandTextRequest\x1a\x0b.ImageReply\"\x00\x12+\n\x07Upscale\x12\x11.FromImageRequest\x1a\x0b.ImageReply\"\x00\x12\x37\n\x11\x44\x65lete_background\x12\x13.FromImgOnlyRequest\x1a\x0b.ImageReply\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x16stable_draw_grpc.proto\x12\x05greet\x1a\x19google/protobuf/any.proto\"n\n\x04Pair\x12#\n\x04pair\x18\x01 \x03(\x0b\x32\x15.greet.Pair.PairEntry\x1a\x41\n\tPairEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12#\n\x05value\x18\x02 \x01(\x0b\x32\x14.google.protobuf.Any:\x02\x38\x01\"(\n\nDictionary\x12\x1a\n\x05pairs\x18\x01 \x03(\x0b\x32\x0b.greet.Pair\"S\n\x10\x46romImageRequest\x12\x1c\n\x14init_img_binary_data\x18\x01 \x01(\x0c\x12!\n\x06params\x18\x02 \x01(\x0b\x32\x11.greet.Dictionary\"E\n\x0f\x46romTextRequest\x12\x0f\n\x07\x63\x61ption\x18\x01 \x01(\t\x12!\n\x06params\x18\x02 \x01(\x0b\x32\x11.greet.Dictionary\"k\n\x17\x46romImageandTextRequest\x12\x1c\n\x14init_img_binary_data\x18\x01 \x01(\x0c\x12\x0f\n\x07\x63\x61ption\x18\x02 \x01(\t\x12!\n\x06params\x18\x03 \x01(\x0b\x32\x11.greet.Dictionary\"~\n\x1c\x46romImgandMaskandTextRequest\x12\x1c\n\x14init_img_binary_data\x18\x01 \x01(\x0c\x12\x0c\n\x04mask\x18\x02 \x01(\x0c\x12\x0f\n\x07\x63\x61ption\x18\x03 \x01(\t\x12!\n\x06params\x18\x04 \x01(\x0b\x32\x11.greet.Dictionary\"2\n\x12\x46romImgOnlyRequest\x12\x1c\n\x14init_img_binary_data\x18\x01 \x01(\x0c\"\x1c\n\tTextReply\x12\x0f\n\x07\x63\x61ption\x18\x01 \x01(\t\"7\n\nImageReply\x12\t\n\x01w\x18\x01 \x01(\x03\x12\t\n\x01h\x18\x02 \x01(\x03\x12\x13\n\x0b\x62inary_data\x18\x03 \x01(\x0c\"\x15\n\x08IntReply\x12\t\n\x01\x63\x18\x01 \x01(\x03\x32\xb5\x06\n\x0eStableDrawGRPC\x12\x39\n\nGenCaption\x12\x17.greet.FromImageRequest\x1a\x10.greet.TextReply\"\x00\x12I\n\x1aStableDiffusionTextToImage\x12\x16.greet.FromTextRequest\x1a\x11.greet.ImageReply\"\x00\x12R\n\x1bStableDiffusionImageToImage\x12\x1e.greet.FromImageandTextRequest\x1a\x11.greet.ImageReply\"\x00\x12R\n\x1bStableDiffusionDepthToImage\x12\x1e.greet.FromImageandTextRequest\x1a\x11.greet.ImageReply\"\x00\x12U\n\x19StableDiffusionInpainting\x12#.greet.FromImgandMaskandTextRequest\x1a\x11.greet.ImageReply\"\x00\x12N\n\x17StableDiffusionUpscaler\x12\x1e.greet.FromImageandTextRequest\x1a\x11.greet.ImageReply\"\x00\x12P\n\x19StableDiffusionUpscalerXX\x12\x1e.greet.FromImageandTextRequest\x1a\x11.greet.ImageReply\"\x00\x12\x37\n\x07Upscale\x12\x17.greet.FromImageRequest\x1a\x11.greet.ImageReply\"\x00\x12\x42\n\x10\x44\x65leteBackground\x12\x19.greet.FromImgOnlyRequest\x1a\x11.greet.ImageReply\"\x00\x12=\n\rGetImageClass\x12\x19.greet.FromImgOnlyRequest\x1a\x0f.greet.IntReply\"\x00\x12@\n\x0eImageColorizer\x12\x19.greet.FromImgOnlyRequest\x1a\x11.greet.ImageReply\"\x00\x42\x14\xaa\x02\x11GrpcGreeterClientb\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'stable_draw_grpc_pb2', globals())
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  _PAIR._serialized_start=53
-  _PAIR._serialized_end=109
-  _DICTIONARY._serialized_start=111
-  _DICTIONARY._serialized_end=145
-  _FROMIMAGEREQUEST._serialized_start=147
-  _FROMIMAGEREQUEST._serialized_end=224
-  _FROMTEXTREQUEST._serialized_start=226
-  _FROMTEXTREQUEST._serialized_end=289
-  _FROMIMAGEANDTEXTREQUEST._serialized_start=291
-  _FROMIMAGEANDTEXTREQUEST._serialized_end=392
-  _FROMIMGANDMASKANDTEXTREQUEST._serialized_start=394
-  _FROMIMGANDMASKANDTEXTREQUEST._serialized_end=514
-  _FROMIMGONLYREQUEST._serialized_start=516
-  _FROMIMGONLYREQUEST._serialized_end=566
-  _TEXTREPLY._serialized_start=568
-  _TEXTREPLY._serialized_end=596
-  _IMAGEREPLY._serialized_start=598
-  _IMAGEREPLY._serialized_end=653
-  _STABLEDRAW_GRPC._serialized_start=656
-  _STABLEDRAW_GRPC._serialized_end=1262
+  DESCRIPTOR._serialized_options = b'\252\002\021GrpcGreeterClient'
+  _PAIR_PAIRENTRY._options = None
+  _PAIR_PAIRENTRY._serialized_options = b'8\001'
+  _PAIR._serialized_start=60
+  _PAIR._serialized_end=170
+  _PAIR_PAIRENTRY._serialized_start=105
+  _PAIR_PAIRENTRY._serialized_end=170
+  _DICTIONARY._serialized_start=172
+  _DICTIONARY._serialized_end=212
+  _FROMIMAGEREQUEST._serialized_start=214
+  _FROMIMAGEREQUEST._serialized_end=297
+  _FROMTEXTREQUEST._serialized_start=299
+  _FROMTEXTREQUEST._serialized_end=368
+  _FROMIMAGEANDTEXTREQUEST._serialized_start=370
+  _FROMIMAGEANDTEXTREQUEST._serialized_end=477
+  _FROMIMGANDMASKANDTEXTREQUEST._serialized_start=479
+  _FROMIMGANDMASKANDTEXTREQUEST._serialized_end=605
+  _FROMIMGONLYREQUEST._serialized_start=607
+  _FROMIMGONLYREQUEST._serialized_end=657
+  _TEXTREPLY._serialized_start=659
+  _TEXTREPLY._serialized_end=687
+  _IMAGEREPLY._serialized_start=689
+  _IMAGEREPLY._serialized_end=744
+  _INTREPLY._serialized_start=746
+  _INTREPLY._serialized_end=767
+  _STABLEDRAWGRPC._serialized_start=770
+  _STABLEDRAWGRPC._serialized_end=1591
 # @@protoc_insertion_point(module_scope)

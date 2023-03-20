@@ -86,17 +86,18 @@ def Stable_diffusion_text_to_image(prompt, opt):
         w = 768
         h = 768
     seed_everything(opt["seed"])
-    config = OmegaConf.load(config_path + config_list[opt["ckpt"][1]])
-    model = load_model_from_config(config, checkpoint_path + checkpoint_list[opt["ckpt"][0]])
+    config = OmegaConf.load(config_path + config_list[checkpoint_list[opt["ckpt"]][1]])
+    model = load_model_from_config(config, checkpoint_path + checkpoint_list[opt["ckpt"]][0])
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
     model = model.to(device)
-    if opt["plms"]:
+    if opt["sampler"] == "plms":
         sampler = PLMSSampler(model)
-    elif opt["dpm"]:
+    elif opt["sampler"] == "dpm":
         sampler = DPMSolverSampler(model)
+        opt["steps"] += 1
     else:
         sampler = DDIMSampler(model)
-    precision_scope = autocast if opt["precision"] == "autocast" else nullcontext
+    precision_scope = autocast
     with torch.no_grad(), \
         precision_scope("cuda"), \
         model.ema_scope():
@@ -105,7 +106,7 @@ def Stable_diffusion_text_to_image(prompt, opt):
             else:
                 uc = None
             c = model.get_learned_conditioning([prompt])
-            shape = [opt["C"], h // opt["f"], w // opt["f"]]
+            shape = [4, h // opt["f"], w // opt["f"]]
             samples, _ = sampler.sample(S = opt["steps"], conditioning = c, batch_size = 1, shape = shape, verbose = False, unconditional_guidance_scale = opt["scale"], unconditional_conditioning = uc, eta = opt["ddim_eta"], x_T = None)
             x_sample = 255. * rearrange(torch.clamp((model.decode_first_stage(samples) + 1.0) / 2.0, min = 0.0, max = 1.0)[0].cpu().numpy(), 'c h w -> h w c')
             img = PIL.Image.fromarray(x_sample.astype(numpy.uint8))

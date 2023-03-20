@@ -133,7 +133,7 @@ def run():
         dict_to_server = gen_image_by_image
         json_to_server = json.dumps(dict_to_server)
         message = stable_draw_grpc_pb2.FromImageRequest(json_to_server)
-        response = stub.Stable_diffusion_image_to_image(message)
+        response = stub.StableDiffusionImageToImage(message)
         json_from_server = response.message
         dict_from_server = json.loads(json_from_server)
     print(dict_from_server)

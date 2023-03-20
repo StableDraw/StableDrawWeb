@@ -20,6 +20,8 @@ from Stable_diffusion import Stable_diffusion_depth_to_image
 from Stable_diffusion import Stable_diffusion_inpainting
 from Stable_diffusion import Stable_diffusion_upscaler
 from Stable_diffusion import Stable_diffusion_upscaler_xX
+from Image_classifier import Get_image_class
+from Image_сolorization import Image_сolorizer
 
 chat_id = "-1001661093241"
 
@@ -31,11 +33,22 @@ URL = "https://api.telegram.org/bot{}/".format(TOKEN)
 task_list = [] #дескриптор сокета, тип задания, номер сообщения ТГ (id задания), user_id
 
 user_id = "0" #Пока что мы не знаем id (убрать)
-need_translate = True #пока нет настроек, будем переводить всё (убрать)
-dest_lang = "ru"
 
 process = False
 nprocess = False
+
+settings = {
+    "autotranslate": True,          #переводить автоматически
+    "dest_lang": "ru",              #язык, на который переводить
+    "autoclass": True,              #классифицировать автоматически
+    "autofaceenchance": True,       #улучшать лица, если классификатор определил как фото лица
+    "autoproclr": True,             #раскрашивать автоматически, если классификатор определил как профессиональный лайн
+    "autoquickclr": True,           #раскрашивать автоматически, если классификатор определил как быстрый лайн
+    "autophotofacepreset": True,    #автоматически устанавливать пресет настроек для обработки фотографий, если классификатор определил как фото с лицом
+    "autophotonofacepreset": True,  #автоматически устанавливать пресет настроек для обработки фотографий, если классификатор определил как фото без лица
+    "autoproartpreset": True,       #автоматически устанавливать пресет настроек для обработки профессионального рисунка, если классификатор определил как профессиональный рисунок
+    "autonoproartpreset": True      #автоматически устанавливать пресет настроек для обработки непрофессионального рисунка, если классификатор определил как непрофессиональный рисунок
+    }
 
 def send_document_to_tg(req_text, tgfile):
     req = requests.post(req_text, files = tgfile)
@@ -268,6 +281,94 @@ def make_mask(img, path_to_save):
     b_data = im_buf_arr.tobytes()
     return b_data
 
+def colorize(init_img_binary_data):
+    params = {
+        "ckpt": 0,                         #Выбор модели (от 0 до 3)
+        "steps": 1,                        #Количество шагов обработки (минимум 1)
+        "compare": False,                  #Сравнивать с оригиналом
+        "stats": ([0.7137, 0.6628, 0.6519], [0.2970, 0.3017, 0.2979]), #Инициализирующие веса
+        "artistic": True,                  #Дополнительная модель для обработки
+        "render_factor": 12,               #Фактор обработки (от 7 до 45) (лучше 12)
+        "post_process": True,              #Постобработка
+        "clr_saturation_factor": 5,        #Коэффициент увеличения цветовой насыщенности (0 - не добавлять насыщенность)
+        "line_color_limit": 50,            #минимальная яркость пикселя, при которой цветовая насыщенность увеличиваться не будет (меньше для цифровых рисунков, больше для рисунков карандашом. 1 если лайн абсолютно чёрный)
+        "clr_saturate_every_step": True    #Повышать цветовую насыщенность после каждого шага (играет роль только если количество шагов обработки больше 1)
+    }
+
+
+    if settings["autophotofacepreset"] == True: #нужно настроить и убрать лишнее
+        params["steps"] = 1
+        params["ckpt"] = 0
+        params["compare"] = False
+        params["artistic"] = True
+        params["render_factor"] = 12
+        params["post_process"] = True
+        params["clr_saturation_factor"] = 5
+        params["line_color_limit"] = 50
+        params["clr_saturate_every_step"] = True
+    elif settings["autophotonofacepreset"] == True:
+        params["steps"] = 1
+        params["ckpt"] = 0
+        params["compare"] = False
+        params["artistic"] = True
+        params["render_factor"] = 12
+        params["post_process"] = True
+        params["clr_saturation_factor"] = 5
+        params["line_color_limit"] = 50
+        params["clr_saturate_every_step"] = True
+    elif settings["autoproclr"] == True:
+        params["steps"] = 1
+        params["ckpt"] = 0
+        params["compare"] = False
+        params["artistic"] = True
+        params["render_factor"] = 12
+        params["post_process"] = True
+        params["clr_saturation_factor"] = 5
+        params["line_color_limit"] = 50
+        params["clr_saturate_every_step"] = True
+    elif settings["autoproclr"] == True:
+        params["steps"] = 1
+        params["ckpt"] = 0
+        params["compare"] = False
+        params["artistic"] = True
+        params["render_factor"] = 12
+        params["post_process"] = True
+        params["clr_saturation_factor"] = 5
+        params["line_color_limit"] = 50
+        params["clr_saturate_every_step"] = True
+    elif settings["autoquickclr"] == True:
+        params["steps"] = 1
+        params["ckpt"] = 0
+        params["compare"] = False
+        params["artistic"] = True
+        params["render_factor"] = 12
+        params["post_process"] = True
+        params["clr_saturation_factor"] = 5
+        params["line_color_limit"] = 50
+        params["clr_saturate_every_step"] = True
+    elif settings["autoproartpreset"] == True:
+        params["steps"] = 1
+        params["ckpt"] = 0
+        params["compare"] = False
+        params["artistic"] = True
+        params["render_factor"] = 12
+        params["post_process"] = True
+        params["clr_saturation_factor"] = 5
+        params["line_color_limit"] = 50
+        params["clr_saturate_every_step"] = True
+    elif settings["autonoproartpreset"] == True:
+        params["steps"] = 1
+        params["ckpt"] = 0
+        params["compare"] = False
+        params["artistic"] = True
+        params["render_factor"] = 12
+        params["post_process"] = True
+        params["clr_saturation_factor"] = 5
+        params["line_color_limit"] = 50
+        params["clr_saturate_every_step"] = True
+
+    return Image_сolorizer(init_img_binary_data, params) #передаю путь к рабочей папке и имя файла
+
 async def neural_processing(process, nprocess):
     if nprocess == True:
         return
@@ -282,6 +383,8 @@ async def neural_processing(process, nprocess):
             user_id = task[5]
             chain_id = task[6]
             final_file_name = task[7]
+            init_img_binary_data = None
+            postview = None
             print("Обработка началась")
             path_to_task_dir = "log\\" + user_id + "\\" + task_id
             if task_type != 't': #если в обработку передаётся изображение
@@ -338,9 +441,28 @@ async def neural_processing(process, nprocess):
                 img_name = new_img_name + img_name + ".png"
             img_suf += 1
 
+            image_class = -1
+            if init_img_binary_data != None and settings["autoclass"] == True:
+                image_class = Get_image_class(init_img_binary_data)
+                '''
+                0 - фото с лицом,
+                1 - фото без лица,
+                2 - профессиональный рисунок,
+                3 - непрофессиональный рисунок,
+                4 - профессиональный лайн,
+                5 - быстрый лайн
+                '''
+                if (not task_type in ['f', 'a', '0']) and (settings["autoproclr"] == True and image_class == 4) or (settings["autoquickclr"] == True and image_class == 5):
+                    postview = str(base64.b64encode(init_img_binary_data).decode("utf-8"))
+                    init_img_binary_data = colorize(init_img_binary_data)
+                    result_img = "colored_" + str(img_suf)
+                    img_suf += 1
+                    with open(path_to_task_dir + "\\" + result_img + ".png", "wb") as f:
+                        f.write(binary_data)
+                    chain_id = send_document_to_tg(URL + "sendDocument?&reply_to_message_id=" + chain_id + "&chat_id=" + chat_id, { "document": (result_img + ".png", init_img_binary_data) })
+
             if task_type == 'c': #если нужно сгенерировать описание
-                need_translate = task[8]
-                noback = task[9]
+                noback = task[8]
                 if rbufer == True: #если это просто одноцветный фон, то выдать описание "solid color background"
                     english_caption = "solid color background"
                 else:
@@ -371,9 +493,9 @@ async def neural_processing(process, nprocess):
                     with open(path_to_task_dir + "\\" + final_file_name + "_" + str(img_suf) + ".txt", "w") as f:
                         f.write(english_caption)
                 chain_id = send_message_to_tg(URL + "sendMessage?text=" + english_caption + "&reply_to_message_id=" + chain_id + "&chat_id=" + chat_id)
-                if need_translate == True:
+                if settings["autotranslate"] == True:
                     translator = Translator()
-                    caption = translator.translate(english_caption, src = "en", dest = dest_lang).text.replace(" -", "-")
+                    caption = translator.translate(english_caption, src = "en", dest = settings["dest_lang"]).text.replace(" -", "-")
                     with open(path_to_task_dir + "\\" + final_file_name + "_ru_" + str(img_suf) + ".txt", "w") as f:
                         f.write(caption)
                     time.sleep(0.3) #иметь ввиду, что тут слип, убрать его потом, после отключения от Телеги (убрать)
@@ -398,7 +520,8 @@ async def neural_processing(process, nprocess):
                 Is_depth = task[9]
                 Is_inpainting = task[10]
                 Is_upscale = task[11]
-                mask_binary_data = task[12]
+                Is_upscale_xX = task[12]
+                mask_binary_data = task[13]
                 postview = str(base64.b64encode(init_img_binary_data).decode('utf-8'))
                 message_id = send_document_to_tg(URL + "sendDocument?&reply_to_message_id=" + chain_id + "&chat_id=" + chat_id, {"document": (img_name, init_img_binary_data)})
                 if Is_depth == True:
@@ -413,11 +536,57 @@ async def neural_processing(process, nprocess):
                         "verbose": True,
                         "max_dim": pow(512, 2)      # я не могу генерировать на своей видюхе картинки больше 512 на 512
                     }
+
+
+                    if settings["autophotofacepreset"] == True: #нужно настроить и убрать лишнее
+                        params["ddim_steps"] = 50
+                        params["scale"] = 9.0
+                        params["ckpt"] = 0
+                        params["ddim_eta"] = 0.0
+                        params["strength"] = 0.9
+                    elif settings["autophotonofacepreset"] == True:
+                        params["ddim_steps"] = 50
+                        params["scale"] = 9.0
+                        params["ckpt"] = 0
+                        params["ddim_eta"] = 0.0
+                        params["strength"] = 0.9
+                    elif settings["autoproclr"] == True:
+                        params["ddim_steps"] = 50
+                        params["scale"] = 9.0
+                        params["ckpt"] = 0
+                        params["ddim_eta"] = 0.0
+                        params["strength"] = 0.9
+                    elif settings["autoproclr"] == True:
+                        params["ddim_steps"] = 50
+                        params["scale"] = 9.0
+                        params["ckpt"] = 0
+                        params["ddim_eta"] = 0.0
+                        params["strength"] = 0.9
+                    elif settings["autoquickclr"] == True:
+                        params["ddim_steps"] = 50
+                        params["scale"] = 9.0
+                        params["ckpt"] = 0
+                        params["ddim_eta"] = 0.0
+                        params["strength"] = 0.9
+                    elif settings["autoproartpreset"] == True:
+                        params["ddim_steps"] = 50
+                        params["scale"] = 9.0
+                        params["ckpt"] = 0
+                        params["ddim_eta"] = 0.0
+                        params["strength"] = 0.9
+                    elif settings["autonoproartpreset"] == True:
+                        params["ddim_steps"] = 50
+                        params["scale"] = 9.0
+                        params["ckpt"] = 0
+                        params["ddim_eta"] = 0.0
+                        params["strength"] = 0.9
+
+
                     w, h, binary_data = Stable_diffusion_depth_to_image(init_img_binary_data, caption, params) #передаю сокет, путь к рабочей папке, имя файла, и true если AI описание, false если человеческая
                 elif Is_inpainting:
                     params = {
                         "ddim_steps": 50,           #Шаги DDIM, от 0 до 50
-                        "ddim_eta": 0.0,            #ddim η (от 0.0 до 1.0, η = 0.0 соответствует детерминированной выборке)
+                        "ddim_eta": 0.0,            #значения от 0.0 до 1.0, η = 0.0 соответствует детерминированной выборке
                         "scale": 10.0,              #от 0.1 до 30.0
                         "strength": 0.9,            #сила увеличения/уменьшения шума. 1.0 соответствует полному уничтожению информации в инициализирующем образе
                         "ckpt": 0,                  #выбор весов модели (0)
@@ -425,11 +594,57 @@ async def neural_processing(process, nprocess):
                         "verbose": False,
                         "max_dim": pow(512, 2)  # я не могу генерировать на своей видюхе картинки больше 512 на 512
                     }
+
+
+                    if settings["autophotofacepreset"] == True: #нужно настроить и убрать лишнее
+                        params["ddim_steps"] = 50
+                        params["scale"] = 10.0
+                        params["ckpt"] = 0
+                        params["ddim_eta"] = 0.0
+                        params["strength"] = 0.9
+                    elif settings["autophotonofacepreset"] == True:
+                        params["ddim_steps"] = 50
+                        params["scale"] = 10.0
+                        params["ckpt"] = 0
+                        params["ddim_eta"] = 0.0
+                        params["strength"] = 0.9
+                    elif settings["autoproclr"] == True:
+                        params["ddim_steps"] = 50
+                        params["scale"] = 10.0
+                        params["ckpt"] = 0
+                        params["ddim_eta"] = 0.0
+                        params["strength"] = 0.9
+                    elif settings["autoproclr"] == True:
+                        params["ddim_steps"] = 50
+                        params["scale"] = 10.0
+                        params["ckpt"] = 0
+                        params["ddim_eta"] = 0.0
+                        params["strength"] = 0.9
+                    elif settings["autoquickclr"] == True:
+                        params["ddim_steps"] = 50
+                        params["scale"] = 10.0
+                        params["ckpt"] = 0
+                        params["ddim_eta"] = 0.0
+                        params["strength"] = 0.9
+                    elif settings["autoproartpreset"] == True:
+                        params["ddim_steps"] = 50
+                        params["scale"] = 10.0
+                        params["ckpt"] = 0
+                        params["ddim_eta"] = 0.0
+                        params["strength"] = 0.9
+                    elif settings["autonoproartpreset"] == True:
+                        params["ddim_steps"] = 50
+                        params["scale"] = 10.0
+                        params["ckpt"] = 0
+                        params["ddim_eta"] = 0.0
+                        params["strength"] = 0.9
+
+
                     w, h, binary_data = Stable_diffusion_inpainting(init_img_binary_data, mask_binary_data, caption, params) #передаю сокет, путь к рабочей папке, имя файла и параметры
                 elif Is_upscale == True:
                     params = {
                         "ddim_steps": 50,           #Шаги DDIM, от 2 до 250
-                        "ddim_eta": 0.0,            #ddim η (от 0.0 до 1.0, η = 0.0 соответствует детерминированной выборке)
+                        "ddim_eta": 0.0,            #значения от 0.0 до 1.0, η = 0.0 соответствует детерминированной выборке
                         "scale": 9.0,               #от 0.1 до 30.0
                         "ckpt": 0,                  #выбор весов модели (0)
                         "seed": 42,                 #от 0 до 1000000
@@ -439,6 +654,52 @@ async def neural_processing(process, nprocess):
                         "verbose": False,
                         "max_dim": pow(512, 2)      # я не могу генерировать на своей видюхе картинки больше 256 на 256 для x4 и 512 на 512 для x2
                     }
+
+
+                    if settings["autophotofacepreset"] == True: #нужно настроить и убрать лишнее
+                        params["ddim_steps"] = 50
+                        params["scale"] = 9.0
+                        params["ckpt"] = 0
+                        params["ddim_eta"] = 0.0
+                        params["noise_augmentation"] = 20
+                    elif settings["autophotonofacepreset"] == True:
+                        params["ddim_steps"] = 50
+                        params["scale"] = 9.0
+                        params["ckpt"] = 0
+                        params["ddim_eta"] = 0.0
+                        params["noise_augmentation"] = 20
+                    elif settings["autoproclr"] == True:
+                        params["ddim_steps"] = 50
+                        params["scale"] = 9.0
+                        params["ckpt"] = 0
+                        params["ddim_eta"] = 0.0
+                        params["noise_augmentation"] = 20
+                    elif settings["autoproclr"] == True:
+                        params["ddim_steps"] = 50
+                        params["scale"] = 9.0
+                        params["ckpt"] = 0
+                        params["ddim_eta"] = 0.0
+                        params["noise_augmentation"] = 20
+                    elif settings["autoquickclr"] == True:
+                        params["ddim_steps"] = 50
+                        params["scale"] = 9.0
+                        params["ckpt"] = 0
+                        params["ddim_eta"] = 0.0
+                        params["noise_augmentation"] = 20
+                    elif settings["autoproartpreset"] == True:
+                        params["ddim_steps"] = 50
+                        params["scale"] = 9.0
+                        params["ckpt"] = 0
+                        params["ddim_eta"] = 0.0
+                        params["noise_augmentation"] = 20
+                    elif settings["autonoproartpreset"] == True:
+                        params["ddim_steps"] = 50
+                        params["scale"] = 9.0
+                        params["ckpt"] = 0
+                        params["ddim_eta"] = 0.0
+                        params["noise_augmentation"] = 20
+
+
                     outscale = params["outscale"]
                     if need_restore:
                         rbufer[1] *= outscale
@@ -446,32 +707,139 @@ async def neural_processing(process, nprocess):
                         rbufer[3] *= outscale
                         rbufer[4] *= outscale
                     w, h, binary_data = Stable_diffusion_upscaler(init_img_binary_data, caption, params) #передаю сокет, путь к рабочей папке, имя файла, и true если AI описание, false если человеческая
+                elif Is_upscale_xX == True:
+                    params = {
+                        "ddim_steps": 20,           #Шаги DDIM, от 2 до 250
+                        "ddim_eta": 0.0,            #значения от 0.0 до 1.0, η = 0.0 соответствует детерминированной выборке
+                        "scale": 9.0,               #от 0.1 до 30.0
+                        "ckpt": 0,                  #выбор весов модели (0)
+                        "seed": 42,                 #от 0 до 1000000
+                        "outscale": 2,              #Величина того, во сколько раз увеличть разшрешение изображения
+                        "noise_augmentation": 0.0,   #от 0 до 350
+                        "negative_prompt": None,    #отрицательное описание (если без него, то None)
+                        "verbose": False,
+                        "max_dim": pow(512, 2)      # я не могу генерировать на своей видюхе картинки больше 256 на 256 для x4 и 512 на 512 для x2
+                    }
+
+
+                    if settings["autophotofacepreset"] == True: #нужно настроить и убрать лишнее
+                        params["ddim_steps"] = 50
+                        params["scale"] = 9.0
+                        params["ckpt"] = 0
+                        params["ddim_eta"] = 0.0
+                        params["noise_augmentation"] = 0.0
+                    elif settings["autophotonofacepreset"] == True:
+                        params["ddim_steps"] = 50
+                        params["scale"] = 9.0
+                        params["ckpt"] = 0
+                        params["ddim_eta"] = 0.0
+                        params["noise_augmentation"] = 0.0
+                    elif settings["autoproclr"] == True:
+                        params["ddim_steps"] = 50
+                        params["scale"] = 9.0
+                        params["ckpt"] = 0
+                        params["ddim_eta"] = 0.0
+                        params["noise_augmentation"] = 0.0
+                    elif settings["autoproclr"] == True:
+                        params["ddim_steps"] = 50
+                        params["scale"] = 9.0
+                        params["ckpt"] = 0
+                        params["ddim_eta"] = 0.0
+                        params["noise_augmentation"] = 0.0
+                    elif settings["autoquickclr"] == True:
+                        params["ddim_steps"] = 50
+                        params["scale"] = 9.0
+                        params["ckpt"] = 0
+                        params["ddim_eta"] = 0.0
+                        params["noise_augmentation"] = 0.0
+                    elif settings["autoproartpreset"] == True:
+                        params["ddim_steps"] = 50
+                        params["scale"] = 9.0
+                        params["ckpt"] = 0
+                        params["ddim_eta"] = 0.0
+                        params["noise_augmentation"] = 0.0
+                    elif settings["autonoproartpreset"] == True:
+                        params["ddim_steps"] = 50
+                        params["scale"] = 9.0
+                        params["ckpt"] = 0
+                        params["ddim_eta"] = 0.0
+                        params["noise_augmentation"] = 0.0
+
+
+                    outscale = params["outscale"]
+                    if need_restore:
+                        rbufer[1] *= outscale
+                        rbufer[2] *= outscale
+                        rbufer[3] *= outscale
+                        rbufer[4] *= outscale
+                    w, h, binary_data = Stable_diffusion_upscaler_xX(init_img_binary_data, caption, params) #передаю сокет, путь к рабочей папке, имя файла, и true если AI описание, false если человеческая
                 else:
                     params = {
                         'ddim_steps': 50,             #количество шагов выборки ddim
-                        'ddim_eta': 0.0,              #ddim η (η = 0.0 соответствует детерминированной выборке)
-                        'C': 4,                       #латентные каналы
-                        'f': 8,                       #коэффициент понижающей дискретизации, чаще всего 8 или 16
+                        'ddim_eta': 0.0,              #значения от 0.0 до 1.0, η = 0.0 соответствует детерминированной выборке
+                        'f': 8,                       #коэффициент понижающей дискретизации, чаще всего 8 или 16 (можно 4, тогда есть риск учетверения, но красиво)
                         'scale': 9.0,                 #безусловная навигационная величина: eps = eps(x, empty) + scale * (eps(x, cond) - eps(x, empty))
                         'strength': 0.7,              #сила увеличения/уменьшения шума. 1.0 соответствует полному уничтожению информации в инициализирующем образе
                         'ckpt': 0,                    #выбор весов модели (от 0 до 10)
                         'seed': 42,                   #сид (для воспроизводимой генерации изображений)
-                        'precision': "autocast",      #оценивать с этой точностью ("full" или "autocast")
                         "max_dim": pow(512, 2)        # я не могу генерировать на своей видюхе картинки больше 512 на 512
                     }
+
+
+                    if settings["autophotofacepreset"] == True: #нужно настроить и убрать лишнее
+                        params["ddim_steps"] = 50
+                        params["scale"] = 9.0
+                        params["ckpt"] = 0
+                        params["ddim_eta"] = 0.0
+                        params["strength"] = 0.7
+                    elif settings["autophotonofacepreset"] == True:
+                        params["ddim_steps"] = 50
+                        params["scale"] = 9.0
+                        params["ckpt"] = 0
+                        params["ddim_eta"] = 0.0
+                        params["strength"] = 0.7
+                    elif settings["autoproclr"] == True:
+                        params["ddim_steps"] = 50
+                        params["scale"] = 9.0
+                        params["ckpt"] = 0
+                        params["ddim_eta"] = 0.0
+                        params["strength"] = 0.7
+                    elif settings["autoproclr"] == True:
+                        params["ddim_steps"] = 50
+                        params["scale"] = 9.0
+                        params["ckpt"] = 0
+                        params["ddim_eta"] = 0.0
+                        params["strength"] = 0.7
+                    elif settings["autoquickclr"] == True:
+                        params["ddim_steps"] = 50
+                        params["scale"] = 9.0
+                        params["ckpt"] = 0
+                        params["ddim_eta"] = 0.0
+                        params["strength"] = 0.7
+                    elif settings["autoproartpreset"] == True:
+                        params["ddim_steps"] = 50
+                        params["scale"] = 9.0
+                        params["ckpt"] = 0
+                        params["ddim_eta"] = 0.0
+                        params["strength"] = 0.7
+                    elif settings["autonoproartpreset"] == True:
+                        params["ddim_steps"] = 50
+                        params["scale"] = 9.0
+                        params["ckpt"] = 0
+                        params["ddim_eta"] = 0.0
+                        params["strength"] = 0.7
+
+
                     w, h, binary_data = Stable_diffusion_image_to_image(init_img_binary_data, caption, params) #передаю сокет, путь к рабочей папке, имя файла, и true если AI описание, false если человеческая
                 result_img = final_file_name + "_" + str(img_suf)
                 with open(path_to_task_dir + "\\" + result_img + ".png", "wb") as f:
                     f.write(binary_data)
                 if need_restore == True: #если нужно восстановление
-                    result_path = path_to_task_dir + "\\c_" + result_img
                     chain_id = send_document_to_tg(URL + "sendDocument?&reply_to_message_id=" + chain_id + "&chat_id=" + chat_id, {"document": ("c_" + result_img + ".png", binary_data)})
                     binary_data = Restore_Image(binary_data, rbufer, path_to_task_dir, result_img)
                     result_img = "r_" + result_img
-                else:
-                    result_path = path_to_task_dir + "\\" + result_img
-                with open(result_path, "wb") as f:
-                    f.write(binary_data)
+                    with open(path_to_task_dir + "\\" + result_img + ".png", "wb") as f:
+                        f.write(binary_data)
                 chain_id = send_document_to_tg(URL + "sendDocument?&reply_to_message_id=" + chain_id + "&chat_id=" + chat_id, { "document": (result_img + ".png", binary_data) })
                 img = str(base64.b64encode(binary_data).decode('utf-8'))
                 resp_data = {
@@ -487,7 +855,8 @@ async def neural_processing(process, nprocess):
                 }
 
             elif task_type == 'f': #если нужно удалить фон у изображения
-                postview = str(base64.b64encode(init_img_binary_data).decode("utf-8"))
+                if postview == None:
+                    postview = str(base64.b64encode(init_img_binary_data).decode("utf-8"))
                 params = {
                     "RescaleT": 320
                     }
@@ -501,10 +870,8 @@ async def neural_processing(process, nprocess):
                     rbufer[0] = (0, 0, 0, 0)
                     binary_data = Restore_Image(binary_data, rbufer, path_to_task_dir, result_img)
                     result_img = "r_" + result_img
-                else:
-                    result_path = path_to_task_dir + "\\" + result_img
-                with open(result_path, "wb") as f:
-                    f.write(binary_data)
+                    with open(path_to_task_dir + "\\" + result_img + ".png", "wb") as f:
+                        f.write(binary_data)
                 chain_id = send_document_to_tg(URL + "sendDocument?&reply_to_message_id=" + chain_id + "&chat_id=" + chat_id, {"document": (result_img + ".png", binary_data)})
                 img = str(base64.b64encode(binary_data).decode('utf-8'))
                 resp_data = {
@@ -527,11 +894,80 @@ async def neural_processing(process, nprocess):
                     "tile": 0,                          #Размер плитки, 0 для отсутствия плитки во время тестирования
                     "tile_pad": 10,                     #Заполнение плитки
                     "pre_pad": 0,                       #Предварительный размер заполнения на каждой границе
-                    "face_enhance": False,               #Использовать GFPGAN улучшения лиц
+                    "face_enhance": False,              #Использовать GFPGAN улучшения лиц
                     "fp32": True,                       #Использовать точность fp32 во время вывода. По умолчанию fp16 (половинная точность)
                     "alpha_upsampler": "realesrgan",    #Апсемплер для альфа-каналов. Варианты: realesrgan | bicubic
                     "gpu-id": None                      #Устройство gpu для использования (по умолчанию = None) может быть 0, 1, 2 для обработки на нескольких GPU
                 }
+
+
+                if settings["autophotofacepreset"] == True: #нужно настроить и убрать лишнее
+                    params["ddim_steps"] = 50
+                    params["tile"] = 0
+                    params["model"] = 0
+                    params["tile_pad"] = 10
+                    params["pre_pad"] = 0
+                    params["fp32"] = True
+                    params["alpha_upsampler"] = True
+                    params["denoise_strength"] = 0.5
+                elif settings["autophotonofacepreset"] == True:
+                    params["ddim_steps"] = 50
+                    params["tile"] = 0
+                    params["model"] = 0
+                    params["tile_pad"] = 10
+                    params["pre_pad"] = 0
+                    params["fp32"] = True
+                    params["alpha_upsampler"] = True
+                    params["denoise_strength"] = 0.5
+                elif settings["autoproclr"] == True:
+                    params["ddim_steps"] = 50
+                    params["tile"] = 0
+                    params["model"] = 0
+                    params["tile_pad"] = 10
+                    params["pre_pad"] = 0
+                    params["fp32"] = True
+                    params["alpha_upsampler"] = True
+                    params["denoise_strength"] = 0.5
+                elif settings["autoproclr"] == True:
+                    params["ddim_steps"] = 50
+                    params["tile"] = 0
+                    params["model"] = 0
+                    params["tile_pad"] = 10
+                    params["pre_pad"] = 0
+                    params["fp32"] = True
+                    params["alpha_upsampler"] = True
+                    params["denoise_strength"] = 0.5
+                elif settings["autoquickclr"] == True:
+                    params["ddim_steps"] = 50
+                    params["tile"] = 0
+                    params["model"] = 0
+                    params["tile_pad"] = 10
+                    params["pre_pad"] = 0
+                    params["fp32"] = True
+                    params["alpha_upsampler"] = True
+                    params["denoise_strength"] = 0.5
+                elif settings["autoproartpreset"] == True:
+                    params["ddim_steps"] = 50
+                    params["tile"] = 0
+                    params["model"] = 0
+                    params["tile_pad"] = 10
+                    params["pre_pad"] = 0
+                    params["fp32"] = True
+                    params["alpha_upsampler"] = True
+                    params["denoise_strength"] = 0.5
+                elif settings["autonoproartpreset"] == True:
+                    params["ddim_steps"] = 50
+                    params["tile"] = 0
+                    params["model"] = 0
+                    params["tile_pad"] = 10
+                    params["pre_pad"] = 0
+                    params["fp32"] = True
+                    params["alpha_upsampler"] = True
+                    params["denoise_strength"] = 0.5
+
+
+                if settings["autofaceenchance"] == True:
+                    params["face_enhance"] = True
                 outscale = params["outscale"]
                 w, h, binary_data = Upscale(init_img_binary_data, params) #передаю путь к рабочей папке
                 result_img = final_file_name + "_" + str(img_suf)
@@ -546,10 +982,8 @@ async def neural_processing(process, nprocess):
                     rbufer[4] *= outscale
                     binary_data = Restore_Image(binary_data, rbufer, path_to_task_dir, result_img)
                     result_img = "r_" + result_img
-                else:
-                    result_path = path_to_task_dir + "\\" + result_img
-                with open(result_path, "wb") as f:
-                    f.write(binary_data)
+                    with open(path_to_task_dir + "\\" + result_img + ".png", "wb") as f:
+                        f.write(binary_data)
                 chain_id = send_document_to_tg(URL + "sendDocument?&reply_to_message_id=" + chain_id + "&chat_id=" + chat_id, { "document": (result_img + ".png", binary_data) })
                 img = str(base64.b64encode(binary_data).decode('utf-8'))
                 resp_data = {
@@ -564,20 +998,63 @@ async def neural_processing(process, nprocess):
                     '8': img_suf
                 }
 
-            if task_type == 't': #если нужно сгенерировать изображение по описанию
+            elif task_type == 't': #если нужно сгенерировать изображение по описанию
                 caption = task[2]
                 params = {
                     "steps": 50,            #количество шагов выборки
-                    "plms": True,           #использовать выборку plms
-                    "dpm": True,            #использовать выборку DPM (2)
-                    "ddim_eta": 0.0,        #ddim η (η = 0.0 соответствует детерминированной выборке)
-                    "C": 4,                 #латентные каналы
-                    "f": 8,                 #коэффициент понижающей дискретизации, чаще всего 8 или 16
+                    "sampler": "plms",      #обработчик (доступно "plms", "dpm" и "ddim")
+                    "ddim_eta": 0.0,        #работает только при установке обработчика ddim, (значения от 0.0 до 1.0, η = 0.0 соответствует детерминированной выборке)
+                    "f": 8,                 #коэффициент понижающей дискретизации, чаще всего 8 или 16, если поставить 4, будет красиво, но учетверяться
                     "scale": 9.0,           #безусловная навигационная величина: eps = eps(x, empty) + scale * (eps(x, cond) - eps(x, empty))
                     "ckpt": 0,              #выбор контрольной точки модели (0 или 1 для размерностей 512 или 768 соответственно)
-                    "seed": 42,             #сид (для воспроизводимой генерации изображений)
-                    "precision": "autocast" #оценивать с этой точностью ("full" или "autocast")
+                    "seed": 42              #сид (для воспроизводимой генерации изображений)
                 }
+
+
+                if settings["autophotofacepreset"] == True: #нужно настроить и убрать лишнее
+                    params["steps"] = 50
+                    params["sampler"] = "plms"
+                    params["ckpt"] = 0
+                    params["ddim_eta"] = 0.0
+                    params["scale"] = 9.0
+                elif settings["autophotonofacepreset"] == True:
+                    params["steps"] = 50
+                    params["sampler"] = "plms"
+                    params["ckpt"] = 0
+                    params["ddim_eta"] = 0.0
+                    params["scale"] = 9.0
+                elif settings["autoproclr"] == True:
+                    params["steps"] = 50
+                    params["sampler"] = "plms"
+                    params["ckpt"] = 0
+                    params["ddim_eta"] = 0.0
+                    params["scale"] = 9.0
+                elif settings["autoproclr"] == True:
+                    params["steps"] = 50
+                    params["sampler"] = "plms"
+                    params["ckpt"] = 0
+                    params["ddim_eta"] = 0.0
+                    params["scale"] = 9.0
+                elif settings["autoquickclr"] == True:
+                    params["steps"] = 50
+                    params["sampler"] = "plms"
+                    params["ckpt"] = 0
+                    params["ddim_eta"] = 0.0
+                    params["scale"] = 9.0
+                elif settings["autoproartpreset"] == True:
+                    params["steps"] = 50
+                    params["sampler"] = "plms"
+                    params["ckpt"] = 0
+                    params["ddim_eta"] = 0.0
+                    params["scale"] = 9.0
+                elif settings["autonoproartpreset"] == True:
+                    params["steps"] = 50
+                    params["sampler"] = "plms"
+                    params["ckpt"] = 0
+                    params["ddim_eta"] = 0.0
+                    params["scale"] = 9.0
+
+
                 w, h, binary_data = Stable_diffusion_text_to_image(caption, params) #передаю сокет, путь к рабочей папке, имя файла и параметры генерации
                 with open(path_to_task_dir + "\\tpicture_1.png", "wb") as f:
                     f.write(binary_data)
@@ -593,6 +1070,35 @@ async def neural_processing(process, nprocess):
                     '6': task_id,
                     '7': "",
                     '8': "1"
+                }
+
+            if task_type == 'o': #если нужно покрасить изображение
+                if postview == None:
+                    postview = str(base64.b64encode(init_img_binary_data).decode("utf-8"))
+                w, h, binary_data = colorize(init_img_binary_data)
+                result_img = final_file_name + "_" + str(img_suf)
+                with open(path_to_task_dir + "\\" + result_img + ".png", "wb") as f:
+                    f.write(binary_data)
+                if need_restore == True: #если нужно восстановление
+                    result_path = path_to_task_dir + "\\c_" + result_img
+                    chain_id = send_document_to_tg(URL + "sendDocument?&reply_to_message_id=" + chain_id + "&chat_id=" + chat_id, {"document": ("c_" + result_img + ".png", binary_data)})
+                    rbufer[0] = (0, 0, 0, 0)
+                    binary_data = Restore_Image(binary_data, rbufer, path_to_task_dir, result_img)
+                    result_img = "r_" + result_img
+                    with open(path_to_task_dir + "\\" + result_img + ".png", "wb") as f:
+                        f.write(binary_data)
+                chain_id = send_document_to_tg(URL + "sendDocument?&reply_to_message_id=" + chain_id + "&chat_id=" + chat_id, {"document": (result_img + ".png", binary_data)})
+                img = str(base64.b64encode(binary_data).decode('utf-8'))
+                resp_data = {
+                    '0': 'i',
+                    '1': img,
+                    '2': w,
+                    '3': h,
+                    '4': chain_id,
+                    '5': new_img_name + final_file_name,
+                    '6': task_id,
+                    '7': postview,
+                    '8': img_suf
                 }
 
             await websocket.send(json.dumps(resp_data))
@@ -700,12 +1206,13 @@ async def pre_processing(websocket, dictData_list):
                 task_id = dictData["task_id"]
                 img_name = dictData["img_name"]
                 img_suf = int(dictData["img_suf"])
-            task_list.append([websocket, 'c', img_name, img_suf, task_id, user_id, message_id, "AI_caption", need_translate, noback]) #нужно описание
+            task_list.append([websocket, 'c', img_name, img_suf, task_id, user_id, message_id, "AI_caption", noback]) #нужно описание
             
         elif dictData["type"] == "g": #нужна картина по описанию
             Is_depth = dictData["is_depth"]
             Is_upscale = dictData["is_upscale"]
-            if Is_upscale == True:
+            Is_upscale_xX = dictData["is_upscale_xX"]
+            if Is_upscale or Is_upscale_xX == True:
                 final_file_name = "big_image"
             else:
                 final_file_name = "picture"
@@ -794,7 +1301,7 @@ async def pre_processing(websocket, dictData_list):
                 message_id = send_document_to_tg(URL + "sendDocument?&reply_to_message_id=" + message_id + "caption=C маской&chat_id=" + chat_id, {"document": ("mask_" + str(img_suf) + ".png", mask)})
             else:
                 mask = ""
-            task_list.append([websocket, "p", img_name, img_suf, task_id, user_id, message_id, final_file_name, caption, Is_depth, Is_inpainting, Is_upscale, mask]) #дескриптор сокета, тип задания, номер сообщения ТГ (id задания), user_id, номер последнего ответа ТГ
+            task_list.append([websocket, "p", img_name, img_suf, task_id, user_id, message_id, final_file_name, caption, Is_depth, Is_inpainting, Is_upscale, Is_upscale_xX, mask]) #дескриптор сокета, тип задания, номер сообщения ТГ (id задания), user_id, номер последнего ответа ТГ
             
         elif(dictData["type"] == "b"): #нужно удалить фон у изображения
             if dictData["chain_id"] == "":
@@ -819,6 +1326,29 @@ async def pre_processing(websocket, dictData_list):
                 img_suf = int(dictData["img_suf"])
             task_list.append([websocket, "f", img_name, img_suf, task_id, user_id, message_id, "object"]) #дескриптор сокета, тип задания, номер сообщения ТГ (id задания), user_id, номер последнего ответа ТГ, ширину и высоту исходного изображения
             
+        elif(dictData["type"] == "c"): #нужно покрасить изображение
+            if dictData["chain_id"] == "":
+                binary_data = base64.b64decode(bytes(dictData["data"][22:], 'utf-8'))
+                pillow_img = Image.open(io.BytesIO(binary_data)).convert("RGBA")
+                buf = io.BytesIO()
+                pillow_img.save(buf, format = 'PNG')
+                result_binary_data = buf.getvalue()
+                message_id = send_document_to_tg(URL + "sendDocument?caption=Изображение для окрашивания&chat_id=" + chat_id, {'document': ('drawing_0.png', result_binary_data)})
+                task_id = message_id
+                task_dir = user_path + "/" + message_id
+                os.mkdir(task_dir)
+
+                with open(task_dir + "/picture_0.png", "wb") as f:
+                    f.write(result_binary_data)
+                img_name = "picture"
+                img_suf = 0
+            else:
+                message_id = dictData["chain_id"]
+                task_id = dictData["task_id"]
+                img_name = dictData["img_name"]
+                img_suf = int(dictData["img_suf"])
+            task_list.append([websocket, "o", img_name, img_suf, task_id, user_id, message_id, "colored"]) #дескриптор сокета, тип задания, номер сообщения ТГ (id задания), user_id, номер последнего ответа ТГ, ширину и высоту исходного изображения
+
         elif(dictData["type"] == "a"): #нужно апскейлить изображение
             if dictData["chain_id"] == "":
                 binary_data = base64.b64decode(bytes(dictData["data"][22:], 'utf-8'))
