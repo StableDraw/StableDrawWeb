@@ -4,8 +4,8 @@ Website with Stable Diffusion and many additional features
 ## Тущие направления работы:
 ### 1) Изучение, тестирование и встраивание готовых нейросетей (сложность задания: просто)
 - [ ] Стайл ган https://github.com/NVlabs/stylegan3
-- [ ] [Сулде] Текстровое преобразование https://github.com/google/prompt-to-prompt
-- [ ] Раскрашивание https://github.com/SerialLain3170/Colorization
+- [ ] Текстровое преобразование https://github.com/google/prompt-to-prompt
+- [x] Раскрашивание https://github.com/SerialLain3170/Colorization
 - [ ] Генерация дополнительных кадров https://github.com/hzwer/Practical-RIFE
 - [ ] Преобразователь последовательности изображений https://github.com/jamriska/ebsynth
 
