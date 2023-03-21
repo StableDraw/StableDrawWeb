@@ -1,6 +1,6 @@
 import io
 import torch
-import numpy as np
+import numpy
 from fairseq import utils, tasks, checkpoint_utils
 from tasks.mm_tasks.caption import CaptionTask
 from PIL import Image
@@ -29,7 +29,7 @@ def construct_sample(image: Image, task, patch_resize_transform):
     src_text = encode_text(" what does the image describe?", task, append_bos=True, append_eos=True).unsqueeze(0)
     src_length = torch.LongTensor([s.ne(pad_idx).long().sum() for s in src_text])
     sample = {
-        "id": np.array(['42']),
+        "id": numpy.array(['42']),
         "net_input": 
         {
             "src_tokens": src_text,

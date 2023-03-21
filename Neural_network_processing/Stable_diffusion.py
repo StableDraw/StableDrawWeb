@@ -6,7 +6,6 @@ import safetensors.torch
 from omegaconf import OmegaConf
 from torch import autocast
 from itertools import islice
-from contextlib import nullcontext
 from einops import rearrange, repeat
 from pytorch_lightning import seed_everything
 from ldm.util import exists, instantiate_from_config

@@ -44,10 +44,13 @@ settings = {
     "autofaceenchance": True,       #улучшать лица, если классификатор определил как фото лица
     "autoproclr": True,             #раскрашивать автоматически, если классификатор определил как профессиональный лайн
     "autoquickclr": True,           #раскрашивать автоматически, если классификатор определил как быстрый лайн
+    "autobwcolorize": True,         #раскрашивать автоматически, если рисунок не цветной
     "autophotofacepreset": True,    #автоматически устанавливать пресет настроек для обработки фотографий, если классификатор определил как фото с лицом
     "autophotonofacepreset": True,  #автоматически устанавливать пресет настроек для обработки фотографий, если классификатор определил как фото без лица
     "autoproartpreset": True,       #автоматически устанавливать пресет настроек для обработки профессионального рисунка, если классификатор определил как профессиональный рисунок
-    "autonoproartpreset": True      #автоматически устанавливать пресет настроек для обработки непрофессионального рисунка, если классификатор определил как непрофессиональный рисунок
+    "autonoproartpreset": True,     #автоматически устанавливать пресет настроек для обработки непрофессионального рисунка, если классификатор определил как непрофессиональный рисунок
+    "autoprolinepreset": True,      #автоматически устанавливать пресет настроек для обработки профессионального лайна, если классификатор определил как профессиональный лайн
+    "autoquicklinepreset": True     #автоматически устанавливать пресет настроек для обработки быстрого лайна, если классификатор определил как быстрый лайн
     }
 
 def send_document_to_tg(req_text, tgfile):
@@ -221,7 +224,7 @@ def Prepare_img(path_dir, image_name, img_suf, no_gen, sim_suf, no_resize):
                 is_w_bigger = True
             else:
                 pd = 512 / h
-                w = int(512 - (frame_size * 2) * w / h)
+                w = int((512 - (frame_size * 2)) * w / h)
                 h = 512 - (frame_size * 2)
                 opt2_h = frame_size
                 opt2_w = int((512 - w) / 2)
@@ -281,22 +284,20 @@ def make_mask(img, path_to_save):
     b_data = im_buf_arr.tobytes()
     return b_data
 
-def colorize(init_img_binary_data):
+def colorize(init_img_binary_data, image_class):
     params = {
         "ckpt": 0,                         #Выбор модели (от 0 до 3)
         "steps": 1,                        #Количество шагов обработки (минимум 1)
         "compare": False,                  #Сравнивать с оригиналом
-        "stats": ([0.7137, 0.6628, 0.6519], [0.2970, 0.3017, 0.2979]), #Инициализирующие веса
         "artistic": True,                  #Дополнительная модель для обработки
         "render_factor": 12,               #Фактор обработки (от 7 до 45) (лучше 12)
         "post_process": True,              #Постобработка
         "clr_saturation_factor": 5,        #Коэффициент увеличения цветовой насыщенности (0 - не добавлять насыщенность)
-        "line_color_limit": 50,            #минимальная яркость пикселя, при которой цветовая насыщенность увеличиваться не будет (меньше для цифровых рисунков, больше для рисунков карандашом. 1 если лайн абсолютно чёрный)
+        "line_color_limit": 100,           #минимальная яркость пикселя, при которой цветовая насыщенность увеличиваться не будет (меньше для цифровых рисунков, больше для рисунков карандашом. 1 если лайн абсолютно чёрный)
         "clr_saturate_every_step": True    #Повышать цветовую насыщенность после каждого шага (играет роль только если количество шагов обработки больше 1)
     }
 
-
-    if settings["autophotofacepreset"] == True: #нужно настроить и убрать лишнее
+    if settings["autophotofacepreset"] == True and image_class == 0: #нужно настроить и убрать лишнее
         params["steps"] = 1
         params["ckpt"] = 0
         params["compare"] = False
@@ -304,9 +305,9 @@ def colorize(init_img_binary_data):
         params["render_factor"] = 12
         params["post_process"] = True
         params["clr_saturation_factor"] = 5
-        params["line_color_limit"] = 50
+        params["line_color_limit"] = 100
         params["clr_saturate_every_step"] = True
-    elif settings["autophotonofacepreset"] == True:
+    elif settings["autophotonofacepreset"] == True and image_class == 1:
         params["steps"] = 1
         params["ckpt"] = 0
         params["compare"] = False
@@ -314,9 +315,9 @@ def colorize(init_img_binary_data):
         params["render_factor"] = 12
         params["post_process"] = True
         params["clr_saturation_factor"] = 5
-        params["line_color_limit"] = 50
+        params["line_color_limit"] = 100
         params["clr_saturate_every_step"] = True
-    elif settings["autoproclr"] == True:
+    elif settings["autoproartpreset"] == True and image_class == 2:
         params["steps"] = 1
         params["ckpt"] = 0
         params["compare"] = False
@@ -324,9 +325,9 @@ def colorize(init_img_binary_data):
         params["render_factor"] = 12
         params["post_process"] = True
         params["clr_saturation_factor"] = 5
-        params["line_color_limit"] = 50
+        params["line_color_limit"] = 100
         params["clr_saturate_every_step"] = True
-    elif settings["autoproclr"] == True:
+    elif settings["autonoproartpreset"] == True and image_class == 3:
         params["steps"] = 1
         params["ckpt"] = 0
         params["compare"] = False
@@ -334,9 +335,9 @@ def colorize(init_img_binary_data):
         params["render_factor"] = 12
         params["post_process"] = True
         params["clr_saturation_factor"] = 5
-        params["line_color_limit"] = 50
+        params["line_color_limit"] = 100
         params["clr_saturate_every_step"] = True
-    elif settings["autoquickclr"] == True:
+    elif settings["autoprolinepreset"] == True and image_class == 4:
         params["steps"] = 1
         params["ckpt"] = 0
         params["compare"] = False
@@ -344,30 +345,27 @@ def colorize(init_img_binary_data):
         params["render_factor"] = 12
         params["post_process"] = True
         params["clr_saturation_factor"] = 5
-        params["line_color_limit"] = 50
+        params["line_color_limit"] = 100
         params["clr_saturate_every_step"] = True
-    elif settings["autoproartpreset"] == True:
+    elif settings["autoquicklinepreset"] == True and image_class == 5:
         params["steps"] = 1
         params["ckpt"] = 0
         params["compare"] = False
         params["artistic"] = True
         params["render_factor"] = 12
         params["post_process"] = True
-        params["clr_saturation_factor"] = 5
-        params["line_color_limit"] = 50
-        params["clr_saturate_every_step"] = True
-    elif settings["autonoproartpreset"] == True:
-        params["steps"] = 1
-        params["ckpt"] = 0
-        params["compare"] = False
-        params["artistic"] = True
-        params["render_factor"] = 12
-        params["post_process"] = True
-        params["clr_saturation_factor"] = 5
-        params["line_color_limit"] = 50
+        params["clr_saturation_factor"] = 8
+        params["line_color_limit"] = 40
         params["clr_saturate_every_step"] = True
 
     return Image_сolorizer(init_img_binary_data, params) #передаю путь к рабочей папке и имя файла
+
+def is_black_and_white(bd):
+  pixels = numpy.array(Image.open(io.BytesIO(bd)).convert("LAB"))
+  if numpy.std(pixels[:,:,1]) == 0 and numpy.std(pixels[:,:,2]) == 0:
+    return True
+  else:
+    return False
 
 async def neural_processing(process, nprocess):
     if nprocess == True:
@@ -400,6 +398,7 @@ async def neural_processing(process, nprocess):
                             new_img_suf = 0
                         rbufer, init_img_binary_data = Prepare_img(path_to_task_dir, orig_img_name[2:], new_img_suf, False, False, True)
                         img_name = orig_img_name + "_" + str(img_suf)
+                        chain_id = send_document_to_tg(URL + "sendDocument?&reply_to_message_id=" + chain_id + "&chat_id=" + chat_id, {"document": ("c_" + img_name + ".png", init_img_binary_data)})
                     else:
                         with open(path_to_task_dir + "\\" + img_name + "_restore.json", 'r') as f:
                             rbufer = json.loads(f.read())
@@ -425,6 +424,7 @@ async def neural_processing(process, nprocess):
                         if rbufer != True or rbufer != False:
                             img_suf -= 1
                         img_name = orig_img_name + "_" + str(img_suf + 1)
+                        chain_id = send_document_to_tg(URL + "sendDocument?&reply_to_message_id=" + chain_id + "&chat_id=" + chat_id, {"document": ("c_" + img_name + ".png", init_img_binary_data)})
                     else:
                         rbufer, init_img_binary_data = Prepare_img(path_to_task_dir, orig_img_name, img_suf, False, True, False)
                     if rbufer != True and rbufer != False:
@@ -433,6 +433,7 @@ async def neural_processing(process, nprocess):
                     else:
                         new_img_name = ""
                         need_restore = False
+                    chain_id = send_document_to_tg(URL + "sendDocument?&reply_to_message_id=" + chain_id + "&chat_id=" + chat_id, {"document": (new_img_name + img_name + ".png", init_img_binary_data)})
                 else:
                     with open(path_to_task_dir + "\\" + img_name + ".png", "rb") as f:
                         init_img_binary_data = f.read()
@@ -452,14 +453,22 @@ async def neural_processing(process, nprocess):
                     "профессиональный лайн",
                     "быстрый лайн"
                 ]
-                chain_id = send_message_to_tg(URL + "sendMessage?text=" + "Определён класс: " + classes[image_class] + "&reply_to_message_id=" + chain_id + "&chat_id=" + chat_id)
-                if (not task_type in ['f', 'a', '0']) and (settings["autoproclr"] == True and image_class == 4) or (settings["autoquickclr"] == True and image_class == 5):
+                subclasses = [
+                    "в цвете",
+                    "чб"
+                    ]
+                if is_black_and_white(init_img_binary_data) == True:
+                    image_subclass = 1
+                else:
+                    image_subclass = 0
+                chain_id = send_message_to_tg(URL + "sendMessage?text=" + "Определён класс: " + classes[image_class] + ", " + subclasses[image_subclass] + "&reply_to_message_id=" + chain_id + "&chat_id=" + chat_id)
+                if (not task_type in ['f', 'a', 'o']) and ((settings["autobwcolorize"] and image_subclass == 1) or (settings["autoproclr"] == True and image_class == 4) or (settings["autoquickclr"] == True and image_class == 5)):
                     postview = str(base64.b64encode(init_img_binary_data).decode("utf-8"))
-                    init_img_binary_data = colorize(init_img_binary_data)
+                    w, h, init_img_binary_data = colorize(init_img_binary_data, image_class)
                     result_img = "colored_" + str(img_suf)
                     img_suf += 1
                     with open(path_to_task_dir + "\\" + result_img + ".png", "wb") as f:
-                        f.write(binary_data)
+                        f.write(init_img_binary_data)
                     chain_id = send_document_to_tg(URL + "sendDocument?&reply_to_message_id=" + chain_id + "&chat_id=" + chat_id, { "document": (result_img + ".png", init_img_binary_data) })
 
             if task_type == 'c': #если нужно сгенерировать описание
@@ -467,7 +476,7 @@ async def neural_processing(process, nprocess):
                 if rbufer == True: #если это просто одноцветный фон, то выдать описание "solid color background"
                     english_caption = "solid color background"
                 else:
-                    message_id = send_document_to_tg(URL + "sendDocument?&reply_to_message_id=" + chain_id + "&chat_id=" + chat_id, { "document": (img_name, init_img_binary_data) })
+                    message_id = chain_id
                     params = {
                         "ckpt": "caption_huge_best.pt", #используемые чекпоинты (caption_huge_best.pt или caption_base_best.pt) #https://ofa-beijing.oss-cn-beijing.aliyuncs.com/checkpoints/caption_base_best.pt
                         "eval_cider": True,             #оценка с помощью баллов CIDEr
@@ -523,8 +532,9 @@ async def neural_processing(process, nprocess):
                 Is_upscale = task[11]
                 Is_upscale_xX = task[12]
                 mask_binary_data = task[13]
-                postview = str(base64.b64encode(init_img_binary_data).decode('utf-8'))
-                message_id = send_document_to_tg(URL + "sendDocument?&reply_to_message_id=" + chain_id + "&chat_id=" + chat_id, {"document": (img_name, init_img_binary_data)})
+                if postview == None:
+                    postview = str(base64.b64encode(init_img_binary_data).decode('utf-8'))
+                message_id = chain_id
                 if Is_depth == True:
                     params = {
                         "ddim_steps": 50,           #Шаги DDIM, от 0 до 50
@@ -539,43 +549,37 @@ async def neural_processing(process, nprocess):
                     }
 
 
-                    if settings["autophotofacepreset"] == True: #нужно настроить и убрать лишнее
+                    if settings["autophotofacepreset"] == True and image_class == 0: #нужно настроить и убрать лишнее
                         params["ddim_steps"] = 50
                         params["scale"] = 9.0
                         params["ckpt"] = 0
                         params["ddim_eta"] = 0.0
                         params["strength"] = 0.9
-                    elif settings["autophotonofacepreset"] == True:
+                    elif settings["autophotonofacepreset"] == True and image_class == 1:
                         params["ddim_steps"] = 50
                         params["scale"] = 9.0
                         params["ckpt"] = 0
                         params["ddim_eta"] = 0.0
                         params["strength"] = 0.9
-                    elif settings["autoproclr"] == True:
+                    elif settings["autoproartpreset"] == True and image_class == 2:
                         params["ddim_steps"] = 50
                         params["scale"] = 9.0
                         params["ckpt"] = 0
                         params["ddim_eta"] = 0.0
                         params["strength"] = 0.9
-                    elif settings["autoproclr"] == True:
+                    elif settings["autonoproartpreset"] == True and image_class == 3:
                         params["ddim_steps"] = 50
                         params["scale"] = 9.0
                         params["ckpt"] = 0
                         params["ddim_eta"] = 0.0
                         params["strength"] = 0.9
-                    elif settings["autoquickclr"] == True:
+                    elif settings["autoprolinepreset"] == True and image_class == 4:
                         params["ddim_steps"] = 50
                         params["scale"] = 9.0
                         params["ckpt"] = 0
                         params["ddim_eta"] = 0.0
                         params["strength"] = 0.9
-                    elif settings["autoproartpreset"] == True:
-                        params["ddim_steps"] = 50
-                        params["scale"] = 9.0
-                        params["ckpt"] = 0
-                        params["ddim_eta"] = 0.0
-                        params["strength"] = 0.9
-                    elif settings["autonoproartpreset"] == True:
+                    elif settings["autoquicklinepreset"] == True and image_class == 5:
                         params["ddim_steps"] = 50
                         params["scale"] = 9.0
                         params["ckpt"] = 0
@@ -597,43 +601,37 @@ async def neural_processing(process, nprocess):
                     }
 
 
-                    if settings["autophotofacepreset"] == True: #нужно настроить и убрать лишнее
+                    if settings["autophotofacepreset"] == True and image_class == 0: #нужно настроить и убрать лишнее
                         params["ddim_steps"] = 50
                         params["scale"] = 10.0
                         params["ckpt"] = 0
                         params["ddim_eta"] = 0.0
                         params["strength"] = 0.9
-                    elif settings["autophotonofacepreset"] == True:
+                    elif settings["autophotonofacepreset"] == True and image_class == 1:
                         params["ddim_steps"] = 50
                         params["scale"] = 10.0
                         params["ckpt"] = 0
                         params["ddim_eta"] = 0.0
                         params["strength"] = 0.9
-                    elif settings["autoproclr"] == True:
+                    elif settings["autoproartpreset"] == True and image_class == 2:
                         params["ddim_steps"] = 50
                         params["scale"] = 10.0
                         params["ckpt"] = 0
                         params["ddim_eta"] = 0.0
                         params["strength"] = 0.9
-                    elif settings["autoproclr"] == True:
+                    elif settings["autonoproartpreset"] == True and image_class == 3:
                         params["ddim_steps"] = 50
                         params["scale"] = 10.0
                         params["ckpt"] = 0
                         params["ddim_eta"] = 0.0
                         params["strength"] = 0.9
-                    elif settings["autoquickclr"] == True:
+                    elif settings["autoprolinepreset"] == True and image_class == 4:
                         params["ddim_steps"] = 50
                         params["scale"] = 10.0
                         params["ckpt"] = 0
                         params["ddim_eta"] = 0.0
                         params["strength"] = 0.9
-                    elif settings["autoproartpreset"] == True:
-                        params["ddim_steps"] = 50
-                        params["scale"] = 10.0
-                        params["ckpt"] = 0
-                        params["ddim_eta"] = 0.0
-                        params["strength"] = 0.9
-                    elif settings["autonoproartpreset"] == True:
+                    elif settings["autoquicklinepreset"] == True and image_class == 5:
                         params["ddim_steps"] = 50
                         params["scale"] = 10.0
                         params["ckpt"] = 0
@@ -657,43 +655,37 @@ async def neural_processing(process, nprocess):
                     }
 
 
-                    if settings["autophotofacepreset"] == True: #нужно настроить и убрать лишнее
+                    if settings["autophotofacepreset"] == True and image_class == 0: #нужно настроить и убрать лишнее
                         params["ddim_steps"] = 50
                         params["scale"] = 9.0
                         params["ckpt"] = 0
                         params["ddim_eta"] = 0.0
                         params["noise_augmentation"] = 20
-                    elif settings["autophotonofacepreset"] == True:
+                    elif settings["autophotonofacepreset"] == True and image_class == 1:
                         params["ddim_steps"] = 50
                         params["scale"] = 9.0
                         params["ckpt"] = 0
                         params["ddim_eta"] = 0.0
                         params["noise_augmentation"] = 20
-                    elif settings["autoproclr"] == True:
+                    elif settings["autoproartpreset"] == True and image_class == 2:
                         params["ddim_steps"] = 50
                         params["scale"] = 9.0
                         params["ckpt"] = 0
                         params["ddim_eta"] = 0.0
                         params["noise_augmentation"] = 20
-                    elif settings["autoproclr"] == True:
+                    elif settings["autonoproartpreset"] == True and image_class == 3:
                         params["ddim_steps"] = 50
                         params["scale"] = 9.0
                         params["ckpt"] = 0
                         params["ddim_eta"] = 0.0
                         params["noise_augmentation"] = 20
-                    elif settings["autoquickclr"] == True:
+                    elif settings["autoprolinepreset"] == True and image_class == 4:
                         params["ddim_steps"] = 50
                         params["scale"] = 9.0
                         params["ckpt"] = 0
                         params["ddim_eta"] = 0.0
                         params["noise_augmentation"] = 20
-                    elif settings["autoproartpreset"] == True:
-                        params["ddim_steps"] = 50
-                        params["scale"] = 9.0
-                        params["ckpt"] = 0
-                        params["ddim_eta"] = 0.0
-                        params["noise_augmentation"] = 20
-                    elif settings["autonoproartpreset"] == True:
+                    elif settings["autoquicklinepreset"] == True and image_class == 5:
                         params["ddim_steps"] = 50
                         params["scale"] = 9.0
                         params["ckpt"] = 0
@@ -723,43 +715,37 @@ async def neural_processing(process, nprocess):
                     }
 
 
-                    if settings["autophotofacepreset"] == True: #нужно настроить и убрать лишнее
+                    if settings["autophotofacepreset"] == True and image_class == 0: #нужно настроить и убрать лишнее
                         params["ddim_steps"] = 50
                         params["scale"] = 9.0
                         params["ckpt"] = 0
                         params["ddim_eta"] = 0.0
                         params["noise_augmentation"] = 0.0
-                    elif settings["autophotonofacepreset"] == True:
+                    elif settings["autophotonofacepreset"] == True and image_class == 1:
                         params["ddim_steps"] = 50
                         params["scale"] = 9.0
                         params["ckpt"] = 0
                         params["ddim_eta"] = 0.0
                         params["noise_augmentation"] = 0.0
-                    elif settings["autoproclr"] == True:
+                    elif settings["autoproartpreset"] == True and image_class == 2:
                         params["ddim_steps"] = 50
                         params["scale"] = 9.0
                         params["ckpt"] = 0
                         params["ddim_eta"] = 0.0
                         params["noise_augmentation"] = 0.0
-                    elif settings["autoproclr"] == True:
+                    elif settings["autonoproartpreset"] == True and image_class == 3:
                         params["ddim_steps"] = 50
                         params["scale"] = 9.0
                         params["ckpt"] = 0
                         params["ddim_eta"] = 0.0
                         params["noise_augmentation"] = 0.0
-                    elif settings["autoquickclr"] == True:
+                    elif settings["autoprolinepreset"] == True and image_class == 4:
                         params["ddim_steps"] = 50
                         params["scale"] = 9.0
                         params["ckpt"] = 0
                         params["ddim_eta"] = 0.0
                         params["noise_augmentation"] = 0.0
-                    elif settings["autoproartpreset"] == True:
-                        params["ddim_steps"] = 50
-                        params["scale"] = 9.0
-                        params["ckpt"] = 0
-                        params["ddim_eta"] = 0.0
-                        params["noise_augmentation"] = 0.0
-                    elif settings["autonoproartpreset"] == True:
+                    elif settings["autoquicklinepreset"] == True and image_class == 5:
                         params["ddim_steps"] = 50
                         params["scale"] = 9.0
                         params["ckpt"] = 0
@@ -787,43 +773,37 @@ async def neural_processing(process, nprocess):
                     }
 
 
-                    if settings["autophotofacepreset"] == True: #нужно настроить и убрать лишнее
+                    if settings["autophotofacepreset"] == True and image_class == 0: #нужно настроить и убрать лишнее
                         params["ddim_steps"] = 50
                         params["scale"] = 9.0
                         params["ckpt"] = 0
                         params["ddim_eta"] = 0.0
                         params["strength"] = 0.7
-                    elif settings["autophotonofacepreset"] == True:
+                    elif settings["autophotonofacepreset"] == True and image_class == 1:
                         params["ddim_steps"] = 50
                         params["scale"] = 9.0
                         params["ckpt"] = 0
                         params["ddim_eta"] = 0.0
                         params["strength"] = 0.7
-                    elif settings["autoproclr"] == True:
+                    elif settings["autoproartpreset"] == True and image_class == 2:
                         params["ddim_steps"] = 50
                         params["scale"] = 9.0
                         params["ckpt"] = 0
                         params["ddim_eta"] = 0.0
                         params["strength"] = 0.7
-                    elif settings["autoproclr"] == True:
+                    elif settings["autonoproartpreset"] == True and image_class == 3:
                         params["ddim_steps"] = 50
                         params["scale"] = 9.0
                         params["ckpt"] = 0
                         params["ddim_eta"] = 0.0
                         params["strength"] = 0.7
-                    elif settings["autoquickclr"] == True:
+                    elif settings["autoprolinepreset"] == True and image_class == 4:
                         params["ddim_steps"] = 50
                         params["scale"] = 9.0
                         params["ckpt"] = 0
                         params["ddim_eta"] = 0.0
                         params["strength"] = 0.7
-                    elif settings["autoproartpreset"] == True:
-                        params["ddim_steps"] = 50
-                        params["scale"] = 9.0
-                        params["ckpt"] = 0
-                        params["ddim_eta"] = 0.0
-                        params["strength"] = 0.7
-                    elif settings["autonoproartpreset"] == True:
+                    elif settings["autoquicklinepreset"] == True and image_class == 5:
                         params["ddim_steps"] = 50
                         params["scale"] = 9.0
                         params["ckpt"] = 0
@@ -859,8 +839,17 @@ async def neural_processing(process, nprocess):
                 if postview == None:
                     postview = str(base64.b64encode(init_img_binary_data).decode("utf-8"))
                 params = {
-                    "RescaleT": 320
-                    }
+                    "model": "DIS", #Доступно "U2NET" или "DIS"
+                    "RescaleT": 320, #Только для модели U2NET
+                    #Только для модели "DIM":
+                    "ckpt": 0,                  # Выбор впретренированных весов модели (0 или 1)
+                    "interm_sup": False,        # Указать, активировать ли контроль промежуточных функций
+                    "model_digit": "full",      # Выберите точность с плавающей запятой (устанавливает "half" или "full" точность числа с плавающей запятой)
+                    "seed": 0,                  # Инициализирующее значение
+                    "cache_size": [1024, 1024], # Кешированное входное пространственное разрешение, можно настроить на другой размер
+                    "input_size": [1024, 1024], # Входной пространственный размер модели, обычно используют одно и то же значение params["cache_size"], что означает, что мы больше не изменяем размер изображений
+                    "crop_size": [1024, 1024]   # Размер случайно обрезки из ввода, обычно он меньше, чем params["cache_size"], например, [920, 920] для увеличения данных
+                }
                 w, h, binary_data = Delete_background(init_img_binary_data, params) #передаю путь к рабочей папке и имя файла
                 result_img = final_file_name + "_" + str(img_suf)
                 with open(path_to_task_dir + "\\" + result_img + ".png", "wb") as f:
@@ -902,7 +891,7 @@ async def neural_processing(process, nprocess):
                 }
 
 
-                if settings["autophotofacepreset"] == True: #нужно настроить и убрать лишнее
+                if settings["autophotofacepreset"] == True and image_class == 0: #нужно настроить и убрать лишнее
                     params["ddim_steps"] = 50
                     params["tile"] = 0
                     params["model"] = 0
@@ -911,7 +900,7 @@ async def neural_processing(process, nprocess):
                     params["fp32"] = True
                     params["alpha_upsampler"] = True
                     params["denoise_strength"] = 0.5
-                elif settings["autophotonofacepreset"] == True:
+                elif settings["autophotonofacepreset"] == True and image_class == 1:
                     params["ddim_steps"] = 50
                     params["tile"] = 0
                     params["model"] = 0
@@ -920,7 +909,7 @@ async def neural_processing(process, nprocess):
                     params["fp32"] = True
                     params["alpha_upsampler"] = True
                     params["denoise_strength"] = 0.5
-                elif settings["autoproclr"] == True:
+                elif settings["autoproartpreset"] == True and image_class == 2:
                     params["ddim_steps"] = 50
                     params["tile"] = 0
                     params["model"] = 0
@@ -929,7 +918,7 @@ async def neural_processing(process, nprocess):
                     params["fp32"] = True
                     params["alpha_upsampler"] = True
                     params["denoise_strength"] = 0.5
-                elif settings["autoproclr"] == True:
+                elif settings["autonoproartpreset"] == True and image_class == 3:
                     params["ddim_steps"] = 50
                     params["tile"] = 0
                     params["model"] = 0
@@ -938,7 +927,7 @@ async def neural_processing(process, nprocess):
                     params["fp32"] = True
                     params["alpha_upsampler"] = True
                     params["denoise_strength"] = 0.5
-                elif settings["autoquickclr"] == True:
+                elif settings["autoprolinepreset"] == True and image_class == 4:
                     params["ddim_steps"] = 50
                     params["tile"] = 0
                     params["model"] = 0
@@ -947,16 +936,7 @@ async def neural_processing(process, nprocess):
                     params["fp32"] = True
                     params["alpha_upsampler"] = True
                     params["denoise_strength"] = 0.5
-                elif settings["autoproartpreset"] == True:
-                    params["ddim_steps"] = 50
-                    params["tile"] = 0
-                    params["model"] = 0
-                    params["tile_pad"] = 10
-                    params["pre_pad"] = 0
-                    params["fp32"] = True
-                    params["alpha_upsampler"] = True
-                    params["denoise_strength"] = 0.5
-                elif settings["autonoproartpreset"] == True:
+                elif settings["autoquicklinepreset"] == True and image_class == 5:
                     params["ddim_steps"] = 50
                     params["tile"] = 0
                     params["model"] = 0
@@ -1012,43 +992,37 @@ async def neural_processing(process, nprocess):
                 }
 
 
-                if settings["autophotofacepreset"] == True: #нужно настроить и убрать лишнее
+                if settings["autophotofacepreset"] == True and image_class == 0: #нужно настроить и убрать лишнее
                     params["steps"] = 50
                     params["sampler"] = "plms"
                     params["ckpt"] = 0
                     params["ddim_eta"] = 0.0
                     params["scale"] = 9.0
-                elif settings["autophotonofacepreset"] == True:
+                elif settings["autophotonofacepreset"] == True and image_class == 1:
                     params["steps"] = 50
                     params["sampler"] = "plms"
                     params["ckpt"] = 0
                     params["ddim_eta"] = 0.0
                     params["scale"] = 9.0
-                elif settings["autoproclr"] == True:
+                elif settings["autoproartpreset"] == True and image_class == 2:
                     params["steps"] = 50
                     params["sampler"] = "plms"
                     params["ckpt"] = 0
                     params["ddim_eta"] = 0.0
                     params["scale"] = 9.0
-                elif settings["autoproclr"] == True:
+                elif settings["autonoproartpreset"] == True and image_class == 3:
                     params["steps"] = 50
                     params["sampler"] = "plms"
                     params["ckpt"] = 0
                     params["ddim_eta"] = 0.0
                     params["scale"] = 9.0
-                elif settings["autoquickclr"] == True:
+                elif settings["autoprolinepreset"] == True and image_class == 4:
                     params["steps"] = 50
                     params["sampler"] = "plms"
                     params["ckpt"] = 0
                     params["ddim_eta"] = 0.0
                     params["scale"] = 9.0
-                elif settings["autoproartpreset"] == True:
-                    params["steps"] = 50
-                    params["sampler"] = "plms"
-                    params["ckpt"] = 0
-                    params["ddim_eta"] = 0.0
-                    params["scale"] = 9.0
-                elif settings["autonoproartpreset"] == True:
+                elif settings["autoquicklinepreset"] == True and image_class == 5:
                     params["steps"] = 50
                     params["sampler"] = "plms"
                     params["ckpt"] = 0
@@ -1076,7 +1050,7 @@ async def neural_processing(process, nprocess):
             if task_type == 'o': #если нужно покрасить изображение
                 if postview == None:
                     postview = str(base64.b64encode(init_img_binary_data).decode("utf-8"))
-                w, h, binary_data = colorize(init_img_binary_data)
+                w, h, binary_data = colorize(init_img_binary_data, image_class)
                 result_img = final_file_name + "_" + str(img_suf)
                 with open(path_to_task_dir + "\\" + result_img + ".png", "wb") as f:
                     f.write(binary_data)
@@ -1326,29 +1300,6 @@ async def pre_processing(websocket, dictData_list):
                 img_name = dictData["img_name"]
                 img_suf = int(dictData["img_suf"])
             task_list.append([websocket, "f", img_name, img_suf, task_id, user_id, message_id, "object"]) #дескриптор сокета, тип задания, номер сообщения ТГ (id задания), user_id, номер последнего ответа ТГ, ширину и высоту исходного изображения
-            
-        elif(dictData["type"] == "c"): #нужно покрасить изображение
-            if dictData["chain_id"] == "":
-                binary_data = base64.b64decode(bytes(dictData["data"][22:], 'utf-8'))
-                pillow_img = Image.open(io.BytesIO(binary_data)).convert("RGBA")
-                buf = io.BytesIO()
-                pillow_img.save(buf, format = 'PNG')
-                result_binary_data = buf.getvalue()
-                message_id = send_document_to_tg(URL + "sendDocument?caption=Изображение для окрашивания&chat_id=" + chat_id, {'document': ('drawing_0.png', result_binary_data)})
-                task_id = message_id
-                task_dir = user_path + "/" + message_id
-                os.mkdir(task_dir)
-
-                with open(task_dir + "/picture_0.png", "wb") as f:
-                    f.write(result_binary_data)
-                img_name = "picture"
-                img_suf = 0
-            else:
-                message_id = dictData["chain_id"]
-                task_id = dictData["task_id"]
-                img_name = dictData["img_name"]
-                img_suf = int(dictData["img_suf"])
-            task_list.append([websocket, "o", img_name, img_suf, task_id, user_id, message_id, "colored"]) #дескриптор сокета, тип задания, номер сообщения ТГ (id задания), user_id, номер последнего ответа ТГ, ширину и высоту исходного изображения
 
         elif(dictData["type"] == "a"): #нужно апскейлить изображение
             if dictData["chain_id"] == "":
@@ -1390,6 +1341,30 @@ async def pre_processing(websocket, dictData_list):
                 f.write(result_text)
             img_suf = 0
             task_list.append([websocket, "t", result_text, img_suf, task_id, user_id, message_id, "tpicture"]) #дескриптор сокета, тип задания, текст описания, номер сообщения ТГ (id задания), user_id, номер последнего ответа ТГ, Использовать ли SD2, или Dall-e 2
+        
+        elif(dictData["type"] == "c"): #нужно покрасить изображение
+            if dictData["chain_id"] == "":
+                binary_data = base64.b64decode(bytes(dictData["data"][22:], 'utf-8'))
+                pillow_img = Image.open(io.BytesIO(binary_data)).convert("RGBA")
+                buf = io.BytesIO()
+                pillow_img.save(buf, format = 'PNG')
+                result_binary_data = buf.getvalue()
+                message_id = send_document_to_tg(URL + "sendDocument?caption=Изображение для окрашивания&chat_id=" + chat_id, {'document': ('drawing_0.png', result_binary_data)})
+                task_id = message_id
+                task_dir = user_path + "/" + message_id
+                os.mkdir(task_dir)
+
+                with open(task_dir + "/picture_0.png", "wb") as f:
+                    f.write(result_binary_data)
+                img_name = "picture"
+                img_suf = 0
+            else:
+                message_id = dictData["chain_id"]
+                task_id = dictData["task_id"]
+                img_name = dictData["img_name"]
+                img_suf = int(dictData["img_suf"])
+            task_list.append([websocket, "o", img_name, img_suf, task_id, user_id, message_id, "colored"]) #дескриптор сокета, тип задания, номер сообщения ТГ (id задания), user_id, номер последнего ответа ТГ, ширину и высоту исходного изображения
+
         tls = len(task_list)
         if tls > 1:
             client_message = "Ожидайте. Человек перед вами: " + str(tls - 1)

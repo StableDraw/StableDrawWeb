@@ -376,12 +376,12 @@ def get_image_filtr(weights_name: str, artistic: bool = True, stats: tuple = ima
     filtr = MasterFilter([ColorizerFilter(learn=learn, stats=stats)], render_factor = 35)
     return filtr
 
-def increase_color_saturation(image, brite_k = 0, min_brite = 1):
+def increase_color_saturation(image, brite_k = 0, min_brite = 0):
     pixels = image.load()
     for y in range(image.size[0]):
         for x in range(image.size[1]):
             clr = pixels[x, y]
-            if clr != (255, 255, 255) and (clr[0] + clr[1] + clr[2] > min_brite):
+            if clr[0] + clr[1] + clr[2] > min_brite:
                 pixels[x, y] = (max(0, 255 - (255 - clr[0]) * brite_k), max(0, 255 - (255 - clr[1]) * brite_k), max(0, 255 - (255 - clr[2]) * brite_k))
     return image
 
@@ -392,6 +392,6 @@ def Image_сolorizer(input_binary_image, params):
         "ColorizeArtistic_gen_Sketch",
         "ColorizeArtistic_gen_Sketch2Gray"
     ]
-    filtr = get_image_filtr(weights_name = checkpoint_list[params["ckpt"]], artistic = params["artistic"], stats = params["stats"])
+    filtr = get_image_filtr(weights_name = checkpoint_list[params["ckpt"]], artistic = params["artistic"], stats = ([0.7137, 0.6628, 0.6519], [0.2970, 0.3017, 0.2979]))
     w, h, binary_image = get_transformed_image(input_binary_image, filtr = filtr, params = params)
     return w, h, binary_image
