@@ -297,11 +297,11 @@ var main_modal = function (options) {
             }
             else {
                 if (original_image_buf == "") {
-                    footerButtons_list.push({ class: "modal_btn modal_btn-2", id: "SD_btn", text: "AutoCLR", handler: "modalHandlerGenBWToCLR" }, { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Img2Img", handler: "modalHandlerGenImg2Img" }, { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Depth2Img", handler: "modalHandlerGenDepth2Img" });
+                    footerButtons_list.push({ class: "modal_btn modal_btn-2", id: "SD_btn", text: "AIColorize", handler: "modalHandlerGenBWToCLR" }, { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Img2Img", handler: "modalHandlerGenImg2Img" }, { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Depth2Img", handler: "modalHandlerGenDepth2Img" });
                     content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"></input><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image(data_prop)">Сгенерировать автоматически</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"></input>';
                 }
                 else {
-                    footerButtons_list.push({ class: "modal_btn modal_btn-2", id: "SD_btn", text: "Img2Img", handler: "modalHandlerGenImg2Img" }, { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Depth2Img", handler: "modalHandlerGenDepth2Img" });
+                    footerButtons_list.push({ class: "modal_btn modal_btn-2", id: "SD_btn", text: "AIColorize", handler: "modalHandlerGenBWToCLR" }, { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Img2Img", handler: "modalHandlerGenImg2Img" }, { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Depth2Img", handler: "modalHandlerGenDepth2Img" });
                     if (local_is_foreground_used && local_is_background_used && local_is_drawing && !local_sure) {
                         footerButtons_list.push({ class: "modal_btn modal_btn-2", id: "SD_btn", text: "Inpainting", handler: "modalHandlerGenInpainting" });
                     }

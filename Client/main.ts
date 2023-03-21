@@ -375,7 +375,7 @@ var main_modal: any = function (options: object)
                 if (original_image_buf == "")
                 {
                     footerButtons_list.push(
-                        { class: "modal_btn modal_btn-2", id: "SD_btn", text: "AutoCLR", handler: "modalHandlerGenBWToCLR" },
+                        { class: "modal_btn modal_btn-2", id: "SD_btn", text: "AIColorize", handler: "modalHandlerGenBWToCLR" },
                         { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Img2Img", handler: "modalHandlerGenImg2Img" },
                         { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Depth2Img", handler: "modalHandlerGenDepth2Img" }
                     )
@@ -384,6 +384,7 @@ var main_modal: any = function (options: object)
                 else
                 {
                     footerButtons_list.push(
+                        { class: "modal_btn modal_btn-2", id: "SD_btn", text: "AIColorize", handler: "modalHandlerGenBWToCLR" },
                         { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Img2Img", handler: "modalHandlerGenImg2Img" },
                         { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Depth2Img", handler: "modalHandlerGenDepth2Img" }
                     )
