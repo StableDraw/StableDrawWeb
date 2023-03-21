@@ -26,5 +26,6 @@ def Get_image_class(binary_data):
         sample = data_transforms(Image.open(io.BytesIO(binary_data)).convert("RGB"))
         inputs = sample.to(device)
         outputs = model(inputs.unsqueeze(0))
-        preds = torch.max(outputs, 1)[1]
-    return(preds)
+        _, preds = torch.max(outputs, 1)
+        cl = int(preds[0])
+    return(cl)

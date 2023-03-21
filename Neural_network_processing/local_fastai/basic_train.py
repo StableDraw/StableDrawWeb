@@ -309,12 +309,12 @@ class Learner():
         state['cb_state'] = {cb.__class__:cb.get_state() for cb in self.callbacks}
         if hasattr(self, 'opt'): state['opt'] = self.opt.get_state()
 
-        tmp_file = get_tmp_file(self.path/self.model_dir)
-        torch.save(state, open(tmp_file, 'wb'))
-        for a in attrs_del: delattr(self, a)
-        gc.collect()
-        state = torch.load(tmp_file)
-        os.remove(tmp_file)
+        #tmp_file = get_tmp_file(self.path/self.model_dir)
+        #torch.save(state, open(tmp_file, 'wb'))
+        #for a in attrs_del: delattr(self, a)
+        #gc.collect()
+        #state = torch.load(tmp_file)
+        #os.remove(tmp_file)
 
         for a in attrs_pkl: setattr(self, a, state[a])
         cb_state = state.pop('cb_state')

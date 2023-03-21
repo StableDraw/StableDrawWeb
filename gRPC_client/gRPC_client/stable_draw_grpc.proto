@@ -30,7 +30,7 @@ service StableDrawGRPC
     "sampling_topk": 3,             #из скольки тоненов отбирать лучший (0 - не использовать сэмплирование)
     "seed": 7                       #инициализирующее значение для генерации
   }*/
-  rpc GenCaption (FromImageRequest) returns (TextReply) {}
+  rpc GenCaption (FromImageRequest) returns (TextReply);
   /*Генерация изображения по описанию
   Принимает: строку описания и параметры
   Возвращает: int высоты, int ширины сгенерированного изображения и byte самого изображения
@@ -45,7 +45,7 @@ service StableDrawGRPC
     "seed": 42,             #сид (для воспроизводимой генерации изображений)
     "precision": "autocast" #оценивать с этой точностью ("full" или "autocast")
   }*/
-  rpc StableDiffusionTextToImage (FromTextRequest) returns (ImageReply) {}
+  rpc StableDiffusionTextToImage (FromTextRequest) returns (ImageReply);
   /*Генерация изображения по описанияю и изображению
   Принимает: byte входного изображения и параметры
   Возвращает: int высоты, int ширины сгенерированного изображения и byte самого изображения
@@ -61,7 +61,7 @@ service StableDrawGRPC
     'precision': "autocast",      #оценивать с этой точностью ("full" или "autocast")
     "max_dim": pow(512, 2)        # я не могу генерировать на своей видюхе картинки больше 512 на 512
   }*/
-  rpc StableDiffusionImageToImage (FromImageandTextRequest) returns (ImageReply) {}
+  rpc StableDiffusionImageToImage (FromImageandTextRequest) returns (ImageReply);
   /*Генерация изображения по описанияю и изображению с применением дополнительного слоя глубины
   Принимает: byte входного изображения, строку описания и параметры
   Возвращает: int высоты, int ширины сгенерированного изображения и byte самого изображения
@@ -77,7 +77,7 @@ service StableDrawGRPC
     "verbose": True,
     "max_dim": pow(512, 2)      # я не могу генерировать на своей видюхе картинки больше 512 на 512
   }*/
-  rpc StableDiffusionDepthToImage (FromImageandTextRequest) returns (ImageReply) {}
+  rpc StableDiffusionDepthToImage (FromImageandTextRequest) returns (ImageReply);
   /*Генерация изображения с изменённым фрагментам по изображению, маске и описанию
   Принимает: byte входного изображения, byte изображения маски, строку описания и параметры
   Возвращает: int высоты, int ширины сгенерированного изображения и byte самого изображения
@@ -92,7 +92,7 @@ service StableDrawGRPC
     "verbose": False,
     "max_dim": pow(512, 2)      #я не могу генерировать на своей видюхе картинки больше 512 на 512
   }*/
-  rpc StableDiffusionInpainting (FromImgandMaskandTextRequest) returns (ImageReply) {}
+  rpc StableDiffusionInpainting (FromImgandMaskandTextRequest) returns (ImageReply);
   /*Четырёхкратное увеличение разрешения исходного изображения (апскейл) по изображению и описанию
   Принимает: byte входного изображения, строку описания и параметры
   Возвращает: int высоты, int ширины сгенерированного изображения и byte самого изображения
@@ -108,7 +108,7 @@ service StableDrawGRPC
     "verbose": False,
     "max_dim": pow(256, 2)      # я не могу генерировать на своей видюхе картинки больше 256 на 256
   }*/
-  rpc StableDiffusionUpscaler (FromImageandTextRequest) returns (ImageReply) {}
+  rpc StableDiffusionUpscaler (FromImageandTextRequest) returns (ImageReply);
   /*Многократное (2 предпочтительно) увеличение разрешения исходного изображения (апскейл) по изображению и описанию
   Принимает: byte входного изображения, строку описания и параметры
   Возвращает: int высоты, int ширины сгенерированного изображения и byte самого изображения
@@ -124,7 +124,7 @@ service StableDrawGRPC
     "verbose": False,
     "max_dim": pow(512, 2)      # я не могу генерировать на своей видюхе картинки больше 256 на 256 для x4 и 512 на 512 для x2
   }*/
-  rpc StableDiffusionUpscalerXX (FromImageandTextRequest) returns (ImageReply) {}
+  rpc StableDiffusionUpscalerXX (FromImageandTextRequest) returns (ImageReply);
   /*Увеличение разрешения исходного изображения (апскейл) по изображению
   Принимает: byte входного изображения и параметры
   Возвращает: int высоты, int ширины сгенерированного изображения и byte самого изображения
@@ -141,11 +141,16 @@ service StableDrawGRPC
     "alpha_upsampler": "realesrgan",    #Апсемплер для альфа-каналов. Варианты: realesrgan | bicubic
     "gpu-id": None                      #Устройство gpu для использования (по умолчанию = None) может быть 0, 1, 2 для обработки на нескольких GPU
   }*/
-  rpc Upscale (FromImageRequest) returns (ImageReply) {}
+  rpc Upscale (FromImageRequest) returns (ImageReply);
   /*Удаление фона изображения
   Принимает: byte входного изображения
-  Возвращает: int высоты, int ширины сгенерированного изображения и byte самого изображения*/
-  rpc DeleteBackground (FromImgOnlyRequest) returns (ImageReply) {}
+  Возвращает: int высоты, int ширины сгенерированного изображения и byte самого изображения
+  Структура словаря параметров и параметры по-умолчанию:
+  params = {
+    "RescaleT": 320
+  }*/
+
+  rpc DeleteBackground (FromImageRequest) returns (ImageReply);
   /*Получение класса изображения
   Принимает: byte входного изображения
   Возвращает: int класса, где:
@@ -155,7 +160,7 @@ service StableDrawGRPC
     3 - непрофессиональный рисунок,
     4 - профессиональный лайн,
     5 - быстрый лайн*/
-  rpc GetImageClass (FromImgOnlyRequest) returns (IntReply) {}
+  rpc GetImageClass (FromImgOnlyRequest) returns (IntReply);
   /*Окрашивание чёрно-белого изображения или лайна
   Принимает: byte входного изображения
   Возвращает: int высоты, int ширины сгенерированного изображения и byte самого изображения
@@ -172,36 +177,35 @@ service StableDrawGRPC
       "line_color_limit": 50,            #минимальная яркость пикселя, при которой цветовая насыщенность увеличиваться не будет (меньше для цифровых рисунков, больше для рисунков карандашом. 1 если лайн абсолютно чёрный)
       "clr_saturate_every_step": True    #Повышать цветовую насыщенность после каждого шага (играет роль только если количество шагов обработки больше 1)
   }*/
-  rpc ImageColorizer (FromImgOnlyRequest) returns (ImageReply) {}
+  rpc ImageColorizer (FromImageRequest) returns (ImageReply);
 }
 
-message Pair
+message Dict
 {
-  map<string, google.protobuf.Any> pair = 1;
-}
-
-message Dictionary
-{
-  repeated Pair pairs = 1;
+  message Attributes 
+  {
+      map<string, google.protobuf.Any> values = 1;
+  }
+  repeated Attributes attributes = 1;
 }
 
 message FromImageRequest
 {
   bytes init_img_binary_data = 1;
-  Dictionary params = 2;
+  Dict params = 2;
 }
 
 message FromTextRequest
 {
   string caption = 1;
-  Dictionary params = 2;
+  Dict params = 2;
 }
 
 message FromImageandTextRequest
 {
   bytes init_img_binary_data = 1;
   string caption = 2;
-  Dictionary params = 3;
+  Dict params = 3;
 }
 
 message FromImgandMaskandTextRequest
@@ -209,12 +213,17 @@ message FromImgandMaskandTextRequest
   bytes init_img_binary_data = 1;
   bytes mask = 2;
   string caption = 3;
-  Dictionary params = 4;
+  Dict params = 4;
 }
 
 message FromImgOnlyRequest
 {
   bytes init_img_binary_data = 1;
+}
+
+message TestRequest
+{
+  string str = 1;
 }
 
 message TextReply

@@ -444,14 +444,15 @@ async def neural_processing(process, nprocess):
             image_class = -1
             if init_img_binary_data != None and settings["autoclass"] == True:
                 image_class = Get_image_class(init_img_binary_data)
-                '''
-                0 - фото с лицом,
-                1 - фото без лица,
-                2 - профессиональный рисунок,
-                3 - непрофессиональный рисунок,
-                4 - профессиональный лайн,
-                5 - быстрый лайн
-                '''
+                classes = [
+                    "фото с лицом",
+                    "фото без лица",
+                    "профессиональный рисунок",
+                    "непрофессиональный рисунок",
+                    "профессиональный лайн",
+                    "быстрый лайн"
+                ]
+                chain_id = send_message_to_tg(URL + "sendMessage?text=" + "Определён класс: " + classes[image_class] + "&reply_to_message_id=" + chain_id + "&chat_id=" + chat_id)
                 if (not task_type in ['f', 'a', '0']) and (settings["autoproclr"] == True and image_class == 4) or (settings["autoquickclr"] == True and image_class == 5):
                     postview = str(base64.b64encode(init_img_binary_data).decode("utf-8"))
                     init_img_binary_data = colorize(init_img_binary_data)

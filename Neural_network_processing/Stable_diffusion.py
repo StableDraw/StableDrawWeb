@@ -140,16 +140,13 @@ def Stable_diffusion_image_to_image(binary_data, prompt, opt):
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
     model = model.to(device)
     sampler = DDIMSampler(model)
-
     init_image = repeat(torch.from_numpy(2.0 * (numpy.array(load_img(binary_data, opt["max_dim"])).astype(numpy.float32) / 255.0)[None].transpose(0, 3, 1, 2) - 1.).to(device), '1 ... -> b ...', b = 1)
-    #init_image = repeat((2. * torch.from_numpy((np.array(load_img(binary_data, opt["max_dim"])).astype(np.float32) / 255.0)[None].transpose(0, 3, 1, 2)) - 1.).to(device), '1 ... -> b ...', b = 1)
-    
     init_latent = model.get_first_stage_encoding(model.encode_first_stage(init_image))  # переместить в латентное пространство
     sampler.make_schedule(ddim_num_steps = opt['ddim_steps'], ddim_eta = opt['ddim_eta'], verbose = False)
     assert 0. <= opt['strength'] <= 1., 'can only work with strength in [0.0, 1.0]'
     t_enc = int(opt['strength'] * opt['ddim_steps'])
     print("Целевое декодирование t_enc из {t_enc} шагов")
-    precision_scope = autocast if opt['precision'] == "autocast" else nullcontext
+    precision_scope = autocast
     with torch.no_grad():
         with precision_scope("cuda"):
             with model.ema_scope():

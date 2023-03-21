@@ -56,7 +56,7 @@ class StableDrawGRPCStub(object):
                 )
         self.DeleteBackground = channel.unary_unary(
                 '/greet.StableDrawGRPC/DeleteBackground',
-                request_serializer=stable__draw__grpc__pb2.FromImgOnlyRequest.SerializeToString,
+                request_serializer=stable__draw__grpc__pb2.FromImageRequest.SerializeToString,
                 response_deserializer=stable__draw__grpc__pb2.ImageReply.FromString,
                 )
         self.GetImageClass = channel.unary_unary(
@@ -66,7 +66,7 @@ class StableDrawGRPCStub(object):
                 )
         self.ImageColorizer = channel.unary_unary(
                 '/greet.StableDrawGRPC/ImageColorizer',
-                request_serializer=stable__draw__grpc__pb2.FromImgOnlyRequest.SerializeToString,
+                request_serializer=stable__draw__grpc__pb2.FromImageRequest.SerializeToString,
                 response_deserializer=stable__draw__grpc__pb2.ImageReply.FromString,
                 )
 
@@ -246,16 +246,20 @@ class StableDrawGRPCServicer(object):
         "alpha_upsampler": "realesrgan",    #Апсемплер для альфа-каналов. Варианты: realesrgan | bicubic
         "gpu-id": None                      #Устройство gpu для использования (по умолчанию = None) может быть 0, 1, 2 для обработки на нескольких GPU
         }
+        Удаление фона изображения
+        Принимает: byte входного изображения
+        Возвращает: int высоты, int ширины сгенерированного изображения и byte самого изображения
+        Структура словаря параметров и параметры по-умолчанию:
+        params = {
+        "RescaleT": 320
+        }
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def DeleteBackground(self, request, context):
-        """Удаление фона изображения
-        Принимает: byte входного изображения
-        Возвращает: int высоты, int ширины сгенерированного изображения и byte самого изображения
-        """
+        """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -342,7 +346,7 @@ def add_StableDrawGRPCServicer_to_server(servicer, server):
             ),
             'DeleteBackground': grpc.unary_unary_rpc_method_handler(
                     servicer.DeleteBackground,
-                    request_deserializer=stable__draw__grpc__pb2.FromImgOnlyRequest.FromString,
+                    request_deserializer=stable__draw__grpc__pb2.FromImageRequest.FromString,
                     response_serializer=stable__draw__grpc__pb2.ImageReply.SerializeToString,
             ),
             'GetImageClass': grpc.unary_unary_rpc_method_handler(
@@ -352,7 +356,7 @@ def add_StableDrawGRPCServicer_to_server(servicer, server):
             ),
             'ImageColorizer': grpc.unary_unary_rpc_method_handler(
                     servicer.ImageColorizer,
-                    request_deserializer=stable__draw__grpc__pb2.FromImgOnlyRequest.FromString,
+                    request_deserializer=stable__draw__grpc__pb2.FromImageRequest.FromString,
                     response_serializer=stable__draw__grpc__pb2.ImageReply.SerializeToString,
             ),
     }
@@ -513,7 +517,7 @@ class StableDrawGRPC(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/greet.StableDrawGRPC/DeleteBackground',
-            stable__draw__grpc__pb2.FromImgOnlyRequest.SerializeToString,
+            stable__draw__grpc__pb2.FromImageRequest.SerializeToString,
             stable__draw__grpc__pb2.ImageReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -547,7 +551,7 @@ class StableDrawGRPC(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/greet.StableDrawGRPC/ImageColorizer',
-            stable__draw__grpc__pb2.FromImgOnlyRequest.SerializeToString,
+            stable__draw__grpc__pb2.FromImageRequest.SerializeToString,
             stable__draw__grpc__pb2.ImageReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
