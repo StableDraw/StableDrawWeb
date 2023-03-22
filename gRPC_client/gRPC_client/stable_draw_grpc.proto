@@ -1,5 +1,6 @@
 syntax = "proto3";
 import "google/protobuf/any.proto";
+import "google/protobuf/struct.proto";
 option csharp_namespace = "GrpcGreeterClient";
 package greet;
 
@@ -147,9 +148,17 @@ service StableDrawGRPC
   Возвращает: int высоты, int ширины сгенерированного изображения и byte самого изображения
   Структура словаря параметров и параметры по-умолчанию:
   params = {
-    "RescaleT": 320
+      "model": "DIS", #Доступно "U2NET" или "DIS"
+      "RescaleT": 320, #Только для модели U2NET
+      #Только для модели "DIM":
+      "ckpt": 0,                  # Выбор впретренированных весов модели (0 или 1)
+      "interm_sup": False,        # Указать, активировать ли контроль промежуточных функций
+      "model_digit": "full",      # Выберите точность с плавающей запятой (устанавливает "half" или "full" точность числа с плавающей запятой)
+      "seed": 0,                  # Инициализирующее значение
+      "cache_size": [1024, 1024], # Кешированное входное пространственное разрешение, можно настроить на другой размер
+      "input_size": [1024, 1024], # Входной пространственный размер модели, обычно используют одно и то же значение params["cache_size"], что означает, что мы больше не изменяем размер изображений
+      "crop_size": [1024, 1024]   # Размер случайно обрезки из ввода, обычно он меньше, чем params["cache_size"], например, [920, 920] для увеличения данных
   }*/
-
   rpc DeleteBackground (FromImageRequest) returns (ImageReply);
   /*Получение класса изображения
   Принимает: byte входного изображения
@@ -169,43 +178,33 @@ service StableDrawGRPC
       "ckpt": 0,                         #Выбор модели (от 0 до 3)
       "steps": 1,                        #Количество шагов обработки (минимум 1)
       "compare": False,                  #Сравнивать с оригиналом
-      "stats": ([0.7137, 0.6628, 0.6519], [0.2970, 0.3017, 0.2979]), #Инициализирующие веса
       "artistic": True,                  #Дополнительная модель для обработки
       "render_factor": 12,               #Фактор обработки (от 7 до 45) (лучше 12)
       "post_process": True,              #Постобработка
-      "clr_saturation_factor": 5,        #Коэффициент увеличения цветовой насыщенности (0 - не добавлять насыщенность)
+      "clr_saturation_factor": 5,        #Коэффициент увеличения цветовой насыщенности (1 - не добавлять насыщенность)
       "line_color_limit": 50,            #минимальная яркость пикселя, при которой цветовая насыщенность увеличиваться не будет (меньше для цифровых рисунков, больше для рисунков карандашом. 1 если лайн абсолютно чёрный)
       "clr_saturate_every_step": True    #Повышать цветовую насыщенность после каждого шага (играет роль только если количество шагов обработки больше 1)
   }*/
   rpc ImageColorizer (FromImageRequest) returns (ImageReply);
 }
 
-message Dict
-{
-  message Attributes 
-  {
-      map<string, google.protobuf.Any> values = 1;
-  }
-  repeated Attributes attributes = 1;
-}
-
 message FromImageRequest
 {
   bytes init_img_binary_data = 1;
-  Dict params = 2;
+  map<string, google.protobuf.Value> params = 2;
 }
 
 message FromTextRequest
 {
   string caption = 1;
-  Dict params = 2;
+  map<string, google.protobuf.Value> params = 2;
 }
 
 message FromImageandTextRequest
 {
   bytes init_img_binary_data = 1;
   string caption = 2;
-  Dict params = 3;
+  map<string, google.protobuf.Value> params = 3;
 }
 
 message FromImgandMaskandTextRequest
@@ -213,7 +212,7 @@ message FromImgandMaskandTextRequest
   bytes init_img_binary_data = 1;
   bytes mask = 2;
   string caption = 3;
-  Dict params = 4;
+  map<string, google.protobuf.Value> params = 4;
 }
 
 message FromImgOnlyRequest

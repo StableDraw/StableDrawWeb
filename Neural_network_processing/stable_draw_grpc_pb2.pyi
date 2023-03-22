@@ -1,46 +1,43 @@
 from google.protobuf import any_pb2 as _any_pb2
+from google.protobuf import struct_pb2 as _struct_pb2
 from google.protobuf.internal import containers as _containers
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
-from typing import ClassVar as _ClassVar, Iterable as _Iterable, Mapping as _Mapping, Optional as _Optional, Union as _Union
+from typing import ClassVar as _ClassVar, Mapping as _Mapping, Optional as _Optional, Union as _Union
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
-class Dict(_message.Message):
-    __slots__ = ["attributes"]
-    class Attributes(_message.Message):
-        __slots__ = ["values"]
-        class ValuesEntry(_message.Message):
-            __slots__ = ["key", "value"]
-            KEY_FIELD_NUMBER: _ClassVar[int]
-            VALUE_FIELD_NUMBER: _ClassVar[int]
-            key: str
-            value: _any_pb2.Any
-            def __init__(self, key: _Optional[str] = ..., value: _Optional[_Union[_any_pb2.Any, _Mapping]] = ...) -> None: ...
-        VALUES_FIELD_NUMBER: _ClassVar[int]
-        values: _containers.MessageMap[str, _any_pb2.Any]
-        def __init__(self, values: _Optional[_Mapping[str, _any_pb2.Any]] = ...) -> None: ...
-    ATTRIBUTES_FIELD_NUMBER: _ClassVar[int]
-    attributes: _containers.RepeatedCompositeFieldContainer[Dict.Attributes]
-    def __init__(self, attributes: _Optional[_Iterable[_Union[Dict.Attributes, _Mapping]]] = ...) -> None: ...
-
 class FromImageRequest(_message.Message):
     __slots__ = ["init_img_binary_data", "params"]
+    class ParamsEntry(_message.Message):
+        __slots__ = ["key", "value"]
+        KEY_FIELD_NUMBER: _ClassVar[int]
+        VALUE_FIELD_NUMBER: _ClassVar[int]
+        key: str
+        value: _struct_pb2.Value
+        def __init__(self, key: _Optional[str] = ..., value: _Optional[_Union[_struct_pb2.Value, _Mapping]] = ...) -> None: ...
     INIT_IMG_BINARY_DATA_FIELD_NUMBER: _ClassVar[int]
     PARAMS_FIELD_NUMBER: _ClassVar[int]
     init_img_binary_data: bytes
-    params: Dict
-    def __init__(self, init_img_binary_data: _Optional[bytes] = ..., params: _Optional[_Union[Dict, _Mapping]] = ...) -> None: ...
+    params: _containers.MessageMap[str, _struct_pb2.Value]
+    def __init__(self, init_img_binary_data: _Optional[bytes] = ..., params: _Optional[_Mapping[str, _struct_pb2.Value]] = ...) -> None: ...
 
 class FromImageandTextRequest(_message.Message):
     __slots__ = ["caption", "init_img_binary_data", "params"]
+    class ParamsEntry(_message.Message):
+        __slots__ = ["key", "value"]
+        KEY_FIELD_NUMBER: _ClassVar[int]
+        VALUE_FIELD_NUMBER: _ClassVar[int]
+        key: str
+        value: _struct_pb2.Value
+        def __init__(self, key: _Optional[str] = ..., value: _Optional[_Union[_struct_pb2.Value, _Mapping]] = ...) -> None: ...
     CAPTION_FIELD_NUMBER: _ClassVar[int]
     INIT_IMG_BINARY_DATA_FIELD_NUMBER: _ClassVar[int]
     PARAMS_FIELD_NUMBER: _ClassVar[int]
     caption: str
     init_img_binary_data: bytes
-    params: Dict
-    def __init__(self, init_img_binary_data: _Optional[bytes] = ..., caption: _Optional[str] = ..., params: _Optional[_Union[Dict, _Mapping]] = ...) -> None: ...
+    params: _containers.MessageMap[str, _struct_pb2.Value]
+    def __init__(self, init_img_binary_data: _Optional[bytes] = ..., caption: _Optional[str] = ..., params: _Optional[_Mapping[str, _struct_pb2.Value]] = ...) -> None: ...
 
 class FromImgOnlyRequest(_message.Message):
     __slots__ = ["init_img_binary_data"]
@@ -50,6 +47,13 @@ class FromImgOnlyRequest(_message.Message):
 
 class FromImgandMaskandTextRequest(_message.Message):
     __slots__ = ["caption", "init_img_binary_data", "mask", "params"]
+    class ParamsEntry(_message.Message):
+        __slots__ = ["key", "value"]
+        KEY_FIELD_NUMBER: _ClassVar[int]
+        VALUE_FIELD_NUMBER: _ClassVar[int]
+        key: str
+        value: _struct_pb2.Value
+        def __init__(self, key: _Optional[str] = ..., value: _Optional[_Union[_struct_pb2.Value, _Mapping]] = ...) -> None: ...
     CAPTION_FIELD_NUMBER: _ClassVar[int]
     INIT_IMG_BINARY_DATA_FIELD_NUMBER: _ClassVar[int]
     MASK_FIELD_NUMBER: _ClassVar[int]
@@ -57,16 +61,23 @@ class FromImgandMaskandTextRequest(_message.Message):
     caption: str
     init_img_binary_data: bytes
     mask: bytes
-    params: Dict
-    def __init__(self, init_img_binary_data: _Optional[bytes] = ..., mask: _Optional[bytes] = ..., caption: _Optional[str] = ..., params: _Optional[_Union[Dict, _Mapping]] = ...) -> None: ...
+    params: _containers.MessageMap[str, _struct_pb2.Value]
+    def __init__(self, init_img_binary_data: _Optional[bytes] = ..., mask: _Optional[bytes] = ..., caption: _Optional[str] = ..., params: _Optional[_Mapping[str, _struct_pb2.Value]] = ...) -> None: ...
 
 class FromTextRequest(_message.Message):
     __slots__ = ["caption", "params"]
+    class ParamsEntry(_message.Message):
+        __slots__ = ["key", "value"]
+        KEY_FIELD_NUMBER: _ClassVar[int]
+        VALUE_FIELD_NUMBER: _ClassVar[int]
+        key: str
+        value: _struct_pb2.Value
+        def __init__(self, key: _Optional[str] = ..., value: _Optional[_Union[_struct_pb2.Value, _Mapping]] = ...) -> None: ...
     CAPTION_FIELD_NUMBER: _ClassVar[int]
     PARAMS_FIELD_NUMBER: _ClassVar[int]
     caption: str
-    params: Dict
-    def __init__(self, caption: _Optional[str] = ..., params: _Optional[_Union[Dict, _Mapping]] = ...) -> None: ...
+    params: _containers.MessageMap[str, _struct_pb2.Value]
+    def __init__(self, caption: _Optional[str] = ..., params: _Optional[_Mapping[str, _struct_pb2.Value]] = ...) -> None: ...
 
 class ImageReply(_message.Message):
     __slots__ = ["binary_data", "h", "w"]

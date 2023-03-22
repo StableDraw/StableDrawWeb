@@ -378,8 +378,8 @@ def get_image_filtr(weights_name: str, artistic: bool = True, stats: tuple = ima
 
 def increase_color_saturation(image, brite_k = 0, min_brite = 0):
     pixels = image.load()
-    for y in range(image.size[0]):
-        for x in range(image.size[1]):
+    for x in range(image.size[0]):
+        for y in range(image.size[1]):
             clr = pixels[x, y]
             if clr[0] + clr[1] + clr[2] > min_brite:
                 pixels[x, y] = (max(0, 255 - (255 - clr[0]) * brite_k), max(0, 255 - (255 - clr[1]) * brite_k), max(0, 255 - (255 - clr[2]) * brite_k))

@@ -292,7 +292,7 @@ def colorize(init_img_binary_data, image_class):
         "artistic": True,                  #Дополнительная модель для обработки
         "render_factor": 12,               #Фактор обработки (от 7 до 45) (лучше 12)
         "post_process": True,              #Постобработка
-        "clr_saturation_factor": 5,        #Коэффициент увеличения цветовой насыщенности (0 - не добавлять насыщенность)
+        "clr_saturation_factor": 5,        #Коэффициент увеличения цветовой насыщенности (1 - не добавлять насыщенность)
         "line_color_limit": 100,           #минимальная яркость пикселя, при которой цветовая насыщенность увеличиваться не будет (меньше для цифровых рисунков, больше для рисунков карандашом. 1 если лайн абсолютно чёрный)
         "clr_saturate_every_step": True    #Повышать цветовую насыщенность после каждого шага (играет роль только если количество шагов обработки больше 1)
     }
@@ -304,7 +304,7 @@ def colorize(init_img_binary_data, image_class):
         params["artistic"] = True
         params["render_factor"] = 12
         params["post_process"] = True
-        params["clr_saturation_factor"] = 5
+        params["clr_saturation_factor"] = 1
         params["line_color_limit"] = 100
         params["clr_saturate_every_step"] = True
     elif settings["autophotonofacepreset"] == True and image_class == 1:
@@ -314,7 +314,7 @@ def colorize(init_img_binary_data, image_class):
         params["artistic"] = True
         params["render_factor"] = 12
         params["post_process"] = True
-        params["clr_saturation_factor"] = 5
+        params["clr_saturation_factor"] = 1
         params["line_color_limit"] = 100
         params["clr_saturate_every_step"] = True
     elif settings["autoproartpreset"] == True and image_class == 2:
