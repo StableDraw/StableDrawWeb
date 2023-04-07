@@ -125,6 +125,7 @@ let orig_lW: number = lW
 let orig_lH: number = lH
 let orig_lD: number = lW / lH
 
+
 if (cD > orig_lD)
 {
     lW = orig_lW
@@ -183,7 +184,7 @@ let enddraw: boolean = false
 let f_move: boolean = false
 let end_f_move: boolean = false
 
-let old_btn_clr: boolean = false //изначально чёрный текст у кнопок цвета
+let old_btn_clr: boolean[] = [false, true] //изначально чёрный текст у кнопок цвета
 let on_clr_window: boolean = false
 
 let cur_background_clr: string = "#fff"
@@ -256,6 +257,8 @@ let chain_id: string = ""
 let task_id: string
 
 const subbody: HTMLElement = <HTMLElement> document.querySelector(".subbody")
+
+let if_first_time_modal: boolean = true
 
 var main_modal: any = function (options: object) 
 {
@@ -419,11 +422,15 @@ var main_modal: any = function (options: object)
             })
             modal.show()
             modal.setContent(content)
-            caption_field = <HTMLInputElement> document.getElementById("caption_input")
-            style_field = <HTMLInputElement> document.getElementById("style_input")
-            modal_header = <HTMLElement>document.querySelector(".modal__header")
-            modal_body = <HTMLElement>document.querySelector(".modal__body")
-            modal_footer = <HTMLElement>document.querySelector(".modal__footer")
+            if (if_first_time_modal)
+            {
+                caption_field = <HTMLInputElement>document.getElementById("caption_input")
+                style_field = <HTMLInputElement>document.getElementById("style_input")
+                modal_header = <HTMLElement>document.querySelector(".modal__header")
+                modal_body = <HTMLElement>document.querySelector(".modal__body")
+                modal_footer = <HTMLElement>document.querySelector(".modal__footer")
+                if_first_time_modal = false
+            }
             if (is_dark_mode)
             {
                 modal_header.style.filter = "invert(0.9)"
@@ -1304,6 +1311,7 @@ function handleclr_PointerMove()
 {
     on_clr_window = true
     let ccv: string = cur_color.value
+    let local_clf_layer_type: number
     if (ccv == "#NaNNaNNaN")
     {
         ccv = "#" + colourBtn.style.background.split("(")[1].split(")")[0].split(",").map(function (x: string) 
@@ -1313,27 +1321,31 @@ function handleclr_PointerMove()
         }).join("")
         cur_color.value = ccv
     }
+    if (is_clr_brash)
+    {
+        local_clf_layer_type = 0
+    }
+    else
+    {
+        local_clf_layer_type = 1
+    }
     if (hexDec(ccv) > 382)
     {
-        if(!old_btn_clr)
+        if (!old_btn_clr[local_clf_layer_type])
         {
-            old_btn_clr = true
+            old_btn_clr[local_clf_layer_type] = true            
             ok_clr_btn.style.color = "#000000"
             clrimg.style.filter = "invert(0)"
         }
     }
     else
     {
-        if(old_btn_clr)
+        if (old_btn_clr[local_clf_layer_type])
         {
-            old_btn_clr = false
-            ok_clr_btn.style.color = "#fff"
+            old_btn_clr[local_clf_layer_type] = false
+            ok_clr_btn.style.color = "#ffffff"
             clrimg.style.filter = "invert(1)"
         }
-    }
-    if (is_clr_brash)
-    {
-        ctype_clr_btn.style.background = ccv
     }
     ok_clr_btn.style.background = ccv
     colourBtn.style.background = ccv
@@ -1353,7 +1365,7 @@ function handlet_clr_Click()
         }
         else
         {
-            ctype_clr_btn.style.color = "#fff"
+            ctype_clr_btn.style.color = "#ffffff"
             clrimg.style.filter = "invert(1)"
         }
         ctype_clr_btn.style.background = cur_brush_clr
@@ -1372,23 +1384,23 @@ function handlet_clr_Click()
         }
         else
         {
-            ctype_clr_btn.style.color = "#fff"
+            ctype_clr_btn.style.color = "#ffffff"
             clrimg.style.filter = "invert(1)"
         }
         ctype_clr_btn.style.background = new_background_clr
         if (hexDec(ccv) > 382)
         {
-            if(!old_btn_clr)
+            if(!old_btn_clr[1])
             {
-                old_btn_clr = true
+                old_btn_clr[1] = true
                 clrimg.style.filter = "invert(0)"
             }
         }
         else
         {
-            if(old_btn_clr)
+            if(old_btn_clr[1])
             {
-                old_btn_clr = false
+                old_btn_clr[1] = false
                 clrimg.style.filter = "invert(1)"
             }
         }
@@ -1763,6 +1775,7 @@ function swap_layers_in_stack(stack: any[])
             }
         }
     }
+    return_value[0] = stack
     return return_value
 }
 
