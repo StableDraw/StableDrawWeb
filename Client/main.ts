@@ -669,7 +669,7 @@ let last_task_image_suffix: string = "0"
 
 ws.onclose = function() //Убрать
 {
-    alert("Соединение разорвано");
+    alert("Извините, произошла ошибка на стороне сервера. Пожалуйста перезагрузите страницу");
 }
 
 //ws.onerror = function(){alert("error");}

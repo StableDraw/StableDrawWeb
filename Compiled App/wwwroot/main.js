@@ -148,7 +148,7 @@ let draw = false;
 let enddraw = false;
 let f_move = false;
 let end_f_move = false;
-let old_btn_clr = false; //изначально чёрный текст у кнопок цвета
+let old_btn_clr = [false, true]; //изначально чёрный текст у кнопок цвета
 let on_clr_window = false;
 let cur_background_clr = "#fff";
 let new_background_clr = cur_background_clr;
@@ -203,6 +203,7 @@ let ws = new WebSocket("wss://stabledraw.com:8081");
 let chain_id = "";
 let task_id;
 const subbody = document.querySelector(".subbody");
+let if_first_time_modal = true;
 var main_modal = function (options) {
     var _elemModal;
     var _eventShowModal;
@@ -327,11 +328,14 @@ var main_modal = function (options) {
             });
             modal.show();
             modal.setContent(content);
-            caption_field = document.getElementById("caption_input");
-            style_field = document.getElementById("style_input");
-            modal_header = document.querySelector(".modal__header");
-            modal_body = document.querySelector(".modal__body");
-            modal_footer = document.querySelector(".modal__footer");
+            if (if_first_time_modal) {
+                caption_field = document.getElementById("caption_input");
+                style_field = document.getElementById("style_input");
+                modal_header = document.querySelector(".modal__header");
+                modal_body = document.querySelector(".modal__body");
+                modal_footer = document.querySelector(".modal__footer");
+                if_first_time_modal = false;
+            }
             if (is_dark_mode) {
                 modal_header.style.filter = "invert(0.9)";
                 modal_body.style.filter = "invert(0.9)";
@@ -530,7 +534,7 @@ let last_task_image_name = "drawing.png";
 let last_task_image_suffix = "0";
 //ws.onopen = function(){alert("open");} 
 ws.onclose = function () {
-    alert("Соединение разорвано");
+    alert("Извините, произошла ошибка на стороне сервера. Пожалуйста перезагрузите страницу");
 };
 //ws.onerror = function(){alert("error");}
 function check_data_before_sending() {
@@ -1052,6 +1056,7 @@ colourBtn.style.background = "#000000";
 function handleclr_PointerMove() {
     on_clr_window = true;
     let ccv = cur_color.value;
+    let local_clf_layer_type;
     if (ccv == "#NaNNaNNaN") {
         ccv = "#" + colourBtn.style.background.split("(")[1].split(")")[0].split(",").map(function (x) {
             x = parseInt(x).toString(16);
@@ -1059,22 +1064,25 @@ function handleclr_PointerMove() {
         }).join("");
         cur_color.value = ccv;
     }
+    if (is_clr_brash) {
+        local_clf_layer_type = 0;
+    }
+    else {
+        local_clf_layer_type = 1;
+    }
     if (hexDec(ccv) > 382) {
-        if (!old_btn_clr) {
-            old_btn_clr = true;
+        if (!old_btn_clr[local_clf_layer_type]) {
+            old_btn_clr[local_clf_layer_type] = true;
             ok_clr_btn.style.color = "#000000";
             clrimg.style.filter = "invert(0)";
         }
     }
     else {
-        if (old_btn_clr) {
-            old_btn_clr = false;
-            ok_clr_btn.style.color = "#fff";
+        if (old_btn_clr[local_clf_layer_type]) {
+            old_btn_clr[local_clf_layer_type] = false;
+            ok_clr_btn.style.color = "#ffffff";
             clrimg.style.filter = "invert(1)";
         }
-    }
-    if (is_clr_brash) {
-        ctype_clr_btn.style.background = ccv;
     }
     ok_clr_btn.style.background = ccv;
     colourBtn.style.background = ccv;
@@ -1089,7 +1097,7 @@ function handlet_clr_Click() {
             clrimg.style.filter = "invert(0)";
         }
         else {
-            ctype_clr_btn.style.color = "#fff";
+            ctype_clr_btn.style.color = "#ffffff";
             clrimg.style.filter = "invert(1)";
         }
         ctype_clr_btn.style.background = cur_brush_clr;
@@ -1105,19 +1113,19 @@ function handlet_clr_Click() {
             clrimg.style.filter = "invert(0)";
         }
         else {
-            ctype_clr_btn.style.color = "#fff";
+            ctype_clr_btn.style.color = "#ffffff";
             clrimg.style.filter = "invert(1)";
         }
         ctype_clr_btn.style.background = new_background_clr;
         if (hexDec(ccv) > 382) {
-            if (!old_btn_clr) {
-                old_btn_clr = true;
+            if (!old_btn_clr[1]) {
+                old_btn_clr[1] = true;
                 clrimg.style.filter = "invert(0)";
             }
         }
         else {
-            if (old_btn_clr) {
-                old_btn_clr = false;
+            if (old_btn_clr[1]) {
+                old_btn_clr[1] = false;
                 clrimg.style.filter = "invert(1)";
             }
         }
@@ -1416,6 +1424,7 @@ function swap_layers_in_stack(stack) {
             }
         }
     }
+    return_value[0] = stack;
     return return_value;
 }
 function swap_layers() {

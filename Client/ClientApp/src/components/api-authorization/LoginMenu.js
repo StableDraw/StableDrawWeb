@@ -1,4 +1,5 @@
-﻿import React, { Component, Fragment } from 'react';
+﻿/* eslint-disable jsx-a11y/anchor-is-valid */
+import React, { Component, Fragment } from 'react';
 import { NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import authService from './AuthorizeService';
@@ -292,31 +293,85 @@ export class LoginMenu extends Component
     anonymousView(registerPath, loginPath)
     {
         return (
-            <Fragment>
-                <ul className = "helpfull_links" style = {{ position: "fixed", right: "5px", top: "0px", textAlign: "right", width: "16%", height: "7%" }}>
-                    <NavLink tag = {Link} className = "helpfull_link" to = {registerPath} style = {{ position: "fixed", top: "0%", width: "16%", textAlign: "right", right: "5px", textDecoration: "none" }}>
-                        <font color = "#000000">
-                            Регистрация
-                        </font>
-                    </NavLink>
-                    <NavLink tag = {Link} className = "helpfull_link" to = {loginPath} style = {{ position: "fixed", top: "30px", width: "16%", textAlign: "right", right: "5px", textDecoration: "none" }}>
-                        <font color = "#000000">
-                            Вход
-                        </font>
-                    </NavLink>
-                </ul>
-                <div className = "start_page">
-                    <img src = "logo.png" alt = "альтернативный текст" style = {{ border: "solid 4px #000000", borderRadius: "4px", position: "absolute", top: "10%", left: "45%", width: "10%" }}></img>
-                    <div style = {{ position: "fixed", top: "40%", left: "15%", width: "70%", textAlign: "center" }}>
-                        <p>
-                            Веб платформа с нейронными сетями в качестве инструментов для упрощения работы художников, ретушёров, и, в перспективе, мультипликаторов. Внедрение нейронных сетей в процесс создания рисунков и обработанных фотографий позволяет значительно повысить скорость, эффективность и качество конечного результата. Для рисования анимаций, особенно малым коллективном, этот инструмент смог бы стать просто незаменимым, поскольку будет иметь возможность лишь по набору набросков опорных кадров в кратчайшие сроки воссоздать как отдельные детали самих кадров, так и сгенерировать промежуточные и улучшить их качество. В перспективе также планируется возможность добавления генерации саундтреков, звуков и возможно даже озвучания, и всё это на одной удобной платформе.
-                        </p>
+            <div className = "start-page" data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+                <div>
+                    <header className = "site-navbar site-navbar-target">
+                        <div className ="row align-items-center position-relative">
+                            <div className = "col-lg-2">
+                                <ul>
+                                    <a href = "https://stabledraw.com" className = "bootstrap-nav-link">
+                                        Главная
+                                    </a>
+                                </ul>
+                            </div>
+                            <div className = "col-lg-7 text-center">
+                                <div className = "ml-auto toggle-button d-inline-block d-lg-none">
+                                    <a href = "#" className = "site-menu-toggle py-5 js-menu-toggle text-white">
+                                        <span className = "icon-menu h3 text-white"></span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div className = "col-lg">
+                                <nav className = "site-navigation text-left mr-auto">
+                                    <ul className = "site-menu main-menu js-clone-nav ml-auto d-lg-block">
+                                        <li>
+                                            <NavLink tag = {Link} to = {registerPath} className = "bootstrap-nav-link" style = {{color: "#ffffff"}}>
+                                                Регистрация
+                                            </NavLink>
+                                        </li>
+                                        <li>
+                                            <NavLink tag = {Link} to = {loginPath} className = "bootstrap-nav-link" style = {{color: "#ffffff"}}>
+                                                Вход
+                                            </NavLink>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </header>
+                    <div className = "ftco-blocks-cover-1">
+                        <div className = "ftco-cover-1" style = {{ backgroundImage: "url('mian.gif')" }} >
+                            <div className = "bootstrap-container">
+                                <div className = "row align-items-center justify-content-center" style = {{zIndex: "10000"}}>
+                                    <div className = "col-lg-7 text-center">
+                                        <h1 dataAos="fade-up" dataAosDelay="0" className = "dark-light" style = {{ color: "#cccccc" }}>
+                                            StableDraw
+                                        </h1>
+                                        <p dataAos = "fade-up" dataAosDelay = "100" className = "font-size-24" style = {{ color: "#cccccc" }} >
+                                            веб-платформа для рисования, обработки изображений и создания анимаций с применением искусственных нейронных сетей
+                                        </p>
+                                        <p dataAos = "fade-up" dataAosDelay = "200">
+                                            <NavLink tag = {Link} to = {loginPath} className = "bootstrap-btn primary-outline-white--hover">
+                                                <a style = {{ margin: "0 auto", textAlign: "center" }}>
+                                                    Начать
+                                                </a>
+                                            </NavLink>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className = "ftco-cover-1-overlay"></div>
                     </div>
-                    <NavLink className = "authLink btn btnLink textDark" tag = {Link} to = {registerPath} style = {{ position: "fixed",  left: "47.4%", top: "60%", width: "10%", height: "10%", fontSize: "200%" }}>
-                        Начать
-                    </NavLink>
                 </div>
-            </Fragment>
+                <footer style = {{ position: "fixed", width: "100%", height: "8%", bottom: "0", left: "0", zIndex: "9999", backgroundColor: "rgba(10, 10, 10, 0.8)" }} >
+                    <div className = "line_looter" style = {{ width: "75%", borderTop: "solid 1px #489", margin: "0 auto", textAlign: "center" }} >
+                        <div className = "links" style = {{ margin: "3px auto", textAlign: "center" }}>
+                            <a href = "https://vk.com/stabledraw">
+                                <img className = "img-link" src = "vk.png" width = "50" height = "50" alt = "StableDraw"></img>
+                            </a>
+                            <a href = "https://vk.com/app6613443#snippet_id=2&owner_id=402965562&project_id=296524">
+                                <img className = "img-link" src = "money.png" width = "50" height = "50" alt = "StableDraw"></img>
+                            </a>
+                        </div>
+                    </div>
+                </footer>
+                <React.Fragment>
+                    <Helmet>
+                        <script src = 'start_page_main.js'></script>
+                    </Helmet>
+                </React.Fragment>
+            </div>
         );
     }
 }

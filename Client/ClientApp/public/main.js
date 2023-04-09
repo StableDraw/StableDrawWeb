@@ -534,7 +534,7 @@ let last_task_image_name = "drawing.png";
 let last_task_image_suffix = "0";
 //ws.onopen = function(){alert("open");} 
 ws.onclose = function () {
-    alert("Соединение разорвано");
+    alert("Извините, произошла ошибка на стороне сервера. Пожалуйста перезагрузите страницу");
 };
 //ws.onerror = function(){alert("error");}
 function check_data_before_sending() {
