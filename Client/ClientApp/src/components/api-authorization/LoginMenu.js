@@ -1,5 +1,5 @@
 ﻿/* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import authService from './AuthorizeService';
@@ -74,7 +74,7 @@ export class LoginMenu extends Component
         return (
             <div className = "subbody">
                 <div className = "blackout" id = "full_blackout">
-                    <img className = "loading" src = "loading.webp"></img>
+                    <img className = "loading" alt = "loading.webp" src = "loading.webp"></img>
                 </div>
                 <div id = "mySidepanel" className = "sidepanel">
                     <a className = "closebtn"  id = "size_panel_closebtn">
@@ -82,27 +82,27 @@ export class LoginMenu extends Component
                     </a>
                     <div id = "mods_of_work" className = "mods_of_work">
                         <a href = "#" className = "work_mode_href" title = "Картина по текстовому описанию" style = {{ borderBottomStyle: "hidden" }}>
-                            <img className = "work_mode_img_btn" src = "text_to_image.png"></img>
+                            <img className = "work_mode_img_btn" alt = "text_to_image.png" src = "text_to_image.png"></img>
                         </a>
                         <a className = "work_mode_href" id = "selected_work_mode" title = "Картина из рисунка (выбрано)">
-                            <img className = "work_mode_img_btn" src = "image_to_image.png"></img>
+                            <img className = "work_mode_img_btn" alt = "image_to_image.png" src = "image_to_image.png"></img>
                         </a> 
                         <a href = "#" className = "work_mode_href" title = "Обработка изображений с комьютера" style = {{ borderTopStyle: "hidden" }}>
-                            <img className = "work_mode_img_btn" src = "photo_to_image.png"></img>
+                            <img className = "work_mode_img_btn" alt = "photo_to_image.png" src = "photo_to_image.png"></img>
                         </a>
                         <a href = "#" className = "work_mode_href" title = "Создание анимации" style = {{ borderTopStyle: "hidden" }}>
-                            <img className = "work_mode_img_btn" src = "frames_to_animation.png"></img>
+                            <img className = "work_mode_img_btn" alt = "frames_to_animation.png" src = "frames_to_animation.png"></img>
                         </a>
                     </div>
                     <div className = "sidepanel_bottom_buttons">
                         <button className = "sidepanel_bottom_button" title = "Настройки">
-                            <img className = "sidepanel_bottom_button_img" src = "settings.png"></img>
+                            <img className = "sidepanel_bottom_button_img" alt = "settings.png" src = "settings.png"></img>
                         </button>
                         <button className = "sidepanel_bottom_button" id = "change_theme" title = "Тёмная/светлая тема">
-                            <img className = "sidepanel_bottom_button_img" id = "theme_mode_img" src = "dark mode.png"></img>
+                            <img className = "sidepanel_bottom_button_img" id = "theme_mode_img" alt = "dark mode.png" src = "dark mode.png"></img>
                         </button>
                         <button className = "sidepanel_bottom_button" title = "Язык/language">
-                            <img className = "sidepanel_bottom_button_img" src = "language.png"></img>
+                            <img className = "sidepanel_bottom_button_img" alt = "language.png" src = "language.png"></img>
                         </button>
                     </div>
                     <div className = "helpfull_links" fontSize = "2px" style = {{ bottom: "15%" }}>
@@ -131,25 +131,25 @@ export class LoginMenu extends Component
                     &#9776;
                 </button>
                 <div className = "cursor">
-                    <img className = "cursimg" style = {{ width: "30px", height: "30px" }}></img>
+                    <img className = "cursimg" alt = "cursimg" style = {{ width: "30px", height: "30px" }}></img>
                 </div>
                 <div className = "layers">
                     <div className = "layers_buttons">
                         <button className = "layers_mini_button" id = "merge_layers" title = "Объединить слои">
-                            <img className = "layers_mini_button_image" src = "merge.png"></img>
+                            <img className = "layers_mini_button_image" alt = "merge.png" src = "merge.png"></img>
                         </button>
                         <button className = "layers_mini_button" id = "swap_layers" title = "Поменять слои местами">
-                            <img className = "layers_mini_button_image" src = "swap.png"></img>
+                            <img className = "layers_mini_button_image" alt = "swap.png" src = "swap.png"></img>
                         </button>
                     </div>
                     <div className = "layer_box">
                         <div className = "layer" id = "layer_1">
                             <div className = "layer_button_box">
                                 <button className = "layer_left_mini_button" id = "layer_1_visibility_button" title = "Включить/выключить видимость">
-                                    <img className = "layer_left_mini_button_image" id = "layer_1_visibility_img" src = "visibility_on.png"></img>
+                                    <img className = "layer_left_mini_button_image" id = "layer_1_visibility_img" alt = "visibility_on.png" src = "visibility_on.png"></img>
                                 </button>
                                 <button className = "layer_left_mini_button" id = "clear_layer_1" title = "Очистить слой">
-                                    <img className = "layer_left_mini_button_image" src = "/clear.png"></img>
+                                    <img className = "layer_left_mini_button_image" alt = "clear.png" src = "clear.png"></img>
                                 </button>
                             </div>
                             <div className = "layer_button" id = "layer_button_1">
@@ -162,10 +162,10 @@ export class LoginMenu extends Component
                         <div className = "layer" id = "layer_2">
                             <div className = "layer_button_box">
                                 <button className = "layer_left_mini_button" id = "layer_2_visibility_button" title = "Включить/выключить видимость">
-                                    <img className = "layer_left_mini_button_image" id = "layer_2_visibility_img" src = "visibility_on.png"></img>
+                                    <img className = "layer_left_mini_button_image" id = "layer_2_visibility_img" alt = "visibility_on.png" src = "visibility_on.png"></img>
                                 </button>
                                 <button className = "layer_left_mini_button" id = "clear_layer_2" title = "Очистить слой">
-                                    <img className = "layer_left_mini_button_image" src = "/clear.png"></img>
+                                    <img className = "layer_left_mini_button_image" alt = "clear.png" src = "clear.png"></img>
                                 </button>
                             </div>
                             <div className = "layer_button" id = "layer_button_2">
@@ -223,62 +223,62 @@ export class LoginMenu extends Component
                 </div>
                 <div className = "up_add_window" id = "pencil_window" style = {{ marginRight: "14.5%", display: "block" }}>
                     <div className = "pencil_window_thickness_block">
-                        <img className = "thicknessimg" src = "thickness.png"></img>
+                        <img className = "thicknessimg" alt = "thickness.png" src = "thickness.png"></img>
                         <input className = "up_add_window_slider" type = "range" id = "thickness_sliderValue" min = "1" max = "100" defaultValue = "1"></input>
                         <input className = "up_add_window_field" type = "number" id = "thickness_rangeValue" min = "1" max = "100" defaultValue = "1"></input>
                     </div>
                     <div className = "pencil_window_smoothing_block">
-                        <img className = "smoothingimg" src = "smoothing.png"></img>
+                        <img className = "smoothingimg" alt = "smoothing.png" src = "smoothing.png"></img>
                         <input className = "up_add_window_slider" type = "range" id = "smoothing_sliderValue" min = "0" max = "100" defaultValue = "0"></input>
                         <input className = "up_add_window_field" type = "number" id = "smoothing_rangeValue" min = "0" max = "100" defaultValue = "0"></input>
                     </div>
                 </div>
                 <div className = "up_add_window" id = "eraser_window" style = {{ marginRight: "7.5%", display: "none" }}>
                     <div className = "eraser_window_thickness_block">
-                        <img className = "thicknessimg" src = "thickness.png"></img>
+                        <img className = "thicknessimg" alt = "thickness.png" src = "thickness.png"></img>
                         <input className = "up_add_window_slider" type = "range" id = "e_thickness_sliderValue" min = "1" max = "100" defaultValue = "1"></input>
                         <input className = "up_add_window_field" type = "number" id = "e_thickness_rangeValue" min = "1" max = "100" defaultValue = "1"></input>
                     </div>
                 </div>
                 <button className = "up_panel_button_tool" id = "graphic_tablet" title = "Учитывать силу нажатия" style = {{ display: "none", position: "fixed", top: "4px", left: "10%" }}>
-                    <img className = "up_panel_button_image" id = "graphic_tablet_image" src = "graphic_tablet.png"></img>
+                    <img className = "up_panel_button_image" id = "graphic_tablet_image" alt = "graphic_tablet.png" src = "graphic_tablet.png"></img>
                 </button>
                 <div className = "palette_nav"></div>
                 <div className = "nav">
                     <div className = "icon_buttons">
                         <button className = "up_panel_button" id = "arrow_back" title = {"Отменить"}>
-                            <img className = "up_panel_button_image" id = "arrow_back_image" src = "undo_arrow.png"></img>
+                            <img className = "up_panel_button_image" id = "arrow_back_image" alt = "undo_arrow.png" src = "undo_arrow.png"></img>
                         </button>
                         <button className = "up_panel_button" id = "arrow_next" title = "Повторить">
-                            <img className = "up_panel_button_image" id = "arrow_next_image" src = "repeat_arrow.png"></img>
+                            <img className = "up_panel_button_image" id = "arrow_next_image" alt = "repeat_arrow.png" src = "repeat_arrow.png"></img>
                         </button>
                         <button className = "up_panel_button" id = "palette" title = "Выбор цвета">
-                            <img className = "up_panel_button_image" id = "clrimg" src = "palette.png" style = {{ filter: "invert(1)" }} ></img>
+                            <img className = "up_panel_button_image" id = "clrimg" alt = "palette.png" src = "palette.png" style = {{ filter: "invert(1)" }} ></img>
                         </button>
                         <button className = "up_panel_button_tool" id = "pencil" title = "Карандаш">
-                            <img className = "up_panel_button_image" id = "pencil_image" src = "pencil.png"></img>
+                            <img className = "up_panel_button_image" id = "pencil_image" alt = "pencil.png" src = "pencil.png"></img>
                         </button>
                         <button className = "up_panel_button_tool" id = "eraser" title = "Ластик">
-                            <img className = "up_panel_button_image" id = "eraser_image" src = "eraser.png"></img>
+                            <img className = "up_panel_button_image" id = "eraser_image" alt = "eraser.png" src = "eraser.png"></img>
                         </button>
                         <button className = "up_panel_button_tool" id = "bucket" title = "Заливка">
-                            <img className = "up_panel_button_image" id = "bucket_image" src = "bucket.png"></img>
+                            <img className = "up_panel_button_image" id = "bucket_image" alt = "bucket.png" src = "bucket.png"></img>
                         </button>
                         <button className = "up_panel_button_tool" id = "pipette" title = "Пипетка">
-                            <img className = "up_panel_button_image" id = "pipette_image" src = "pipette.png"></img>
+                            <img className = "up_panel_button_image" id = "pipette_image" alt = "pipette.png" src = "pipette.png"></img>
                         </button>
                         <button className = "up_panel_button" id = "clear" title = "Очистить рабочую область">
-                            <img className = "up_panel_button_image" id = "clearimg" src = "clear.png"></img>
+                            <img className = "up_panel_button_image" id = "clearimg" alt = "clear.png" src = "clear.png"></img>
                         </button>
                         <button className = "up_panel_button" id = "upload" title = "Загрузить изображение на сайт">
-                            <img className = "up_panel_button_image" id = "uploadimg" src = "upload.png"></img>
+                            <img className = "up_panel_button_image" id = "uploadimg" alt = "upload.png" src = "upload.png"></img>
                             <input className = "hiddenInput" type = "file" accept = "image/*,.png,.jpg,.gif,.web,.bmp" id = "my_hidden_file" name = "loadfile"></input>
                         </button>
                         <button className = "up_panel_button" id = "save" title = "Сохранить изображение">
-                            <img className = "up_panel_button_image" id = "saveimg" src = "save.png"></img>
+                            <img className = "up_panel_button_image" id = "saveimg" alt = "save.png" src = "save.png"></img>
                         </button>
                         <button className = "up_panel_button" id = "generate" data-toggle = "modal" title = "ИИ обработка">
-                            <img className = "up_panel_button_image" id = "generateimg" src = "generate.png"></img>
+                            <img className = "up_panel_button_image" id = "generateimg" alt = "generate.png" src = "generate.png"></img>
                         </button>
                     </div>
                 </div>
@@ -293,7 +293,7 @@ export class LoginMenu extends Component
     anonymousView(registerPath, loginPath)
     {
         return (
-            <div className = "start-page" data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+            <div className = "start-page" data-spy = "scroll" data-target = ".site-navbar-target" data-offset = "300">
                 <div>
                     <header className = "site-navbar site-navbar-target">
                         <div className ="row align-items-center position-relative">
@@ -358,19 +358,14 @@ export class LoginMenu extends Component
                     <div className = "line_looter" style = {{ width: "75%", borderTop: "solid 1px #489", margin: "0 auto", textAlign: "center" }} >
                         <div className = "links" style = {{ margin: "3px auto", textAlign: "center" }}>
                             <a href = "https://vk.com/stabledraw">
-                                <img className = "img-link" src = "vk.png" width = "50" height = "50" alt = "StableDraw"></img>
+                                <img className = "img-link" alt = "vk.png" src = "vk.png" width = "50" height = "50"></img>
                             </a>
                             <a href = "https://vk.com/app6613443#snippet_id=2&owner_id=402965562&project_id=296524">
-                                <img className = "img-link" src = "money.png" width = "50" height = "50" alt = "StableDraw"></img>
+                                <img className = "img-link" alt = "money.png" src = "money.png" width = "50" height = "50"></img>
                             </a>
                         </div>
                     </div>
                 </footer>
-                <React.Fragment>
-                    <Helmet>
-                        <script src = 'start_page_main.js'></script>
-                    </Helmet>
-                </React.Fragment>
             </div>
         );
     }

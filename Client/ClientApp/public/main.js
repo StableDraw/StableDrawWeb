@@ -2089,7 +2089,7 @@ document.addEventListener("keydown", (event) => {
                     case "KeyZ": //отмена последнего действия
                         undo_action();
                         return;
-                    case "KeyX": //вернуть последнее отменённое действие
+                    case "KeyY": //вернуть последнее отменённое действие
                         repeat_action();
                         return;
                 }

@@ -2,7 +2,7 @@
 "SpaProxyServer": {
 "ServerUrl": "https://localhost:44475",
 "LaunchCommand": "npm start",
-"WorkingDirectory": "C:\\repos\\CLI\\ClientApp\\",
+"WorkingDirectory": "C:\\Stable-Draw\\PostreSQL_Client_test\\ClientApp\\",
 "MaxTimeoutInSeconds": "120"
 }
 }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\repos\\CLI\\CLI.csproj": {}
+    "C:\\Stable-Draw\\PostreSQL_Client_test\\CLI.csproj": {}
   },
   "projects": {
-    "C:\\repos\\CLI\\CLI.csproj": {
+    "C:\\Stable-Draw\\PostreSQL_Client_test\\CLI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\repos\\CLI\\CLI.csproj",
+        "projectUniqueName": "C:\\Stable-Draw\\PostreSQL_Client_test\\CLI.csproj",
         "projectName": "CLI",
-        "projectPath": "C:\\repos\\CLI\\CLI.csproj",
+        "projectPath": "C:\\Stable-Draw\\PostreSQL_Client_test\\CLI.csproj",
         "packagesPath": "C:\\Users\\Robolightning\\.nuget\\packages\\",
-        "outputPath": "C:\\repos\\CLI\\obj\\",
+        "outputPath": "C:\\Stable-Draw\\PostreSQL_Client_test\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -68,11 +68,11 @@
               "target": "Package",
               "version": "[7.0.3, )"
             },
-            "Microsoft.EntityFrameworkCore.Sqlite": {
+            "Microsoft.EntityFrameworkCore.Tools": {
               "target": "Package",
               "version": "[7.0.3, )"
             },
-            "Microsoft.EntityFrameworkCore.Tools": {
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[7.0.3, )"
             }
