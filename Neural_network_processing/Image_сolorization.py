@@ -284,7 +284,7 @@ class BaseFilter(IFilter):
 
 class ColorizerFilter(BaseFilter):
     def __init__(self, learn: Learner, stats: tuple = imagenet_stats, map_to_orig: bool = True):
-        super().__init__(learn=learn, stats=stats)
+        super().__init__(learn = learn, stats = stats)
         self.render_base = 16
         self.map_to_orig = map_to_orig
 
@@ -300,11 +300,11 @@ class ColorizerFilter(BaseFilter):
     def _transform(self, image):
         return image.convert('LA').convert('RGB')
 
-    def add_intensity(self, img, intensity=1.7):
-        if intensity==1:
+    def add_intensity(self, img, intensity = 1.7):
+        if intensity == 1:
             return img
-        inter_const = 255. **(1-intensity)
-        return (inter_const * (img**intensity)).astype(np.uint8)
+        inter_const = 255. ** (1 - intensity)
+        return (inter_const * (img ** intensity)).astype(np.uint8)
 
     def _post_process(self, raw_color, orig, post_process: bool):
         raw_color = self._unsquare(raw_color, orig)
@@ -312,9 +312,8 @@ class ColorizerFilter(BaseFilter):
         orig_np = np.asarray(orig)
         if not post_process:
             color = self.add_intensity(color_np)
-
-            blurred = cv2.GaussianBlur(orig_np, (5,5),1)
-            res_blur = cv2.addWeighted(orig_np, 0.75,blurred , 0.25, 0)
+            blurred = cv2.GaussianBlur(orig_np, (5,5), 1)
+            res_blur = cv2.addWeighted(orig_np, 0.75, blurred, 0.25, 0)
             color = cv2.addWeighted(res_blur, 0.5, color, 0.5, 0)
             combined = self.add_intensity(color, intensity=0.9)
             return PIL.Image.fromarray(combined)

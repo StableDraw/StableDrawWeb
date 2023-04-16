@@ -129,7 +129,6 @@ class RouteGuideServicer(stable_draw_grpc_pb2_grpc.StableDrawGRPCServicer):
         params["ckpt"] = int(params["ckpt"])
         params["steps"] = int(params["steps"])
         params["render_factor"] = int(params["render_factor"])
-        params["clr_saturation_factor"] = int(params["clr_saturation_factor"])
         params["line_color_limit"] = int(params["line_color_limit"])
         w, h, binary_data = Image_сolorizer_gRPC(request.init_img_binary_data, params)
         return stable_draw_grpc_pb2.ImageReply(w = w, h = h, binary_data = binary_data)

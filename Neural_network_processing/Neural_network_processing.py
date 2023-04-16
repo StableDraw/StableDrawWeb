@@ -299,7 +299,7 @@ def colorize(init_img_binary_data, image_class):
 
     if settings["autophotofacepreset"] == True and image_class == 0: #нужно настроить и убрать лишнее
         params["steps"] = 1
-        params["ckpt"] = 0
+        params["ckpt"] = 1
         params["compare"] = False
         params["artistic"] = True
         params["render_factor"] = 12
@@ -309,7 +309,7 @@ def colorize(init_img_binary_data, image_class):
         params["clr_saturate_every_step"] = True
     elif settings["autophotonofacepreset"] == True and image_class == 1:
         params["steps"] = 1
-        params["ckpt"] = 0
+        params["ckpt"] = 1
         params["compare"] = False
         params["artistic"] = True
         params["render_factor"] = 12
@@ -329,32 +329,32 @@ def colorize(init_img_binary_data, image_class):
         params["clr_saturate_every_step"] = True
     elif settings["autonoproartpreset"] == True and image_class == 3:
         params["steps"] = 1
-        params["ckpt"] = 0
+        params["ckpt"] = 1
         params["compare"] = False
         params["artistic"] = True
         params["render_factor"] = 12
         params["post_process"] = True
-        params["clr_saturation_factor"] = 5
+        params["clr_saturation_factor"] = 1
         params["line_color_limit"] = 100
         params["clr_saturate_every_step"] = True
     elif settings["autoprolinepreset"] == True and image_class == 4:
         params["steps"] = 1
-        params["ckpt"] = 0
+        params["ckpt"] = 2
         params["compare"] = False
         params["artistic"] = True
         params["render_factor"] = 12
         params["post_process"] = True
-        params["clr_saturation_factor"] = 5
+        params["clr_saturation_factor"] = 2
         params["line_color_limit"] = 100
         params["clr_saturate_every_step"] = True
     elif settings["autoquicklinepreset"] == True and image_class == 5:
         params["steps"] = 1
-        params["ckpt"] = 0
+        params["ckpt"] = 2
         params["compare"] = False
         params["artistic"] = True
         params["render_factor"] = 12
         params["post_process"] = True
-        params["clr_saturation_factor"] = 8
+        params["clr_saturation_factor"] = 2
         params["line_color_limit"] = 40
         params["clr_saturate_every_step"] = True
 
@@ -798,11 +798,11 @@ async def neural_processing(process, nprocess):
                         params["ddim_eta"] = 0.0
                         params["strength"] = 0.7
                     elif settings["autoprolinepreset"] == True and image_class == 4:
-                        params["ddim_steps"] = 50
+                        params["ddim_steps"] = 70
                         params["scale"] = 9.0
                         params["ckpt"] = 0
                         params["ddim_eta"] = 0.0
-                        params["strength"] = 0.7
+                        params["strength"] = 0.1
                     elif settings["autoquicklinepreset"] == True and image_class == 5:
                         params["ddim_steps"] = 50
                         params["scale"] = 9.0
@@ -1197,7 +1197,9 @@ async def pre_processing(websocket, dictData_list):
                 img_suf = int(dictData["img_suf"])
                 task_id = dictData["task_id"]
                 message_id = dictData["chain_id"]
-                caption = dictData["prompt"]
+                task_dir = user_path + "\\" + task_id
+                with open(task_dir + "\\AI_caption_" + str(img_suf) + ".txt", 'r') as f:
+                    caption = f.read()
             else: #по человеческому описанию
                 Is_inpainting = dictData["is_inpainting"]
                 if dictData["chain_id"] == "":

@@ -202,8 +202,7 @@ def Stable_diffusion_depth_to_image(binary_data, prompt, opt):
     batch = midas_trafo(batch)
     batch["jpg"] = repeat(rearrange(batch["jpg"], 'h w c -> 1 c h w').to(device = device), "1 ... -> n ...", n = 1)
     batch["midas_in"] = repeat(torch.from_numpy(batch["midas_in"][None, ...]).to(device = device), "1 ... -> n ...", n = 1)
-    with torch.no_grad(),\
-            torch.autocast("cuda"):
+    with torch.no_grad(), torch.autocast("cuda"):
         z = model.get_first_stage_encoding(model.encode_first_stage(batch[model.first_stage_key]))  # move to latent space
         c = model.cond_stage_model.encode(batch["txt"])
         c_cat = list()
@@ -259,8 +258,7 @@ def Stable_diffusion_inpainting(binary_data, mask_data, prompt, opt):
     prng = numpy.random.RandomState(opt["seed"])
     start_code = prng.randn(1, 4, h // 8, w // 8)
     start_code = torch.from_numpy(start_code).to(device = device, dtype = torch.float32)
-    with torch.no_grad(), \
-            torch.autocast("cuda"):
+    with torch.no_grad(), torch.autocast("cuda"):
             image = numpy.array(image.convert("RGB"))
             image = image[None].transpose(0, 3, 1, 2)
             image = torch.from_numpy(image).to(dtype = torch.float32) / 127.5 - 1.0
@@ -335,8 +333,7 @@ def Stable_diffusion_upscaler(binary_data, prompt, opt):
     prng = numpy.random.RandomState(opt["seed"])
     start_code = prng.randn(1, model.channels, h , w)
     start_code = torch.from_numpy(start_code).to(device = device, dtype = torch.float32)
-    with torch.no_grad(),\
-            torch.autocast("cuda"):
+    with torch.no_grad(), torch.autocast("cuda"):
         image = numpy.array(image.convert("RGB"))
         image = torch.from_numpy(image).to(dtype = torch.float32) / 127.5 - 1.0
         batch = {
