@@ -57,18 +57,6 @@ export class LoginMenu extends Component
         }
     }
 
-    /*authenticatedView(userName, profilePath, logoutPath, logoutState)
-    {
-        return (<Fragment>
-        <NavItem>
-            <NavLink className="text-dark" tag = {Link} to = {profilePath}>{userName}</NavLink>
-        </NavItem>
-        <NavItem>
-            <NavLink className="text-dark" replace tag = {Link} to={logoutPath} state={logoutState}>Logout</NavLink>
-        </NavItem>
-        </Fragment>);
-    }*/
-
     authenticatedView(userName, profilePath, logoutPath, logoutState)
     {
         return (
