@@ -148,6 +148,9 @@
           }
         }
       },
+      "jquery.TypeScript.DefinitelyTyped/3.1.2": {
+        "type": "package"
+      },
       "MailKit/4.0.0": {
         "type": "package",
         "dependencies": {
@@ -186,6 +189,22 @@
         },
         "runtime": {
           "lib/net8.0/Microsoft.AspNetCore.ApiAuthorization.IdentityServer.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
+      "Microsoft.AspNetCore.Authentication.Google/8.0.0-preview.3.23177.8": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Microsoft.AspNetCore.Authentication.Google.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.AspNetCore.Authentication.Google.dll": {
             "related": ".xml"
           }
         },
@@ -892,6 +911,13 @@
           }
         }
       },
+      "Microsoft.TypeScript.MSBuild/5.1.0-beta": {
+        "type": "package",
+        "build": {
+          "build/Microsoft.TypeScript.MSBuild.props": {},
+          "build/Microsoft.TypeScript.MSBuild.targets": {}
+        }
+      },
       "MimeKit/4.0.0": {
         "type": "package",
         "dependencies": {
@@ -1449,6 +1475,18 @@
         "lib/netstandard2.0/IdentityModel.xml"
       ]
     },
+    "jquery.TypeScript.DefinitelyTyped/3.1.2": {
+      "sha512": "km6S6ElHdLPBxNf1qj5vQjkw1rpRe5Hwf/1aFo5TZtl3ZSfc//lcdsVTfPZz78o+/dkhEC+ZJcRONNlVDAJg6A==",
+      "type": "package",
+      "path": "jquery.typescript.definitelytyped/3.1.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Content/Scripts/typings/jquery/jquery.d.ts",
+        "jquery.typescript.definitelytyped.3.1.2.nupkg.sha512",
+        "jquery.typescript.definitelytyped.nuspec"
+      ]
+    },
     "MailKit/4.0.0": {
       "sha512": "vtP6nUU0ByEZTnpbtsfdxyRvcssNSgIml4zi2hpBOV4gYNoaYSt+4VCx28MMnfaO/9J1IzcG+Hc8kXMkWX6iRQ==",
       "type": "package",
@@ -1498,6 +1536,21 @@
         "lib/net8.0/Microsoft.AspNetCore.ApiAuthorization.IdentityServer.xml",
         "microsoft.aspnetcore.apiauthorization.identityserver.8.0.0-preview.3.23177.8.nupkg.sha512",
         "microsoft.aspnetcore.apiauthorization.identityserver.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Authentication.Google/8.0.0-preview.3.23177.8": {
+      "sha512": "OXwKBMtZXmAsat/VMZzjn5x3VXDgViVDEzEMD9HDOweVg3bbw0E8H3XFdRQNYWL8DEyaVV5Q2HVlko/ZYi18WQ==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.authentication.google/8.0.0-preview.3.23177.8",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net8.0/Microsoft.AspNetCore.Authentication.Google.dll",
+        "lib/net8.0/Microsoft.AspNetCore.Authentication.Google.xml",
+        "microsoft.aspnetcore.authentication.google.8.0.0-preview.3.23177.8.nupkg.sha512",
+        "microsoft.aspnetcore.authentication.google.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Authentication.JwtBearer/8.0.0-preview.3.23177.8": {
@@ -2559,6 +2612,135 @@
         "microsoft.identitymodel.tokens.nuspec"
       ]
     },
+    "Microsoft.TypeScript.MSBuild/5.1.0-beta": {
+      "sha512": "ptR8cS4Pdbw0jueLBZ6dzc5gGLu+w3gX2D43IzjJpmRv97tyY0UJyBe56WgJrjRSgbT47wE/U+evheKQq2cOoQ==",
+      "type": "package",
+      "path": "microsoft.typescript.msbuild/5.1.0-beta",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "License.txt",
+        "build/Microsoft.TypeScript.MSBuild.props",
+        "build/Microsoft.TypeScript.MSBuild.targets",
+        "microsoft.typescript.msbuild.5.1.0-beta.nupkg.sha512",
+        "microsoft.typescript.msbuild.nuspec",
+        "tools/Microsoft.TypeScript.Default.props",
+        "tools/Microsoft.TypeScript.targets",
+        "tools/TypeScriptProjectProperties.xaml",
+        "tools/net45/System.IO.FileSystem.Primitives.dll",
+        "tools/net45/System.IO.FileSystem.dll",
+        "tools/net45/TypeScript.Tasks.dll",
+        "tools/netstandard1.3/TypeScript.Tasks.dll",
+        "tools/tsc/cancellationToken.js",
+        "tools/tsc/cs/diagnosticMessages.generated.json",
+        "tools/tsc/de/diagnosticMessages.generated.json",
+        "tools/tsc/en/diagnosticMessages.generated.json",
+        "tools/tsc/es/diagnosticMessages.generated.json",
+        "tools/tsc/fr/diagnosticMessages.generated.json",
+        "tools/tsc/it/diagnosticMessages.generated.json",
+        "tools/tsc/ja/diagnosticMessages.generated.json",
+        "tools/tsc/ko/diagnosticMessages.generated.json",
+        "tools/tsc/lib.d.ts",
+        "tools/tsc/lib.decorators.d.ts",
+        "tools/tsc/lib.decorators.legacy.d.ts",
+        "tools/tsc/lib.dom.d.ts",
+        "tools/tsc/lib.dom.iterable.d.ts",
+        "tools/tsc/lib.es2015.collection.d.ts",
+        "tools/tsc/lib.es2015.core.d.ts",
+        "tools/tsc/lib.es2015.d.ts",
+        "tools/tsc/lib.es2015.generator.d.ts",
+        "tools/tsc/lib.es2015.iterable.d.ts",
+        "tools/tsc/lib.es2015.promise.d.ts",
+        "tools/tsc/lib.es2015.proxy.d.ts",
+        "tools/tsc/lib.es2015.reflect.d.ts",
+        "tools/tsc/lib.es2015.symbol.d.ts",
+        "tools/tsc/lib.es2015.symbol.wellknown.d.ts",
+        "tools/tsc/lib.es2016.array.include.d.ts",
+        "tools/tsc/lib.es2016.d.ts",
+        "tools/tsc/lib.es2016.full.d.ts",
+        "tools/tsc/lib.es2017.d.ts",
+        "tools/tsc/lib.es2017.full.d.ts",
+        "tools/tsc/lib.es2017.intl.d.ts",
+        "tools/tsc/lib.es2017.object.d.ts",
+        "tools/tsc/lib.es2017.sharedmemory.d.ts",
+        "tools/tsc/lib.es2017.string.d.ts",
+        "tools/tsc/lib.es2017.typedarrays.d.ts",
+        "tools/tsc/lib.es2018.asyncgenerator.d.ts",
+        "tools/tsc/lib.es2018.asynciterable.d.ts",
+        "tools/tsc/lib.es2018.d.ts",
+        "tools/tsc/lib.es2018.full.d.ts",
+        "tools/tsc/lib.es2018.intl.d.ts",
+        "tools/tsc/lib.es2018.promise.d.ts",
+        "tools/tsc/lib.es2018.regexp.d.ts",
+        "tools/tsc/lib.es2019.array.d.ts",
+        "tools/tsc/lib.es2019.d.ts",
+        "tools/tsc/lib.es2019.full.d.ts",
+        "tools/tsc/lib.es2019.intl.d.ts",
+        "tools/tsc/lib.es2019.object.d.ts",
+        "tools/tsc/lib.es2019.string.d.ts",
+        "tools/tsc/lib.es2019.symbol.d.ts",
+        "tools/tsc/lib.es2020.bigint.d.ts",
+        "tools/tsc/lib.es2020.d.ts",
+        "tools/tsc/lib.es2020.date.d.ts",
+        "tools/tsc/lib.es2020.full.d.ts",
+        "tools/tsc/lib.es2020.intl.d.ts",
+        "tools/tsc/lib.es2020.number.d.ts",
+        "tools/tsc/lib.es2020.promise.d.ts",
+        "tools/tsc/lib.es2020.sharedmemory.d.ts",
+        "tools/tsc/lib.es2020.string.d.ts",
+        "tools/tsc/lib.es2020.symbol.wellknown.d.ts",
+        "tools/tsc/lib.es2021.d.ts",
+        "tools/tsc/lib.es2021.full.d.ts",
+        "tools/tsc/lib.es2021.intl.d.ts",
+        "tools/tsc/lib.es2021.promise.d.ts",
+        "tools/tsc/lib.es2021.string.d.ts",
+        "tools/tsc/lib.es2021.weakref.d.ts",
+        "tools/tsc/lib.es2022.array.d.ts",
+        "tools/tsc/lib.es2022.d.ts",
+        "tools/tsc/lib.es2022.error.d.ts",
+        "tools/tsc/lib.es2022.full.d.ts",
+        "tools/tsc/lib.es2022.intl.d.ts",
+        "tools/tsc/lib.es2022.object.d.ts",
+        "tools/tsc/lib.es2022.regexp.d.ts",
+        "tools/tsc/lib.es2022.sharedmemory.d.ts",
+        "tools/tsc/lib.es2022.string.d.ts",
+        "tools/tsc/lib.es2023.array.d.ts",
+        "tools/tsc/lib.es2023.d.ts",
+        "tools/tsc/lib.es2023.full.d.ts",
+        "tools/tsc/lib.es5.d.ts",
+        "tools/tsc/lib.es6.d.ts",
+        "tools/tsc/lib.esnext.array.d.ts",
+        "tools/tsc/lib.esnext.asynciterable.d.ts",
+        "tools/tsc/lib.esnext.bigint.d.ts",
+        "tools/tsc/lib.esnext.d.ts",
+        "tools/tsc/lib.esnext.full.d.ts",
+        "tools/tsc/lib.esnext.intl.d.ts",
+        "tools/tsc/lib.esnext.promise.d.ts",
+        "tools/tsc/lib.esnext.string.d.ts",
+        "tools/tsc/lib.esnext.symbol.d.ts",
+        "tools/tsc/lib.esnext.weakref.d.ts",
+        "tools/tsc/lib.scripthost.d.ts",
+        "tools/tsc/lib.webworker.d.ts",
+        "tools/tsc/lib.webworker.importscripts.d.ts",
+        "tools/tsc/lib.webworker.iterable.d.ts",
+        "tools/tsc/node_modules/@microsoft/typescript-etw/bin/ia32/typescript-etw.node",
+        "tools/tsc/node_modules/@microsoft/typescript-etw/index.js",
+        "tools/tsc/node_modules/@microsoft/typescript-etw/package.json",
+        "tools/tsc/node_modules/source-map-support.js",
+        "tools/tsc/pl/diagnosticMessages.generated.json",
+        "tools/tsc/pt-BR/diagnosticMessages.generated.json",
+        "tools/tsc/ru/diagnosticMessages.generated.json",
+        "tools/tsc/tr/diagnosticMessages.generated.json",
+        "tools/tsc/tsc.js",
+        "tools/tsc/tsserver.js",
+        "tools/tsc/typesMap.json",
+        "tools/tsc/typingsInstaller.js",
+        "tools/tsc/watchGuard.js",
+        "tools/tsc/zh-CN/diagnosticMessages.generated.json",
+        "tools/tsc/zh-TW/diagnosticMessages.generated.json"
+      ]
+    },
     "MimeKit/4.0.0": {
       "sha512": "AIyj//7nDutepZjMlYFbc19PguEl+35lryQJX2YVr486G7ihfB4X4lPXjNUyjCcclr3Wq0P2yiQ6+Sonqc7z5A==",
       "type": "package",
@@ -3128,6 +3310,7 @@
     "net8.0": [
       "MailKit >= 4.0.0",
       "Microsoft.AspNetCore.ApiAuthorization.IdentityServer >= 8.0.0-preview.3.23177.8",
+      "Microsoft.AspNetCore.Authentication.Google >= 8.0.0-preview.3.23177.8",
       "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore >= 8.0.0-preview.3.23177.8",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 8.0.0-preview.3.23177.8",
       "Microsoft.AspNetCore.Identity.UI >= 8.0.0-preview.3.23177.8",
@@ -3135,8 +3318,10 @@
       "Microsoft.EntityFrameworkCore.Relational >= 8.0.0-preview.3.23174.2",
       "Microsoft.EntityFrameworkCore.Sqlite >= 8.0.0-preview.3.23174.2",
       "Microsoft.EntityFrameworkCore.Tools >= 8.0.0-preview.3.23174.2",
+      "Microsoft.TypeScript.MSBuild >= 5.1.0-beta",
       "MimeKit >= 4.0.0",
-      "Npgsql.EntityFrameworkCore.PostgreSQL >= 8.0.0-preview.3"
+      "Npgsql.EntityFrameworkCore.PostgreSQL >= 8.0.0-preview.3",
+      "jquery.TypeScript.DefinitelyTyped >= 3.1.2"
     ]
   },
   "packageFolders": {
@@ -3146,11 +3331,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Stable-Draw\\Client_test\\CLI.csproj",
+      "projectUniqueName": "C:\\repos\\Client_test\\CLI.csproj",
       "projectName": "CLI",
-      "projectPath": "C:\\Stable-Draw\\Client_test\\CLI.csproj",
+      "projectPath": "C:\\repos\\Client_test\\CLI.csproj",
       "packagesPath": "C:\\Users\\Robolightning\\.nuget\\packages\\",
-      "outputPath": "C:\\Stable-Draw\\Client_test\\obj\\",
+      "outputPath": "C:\\repos\\Client_test\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -3191,6 +3376,10 @@
             "target": "Package",
             "version": "[8.0.0-preview.3.23177.8, )"
           },
+          "Microsoft.AspNetCore.Authentication.Google": {
+            "target": "Package",
+            "version": "[8.0.0-preview.3.23177.8, )"
+          },
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
             "target": "Package",
             "version": "[8.0.0-preview.3.23177.8, )"
@@ -3219,6 +3408,12 @@
             "target": "Package",
             "version": "[8.0.0-preview.3.23174.2, )"
           },
+          "Microsoft.TypeScript.MSBuild": {
+            "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "[5.1.0-beta, )"
+          },
           "MimeKit": {
             "target": "Package",
             "version": "[4.0.0, )"
@@ -3226,6 +3421,10 @@
           "Npgsql.EntityFrameworkCore.PostgreSQL": {
             "target": "Package",
             "version": "[8.0.0-preview.3, )"
+          },
+          "jquery.TypeScript.DefinitelyTyped": {
+            "target": "Package",
+            "version": "[3.1.2, )"
           }
         },
         "imports": [

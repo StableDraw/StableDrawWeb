@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using CLI.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
 
 namespace CLI.Areas.Identity.Pages.Account
@@ -81,6 +82,11 @@ namespace CLI.Areas.Identity.Pages.Account
             [Display(Name = "Email")]
             public string Email { get; set; }
 
+            [Required]
+            [StringLength(20, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
+            [Display(Name = "Username")]
+            public string Username { get; set; }
+
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -116,10 +122,9 @@ namespace CLI.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+                await _userStore.SetUserNameAsync(user, Input.Username, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
-
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
@@ -133,7 +138,7 @@ namespace CLI.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    string body = $"Пожалуйста подтвердите свой аккаунт <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>перейдя по ссылке</a>.";
+                    string body = $"Здравствуйте, {Input.Username}. Для завершения регистрации на сайте StableDraw, подтвердите свой аккаунт <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>перейдя по ссылке</a>. Эта ссылка будет действовать в течение 5 ч.";
                     await _emailSender.SendEmailAsync(Input.Email, "Подтверждение адреса электронной почты", body);
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
