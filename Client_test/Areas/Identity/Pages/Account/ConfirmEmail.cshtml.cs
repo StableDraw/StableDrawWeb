@@ -59,7 +59,7 @@ namespace CLI.Areas.Identity.Pages.Account
             }
 
             await _signInManager.SignInAsync(user, false);
-            return Redirect("~/");
+            return Redirect("~/drawing-to-img");
             //return Page();
         }   
     }
