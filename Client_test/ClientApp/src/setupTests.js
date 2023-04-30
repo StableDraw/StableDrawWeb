@@ -12,10 +12,10 @@ window.fetch = () => {
     {
       ok: true,
       json: () => Promise.resolve({
-        "authority": "https://localhost:7106",
+        "authority": "https://localhost:7079",
         "client_id": "CLI",
-        "redirect_uri": "https://localhost:7106/authentication/login-callback",
-        "post_logout_redirect_uri": "https://localhost:7106/authentication/logout-callback",
+        "redirect_uri": "https://localhost:7079/authentication/login-callback",
+        "post_logout_redirect_uri": "https://localhost:7079/authentication/logout-callback",
         "response_type": "id_token token",
         "scope": "CLIAPI openid profile"
      })
