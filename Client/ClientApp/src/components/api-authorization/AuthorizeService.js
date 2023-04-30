@@ -1,8 +1,7 @@
 import { UserManager, WebStorageStateStore } from 'oidc-client';
 import { ApplicationPaths, ApplicationName } from './ApiAuthorizationConstants';
 
-export class AuthorizeService
-{
+export class AuthorizeService {
   _callbacks = [];
   _nextSubscriptionId = 0;
   _user = null;
@@ -12,17 +11,14 @@ export class AuthorizeService
   // If you want to enable pop up authentication simply set this flag to false.
   _popUpDisabled = true;
 
-    async isAuthenticated()
-    {
-        const user = await this.getUser();
-        return !!user;
-    }
+  async isAuthenticated() {
+    const user = await this.getUser();
+    return !!user;
+  }
 
-    async getUser()
-    {
-        if (this._user && this._user.profile)
-        {
-        return this._user.profile;
+  async getUser() {
+    if (this._user && this._user.profile) {
+      return this._user.profile;
     }
 
     await this.ensureUserManagerInitialized();

@@ -42,7 +42,7 @@ namespace CLI.Areas.Identity.Pages.Account
         {
             if (userId == null || code == null)
             {
-                return Redirect("~/");
+                return Redirect("~/drawing-to-img");
             }
 
             var user = await _userManager.FindByIdAsync(userId);
@@ -59,7 +59,7 @@ namespace CLI.Areas.Identity.Pages.Account
             }
 
             await _signInManager.SignInAsync(user, false);
-            return Redirect("~/");
+            return Redirect("~/drawing-to-img");
             //return Page();
         }   
     }

@@ -10,6 +10,7 @@
         "dependencies": {
           "MailKit": "4.0.0",
           "Microsoft.AspNetCore.ApiAuthorization.IdentityServer": "8.0.0-preview.3.23177.8",
+          "Microsoft.AspNetCore.Authentication.Google": "8.0.0-preview.3.23177.8",
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "8.0.0-preview.3.23177.8",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.0-preview.3.23177.8",
           "Microsoft.AspNetCore.Identity.UI": "8.0.0-preview.3.23177.8",
@@ -146,6 +147,14 @@
         },
         "runtime": {
           "lib/net8.0/Microsoft.AspNetCore.ApiAuthorization.IdentityServer.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.17708"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Authentication.Google/8.0.0-preview.3.23177.8": {
+        "runtime": {
+          "lib/net8.0/Microsoft.AspNetCore.Authentication.Google.dll": {
             "assemblyVersion": "8.0.0.0",
             "fileVersion": "8.0.23.17708"
           }
@@ -783,6 +792,13 @@
       "sha512": "sha512-oUQNKXfdh/r4NcqcGPh1D+eQuebQ3VxAVyyxM0quIYNKhABe5RP7mzO4Grckvnro50Apq0KFFI3hWAZ0FbozUA==",
       "path": "microsoft.aspnetcore.apiauthorization.identityserver/8.0.0-preview.3.23177.8",
       "hashPath": "microsoft.aspnetcore.apiauthorization.identityserver.8.0.0-preview.3.23177.8.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Authentication.Google/8.0.0-preview.3.23177.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-OXwKBMtZXmAsat/VMZzjn5x3VXDgViVDEzEMD9HDOweVg3bbw0E8H3XFdRQNYWL8DEyaVV5Q2HVlko/ZYi18WQ==",
+      "path": "microsoft.aspnetcore.authentication.google/8.0.0-preview.3.23177.8",
+      "hashPath": "microsoft.aspnetcore.authentication.google.8.0.0-preview.3.23177.8.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Authentication.JwtBearer/8.0.0-preview.3.23177.8": {
       "type": "package",
