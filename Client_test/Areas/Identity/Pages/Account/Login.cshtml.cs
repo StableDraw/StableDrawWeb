@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
@@ -25,11 +25,13 @@ namespace CLI.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger<LoginModel> logger)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _userManager = userManager;
         }
 
         /// <summary>
@@ -69,9 +71,9 @@ namespace CLI.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required]
-            [StringLength(20, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
             [DataType(DataType.Text)]
-            public string Username { get; set; }
+            [RegularExpression("^[a-zA-Z0-9@.]*$", ErrorMessage = "Допустимы только цифры и латинские буквы")]
+            public string UserName { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -114,20 +116,42 @@ namespace CLI.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(Input.Username, Input.Password, Input.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
+                string username = "";
+                CLI.Models.ApplicationUser user;
+                if (Input.UserName.Contains('@'))
                 {
-                    _logger.LogInformation("Пользователь осуществил вход");
-                    return LocalRedirect(returnUrl);
+                    user = await _userManager.FindByEmailAsync(Input.UserName);
+                    if (user != null)
+                    {
+                        username = user.UserName;
+                    }
                 }
-                if (result.RequiresTwoFactor)
+                else
                 {
-                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
+                    username = Input.UserName;
                 }
-                if (result.IsLockedOut)
+                if (username != "")
                 {
-                    _logger.LogWarning("Аккаунт пользователя заблокирован");
-                    return RedirectToPage("./Lockout");
+                    var result = await _signInManager.PasswordSignInAsync(username, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                    if (result.Succeeded)
+                    {
+                        _logger.LogInformation("Пользователь осуществил вход");
+                        return LocalRedirect(returnUrl);
+                    }
+                    if (result.RequiresTwoFactor)
+                    {
+                        return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
+                    }
+                    if (result.IsLockedOut)
+                    {
+                        _logger.LogWarning("Аккаунт пользователя заблокирован");
+                        return RedirectToPage("./Lockout");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "Некорректное имя пользователя или пароль");
+                        return Page();
+                    }
                 }
                 else
                 {

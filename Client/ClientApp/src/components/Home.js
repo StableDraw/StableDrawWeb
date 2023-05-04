@@ -3,26 +3,30 @@ import { NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import authService from './api-authorization/AuthorizeService';
 import { ApplicationPaths } from './api-authorization/ApiAuthorizationConstants';
-export class Home extends Component {
-    constructor(props) {
+export class Home extends Component
+{
+    constructor(props)
+    {
         super(props);
-
         this.state = {
             isAuthenticated: false,
             userName: null
         };
     }
 
-    componentDidMount() {
+    componentDidMount()
+    {
         this._subscription = authService.subscribe(() => this.populateState());
         this.populateState();
     }
 
-    componentWillUnmount() {
+    componentWillUnmount()
+    {
         authService.unsubscribe(this._subscription);
     }
 
-    async populateState() {
+    async populateState()
+    {
         const [isAuthenticated, user] = await Promise.all([authService.isAuthenticated(), authService.getUser()])
         this.setState({
             isAuthenticated,
@@ -30,14 +34,17 @@ export class Home extends Component {
         });
     }
 
-    render() {
+    render()
+    {
         const { isAuthenticated, userName } = this.state;
-        if (!isAuthenticated) {
+        if (!isAuthenticated)
+        {
             const registerPath = `${ApplicationPaths.Register}`;
             const loginPath = `${ApplicationPaths.Login}`;
             return this.anonymousView(registerPath, loginPath);
         }
-        else {
+        else
+        {
             const profilePath = `${ApplicationPaths.Profile}`;
             const logoutPath = `${ApplicationPaths.LogOut}`;
             const logoutState = {
@@ -47,7 +54,8 @@ export class Home extends Component {
         }
     }
 
-    authenticatedView(userName, profilePath, logoutPath, logoutState) {
+    authenticatedView(userName, profilePath, logoutPath, logoutState)
+    {
         return (
             <div className="start-page" data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
                 <div>

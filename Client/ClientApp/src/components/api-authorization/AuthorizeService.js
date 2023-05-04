@@ -16,15 +16,16 @@ export class AuthorizeService {
     return !!user;
   }
 
-  async getUser() {
-    if (this._user && this._user.profile) {
-      return this._user.profile;
+    async getUser()
+    {
+        if (this._user && this._user.profile)
+        {
+            return this._user.profile;
+        }
+        await this.ensureUserManagerInitialized();
+        const user = await this.userManager.getUser();
+        return user && user.profile;
     }
-
-    await this.ensureUserManagerInitialized();
-    const user = await this.userManager.getUser();
-    return user && user.profile;
-  }
 
   async getAccessToken() {
     await this.ensureUserManagerInitialized();
@@ -158,29 +159,43 @@ export class AuthorizeService {
     }
   }
 
-  createArguments(state) {
-    return { useReplaceToNavigate: true, data: state };
-  }
+    createArguments(state)
+    {
+      return {
+          useReplaceToNavigate: true, data: state
+      };
+    }
 
   error(message) {
-    return { status: AuthenticationResultStatus.Fail, message };
+      return {
+          status: AuthenticationResultStatus.Fail, message
+      };
   }
 
-  success(state) {
-    return { status: AuthenticationResultStatus.Success, state };
+    success(state)
+    {
+        return {
+            status: AuthenticationResultStatus.Success, state
+        };
   }
 
-  redirect() {
-    return { status: AuthenticationResultStatus.Redirect };
+    redirect()
+    {
+        return {
+            status: AuthenticationResultStatus.Redirect
+        };
   }
 
-  async ensureUserManagerInitialized() {
-    if (this.userManager !== undefined) {
+    async ensureUserManagerInitialized()
+    {
+      if (this.userManager !== undefined)
+      {
       return;
     }
 
     let response = await fetch(ApplicationPaths.ApiAuthorizationClientConfigurationUrl);
-    if (!response.ok) {
+      if (!response.ok)
+      {
       throw new Error(`Could not load settings for '${ApplicationName}'`);
     }
 
@@ -199,7 +214,10 @@ export class AuthorizeService {
     });
   }
 
-  static get instance() { return authService }
+    static get instance()
+    {
+        return authService
+    }
 }
 
 const authService = new AuthorizeService();

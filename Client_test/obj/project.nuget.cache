@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+KaBHPoVGqEKxlp4bYTcY+E6xQzo+W6IGxyZWUF3XAeKQY3WyawK4m4Ep6d1tXlvqbBloPUM6SI3b57xXCoB3Q==",
+  "dgSpecHash": "gnHdEC+3XzctamuCFRNwOyLvczEJX/endhsIB/itCgvcCMSuMBYn+OtzNpiN8pz8SENE7Or7rvkL82T2Adrh/w==",
   "success": true,
-  "projectFilePath": "C:\\repos\\Client_test\\CLI.csproj",
+  "projectFilePath": "C:\\Stable-Draw\\Client_test\\CLI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Robolightning\\.nuget\\packages\\automapper\\11.0.0\\automapper.11.0.0.nupkg.sha512",
     "C:\\Users\\Robolightning\\.nuget\\packages\\bouncycastle.cryptography\\2.1.1\\bouncycastle.cryptography.2.1.1.nupkg.sha512",

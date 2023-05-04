@@ -32,8 +32,6 @@ namespace CLI.Areas.Identity.Pages.Account
             _logger.LogInformation("User logged out.");
             if (returnUrl != null)
             {
-                await HttpContext.SignOutAsync(
-                    CookieAuthenticationDefaults.AuthenticationScheme);
                 return LocalRedirect(returnUrl);
             }
             else

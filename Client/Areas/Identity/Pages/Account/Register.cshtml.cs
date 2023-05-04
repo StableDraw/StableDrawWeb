@@ -84,6 +84,7 @@ namespace CLI.Areas.Identity.Pages.Account
 
             [Required]
             [StringLength(20, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
+            [RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "Only Alphabets and Numbers allowed.")]
             [Display(Name = "Username")]
             public string Username { get; set; }
 
