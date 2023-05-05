@@ -8,13 +8,6 @@ body
 {
     touch-action: none;
 }
-button 
-{
-    margin: 0em;
-    font-family: inherit;
-    font-family: inherit;
-    font-family: inherit;
-}
 .subbody 
 {
     touch-action: none;
@@ -624,6 +617,7 @@ button
 .ctype_clr_btn
 {
     touch-action: none;
+    font-size: 15px;
     color: #000000;
     background-color:#ffffff;
     height: 30%;
@@ -635,6 +629,7 @@ button
 .ok_clr_btn
 {
     touch-action: none;
+    font-size: 15px;
     color: #ffffff;
     background-color:#000000;
     height: 30%;

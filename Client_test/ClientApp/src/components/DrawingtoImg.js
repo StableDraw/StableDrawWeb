@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import authService from './api-authorization/AuthorizeService'
-import { DrawingScript } from './main';
+import { Helmet } from 'react-helmet';
 import { NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { ApplicationPaths } from './api-authorization/ApiAuthorizationConstants';
@@ -20,7 +20,6 @@ export class DrawingtoImg extends Component
         
         this._subscription = authService.subscribe(() => this.populateState());
         this.populateState();
-        DrawingScript.script();
     }
 
     componentWillUnmount()
@@ -68,47 +67,47 @@ export class DrawingtoImg extends Component
                         &times;
                     </a>
                     <div id="mods_of_work" className="mods_of_work">
-                        <a href="#" className="work_mode_href" title=" ‡ÚËÌ‡ ÔÓ ÚÂÍÒÚÓ‚ÓÏÛ ÓÔËÒ‡ÌË˛" style={{ borderBottomStyle: "hidden" }}>
+                        <a href="#" className="work_mode_href" title="–ö–∞—Ä—Ç–∏–Ω–∞ –ø–æ —Ç–µ–∫—Å—Ç–æ–≤–æ–º—É –æ–ø–∏—Å–∞–Ω–∏—é" style={{ borderBottomStyle: "hidden" }}>
                             <img className="work_mode_img_btn" alt="text_to_image.png" src="text_to_image.png"></img>
                         </a>
-                        <a className="work_mode_href" id="selected_work_mode" title=" ‡ÚËÌ‡ ËÁ ËÒÛÌÍ‡ (‚˚·‡ÌÓ)">
+                        <a className="work_mode_href" id="selected_work_mode" title="–ö–∞—Ä—Ç–∏–Ω–∞ –∏–∑ —Ä–∏—Å—É–Ω–∫–∞ (–≤—ã–±—Ä–∞–Ω–æ)">
                             <img className="work_mode_img_btn" alt="image_to_image.png" src="image_to_image.png"></img>
                         </a>
-                        <a href="#" className="work_mode_href" title="Œ·‡·ÓÚÍ‡ ËÁÓ·‡ÊÂÌËÈ Ò ÍÓÏ¸˛ÚÂ‡" style={{ borderTopStyle: "hidden" }}>
+                        <a href="#" className="work_mode_href" title="–û–±—Ä–∞–±–æ—Ç–∫–∞ –∏–∑–æ–±—Ä–∞–∂–µ–Ω–∏–π —Å –∫–æ–º—å—é—Ç–µ—Ä–∞" style={{ borderTopStyle: "hidden" }}>
                             <img className="work_mode_img_btn" alt="photo_to_image.png" src="photo_to_image.png"></img>
                         </a>
-                        <a href="#" className="work_mode_href" title="—ÓÁ‰‡ÌËÂ ‡ÌËÏ‡ˆËË" style={{ borderTopStyle: "hidden" }}>
+                        <a href="#" className="work_mode_href" title="–°–æ–∑–¥–∞–Ω–∏–µ –∞–Ω–∏–º–∞—Ü–∏–∏" style={{ borderTopStyle: "hidden" }}>
                             <img className="work_mode_img_btn" alt="frames_to_animation.png" src="frames_to_animation.png"></img>
                         </a>
                     </div>
                     <div className="sidepanel_bottom_buttons">
-                        <button className="sidepanel_bottom_button" title="Õ‡ÒÚÓÈÍË">
+                        <button className="sidepanel_bottom_button" title="–ù–∞—Å—Ç—Ä–æ–π–∫–∏">
                             <img className="sidepanel_bottom_button_img" alt="settings.png" src="settings.png"></img>
                         </button>
-                        <button className="sidepanel_bottom_button" id="change_theme" title="“∏ÏÌ‡ˇ/Ò‚ÂÚÎ‡ˇ ÚÂÏ‡">
+                        <button className="sidepanel_bottom_button" id="change_theme" title="–¢—ë–º–Ω–∞—è/—Å–≤–µ—Ç–ª–∞—è —Ç–µ–º–∞">
                             <img className="sidepanel_bottom_button_img" id="theme_mode_img" alt="dark mode.png" src="dark mode.png"></img>
                         </button>
-                        <button className="sidepanel_bottom_button" title="ﬂÁ˚Í/language">
+                        <button className="sidepanel_bottom_button" title="–Ø–∑—ã–∫/language">
                             <img className="sidepanel_bottom_button_img" alt="language.png" src="language.png"></img>
                         </button>
                     </div>
                     <div className="helpfull_links" fontSize="2px" style={{ bottom: "8%" }}>
-                        <NavLink className="helpfull_link" title="œÓÙËÎ¸" style={{ width: "100%" }} tag={Link} to={profilePath}>
+                        <NavLink className="helpfull_link" title="–ü—Ä–æ—Ñ–∏–ª—å" style={{ width: "100%" }} tag={Link} to={profilePath}>
                             {userName}
                         </NavLink>
                         <NavLink className="helpfull_link" style={{ width: "30%", marginRight: "auto", marginLeft: "auto" }} replace tag={Link} to={logoutPath} state={logoutState}>
-                            ¬˚ÈÚË
+                            –í—ã–π—Ç–∏
                         </NavLink>
                     </div>
                     <div className="helpfull_links" fontSize="2px">
                         <div className="helpfull_link">
                             <a href="#">
-                                Œ Ì‡Ò
+                                –û –Ω–∞—Å
                             </a>
                         </div>
                         <div className="helpfull_link">
                             <a href="#">
-                                œÓÏÓ˘¸
+                                –ü–æ–º–æ—â—å
                             </a>
                         </div>
                     </div>
@@ -122,20 +121,20 @@ export class DrawingtoImg extends Component
                 </div>
                 <div className="layers">
                     <div className="layers_buttons">
-                        <button className="layers_mini_button" id="merge_layers" title="Œ·˙Â‰ËÌËÚ¸ ÒÎÓË">
+                        <button className="layers_mini_button" id="merge_layers" title="–û–±—ä–µ–¥–∏–Ω–∏—Ç—å —Å–ª–æ–∏">
                             <img className="layers_mini_button_image" alt="merge.png" src="merge.png"></img>
                         </button>
-                        <button className="layers_mini_button" id="swap_layers" title="œÓÏÂÌˇÚ¸ ÒÎÓË ÏÂÒÚ‡ÏË">
+                        <button className="layers_mini_button" id="swap_layers" title="–ü–æ–º–µ–Ω—è—Ç—å —Å–ª–æ–∏ –º–µ—Å—Ç–∞–º–∏">
                             <img className="layers_mini_button_image" alt="swap.png" src="swap.png"></img>
                         </button>
                     </div>
                     <div className="layer_box">
                         <div className="layer" id="layer_1">
                             <div className="layer_button_box">
-                                <button className="layer_left_mini_button" id="layer_1_visibility_button" title="¬ÍÎ˛˜ËÚ¸/‚˚ÍÎ˛˜ËÚ¸ ‚Ë‰ËÏÓÒÚ¸">
+                                <button className="layer_left_mini_button" id="layer_1_visibility_button" title="–í–∫–ª—é—á–∏—Ç—å/–≤—ã–∫–ª—é—á–∏—Ç—å –≤–∏–¥–∏–º–æ—Å—Ç—å">
                                     <img className="layer_left_mini_button_image" id="layer_1_visibility_img" alt="visibility_on.png" src="visibility_on.png"></img>
                                 </button>
-                                <button className="layer_left_mini_button" id="clear_layer_1" title="Œ˜ËÒÚËÚ¸ ÒÎÓÈ">
+                                <button className="layer_left_mini_button" id="clear_layer_1" title="–û—á–∏—Å—Ç–∏—Ç—å —Å–ª–æ–π">
                                     <img className="layer_left_mini_button_image" alt="clear.png" src="clear.png"></img>
                                 </button>
                             </div>
@@ -148,10 +147,10 @@ export class DrawingtoImg extends Component
                         </div>
                         <div className="layer" id="layer_2">
                             <div className="layer_button_box">
-                                <button className="layer_left_mini_button" id="layer_2_visibility_button" title="¬ÍÎ˛˜ËÚ¸/‚˚ÍÎ˛˜ËÚ¸ ‚Ë‰ËÏÓÒÚ¸">
+                                <button className="layer_left_mini_button" id="layer_2_visibility_button" title="–í–∫–ª—é—á–∏—Ç—å/–≤—ã–∫–ª—é—á–∏—Ç—å –≤–∏–¥–∏–º–æ—Å—Ç—å">
                                     <img className="layer_left_mini_button_image" id="layer_2_visibility_img" alt="visibility_on.png" src="visibility_on.png"></img>
                                 </button>
-                                <button className="layer_left_mini_button" id="clear_layer_2" title="Œ˜ËÒÚËÚ¸ ÒÎÓÈ">
+                                <button className="layer_left_mini_button" id="clear_layer_2" title="–û—á–∏—Å—Ç–∏—Ç—å —Å–ª–æ–π">
                                     <img className="layer_left_mini_button_image" alt="clear.png" src="clear.png"></img>
                                 </button>
                             </div>
@@ -195,17 +194,17 @@ export class DrawingtoImg extends Component
                     <form action="">
                         <div className="form-item">
                             <label id="text_label_clr" htmlFor="color">
-                                ÷‚ÂÚ:
+                                –¶–≤–µ—Ç:
                             </label>
                             <input type="text" id="color" name="color" defaultValue="#000000"></input>
                         </div>
                         <div id="picker"></div>
                     </form>
                     <button className="ctype_clr_btn" id="ctype_clr_btn" type="button">
-                        ÷‚ÂÚ ÙÓÌ‡
+                        –¶–≤–µ—Ç —Ñ–æ–Ω–∞
                     </button>
                     <button className="ok_clr_btn" id="ok_clr_btn" type="button">
-                        —Óı‡ÌËÚ¸
+                        –°–æ—Ö—Ä–∞–Ω–∏—Ç—å
                     </button>
                 </div>
                 <div className="up_add_window" id="pencil_window" style={{ marginRight: "14.5%", display: "block" }}>
@@ -227,48 +226,53 @@ export class DrawingtoImg extends Component
                         <input className="up_add_window_field" type="number" id="e_thickness_rangeValue" min="1" max="100" defaultValue="1"></input>
                     </div>
                 </div>
-                <button className="up_panel_button" id="graphic_tablet" title="”˜ËÚ˚‚‡Ú¸ ÒËÎÛ Ì‡Ê‡ÚËˇ" style={{ display: "none", position: "fixed", top: "4px", left: "10%" }}>
+                <button className="up_panel_button" id="graphic_tablet" title="–£—á–∏—Ç—ã–≤–∞—Ç—å —Å–∏–ª—É –Ω–∞–∂–∞—Ç–∏—è" style={{ display: "none", position: "fixed", top: "4px", left: "10%" }}>
                     <img className="up_panel_button_image" id="graphic_tablet_image" alt="graphic_tablet.png" src="graphic_tablet.png"></img>
                 </button>
                 <div className="palette_nav"></div>
                 <div className="nav">
                     <div className="icon_buttons">
-                        <button className="up_panel_button" id="arrow_back" title={"ŒÚÏÂÌËÚ¸"}>
+                        <button className="up_panel_button" id="arrow_back" title={"–û—Ç–º–µ–Ω–∏—Ç—å"}>
                             <img className="up_panel_button_image" id="arrow_back_image" alt="undo_arrow.png" src="undo_arrow.png"></img>
                         </button>
-                        <button className="up_panel_button" id="arrow_next" title="œÓ‚ÚÓËÚ¸">
+                        <button className="up_panel_button" id="arrow_next" title="–ü–æ–≤—Ç–æ—Ä–∏—Ç—å">
                             <img className="up_panel_button_image" id="arrow_next_image" alt="repeat_arrow.png" src="repeat_arrow.png"></img>
                         </button>
-                        <button className="up_panel_button" id="palette" title="¬˚·Ó ˆ‚ÂÚ‡">
+                        <button className="up_panel_button" id="palette" title="–í—ã–±–æ—Ä —Ü–≤–µ—Ç–∞">
                             <img className="up_panel_button_image" id="clrimg" alt="palette.png" src="palette.png" style={{ filter: "invert(1)" }} ></img>
                         </button>
-                        <button className="up_panel_button" id="pencil" title=" ‡‡Ì‰‡¯">
+                        <button className="up_panel_button" id="pencil" title="–ö–∞—Ä–∞–Ω–¥–∞—à">
                             <img className="up_panel_button_image" id="pencil_image" alt="pencil.png" src="pencil.png"></img>
                         </button>
-                        <button className="up_panel_button" id="eraser" title="À‡ÒÚËÍ">
+                        <button className="up_panel_button" id="eraser" title="–õ–∞—Å—Ç–∏–∫">
                             <img className="up_panel_button_image" id="eraser_image" alt="eraser.png" src="eraser.png"></img>
                         </button>
-                        <button className="up_panel_button" id="bucket" title="«‡ÎË‚Í‡">
+                        <button className="up_panel_button" id="bucket" title="–ó–∞–ª–∏–≤–∫–∞">
                             <img className="up_panel_button_image" id="bucket_image" alt="bucket.png" src="bucket.png"></img>
                         </button>
-                        <button className="up_panel_button" id="pipette" title="œËÔÂÚÍ‡">
+                        <button className="up_panel_button" id="pipette" title="–ü–∏–ø–µ—Ç–∫–∞">
                             <img className="up_panel_button_image" id="pipette_image" alt="pipette.png" src="pipette.png"></img>
                         </button>
-                        <button className="up_panel_button" id="clear" title="Œ˜ËÒÚËÚ¸ ‡·Ó˜Û˛ Ó·Î‡ÒÚ¸">
+                        <button className="up_panel_button" id="clear" title="–û—á–∏—Å—Ç–∏—Ç—å —Ä–∞–±–æ—á—É—é –æ–±–ª–∞—Å—Ç—å">
                             <img className="up_panel_button_image" id="clearimg" alt="clear.png" src="clear.png"></img>
                         </button>
-                        <button className="up_panel_button" id="upload" title="«‡„ÛÁËÚ¸ ËÁÓ·‡ÊÂÌËÂ Ì‡ Ò‡ÈÚ">
+                        <button className="up_panel_button" id="upload" title="–ó–∞–≥—Ä—É–∑–∏—Ç—å –∏–∑–æ–±—Ä–∞–∂–µ–Ω–∏–µ –Ω–∞ —Å–∞–π—Ç">
                             <img className="up_panel_button_image" id="uploadimg" alt="upload.png" src="upload.png"></img>
                             <input className="hiddenInput" type="file" accept="image/*,.png,.jpg,.gif,.web,.bmp" id="my_hidden_file" name="loadfile"></input>
                         </button>
-                        <button className="up_panel_button" id="save" title="—Óı‡ÌËÚ¸ ËÁÓ·‡ÊÂÌËÂ">
+                        <button className="up_panel_button" id="save" title="–°–æ—Ö—Ä–∞–Ω–∏—Ç—å –∏–∑–æ–±—Ä–∞–∂–µ–Ω–∏–µ">
                             <img className="up_panel_button_image" id="saveimg" alt="save.png" src="save.png"></img>
                         </button>
-                        <button className="up_panel_button" id="generate" data-toggle="gen_modal" title="»» Ó·‡·ÓÚÍ‡">
+                        <button className="up_panel_button" id="generate" data-toggle="gen_modal" title="–ò–ò –æ–±—Ä–∞–±–æ—Ç–∫–∞">
                             <img className="up_panel_button_image" id="generateimg" alt="generate.png" src="generate.png"></img>
                         </button>
                     </div>
                 </div>
+                <React.Fragment>
+                    <Helmet>
+                        <script src='main.js'></script>
+                    </Helmet>
+                </React.Fragment>
             </div>
         );
     }

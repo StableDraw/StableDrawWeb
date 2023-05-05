@@ -3,9 +3,8 @@
   "compilerOptions": {
     "strict": true,
     "target": "es2021",
-    "outDir": "ClientApp/src/components",
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true
+    "outDir": "ClientApp/public",
+    "moduleResolution": "node"
   },
   "include": [
     "main.ts"

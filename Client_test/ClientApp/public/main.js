@@ -1,1471 +1,2697 @@
-import React from 'react';
-class DrawingScript extends React.Component {
-    componentDidMount() {
-        const body = React.createElement(HTMLElement, null,
-            "document.querySelector(\"body\") const cursor: HTMLElement = ",
-            React.createElement(HTMLElement, null,
-                " document.querySelector(\".cursor\") const cursor_image: HTMLElement = ",
-                React.createElement(HTMLElement, null,
-                    " document.querySelector(\".cursimg\") let cursor_type: number = -1 const nav_panel: HTMLElement = ",
-                    React.createElement(HTMLElement, null,
-                        " document.querySelector(\".nav\") const canvas_foreground: HTMLCanvasElement = ",
-                        React.createElement(HTMLCanvasElement, null,
-                            " document.getElementById(\"canvas_foreground\") const canvas_background: HTMLCanvasElement = ",
-                            React.createElement(HTMLCanvasElement, null,
-                                " document.getElementById(\"canvas_background\") const canvas_additional: HTMLCanvasElement = ",
-                                React.createElement(HTMLCanvasElement, null,
-                                    " document.getElementById(\"canvas_additional\") const canvas_layer_1: HTMLCanvasElement = ",
-                                    React.createElement(HTMLCanvasElement, null,
-                                        " document.getElementById(\"layer_1_display_canvas\") const canvas_layer_2: HTMLCanvasElement = ",
-                                        React.createElement(HTMLCanvasElement, null,
-                                            " document.getElementById(\"layer_2_display_canvas\") const layer_icon_1: HTMLElement = ",
-                                            React.createElement(HTMLElement, null,
-                                                " document.getElementById(\"layer_display_icon_1\") const layer_icon_2: HTMLElement = ",
-                                                React.createElement(HTMLElement, null,
-                                                    " document.getElementById(\"layer_display_icon_2\") const d_frame: HTMLInputElement = ",
-                                                    React.createElement(HTMLInputElement, null,
-                                                        " document.getElementById(\"d_frame\") const spanel: HTMLElement = ",
-                                                        React.createElement(HTMLElement, null,
-                                                            " document.getElementById(\"mySidepanel\") const spanel_openbtn: HTMLElement = ",
-                                                            React.createElement(HTMLElement, null,
-                                                                " document.querySelector(\".openbtn\") const generateBtn: HTMLElement = ",
-                                                                React.createElement(HTMLElement, null,
-                                                                    " document.getElementById(\"generate\") const clr_w: HTMLElement = ",
-                                                                    React.createElement(HTMLElement, null,
-                                                                        " document.getElementById(\"clr_window\") const pencil_w: HTMLElement = ",
-                                                                        React.createElement(HTMLElement, null,
-                                                                            " document.getElementById(\"pencil_window\") const eraser_w: HTMLElement = ",
-                                                                            React.createElement(HTMLElement, null,
-                                                                                " document.getElementById(\"eraser_window\") const ok_clr_btn: HTMLElement = ",
-                                                                                React.createElement(HTMLElement, null,
-                                                                                    " document.getElementById(\"ok_clr_btn\") const cur_color: HTMLInputElement = ",
-                                                                                    React.createElement(HTMLInputElement, null,
-                                                                                        " document.getElementById(\"color\") const clrimg: HTMLElement = ",
-                                                                                        React.createElement(HTMLElement, null,
-                                                                                            " document.getElementById(\"clrimg\") const ctx_foreground: CanvasRenderingContext2D = ",
-                                                                                            React.createElement(CanvasRenderingContext2D, null,
-                                                                                                " canvas_foreground.getContext(\"2d\", ",
-                                                                                                willReadFrequently,
-                                                                                                ": true }) const ctx_background: CanvasRenderingContext2D = ",
-                                                                                                React.createElement(CanvasRenderingContext2D, null,
-                                                                                                    " canvas_background.getContext(\"2d\", ",
-                                                                                                    willReadFrequently,
-                                                                                                    ": true }) const ctx_add: CanvasRenderingContext2D = ",
-                                                                                                    React.createElement(CanvasRenderingContext2D, null,
-                                                                                                        " canvas_additional.getContext(\"2d\", ",
-                                                                                                        willReadFrequently,
-                                                                                                        ": true }) const ctx_layer_1: CanvasRenderingContext2D = ",
-                                                                                                        React.createElement(CanvasRenderingContext2D, null,
-                                                                                                            " canvas_layer_1.getContext(\"2d\", ",
-                                                                                                            willReadFrequently,
-                                                                                                            ": true }) const ctx_layer_2: CanvasRenderingContext2D = ",
-                                                                                                            React.createElement(CanvasRenderingContext2D, null,
-                                                                                                                " canvas_layer_2.getContext(\"2d\", ",
-                                                                                                                willReadFrequently,
-                                                                                                                ": true }) const ratio_field: HTMLInputElement = ",
-                                                                                                                React.createElement(HTMLInputElement, null,
-                                                                                                                    " document.querySelector(\".f_ratio\") const ratio_tooltip: HTMLElement = ",
-                                                                                                                    React.createElement(HTMLElement, null,
-                                                                                                                        " document.querySelector(\"ratio_tooltip\") const thickness_slider: HTMLInputElement = ",
-                                                                                                                        React.createElement(HTMLInputElement, null,
-                                                                                                                            " document.getElementById(\"thickness_sliderValue\") const thickness_field: HTMLInputElement = ",
-                                                                                                                            React.createElement(HTMLInputElement, null,
-                                                                                                                                " document.getElementById(\"thickness_rangeValue\") const smoothing_slider: HTMLInputElement = ",
-                                                                                                                                React.createElement(HTMLInputElement, null,
-                                                                                                                                    " document.getElementById(\"smoothing_sliderValue\") const smoothing_field: HTMLInputElement = ",
-                                                                                                                                    React.createElement(HTMLInputElement, null,
-                                                                                                                                        " document.getElementById(\"smoothing_rangeValue\") const e_thickness_slider: HTMLInputElement = ",
-                                                                                                                                        React.createElement(HTMLInputElement, null,
-                                                                                                                                            " document.getElementById(\"e_thickness_sliderValue\") const e_thickness_field: HTMLInputElement = ",
-                                                                                                                                            React.createElement(HTMLInputElement, null,
-                                                                                                                                                " document.getElementById(\"e_thickness_rangeValue\") const layer_1: HTMLElement = ",
-                                                                                                                                                React.createElement(HTMLElement, null,
-                                                                                                                                                    " document.getElementById(\"layer_1\") const layer_2: HTMLElement = ",
-                                                                                                                                                    React.createElement(HTMLElement, null,
-                                                                                                                                                        " document.getElementById(\"layer_2\") const scale_field: HTMLElement = ",
-                                                                                                                                                        React.createElement(HTMLElement, null,
-                                                                                                                                                            " document.querySelector(\".scale_field\") const div_layers: HTMLElement = ",
-                                                                                                                                                            React.createElement(HTMLElement, null,
-                                                                                                                                                                " document.querySelector(\".layers\") const layers_buttons: HTMLElement = ",
-                                                                                                                                                                React.createElement(HTMLElement, null,
-                                                                                                                                                                    " document.querySelector(\".layers_buttons\") const text_label_clr: HTMLElement = ",
-                                                                                                                                                                    React.createElement(HTMLElement, null,
-                                                                                                                                                                        " document.getElementById(\"text_label_clr\") const blackout: HTMLElement = ",
-                                                                                                                                                                        React.createElement(HTMLElement, null,
-                                                                                                                                                                            " document.getElementById(\"full_blackout\") const side_panel_blackout: HTMLElement = ",
-                                                                                                                                                                            React.createElement(HTMLElement, null,
-                                                                                                                                                                                " document.getElementById(\"side_panel_blackout\") const before_gen_block: HTMLElement = ",
-                                                                                                                                                                                React.createElement(HTMLElement, null,
-                                                                                                                                                                                    " document.getElementById(\"before_gen_block\") const close_before_gen_block: HTMLElement = ",
-                                                                                                                                                                                    React.createElement(HTMLElement, null,
-                                                                                                                                                                                        " document.getElementById(\"close_before_gen_block\") const before_gen: HTMLCanvasElement = ",
-                                                                                                                                                                                        React.createElement(HTMLCanvasElement, null,
-                                                                                                                                                                                            " document.getElementById(\"before_gen\") const before_gen_ctx: CanvasRenderingContext2D = ",
-                                                                                                                                                                                            React.createElement(CanvasRenderingContext2D, null,
-                                                                                                                                                                                                " before_gen.getContext(\"2d\", ",
-                                                                                                                                                                                                willReadFrequently,
-                                                                                                                                                                                                ": true }) const change_themeBtn: HTMLElement = ",
-                                                                                                                                                                                                React.createElement(HTMLElement, null,
-                                                                                                                                                                                                    " document.getElementById(\"change_theme\") const tmimg: HTMLElement = ",
-                                                                                                                                                                                                    React.createElement(HTMLElement, null,
-                                                                                                                                                                                                        " document.getElementById(\"theme_mode_img\") const graphic_tabletBtn: HTMLElement = ",
-                                                                                                                                                                                                        React.createElement(HTMLElement, null,
-                                                                                                                                                                                                            " document.getElementById(\"graphic_tablet\") const first_layer_visibilityBtn: HTMLElement = ",
-                                                                                                                                                                                                            React.createElement(HTMLElement, null,
-                                                                                                                                                                                                                " document.getElementById(\"layer_1_visibility_button\") const first_layer_visibility_img: HTMLElement = ",
-                                                                                                                                                                                                                React.createElement(HTMLElement, null,
-                                                                                                                                                                                                                    " document.getElementById(\"layer_1_visibility_img\") const second_layer_visibilityBtn: HTMLElement = ",
-                                                                                                                                                                                                                    React.createElement(HTMLElement, null,
-                                                                                                                                                                                                                        " document.getElementById(\"layer_2_visibility_button\") const second_layer_visibility_img: HTMLElement = ",
-                                                                                                                                                                                                                        React.createElement(HTMLElement, null,
-                                                                                                                                                                                                                            " document.getElementById(\"layer_2_visibility_img\") const clear_first_layer_Btn: HTMLElement = ",
-                                                                                                                                                                                                                            React.createElement(HTMLElement, null,
-                                                                                                                                                                                                                                " document.getElementById(\"clear_layer_1\") const clear_second_layer_Btn: HTMLElement = ",
-                                                                                                                                                                                                                                React.createElement(HTMLElement, null,
-                                                                                                                                                                                                                                    " document.getElementById(\"clear_layer_2\") const select_first_layerBtn: HTMLElement = ",
-                                                                                                                                                                                                                                    React.createElement(HTMLElement, null,
-                                                                                                                                                                                                                                        " document.getElementById(\"layer_button_1\") const colourBtn: HTMLElement = ",
-                                                                                                                                                                                                                                        React.createElement(HTMLElement, null,
-                                                                                                                                                                                                                                            " document.getElementById(\"palette\") const ok_clr: HTMLElement = ",
-                                                                                                                                                                                                                                            React.createElement(HTMLElement, null,
-                                                                                                                                                                                                                                                " document.querySelector(\".ok_clr_btn\") const ctype_clr_btn: HTMLElement = ",
-                                                                                                                                                                                                                                                React.createElement(HTMLElement, null,
-                                                                                                                                                                                                                                                    " document.querySelector(\".ctype_clr_btn\") const id_list: string[] = ['p', 'i', 'u', 'f'] const Pi_div_4: number = Math.PI / 4 let nstack: any = [] let pstack: any = [] let curprim: [number, number, number][] = [] let fp: boolean = true let on_d_frame: boolean = false let on_d_fiend: boolean = false let prevX: number let prevY: number let move_prevX: number let move_prevY: number let X_move: number let Y_move: number let cX: number let cY: number let is_shift_on: boolean = false let fup: boolean = false let fdown: boolean = false let fright: boolean = false let fleft: boolean = false let cfup: boolean = false let cfleft: boolean = false let W: number = window.innerWidth let H: number = window.innerHeight let fW_max: number = W * 0.8 let fH_max: number = H * 0.8 let fW_min: number = W * 0.1 let fH_min: number = H * 0.1 let cW: number = canvas_foreground.offsetWidth let cH: number = canvas_foreground.offsetHeight let cD: number = cW / cH let Max_cW: number = cW let Max_cH: number = cH let lW: number = layer_icon_1.offsetWidth let lH: number = layer_icon_1.offsetHeight let lwW: number = canvas_layer_1.width let lwH: number = canvas_layer_1.height let orig_lW: number = lW let orig_lH: number = lH let orig_lD: number = lW / lH if (cD > orig_lD)",
-                                                                                                                                                                                                                                                    lW = orig_lW,
-                                                                                                                                                                                                                                                    "lH = orig_lW / cD } else",
-                                                                                                                                                                                                                                                    lH = orig_lH,
-                                                                                                                                                                                                                                                    "lW = orig_lH * cD } let lWp: string = Math.round(995 * (lW / orig_lW)) / 10 + \"%\" let lHp: string = Math.round(1000 * (lH / orig_lH)) / 10 + \"%\" layer_icon_1.style.width = lWp layer_icon_2.style.width = lWp layer_icon_1.style.height = lHp layer_icon_2.style.height = lHp /*layer_alpha_img_1.width = lWp layer_alpha_img_1.height = lHp layer_alpha_img_2.width = lWp layer_alpha_img_2.height = lHp*/ let cur_real_ratio: number = cH / cW let l_width: number = 1 let W_f: number = (W - cW) / 2 - l_width / 2 + 12 let H_f: number = (H - cH) / 2 - l_width / 2 + 12 let f_dW: number = d_frame.offsetWidth let f_dH: number = d_frame.offsetHeight let orig_f_dW: number = f_dW let orig_f_dH: number = f_dH let fW_pred: number = orig_f_dW let fH_pred: number = orig_f_dH let cmp_W: number = 1 let cmp_H: number = 1 let cmp_W_b: number = 0 let cmp_H_b: number = 0 d_frame.width = f_dW d_frame.height = f_dH let H_min: number = (H - f_dH) / 4 let H_max: number = f_dH + H_min let W_min: number = (W - f_dW) / 4 let W_max: number = f_dW + W_min canvas_foreground.height = cH canvas_foreground.width = cW canvas_background.height = cH canvas_background.width = cW canvas_additional.height = cH canvas_additional.width = cW let draw: boolean = false let enddraw: boolean = false let f_move: boolean = false let end_f_move: boolean = false let old_btn_clr: boolean[] = [false, true] //\u0438\u0437\u043D\u0430\u0447\u0430\u043B\u044C\u043D\u043E \u0447\u0451\u0440\u043D\u044B\u0439 \u0442\u0435\u043A\u0441\u0442 \u0443 \u043A\u043D\u043E\u043F\u043E\u043A \u0446\u0432\u0435\u0442\u0430 let on_clr_window: boolean = false let cur_background_clr: string = \"#fff\" let new_background_clr: string = cur_background_clr let cur_brush_clr: string = \"#000000\" ctx_background.fillStyle = cur_background_clr //\u0437\u0430\u043B\u0438\u0432\u043A\u0430 \u0444\u043E\u043D\u0430 \u0431\u0435\u043B\u044B\u043C, \u043A\u043E\u0441\u0442\u044B\u043B\u044C, \u0443\u0431\u0440\u0430\u0442\u044C ctx_layer_2.fillStyle = cur_background_clr //\u0437\u0430\u043B\u0438\u0432\u043A\u0430 \u0438\u043A\u043E\u043D\u043A\u0438 \u0444\u043E\u043D\u0430 \u0431\u0435\u043B\u044B\u043C, \u043A\u043E\u0441\u0442\u044B\u043B\u044C, \u0443\u0431\u0440\u0430\u0442\u044C pstack.push(['i', ctx_background, cur_background_clr]) ctx_background.fillRect(0, 0, cW, cH) ctx_layer_2.fillRect(0, 0, cW, cH) let is_clr_brash: boolean = true let cur_ratio_val: string = get_visual_ratio(false, cW, cH) ratio_field.value = cur_ratio_val //\u0443\u0441\u0442\u0430\u043D\u0430\u0432\u043B\u0438\u0432\u0430\u0435\u043C \u0441\u043E\u043E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u0435 \u0441\u0442\u043E\u0440\u043E\u043D \u043F\u0440\u0438 \u0437\u0430\u043F\u0443\u0441\u043A\u0435 let is_first_upload_btn_click: boolean = true //\u043A\u043E\u0441\u0442\u044B\u043B\u044C, \u0447\u0442\u043E\u0431\u044B \u043A\u043D\u043E\u043F\u043A\u0430 \u043D\u0435 \u0441\u0440\u0430\u0431\u0430\u0442\u044B\u0432\u0430\u043B\u0430 \u0434\u0432\u0430\u0436\u0434\u044B let is_foreground_selected: boolean = true //\u0432\u044B\u0431\u0440\u0430\u043D \u043B\u0438 \u0432\u0435\u0440\u0445\u043D\u0438\u0439 \u0441\u043B\u043E\u0439, \u043F\u043E-\u0443\u043C\u043E\u043B\u0447\u0430\u043D\u0438\u044E \u0432\u044B\u0431\u0440\u0430\u043D let cur_draw_ctx: CanvasRenderingContext2D = ctx_foreground //\u0442\u0435\u043A\u0443\u0449\u0438\u0439 \u0432\u044B\u0431\u0440\u0430\u043D\u043D\u044B\u0439 \u0441\u043B\u043E\u0439 \u0434\u043B\u044F \u0440\u0438\u0441\u043E\u0432\u0430\u043D\u0438\u044F, \u043F\u043E-\u0443\u043C\u043E\u043B\u0447\u0430\u043D\u0438\u044E \u0432\u0435\u0440\u0445\u043D\u0438\u0439 let cur_canvas: HTMLCanvasElement = canvas_foreground //\u0442\u0435\u043A\u0443\u0449\u0438\u0439 \u0432\u044B\u0431\u0440\u0430\u043D\u043D\u044B\u0439 \u0441\u043B\u043E\u0439 \u0434\u043B\u044F \u0440\u0438\u0441\u043E\u0432\u0430\u043D\u0438\u044F \u0432\u0432\u0438\u0434\u0435 \u0441\u043B\u043E\u044F, \u043D\u0435 \u043A\u043E\u043D\u0442\u0435\u043A\u0441\u0442\u0430, \u043F\u043E-\u0443\u043C\u043E\u043B\u0447\u0430\u043D\u0438\u044E \u0432\u0435\u0440\u0445\u043D\u0438\u0439 let cur_ctx_layer: CanvasRenderingContext2D = ctx_layer_1 //\u0442\u0435\u043A\u0443\u0449\u0438\u0439 \u0432\u044B\u0431\u0440\u0430\u043D\u043D\u044B\u0439 \u0441\u043B\u043E\u0439 \u0434\u043B\u044F \u0440\u0438\u0441\u043E\u0432\u0430\u043D\u0438\u044F \u0432\u0432\u0438\u0434\u0435 \u043A\u043E\u043D\u0442\u0435\u043A\u0441\u0442\u0430 \u043A\u043D\u043E\u043F\u043A\u0438 \u043A\u043E\u0442\u043E\u0440\u044B\u0439 \u0432 \u0443\u0433\u043B\u0443, \u043F\u043E-\u0443\u043C\u043E\u043B\u0447\u0430\u043D\u0438\u044E \u0432\u0435\u0440\u0445\u043D\u0438\u0439 let graphic_tablet_mode: boolean = false //\u0440\u0435\u0436\u0438\u043C \u0433\u0440\u0430\u0444\u0438\u0447\u0435\u0441\u043A\u043E\u0433\u043E \u043F\u043B\u0430\u043D\u0448\u0435\u0442\u0430 let is_clr_window: boolean = false //\u043E\u0442\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435 \u043E\u043A\u043D\u0430 \u0441 \u043F\u0430\u043B\u0438\u0442\u0440\u043E\u0439 let is_pencil_window: boolean = true //\u043E\u0442\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435 \u043E\u043A\u043D\u0430 \u043D\u0430\u0441\u0442\u0440\u043E\u0435\u043A \u043A\u0438\u0441\u0442\u0438 let is_eraser_window: boolean = false //\u043E\u0442\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435 \u043E\u043A\u043D\u0430 \u043D\u0430\u0441\u0442\u0440\u043E\u0435\u043A \u043B\u0430\u0441\u0442\u0438\u043A\u0430 let cur_smoothing: number = 0 //\u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440 \u0441\u0433\u043B\u0430\u0436\u0438\u0432\u0430\u043D\u0438\u044F let cur_smooth_prim: [number, number, number][] = [] //\u0442\u0435\u043A\u0443\u0449\u0438\u0439 \u0441\u0433\u043B\u0430\u0436\u0435\u043D\u043D\u044B\u0439 \u043F\u0440\u0438\u043C\u0438\u0442\u0438\u0432 let k_smooth: number = 0 //\u0442\u0435\u043A\u0443\u0449\u0438\u0439 \u043A\u043E\u044D\u0444\u0444\u0438\u0446\u0438\u0435\u043D\u0442 \u0441\u0433\u043B\u0430\u0436\u0438\u0432\u0430\u043D\u0438\u044F let is_foreground_visible: boolean = true //\u0432\u043A\u043B\u044E\u0447\u0435\u043D\u0430 \u043B\u0438 \u0432\u0438\u0434\u0438\u043C\u043E\u0441\u0442\u044C \u043F\u0435\u0440\u0435\u0434\u043D\u0435\u0433\u043E \u0441\u043B\u043E\u044F let is_background_visible: boolean = true //\u0432\u043A\u043B\u044E\u0447\u0435\u043D\u0430 \u043B\u0438 \u0432\u0438\u0434\u0438\u043C\u043E\u0441\u0442\u044C \u0437\u0430\u0434\u043D\u0435\u0433\u043E \u0441\u043B\u043E\u044F ctx_foreground.lineCap = \"round\" ctx_foreground.lineJoin = \"round\" ctx_add.lineCap = \"round\" ctx_add.lineJoin = \"round\" ctx_background.lineCap = \"round\" ctx_background.lineJoin = \"round\" layer_1.style.border = \"1px solid #000000\" layer_1.style.outline = \"3px solid #000000\" layer_2.style.border = \"none\" layer_2.style.outline = \"1px solid #000000\" let is_dark_mode: boolean = false //\u0442\u0451\u043C\u043D\u0430\u044F \u0442\u0435\u043C\u0430 (\u043E\u0442\u043A\u043B\u044E\u0447\u0435\u043D\u0430 \u043F\u043E-\u0443\u043C\u043E\u043B\u0447\u0430\u043D\u0438\u044E) let is_modal_open: boolean = false let is_side_panel_open: boolean = false let caption_field: HTMLInputElement let style_field: HTMLInputElement let modal_header: HTMLElement let modal_body: HTMLElement let modal_footer: HTMLElement let is_human_caption: boolean let original_image_buf: string = \"\" //\u043F\u0435\u0440\u0435\u043C\u0435\u043D\u043D\u0430\u044F \u0434\u043B\u044F \u0445\u0440\u0430\u043D\u0435\u043D\u0438\u044F \u0438\u0441\u0445\u043E\u0434\u043D\u044B\u0445 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0439 let original_image_w: number //\u043F\u0435\u0440\u0435\u043C\u0435\u043D\u043D\u0430\u044F \u0434\u043B\u044F \u0445\u0440\u0430\u043D\u0435\u043D\u0438\u044F \u0448\u0438\u0440\u0438\u043D\u044B \u0438\u0441\u0445\u043E\u0434\u043D\u043E\u0433\u043E \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F let original_image_h: number //\u043F\u0435\u0440\u0435\u043C\u0435\u043D\u043D\u0430\u044F \u0434\u043B\u044F \u0445\u0440\u0430\u043D\u0435\u043D\u0438\u044F \u0432\u044B\u0441\u043E\u0442\u044B \u0438\u0441\u0445\u043E\u0434\u043D\u043E\u0433\u043E \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F let need_gen_after_caption: boolean[] = [false, false, false, false] const Max_bib_w: number = W * 0.2 const Max_bib_h: number = H * 0.2 let data_prop: any let ws: WebSocket = new WebSocket(\"wss://stabledraw.com:8081\") let chain_id: string = \"\" let task_id: string const subbody: HTMLElement = ",
-                                                                                                                                                                                                                                                    React.createElement(HTMLElement, null,
-                                                                                                                                                                                                                                                        " document.querySelector(\".subbody\") let if_first_time_modal: boolean = true var main_modal: any = function (options: object)",
-                                                                                                                                                                                                                                                    ,
-                                                                                                                                                                                                                                                        "var _elemModal: any var _eventShowModal: any var _eventHideModal: any var _hiding: boolean = false var _destroyed: boolean = false var _animationSpeed: number = 200 function _createModal (options: any)",
-                                                                                                                                                                                                                                                    ,
-                                                                                                                                                                                                                                                        "var elemModal: HTMLElement = document.createElement(\"div\"), modalTemplate = '",
-                                                                                                                                                                                                                                                        React.createElement("div", { class: "modal__backdrop" },
-                                                                                                                                                                                                                                                            React.createElement("div", { class: "modal__content" },
-                                                                                                                                                                                                                                                                React.createElement("div", { class: "modal__header" },
-                                                                                                                                                                                                                                                                    React.createElement("div", { class: "modal__title", "data-modal": "title" }, { title }),
-                                                                                                                                                                                                                                                                    React.createElement("span", { class: "modal__btn-close", "data-dismiss": "gen_modal", title: "\u0417\u0430\u043A\u0440\u044B\u0442\u044C" }, "\u00D7")),
-                                                                                                                                                                                                                                                                React.createElement("div", { class: "modal__body", "data-modal": "content" }, { content }),
-                                                                                                                                                                                                                                                                { footer })),
-                                                                                                                                                                                                                                                        "', modalFooterTemplate = '",
-                                                                                                                                                                                                                                                        React.createElement("div", { class: "modal__footer" }, { buttons }),
-                                                                                                                                                                                                                                                        "', modalButtonTemplate = '",
-                                                                                                                                                                                                                                                        React.createElement("button", { type: "button", class: "{{button_class}}", "data-handler": { button_handler } }, { button_text }),
-                                                                                                                                                                                                                                                        "', modalHTML, modalFooterHTML = \"\" elemModal.classList.add(\"gen_modal\") modalHTML = modalTemplate.replace(\"",
-                                                                                                                                                                                                                                                        { title },
-                                                                                                                                                                                                                                                        "\", options.title || \"\") modalHTML = modalHTML.replace(\"",
-                                                                                                                                                                                                                                                        { content },
-                                                                                                                                                                                                                                                        "\", options.content || \"\") if (options.footerButtons)",
-                                                                                                                                                                                                                                                    ,
-                                                                                                                                                                                                                                                        "for (var i: number = 0, length = options.footerButtons.length; i ",
-                                                                                                                                                                                                                                                        React.createElement("length", null),
-                                                                                                                                                                                                                                                        "; i++)",
-                                                                                                                                                                                                                                                    ,
-                                                                                                                                                                                                                                                        "var modalFooterButton = modalButtonTemplate.replace(\"",
-                                                                                                                                                                                                                                                        { button_class },
-                                                                                                                                                                                                                                                        "\", options.footerButtons[i].class) modalFooterButton = modalFooterButton.replace(\"",
-                                                                                                                                                                                                                                                        { button_handler },
-                                                                                                                                                                                                                                                        "\", options.footerButtons[i].handler) modalFooterButton = modalFooterButton.replace(\"",
-                                                                                                                                                                                                                                                        { button_text },
-                                                                                                                                                                                                                                                        "\", options.footerButtons[i].text) modalFooterHTML += modalFooterButton } } modalFooterHTML = modalFooterTemplate.replace(\"",
-                                                                                                                                                                                                                                                        { buttons },
-                                                                                                                                                                                                                                                        "\", modalFooterHTML) modalHTML = modalHTML.replace(\"",
-                                                                                                                                                                                                                                                        { footer },
-                                                                                                                                                                                                                                                        "\", modalFooterHTML) elemModal.innerHTML = modalHTML subbody.appendChild(elemModal) return elemModal } function _showModal()",
-                                                                                                                                                                                                                                                        is_modal_open = true,
-                                                                                                                                                                                                                                                        "if (!_destroyed && !_hiding)",
-                                                                                                                                                                                                                                                        _elemModal.classList.add("modal__show"),
-                                                                                                                                                                                                                                                        "document.dispatchEvent(_eventShowModal) } } function _hideModal()",
-                                                                                                                                                                                                                                                        is_modal_open = false,
-                                                                                                                                                                                                                                                        "_hiding = true _elemModal.classList.remove(\"modal__show\") _elemModal.classList.add(\"modal__hiding\") setTimeout(function ()",
-                                                                                                                                                                                                                                                        _elemModal.classList.remove("modal__hiding"),
-                                                                                                                                                                                                                                                        "_hiding = false }, _animationSpeed) document.dispatchEvent(_eventHideModal) } function _handlerCloseModal(e: any)",
-                                                                                                                                                                                                                                                    ,
-                                                                                                                                                                                                                                                        "if (e.target.dataset.dismiss === \"gen_modal\")",
-                                                                                                                                                                                                                                                        _hideModal(),
-                                                                                                                                                                                                                                                        "} _elemModal = _createModal(options) _elemModal.addEventListener(\"click\", _handlerCloseModal) _eventShowModal = new CustomEvent(\"show.modal\", ",
-                                                                                                                                                                                                                                                        detail,
-                                                                                                                                                                                                                                                        ": _elemModal }) _eventHideModal = new CustomEvent(\"hide.modal\", ",
-                                                                                                                                                                                                                                                        detail,
-                                                                                                                                                                                                                                                        ": _elemModal }) let return_elem: Object = ",
-                                                                                                                                                                                                                                                        show,
-                                                                                                                                                                                                                                                        ": _showModal, hide: _hideModal, destroy: function ()", (_elemModal.parentElement.removeChild(_elemModal),
-                                                                                                                                                                                                                                                        _elemModal.removeEventListener("click", _handlerCloseModal),
-                                                                                                                                                                                                                                                        _destroyed = true),
-                                                                                                                                                                                                                                                        "; }, setContent: function (html: HTMLElement)",
-                                                                                                                                                                                                                                                        _elemModal.querySelector('[data-modal = "content"]').innerHTML = html,
-                                                                                                                                                                                                                                                        "; }, setTitle: function (text: HTMLElement)",
-                                                                                                                                                                                                                                                        _elemModal.querySelector('[data-modal = "title"]').innerHTML = text,
-                                                                                                                                                                                                                                                        "; } } return return_elem }; (function ()",
-                                                                                                                                                                                                                                                    ,
-                                                                                                                                                                                                                                                        "var modal: any /*document.addEventListener(\"show.modal\", function (e: any)",
-                                                                                                                                                                                                                                                        document.querySelector(".actions").textContent = "Действия при открытии модального окна..."
-                                                                                                                                                                                                                                                    // получить ссылку на DOM-элемент показываемого модального окна (.modal)
-                                                                                                                                                                                                                                                    ,
-                                                                                                                                                                                                                                                        "// \u043F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u0441\u0441\u044B\u043B\u043A\u0443 \u043D\u0430 DOM-\u044D\u043B\u0435\u043C\u0435\u043D\u0442 \u043F\u043E\u043A\u0430\u0437\u044B\u0432\u0430\u0435\u043C\u043E\u0433\u043E \u043C\u043E\u0434\u0430\u043B\u044C\u043D\u043E\u0433\u043E \u043E\u043A\u043D\u0430 (.modal) console.log(e.detail) }) document.addEventListener(\"hide.modal\", function (e: any)",
-                                                                                                                                                                                                                                                        document.querySelector(".actions").textContent = "Действия при закрытии модального окна..."
-                                                                                                                                                                                                                                                    // получить ссылку на DOM-элемент скрываемого модального окна (.modal)
-                                                                                                                                                                                                                                                    ,
-                                                                                                                                                                                                                                                        "// \u043F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u0441\u0441\u044B\u043B\u043A\u0443 \u043D\u0430 DOM-\u044D\u043B\u0435\u043C\u0435\u043D\u0442 \u0441\u043A\u0440\u044B\u0432\u0430\u0435\u043C\u043E\u0433\u043E \u043C\u043E\u0434\u0430\u043B\u044C\u043D\u043E\u0433\u043E \u043E\u043A\u043D\u0430 (.modal) console.log(e.detail) })*/ document.addEventListener(\"click\", function (e: any)",
-                                                                                                                                                                                                                                                        data_prop = check_data_before_sending(),
-                                                                                                                                                                                                                                                        "let ", (local_is_foreground_used, local_is_background_used, local_is_drawing, local_sure, local_how_many_prims, local_how_many_dots),
-                                                                                                                                                                                                                                                        ": any = data_prop if (e.target.dataset.toggle === \"gen_modal\")",
-                                                                                                                                                                                                                                                        let,
-                                                                                                                                                                                                                                                        " content: string let footerButtons_list: object[] = [",
-                                                                                                                                                                                                                                                        class {
-                                                                                                                                                                                                                                                        },
-                                                                                                                                                                                                                                                        ": \"modal_btn modal_btn-3\", id: \"cur_gen_params_btn\", text: \"\u041F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u044B\", handler: \"modalHandlerParams\" }] if ((!local_is_foreground_used && !local_is_background_used) || (!is_background_visible && !is_foreground_visible))",
-                                                                                                                                                                                                                                                        footerButtons_list.push({ class: "modal_btn modal_btn-2", id: "SD_btn", text: "Text2Img", handler: "modalHandlerGenSD_text_to_image" }),
-                                                                                                                                                                                                                                                        "content = '\u0421\u0442\u0438\u043B\u044C:",
-                                                                                                                                                                                                                                                        React.createElement("p", null,
-                                                                                                                                                                                                                                                            React.createElement("input", { class: "modal_input", id: "style_input", value: "\u043F\u0440\u043E\u0444\u0435\u0441\u0441\u0438\u043E\u043D\u0430\u043B\u044C\u043D\u0430\u044F \u0444\u043E\u0442\u043E\u0433\u0440\u0430\u0444\u0438\u044F", required: true, placeholder: "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0441\u0442\u0438\u043B\u044C \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F", oninput: "is_human_caption = true" }),
-                                                                                                                                                                                                                                                            React.createElement("p", null,
-                                                                                                                                                                                                                                                                React.createElement("p", null,
-                                                                                                                                                                                                                                                                    "\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435:",
-                                                                                                                                                                                                                                                                    React.createElement("p", null,
-                                                                                                                                                                                                                                                                        React.createElement("input", { class: "modal_input", id: "caption_input", required: true, placeholder: "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F", oninput: "is_human_caption = true" })),
-                                                                                                                                                                                                                                                                    "' } else",
-                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                    "if (original_image_buf == \"\")",
-                                                                                                                                                                                                                                                                    footerButtons_list.push({ class: "modal_btn modal_btn-2", id: "SD_btn", text: "AIColorize", handler: "modalHandlerGenBWToCLR" }, { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Img2Img", handler: "modalHandlerGenImg2Img" }, { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Depth2Img", handler: "modalHandlerGenDepth2Img" }),
-                                                                                                                                                                                                                                                                    "content = '\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435:",
-                                                                                                                                                                                                                                                                    React.createElement("p", null,
-                                                                                                                                                                                                                                                                        React.createElement("input", { class: "modal_input", id: "caption_input", required: true, placeholder: "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F", oninput: "is_human_caption = true" }),
-                                                                                                                                                                                                                                                                        React.createElement("p", null,
-                                                                                                                                                                                                                                                                            React.createElement("button", { class: "modal_btn modal_btn-2", id: "modal_caption_auto_gen", onclick: "gen_caption_for_image(data_prop)" }, "\u0421\u0433\u0435\u043D\u0435\u0440\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u0430\u0432\u0442\u043E\u043C\u0430\u0442\u0438\u0447\u0435\u0441\u043A\u0438"),
-                                                                                                                                                                                                                                                                            React.createElement("p", null,
-                                                                                                                                                                                                                                                                                "\u0421\u0442\u0438\u043B\u044C:",
-                                                                                                                                                                                                                                                                                React.createElement("p", null,
-                                                                                                                                                                                                                                                                                    React.createElement("input", { class: "modal_input", id: "style_input", value: "4\u043A \u0444\u043E\u0442\u043E\u0440\u0435\u0430\u043B\u0438\u0441\u0442\u0438\u0447\u043D\u043E", required: true, placeholder: "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0441\u0442\u0438\u043B\u044C \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F", oninput: "is_human_caption = true" }),
-                                                                                                                                                                                                                                                                                    "' } else",
-                                                                                                                                                                                                                                                                                    footerButtons_list.push({ class: "modal_btn modal_btn-2", id: "SD_btn", text: "AIColorize", handler: "modalHandlerGenBWToCLR" }, { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Img2Img", handler: "modalHandlerGenImg2Img" }, { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Depth2Img", handler: "modalHandlerGenDepth2Img" }),
-                                                                                                                                                                                                                                                                                    "if (local_is_foreground_used && local_is_background_used && local_is_drawing && !local_sure)",
-                                                                                                                                                                                                                                                                                    footerButtons_list.push({ class: "modal_btn modal_btn-2", id: "SD_btn", text: "Inpainting", handler: "modalHandlerGenInpainting" }),
-                                                                                                                                                                                                                                                                                    "if (original_image_h * original_image_w > 262144)",
-                                                                                                                                                                                                                                                                                    content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"/><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image(data_prop)">Сгенерировать автоматически</button><button class = "modal_btn modal_btn-4" onclick = "delete_background()">Удалить фон</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"/>',
-                                                                                                                                                                                                                                                                                    "else",
-                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                    "if (original_image_h * original_image_w ",
-                                                                                                                                                                                                                                                                                    React.createElement(, null),
-                                                                                                                                                                                                                                                                                    " 65537)",
-                                                                                                                                                                                                                                                                                    footerButtons_list.push({ class: "modal_btn modal_btn-2", id: "SD_btn", text: "SDx4 Апскейл", handler: "modalHandlerGenUpscale" }),
-                                                                                                                                                                                                                                                                                    "else",
-                                                                                                                                                                                                                                                                                    footerButtons_list.push({ class: "modal_btn modal_btn-2", id: "SD_btn", text: "SDx2 Апскейл", handler: "modalHandlerGenUpscale_xX" }),
-                                                                                                                                                                                                                                                                                    "content = '\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435:",
-                                                                                                                                                                                                                                                                                    React.createElement("p", null,
-                                                                                                                                                                                                                                                                                        React.createElement("input", { class: "modal_input", id: "caption_input", required: true, placeholder: "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F", oninput: "is_human_caption = true" }),
-                                                                                                                                                                                                                                                                                        React.createElement("p", null,
-                                                                                                                                                                                                                                                                                            React.createElement("button", { class: "modal_btn modal_btn-2", id: "modal_caption_auto_gen", onclick: "gen_caption_for_image(data_prop)" }, "\u0421\u0433\u0435\u043D\u0435\u0440\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u0430\u0432\u0442\u043E\u043C\u0430\u0442\u0438\u0447\u0435\u0441\u043A\u0438"),
-                                                                                                                                                                                                                                                                                            React.createElement("button", { class: "modal_btn modal_btn-4", style: "right: 18.5%", onclick: "upscale()" }, "\u0410\u043F\u0441\u043A\u0435\u0439\u043B"),
-                                                                                                                                                                                                                                                                                            React.createElement("button", { class: "modal_btn modal_btn-4", onclick: "delete_background()" }, "\u0423\u0434\u0430\u043B\u0438\u0442\u044C \u0444\u043E\u043D"),
-                                                                                                                                                                                                                                                                                            React.createElement("p", null,
-                                                                                                                                                                                                                                                                                                "\u0421\u0442\u0438\u043B\u044C:",
-                                                                                                                                                                                                                                                                                                React.createElement("p", null,
-                                                                                                                                                                                                                                                                                                    React.createElement("input", { class: "modal_input", id: "style_input", value: "4\u043A \u0444\u043E\u0442\u043E\u0440\u0435\u0430\u043B\u0438\u0441\u0442\u0438\u0447\u043D\u043E", required: true, placeholder: "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0441\u0442\u0438\u043B\u044C \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F", oninput: "is_human_caption = true" }),
-                                                                                                                                                                                                                                                                                                    "' } } } footerButtons_list.push(",
-                                                                                                                                                                                                                                                                                                    class {
-                                                                                                                                                                                                                                                                                                    },
-                                                                                                                                                                                                                                                                                                    ": \"modal_btn modal_btn-1\", text: \"\u041E\u0442\u043C\u0435\u043D\u0430\", handler: \"modalHandlerCancel\" }) modal = main_modal(",
-                                                                                                                                                                                                                                                                                                    title,
-                                                                                                                                                                                                                                                                                                    ": \"\u0413\u0435\u043D\u0435\u0440\u0430\u0446\u0438\u044F\", content: \"",
-                                                                                                                                                                                                                                                                                                    React.createElement("p", null,
-                                                                                                                                                                                                                                                                                                        "\u0421\u043E\u0434\u0435\u0440\u0436\u043C\u0438\u043E\u0435 \u043C\u043E\u0434\u0430\u043B\u044C\u043D\u043E\u0433\u043E \u043E\u043A\u043D\u0430...",
-                                                                                                                                                                                                                                                                                                        React.createElement("p", null,
-                                                                                                                                                                                                                                                                                                            "\", footerButtons: footerButtons_list }) modal.show() modal.setContent(content) if (if_first_time_modal)",
-                                                                                                                                                                                                                                                                                                            caption_field = React.createElement(HTMLInputElement, null,
-                                                                                                                                                                                                                                                                                                                "document.getElementById(\"caption_input\") style_field = ",
-                                                                                                                                                                                                                                                                                                                React.createElement(HTMLInputElement, null,
-                                                                                                                                                                                                                                                                                                                    "document.getElementById(\"style_input\") modal_header = ",
-                                                                                                                                                                                                                                                                                                                    React.createElement(HTMLElement, null,
-                                                                                                                                                                                                                                                                                                                        "document.querySelector(\".modal__header\") modal_body = ",
-                                                                                                                                                                                                                                                                                                                        React.createElement(HTMLElement, null,
-                                                                                                                                                                                                                                                                                                                            "document.querySelector(\".modal__body\") modal_footer = ",
-                                                                                                                                                                                                                                                                                                                            React.createElement(HTMLElement, null,
-                                                                                                                                                                                                                                                                                                                                "document.querySelector(\".modal__footer\") if_first_time_modal = false } if (is_dark_mode)",
-                                                                                                                                                                                                                                                                                                                                modal_header.style.filter = "invert(0.9)",
-                                                                                                                                                                                                                                                                                                                                "modal_body.style.filter = \"invert(0.9)\" modal_footer.style.filter = \"invert(0.9)\" modal_header.style.backgroundColor = \"#cccccc\" modal_body.style.backgroundColor = \"#cccccc\" modal_footer.style.backgroundColor = \"#cccccc\" } ws.onmessage = function (event: any)",
-                                                                                                                                                                                                                                                                                                                                let,
-                                                                                                                                                                                                                                                                                                                                " jdata: any = JSON.parse(event.data) let type: string = jdata[0] if (type == 't') //\u0435\u0441\u043B\u0438 \u0442\u0435\u043A\u0441\u0442\u043E\u0432\u043E\u0435 \u0441\u043E\u043E\u0431\u0449\u0435\u043D\u0438\u0435",
-                                                                                                                                                                                                                                                                                                                            //alert(jdata[1])
-                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                "//alert(jdata[1]) return } if (type == 'c') //\u0435\u0441\u043B\u0438 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435",
-                                                                                                                                                                                                                                                                                                                                task_id = jdata[1],
-                                                                                                                                                                                                                                                                                                                                "caption_field.value = jdata[2] chain_id = jdata[3] last_task_image_name = jdata[4] last_task_image_suffix = jdata[5] is_human_caption = false blackout.style.display = \"none\" if (need_gen_after_caption[0])",
-                                                                                                                                                                                                                                                                                                                                gen_picture_by_drawing(need_gen_after_caption, caption_field.value + " " + style_field.value, data_prop),
-                                                                                                                                                                                                                                                                                                                                "need_gen_after_caption[0] = false } return } if (type == 'i') //\u0435\u0441\u043B\u0438 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435",
-                                                                                                                                                                                                                                                                                                                                let,
-                                                                                                                                                                                                                                                                                                                                " image: HTMLImageElement = new Image() let image_on_before_block: HTMLImageElement = new Image() image.onload = function()",
-                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                "if (jdata[7] != \"\")",
-                                                                                                                                                                                                                                                                                                                                image_on_before_block.src = "data:image/png;base64," + jdata[7],
-                                                                                                                                                                                                                                                                                                                                "image_on_before_block.onload = function()",
-                                                                                                                                                                                                                                                                                                                                let,
-                                                                                                                                                                                                                                                                                                                                " bW: number let bH: number let iw: number = image_on_before_block.width let ih: number = image_on_before_block.height if (iw / ih > Max_bib_w / Max_bib_h)",
-                                                                                                                                                                                                                                                                                                                                bW = Max_bib_w,
-                                                                                                                                                                                                                                                                                                                                "bH = Max_bib_w * ih / iw } else",
-                                                                                                                                                                                                                                                                                                                                bH = Max_bib_h,
-                                                                                                                                                                                                                                                                                                                                "bW = Max_bib_h * iw / ih } before_gen_block.style.width = bW.toString() + \"px\" before_gen_block.style.height = bH.toString() + \"px\" before_gen.width = bW before_gen.height = bH before_gen_ctx.drawImage(image_on_before_block, 0, 0, iw, ih, 0, 0, bW, bH) before_gen_block.style.display = \"block\" show_gen_result(image) } } else",
-                                                                                                                                                                                                                                                                                                                                before_gen_block.style.display = "none",
-                                                                                                                                                                                                                                                                                                                                "show_gen_result(image) } blackout.style.display = \"none\" modal.hide() original_image_buf = image.src return } original_image_w = jdata[2] original_image_h = jdata[3] chain_id = jdata[4] last_task_image_name = jdata[5] task_id = jdata[6] last_task_image_suffix = jdata[8] image.src = \"data:image/png;base64,\" + jdata[1] } } } else if (e.target.dataset.handler === \"modalHandlerCancel\")",
-                                                                                                                                                                                                                                                                                                                                modal.hide()
-                                                                                                                                                                                                                                                                                                                            //document.querySelector(".message").textContent = "Вы нажали на кнопку Отмена, а открыли окно с помощью кнопки " + elemTarget.textContent
-                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                "else if (e.target.dataset.handler === \"modalHandlerParams\")",
-                                                                                                                                                                                                                                                                                                                                "else if (e.target.dataset.handler === \"modalHandlerGenImg2Img\" || e.target.dataset.handler === \"modalHandlerGenDepth2Img\" || e.target.dataset.handler === \"modalHandlerGenInpainting\" || e.target.dataset.handler === \"modalHandlerGenUpscale\")",
-                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                "while (true)",
-                                                                                                                                                                                                                                                                                                                                need_gen_after_caption[1] = false,
-                                                                                                                                                                                                                                                                                                                                "need_gen_after_caption[2] = false need_gen_after_caption[3] = false need_gen_after_caption[4] = false if (e.target.dataset.handler === \"modalHandlerGenInpainting\")",
-                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                "if (caption_field.value == \"\")",
-                                                                                                                                                                                                                                                                                                                                caption_field.setCustomValidity("Ввод описания в этом режиме обязателен"),
-                                                                                                                                                                                                                                                                                                                                "caption_field.reportValidity() break } need_gen_after_caption[2] = true } else",
-                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                "if (e.target.dataset.handler === \"modalHandlerGenDepth2Img\")",
-                                                                                                                                                                                                                                                                                                                                need_gen_after_caption[1] = true,
-                                                                                                                                                                                                                                                                                                                                "else",
-                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                "if (e.target.dataset.handler === \"modalHandlerGenUpscale\")",
-                                                                                                                                                                                                                                                                                                                                need_gen_after_caption[3] = true,
-                                                                                                                                                                                                                                                                                                                                "else",
-                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                "if (e.target.dataset.handler === \"modalHandlerGenUpscale_xX\")",
-                                                                                                                                                                                                                                                                                                                                need_gen_after_caption[4] = true,
-                                                                                                                                                                                                                                                                                                                                "} } } if (caption_field.value == \"\")",
-                                                                                                                                                                                                                                                                                                                                gen_caption_for_image(data_prop),
-                                                                                                                                                                                                                                                                                                                                "need_gen_after_caption[0] = true } else",
-                                                                                                                                                                                                                                                                                                                                let,
-                                                                                                                                                                                                                                                                                                                                " full_prompt: string if (style_field.value == \"\")",
-                                                                                                                                                                                                                                                                                                                                full_prompt = caption_field.value,
-                                                                                                                                                                                                                                                                                                                                "else",
-                                                                                                                                                                                                                                                                                                                                full_prompt = caption_field.value + " " + style_field.value,
-                                                                                                                                                                                                                                                                                                                                "gen_picture_by_drawing(need_gen_after_caption, full_prompt, data_prop) need_gen_after_caption[2] = false } //modal.hide() //document.querySelector(\".message\").textContent = \"\u0412\u044B \u043D\u0430\u0436\u0430\u043B\u0438 \u043D\u0430 \u043A\u043D\u043E\u043F\u043A\u0443 \u041E\u041A, \u0430 \u043E\u0442\u043A\u0440\u044B\u043B\u0438 \u043E\u043A\u043D\u043E \u0441 \u043F\u043E\u043C\u043E\u0449\u044C\u044E \u043A\u043D\u043E\u043F\u043A\u0438 \" + elemTarget.textContent break } } else if (e.target.dataset.handler === \"modalHandlerGenSD_text_to_image\")",
-                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                "if (caption_field.value == \"\")",
-                                                                                                                                                                                                                                                                                                                                caption_field.setCustomValidity("Ввод описания в этом режиме обязателен"),
-                                                                                                                                                                                                                                                                                                                                "caption_field.reportValidity() } else",
-                                                                                                                                                                                                                                                                                                                                let,
-                                                                                                                                                                                                                                                                                                                                " full_prompt: string if (style_field.value == \"\")",
-                                                                                                                                                                                                                                                                                                                                full_prompt = caption_field.value,
-                                                                                                                                                                                                                                                                                                                                "else",
-                                                                                                                                                                                                                                                                                                                                full_prompt = style_field.value + " " + caption_field.value,
-                                                                                                                                                                                                                                                                                                                                "gen_picture_by_prompt(full_prompt) } //modal.hide() //document.querySelector(\".message\").textContent = \"\u0412\u044B \u043D\u0430\u0436\u0430\u043B\u0438 \u043D\u0430 \u043A\u043D\u043E\u043F\u043A\u0443 \u041E\u041A, \u0430 \u043E\u0442\u043A\u0440\u044B\u043B\u0438 \u043E\u043A\u043D\u043E \u0441 \u043F\u043E\u043C\u043E\u0449\u044C\u044E \u043A\u043D\u043E\u043F\u043A\u0438 \" + elemTarget.textContent } else if (e.target.dataset.handler === \"modalHandlerGenBWToCLR\")",
-                                                                                                                                                                                                                                                                                                                                colorize_picture(),
-                                                                                                                                                                                                                                                                                                                                "else if (e.target.dataset.dismiss === \"gen_modal\")",
-                                                                                                                                                                                                                                                                                                                                "}) })() function show_gen_result(image: HTMLImageElement)",
-                                                                                                                                                                                                                                                                                                                                close_all_add_windows(),
-                                                                                                                                                                                                                                                                                                                                "is_background_visible = false canvas_background.style.display = \"none\" second_layer_visibility_img.setAttribute(\"src\", \"visibility_off.png\") ctx_foreground.clearRect(0, 0, cW, cH) // \u043E\u0447\u0438\u0449\u0430\u0435\u043C \u0432\u0435\u0440\u0445\u043D\u0438\u0439 \u0445\u043E\u043B\u0441\u0442 let img_w: number = image.width let img_h: number = image.height if (img_w / img_h == 1 && cW / cH != 1)",
-                                                                                                                                                                                                                                                                                                                                let,
-                                                                                                                                                                                                                                                                                                                                " new_dfw: number let new_dfh: number if (cD > 1)",
-                                                                                                                                                                                                                                                                                                                                new_dfh = Max_cH,
-                                                                                                                                                                                                                                                                                                                                "new_dfw = Max_cH } else",
-                                                                                                                                                                                                                                                                                                                                new_dfh = Max_cW,
-                                                                                                                                                                                                                                                                                                                                "new_dfw = Max_cW } change_drawfield_size(new_dfw, new_dfh) cur_ratio_val = get_visual_ratio(false, cW, cH) ratio_field.value = cur_ratio_val //\u0443\u0441\u0442\u0430\u043D\u0430\u0432\u043B\u0438\u0432\u0430\u0435\u043C \u0441\u043E\u043E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u0435 \u0441\u0442\u043E\u0440\u043E\u043D replay_actions(pstack) //\u0432\u043E\u0441\u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0438\u043C \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044F fW_pred = f_dW fH_pred = f_dH push_action_to_stack(['r', new_dfw, new_dfh, false]) } ctx_foreground.drawImage(image, 0, 0, img_w, img_h, 0, 0, cW, cH) push_action_to_stack(['u', cur_draw_ctx, image, img_w, img_h]) ctx_layer_1.clearRect(0, 0, lwW, lwH) canvas_to_layer(cur_canvas, cur_ctx_layer) } let last_task_image_name: string = \"drawing.png\" let last_task_image_suffix: string = \"0\" //ws.onopen = function()",
-                                                                                                                                                                                                                                                                                                                                alert("open"),
-                                                                                                                                                                                                                                                                                                                                ";} ws.onclose = function() //\u0423\u0431\u0440\u0430\u0442\u044C",
-                                                                                                                                                                                                                                                                                                                                alert("Извините, произошла ошибка на стороне сервера. Пожалуйста перезагрузите страницу"),
-                                                                                                                                                                                                                                                                                                                                "; } //ws.onerror = function()",
-                                                                                                                                                                                                                                                                                                                                alert("error"),
-                                                                                                                                                                                                                                                                                                                                ";} function check_data_before_sending() //\u043F\u0440\u043E\u0432\u0435\u0440\u044F\u0435\u0442 \u0447\u0442\u043E \u0438\u043C\u0435\u043D\u043D\u043E \u0431\u0443\u0434\u0435\u0442 \u043E\u0442\u043F\u0440\u0430\u0432\u043B\u044F\u0442\u044C\u0441\u044F. \u0424\u0443\u043D\u043A\u0446\u0438\u044F \u0432\u0440\u0435\u043C\u0435\u043D\u043D\u0430\u044F, \u043D\u0443\u0436\u043D\u0430 \u0434\u043B\u044F \u0441\u0431\u043E\u0440\u0430 \u0441\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043A\u0438 \u043F\u043E \u0440\u0438\u0441\u0443\u043D\u043A\u0430\u043C. \u0415\u0451 \u043F\u043E\u0442\u043E\u043C \u043D\u0443\u0436\u043D\u043E \u0431\u0443\u0434\u0435\u0442 \u0437\u0430\u043C\u0435\u043D\u0438\u0442\u044C \u043F\u0440\u043Ec\u0442\u043E \u043D\u0430 \u043F\u0440\u043E\u0432\u0435\u0440\u043A\u0443 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u043D \u043B\u0438 \u043F\u0435\u0440\u0435\u0434\u043D\u0438\u0439 \u043F\u043B\u0430\u043D \u0438\u043B\u0438 \u0444\u043E\u043D",
-                                                                                                                                                                                                                                                                                                                                let,
-                                                                                                                                                                                                                                                                                                                                " local_is_foreground_used: boolean = false let local_is_background_used: boolean = false let local_is_drawing_on_foreground: boolean = true let local_is_drawing_on_background: boolean = true let local_sure_on_foreground: boolean = true let local_sure_on_background: boolean = true let local_how_many_prims_on_foreground: number = 0 let local_how_many_dots_on_foreground: number = 0 let local_how_many_prims_on_background: number = 0 let local_how_many_dots_on_background: number = 0 for (let i: number = 0; i ",
-                                                                                                                                                                                                                                                                                                                                React.createElement(pstack.length, null),
-                                                                                                                                                                                                                                                                                                                                "; i++)",
-                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                "switch (pstack[i][0])",
-                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                "case 'p': if (pstack[i][1] == ctx_foreground)",
-                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                "if (local_is_drawing_on_foreground == false && local_sure_on_foreground == true)",
-                                                                                                                                                                                                                                                                                                                                local_sure_on_foreground = false,
-                                                                                                                                                                                                                                                                                                                                "local_is_drawing_on_foreground = true local_is_foreground_used = true local_how_many_prims_on_foreground++ local_how_many_dots_on_foreground += pstack[i][2].length } else",
-                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                "if (local_is_drawing_on_background == false && local_sure_on_background == true)",
-                                                                                                                                                                                                                                                                                                                                local_sure_on_background = false,
-                                                                                                                                                                                                                                                                                                                                "local_is_drawing_on_background = true local_is_background_used = true local_how_many_prims_on_background++ local_how_many_dots_on_background += pstack[i][2].length } break case 'f': if (pstack[i][1] == ctx_foreground)",
-                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                "if (local_is_drawing_on_foreground == false && local_sure_on_foreground == true)",
-                                                                                                                                                                                                                                                                                                                                local_sure_on_foreground = false,
-                                                                                                                                                                                                                                                                                                                                "local_is_drawing_on_foreground = true local_is_foreground_used = true local_how_many_prims_on_foreground++ } else",
-                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                "if (local_is_drawing_on_background == false && local_sure_on_background == true)",
-                                                                                                                                                                                                                                                                                                                                local_sure_on_background = false,
-                                                                                                                                                                                                                                                                                                                                "local_is_drawing_on_background = true local_is_background_used = true local_how_many_prims_on_background++ } break case 'd': local_is_foreground_used = false local_is_background_used = false local_is_drawing_on_foreground = true local_is_drawing_on_background = true local_sure_on_foreground = true local_sure_on_background = true local_how_many_prims_on_foreground = 0 local_how_many_dots_on_foreground = 0 local_how_many_prims_on_background = 0 local_how_many_dots_on_background = 0 break case 'i': if (pstack[i][2] == \"#fff\")",
-                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                "if (pstack[i][1] == ctx_foreground)",
-                                                                                                                                                                                                                                                                                                                                local_is_foreground_used = false,
-                                                                                                                                                                                                                                                                                                                                "local_is_drawing_on_foreground = true local_sure_on_foreground = true local_how_many_prims_on_foreground = 0 local_how_many_dots_on_foreground = 0 } else",
-                                                                                                                                                                                                                                                                                                                                local_is_background_used = false,
-                                                                                                                                                                                                                                                                                                                                "local_is_drawing_on_background = true local_sure_on_background = true local_how_many_prims_on_background = 0 local_how_many_dots_on_background = 0 } } else",
-                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                "if (pstack[i][1] == ctx_foreground)",
-                                                                                                                                                                                                                                                                                                                                local_sure_on_foreground = true,
-                                                                                                                                                                                                                                                                                                                                "local_is_drawing_on_foreground = true local_is_foreground_used = true local_how_many_prims_on_foreground++ local_how_many_prims_on_foreground = 0 local_how_many_dots_on_foreground = 0 } else",
-                                                                                                                                                                                                                                                                                                                                local_sure_on_background = false,
-                                                                                                                                                                                                                                                                                                                                "local_is_drawing_on_background = true local_is_background_used = true local_how_many_prims_on_background++ local_how_many_prims_on_background = 0 local_how_many_dots_on_background = 0 } } break case 'c': if (pstack[i][1] == ctx_foreground)",
-                                                                                                                                                                                                                                                                                                                                local_is_foreground_used = false,
-                                                                                                                                                                                                                                                                                                                                "local_is_drawing_on_foreground = true local_sure_on_foreground = true local_how_many_prims_on_foreground = 0 local_how_many_dots_on_foreground = 0 } else",
-                                                                                                                                                                                                                                                                                                                                local_is_background_used = false,
-                                                                                                                                                                                                                                                                                                                                "local_is_drawing_on_background = true local_sure_on_background = true local_how_many_prims_on_background = 0 local_how_many_dots_on_background = 0 } break case 'u': if (pstack[i][1] == ctx_foreground)",
-                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                "if (local_is_drawing_on_foreground == true && local_sure_on_foreground == true)",
-                                                                                                                                                                                                                                                                                                                                local_sure_on_foreground = false,
-                                                                                                                                                                                                                                                                                                                                "local_is_drawing_on_foreground = false local_is_foreground_used = true local_how_many_prims_on_foreground = 0 local_how_many_dots_on_foreground = 0 } else",
-                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                "if (local_is_drawing_on_background == true && local_sure_on_background == true)",
-                                                                                                                                                                                                                                                                                                                                local_sure_on_background = false,
-                                                                                                                                                                                                                                                                                                                                "local_is_drawing_on_background = false local_is_background_used = true local_how_many_prims_on_background = 0 local_how_many_dots_on_background = 0 } break default: break } } let local_is_drawing: boolean let local_sure: boolean let local_how_many_prims: number let local_how_many_dots: number if (!local_is_foreground_used)",
-                                                                                                                                                                                                                                                                                                                                local_how_many_prims_on_foreground = 0,
-                                                                                                                                                                                                                                                                                                                                "local_how_many_dots_on_foreground = 0 local_sure_on_foreground = true local_is_drawing_on_foreground = true } if (!local_is_background_used)",
-                                                                                                                                                                                                                                                                                                                                local_how_many_prims_on_background = 0,
-                                                                                                                                                                                                                                                                                                                                "local_how_many_dots_on_background = 0 local_sure_on_background = true local_is_drawing_on_background = true } if (local_sure_on_foreground && local_sure_on_background)",
-                                                                                                                                                                                                                                                                                                                                local_sure = true,
-                                                                                                                                                                                                                                                                                                                                "else",
-                                                                                                                                                                                                                                                                                                                                local_sure = false,
-                                                                                                                                                                                                                                                                                                                                "if (local_is_drawing_on_foreground && !local_is_drawing_on_background)",
-                                                                                                                                                                                                                                                                                                                                local_is_drawing = true,
-                                                                                                                                                                                                                                                                                                                                "local_sure = false } else",
-                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                "if (!local_is_drawing_on_foreground && local_is_drawing_on_background)",
-                                                                                                                                                                                                                                                                                                                                local_is_drawing = false,
-                                                                                                                                                                                                                                                                                                                                "local_sure = false } else",
-                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                "if (local_is_drawing_on_foreground && local_is_drawing_on_background)",
-                                                                                                                                                                                                                                                                                                                                local_is_drawing = true,
-                                                                                                                                                                                                                                                                                                                                "else",
-                                                                                                                                                                                                                                                                                                                                local_is_drawing = false,
-                                                                                                                                                                                                                                                                                                                                "} } local_how_many_prims = local_how_many_prims_on_foreground + local_how_many_prims_on_background local_how_many_dots = local_how_many_dots_on_foreground + local_how_many_dots_on_background if (local_how_many_prims == 0)",
-                                                                                                                                                                                                                                                                                                                                local_is_drawing = false,
-                                                                                                                                                                                                                                                                                                                                "local_sure = true } return ", (local_is_foreground_used, local_is_background_used, local_is_drawing, local_sure, local_how_many_prims, local_how_many_dots),
-                                                                                                                                                                                                                                                                                                                                "} function push_action_to_stack(local_act: any)",
-                                                                                                                                                                                                                                                                                                                                let,
-                                                                                                                                                                                                                                                                                                                                " need_add: boolean = true let pstack_length: number = pstack.length - 1 if (pstack_length != -1 && pstack[pstack_length][0] == local_act[0] && local_act[0] != 'p' && local_act[0] != 'u' && pstack[pstack_length] == local_act)",
-                                                                                                                                                                                                                                                                                                                                need_add = false,
-                                                                                                                                                                                                                                                                                                                                "if (need_add)",
-                                                                                                                                                                                                                                                                                                                                pstack.push(local_act),
-                                                                                                                                                                                                                                                                                                                                "nstack = [] } } function gen_picture_by_drawing(params: boolean[], full_prompt: string, data_prop: any)",
-                                                                                                                                                                                                                                                                                                                                let,
-                                                                                                                                                                                                                                                                                                                                " is_depth: boolean = params[1] let is_inpainting: boolean = params[2] let is_upscale: boolean = params[3] let is_upscale_xX: boolean = params[4] blackout.style.display = \"block\" let send_data_pbp: any let foreground_data: string let ", (local_is_foreground_used, local_is_background_used, local_is_drawing, local_sure, local_how_many_prims, local_how_many_dots),
-                                                                                                                                                                                                                                                                                                                                ": any = data_prop if (is_human_caption)",
-                                                                                                                                                                                                                                                                                                                                let,
-                                                                                                                                                                                                                                                                                                                                " background_data: string if (original_image_buf == \"\")",
-                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                "if (!is_foreground_visible && !is_background_visible)",
-                                                                                                                                                                                                                                                                                                                                alert("Выключены оба слоя, вы не можете отправить изображение"),
-                                                                                                                                                                                                                                                                                                                                "return } if (local_is_foreground_used && is_foreground_visible)",
-                                                                                                                                                                                                                                                                                                                                foreground_data = canvas_foreground.toDataURL("imag/png"),
-                                                                                                                                                                                                                                                                                                                                "else",
-                                                                                                                                                                                                                                                                                                                                foreground_data = "",
-                                                                                                                                                                                                                                                                                                                                "if (local_is_background_used && is_background_visible)",
-                                                                                                                                                                                                                                                                                                                                background_data = canvas_background.toDataURL("imag/png"),
-                                                                                                                                                                                                                                                                                                                                "else",
-                                                                                                                                                                                                                                                                                                                                background_data = "",
-                                                                                                                                                                                                                                                                                                                                "} else",
-                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                "if (is_inpainting)",
-                                                                                                                                                                                                                                                                                                                                foreground_data = canvas_foreground.toDataURL("imag/png"),
-                                                                                                                                                                                                                                                                                                                                "background_data = original_image_buf } else",
-                                                                                                                                                                                                                                                                                                                                foreground_data = original_image_buf,
-                                                                                                                                                                                                                                                                                                                                "background_data = \"\" } } if (chain_id != \"\")",
-                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                "if (!is_inpainting)",
-                                                                                                                                                                                                                                                                                                                                foreground_data = "",
-                                                                                                                                                                                                                                                                                                                                "background_data = \"\" } send_data_pbp = JSON.stringify(",
-                                                                                                                                                                                                                                                                                                                                "type",
-                                                                                                                                                                                                                                                                                                                                ": 'g', //\u0440\u0438\u0441\u0443\u043D\u043E\u043A \"is_human_caption\": true, \"is_depth\": is_depth, \"is_inpainting\": is_inpainting, \"is_upscale\": is_upscale, \"is_upscale_xX\": is_upscale_xX, \"chain_id\": chain_id, //id \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0435\u0433\u043E \u0437\u0432\u0435\u043D\u0430 \u0446\u0435\u043F\u043E\u0447\u043A\u0438 \"task_id\": task_id, //id \u0437\u0430\u0434\u0430\u043D\u0438\u044F \"foreground\": foreground_data, \"backgroung\": background_data, \"prompt\": full_prompt, //\u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F \"is_drawing\": local_is_drawing, \"sure\": local_sure, \"prims_count\": local_how_many_prims, \"dots_count\": local_how_many_dots, \"img_name\": last_task_image_name, \"img_suf\": last_task_image_suffix }) /*send_data_pbp = JSON.stringify(",
-                                                                                                                                                                                                                                                                                                                                "type",
-                                                                                                                                                                                                                                                                                                                                ": 'g', //\u0440\u0438\u0441\u0443\u043D\u043E\u043A \"is_human_caption\": true, \"is_depth\": is_depth, \"is_inpainting\": is_inpainting, \"is_upscale\": is_upscale, \"chain_id\": chain_id, //id \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0435\u0433\u043E \u0437\u0432\u0435\u043D\u0430 \u0446\u0435\u043F\u043E\u0447\u043A\u0438 \"task_id\": task_id, //id \u0437\u0430\u0434\u0430\u043D\u0438\u044F \"foreground\": foreground_data, \"backgroung\": background_data, \"prompt\": full_prompt, //\u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F \"img_name\": last_task_image_name, \"img_suf\": last_task_image_suffix })*/ } else",
-                                                                                                                                                                                                                                                                                                                                send_data_pbp = JSON.stringify({
-                                                                                                                                                                                                                                                                                                                                    "type": 'g',
-                                                                                                                                                                                                                                                                                                                                    "is_human_caption": false,
-                                                                                                                                                                                                                                                                                                                                    "prompt": full_prompt,
-                                                                                                                                                                                                                                                                                                                                    "is_depth": is_depth,
-                                                                                                                                                                                                                                                                                                                                    "is_upscale": is_upscale,
-                                                                                                                                                                                                                                                                                                                                    "is_upscale_xX": is_upscale_xX,
-                                                                                                                                                                                                                                                                                                                                    "chain_id": chain_id,
-                                                                                                                                                                                                                                                                                                                                    "task_id": task_id,
-                                                                                                                                                                                                                                                                                                                                    "img_name": last_task_image_name,
-                                                                                                                                                                                                                                                                                                                                    "img_suf": last_task_image_suffix
-                                                                                                                                                                                                                                                                                                                                }),
-                                                                                                                                                                                                                                                                                                                                "; } ws.send(send_data_pbp) } function gen_picture_by_prompt(full_prompt: string)",
-                                                                                                                                                                                                                                                                                                                                blackout.style.display = "block",
-                                                                                                                                                                                                                                                                                                                                "let local_type: string let send_data_pbt: any send_data_pbt = JSON.stringify(",
-                                                                                                                                                                                                                                                                                                                                "type",
-                                                                                                                                                                                                                                                                                                                                ": \"t\", //\u0442\u0435\u043A\u0441\u0442 \"prompt\": full_prompt //\u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F }) ws.send(send_data_pbt) } function delete_background()",
-                                                                                                                                                                                                                                                                                                                                blackout.style.display = "block",
-                                                                                                                                                                                                                                                                                                                                "let data: string = original_image_buf if (chain_id != \"\")",
-                                                                                                                                                                                                                                                                                                                                data = "",
-                                                                                                                                                                                                                                                                                                                                "let send_data_del: string = JSON.stringify(",
-                                                                                                                                                                                                                                                                                                                                "type",
-                                                                                                                                                                                                                                                                                                                                ": 'b', //\u043F\u0440\u043E\u0441\u044C\u0431\u0430 \u0443\u0434\u0430\u043B\u0438\u0442\u044C \u0444\u043E\u043D \"data\": data, \"chain_id\": chain_id, //id \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0435\u0433\u043E \u0437\u0432\u0435\u043D\u0430 \u0446\u0435\u043F\u043E\u0447\u043A\u0438 \"task_id\": task_id, //id \u0437\u0430\u0434\u0430\u043D\u0438\u044F \"img_name\": last_task_image_name, //\u0438\u043C\u044F \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0435\u0433\u043E \u0444\u0430\u0439\u043B\u0430 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F \"img_suf\": last_task_image_suffix }); ws.send(send_data_del) } function colorize_picture()",
-                                                                                                                                                                                                                                                                                                                                blackout.style.display = "block",
-                                                                                                                                                                                                                                                                                                                                "let data: string = original_image_buf if (chain_id != \"\")",
-                                                                                                                                                                                                                                                                                                                                data = "",
-                                                                                                                                                                                                                                                                                                                                "let send_data_del: string = JSON.stringify(",
-                                                                                                                                                                                                                                                                                                                                "type",
-                                                                                                                                                                                                                                                                                                                                ": 'c', //\u043F\u0440\u043E\u0441\u044C\u0431\u0430 \u043F\u043E\u043A\u0440\u0430\u0441\u0438\u0442\u044C \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435 \"data\": data, \"chain_id\": chain_id, //id \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0435\u0433\u043E \u0437\u0432\u0435\u043D\u0430 \u0446\u0435\u043F\u043E\u0447\u043A\u0438 \"task_id\": task_id, //id \u0437\u0430\u0434\u0430\u043D\u0438\u044F \"img_name\": last_task_image_name, //\u0438\u043C\u044F \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0435\u0433\u043E \u0444\u0430\u0439\u043B\u0430 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F \"img_suf\": last_task_image_suffix }); ws.send(send_data_del) } function upscale()",
-                                                                                                                                                                                                                                                                                                                                blackout.style.display = "block",
-                                                                                                                                                                                                                                                                                                                                "let data: string = original_image_buf if (chain_id != \"\")",
-                                                                                                                                                                                                                                                                                                                                data = "",
-                                                                                                                                                                                                                                                                                                                                "let send_data_ups: string = JSON.stringify(",
-                                                                                                                                                                                                                                                                                                                                "type",
-                                                                                                                                                                                                                                                                                                                                ": 'a', //\u043F\u0440\u043E\u0441\u044C\u0431\u0430 \u0430\u043F\u0441\u043A\u0435\u0439\u043B\u0438\u0442\u044C \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435 \"data\": data, \"chain_id\": chain_id, //id \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0435\u0433\u043E \u0437\u0432\u0435\u043D\u0430 \u0446\u0435\u043F\u043E\u0447\u043A\u0438 \"task_id\": task_id, //id \u0437\u0430\u0434\u0430\u043D\u0438\u044F \"img_name\": last_task_image_name, //\u0438\u043C\u044F \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0435\u0433\u043E \u0444\u0430\u0439\u043B\u0430 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F \"img_suf\": last_task_image_suffix }); ws.send(send_data_ups) } window.onresize = function()",
-                                                                                                                                                                                                                                                                                                                                W = document.documentElement.clientWidth,
-                                                                                                                                                                                                                                                                                                                                "H = document.documentElement.clientHeight fW_max = W * 0.8 fH_max = H * 0.8 fW_min = W * 0.1 fH_min = H * 0.1 cW = canvas_foreground.offsetWidth cH = canvas_foreground.offsetHeight Max_cW = cW Max_cH = cH cur_real_ratio = cH / cW W_f = (W - cW) / 2 - l_width / 2 + 12 H_f = (H - cH) / 2 - l_width / 2 + 12 f_dW = d_frame.offsetWidth f_dH = d_frame.offsetHeight orig_f_dW = f_dW orig_f_dH = f_dH d_frame.width = f_dW d_frame.height = f_dH H_min = (H - f_dH) / 4 H_max = f_dH + H_min W_min = (W - f_dW) / 4 W_max = f_dW + W_min canvas_foreground.height = cH canvas_foreground.width = cW canvas_background.height = cH canvas_background.width = cW canvas_additional.height = cH canvas_additional.width = cW replay_actions(pstack) } let slider_range: NodeListOf",
-                                                                                                                                                                                                                                                                                                                                React.createElement(Element, null,
-                                                                                                                                                                                                                                                                                                                                    " = document.querySelectorAll('input[type=\"range\"]') let slider_element: any function update_slider() //\u0437\u0430\u043C\u0435\u043D\u0438\u0442\u044C \u043D\u0430 \u043E\u0431\u0434\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u0435 \u043E\u0434\u043D\u043E\u0433\u043E \u0441\u043B\u0430\u0439\u0434\u0435\u0440\u0430, \u0430 \u043D\u0435 \u0432\u0441\u0435\u0445 (\u043A\u043E\u0441\u0442\u044B\u043B\u044C)",
-                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                    "for (slider_element of slider_range)",
-                                                                                                                                                                                                                                                                                                                                    slider_element.style.setProperty('--value', slider_element.value),
-                                                                                                                                                                                                                                                                                                                                    "} for (slider_element of slider_range)",
-                                                                                                                                                                                                                                                                                                                                    slider_element.style.setProperty("--value", slider_element.value),
-                                                                                                                                                                                                                                                                                                                                    "slider_element.style.setProperty(\"--min\", slider_element.min == \"\" ? '0' : slider_element.min) slider_element.style.setProperty(\"--max\", slider_element.max == \"\" ? \"100\" : slider_element.max) slider_element.addEventListener(\"input\", () => slider_element.style.setProperty(\"--value\", slider_element.value)) } ratio_field.onchange = function()",
-                                                                                                                                                                                                                                                                                                                                    let,
-                                                                                                                                                                                                                                                                                                                                    " t_v: string = ratio_field.value let pos: number = t_v.indexOf(':') if (pos == -1)",
-                                                                                                                                                                                                                                                                                                                                    ratio_field.value = cur_ratio_val,
-                                                                                                                                                                                                                                                                                                                                    "return } if (t_v[0] == '\u2248')",
-                                                                                                                                                                                                                                                                                                                                    t_v = t_v.slice(1),
-                                                                                                                                                                                                                                                                                                                                    "pos-- } let new_r_w_s: string = t_v.slice(0, pos) let new_r_h_s: string = t_v.slice(pos + 1) let new_r_w: number = parseInt(new_r_w_s) let new_r_h: number = parseInt(new_r_h_s) let new_dfw: number let new_dfh: number if(new_r_w / new_r_h > Max_cW / Max_cH)",
-                                                                                                                                                                                                                                                                                                                                    new_dfh = Math.max(fH_min, (fW_max / new_r_w) * new_r_h),
-                                                                                                                                                                                                                                                                                                                                    "new_dfw = fW_max } else",
-                                                                                                                                                                                                                                                                                                                                    new_dfw = Math.max(fW_min, (fH_max / new_r_h) * new_r_w),
-                                                                                                                                                                                                                                                                                                                                    "new_dfh = fH_max } fW_pred = f_dW fH_pred = f_dH change_drawfield_size(new_dfw, new_dfh) push_action_to_stack(['r', new_dfw, new_dfh, true]) replay_actions(pstack) //\u041F\u043E\u0432\u0442\u043E\u0440\u043D\u0430\u044F \u043E\u0442\u0440\u0438\u0441\u043E\u0432\u043A\u0430 \u0441 \u043D\u043E\u0432\u044B\u043C \u0440\u0430\u0437\u0440\u0435\u0448\u0435\u043D\u0438\u0435\u043C return get_visual_ratio(true, new_dfw, new_dfh) } function get_visual_ratio(abs: boolean, w: number, h: number)",
-                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                    "const rat: [number, number, number][] = [[2.0556, 21, 9], [1.5556, 16, 9], [1.1667, 4, 3], [0.875, 1, 1], [0.6562, 3, 4], [0.4955, 9, 16]] let cur_ratio: number = w / h let v_w: number = 0 let v_h: number = 0 let cur_k: number if (cur_ratio ",
-                                                                                                                                                                                                                                                                                                                                    React.createElement(, null),
-                                                                                                                                                                                                                                                                                                                                    "= 0.4955)",
-                                                                                                                                                                                                                                                                                                                                    v_w = 9,
-                                                                                                                                                                                                                                                                                                                                    "v_h = 21 } else",
-                                                                                                                                                                                                                                                                                                                                    let,
-                                                                                                                                                                                                                                                                                                                                    " r: [number, number, number] for (r of rat)",
-                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                    "if (cur_ratio > r[0])",
-                                                                                                                                                                                                                                                                                                                                    v_w = r[1],
-                                                                                                                                                                                                                                                                                                                                    "v_h = r[2] break } } } if (cur_ratio > v_w / v_h)",
-                                                                                                                                                                                                                                                                                                                                    cur_k = h / v_h,
-                                                                                                                                                                                                                                                                                                                                    "v_w = Math.round(w / cur_k) } else",
-                                                                                                                                                                                                                                                                                                                                    cur_k = w / v_w,
-                                                                                                                                                                                                                                                                                                                                    "v_h = Math.round(h / cur_k) } let res: string = (v_w).toString() + \":\" + (v_h).toString() if (!abs)",
-                                                                                                                                                                                                                                                                                                                                    res = "≈" + res,
-                                                                                                                                                                                                                                                                                                                                    "return res } // \u0423\u0441\u0442\u0430\u043D\u043E\u0432\u0438\u0442\u044C \u0448\u0438\u0440\u0438\u043D\u0443 \u0431\u043E\u043A\u043E\u0432\u043E\u0439 \u043F\u0430\u043D\u0435\u043B\u0438 \u043D\u0430 250 \u043F\u0438\u043A\u0441\u0435\u043B\u0435\u0439 (\u043F\u043E\u043A\u0430\u0437\u0430\u0442\u044C) function openNav()",
-                                                                                                                                                                                                                                                                                                                                    is_side_panel_open = true,
-                                                                                                                                                                                                                                                                                                                                    "side_panel_blackout.style.display = \"block\" spanel.style.width = \"250px\"; spanel.style.border = \"2px solid #4c4c4c\"; spanel.style.borderLeftStyle = \"hidden\" spanel.style.borderTopStyle = \"hidden\" } const openBtn: HTMLElement = ",
-                                                                                                                                                                                                                                                                                                                                    React.createElement(HTMLElement, null,
-                                                                                                                                                                                                                                                                                                                                        " document.querySelector(\".openbtn\") openBtn.addEventListener(\"click\", () =>",
-                                                                                                                                                                                                                                                                                                                                        openNav(),
-                                                                                                                                                                                                                                                                                                                                        ") function closeNav_border()",
-                                                                                                                                                                                                                                                                                                                                        spanel.style.borderLeftStyle = "hidden",
-                                                                                                                                                                                                                                                                                                                                        "spanel.style.borderRightStyle = \"hidden\" } function closeNav()",
-                                                                                                                                                                                                                                                                                                                                        is_side_panel_open = false,
-                                                                                                                                                                                                                                                                                                                                        "side_panel_blackout.style.display = \"none\" spanel.style.width = \"0\" setTimeout(closeNav_border, 490) } const closeeBtn: HTMLCanvasElement = ",
-                                                                                                                                                                                                                                                                                                                                        React.createElement(HTMLCanvasElement, null,
-                                                                                                                                                                                                                                                                                                                                            "document.getElementById(\"size_panel_closebtn\") closeeBtn.addEventListener(\"pointerup\", () =>",
-                                                                                                                                                                                                                                                                                                                                            closeNav(),
-                                                                                                                                                                                                                                                                                                                                            ") close_before_gen_block.addEventListener(\"pointerup\", () =>",
-                                                                                                                                                                                                                                                                                                                                            before_gen_block.style.display = "none",
-                                                                                                                                                                                                                                                                                                                                            ") before_gen.addEventListener(\"pointerup\", () =>",
-                                                                                                                                                                                                                                                                                                                                            undo_action(),
-                                                                                                                                                                                                                                                                                                                                            ") let backBtn: HTMLElement = ",
-                                                                                                                                                                                                                                                                                                                                            React.createElement(HTMLElement, null,
-                                                                                                                                                                                                                                                                                                                                                " document.getElementById(\"arrow_back\") backBtn.addEventListener(\"click\", () =>",
-                                                                                                                                                                                                                                                                                                                                                undo_action(),
-                                                                                                                                                                                                                                                                                                                                                ") let nextBtn: HTMLElement = ",
-                                                                                                                                                                                                                                                                                                                                                React.createElement(HTMLElement, null,
-                                                                                                                                                                                                                                                                                                                                                    " document.getElementById(\"arrow_next\") nextBtn.addEventListener(\"click\", () =>",
-                                                                                                                                                                                                                                                                                                                                                    repeat_action(),
-                                                                                                                                                                                                                                                                                                                                                    ") const initial_picker = $(function ()",
-                                                                                                                                                                                                                                                                                                                                                    let,
-                                                                                                                                                                                                                                                                                                                                                    " picker: any = $(\"#picker\") picker.farbtastic(\"#color\") }) function hexDec(h: string)",
-                                                                                                                                                                                                                                                                                                                                                    let,
-                                                                                                                                                                                                                                                                                                                                                    " m_s: RegExpMatchArray = ",
-                                                                                                                                                                                                                                                                                                                                                    React.createElement(RegExpMatchArray, null,
-                                                                                                                                                                                                                                                                                                                                                        " h.slice(1).match(/.",
-                                                                                                                                                                                                                                                                                                                                                        2,
-                                                                                                                                                                                                                                                                                                                                                        "/g) let m_n: number[] = [] m_n[0] = parseInt(m_s[0], 16) m_n[1] = parseInt(m_s[1], 16) m_n[2] = parseInt(m_s[2], 16) return m_n[0] + m_n[1] + m_n[2] } colourBtn.style.background = \"#000000\" function handleclr_PointerMove()",
-                                                                                                                                                                                                                                                                                                                                                        on_clr_window = true,
-                                                                                                                                                                                                                                                                                                                                                        "let ccv: string = cur_color.value let local_clf_layer_type: number if (ccv == \"#NaNNaNNaN\")",
-                                                                                                                                                                                                                                                                                                                                                        ccv = "#" + colourBtn.style.background.split("(")[1].split(")")[0].split(",").map(function (x) {
-                                                                                                                                                                                                                                                                                                                                                            x = parseInt(x).toString(16);
-                                                                                                                                                                                                                                                                                                                                                            return (x.length == 1) ? "0" + x : x;
-                                                                                                                                                                                                                                                                                                                                                        }).join(""),
-                                                                                                                                                                                                                                                                                                                                                        "cur_color.value = ccv } if (is_clr_brash)",
-                                                                                                                                                                                                                                                                                                                                                        local_clf_layer_type = 0,
-                                                                                                                                                                                                                                                                                                                                                        "else",
-                                                                                                                                                                                                                                                                                                                                                        local_clf_layer_type = 1,
-                                                                                                                                                                                                                                                                                                                                                        "if (hexDec(ccv) > 382)",
-                                                                                                                                                                                                                                                                                                                                                    ,
-                                                                                                                                                                                                                                                                                                                                                        "if (!old_btn_clr[local_clf_layer_type])",
-                                                                                                                                                                                                                                                                                                                                                        old_btn_clr[local_clf_layer_type] = true,
-                                                                                                                                                                                                                                                                                                                                                        "ok_clr_btn.style.color = \"#000000\" clrimg.style.filter = \"invert(0)\" } } else",
-                                                                                                                                                                                                                                                                                                                                                    ,
-                                                                                                                                                                                                                                                                                                                                                        "if (old_btn_clr[local_clf_layer_type])",
-                                                                                                                                                                                                                                                                                                                                                        old_btn_clr[local_clf_layer_type] = false,
-                                                                                                                                                                                                                                                                                                                                                        "ok_clr_btn.style.color = \"#ffffff\" clrimg.style.filter = \"invert(1)\" } } ok_clr_btn.style.background = ccv colourBtn.style.background = ccv } function handlet_clr_Click()",
-                                                                                                                                                                                                                                                                                                                                                    ,
-                                                                                                                                                                                                                                                                                                                                                        "if (is_clr_brash)",
-                                                                                                                                                                                                                                                                                                                                                        cur_brush_clr = cur_color.value,
-                                                                                                                                                                                                                                                                                                                                                        "ctype_clr_btn.textContent = \"\u0426\u0432\u0435\u0442 \u043A\u0438\u0441\u0442\u0438\" cur_color.value = cur_background_clr if (hexDec(cur_brush_clr) > 382)",
-                                                                                                                                                                                                                                                                                                                                                        ctype_clr_btn.style.color = "#000000",
-                                                                                                                                                                                                                                                                                                                                                        "clrimg.style.filter = \"invert(0)\" } else",
-                                                                                                                                                                                                                                                                                                                                                        ctype_clr_btn.style.color = "#ffffff",
-                                                                                                                                                                                                                                                                                                                                                        "clrimg.style.filter = \"invert(1)\" } ctype_clr_btn.style.background = cur_brush_clr is_clr_brash = false } else",
-                                                                                                                                                                                                                                                                                                                                                        ctype_clr_btn.textContent = "Цвет фона",
-                                                                                                                                                                                                                                                                                                                                                        "let ccv = cur_brush_clr new_background_clr = cur_color.value cur_color.value = ccv if (hexDec(new_background_clr) > 382)",
-                                                                                                                                                                                                                                                                                                                                                        ctype_clr_btn.style.color = "#000000",
-                                                                                                                                                                                                                                                                                                                                                        "clrimg.style.filter = \"invert(0)\" } else",
-                                                                                                                                                                                                                                                                                                                                                        ctype_clr_btn.style.color = "#ffffff",
-                                                                                                                                                                                                                                                                                                                                                        "clrimg.style.filter = \"invert(1)\" } ctype_clr_btn.style.background = new_background_clr if (hexDec(ccv) > 382)",
-                                                                                                                                                                                                                                                                                                                                                    ,
-                                                                                                                                                                                                                                                                                                                                                        "if(!old_btn_clr[1])",
-                                                                                                                                                                                                                                                                                                                                                        old_btn_clr[1] = true,
-                                                                                                                                                                                                                                                                                                                                                        "clrimg.style.filter = \"invert(0)\" } } else",
-                                                                                                                                                                                                                                                                                                                                                    ,
-                                                                                                                                                                                                                                                                                                                                                        "if(old_btn_clr[1])",
-                                                                                                                                                                                                                                                                                                                                                        old_btn_clr[1] = false,
-                                                                                                                                                                                                                                                                                                                                                        "clrimg.style.filter = \"invert(1)\" } } ok_clr_btn.style.background = ccv colourBtn.style.background = ccv is_clr_brash = true } } function close_clr_window()",
-                                                                                                                                                                                                                                                                                                                                                        clr_w.removeEventListener("pointermove", handleclr_PointerMove),
-                                                                                                                                                                                                                                                                                                                                                        "ctype_clr_btn.removeEventListener(\"click\", handlet_clr_Click) is_clr_window = false let ccv: string = cur_color.value if (ccv == \"#NaNNaNNaN\")",
-                                                                                                                                                                                                                                                                                                                                                        ccv = "#" + colourBtn.style.background.split("(")[1].split(")")[0].split(",").map(function (x) {
-                                                                                                                                                                                                                                                                                                                                                            x = parseInt(x).toString(16);
-                                                                                                                                                                                                                                                                                                                                                            return (x.length == 1) ? "0" + x : x;
-                                                                                                                                                                                                                                                                                                                                                        }).join(""),
-                                                                                                                                                                                                                                                                                                                                                        "cur_color.value = ccv } if (!is_clr_brash)",
-                                                                                                                                                                                                                                                                                                                                                        new_background_clr = ccv,
-                                                                                                                                                                                                                                                                                                                                                        "is_clr_brash = true } else",
-                                                                                                                                                                                                                                                                                                                                                        cur_brush_clr = ccv,
-                                                                                                                                                                                                                                                                                                                                                        "if (cur_background_clr != new_background_clr) //\u043F\u043E\u0447\u0435\u043C\u0443-\u0442\u043E \u043D\u0435 \u0440\u0430\u0431\u043E\u0442\u0430\u0435\u0442, \u0438\u0437-\u0437\u0430 \u044D\u0442\u043E\u0433\u043E \u043F\u0440\u0438\u0448\u043B\u043E\u0441\u044C \u0441\u0434\u0435\u043B\u0430\u0442\u044C \u043A\u043E\u0441\u0442\u044B\u043B\u044C \u0441\u0442\u0440\u043E\u0447\u043A\u043E\u0439 \u0441\u0432\u0435\u0440\u0445\u0443. \u0423\u0431\u0440\u0430\u0442\u044C",
-                                                                                                                                                                                                                                                                                                                                                        push_action_to_stack(['i', ctx_background, new_background_clr]) //залить фон
-                                                                                                                                                                                                                                                                                                                                                    ,
-                                                                                                                                                                                                                                                                                                                                                        "//\u0437\u0430\u043B\u0438\u0442\u044C \u0444\u043E\u043D ctx_background.fillStyle = new_background_clr //\u0437\u0430\u043B\u0438\u0432\u043A\u0430 \u0444\u043E\u043D\u0430 ctx_background.fillRect(0, 0, cW, cH) canvas_to_layer(canvas_background, ctx_layer_2) } ctx_foreground.strokeStyle = cur_brush_clr ctx_add.strokeStyle = cur_brush_clr ctx_background.strokeStyle = cur_brush_clr clr_w.style.display = \"none\" } change_themeBtn.addEventListener(\"click\", () =>",
-                                                                                                                                                                                                                                                                                                                                                    ,
-                                                                                                                                                                                                                                                                                                                                                        "if (is_dark_mode)",
-                                                                                                                                                                                                                                                                                                                                                        tmimg.setAttribute("src", "dark mode.png"),
-                                                                                                                                                                                                                                                                                                                                                        "is_dark_mode = false nav_panel.style.filter = \"invert(0)\" graphic_tabletBtn.style.filter = \"invert(0)\" spanel.style.filter = \"invert(0)\" spanel_openbtn.style.filter = \"invert(0)\" colourBtn.style.filter = \"invert(0)\" scale_field.style.filter = \"invert(0)\" layers_buttons.style.filter = \"invert(0)\" first_layer_visibilityBtn.style.filter = \"invert(0)\" second_layer_visibilityBtn.style.filter = \"invert(0)\" clear_first_layer_Btn.style.filter = \"invert(0)\" clear_second_layer_Btn.style.filter = \"invert(0)\" pencil_w.style.filter = \"invert(0)\" pencil_w.style.border = \"2px solid #292929\" eraser_w.style.filter = \"invert(0)\" eraser_w.style.border = \"2px solid #292929\" clr_w.style.backgroundColor = \"#ffffff\" clr_w.style.border = \"2px solid #292929\" body.style.backgroundColor = \"#ffffff\" div_layers.style.backgroundColor = \"#ffffff\" text_label_clr.style.color = \"#000000\" if (is_foreground_selected)",
-                                                                                                                                                                                                                                                                                                                                                        layer_1.style.outline = "3px solid #000000",
-                                                                                                                                                                                                                                                                                                                                                        "layer_1.style.border = \"1px solid #000000\" } else",
-                                                                                                                                                                                                                                                                                                                                                        layer_2.style.outline = "3px solid #000000",
-                                                                                                                                                                                                                                                                                                                                                        "layer_2.style.border = \"1px solid #000000\" } } else",
-                                                                                                                                                                                                                                                                                                                                                        tmimg.setAttribute("src", "light mode.png"),
-                                                                                                                                                                                                                                                                                                                                                        "is_dark_mode = true nav_panel.style.filter = \"invert(0.9)\" graphic_tabletBtn.style.filter = \"invert(0.9)\" spanel.style.filter = \"invert(0.9)\" spanel_openbtn.style.filter = \"invert(0.9)\" colourBtn.style.filter = \"invert(1.1)\" scale_field.style.filter = \"invert(0.9)\" layers_buttons.style.filter = \"invert(0.9)\" first_layer_visibilityBtn.style.filter = \"invert(0.9)\" second_layer_visibilityBtn.style.filter = \"invert(0.9)\" clear_first_layer_Btn.style.filter = \"invert(0.9)\" clear_second_layer_Btn.style.filter = \"invert(0.9)\" pencil_w.style.filter = \"invert(0.9)\" pencil_w.style.border = \"2px solid #aaaaaa\" eraser_w.style.filter = \"invert(0.9)\" eraser_w.style.border = \"2px solid #aaaaaa\" clr_w.style.backgroundColor = \"#303030\" clr_w.style.border = \"2px solid #aaaaaa\" body.style.backgroundColor = \"#303030\" div_layers.style.backgroundColor = \"#222222\" text_label_clr.style.color = \"#ffffff\" if (is_foreground_selected)",
-                                                                                                                                                                                                                                                                                                                                                        layer_1.style.outline = "3px solid #cccccc",
-                                                                                                                                                                                                                                                                                                                                                        "layer_1.style.border = \"1px solid #cccccc\" } else",
-                                                                                                                                                                                                                                                                                                                                                        layer_2.style.outline = "3px solid #cccccc",
-                                                                                                                                                                                                                                                                                                                                                        "layer_2.style.border = \"1px solid #cccccc\" } } }) select_first_layerBtn.addEventListener(\"click\", () =>",
-                                                                                                                                                                                                                                                                                                                                                    ,
-                                                                                                                                                                                                                                                                                                                                                        "if (!is_foreground_selected)",
-                                                                                                                                                                                                                                                                                                                                                    ,
-                                                                                                                                                                                                                                                                                                                                                        "if (is_dark_mode)",
-                                                                                                                                                                                                                                                                                                                                                        layer_1.style.border = "1px solid #cccccc",
-                                                                                                                                                                                                                                                                                                                                                        "layer_1.style.outline = \"3px solid #cccccc\" } else",
-                                                                                                                                                                                                                                                                                                                                                        layer_1.style.border = "1px solid #000000",
-                                                                                                                                                                                                                                                                                                                                                        "layer_1.style.outline = \"3px solid #000000\" } layer_2.style.outline = \"1px solid #707070\" layer_2.style.border = \"none\" cur_draw_ctx = ctx_foreground cur_canvas = canvas_foreground cur_ctx_layer = ctx_layer_1 is_foreground_selected = true } }) const select_second_layerBtn: HTMLElement = ",
-                                                                                                                                                                                                                                                                                                                                                        React.createElement(HTMLElement, null,
-                                                                                                                                                                                                                                                                                                                                                            " document.getElementById(\"layer_button_2\") select_second_layerBtn.addEventListener(\"click\", () =>",
-                                                                                                                                                                                                                                                                                                                                                        ,
-                                                                                                                                                                                                                                                                                                                                                            "if (is_foreground_selected)",
-                                                                                                                                                                                                                                                                                                                                                            layer_1.style.outline = "1px solid #707070",
-                                                                                                                                                                                                                                                                                                                                                            "layer_1.style.border = \"none\" if (is_dark_mode)",
-                                                                                                                                                                                                                                                                                                                                                            layer_2.style.border = "1px solid #cccccc",
-                                                                                                                                                                                                                                                                                                                                                            "layer_2.style.outline = \"3px solid #cccccc\" } else",
-                                                                                                                                                                                                                                                                                                                                                            layer_2.style.border = "1px solid #000000",
-                                                                                                                                                                                                                                                                                                                                                            "layer_2.style.outline = \"3px solid #000000\" } cur_draw_ctx = ctx_background cur_canvas = canvas_background cur_ctx_layer = ctx_layer_2 is_foreground_selected = false } }) first_layer_visibilityBtn.addEventListener(\"click\", () =>",
-                                                                                                                                                                                                                                                                                                                                                        ,
-                                                                                                                                                                                                                                                                                                                                                            "if (is_foreground_visible)",
-                                                                                                                                                                                                                                                                                                                                                            is_foreground_visible = false,
-                                                                                                                                                                                                                                                                                                                                                            "canvas_foreground.style.display = \"none\" first_layer_visibility_img.setAttribute(\"src\", \"visibility_off.png\") } else",
-                                                                                                                                                                                                                                                                                                                                                            is_foreground_visible = true,
-                                                                                                                                                                                                                                                                                                                                                            "canvas_foreground.style.display = \"block\" first_layer_visibility_img.setAttribute(\"src\", \"visibility_on.png\") } }) clear_first_layer_Btn.addEventListener(\"click\", () =>",
-                                                                                                                                                                                                                                                                                                                                                            original_image_buf = "",
-                                                                                                                                                                                                                                                                                                                                                            "before_gen_block.style.display = \"none\" ctx_foreground.clearRect(0, 0, cW, cH) ctx_layer_1.clearRect(0, 0, lwW, lwH) push_action_to_stack(['c', ctx_foreground]) }) second_layer_visibilityBtn.addEventListener(\"click\", () =>",
-                                                                                                                                                                                                                                                                                                                                                        ,
-                                                                                                                                                                                                                                                                                                                                                            "if (is_background_visible)",
-                                                                                                                                                                                                                                                                                                                                                            is_background_visible = false,
-                                                                                                                                                                                                                                                                                                                                                            "canvas_background.style.display = \"none\" second_layer_visibility_img.setAttribute(\"src\", \"visibility_off.png\") } else",
-                                                                                                                                                                                                                                                                                                                                                            is_background_visible = true,
-                                                                                                                                                                                                                                                                                                                                                            "canvas_background.style.display = \"block\" second_layer_visibility_img.setAttribute(\"src\", \"visibility_on.png\") } }) clear_second_layer_Btn.addEventListener(\"click\", () =>",
-                                                                                                                                                                                                                                                                                                                                                            original_image_buf = "",
-                                                                                                                                                                                                                                                                                                                                                            "before_gen_block.style.display = \"none\" ctx_background.clearRect(0, 0, cW, cH) ctx_layer_2.clearRect(0, 0, lwW, lwH) push_action_to_stack(['c', ctx_background]) }) const merge_layersBtn: HTMLElement = ",
-                                                                                                                                                                                                                                                                                                                                                            React.createElement(HTMLElement, null,
-                                                                                                                                                                                                                                                                                                                                                                " document.getElementById(\"merge_layers\") function merge_layers_in_stack(stack: any[], local_ctx: CanvasRenderingContext2D)",
-                                                                                                                                                                                                                                                                                                                                                                let,
-                                                                                                                                                                                                                                                                                                                                                                " substack_1: any[] = [] let substack_2: any[] = [] let is_changed_stack: boolean[] = [] let another_ctx: CanvasRenderingContext2D let is_foreground: boolean let return_value: [any[], boolean[]] if (local_ctx == ctx_foreground)",
-                                                                                                                                                                                                                                                                                                                                                                another_ctx = ctx_background,
-                                                                                                                                                                                                                                                                                                                                                                "is_foreground = true } else",
-                                                                                                                                                                                                                                                                                                                                                                another_ctx = ctx_foreground,
-                                                                                                                                                                                                                                                                                                                                                                "is_foreground = false } for (let i: number = 0; i ",
-                                                                                                                                                                                                                                                                                                                                                                React.createElement(stack.length, null),
-                                                                                                                                                                                                                                                                                                                                                                "; i++)",
-                                                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                                                "if (id_list.includes(stack[i][0]) && stack[i][1] == another_ctx)",
-                                                                                                                                                                                                                                                                                                                                                                stack[i][1] = local_ctx,
-                                                                                                                                                                                                                                                                                                                                                                "substack_1.push(stack[i]) is_changed_stack.push(true) } else",
-                                                                                                                                                                                                                                                                                                                                                                substack_2.push(stack[i]),
-                                                                                                                                                                                                                                                                                                                                                                "is_changed_stack.push(false) } } if (is_foreground)",
-                                                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                                                "if (substack_1.length == 0)",
-                                                                                                                                                                                                                                                                                                                                                                return_value = [stack, []],
-                                                                                                                                                                                                                                                                                                                                                                "return return_value } return_value = [substack_1.concat(substack_2), is_changed_stack] return return_value } else",
-                                                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                                                "if (substack_1.length == 0)",
-                                                                                                                                                                                                                                                                                                                                                                return_value = [stack, []],
-                                                                                                                                                                                                                                                                                                                                                                "return return_value } return_value = [substack_2.concat(substack_1), is_changed_stack] return return_value } } function unmerge_layers_in_stack(stack: any, local_ctx: CanvasRenderingContext2D, local_ics: boolean[])",
-                                                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                                                "if (local_ics.length == 0)",
-                                                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                                                "return stack } let substack_1: any = [] let substack_2: any = [] let another_ctx: CanvasRenderingContext2D let is_foreground: boolean if (local_ctx == ctx_foreground)",
-                                                                                                                                                                                                                                                                                                                                                                another_ctx = ctx_background,
-                                                                                                                                                                                                                                                                                                                                                                "is_foreground = true } else",
-                                                                                                                                                                                                                                                                                                                                                                another_ctx = ctx_foreground,
-                                                                                                                                                                                                                                                                                                                                                                "is_foreground = false } for (let i = 0; i ",
-                                                                                                                                                                                                                                                                                                                                                                React.createElement(stack.length, null),
-                                                                                                                                                                                                                                                                                                                                                                "; i++)",
-                                                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                                                "if (local_ics[i] == true)",
-                                                                                                                                                                                                                                                                                                                                                                stack[i][1] = another_ctx,
-                                                                                                                                                                                                                                                                                                                                                                "substack_1.push(stack[i]) } else",
-                                                                                                                                                                                                                                                                                                                                                                substack_2.push(stack[i]),
-                                                                                                                                                                                                                                                                                                                                                                "} if (is_foreground)",
-                                                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                                                "return substack_1.concat(substack_2) } else",
-                                                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                                                "return substack_2.concat(substack_1) } } function unmerge_layers(local_ctx: CanvasRenderingContext2D, local_ics_1: boolean[], local_ics_2: boolean[])",
-                                                                                                                                                                                                                                                                                                                                                                pstack = unmerge_layers_in_stack(pstack, local_ctx, local_ics_1),
-                                                                                                                                                                                                                                                                                                                                                                "nstack = unmerge_layers_in_stack(nstack, local_ctx, local_ics_2) replay_actions(pstack) ctx_layer_1.clearRect(0, 0, lwW, lwH) canvas_to_layer(canvas_foreground, ctx_layer_1) ctx_layer_2.clearRect(0, 0, lwW, lwH) canvas_to_layer(canvas_background, ctx_layer_2) } function merge_layers(local_draw_ctx: CanvasRenderingContext2D)",
-                                                                                                                                                                                                                                                                                                                                                                let,
-                                                                                                                                                                                                                                                                                                                                                                " merge_elem: [any[], boolean[]] = merge_layers_in_stack(pstack, local_draw_ctx) let return_value: [boolean[], boolean[]] = [merge_elem[1], []] pstack = merge_elem[0] if (return_value[0].length == 0)",
-                                                                                                                                                                                                                                                                                                                                                                return_value[1] = [],
-                                                                                                                                                                                                                                                                                                                                                                "return return_value } merge_elem = merge_layers_in_stack(nstack, local_draw_ctx) return_value[1] = merge_elem[1] nstack = merge_elem[0] replay_actions(pstack) if (local_draw_ctx == ctx_foreground)",
-                                                                                                                                                                                                                                                                                                                                                                ctx_layer_2.clearRect(0, 0, lwW, lwH),
-                                                                                                                                                                                                                                                                                                                                                                "canvas_to_layer(canvas_foreground, ctx_layer_1) } else",
-                                                                                                                                                                                                                                                                                                                                                                ctx_layer_1.clearRect(0, 0, lwW, lwH),
-                                                                                                                                                                                                                                                                                                                                                                "canvas_to_layer(canvas_background, ctx_layer_2) } return return_value } merge_layersBtn.addEventListener(\"click\", () =>",
-                                                                                                                                                                                                                                                                                                                                                                let,
-                                                                                                                                                                                                                                                                                                                                                                " is_changed_stack: [boolean[], boolean[]] = merge_layers(cur_draw_ctx) if (is_changed_stack[0].length == 0 && is_changed_stack[1].length == 0)",
-                                                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                                                "return } push_action_to_stack(['m', cur_draw_ctx, is_changed_stack[0], is_changed_stack[1]]) }) const swap_layersBtn: HTMLElement = ",
-                                                                                                                                                                                                                                                                                                                                                                React.createElement(HTMLElement, null,
-                                                                                                                                                                                                                                                                                                                                                                    " document.getElementById(\"swap_layers\") function swap_layers_in_stack(stack: any[])",
-                                                                                                                                                                                                                                                                                                                                                                    let,
-                                                                                                                                                                                                                                                                                                                                                                    " return_value: [any[], boolean] = [[], false] for (let i = 0; i ",
-                                                                                                                                                                                                                                                                                                                                                                    React.createElement(stack.length, null),
-                                                                                                                                                                                                                                                                                                                                                                    "; i++)",
-                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                    "if (id_list.includes(stack[i][0]))",
-                                                                                                                                                                                                                                                                                                                                                                    return_value[1] = true,
-                                                                                                                                                                                                                                                                                                                                                                    "if (stack[i][1] == ctx_foreground)",
-                                                                                                                                                                                                                                                                                                                                                                    stack[i][1] = ctx_background,
-                                                                                                                                                                                                                                                                                                                                                                    "else",
-                                                                                                                                                                                                                                                                                                                                                                    stack[i][1] = ctx_foreground,
-                                                                                                                                                                                                                                                                                                                                                                    "} } return_value[0] = stack return return_value } function swap_layers()",
-                                                                                                                                                                                                                                                                                                                                                                    let,
-                                                                                                                                                                                                                                                                                                                                                                    " input_value: [any[], boolean] = swap_layers_in_stack(pstack) pstack = input_value[0] if (input_value[1] == false)",
-                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                    "return } input_value = swap_layers_in_stack(nstack) nstack = input_value[0] replay_actions(pstack) ctx_layer_1.clearRect(0, 0, lwW, lwH) canvas_to_layer(canvas_foreground, ctx_layer_1) ctx_layer_2.clearRect(0, 0, lwW, lwH) canvas_to_layer(canvas_background, ctx_layer_2) } swap_layersBtn.addEventListener(\"click\", () =>",
-                                                                                                                                                                                                                                                                                                                                                                    swap_layers(),
-                                                                                                                                                                                                                                                                                                                                                                    "push_action_to_stack(['s']) }) graphic_tabletBtn.addEventListener(\"click\", () =>",
-                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                    "if (graphic_tablet_mode)",
-                                                                                                                                                                                                                                                                                                                                                                    graphic_tabletBtn.style.border = "1px solid #707070",
-                                                                                                                                                                                                                                                                                                                                                                    "graphic_tablet_mode = false } else",
-                                                                                                                                                                                                                                                                                                                                                                    graphic_tabletBtn.style.border = "5px solid #000000",
-                                                                                                                                                                                                                                                                                                                                                                    "graphic_tablet_mode = true } }) function close_all_add_windows()",
-                                                                                                                                                                                                                                                                                                                                                                    pencil_w.style.display = "none",
-                                                                                                                                                                                                                                                                                                                                                                    "is_pencil_window = false eraser_w.style.display = \"none\" is_eraser_window = false clr_w.style.display = \"none\" is_clr_window == false } colourBtn.addEventListener(\"click\", () =>",
-                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                    "if (is_pencil_window || is_eraser_window)",
-                                                                                                                                                                                                                                                                                                                                                                    pencil_w.style.display = "none",
-                                                                                                                                                                                                                                                                                                                                                                    "is_pencil_window = false eraser_w.style.display = \"none\" is_eraser_window = false } cur_color.value = cur_brush_clr if (is_clr_window == false)",
-                                                                                                                                                                                                                                                                                                                                                                    clr_w.style.display = "block",
-                                                                                                                                                                                                                                                                                                                                                                    "update_slider() is_clr_window = true clr_w.addEventListener(\"pointermove\", handleclr_PointerMove) ctype_clr_btn.addEventListener(\"click\", handlet_clr_Click) ok_clr.addEventListener(\"click\", () =>",
-                                                                                                                                                                                                                                                                                                                                                                    cursor_type = 3,
-                                                                                                                                                                                                                                                                                                                                                                    "cursor_image.setAttribute(\"src\", cur_tool[2]) cursor.style.left = (cX + 7.5) + \"px\" cursor.style.top = (cY + 7.5) + \"px\" cursor.style.display = \"block\" close_clr_window() },",
-                                                                                                                                                                                                                                                                                                                                                                    once,
-                                                                                                                                                                                                                                                                                                                                                                    ": true }) } else",
-                                                                                                                                                                                                                                                                                                                                                                    close_clr_window(),
-                                                                                                                                                                                                                                                                                                                                                                    "}) function change_thickness(flag: boolean)",
-                                                                                                                                                                                                                                                                                                                                                                    let,
-                                                                                                                                                                                                                                                                                                                                                                    " t_v: number if (flag)",
-                                                                                                                                                                                                                                                                                                                                                                    t_v = parseInt(thickness_field.value),
-                                                                                                                                                                                                                                                                                                                                                                    "else",
-                                                                                                                                                                                                                                                                                                                                                                    t_v = parseInt(e_thickness_field.value),
-                                                                                                                                                                                                                                                                                                                                                                    "t_v -= 1 let real_t_v: number = Math.min(100, Math.max(0, t_v)) if (t_v != real_t_v)",
-                                                                                                                                                                                                                                                                                                                                                                    t_v = real_t_v,
-                                                                                                                                                                                                                                                                                                                                                                    "thickness_field.value = (t_v + 1).toString() e_thickness_field.value = (t_v + 1).toString() thickness_slider.value = (t_v + 1).toString() e_thickness_slider.value = (t_v + 1).toString() let thickness_k: number = t_v * t_v * 0.0001 //\u043A\u043E\u044D\u0444\u0444\u0438\u0446\u0438\u0435\u043D\u0442, \u0447\u0442\u043E\u0431\u044B \u0442\u043E\u043B\u0449\u0438\u043D\u0430 \u043D\u0435 \u0443\u0432\u0435\u043B\u0438\u0447\u0438\u0432\u0430\u043B\u0430\u0441\u044C \u0442\u0430\u043A \u0440\u0435\u0437\u043A\u043E, \u0441\u0435\u0439\u0447\u0430\u0441 \u044D\u0442\u043E \u043A\u0432\u0430\u0434\u0440\u0430\u0442 l_width = 1 + Math.max(cW, cH) * thickness_k W_f = (W - cW) / 2 - l_width / 2 + 12 H_f = (H - cH) / 2 - l_width / 2 + 12 ctx_foreground.lineWidth = l_width ctx_add.lineWidth = l_width ctx_background.lineWidth = l_width update_slider() } function change_smoothing()",
-                                                                                                                                                                                                                                                                                                                                                                    cur_smoothing = parseInt(smoothing_field.value),
-                                                                                                                                                                                                                                                                                                                                                                    "let real_s_v: number = Math.min(100, Math.max(0, cur_smoothing)) if (cur_smoothing != real_s_v)",
-                                                                                                                                                                                                                                                                                                                                                                    cur_smoothing = real_s_v,
-                                                                                                                                                                                                                                                                                                                                                                    "smoothing_field.value = cur_smoothing.toString() } k_smooth = 0 let step: number = 1.0 / cur_smoothing for (let t: number = 0; t ",
-                                                                                                                                                                                                                                                                                                                                                                    React.createElement(, null),
-                                                                                                                                                                                                                                                                                                                                                                    " 1 + step; t += step) //\u043E\u0447\u0435\u043D\u044C \u0441\u0442\u0440\u0430\u043D\u043D\u044B\u0439 \u043A\u043E\u0441\u0442\u044B\u043B\u044C, \u0438\u0441\u043F\u0440\u0430\u0432\u043B\u044E \u043F\u043E\u0437\u0436\u0435",
-                                                                                                                                                                                                                                                                                                                                                                    t = Math.min(1, t),
-                                                                                                                                                                                                                                                                                                                                                                    "k_smooth++ } update_slider() } thickness_slider.oninput = function ()",
-                                                                                                                                                                                                                                                                                                                                                                    thickness_field.value = thickness_slider.value,
-                                                                                                                                                                                                                                                                                                                                                                    "change_thickness(true) }; smoothing_slider.oninput = function ()",
-                                                                                                                                                                                                                                                                                                                                                                    smoothing_field.value = smoothing_slider.value,
-                                                                                                                                                                                                                                                                                                                                                                    "change_smoothing() }; e_thickness_slider.oninput = function ()",
-                                                                                                                                                                                                                                                                                                                                                                    e_thickness_field.value = e_thickness_slider.value,
-                                                                                                                                                                                                                                                                                                                                                                    "change_thickness(false) } thickness_field.oninput = function ()",
-                                                                                                                                                                                                                                                                                                                                                                    thickness_slider.value = thickness_field.value,
-                                                                                                                                                                                                                                                                                                                                                                    "; change_thickness(true); }; smoothing_field.oninput = function ()",
-                                                                                                                                                                                                                                                                                                                                                                    smoothing_slider.value = smoothing_field.value,
-                                                                                                                                                                                                                                                                                                                                                                    "; change_smoothing() } e_thickness_field.oninput = function ()",
-                                                                                                                                                                                                                                                                                                                                                                    e_thickness_slider.value = e_thickness_field.value,
-                                                                                                                                                                                                                                                                                                                                                                    "change_thickness(false) } const setpencilBtn: HTMLElement = ",
-                                                                                                                                                                                                                                                                                                                                                                    React.createElement(HTMLElement, null,
-                                                                                                                                                                                                                                                                                                                                                                        " document.getElementById(\"pencil\") setpencilBtn.style.border = \"5px solid #000000\" setpencilBtn.style.transform = \"translateY(7%)\" let cur_tool: [string, HTMLElement, string] = ['k', setpencilBtn, \"aero_pen.cur\"] //\u0442\u0435\u043A\u0443\u0449\u0438\u0439 \u0438\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442 (\u043A\u0430\u0440\u0430\u043D\u0434\u0430\u0448) setpencilBtn.addEventListener(\"click\", () =>",
-                                                                                                                                                                                                                                                                                                                                                                    ,
-                                                                                                                                                                                                                                                                                                                                                                        "if (is_clr_window)",
-                                                                                                                                                                                                                                                                                                                                                                        close_clr_window(),
-                                                                                                                                                                                                                                                                                                                                                                        "if (cur_tool[0] != 'k')",
-                                                                                                                                                                                                                                                                                                                                                                    ,
-                                                                                                                                                                                                                                                                                                                                                                        "if (cur_tool[0] == 'e')",
-                                                                                                                                                                                                                                                                                                                                                                        change_thickness(false),
-                                                                                                                                                                                                                                                                                                                                                                        "eraser_w.style.display = \"none\" is_eraser_window = false } is_pencil_window = true pencil_w.style.display = \"block\" update_slider() setpencilBtn.style.border = \"5px solid #000000\" setpencilBtn.style.transform = \"translateY(7%)\" cur_tool[1].style.border = \"1px solid #707070\" cur_tool[1].style.transform = \"translateY(0%)\" cur_tool = ['k', setpencilBtn, \"aero_pen.cur\"] } else",
-                                                                                                                                                                                                                                                                                                                                                                    ,
-                                                                                                                                                                                                                                                                                                                                                                        "if (is_pencil_window)",
-                                                                                                                                                                                                                                                                                                                                                                        change_thickness(true),
-                                                                                                                                                                                                                                                                                                                                                                        "pencil_w.style.display = \"none\" is_pencil_window = false } else",
-                                                                                                                                                                                                                                                                                                                                                                        pencil_w.style.display = "block",
-                                                                                                                                                                                                                                                                                                                                                                        "update_slider() is_pencil_window = true } } }) const seteraserBtn: HTMLElement = ",
-                                                                                                                                                                                                                                                                                                                                                                        React.createElement(HTMLElement, null,
-                                                                                                                                                                                                                                                                                                                                                                            " document.getElementById(\"eraser\") seteraserBtn.addEventListener(\"click\", () =>",
-                                                                                                                                                                                                                                                                                                                                                                        ,
-                                                                                                                                                                                                                                                                                                                                                                            "if (is_clr_window)",
-                                                                                                                                                                                                                                                                                                                                                                            close_clr_window(),
-                                                                                                                                                                                                                                                                                                                                                                            "if (cur_tool[0] != 'e')",
-                                                                                                                                                                                                                                                                                                                                                                        ,
-                                                                                                                                                                                                                                                                                                                                                                            "if (cur_tool[0] == 'k')",
-                                                                                                                                                                                                                                                                                                                                                                            change_thickness(true),
-                                                                                                                                                                                                                                                                                                                                                                            "pencil_w.style.display = \"none\" is_pencil_window = false } is_eraser_window = true eraser_w.style.display = \"block\" update_slider() seteraserBtn.style.border = \"5px solid #000000\" seteraserBtn.style.transform = \"translateY(7%)\" cur_tool[1].style.border = \"1px solid #707070\" cur_tool[1].style.transform = \"translateY(0%)\" cur_tool = ['e', seteraserBtn, \"aero_eraser.png\"] } else",
-                                                                                                                                                                                                                                                                                                                                                                        ,
-                                                                                                                                                                                                                                                                                                                                                                            "if (is_eraser_window)",
-                                                                                                                                                                                                                                                                                                                                                                            change_thickness(false),
-                                                                                                                                                                                                                                                                                                                                                                            "eraser_w.style.display = \"none\" is_eraser_window = false } else",
-                                                                                                                                                                                                                                                                                                                                                                            eraser_w.style.display = "block",
-                                                                                                                                                                                                                                                                                                                                                                            "update_slider() is_eraser_window = true } } }) const setbucketBtn: HTMLElement = ",
-                                                                                                                                                                                                                                                                                                                                                                            React.createElement(HTMLElement, null,
-                                                                                                                                                                                                                                                                                                                                                                                " document.getElementById(\"bucket\") setbucketBtn.addEventListener(\"click\", () =>",
-                                                                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                                                                "if (cur_tool[0] != 'b')",
-                                                                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                                                                "if (cur_tool[0] == 'k' || cur_tool[0] == 'e')",
-                                                                                                                                                                                                                                                                                                                                                                                pencil_w.style.display = "none",
-                                                                                                                                                                                                                                                                                                                                                                                "is_pencil_window = false eraser_w.style.display = \"none\" is_eraser_window = false if (cur_tool[0] == 'k')",
-                                                                                                                                                                                                                                                                                                                                                                                change_thickness(true),
-                                                                                                                                                                                                                                                                                                                                                                                "else",
-                                                                                                                                                                                                                                                                                                                                                                                change_thickness(false),
-                                                                                                                                                                                                                                                                                                                                                                                "pencil_w.style.display = \"none\" } setbucketBtn.style.border = \"5px solid #000000\" setbucketBtn.style.transform = \"translateY(7%)\" cur_tool[1].style.border = \"1px solid #707070\" cur_tool[1].style.transform = \"translateY(0%)\" cur_tool = ['b', setbucketBtn, \"aero_bucket.png\"] } }) const setpipetteBtn: HTMLElement = ",
-                                                                                                                                                                                                                                                                                                                                                                                React.createElement(HTMLElement, null,
-                                                                                                                                                                                                                                                                                                                                                                                    " document.getElementById(\"pipette\") setpipetteBtn.addEventListener(\"click\", () =>",
-                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                    "if (cur_tool[0] != 'p')",
-                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                    "if (cur_tool[0] == 'k' || cur_tool[0] == 'e')",
-                                                                                                                                                                                                                                                                                                                                                                                    pencil_w.style.display = "none",
-                                                                                                                                                                                                                                                                                                                                                                                    "is_pencil_window = false eraser_w.style.display = \"none\" is_eraser_window = false if (cur_tool[0] == 'k')",
-                                                                                                                                                                                                                                                                                                                                                                                    change_thickness(true),
-                                                                                                                                                                                                                                                                                                                                                                                    "else",
-                                                                                                                                                                                                                                                                                                                                                                                    change_thickness(false),
-                                                                                                                                                                                                                                                                                                                                                                                    "pencil_w.style.display = \"none\" } setpipetteBtn.style.border = \"5px solid #000000\" setpipetteBtn.style.transform = \"translateY(7%)\" cur_tool[1].style.border = \"1px solid #707070\" cur_tool[1].style.transform = \"translateY(0%)\" cur_tool = ['p', setpipetteBtn, \"aero_pipette.png\"] } }) function full_clear_drawfield()",
-                                                                                                                                                                                                                                                                                                                                                                                    original_image_buf = "",
-                                                                                                                                                                                                                                                                                                                                                                                    "before_gen_block.style.display = \"none\" cur_background_clr = \"#fff\" ctx_background.fillStyle = cur_background_clr ctx_foreground.clearRect(0, 0, cW, cH) ctx_background.clearRect(0, 0, cW, cH) } function clear_drawfield()",
-                                                                                                                                                                                                                                                                                                                                                                                    original_image_buf = "",
-                                                                                                                                                                                                                                                                                                                                                                                    "before_gen_block.style.display = \"none\" cur_background_clr = \"#fff\" ctx_background.fillStyle = cur_background_clr ctx_foreground.clearRect(0, 0, cW, cH) ctx_background.fillRect(0, 0, cW, cH) } const clearBtn: HTMLElement = ",
-                                                                                                                                                                                                                                                                                                                                                                                    React.createElement(HTMLElement, null,
-                                                                                                                                                                                                                                                                                                                                                                                        " document.getElementById(\"clear\") clearBtn.addEventListener(\"click\", () =>",
-                                                                                                                                                                                                                                                                                                                                                                                        clear_drawfield(),
-                                                                                                                                                                                                                                                                                                                                                                                        "push_action_to_stack(['d']) //\u0442\u0438\u043F - \u043E\u0447\u0438\u0441\u0442\u043A\u0430 \u044D\u043A\u0440\u0430\u043D\u0430 }) const mhf: HTMLElement = ",
-                                                                                                                                                                                                                                                                                                                                                                                        React.createElement(HTMLElement, null,
-                                                                                                                                                                                                                                                                                                                                                                                            " document.getElementById(\"my_hidden_file\") const uploadBtn: HTMLElement = ",
-                                                                                                                                                                                                                                                                                                                                                                                            React.createElement(HTMLElement, null,
-                                                                                                                                                                                                                                                                                                                                                                                                " document.getElementById(\"upload\") uploadBtn.addEventListener(\"click\", () =>",
-                                                                                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                                                                                "if(!is_first_upload_btn_click) //\u043A\u043E\u0441\u0442\u044B\u043B\u044C \u0447\u0442\u043E\u0431\u044B \u043A\u043D\u043E\u043F\u043A\u0430 \u043D\u0435 \u0441\u0440\u0430\u0431\u0430\u0442\u044B\u0432\u0430\u043B\u0430 \u0434\u0432\u0430\u0436\u0434\u044B",
-                                                                                                                                                                                                                                                                                                                                                                                                is_first_upload_btn_click = true,
-                                                                                                                                                                                                                                                                                                                                                                                                "return } is_first_upload_btn_click = false mhf.click() mhf.addEventListener(\"change\", function readImage(this: HTMLInputElement)",
-                                                                                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                                                                                "if (!this.files || !this.files[0]) return chain_id = \"\" const FR: FileReader = new FileReader() FR.addEventListener(\"load\", (evt: any) =>",
-                                                                                                                                                                                                                                                                                                                                                                                                let,
-                                                                                                                                                                                                                                                                                                                                                                                                " new_img_w: number let new_img_h: number let img = new Image() img.addEventListener(\"load\", () =>",
-                                                                                                                                                                                                                                                                                                                                                                                                let,
-                                                                                                                                                                                                                                                                                                                                                                                                " img_w: number = img.width let img_h: number = img.height original_image_w = img_w original_image_h = img_h let new_dfw: number let new_dfh: number let is_drawfield_used: boolean = false let ps_size: number = pstack.length let x_paste_pos: number = 0 let y_paste_pos: number = 0 let i: number if (ps_size != 0 && pstack[0] == 'i', ctx_background, \"#fff\")",
-                                                                                                                                                                                                                                                                                                                                                                                                i = 1,
-                                                                                                                                                                                                                                                                                                                                                                                                "else",
-                                                                                                                                                                                                                                                                                                                                                                                                i = 0,
-                                                                                                                                                                                                                                                                                                                                                                                                "let local_id_list: string[] = ['r', 'p', 'i', 'u', 'f'] for (i; i ",
-                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("ps_size", null),
-                                                                                                                                                                                                                                                                                                                                                                                                "; i++)",
-                                                                                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                                                                                "if (local_id_list.includes(pstack[i][0]))",
-                                                                                                                                                                                                                                                                                                                                                                                                is_drawfield_used = true,
-                                                                                                                                                                                                                                                                                                                                                                                                "break } } if (is_drawfield_used)",
-                                                                                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                                                                                "if (img_w / img_h > cW / cH)",
-                                                                                                                                                                                                                                                                                                                                                                                                new_img_w = cW,
-                                                                                                                                                                                                                                                                                                                                                                                                "new_img_h = (cW / img_w) * img_h y_paste_pos = (cH - new_img_h) / 2 } else",
-                                                                                                                                                                                                                                                                                                                                                                                                new_img_h = cH,
-                                                                                                                                                                                                                                                                                                                                                                                                "new_img_w = (cH / img_h) * img_w x_paste_pos = (cW - new_img_w) / 2 } cur_draw_ctx.clearRect(0, 0, cW, cH) //\u043E\u0447\u0438\u0449\u0430\u0435\u043C \u0442\u0435\u043A\u0443\u0449\u0438\u0439 \u0441\u043B\u043E\u0439 } else",
-                                                                                                                                                                                                                                                                                                                                                                                            ,
-                                                                                                                                                                                                                                                                                                                                                                                                "if (img_w / img_h > Max_cW / Max_cH)",
-                                                                                                                                                                                                                                                                                                                                                                                                new_dfw = fW_max,
-                                                                                                                                                                                                                                                                                                                                                                                                "new_dfh = (fW_max / img_w) * img_h new_img_w = Max_cW new_img_h = (Max_cW / img_w) * img_h } else",
-                                                                                                                                                                                                                                                                                                                                                                                                new_dfh = fH_max,
-                                                                                                                                                                                                                                                                                                                                                                                                "new_dfw = (fH_max / img_h) * img_w new_img_h = Max_cH new_img_w = (Max_cH / img_h) * img_w } change_drawfield_size(new_dfw, new_dfh) cur_ratio_val = get_visual_ratio(false, cW, cH) ratio_field.value = cur_ratio_val //\u0443\u0441\u0442\u0430\u043D\u0430\u0432\u043B\u0438\u0432\u0430\u0435\u043C \u0441\u043E\u043E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u0435 \u0441\u0442\u043E\u0440\u043E\u043D replay_actions(pstack) //\u0432\u043E\u0441\u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0438\u043C \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044F fW_pred = f_dW fH_pred = f_dH push_action_to_stack(['r', new_dfw, new_dfh, false]) } cur_draw_ctx.drawImage(img, 0, 0, img_w, img_h, x_paste_pos, y_paste_pos, cW - x_paste_pos * 2, cH - y_paste_pos * 2) push_action_to_stack(['u', cur_draw_ctx, img, img_w, img_h, x_paste_pos, y_paste_pos]) original_image_buf = img.src cur_ctx_layer.clearRect(0, 0, lwW, lwH) canvas_to_layer(cur_canvas, cur_ctx_layer) },",
-                                                                                                                                                                                                                                                                                                                                                                                                once,
-                                                                                                                                                                                                                                                                                                                                                                                                ": true }) original_image_buf = evt.target.result img.src = original_image_buf },",
-                                                                                                                                                                                                                                                                                                                                                                                                once,
-                                                                                                                                                                                                                                                                                                                                                                                                ": true }) FR.readAsDataURL(this.files[0]) },",
-                                                                                                                                                                                                                                                                                                                                                                                                once,
-                                                                                                                                                                                                                                                                                                                                                                                                ": true }) }) const saveBtn: HTMLElement = ",
-                                                                                                                                                                                                                                                                                                                                                                                                React.createElement(HTMLElement, null,
-                                                                                                                                                                                                                                                                                                                                                                                                    " document.getElementById(\"save\") saveBtn.addEventListener(\"click\", () =>",
-                                                                                                                                                                                                                                                                                                                                                                                                    let,
-                                                                                                                                                                                                                                                                                                                                                                                                    " image: HTMLImageElement = new Image() if (original_image_buf == \"\")",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if (!is_foreground_visible)",
-                                                                                                                                                                                                                                                                                                                                                                                                    ctx_foreground.clearRect(0, 0, cW, cH),
-                                                                                                                                                                                                                                                                                                                                                                                                    "if (!is_background_visible)",
-                                                                                                                                                                                                                                                                                                                                                                                                    ctx_background.clearRect(0, 0, cW, cH),
-                                                                                                                                                                                                                                                                                                                                                                                                    "image.onload = function()",
-                                                                                                                                                                                                                                                                                                                                                                                                    let,
-                                                                                                                                                                                                                                                                                                                                                                                                    " a: HTMLAnchorElement = document.createElement(\"a\") ctx_background.drawImage(image, 0, 0, image.width, image.height, 0, 0, cW, cH) a.href = canvas_background.toDataURL(\"imag/png\") a.download = \"drawing.png\" a.click() replay_actions(pstack) canvas_to_layer(canvas_foreground, ctx_layer_1) canvas_to_layer(canvas_background, ctx_layer_2) } image.src = canvas_foreground.toDataURL() } else",
-                                                                                                                                                                                                                                                                                                                                                                                                    let,
-                                                                                                                                                                                                                                                                                                                                                                                                    " a: HTMLAnchorElement = document.createElement(\"a\") a.href = original_image_buf a.download = \"drawing.png\" a.click() } }) function gen_caption_for_image(data_prop: any)",
-                                                                                                                                                                                                                                                                                                                                                                                                    blackout.style.display = "block",
-                                                                                                                                                                                                                                                                                                                                                                                                    "let send_data_cpt: string let data: string let background_data: string let ", (local_is_foreground_used, local_is_background_used, local_is_drawing, local_sure, local_how_many_prims, local_how_many_dots),
-                                                                                                                                                                                                                                                                                                                                                                                                    ": any = data_prop if (original_image_buf == \"\")",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if (local_is_foreground_used && is_foreground_visible)",
-                                                                                                                                                                                                                                                                                                                                                                                                    data = canvas_foreground.toDataURL("imag/png"),
-                                                                                                                                                                                                                                                                                                                                                                                                    "else",
-                                                                                                                                                                                                                                                                                                                                                                                                    data = canvas_background.toDataURL("imag/png"),
-                                                                                                                                                                                                                                                                                                                                                                                                    "} else",
-                                                                                                                                                                                                                                                                                                                                                                                                    data = original_image_buf,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if (local_is_background_used && is_background_visible)",
-                                                                                                                                                                                                                                                                                                                                                                                                    background_data = canvas_background.toDataURL("imag/png"),
-                                                                                                                                                                                                                                                                                                                                                                                                    "else",
-                                                                                                                                                                                                                                                                                                                                                                                                    background_data = "",
-                                                                                                                                                                                                                                                                                                                                                                                                    "send_data_cpt = JSON.stringify(",
-                                                                                                                                                                                                                                                                                                                                                                                                    "type",
-                                                                                                                                                                                                                                                                                                                                                                                                    ": 'd', //\u043F\u0440\u043E\u0441\u044C\u0431\u0430 \u0441\u0433\u0435\u043D\u0435\u0440\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F \"chain_id\": chain_id, //id \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0435\u0433\u043E \u0437\u0432\u0435\u043D\u0430 \u0446\u0435\u043F\u043E\u0447\u043A\u0438 \"task_id\": task_id, //id \u0437\u0430\u0434\u0430\u043D\u0438\u044F \"data\": data, \"backgroung\": background_data, \"is_drawing\": local_is_drawing, \"sure\": local_sure, \"prims_count\": local_how_many_prims, \"dots_count\": local_how_many_dots, \"img_name\": last_task_image_name, \"img_suf\": last_task_image_suffix }) /* send_data = JSON.stringify(",
-                                                                                                                                                                                                                                                                                                                                                                                                    "type",
-                                                                                                                                                                                                                                                                                                                                                                                                    ": 'd', //\u043F\u0440\u043E\u0441\u044C\u0431\u0430 \u0441\u0433\u0435\u043D\u0435\u0440\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F \"chain_id\": chain_id, //id \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0435\u0433\u043E \u0437\u0432\u0435\u043D\u0430 \u0446\u0435\u043F\u043E\u0447\u043A\u0438 \"task_id\": task_id, //id \u0437\u0430\u0434\u0430\u043D\u0438\u044F \"data\": data, \"backgroung\": background_data, \"img_name\": last_task_image_name, \"img_suf\": last_task_image_suffix })*/ ws.send(send_data_cpt) } document.addEventListener(\"pointerenter\", (e) =>",
-                                                                                                                                                                                                                                                                                                                                                                                                    let,
-                                                                                                                                                                                                                                                                                                                                                                                                    " cX = e.clientX let cY = e.clientY cursor.style.left = (cX + 7.5) + \"px\" cursor.style.top = (cY + 7.5) + \"px\" }, ",
-                                                                                                                                                                                                                                                                                                                                                                                                    once,
-                                                                                                                                                                                                                                                                                                                                                                                                    ": true }) function replay_action(act: any, k_X: number, k_Y: number, fW_pred: number, fH_pred: number)",
-                                                                                                                                                                                                                                                                                                                                                                                                    let,
-                                                                                                                                                                                                                                                                                                                                                                                                    " act_type: string = act[0] switch (act_type)",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "case 'p': //\u0435\u0441\u043B\u0438 \u044D\u0442\u043E \u043F\u0440\u0438\u043C\u0438\u0442\u0438\u0432 let prim = act[2] act[1].strokeStyle = act[3] act[1].globalCompositeOperation = act[4] act[1].beginPath() for (let i: number = 1; i ",
-                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement(prim.length, null),
-                                                                                                                                                                                                                                                                                                                                                                                                    "; i++)",
-                                                                                                                                                                                                                                                                                                                                                                                                    act[1].lineWidth = prim[i][2],
-                                                                                                                                                                                                                                                                                                                                                                                                    "act[1].moveTo(prim[i - 1][0] / k_X, prim[i - 1][1] / k_Y) act[1].lineTo(prim[i][0] / k_X, prim[i][1] / k_Y) } act[1].stroke() act[1].globalCompositeOperation = \"source-over\" break case 'd': //\u0435\u0441\u043B\u0438 \u043E\u0447\u0438\u0441\u0442\u043A\u0430 \u044D\u043A\u0440\u0430\u043D\u0430 cur_background_clr = \"#fff\" ctx_background.fillStyle = cur_background_clr ctx_background.fillRect(0, 0, cW, cH) ctx_foreground.clearRect(0, 0, cW, cH) break case 'r': //\u0435\u0441\u043B\u0438 \u0438\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u0435 \u0440\u0430\u0437\u043C\u0435\u0440\u043E\u0432 \u044D\u043A\u0440\u0430\u043D\u0430 k_X = (k_X * act[1]) / fW_pred k_Y = (k_Y * act[2]) / fH_pred fW_pred = act[1] fH_pred = act[2] break case 'i': //\u0435\u0441\u043B\u0438 \u0437\u0430\u043B\u0438\u0432\u043A\u0430 \u0441\u043B\u043E\u044F \u0446\u0435\u043B\u0438\u043A\u043E\u043C act[1].fillStyle = act[2] act[1].fillRect(0, 0, cW, cH) break case 'u': //\u0435\u0441\u043B\u0438 \u0434\u043E\u0431\u0430\u0432\u043B\u0435\u043D\u0438\u0435 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F \u0441 \u041F\u041A act[1].clearRect(0, 0, cW, cH) //\u043E\u0447\u0438\u0449\u0430\u0435\u043C \u043D\u0443\u0436\u043D\u044B\u0439 \u0441\u043B\u043E\u0439 act[1].drawImage(act[2], 0, 0, act[3], act[4], act[5], act[6], cW - act[5] * 2, cH - act[6] * 2) original_image_buf = act[2] break case 'f': //\u0435\u0441\u043B\u0438 \u0437\u0430\u043B\u0438\u0432\u043A\u0430 floodFill(act[1], act[2], act[3], act[4]) break case 'c': //\u0435\u0441\u043B\u0438 \u043E\u0447\u0438\u0441\u0442\u043A\u0430 \u043E\u0434\u043D\u043E\u0433\u043E \u0441\u043B\u043E\u044F act[1].clearRect(0, 0, cW, cH) break default: break } return [k_X, k_Y, fW_pred, fH_pred] } function replay_actions(cur_pstack: any)",
-                                                                                                                                                                                                                                                                                                                                                                                                    full_clear_drawfield(),
-                                                                                                                                                                                                                                                                                                                                                                                                    "let k_X: number = fW_pred / f_dW let k_Y: number = fH_pred / f_dH let cur_thickness: number = 1 ctx_foreground.lineWidth = cur_thickness ctx_background.lineWidth = cur_thickness ctx_background.strokeStyle = \"#000000\" ctx_foreground.lineCap = \"round\" ctx_foreground.lineJoin = \"round\" ctx_add.lineCap = \"round\" ctx_add.lineJoin = \"round\" ctx_background.lineCap = \"round\" ctx_background.lineJoin = \"round\" let elem: number[] for (let act of cur_pstack)",
-                                                                                                                                                                                                                                                                                                                                                                                                    elem = replay_action(act, k_X, k_Y, fW_pred, fH_pred),
-                                                                                                                                                                                                                                                                                                                                                                                                    "k_X = elem[0] k_Y = elem[1] fW_pred = elem[2] fH_pred = elem[3] } ctx_add.strokeStyle = cur_brush_clr ctx_foreground.strokeStyle = cur_brush_clr ctx_background.strokeStyle = cur_brush_clr ctx_background.fillStyle = cur_brush_clr ctx_add.lineWidth = l_width ctx_foreground.lineWidth = l_width ctx_background.lineWidth = l_width } function canvas_to_layer(local_canvas: HTMLCanvasElement, local_layer: CanvasRenderingContext2D)",
-                                                                                                                                                                                                                                                                                                                                                                                                    let,
-                                                                                                                                                                                                                                                                                                                                                                                                    " image_layer: HTMLImageElement = new Image() image_layer.onload = function()",
-                                                                                                                                                                                                                                                                                                                                                                                                    local_layer.drawImage(image_layer, 0, 0, cW, cH, 0, 0, lwW, lwH),
-                                                                                                                                                                                                                                                                                                                                                                                                    "image_layer.src = local_canvas.toDataURL() } function undo_action()",
-                                                                                                                                                                                                                                                                                                                                                                                                    let,
-                                                                                                                                                                                                                                                                                                                                                                                                    " pstack_size: number = pstack.length if (pstack_size != 0)",
-                                                                                                                                                                                                                                                                                                                                                                                                    let,
-                                                                                                                                                                                                                                                                                                                                                                                                    " cur_act: any = pstack.pop() let is_r: boolean = false if (id_list.includes(cur_act[0]))",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if (cur_act[0] == 'r')",
-                                                                                                                                                                                                                                                                                                                                                                                                    is_r = true,
-                                                                                                                                                                                                                                                                                                                                                                                                    "} pstack_size-- nstack.push(cur_act) if (cur_act[0] == 's')",
-                                                                                                                                                                                                                                                                                                                                                                                                    swap_layers(),
-                                                                                                                                                                                                                                                                                                                                                                                                    "return } else",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if (cur_act[0] == 'm')",
-                                                                                                                                                                                                                                                                                                                                                                                                    unmerge_layers(cur_act[1], cur_act[2], cur_act[3]),
-                                                                                                                                                                                                                                                                                                                                                                                                    "return } } if (is_r)",
-                                                                                                                                                                                                                                                                                                                                                                                                    let,
-                                                                                                                                                                                                                                                                                                                                                                                                    " buf_r_elem: [string, number, number, boolean] = ['r', fW_max, fH_max, false] for (let i: number = pstack_size - 1; i > -1; i--)",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if (pstack[i][0] == 'r')",
-                                                                                                                                                                                                                                                                                                                                                                                                    buf_r_elem = pstack[i],
-                                                                                                                                                                                                                                                                                                                                                                                                    "break } } change_drawfield_size(buf_r_elem[1], buf_r_elem[2]) cur_ratio_val = get_visual_ratio(buf_r_elem[3], cW, cH) ratio_field.value = cur_ratio_val } replay_actions(pstack) ctx_layer_1.clearRect(0, 0, lwW, lwH) canvas_to_layer(canvas_foreground, ctx_layer_1) ctx_layer_2.clearRect(0, 0, lwW, lwH) canvas_to_layer(canvas_background, ctx_layer_2) } } function repeat_action()",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if (nstack.length != 0)",
-                                                                                                                                                                                                                                                                                                                                                                                                    let,
-                                                                                                                                                                                                                                                                                                                                                                                                    " cur_act: any = nstack.pop() let local_cur_ctx_layer: CanvasRenderingContext2D = cur_ctx_layer let local_cur_canvas: HTMLCanvasElement = cur_canvas if (id_list.includes(cur_act[0]))",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if (cur_act[1] == ctx_foreground)",
-                                                                                                                                                                                                                                                                                                                                                                                                    local_cur_ctx_layer = ctx_layer_1,
-                                                                                                                                                                                                                                                                                                                                                                                                    "local_cur_canvas = canvas_foreground } else",
-                                                                                                                                                                                                                                                                                                                                                                                                    local_cur_ctx_layer = ctx_layer_2,
-                                                                                                                                                                                                                                                                                                                                                                                                    "local_cur_canvas = canvas_background } } pstack.push(cur_act) if (cur_act[0] == 's')",
-                                                                                                                                                                                                                                                                                                                                                                                                    swap_layers(),
-                                                                                                                                                                                                                                                                                                                                                                                                    "return } else",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if (cur_act[0] == 'm')",
-                                                                                                                                                                                                                                                                                                                                                                                                    merge_layers(cur_act[1]),
-                                                                                                                                                                                                                                                                                                                                                                                                    "return } } if (cur_act[0] == 'r')",
-                                                                                                                                                                                                                                                                                                                                                                                                    change_drawfield_size(cur_act[1], cur_act[2]),
-                                                                                                                                                                                                                                                                                                                                                                                                    "cur_ratio_val = get_visual_ratio(cur_act[3], cW, cH) ratio_field.value = cur_ratio_val } replay_action(cur_act, orig_f_dW / f_dW, orig_f_dH / f_dH, orig_f_dW, orig_f_dH) canvas_to_layer(local_cur_canvas, local_cur_ctx_layer) } } document.addEventListener(\"keydown\", (event) =>",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if (is_modal_open || is_side_panel_open)",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "return } switch(event.code)",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "case \"KeyT\": //\u0420\u0435\u0436\u0438\u043C \u0433\u0440\u0430\u0444\u0438\u0447\u0435\u0441\u043A\u043E\u0433\u043E \u043F\u043B\u0430\u043D\u0448\u0435\u0442\u0430 if (graphic_tabletBtn.style.display == \"block\")",
-                                                                                                                                                                                                                                                                                                                                                                                                    graphic_tabletBtn.click(),
-                                                                                                                                                                                                                                                                                                                                                                                                    "return case \"KeyP\": //\u041F\u0430\u043B\u0438\u0442\u0440\u0430 (\u0432\u044B\u0431\u043E\u0440 \u0446\u0432\u0435\u0442\u0430) colourBtn.click() return case \"KeyB\": //\u041A\u0430\u0440\u0430\u043D\u0434\u0430\u0448 setpencilBtn.click() return case \"KeyE\": //\u041B\u0430\u0441\u0442\u0438\u043A seteraserBtn.click() return case \"KeyG\": //\u0417\u0430\u043B\u0438\u0432\u043A\u0430 setbucketBtn.click() return case \"KeyI\": //\u041F\u0438\u043F\u0435\u0442\u043A\u0430 setpipetteBtn.click() return case \"Delete\": //\u041E\u0447\u0438\u0441\u0442\u0438\u0442\u044C \u0432\u0441\u0451 clearBtn.click() return case \"KeyO\": //\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435 \u0441 \u041F\u041A uploadBtn.click() return case \"KeyD\": //\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435 \u043D\u0430 \u041F\u041A saveBtn.click() return case \"KeyR\": //\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u043E\u043A\u043D\u043E \u0433\u0435\u043D\u0435\u0440\u0430\u0446\u0438\u0438 generateBtn.click() return case \"Key\u0421\": //\u043E\u0447\u0438\u0441\u0442\u0438\u0442\u044C \u0442\u0435\u043A\u0443\u0449\u0438\u0439 \u0441\u043B\u043E\u0439 if (is_foreground_selected)",
-                                                                                                                                                                                                                                                                                                                                                                                                    clear_first_layer_Btn.click(),
-                                                                                                                                                                                                                                                                                                                                                                                                    "else",
-                                                                                                                                                                                                                                                                                                                                                                                                    clear_second_layer_Btn.click(),
-                                                                                                                                                                                                                                                                                                                                                                                                    "return case \"KeyS\": //\u043F\u043E\u043C\u0435\u043D\u044F\u0442\u044C \u0441\u043B\u043E\u0438 \u043C\u0435\u0441\u0442\u0430\u043C\u0438 swap_layersBtn.click() return case \"KeyM\": //\u043E\u0431\u044A\u0435\u0434\u0438\u043D\u0438\u0442\u044C \u0441\u043B\u043E\u0438 merge_layersBtn.click() return case \"Escape\": //\u0441\u043A\u0440\u044B\u0442\u044C \u043E\u043A\u043D\u043E \u043F\u0440\u043E\u0441\u043C\u043E\u0442\u0440\u0430 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F \u0434\u043E \u0433\u0435\u043D\u0435\u0440\u0430\u0446\u0438\u0438 before_gen_block.style.display = \"none\" return default: if (event.shiftKey)",
-                                                                                                                                                                                                                                                                                                                                                                                                    is_shift_on = true,
-                                                                                                                                                                                                                                                                                                                                                                                                    "return } if (event.ctrlKey)",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "switch (event.code)",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "case \"KeyZ\": //\u043E\u0442\u043C\u0435\u043D\u0430 \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0435\u0433\u043E \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044F undo_action() return case \"KeyY\": //\u0432\u0435\u0440\u043D\u0443\u0442\u044C \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0435\u0435 \u043E\u0442\u043C\u0435\u043D\u0451\u043D\u043D\u043E\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435 repeat_action() return } } } }, false) document.addEventListener(\"keyup\", (event) =>",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if (event.code.slice(0, 5) == \"Shift\")",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if (draw)",
-                                                                                                                                                                                                                                                                                                                                                                                                    ctx_add.clearRect(0, 0, cW, cH),
-                                                                                                                                                                                                                                                                                                                                                                                                    "drawLines(cur_draw_ctx, curprim) let cpl: number = curprim.length - 1 prevX = curprim[cpl][0] prevY = curprim[cpl][1] } is_shift_on = false } }, false) canvas_additional.addEventListener(\"pointerdown\", (e: PointerEvent) =>",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if (is_foreground_selected)",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if (!is_foreground_visible)",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if (!is_background_visible)",
-                                                                                                                                                                                                                                                                                                                                                                                                    is_foreground_visible = true,
-                                                                                                                                                                                                                                                                                                                                                                                                    "canvas_foreground.style.display = \"block\" first_layer_visibility_img.setAttribute(\"src\", \"visibility_on.png\") } else",
-                                                                                                                                                                                                                                                                                                                                                                                                    layer_1.style.border = "none",
-                                                                                                                                                                                                                                                                                                                                                                                                    "layer_1.style.outline = \"1px solid #707070\" layer_2.style.border = \"1px solid #000000\" layer_2.style.outline = \"3px solid #000000\" cur_draw_ctx = ctx_background cur_canvas = canvas_layer_2 cur_ctx_layer = ctx_layer_2 is_foreground_selected = false } } } else",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if (!is_background_visible)",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if (!is_foreground_visible)",
-                                                                                                                                                                                                                                                                                                                                                                                                    is_foreground_visible = true,
-                                                                                                                                                                                                                                                                                                                                                                                                    "canvas_foreground.style.display = \"block\" first_layer_visibility_img.setAttribute(\"src\", \"visibility_on.png\") layer_1.style.border = \"1px solid #000000\" layer_1.style.outline = \"3px solid #000000\" layer_2.style.border = \"none\" layer_2.style.outline = \"1px solid #707070\" cur_draw_ctx = ctx_foreground cur_canvas = canvas_layer_1 cur_ctx_layer = ctx_layer_1 is_foreground_selected = true } else",
-                                                                                                                                                                                                                                                                                                                                                                                                    layer_1.style.border = "1px solid #000000",
-                                                                                                                                                                                                                                                                                                                                                                                                    "layer_1.style.outline = \"3px solid #000000\" layer_2.style.border = \"none\" layer_2.style.outline = \"1px solid #707070\" cur_draw_ctx = ctx_foreground cur_canvas = canvas_layer_1 cur_ctx_layer = ctx_layer_1 is_foreground_selected = true } } } let cur_x: number = e.clientX let cur_y: number = e.clientY prevX = cur_x - W_f prevY = cur_y - H_f draw = true enddraw = false if (is_clr_window == true)",
-                                                                                                                                                                                                                                                                                                                                                                                                    close_clr_window(),
-                                                                                                                                                                                                                                                                                                                                                                                                    "}) function rgbToHex(r: number, g: number, b: number)",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "return ((r ",
-                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement(, null),
-                                                                                                                                                                                                                                                                                                                                                                                                    ") | (g ",
-                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement(, null),
-                                                                                                                                                                                                                                                                                                                                                                                                    ") | b).toString(16) } function rgbaToHex(r: number, g: number, b: number, a: number)",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "return ((r ",
-                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement(, null),
-                                                                                                                                                                                                                                                                                                                                                                                                    ") | (g ",
-                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement(, null),
-                                                                                                                                                                                                                                                                                                                                                                                                    ") | (b ",
-                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement(, null),
-                                                                                                                                                                                                                                                                                                                                                                                                    ") | a).toString(16) } function getPixel(pixelData: any, x: number, y: number)",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if (x ",
-                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement(, null),
-                                                                                                                                                                                                                                                                                                                                                                                                    " 0 || y ",
-                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement(, null),
-                                                                                                                                                                                                                                                                                                                                                                                                    " 0 || x >= pixelData.width || y >= pixelData.height)",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "return -1 } else",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "return pixelData.data[y * pixelData.width + x] } } function addSpan(spansToCheck: any, left: number, right: number, y: number, direction: number)",
-                                                                                                                                                                                                                                                                                                                                                                                                    spansToCheck.push({ left, right, y, direction }),
-                                                                                                                                                                                                                                                                                                                                                                                                    "function checkSpan(pixelData: any, targetColor: string, spansToCheck: any, left: number, right: number, y: number, direction: number)",
-                                                                                                                                                                                                                                                                                                                                                                                                    let,
-                                                                                                                                                                                                                                                                                                                                                                                                    " inSpan: boolean = false let start: number = 0 let x: number for (x = left; x ",
-                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement("right", null),
-                                                                                                                                                                                                                                                                                                                                                                                                    "; ++x)",
-                                                                                                                                                                                                                                                                                                                                                                                                    let,
-                                                                                                                                                                                                                                                                                                                                                                                                    " color: string = getPixel(pixelData, x, y) if (color === targetColor)",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if (!inSpan)",
-                                                                                                                                                                                                                                                                                                                                                                                                    inSpan = true,
-                                                                                                                                                                                                                                                                                                                                                                                                    "start = x } } else",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if (inSpan)",
-                                                                                                                                                                                                                                                                                                                                                                                                    inSpan = false,
-                                                                                                                                                                                                                                                                                                                                                                                                    "addSpan(spansToCheck, start, x - 1, y, direction) } } } if (inSpan)",
-                                                                                                                                                                                                                                                                                                                                                                                                    inSpan = false,
-                                                                                                                                                                                                                                                                                                                                                                                                    "addSpan(spansToCheck, start, x - 1, y, direction) } } function floodFill(local_ctx: any, x: any, y: any, fillColor: any)",
-                                                                                                                                                                                                                                                                                                                                                                                                    let,
-                                                                                                                                                                                                                                                                                                                                                                                                    " dex_clr: number = parseInt(\"FF\" + fillColor.slice(6, 8) + fillColor.slice(4, 6) + fillColor.slice(2, 4), 16) let imageData: ImageData = local_ctx.getImageData(0, 0, local_ctx.canvas.width, local_ctx.canvas.height) /*let imageData_test_data: Uint8ClampedArray = imageData.data for (let i: number = 3; i ",
-                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement(imageData_test_data.length, null),
-                                                                                                                                                                                                                                                                                                                                                                                                    "; i += 4)",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if (imageData_test_data[i] != 255)",
-                                                                                                                                                                                                                                                                                                                                                                                                    imageData_test_data[i] = 0,
-                                                                                                                                                                                                                                                                                                                                                                                                    "} let pixelData: any = ",
-                                                                                                                                                                                                                                                                                                                                                                                                    width,
-                                                                                                                                                                                                                                                                                                                                                                                                    ": imageData.width, height: imageData.height, data: new Uint32Array(imageData_test_data.buffer), }*/ let pixelData: any = ",
-                                                                                                                                                                                                                                                                                                                                                                                                    width,
-                                                                                                                                                                                                                                                                                                                                                                                                    ": imageData.width, height: imageData.height, data: new Uint32Array(imageData.data.buffer), } let targetColor: string = getPixel(pixelData, x, y) if (targetColor !== fillColor)",
-                                                                                                                                                                                                                                                                                                                                                                                                    let,
-                                                                                                                                                                                                                                                                                                                                                                                                    " spansToCheck: [number, number, number, number][] = [] addSpan(spansToCheck, x, x, y, 0) let iter_max: number = Math.round(cH) * 2 let iter: number = 0 while (spansToCheck.length > 0 && iter ",
-                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement(, null),
-                                                                                                                                                                                                                                                                                                                                                                                                    "= iter_max)",
-                                                                                                                                                                                                                                                                                                                                                                                                    iter++,
-                                                                                                                                                                                                                                                                                                                                                                                                    "let ", (left, right, y, direction),
-                                                                                                                                                                                                                                                                                                                                                                                                    ": any = spansToCheck.pop() let l: number = left let iter_l_max: number = left - cH / 2 while (true)",
-                                                                                                                                                                                                                                                                                                                                                                                                    --l,
-                                                                                                                                                                                                                                                                                                                                                                                                    "let color: string = getPixel(pixelData, l, y) if (color !== targetColor || l ",
-                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement("iter_l_max", null),
-                                                                                                                                                                                                                                                                                                                                                                                                    ")",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "break } } ++l let r: number = right let iter_r_max: number = right + cW / 2 while (true)",
-                                                                                                                                                                                                                                                                                                                                                                                                    ++r,
-                                                                                                                                                                                                                                                                                                                                                                                                    "let color: string = getPixel(pixelData, r, y) if (color !== targetColor || r > iter_r_max)",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "break } } let lineOffset: number = y * pixelData.width pixelData.data.fill(dex_clr, lineOffset + l, lineOffset + r) if (direction ",
-                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement(, null),
-                                                                                                                                                                                                                                                                                                                                                                                                    "= 0)",
-                                                                                                                                                                                                                                                                                                                                                                                                    checkSpan(pixelData, targetColor, spansToCheck, l, r, y - 1, -1),
-                                                                                                                                                                                                                                                                                                                                                                                                    "else",
-                                                                                                                                                                                                                                                                                                                                                                                                    checkSpan(pixelData, targetColor, spansToCheck, l, left, y - 1, -1),
-                                                                                                                                                                                                                                                                                                                                                                                                    "checkSpan(pixelData, targetColor, spansToCheck, right, r, y - 1, -1) } if (direction >= 0)",
-                                                                                                                                                                                                                                                                                                                                                                                                    checkSpan(pixelData, targetColor, spansToCheck, l, r, y + 1, +1),
-                                                                                                                                                                                                                                                                                                                                                                                                    "else",
-                                                                                                                                                                                                                                                                                                                                                                                                    checkSpan(pixelData, targetColor, spansToCheck, l, left, y + 1, +1),
-                                                                                                                                                                                                                                                                                                                                                                                                    "checkSpan(pixelData, targetColor, spansToCheck, right, r, y + 1, +1) } } local_ctx.putImageData(imageData, 0, 0) } } d_frame.addEventListener(\"pointerdown\", (e: PointerEvent) =>",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if(!draw)",
-                                                                                                                                                                                                                                                                                                                                                                                                    prevX = e.clientX - W_f,
-                                                                                                                                                                                                                                                                                                                                                                                                    "prevY = e.clientY - H_f cfup = fup cfleft = fleft f_move = true end_f_move = false } else",
-                                                                                                                                                                                                                                                                                                                                                                                                    let,
-                                                                                                                                                                                                                                                                                                                                                                                                    " cur_x: number = e.clientX - W_f let cur_y: number = e.clientY - H_f if (cur_tool[0] == 'p') //\u0435\u0441\u043B\u0438 \u0432\u044B\u0431\u0440\u0430\u043D\u0430 \u043F\u0438\u043F\u0435\u0442\u043A\u0430",
-                                                                                                                                                                                                                                                                                                                                                                                                    let,
-                                                                                                                                                                                                                                                                                                                                                                                                    " rgba: Uint8ClampedArray = ctx_foreground.getImageData(cur_x - 1, cur_y - 1, 1, 1).data if (!is_foreground_visible)",
-                                                                                                                                                                                                                                                                                                                                                                                                    rgba[3] = 0,
-                                                                                                                                                                                                                                                                                                                                                                                                    "let hex: any if (rgba[3] == 0)",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if (cur_draw_ctx == ctx_foreground && is_background_visible)",
-                                                                                                                                                                                                                                                                                                                                                                                                    rgba = ctx_background.getImageData(cur_x - 1, cur_y - 1, 1, 1).data,
-                                                                                                                                                                                                                                                                                                                                                                                                    "} if (rgba[3] != 0)",
-                                                                                                                                                                                                                                                                                                                                                                                                    hex = '#' + ("000000" + rgbToHex(rgba[0], rgba[1], rgba[2])).slice(-6),
-                                                                                                                                                                                                                                                                                                                                                                                                    "else",
-                                                                                                                                                                                                                                                                                                                                                                                                    hex = "#255255255",
-                                                                                                                                                                                                                                                                                                                                                                                                    "cur_brush_clr = hex cur_draw_ctx.strokeStyle = cur_brush_clr if (rgba[0] + rgba[1] + rgba[2] > 382)",
-                                                                                                                                                                                                                                                                                                                                                                                                    clrimg.style.filter = "invert(0)",
-                                                                                                                                                                                                                                                                                                                                                                                                    "else",
-                                                                                                                                                                                                                                                                                                                                                                                                    clrimg.style.filter = "invert(1)",
-                                                                                                                                                                                                                                                                                                                                                                                                    "colourBtn.style.background = cur_brush_clr draw = false return } else",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if (cur_tool[0] == 'b') //\u0435\u0441\u043B\u0438 \u0432\u044B\u0431\u0440\u0430\u043D\u0430 \u0437\u0430\u043B\u0438\u0432\u043A\u0430",
-                                                                                                                                                                                                                                                                                                                                                                                                    cur_x = Math.floor(cur_x + 2),
-                                                                                                                                                                                                                                                                                                                                                                                                    "cur_y = Math.floor(cur_y + 18) let rgba: Uint8ClampedArray = cur_draw_ctx.getImageData(cur_x, cur_y, 1, 1).data let hex: string = '#' + (\"00000000\" + rgbaToHex(rgba[0], rgba[1], rgba[2], rgba[3])).slice(-8) if (cur_brush_clr + \"ff\" != hex) //\u0435\u0441\u043B\u0438 \u0446\u0432\u0435\u0442 \u0432\u044B\u0431\u0440\u0430\u043D\u043D\u043E\u0439 \u0442\u043E\u0447\u043A\u0438 \u043D\u0435 \u0440\u0430\u0432\u0435\u043D \u0442\u0435\u043A\u0443\u0449\u0435\u043C\u0443",
-                                                                                                                                                                                                                                                                                                                                                                                                    let,
-                                                                                                                                                                                                                                                                                                                                                                                                    " cur_form_clr: string = \"0x\" + cur_brush_clr.slice(1) + \"FF\" floodFill(cur_draw_ctx, cur_x, cur_y, cur_form_clr) push_action_to_stack(['f', cur_draw_ctx, cur_x, cur_y, cur_form_clr]) canvas_to_layer(cur_canvas, cur_ctx_layer) } draw = false return } else",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if (is_pencil_window)",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if (cur_tool[0] == 'k')",
-                                                                                                                                                                                                                                                                                                                                                                                                    change_thickness(true),
-                                                                                                                                                                                                                                                                                                                                                                                                    "else",
-                                                                                                                                                                                                                                                                                                                                                                                                    change_thickness(false),
-                                                                                                                                                                                                                                                                                                                                                                                                    "pencil_w.style.display = \"none\" is_pencil_window = false } } } } }) window.addEventListener(\"pointerup\", (e) =>",
-                                                                                                                                                                                                                                                                                                                                                                                                    enddraw = true,
-                                                                                                                                                                                                                                                                                                                                                                                                    "end_f_move = true }) function addGraphicTabletButton(e: PointerEvent)",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if (e.pointerType == \"pen\")",
-                                                                                                                                                                                                                                                                                                                                                                                                    graphic_tabletBtn.style.display = "block",
-                                                                                                                                                                                                                                                                                                                                                                                                    "nav_panel.removeEventListener(\"pointermove\", addGraphicTabletButton) } } nav_panel.addEventListener(\"pointermove\", addGraphicTabletButton) //\u043F\u0440\u043E\u0432\u0435\u0440\u043A\u0430 \u043A\u0443\u0440\u0441\u043E\u0440\u0430 \u043D\u0430 \u043F\u043E\u043B\u0435 \u0441 \u043A\u043D\u043E\u043F\u043A\u0430\u043C\u0438 window.addEventListener(\"pointermove\", (e: PointerEvent) => //\u043F\u0440\u043E\u0432\u0435\u0440\u043A\u0430 \u043A\u0443\u0440\u0441\u043E\u0440\u0430 \u043D\u0430 \u0432\u0441\u0451\u043C \u043E\u043A\u043D\u0435, \u043D\u043E \u0442\u043E\u043B\u044C\u043A\u043E \u043E\u0434\u0438\u043D \u0440\u0430\u0437",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if (e.pointerType == \"pen\")",
-                                                                                                                                                                                                                                                                                                                                                                                                    graphic_tabletBtn.style.display = "block",
-                                                                                                                                                                                                                                                                                                                                                                                                    "nav_panel.removeEventListener(\"pointermove\", addGraphicTabletButton) } },",
-                                                                                                                                                                                                                                                                                                                                                                                                    once,
-                                                                                                                                                                                                                                                                                                                                                                                                    ": true }) canvas_additional.addEventListener(\"pointermove\", (e: PointerEvent) => //\u043F\u0440\u043E\u0432\u0435\u0440\u043A\u0430 \u043A\u0443\u0440\u0441\u043E\u0440\u0430 \u043D\u0430 \u043F\u043E\u043B\u0435 \u0434\u043B\u044F \u0440\u0438\u0441\u043E\u0432\u0430\u043D\u0438\u044F",
-                                                                                                                                                                                                                                                                                                                                                                                                    on_d_fiend = true,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if(cursor_type != 3 && !f_move)",
-                                                                                                                                                                                                                                                                                                                                                                                                    cursor_type = 3,
-                                                                                                                                                                                                                                                                                                                                                                                                    "cursor_image.setAttribute(\"src\", cur_tool[2]) } }) function getBezierBasis(i: number, n: number, t: number) //\u0411\u0430\u0437\u0438\u0441\u043D\u0430\u044F \u0444\u0443\u043D\u043A\u0446\u0438\u044F i - \u043D\u043E\u043C\u0435\u0440 \u0432\u0435\u0440\u0448\u0438\u043D\u044B, n - \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0432\u0435\u0440\u0448\u0438\u043D, t - \u043F\u043E\u043B\u043E\u0436\u0435\u043D\u0438\u0435 \u043A\u0440\u0438\u0432\u043E\u0439 (\u043E\u0442 0 \u0434\u043E 1)",
-                                                                                                                                                                                                                                                                                                                                                                                                    // Факториал
-                                                                                                                                                                                                                                                                                                                                                                                                    function f(n) {
-                                                                                                                                                                                                                                                                                                                                                                                                        return (n <= 1) ? 1 : n * f(n - 1);
-                                                                                                                                                                                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                                                                                                                                                                                // считаем i-й элемент полинома Берштейна
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "// \u0441\u0447\u0438\u0442\u0430\u0435\u043C i-\u0439 \u044D\u043B\u0435\u043C\u0435\u043D\u0442 \u043F\u043E\u043B\u0438\u043D\u043E\u043C\u0430 \u0411\u0435\u0440\u0448\u0442\u0435\u0439\u043D\u0430 return (f(n)/(f(i)*f(n - i)))* Math.pow(t, i) * Math.pow(1 - t, n - i) } // arr - \u043C\u0430\u0441\u0441\u0438\u0432 \u043E\u043F\u043E\u0440\u043D\u044B\u0445 \u0442\u043E\u0447\u0435\u043A. \u0422\u043E\u0447\u043A\u0430 - \u0434\u0432\u0443\u0445\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u043D\u044B\u0439 \u043C\u0430\u0441\u0441\u0438\u0432, (x = arr[0], y = arr[1]), step - \u0448\u0430\u0433 \u043F\u0440\u0438 \u0440\u0430\u0441\u0447\u0435\u0442\u0435 \u043A\u0440\u0438\u0432\u043E\u0439 (0 ",
-                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement("step", null),
-                                                                                                                                                                                                                                                                                                                                                                                                    "), \u043F\u043E \u0443\u043C\u043E\u043B\u0447\u0430\u043D\u0438\u044E 0.01 function getBezierCurve(arr: [number, number, number][], step: number)",
-                                                                                                                                                                                                                                                                                                                                                                                                    step = 1.0 / step,
-                                                                                                                                                                                                                                                                                                                                                                                                    "let res: [number, number, number][] = new Array() for (let t: number = 0; t ",
-                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement(, null),
-                                                                                                                                                                                                                                                                                                                                                                                                    " 1 + step; t += step)",
-                                                                                                                                                                                                                                                                                                                                                                                                    t = Math.min(1, t),
-                                                                                                                                                                                                                                                                                                                                                                                                    "let ind: number = res.length res[ind] = [0, 0, 0] for (let i: number = 0; i ",
-                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement(arr.length, null),
-                                                                                                                                                                                                                                                                                                                                                                                                    "; i++)",
-                                                                                                                                                                                                                                                                                                                                                                                                    let,
-                                                                                                                                                                                                                                                                                                                                                                                                    " b: number = getBezierBasis(i, arr.length - 1, t) res[ind][0] += arr[i][0] * b res[ind][1] += arr[i][1] * b res[ind][2] += arr[i][2] * b } } return res } function drawLines(local_ctx: CanvasRenderingContext2D, arr: [number, number, number][])",
-                                                                                                                                                                                                                                                                                                                                                                                                    local_ctx.beginPath(),
-                                                                                                                                                                                                                                                                                                                                                                                                    "for (let i: number = 0; i ",
-                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement(arr.length, null),
-                                                                                                                                                                                                                                                                                                                                                                                                    " - 1; i++)",
-                                                                                                                                                                                                                                                                                                                                                                                                    local_ctx.lineWidth = arr[i][2],
-                                                                                                                                                                                                                                                                                                                                                                                                    "local_ctx.moveTo(arr[i][0], arr[i][1]) local_ctx.lineTo(arr[i + 1][0], arr[i + 1][1]) local_ctx.stroke() } } d_frame.addEventListener(\"pointermove\", (e: PointerEvent) => //\u043F\u0440\u043E\u0432\u0435\u0440\u043A\u0430 \u043A\u0443\u0440\u0441\u043E\u0440\u0430 \u043D\u0430 \u043F\u043E\u043B\u0435 \u0432\u043C\u0435\u0441\u0442\u0435 \u0441 \u0440\u0430\u043C\u043A\u043E\u0439",
-                                                                                                                                                                                                                                                                                                                                                                                                    on_d_frame = true,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if(!on_d_fiend && !draw)",
-                                                                                                                                                                                                                                                                                                                                                                                                    let,
-                                                                                                                                                                                                                                                                                                                                                                                                    " X: number = e.clientX - W_min let Y: number = e.clientY - H_min fup = false fdown = false fright = false fleft = false if(H_min + 40 > Y) //\u0435\u0441\u043B\u0438 \u0432\u0435\u0440\u0445\u043D\u044F\u044F \u0447\u0430\u0441\u0442\u044C \u0433\u043E\u0440\u0438\u0437\u043E\u043D\u0442\u0430\u043B\u044C\u043D\u043E\u0439 \u0447\u0430\u0441\u0442\u0438 \u0440\u0430\u043C\u043A\u0438",
-                                                                                                                                                                                                                                                                                                                                                                                                    fup = true,
-                                                                                                                                                                                                                                                                                                                                                                                                    "else",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if(Y > H_max - 40) //\u0435\u0441\u043B\u0438 \u043D\u0438\u0436\u043D\u044F\u044F \u0447\u0430\u0441\u0442\u044C \u0433\u043E\u0440\u0438\u0437\u043E\u043D\u0442\u0430\u043B\u044C\u043D\u043E\u0439 \u0440\u0430\u043C\u043A\u0438",
-                                                                                                                                                                                                                                                                                                                                                                                                    fdown = true,
-                                                                                                                                                                                                                                                                                                                                                                                                    "} if(W_min + 40 > X) //\u0435\u0441\u043B\u0438 \u043B\u0435\u0432\u0430\u044F \u0447\u0430\u0441\u0442\u044C \u0432\u0435\u0440\u0442\u0438\u043A\u0430\u043B\u044C\u043D\u043E\u0439 \u0440\u0430\u043C\u043A\u0438",
-                                                                                                                                                                                                                                                                                                                                                                                                    fleft = true,
-                                                                                                                                                                                                                                                                                                                                                                                                    "else",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if(X > W_max - 40) //\u0435\u0441\u043B\u0438 \u043F\u0440\u0430\u0432\u0430\u044F \u0447\u0430\u0441\u0442\u044C \u0432\u0435\u0440\u0442\u0438\u043A\u0430\u043B\u044C\u043D\u043E\u0439 \u0440\u0430\u043C\u043A\u0438",
-                                                                                                                                                                                                                                                                                                                                                                                                    fright = true,
-                                                                                                                                                                                                                                                                                                                                                                                                    "} if(fleft && fup || fright && fdown)",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if(cursor_type != 4)",
-                                                                                                                                                                                                                                                                                                                                                                                                    cursor_type = 4,
-                                                                                                                                                                                                                                                                                                                                                                                                    "cursor_image.setAttribute(\"src\", \"aero_nwse.cur\") } } else",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if(fleft && fdown || fright && fup)",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if(cursor_type != 5)",
-                                                                                                                                                                                                                                                                                                                                                                                                    cursor_type = 5,
-                                                                                                                                                                                                                                                                                                                                                                                                    "cursor_image.setAttribute(\"src\", \"aero_nesw.cur\") } } else",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if (fleft || fright)",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if(cursor_type != 2)",
-                                                                                                                                                                                                                                                                                                                                                                                                    cursor_type = 2,
-                                                                                                                                                                                                                                                                                                                                                                                                    "cursor_image.setAttribute(\"src\", \"aero_ew.cur\") } } else",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if(cursor_type != 1)",
-                                                                                                                                                                                                                                                                                                                                                                                                    cursor_type = 1,
-                                                                                                                                                                                                                                                                                                                                                                                                    "cursor_image.setAttribute(\"src\", \"aero_ns.cur\") } } } } } on_d_fiend = false if(!draw && !f_move)",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "return } let pX: number = e.clientX - W_f let pY: number = e.clientY - H_f let pW: number = e.pressure //\u0420\u0438\u0441\u043E\u0432\u0430\u043D\u0438\u0435 if(draw)",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if(enddraw)",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if (cur_smoothing != 0)",
-                                                                                                                                                                                                                                                                                                                                                                                                    ctx_add.clearRect(0, 0, cW, cH),
-                                                                                                                                                                                                                                                                                                                                                                                                    "drawLines(cur_draw_ctx, cur_smooth_prim) } if (is_shift_on)",
-                                                                                                                                                                                                                                                                                                                                                                                                    ctx_add.clearRect(0, 0, cW, cH),
-                                                                                                                                                                                                                                                                                                                                                                                                    "drawLines(cur_draw_ctx, curprim) } draw = false enddraw = false prevX = pX prevY = pY fp = true let drawing_mode: string if (cur_tool[0] == 'e')",
-                                                                                                                                                                                                                                                                                                                                                                                                    cur_ctx_layer.clearRect(0, 0, lwW, lwH),
-                                                                                                                                                                                                                                                                                                                                                                                                    "drawing_mode = \"destination-out\" cur_draw_ctx.globalCompositeOperation = \"source-over\" } else",
-                                                                                                                                                                                                                                                                                                                                                                                                    drawing_mode = "source-over",
-                                                                                                                                                                                                                                                                                                                                                                                                    "if (cur_smoothing == 0)",
-                                                                                                                                                                                                                                                                                                                                                                                                    push_action_to_stack(['p', cur_draw_ctx, curprim, cur_brush_clr, drawing_mode]),
-                                                                                                                                                                                                                                                                                                                                                                                                    "else",
-                                                                                                                                                                                                                                                                                                                                                                                                    push_action_to_stack(['p', cur_draw_ctx, cur_smooth_prim, cur_brush_clr, drawing_mode]),
-                                                                                                                                                                                                                                                                                                                                                                                                    "canvas_to_layer(cur_canvas, cur_ctx_layer) nstack = [] curprim = [] return } let currentX: number = pX * cmp_W - l_width / 2 let currentY: number = pY * cmp_H - l_width / 2 let currentW: number if (graphic_tablet_mode)",
-                                                                                                                                                                                                                                                                                                                                                                                                    currentW = pW * l_width,
-                                                                                                                                                                                                                                                                                                                                                                                                    "cur_draw_ctx.lineWidth = currentW ctx_add.lineWidth = currentW currentX += (l_width - currentW) / 2 } else",
-                                                                                                                                                                                                                                                                                                                                                                                                    currentW = l_width,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if (fp)",
-                                                                                                                                                                                                                                                                                                                                                                                                    before_gen_block.style.display = "none",
-                                                                                                                                                                                                                                                                                                                                                                                                    "if (cur_tool[0] == 'e')",
-                                                                                                                                                                                                                                                                                                                                                                                                    cur_draw_ctx.globalCompositeOperation = "destination-out",
-                                                                                                                                                                                                                                                                                                                                                                                                    "cur_smooth_prim = [] fp = false curprim.push([currentX, currentY, currentW]) if(is_shift_on)",
-                                                                                                                                                                                                                                                                                                                                                                                                    curprim.push([currentX, currentY, currentW]),
-                                                                                                                                                                                                                                                                                                                                                                                                    "prevX = currentX prevY = currentY return } if(is_shift_on)",
-                                                                                                                                                                                                                                                                                                                                                                                                    let,
-                                                                                                                                                                                                                                                                                                                                                                                                    " delta_x: number = currentX - prevX let delta_y: number = currentY - prevY let k_tan: number = Math.round(Math.atan(delta_y / delta_x) / Pi_div_4) if (k_tan == 2 || k_tan == -2)",
-                                                                                                                                                                                                                                                                                                                                                                                                    k_tan = 0,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if (Math.abs(delta_x) > Math.abs(delta_y))",
-                                                                                                                                                                                                                                                                                                                                                                                                    currentY = prevY + delta_x * k_tan,
-                                                                                                                                                                                                                                                                                                                                                                                                    "else",
-                                                                                                                                                                                                                                                                                                                                                                                                    currentX = prevX + delta_y * k_tan,
-                                                                                                                                                                                                                                                                                                                                                                                                    "curprim[curprim.length - 1] = [currentX, currentY, currentW] ctx_add.clearRect(0, 0, cW, cH) ctx_add.beginPath() ctx_add.moveTo(prevX, prevY) ctx_add.lineTo(currentX, currentY) ctx_add.stroke() return } cur_draw_ctx.beginPath() if (cur_smoothing == 0 || cur_tool[0] == 'e')",
-                                                                                                                                                                                                                                                                                                                                                                                                    cur_draw_ctx.moveTo(prevX, prevY),
-                                                                                                                                                                                                                                                                                                                                                                                                    "cur_draw_ctx.lineTo(currentX, currentY) cur_draw_ctx.stroke() } else",
-                                                                                                                                                                                                                                                                                                                                                                                                    //drawLines(cur_draw_ctx, cur_smooth_prim.slice(0, -k_smooth + 2))
-                                                                                                                                                                                                                                                                                                                                                                                                    //cur_smooth_prim = getBezierCurve(curprim.slice(-cur_smoothing), cur_smoothing)
-                                                                                                                                                                                                                                                                                                                                                                                                    cur_smooth_prim = cur_smooth_prim.slice(0, -k_smooth + 1).concat(getBezierCurve(curprim.slice(-cur_smoothing), cur_smoothing)),
-                                                                                                                                                                                                                                                                                                                                                                                                    "ctx_add.clearRect(0, 0, cW, cH) drawLines(ctx_add, cur_smooth_prim) } curprim.push([currentX, currentY, currentW]) prevX = currentX prevY = currentY } }) function change_drawfield_size(new_dfw: any, new_dfh: any)//\u0444\u0443\u043D\u043A\u0446\u0438\u044F \u0438\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u044F \u0440\u0430\u0437\u043C\u0435\u0440\u043E\u0432 \u043E\u043A\u043D\u0430",
-                                                                                                                                                                                                                                                                                                                                                                                                    let,
-                                                                                                                                                                                                                                                                                                                                                                                                    " prev_f_dW: number = f_dW let prev_f_dH: number = f_dH f_dW = Math.min(fW_max, Math.max(fW_min, new_dfw)) f_dH = Math.min(fH_max, Math.max(fH_min, new_dfh)) d_frame.style.width = f_dW + \"px\" d_frame.style.height = f_dH + \"px\" cW = cW * (f_dW / prev_f_dW) cH = cH * (f_dH / prev_f_dH) cD = cW / cH if (cD > orig_lD)",
-                                                                                                                                                                                                                                                                                                                                                                                                    lW = orig_lW,
-                                                                                                                                                                                                                                                                                                                                                                                                    "lH = orig_lW / cD } else",
-                                                                                                                                                                                                                                                                                                                                                                                                    lH = orig_lH,
-                                                                                                                                                                                                                                                                                                                                                                                                    "lW = orig_lH * cD } lWp = Math.round(995 * (lW / orig_lW)) / 10 + '%' lHp = Math.round(1000 * (lH / orig_lH)) / 10 + '%' layer_icon_1.style.width = lWp layer_icon_2.style.width = lWp layer_icon_1.style.height = lHp layer_icon_2.style.height = lHp canvas_foreground.width = cW canvas_foreground.height = cH canvas_background.width = cW canvas_background.height = cH canvas_additional.height = cH canvas_additional.width = cW ctx_foreground.lineWidth = l_width ctx_background.lineWidth = l_width W_f = (W - cW) / 2 - l_width / 2 + 12 W_min = (W - f_dW) / 4 W_max = f_dW + W_min H_f = (H - cH) / 2 - l_width / 2 + 12 H_min = (H - f_dH) / 4 H_max = f_dH + H_min X_move = f_dW - prev_f_dW Y_move = f_dH - prev_f_dH } window.addEventListener(\"pointermove\", (e) => //\u043F\u0440\u043E\u0432\u0435\u0440\u043A\u0430 \u043A\u0443\u0440\u0441\u043E\u0440\u0430 \u043D\u0430 \u0432\u0441\u0451\u043C \u043E\u043A\u043D\u0435",
-                                                                                                                                                                                                                                                                                                                                                                                                    cX = e.clientX - 7.5,
-                                                                                                                                                                                                                                                                                                                                                                                                    "cY = e.clientY - 7.5 if (is_clr_window)",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if (!on_clr_window)",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if(cursor_type != 0)",
-                                                                                                                                                                                                                                                                                                                                                                                                    cursor_type = 0,
-                                                                                                                                                                                                                                                                                                                                                                                                    "cursor.style.display = \"block\" } } else",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if(cursor_type != -1)",
-                                                                                                                                                                                                                                                                                                                                                                                                    cursor_type = -1,
-                                                                                                                                                                                                                                                                                                                                                                                                    "cursor.style.display = \"none\" } on_clr_window = false return } } if(!f_move)",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if(!on_d_frame && !draw)",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if(cursor_type != -1)",
-                                                                                                                                                                                                                                                                                                                                                                                                    cursor_type = -1,
-                                                                                                                                                                                                                                                                                                                                                                                                    "cursor.style.display = \"none\" } } else",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if(cursor_type != 0)",
-                                                                                                                                                                                                                                                                                                                                                                                                    cursor_type = 0,
-                                                                                                                                                                                                                                                                                                                                                                                                    "cursor.style.display = \"block\" } } } else //\u0418\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u0435 \u0440\u0430\u0437\u043C\u0435\u0440\u043E\u0432 \u043E\u0431\u043B\u0430\u0441\u0442\u0438 \u0440\u0438\u0441\u043E\u0432\u0430\u043D\u0438\u044F",
-                                                                                                                                                                                                                                                                                                                                                                                                    X_move = (cX - move_prevX) * 2,
-                                                                                                                                                                                                                                                                                                                                                                                                    "Y_move = (cY - move_prevY) * 2 if(end_f_move)",
-                                                                                                                                                                                                                                                                                                                                                                                                    f_move = false,
-                                                                                                                                                                                                                                                                                                                                                                                                    "end_f_move = false return } if(cursor_type == 2)//\u0435\u0441\u043B\u0438 \u0432\u0435\u0440\u0442\u0438\u043A\u0430\u043B\u044C\u043D\u044B\u0435",
-                                                                                                                                                                                                                                                                                                                                                                                                    Y_move = 0,
-                                                                                                                                                                                                                                                                                                                                                                                                    "else",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if(cursor_type == 1)//\u0435\u0441\u043B\u0438 \u0433\u043E\u0440\u0438\u0437\u043E\u043D\u0442\u0430\u043B\u044C\u043D\u044B\u0435",
-                                                                                                                                                                                                                                                                                                                                                                                                    X_move = 0,
-                                                                                                                                                                                                                                                                                                                                                                                                    "} if(cfleft == true)",
-                                                                                                                                                                                                                                                                                                                                                                                                    X_move *= -1,
-                                                                                                                                                                                                                                                                                                                                                                                                    "if(cfup == true)",
-                                                                                                                                                                                                                                                                                                                                                                                                    Y_move *= -1,
-                                                                                                                                                                                                                                                                                                                                                                                                    "let cur_new_dfw: number = f_dW + X_move let cur_new_dfh: number = f_dH + Y_move change_drawfield_size(cur_new_dfw, cur_new_dfh) cur_ratio_val = get_visual_ratio(false, cW, cH) ratio_field.value = cur_ratio_val //\u0443\u0441\u0442\u0430\u043D\u0430\u0432\u043B\u0438\u0432\u0430\u0435\u043C \u0441\u043E\u043E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u0435 \u0441\u0442\u043E\u0440\u043E\u043D fW_pred = f_dW fH_pred = f_dH pstack.push(['r', cur_new_dfw, cur_new_dfh, false]) replay_actions(pstack) //\u041F\u043E\u0432\u0442\u043E\u0440\u043D\u0430\u044F \u043E\u0442\u0440\u0438\u0441\u043E\u0432\u043A\u0430 \u0441 \u043D\u043E\u0432\u044B\u043C \u0440\u0430\u0437\u0440\u0435\u0448\u0435\u043D\u0438\u0435\u043C } if(cursor_type != 0 && cursor_type != 3)",
-                                                                                                                                                                                                                                                                                                                                                                                                    cursor.style.left = cX + "px",
-                                                                                                                                                                                                                                                                                                                                                                                                    "cursor.style.top = cY + \"px\" } else",
-                                                                                                                                                                                                                                                                                                                                                                                                    cursor.style.left = (cX + 7.5) + "px",
-                                                                                                                                                                                                                                                                                                                                                                                                    "cursor.style.top = (cY + 7.5) + \"px\" } move_prevX = cX move_prevY = cY on_d_frame = false }) } static authenticatedView(userName, profilePath, logoutPath, logoutState)",
-                                                                                                                                                                                                                                                                                                                                                                                                ,
-                                                                                                                                                                                                                                                                                                                                                                                                    "return (",
-                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement("div", { className: "subbody" },
-                                                                                                                                                                                                                                                                                                                                                                                                        React.createElement("div", { className: "blackout", id: "full_blackout" },
-                                                                                                                                                                                                                                                                                                                                                                                                            React.createElement("img", { className: "loading", alt: "loading.webp", src: "loading.webp" })),
-                                                                                                                                                                                                                                                                                                                                                                                                        React.createElement("div", { id: "mySidepanel", className: "sidepanel" },
-                                                                                                                                                                                                                                                                                                                                                                                                            React.createElement("a", { className: "closebtn", id: "size_panel_closebtn" }, "\u00D7"),
-                                                                                                                                                                                                                                                                                                                                                                                                            React.createElement("div", { id: "mods_of_work", className: "mods_of_work" },
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("a", { href: "#", className: "work_mode_href", title: "\u041A\u0430\u0440\u0442\u0438\u043D\u0430 \u043F\u043E \u0442\u0435\u043A\u0441\u0442\u043E\u0432\u043E\u043C\u0443 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u044E", style: { borderBottomStyle: "hidden" } },
-                                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement("img", { className: "work_mode_img_btn", alt: "text_to_image.png", src: "text_to_image.png" })),
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("a", { className: "work_mode_href", id: "selected_work_mode", title: "\u041A\u0430\u0440\u0442\u0438\u043D\u0430 \u0438\u0437 \u0440\u0438\u0441\u0443\u043D\u043A\u0430 (\u0432\u044B\u0431\u0440\u0430\u043D\u043E)" },
-                                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement("img", { className: "work_mode_img_btn", alt: "image_to_image.png", src: "image_to_image.png" })),
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("a", { href: "#", className: "work_mode_href", title: "\u041E\u0431\u0440\u0430\u0431\u043E\u0442\u043A\u0430 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0439 \u0441 \u043A\u043E\u043C\u044C\u044E\u0442\u0435\u0440\u0430", style: { borderTopStyle: "hidden" } },
-                                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement("img", { className: "work_mode_img_btn", alt: "photo_to_image.png", src: "photo_to_image.png" })),
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("a", { href: "#", className: "work_mode_href", title: "\u0421\u043E\u0437\u0434\u0430\u043D\u0438\u0435 \u0430\u043D\u0438\u043C\u0430\u0446\u0438\u0438", style: { borderTopStyle: "hidden" } },
-                                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement("img", { className: "work_mode_img_btn", alt: "frames_to_animation.png", src: "frames_to_animation.png" }))),
-                                                                                                                                                                                                                                                                                                                                                                                                            React.createElement("div", { className: "sidepanel_bottom_buttons" },
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("button", { className: "sidepanel_bottom_button", title: "\u041D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438" },
-                                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement("img", { className: "sidepanel_bottom_button_img", alt: "settings.png", src: "settings.png" })),
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("button", { className: "sidepanel_bottom_button", id: "change_theme", title: "\u0422\u0451\u043C\u043D\u0430\u044F/\u0441\u0432\u0435\u0442\u043B\u0430\u044F \u0442\u0435\u043C\u0430" },
-                                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement("img", { className: "sidepanel_bottom_button_img", id: "theme_mode_img", alt: "dark mode.png", src: "dark mode.png" })),
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("button", { className: "sidepanel_bottom_button", title: "\u042F\u0437\u044B\u043A/language" },
-                                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement("img", { className: "sidepanel_bottom_button_img", alt: "language.png", src: "language.png" }))),
-                                                                                                                                                                                                                                                                                                                                                                                                            React.createElement("div", { className: "helpfull_links", fontSize: "2px", style: { bottom: "8%" } },
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement(NavLink, { className: "helpfull_link", title: "\u041F\u0440\u043E\u0444\u0438\u043B\u044C", style: { width: "100%" }, tag: Link, to: profilePath }, userName),
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement(NavLink, { className: "helpfull_link", style: { width: "30%", marginRight: "auto", marginLeft: "auto" }, replace: true, tag: Link, to: logoutPath, state: logoutState }, "\u0412\u044B\u0439\u0442\u0438")),
-                                                                                                                                                                                                                                                                                                                                                                                                            React.createElement("div", { className: "helpfull_links", fontSize: "2px" },
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("div", { className: "helpfull_link" },
-                                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement("a", { href: "#" }, "\u041E \u043D\u0430\u0441")),
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("div", { className: "helpfull_link" },
-                                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement("a", { href: "#" }, "\u041F\u043E\u043C\u043E\u0449\u044C")))),
-                                                                                                                                                                                                                                                                                                                                                                                                        React.createElement("div", { className: "blackout", id: "side_panel_blackout", style: { zIndex: 20 } }),
-                                                                                                                                                                                                                                                                                                                                                                                                        React.createElement("button", { className: "openbtn" }, "\u2630"),
-                                                                                                                                                                                                                                                                                                                                                                                                        React.createElement("div", { className: "cursor" },
-                                                                                                                                                                                                                                                                                                                                                                                                            React.createElement("img", { className: "cursimg", alt: "cursimg", style: { width: "30px", height: "30px" } })),
-                                                                                                                                                                                                                                                                                                                                                                                                        React.createElement("div", { className: "layers" },
-                                                                                                                                                                                                                                                                                                                                                                                                            React.createElement("div", { className: "layers_buttons" },
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("button", { className: "layers_mini_button", id: "merge_layers", title: "\u041E\u0431\u044A\u0435\u0434\u0438\u043D\u0438\u0442\u044C \u0441\u043B\u043E\u0438" },
-                                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement("img", { className: "layers_mini_button_image", alt: "merge.png", src: "merge.png" })),
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("button", { className: "layers_mini_button", id: "swap_layers", title: "\u041F\u043E\u043C\u0435\u043D\u044F\u0442\u044C \u0441\u043B\u043E\u0438 \u043C\u0435\u0441\u0442\u0430\u043C\u0438" },
-                                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement("img", { className: "layers_mini_button_image", alt: "swap.png", src: "swap.png" }))),
-                                                                                                                                                                                                                                                                                                                                                                                                            React.createElement("div", { className: "layer_box" },
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("div", { className: "layer", id: "layer_1" },
-                                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement("div", { className: "layer_button_box" },
-                                                                                                                                                                                                                                                                                                                                                                                                                        React.createElement("button", { className: "layer_left_mini_button", id: "layer_1_visibility_button", title: "\u0412\u043A\u043B\u044E\u0447\u0438\u0442\u044C/\u0432\u044B\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u0432\u0438\u0434\u0438\u043C\u043E\u0441\u0442\u044C" },
-                                                                                                                                                                                                                                                                                                                                                                                                                            React.createElement("img", { className: "layer_left_mini_button_image", id: "layer_1_visibility_img", alt: "visibility_on.png", src: "visibility_on.png" })),
-                                                                                                                                                                                                                                                                                                                                                                                                                        React.createElement("button", { className: "layer_left_mini_button", id: "clear_layer_1", title: "\u041E\u0447\u0438\u0441\u0442\u0438\u0442\u044C \u0441\u043B\u043E\u0439" },
-                                                                                                                                                                                                                                                                                                                                                                                                                            React.createElement("img", { className: "layer_left_mini_button_image", alt: "clear.png", src: "clear.png" }))),
-                                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement("div", { className: "layer_button", id: "layer_button_1" },
-                                                                                                                                                                                                                                                                                                                                                                                                                        React.createElement("div", { className: "layer_display_icon", id: "layer_display_icon_1" },
-                                                                                                                                                                                                                                                                                                                                                                                                                            React.createElement("canvas", { className: "layer_display_canvas", id: "layer_1_display_canvas", style: { zIndex: 1 } }),
-                                                                                                                                                                                                                                                                                                                                                                                                                            React.createElement("div", { className: "layer_display_canvas", id: "layer_alpha_img_1", style: { zIndex: 0, backgroundImage: "url(mini_alpha_pattern.png)", backgroundRepeat: "repeat" } })))),
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("div", { className: "layer", id: "layer_2" },
-                                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement("div", { className: "layer_button_box" },
-                                                                                                                                                                                                                                                                                                                                                                                                                        React.createElement("button", { className: "layer_left_mini_button", id: "layer_2_visibility_button", title: "\u0412\u043A\u043B\u044E\u0447\u0438\u0442\u044C/\u0432\u044B\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u0432\u0438\u0434\u0438\u043C\u043E\u0441\u0442\u044C" },
-                                                                                                                                                                                                                                                                                                                                                                                                                            React.createElement("img", { className: "layer_left_mini_button_image", id: "layer_2_visibility_img", alt: "visibility_on.png", src: "visibility_on.png" })),
-                                                                                                                                                                                                                                                                                                                                                                                                                        React.createElement("button", { className: "layer_left_mini_button", id: "clear_layer_2", title: "\u041E\u0447\u0438\u0441\u0442\u0438\u0442\u044C \u0441\u043B\u043E\u0439" },
-                                                                                                                                                                                                                                                                                                                                                                                                                            React.createElement("img", { className: "layer_left_mini_button_image", alt: "clear.png", src: "clear.png" }))),
-                                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement("div", { className: "layer_button", id: "layer_button_2" },
-                                                                                                                                                                                                                                                                                                                                                                                                                        React.createElement("div", { className: "layer_display_icon", id: "layer_display_icon_2" },
-                                                                                                                                                                                                                                                                                                                                                                                                                            React.createElement("canvas", { className: "layer_display_canvas", id: "layer_2_display_canvas", style: { zIndex: 1 } }),
-                                                                                                                                                                                                                                                                                                                                                                                                                            React.createElement("div", { className: "layer_display_canvas", id: "layer_alpha_img_2", style: { zIndex: 0, backgroundImage: "url(mini_alpha_pattern.png)", backgroundRepeat: "repeat" } })))))),
-                                                                                                                                                                                                                                                                                                                                                                                                        React.createElement("div", { className: "scale_field" },
-                                                                                                                                                                                                                                                                                                                                                                                                            React.createElement("input", { type: "text", className: "f_ratio", list: "default_ratio", name: "f_ratio", required: true, placeholder: "W:H" }),
-                                                                                                                                                                                                                                                                                                                                                                                                            React.createElement("datalist", { id: "default_ratio" },
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("option", { value: "16:9" }),
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("option", { value: "1:1" }),
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("option", { value: "21:9" }),
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("option", { value: "4:3" }),
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("option", { value: "9:16" }),
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("option", { value: "9:21" }))),
-                                                                                                                                                                                                                                                                                                                                                                                                        React.createElement("div", { id: "before_gen_block", style: { position: "fixed", top: "50px", left: "5%", height: "20%", width: "20%", border: "2px solid #111111", zIndex: "15", display: "none" } },
-                                                                                                                                                                                                                                                                                                                                                                                                            React.createElement("div", { className: "closebtn", id: "close_before_gen_block", style: { position: "absolute", zIndex: "16", right: "-2px", top: "-2px", width: "20px", height: "20px", cursor: "pointer", textAlign: "center", background: "#ffffff", border: "2px solid #111111" } },
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("a", { style: { position: "relative", top: "-40%", fontSize: "25px" } }, "\u00D7")),
-                                                                                                                                                                                                                                                                                                                                                                                                            React.createElement("canvas", { id: "before_gen", style: { position: "relative", width: "100%", height: "100%", cursor: "pointer" } })),
-                                                                                                                                                                                                                                                                                                                                                                                                        React.createElement("div", { className: "d_frame", id: "d_frame" },
-                                                                                                                                                                                                                                                                                                                                                                                                            React.createElement("div", { className: "v_frame", id: "v_frame" },
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("canvas", { className: "drawfield", id: "canvas_additional", style: { zIndex: 10 } }),
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("canvas", { className: "drawfield", id: "canvas_foreground", style: { zIndex: 9 } }),
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("canvas", { className: "drawfield", id: "canvas_background", style: { zIndex: 8 } }),
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("div", { className: "drawfield", id: "alpha_img", style: { zIndex: 7, backgroundImage: "url(alpha_pattern.png)", backgroundRepeat: "repeat" } }))),
-                                                                                                                                                                                                                                                                                                                                                                                                        React.createElement("div", { className: "clr_window", id: "clr_window" },
-                                                                                                                                                                                                                                                                                                                                                                                                            React.createElement("form", { action: "" },
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("div", { className: "form-item" },
-                                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement("label", { id: "text_label_clr", htmlFor: "color" }, "\u0426\u0432\u0435\u0442:"),
-                                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement("input", { type: "text", id: "color", name: "color", defaultValue: "#000000" })),
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("div", { id: "picker" })),
-                                                                                                                                                                                                                                                                                                                                                                                                            React.createElement("button", { className: "ctype_clr_btn", id: "ctype_clr_btn", type: "button" }, "\u0426\u0432\u0435\u0442 \u0444\u043E\u043D\u0430"),
-                                                                                                                                                                                                                                                                                                                                                                                                            React.createElement("button", { className: "ok_clr_btn", id: "ok_clr_btn", type: "button" }, "\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C")),
-                                                                                                                                                                                                                                                                                                                                                                                                        React.createElement("div", { className: "up_add_window", id: "pencil_window", style: { marginRight: "14.5%", display: "block" } },
-                                                                                                                                                                                                                                                                                                                                                                                                            React.createElement("div", { className: "pencil_window_thickness_block" },
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("img", { className: "thicknessimg", alt: "thickness.png", src: "thickness.png" }),
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("input", { className: "up_add_window_slider", type: "range", id: "thickness_sliderValue", min: "1", max: "100", defaultValue: "1" }),
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("input", { className: "up_add_window_field", type: "number", id: "thickness_rangeValue", min: "1", max: "100", defaultValue: "1" })),
-                                                                                                                                                                                                                                                                                                                                                                                                            React.createElement("div", { className: "pencil_window_smoothing_block" },
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("img", { className: "smoothingimg", alt: "smoothing.png", src: "smoothing.png" }),
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("input", { className: "up_add_window_slider", type: "range", id: "smoothing_sliderValue", min: "0", max: "100", defaultValue: "0" }),
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("input", { className: "up_add_window_field", type: "number", id: "smoothing_rangeValue", min: "0", max: "100", defaultValue: "0" }))),
-                                                                                                                                                                                                                                                                                                                                                                                                        React.createElement("div", { className: "up_add_window", id: "eraser_window", style: { marginRight: "7.5%", display: "none" } },
-                                                                                                                                                                                                                                                                                                                                                                                                            React.createElement("div", { className: "eraser_window_thickness_block" },
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("img", { className: "thicknessimg", alt: "thickness.png", src: "thickness.png" }),
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("input", { className: "up_add_window_slider", type: "range", id: "e_thickness_sliderValue", min: "1", max: "100", defaultValue: "1" }),
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("input", { className: "up_add_window_field", type: "number", id: "e_thickness_rangeValue", min: "1", max: "100", defaultValue: "1" }))),
-                                                                                                                                                                                                                                                                                                                                                                                                        React.createElement("button", { className: "up_panel_button", id: "graphic_tablet", title: "\u0423\u0447\u0438\u0442\u044B\u0432\u0430\u0442\u044C \u0441\u0438\u043B\u0443 \u043D\u0430\u0436\u0430\u0442\u0438\u044F", style: { display: "none", position: "fixed", top: "4px", left: "10%" } },
-                                                                                                                                                                                                                                                                                                                                                                                                            React.createElement("img", { className: "up_panel_button_image", id: "graphic_tablet_image", alt: "graphic_tablet.png", src: "graphic_tablet.png" })),
-                                                                                                                                                                                                                                                                                                                                                                                                        React.createElement("div", { className: "palette_nav" }),
-                                                                                                                                                                                                                                                                                                                                                                                                        React.createElement("div", { className: "nav" },
-                                                                                                                                                                                                                                                                                                                                                                                                            React.createElement("div", { className: "icon_buttons" },
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("button", { className: "up_panel_button", id: "arrow_back", title: "Отменить" },
-                                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement("img", { className: "up_panel_button_image", id: "arrow_back_image", alt: "undo_arrow.png", src: "undo_arrow.png" })),
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("button", { className: "up_panel_button", id: "arrow_next", title: "\u041F\u043E\u0432\u0442\u043E\u0440\u0438\u0442\u044C" },
-                                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement("img", { className: "up_panel_button_image", id: "arrow_next_image", alt: "repeat_arrow.png", src: "repeat_arrow.png" })),
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("button", { className: "up_panel_button", id: "palette", title: "\u0412\u044B\u0431\u043E\u0440 \u0446\u0432\u0435\u0442\u0430" },
-                                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement("img", { className: "up_panel_button_image", id: "clrimg", alt: "palette.png", src: "palette.png", style: { filter: "invert(1)" } })),
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("button", { className: "up_panel_button", id: "pencil", title: "\u041A\u0430\u0440\u0430\u043D\u0434\u0430\u0448" },
-                                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement("img", { className: "up_panel_button_image", id: "pencil_image", alt: "pencil.png", src: "pencil.png" })),
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("button", { className: "up_panel_button", id: "eraser", title: "\u041B\u0430\u0441\u0442\u0438\u043A" },
-                                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement("img", { className: "up_panel_button_image", id: "eraser_image", alt: "eraser.png", src: "eraser.png" })),
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("button", { className: "up_panel_button", id: "bucket", title: "\u0417\u0430\u043B\u0438\u0432\u043A\u0430" },
-                                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement("img", { className: "up_panel_button_image", id: "bucket_image", alt: "bucket.png", src: "bucket.png" })),
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("button", { className: "up_panel_button", id: "pipette", title: "\u041F\u0438\u043F\u0435\u0442\u043A\u0430" },
-                                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement("img", { className: "up_panel_button_image", id: "pipette_image", alt: "pipette.png", src: "pipette.png" })),
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("button", { className: "up_panel_button", id: "clear", title: "\u041E\u0447\u0438\u0441\u0442\u0438\u0442\u044C \u0440\u0430\u0431\u043E\u0447\u0443\u044E \u043E\u0431\u043B\u0430\u0441\u0442\u044C" },
-                                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement("img", { className: "up_panel_button_image", id: "clearimg", alt: "clear.png", src: "clear.png" })),
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("button", { className: "up_panel_button", id: "upload", title: "\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435 \u043D\u0430 \u0441\u0430\u0439\u0442" },
-                                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement("img", { className: "up_panel_button_image", id: "uploadimg", alt: "upload.png", src: "upload.png" }),
-                                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement("input", { className: "hiddenInput", type: "file", accept: "image/*,.png,.jpg,.gif,.web,.bmp", id: "my_hidden_file", name: "loadfile" })),
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("button", { className: "up_panel_button", id: "save", title: "\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435" },
-                                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement("img", { className: "up_panel_button_image", id: "saveimg", alt: "save.png", src: "save.png" })),
-                                                                                                                                                                                                                                                                                                                                                                                                                React.createElement("button", { className: "up_panel_button", id: "generate", "data-toggle": "gen_modal", title: "\u0418\u0418 \u043E\u0431\u0440\u0430\u0431\u043E\u0442\u043A\u0430" },
-                                                                                                                                                                                                                                                                                                                                                                                                                    React.createElement("img", { className: "up_panel_button_image", id: "generateimg", alt: "generate.png", src: "generate.png" }))))),
-                                                                                                                                                                                                                                                                                                                                                                                                    "); } }")))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+"use strict";
+const body = document.querySelector("body");
+const cursor = document.querySelector(".cursor");
+const cursor_image = document.querySelector(".cursimg");
+let cursor_type = -1;
+const nav_panel = document.querySelector(".nav");
+const canvas_foreground = document.getElementById("canvas_foreground");
+const canvas_background = document.getElementById("canvas_background");
+const canvas_additional = document.getElementById("canvas_additional");
+const canvas_layer_1 = document.getElementById("layer_1_display_canvas");
+const canvas_layer_2 = document.getElementById("layer_2_display_canvas");
+const layer_icon_1 = document.getElementById("layer_display_icon_1");
+const layer_icon_2 = document.getElementById("layer_display_icon_2");
+const d_frame = document.getElementById("d_frame");
+const spanel = document.getElementById("mySidepanel");
+const spanel_openbtn = document.querySelector(".openbtn");
+const generateBtn = document.getElementById("generate");
+const clr_w = document.getElementById("clr_window");
+const pencil_w = document.getElementById("pencil_window");
+const eraser_w = document.getElementById("eraser_window");
+const ok_clr_btn = document.getElementById("ok_clr_btn");
+const cur_color = document.getElementById("color");
+const clrimg = document.getElementById("clrimg");
+const ctx_foreground = canvas_foreground.getContext("2d", { willReadFrequently: true });
+const ctx_background = canvas_background.getContext("2d", { willReadFrequently: true });
+const ctx_add = canvas_additional.getContext("2d", { willReadFrequently: true });
+const ctx_layer_1 = canvas_layer_1.getContext("2d", { willReadFrequently: true });
+const ctx_layer_2 = canvas_layer_2.getContext("2d", { willReadFrequently: true });
+const ratio_field = document.querySelector(".f_ratio");
+const ratio_tooltip = document.querySelector("ratio_tooltip");
+const thickness_slider = document.getElementById("thickness_sliderValue");
+const thickness_field = document.getElementById("thickness_rangeValue");
+const smoothing_slider = document.getElementById("smoothing_sliderValue");
+const smoothing_field = document.getElementById("smoothing_rangeValue");
+const e_thickness_slider = document.getElementById("e_thickness_sliderValue");
+const e_thickness_field = document.getElementById("e_thickness_rangeValue");
+const layer_1 = document.getElementById("layer_1");
+const layer_2 = document.getElementById("layer_2");
+const scale_field = document.querySelector(".scale_field");
+const div_layers = document.querySelector(".layers");
+const layers_buttons = document.querySelector(".layers_buttons");
+const text_label_clr = document.getElementById("text_label_clr");
+const blackout = document.getElementById("full_blackout");
+const side_panel_blackout = document.getElementById("side_panel_blackout");
+const before_gen_block = document.getElementById("before_gen_block");
+const close_before_gen_block = document.getElementById("close_before_gen_block");
+const before_gen = document.getElementById("before_gen");
+const before_gen_ctx = before_gen.getContext("2d", { willReadFrequently: true });
+const change_themeBtn = document.getElementById("change_theme");
+const tmimg = document.getElementById("theme_mode_img");
+const graphic_tabletBtn = document.getElementById("graphic_tablet");
+const first_layer_visibilityBtn = document.getElementById("layer_1_visibility_button");
+const first_layer_visibility_img = document.getElementById("layer_1_visibility_img");
+const second_layer_visibilityBtn = document.getElementById("layer_2_visibility_button");
+const second_layer_visibility_img = document.getElementById("layer_2_visibility_img");
+const clear_first_layer_Btn = document.getElementById("clear_layer_1");
+const clear_second_layer_Btn = document.getElementById("clear_layer_2");
+const select_first_layerBtn = document.getElementById("layer_button_1");
+const colourBtn = document.getElementById("palette");
+const ok_clr = document.querySelector(".ok_clr_btn");
+const ctype_clr_btn = document.querySelector(".ctype_clr_btn");
+const id_list = ['p', 'i', 'u', 'f'];
+const Pi_div_4 = Math.PI / 4;
+let nstack = [];
+let pstack = [];
+let curprim = [];
+let fp = true;
+let on_d_frame = false;
+let on_d_fiend = false;
+let prevX;
+let prevY;
+let move_prevX;
+let move_prevY;
+let X_move;
+let Y_move;
+let cX;
+let cY;
+let is_shift_on = false;
+let fup = false;
+let fdown = false;
+let fright = false;
+let fleft = false;
+let cfup = false;
+let cfleft = false;
+let W = window.innerWidth;
+let H = window.innerHeight;
+let fW_max = W * 0.8;
+let fH_max = H * 0.8;
+let fW_min = W * 0.1;
+let fH_min = H * 0.1;
+let cW = canvas_foreground.offsetWidth;
+let cH = canvas_foreground.offsetHeight;
+let cD = cW / cH;
+let Max_cW = cW;
+let Max_cH = cH;
+let lW = layer_icon_1.offsetWidth;
+let lH = layer_icon_1.offsetHeight;
+let lwW = canvas_layer_1.width;
+let lwH = canvas_layer_1.height;
+let orig_lW = lW;
+let orig_lH = lH;
+let orig_lD = lW / lH;
+if (cD > orig_lD) {
+    lW = orig_lW;
+    lH = orig_lW / cD;
+}
+else {
+    lH = orig_lH;
+    lW = orig_lH * cD;
+}
+let lWp = Math.round(995 * (lW / orig_lW)) / 10 + "%";
+let lHp = Math.round(1000 * (lH / orig_lH)) / 10 + "%";
+layer_icon_1.style.width = lWp;
+layer_icon_2.style.width = lWp;
+layer_icon_1.style.height = lHp;
+layer_icon_2.style.height = lHp;
+/*layer_alpha_img_1.width = lWp
+layer_alpha_img_1.height = lHp
+layer_alpha_img_2.width = lWp
+layer_alpha_img_2.height = lHp*/
+let cur_real_ratio = cH / cW;
+let l_width = 1;
+let W_f = (W - cW) / 2 - l_width / 2 + 12;
+let H_f = (H - cH) / 2 - l_width / 2 + 12;
+let f_dW = d_frame.offsetWidth;
+let f_dH = d_frame.offsetHeight;
+let orig_f_dW = f_dW;
+let orig_f_dH = f_dH;
+let fW_pred = orig_f_dW;
+let fH_pred = orig_f_dH;
+let cmp_W = 1;
+let cmp_H = 1;
+let cmp_W_b = 0;
+let cmp_H_b = 0;
+d_frame.width = f_dW;
+d_frame.height = f_dH;
+let H_min = (H - f_dH) / 4;
+let H_max = f_dH + H_min;
+let W_min = (W - f_dW) / 4;
+let W_max = f_dW + W_min;
+canvas_foreground.height = cH;
+canvas_foreground.width = cW;
+canvas_background.height = cH;
+canvas_background.width = cW;
+canvas_additional.height = cH;
+canvas_additional.width = cW;
+let draw = false;
+let enddraw = false;
+let f_move = false;
+let end_f_move = false;
+let old_btn_clr = [false, true]; //изначально чёрный текст у кнопок цвета
+let on_clr_window = false;
+let cur_background_clr = "#fff";
+let new_background_clr = cur_background_clr;
+let cur_brush_clr = "#000000";
+ctx_background.fillStyle = cur_background_clr; //заливка фона белым, костыль, убрать
+ctx_layer_2.fillStyle = cur_background_clr; //заливка иконки фона белым, костыль, убрать
+pstack.push(['i', ctx_background, cur_background_clr]);
+ctx_background.fillRect(0, 0, cW, cH);
+ctx_layer_2.fillRect(0, 0, cW, cH);
+let is_clr_brash = true;
+let cur_ratio_val = get_visual_ratio(false, cW, cH);
+ratio_field.value = cur_ratio_val; //устанавливаем соотношение сторон при запуске
+let is_first_upload_btn_click = true; //костыль, чтобы кнопка не срабатывала дважды
+let is_foreground_selected = true; //выбран ли верхний слой, по-умолчанию выбран
+let cur_draw_ctx = ctx_foreground; //текущий выбранный слой для рисования, по-умолчанию верхний
+let cur_canvas = canvas_foreground; //текущий выбранный слой для рисования ввиде слоя, не контекста, по-умолчанию верхний
+let cur_ctx_layer = ctx_layer_1; //текущий выбранный слой для рисования ввиде контекста кнопки который в углу, по-умолчанию верхний
+let graphic_tablet_mode = false; //режим графического планшета
+let is_clr_window = false; //отображение окна с палитрой
+let is_pencil_window = true; //отображение окна настроек кисти
+let is_eraser_window = false; //отображение окна настроек ластика
+let cur_smoothing = 0; //параметр сглаживания
+let cur_smooth_prim = []; //текущий сглаженный примитив
+let k_smooth = 0; //текущий коэффициент сглаживания
+let is_foreground_visible = true; //включена ли видимость переднего слоя
+let is_background_visible = true; //включена ли видимость заднего слоя
+ctx_foreground.lineCap = "round";
+ctx_foreground.lineJoin = "round";
+ctx_add.lineCap = "round";
+ctx_add.lineJoin = "round";
+ctx_background.lineCap = "round";
+ctx_background.lineJoin = "round";
+layer_1.style.border = "5px solid #000000";
+layer_2.style.border = "1px solid #707070";
+let is_dark_mode = false; //тёмная тема (отключена по-умолчанию)
+let is_modal_open = false;
+let is_side_panel_open = false;
+let caption_field;
+let style_field;
+let modal_header;
+let modal_body;
+let modal_footer;
+let is_human_caption;
+let original_image_buf = ""; //переменная для хранения исходных изображений
+let original_image_w; //переменная для хранения ширины исходного изображения
+let original_image_h; //переменная для хранения высоты исходного изображения
+let need_gen_after_caption = [false, false, false, false];
+const Max_bib_w = W * 0.2;
+const Max_bib_h = H * 0.2;
+let data_prop;
+let ws = new WebSocket("wss://stabledraw.com:8081");
+let chain_id = "";
+let task_id;
+const subbody = document.querySelector(".subbody");
+let if_first_time_modal = true;
+var main_modal = function (options) {
+    var _elemModal;
+    var _eventShowModal;
+    var _eventHideModal;
+    var _hiding = false;
+    var _destroyed = false;
+    var _animationSpeed = 200;
+    function _createModal(options) {
+        var elemModal = document.createElement("div"), modalTemplate = '<div class = "modal__backdrop"><div class="modal__content"><div class="modal__header"><div class="modal__title" data-modal="title">{{title}}</div><span class="modal__btn-close" data-dismiss="modal" title="Закрыть">&times;</span></div><div class="modal__body" data-modal="content">{{content}}</div>{{footer}}</div></div>', modalFooterTemplate = '<div class = "modal__footer">{{buttons}}</div>', modalButtonTemplate = '<button type = "button" class="{{button_class}}" data-handler={{button_handler}}>{{button_text}}</button>', modalHTML, modalFooterHTML = "";
+        elemModal.classList.add("modal");
+        modalHTML = modalTemplate.replace("{{title}}", options.title || "");
+        modalHTML = modalHTML.replace("{{content}}", options.content || "");
+        if (options.footerButtons) {
+            for (var i = 0, length = options.footerButtons.length; i < length; i++) {
+                var modalFooterButton = modalButtonTemplate.replace("{{button_class}}", options.footerButtons[i].class);
+                modalFooterButton = modalFooterButton.replace("{{button_handler}}", options.footerButtons[i].handler);
+                modalFooterButton = modalFooterButton.replace("{{button_text}}", options.footerButtons[i].text);
+                modalFooterHTML += modalFooterButton;
+            }
+        }
+        modalFooterHTML = modalFooterTemplate.replace("{{buttons}}", modalFooterHTML);
+        modalHTML = modalHTML.replace("{{footer}}", modalFooterHTML);
+        elemModal.innerHTML = modalHTML;
+        subbody.appendChild(elemModal);
+        return elemModal;
+    }
+    function _showModal() {
+        is_modal_open = true;
+        if (!_destroyed && !_hiding) {
+            _elemModal.classList.add("modal__show");
+            document.dispatchEvent(_eventShowModal);
+        }
+    }
+    function _hideModal() {
+        is_modal_open = false;
+        _hiding = true;
+        _elemModal.classList.remove("modal__show");
+        _elemModal.classList.add("modal__hiding");
+        setTimeout(function () {
+            _elemModal.classList.remove("modal__hiding");
+            _hiding = false;
+        }, _animationSpeed);
+        document.dispatchEvent(_eventHideModal);
+    }
+    function _handlerCloseModal(e) {
+        if (e.target.dataset.dismiss === "modal") {
+            _hideModal();
+        }
+    }
+    _elemModal = _createModal(options);
+    _elemModal.addEventListener("click", _handlerCloseModal);
+    _eventShowModal = new CustomEvent("show.modal", { detail: _elemModal });
+    _eventHideModal = new CustomEvent("hide.modal", { detail: _elemModal });
+    let return_elem = {
+        show: _showModal,
+        hide: _hideModal,
+        destroy: function () {
+            _elemModal.parentElement.removeChild(_elemModal),
+                _elemModal.removeEventListener("click", _handlerCloseModal),
+                _destroyed = true;
+        }, setContent: function (html) {
+            _elemModal.querySelector('[data-modal = "content"]').innerHTML = html;
+        }, setTitle: function (text) {
+            _elemModal.querySelector('[data-modal = "title"]').innerHTML = text;
+        }
+    };
+    return return_elem;
+};
+(function () {
+    var modal;
+    /*document.addEventListener("show.modal", function (e: any)
+    {
+        document.querySelector(".actions").textContent = "Действия при открытии модального окна..."
+        // получить ссылку на DOM-элемент показываемого модального окна (.modal)
+        console.log(e.detail)
+    })
+    document.addEventListener("hide.modal", function (e: any)
+    {
+        document.querySelector(".actions").textContent = "Действия при закрытии модального окна..."
+        // получить ссылку на DOM-элемент скрываемого модального окна (.modal)
+        console.log(e.detail)
+    })*/
+    document.addEventListener("click", function (e) {
+        data_prop = check_data_before_sending();
+        let { local_is_foreground_used, local_is_background_used, local_is_drawing, local_sure, local_how_many_prims, local_how_many_dots } = data_prop;
+        if (e.target.dataset.toggle === "modal") {
+            let content;
+            let footerButtons_list = [{ class: "modal_btn modal_btn-3", id: "cur_gen_params_btn", text: "Параметры", handler: "modalHandlerParams" }];
+            if ((!local_is_foreground_used && !local_is_background_used) || (!is_background_visible && !is_foreground_visible)) {
+                footerButtons_list.push({ class: "modal_btn modal_btn-2", id: "SD_btn", text: "Text2Img", handler: "modalHandlerGenSD_text_to_image" });
+                content = 'Стиль:<p><input class = "modal_input" id = "style_input" value = "профессиональная фотография" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"></input><p><p>Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"</input>';
+            }
+            else {
+                if (original_image_buf == "") {
+                    footerButtons_list.push({ class: "modal_btn modal_btn-2", id: "SD_btn", text: "AIColorize", handler: "modalHandlerGenBWToCLR" }, { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Img2Img", handler: "modalHandlerGenImg2Img" }, { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Depth2Img", handler: "modalHandlerGenDepth2Img" });
+                    content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"></input><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image(data_prop)">Сгенерировать автоматически</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"></input>';
+                }
+                else {
+                    footerButtons_list.push({ class: "modal_btn modal_btn-2", id: "SD_btn", text: "AIColorize", handler: "modalHandlerGenBWToCLR" }, { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Img2Img", handler: "modalHandlerGenImg2Img" }, { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Depth2Img", handler: "modalHandlerGenDepth2Img" });
+                    if (local_is_foreground_used && local_is_background_used && local_is_drawing && !local_sure) {
+                        footerButtons_list.push({ class: "modal_btn modal_btn-2", id: "SD_btn", text: "Inpainting", handler: "modalHandlerGenInpainting" });
+                    }
+                    if (original_image_h * original_image_w > 262144) {
+                        content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"/><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image(data_prop)">Сгенерировать автоматически</button><button class = "modal_btn modal_btn-4" onclick = "delete_background()">Удалить фон</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"/>';
+                    }
+                    else {
+                        if (original_image_h * original_image_w < 65537) {
+                            footerButtons_list.push({ class: "modal_btn modal_btn-2", id: "SD_btn", text: "SDx4 Апскейл", handler: "modalHandlerGenUpscale" });
+                        }
+                        else {
+                            footerButtons_list.push({ class: "modal_btn modal_btn-2", id: "SD_btn", text: "SDx2 Апскейл", handler: "modalHandlerGenUpscale_xX" });
+                        }
+                        content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"/><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image(data_prop)">Сгенерировать автоматически</button><button class = "modal_btn modal_btn-4" style = "right: 18.5%" onclick = "upscale()">Апскейл</button><button class = "modal_btn modal_btn-4" onclick = "delete_background()">Удалить фон</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"/>';
+                    }
+                }
+            }
+            footerButtons_list.push({ class: "modal_btn modal_btn-1", text: "Отмена", handler: "modalHandlerCancel" });
+            modal = main_modal({
+                title: "Генерация",
+                content: "<p>Содержмиое модального окна...<p>",
+                footerButtons: footerButtons_list
+            });
+            modal.show();
+            modal.setContent(content);
+            if (if_first_time_modal) {
+                caption_field = document.getElementById("caption_input");
+                style_field = document.getElementById("style_input");
+                modal_header = document.querySelector(".modal__header");
+                modal_body = document.querySelector(".modal__body");
+                modal_footer = document.querySelector(".modal__footer");
+                if_first_time_modal = false;
+            }
+            if (is_dark_mode) {
+                modal_header.style.filter = "invert(0.9)";
+                modal_body.style.filter = "invert(0.9)";
+                modal_footer.style.filter = "invert(0.9)";
+                modal_header.style.backgroundColor = "#cccccc";
+                modal_body.style.backgroundColor = "#cccccc";
+                modal_footer.style.backgroundColor = "#cccccc";
+            }
+            ws.onmessage = function (event) {
+                let jdata = JSON.parse(event.data);
+                let type = jdata[0];
+                if (type == 't') //если текстовое сообщение
+                 {
+                    //alert(jdata[1])
+                    return;
+                }
+                if (type == 'c') //если описание
+                 {
+                    task_id = jdata[1];
+                    caption_field.value = jdata[2];
+                    chain_id = jdata[3];
+                    last_task_image_name = jdata[4];
+                    last_task_image_suffix = jdata[5];
+                    is_human_caption = false;
+                    blackout.style.display = "none";
+                    if (need_gen_after_caption[0]) {
+                        gen_picture_by_drawing(need_gen_after_caption, caption_field.value + " " + style_field.value, data_prop);
+                        need_gen_after_caption[0] = false;
+                    }
+                    return;
+                }
+                if (type == 'i') //если изображение
+                 {
+                    let image = new Image();
+                    let image_on_before_block = new Image();
+                    image.onload = function () {
+                        if (jdata[7] != "") {
+                            image_on_before_block.src = "data:image/png;base64," + jdata[7];
+                            image_on_before_block.onload = function () {
+                                let bW;
+                                let bH;
+                                let iw = image_on_before_block.width;
+                                let ih = image_on_before_block.height;
+                                if (iw / ih > Max_bib_w / Max_bib_h) {
+                                    bW = Max_bib_w;
+                                    bH = Max_bib_w * ih / iw;
+                                }
+                                else {
+                                    bH = Max_bib_h;
+                                    bW = Max_bib_h * iw / ih;
+                                }
+                                before_gen_block.style.width = bW.toString() + "px";
+                                before_gen_block.style.height = bH.toString() + "px";
+                                before_gen.width = bW;
+                                before_gen.height = bH;
+                                before_gen_ctx.drawImage(image_on_before_block, 0, 0, iw, ih, 0, 0, bW, bH);
+                                before_gen_block.style.display = "block";
+                                show_gen_result(image);
+                            };
+                        }
+                        else {
+                            before_gen_block.style.display = "none";
+                            show_gen_result(image);
+                        }
+                        blackout.style.display = "none";
+                        modal.hide();
+                        original_image_buf = image.src;
+                        return;
+                    };
+                    original_image_w = jdata[2];
+                    original_image_h = jdata[3];
+                    chain_id = jdata[4];
+                    last_task_image_name = jdata[5];
+                    task_id = jdata[6];
+                    last_task_image_suffix = jdata[8];
+                    image.src = "data:image/png;base64," + jdata[1];
+                }
+            };
+        }
+        else if (e.target.dataset.handler === "modalHandlerCancel") {
+            modal.hide();
+            //document.querySelector(".message").textContent = "Вы нажали на кнопку Отмена, а открыли окно с помощью кнопки " + elemTarget.textContent
+        }
+        else if (e.target.dataset.handler === "modalHandlerParams") {
+            //modal.hide()
+            //document.querySelector(".message").textContent = "Вы нажали на кнопку ОК, а открыли окно с помощью кнопки " + elemTarget.textContent
+        }
+        else if (e.target.dataset.handler === "modalHandlerGenImg2Img" || e.target.dataset.handler === "modalHandlerGenDepth2Img" || e.target.dataset.handler === "modalHandlerGenInpainting" || e.target.dataset.handler === "modalHandlerGenUpscale") {
+            while (true) {
+                need_gen_after_caption[1] = false;
+                need_gen_after_caption[2] = false;
+                need_gen_after_caption[3] = false;
+                need_gen_after_caption[4] = false;
+                if (e.target.dataset.handler === "modalHandlerGenInpainting") {
+                    if (caption_field.value == "") {
+                        caption_field.setCustomValidity("Ввод описания в этом режиме обязателен");
+                        caption_field.reportValidity();
+                        break;
+                    }
+                    need_gen_after_caption[2] = true;
+                }
+                else {
+                    if (e.target.dataset.handler === "modalHandlerGenDepth2Img") {
+                        need_gen_after_caption[1] = true;
+                    }
+                    else {
+                        if (e.target.dataset.handler === "modalHandlerGenUpscale") {
+                            need_gen_after_caption[3] = true;
+                        }
+                        else {
+                            if (e.target.dataset.handler === "modalHandlerGenUpscale_xX") {
+                                need_gen_after_caption[4] = true;
+                            }
+                        }
+                    }
+                }
+                if (caption_field.value == "") {
+                    gen_caption_for_image(data_prop);
+                    need_gen_after_caption[0] = true;
+                }
+                else {
+                    let full_prompt;
+                    if (style_field.value == "") {
+                        full_prompt = caption_field.value;
+                    }
+                    else {
+                        full_prompt = caption_field.value + " " + style_field.value;
+                    }
+                    gen_picture_by_drawing(need_gen_after_caption, full_prompt, data_prop);
+                    need_gen_after_caption[2] = false;
+                }
+                //modal.hide()
+                //document.querySelector(".message").textContent = "Вы нажали на кнопку ОК, а открыли окно с помощью кнопки " + elemTarget.textContent
+                break;
+            }
+        }
+        else if (e.target.dataset.handler === "modalHandlerGenSD_text_to_image") {
+            if (caption_field.value == "") {
+                caption_field.setCustomValidity("Ввод описания в этом режиме обязателен");
+                caption_field.reportValidity();
+            }
+            else {
+                let full_prompt;
+                if (style_field.value == "") {
+                    full_prompt = caption_field.value;
+                }
+                else {
+                    full_prompt = style_field.value + " " + caption_field.value;
+                }
+                gen_picture_by_prompt(full_prompt);
+            }
+            //modal.hide()
+            //document.querySelector(".message").textContent = "Вы нажали на кнопку ОК, а открыли окно с помощью кнопки " + elemTarget.textContent
+        }
+        else if (e.target.dataset.handler === "modalHandlerGenBWToCLR") {
+            colorize_picture();
+        }
+        else if (e.target.dataset.dismiss === "modal") {
+            //document.querySelector(".message").textContent = "Вы закрыли модальное окно нажав на крестик или на область вне модального окна, а открыли окно с помощью кнопки " + elemTarget.textContent
+        }
+    });
+})();
+function show_gen_result(image) {
+    close_all_add_windows();
+    is_background_visible = false;
+    canvas_background.style.display = "none";
+    second_layer_visibility_img.setAttribute("src", "visibility_off.png");
+    ctx_foreground.clearRect(0, 0, cW, cH); // очищаем верхний холст
+    let img_w = image.width;
+    let img_h = image.height;
+    if (img_w / img_h == 1 && cW / cH != 1) {
+        let new_dfw;
+        let new_dfh;
+        if (cD > 1) {
+            new_dfh = Max_cH;
+            new_dfw = Max_cH;
+        }
+        else {
+            new_dfh = Max_cW;
+            new_dfw = Max_cW;
+        }
+        change_drawfield_size(new_dfw, new_dfh);
+        cur_ratio_val = get_visual_ratio(false, cW, cH);
+        ratio_field.value = cur_ratio_val; //устанавливаем соотношение сторон
+        replay_actions(pstack); //воспроизводим действия
+        fW_pred = f_dW;
+        fH_pred = f_dH;
+        push_action_to_stack(['r', new_dfw, new_dfh, false]);
+    }
+    ctx_foreground.drawImage(image, 0, 0, img_w, img_h, 0, 0, cW, cH);
+    push_action_to_stack(['u', cur_draw_ctx, image, img_w, img_h]);
+    ctx_layer_1.clearRect(0, 0, lwW, lwH);
+    canvas_to_layer(cur_canvas, cur_ctx_layer);
+}
+let last_task_image_name = "drawing.png";
+let last_task_image_suffix = "0";
+//ws.onopen = function(){alert("open");} 
+ws.onclose = function () {
+    alert("Извините, произошла ошибка на стороне сервера. Пожалуйста перезагрузите страницу");
+};
+//ws.onerror = function(){alert("error");}
+function check_data_before_sending() {
+    let local_is_foreground_used = false;
+    let local_is_background_used = false;
+    let local_is_drawing_on_foreground = true;
+    let local_is_drawing_on_background = true;
+    let local_sure_on_foreground = true;
+    let local_sure_on_background = true;
+    let local_how_many_prims_on_foreground = 0;
+    let local_how_many_dots_on_foreground = 0;
+    let local_how_many_prims_on_background = 0;
+    let local_how_many_dots_on_background = 0;
+    for (let i = 0; i < pstack.length; i++) {
+        switch (pstack[i][0]) {
+            case 'p':
+                if (pstack[i][1] == ctx_foreground) {
+                    if (local_is_drawing_on_foreground == false && local_sure_on_foreground == true) {
+                        local_sure_on_foreground = false;
+                    }
+                    local_is_drawing_on_foreground = true;
+                    local_is_foreground_used = true;
+                    local_how_many_prims_on_foreground++;
+                    local_how_many_dots_on_foreground += pstack[i][2].length;
+                }
+                else {
+                    if (local_is_drawing_on_background == false && local_sure_on_background == true) {
+                        local_sure_on_background = false;
+                    }
+                    local_is_drawing_on_background = true;
+                    local_is_background_used = true;
+                    local_how_many_prims_on_background++;
+                    local_how_many_dots_on_background += pstack[i][2].length;
+                }
+                break;
+            case 'f':
+                if (pstack[i][1] == ctx_foreground) {
+                    if (local_is_drawing_on_foreground == false && local_sure_on_foreground == true) {
+                        local_sure_on_foreground = false;
+                    }
+                    local_is_drawing_on_foreground = true;
+                    local_is_foreground_used = true;
+                    local_how_many_prims_on_foreground++;
+                }
+                else {
+                    if (local_is_drawing_on_background == false && local_sure_on_background == true) {
+                        local_sure_on_background = false;
+                    }
+                    local_is_drawing_on_background = true;
+                    local_is_background_used = true;
+                    local_how_many_prims_on_background++;
+                }
+                break;
+            case 'd':
+                local_is_foreground_used = false;
+                local_is_background_used = false;
+                local_is_drawing_on_foreground = true;
+                local_is_drawing_on_background = true;
+                local_sure_on_foreground = true;
+                local_sure_on_background = true;
+                local_how_many_prims_on_foreground = 0;
+                local_how_many_dots_on_foreground = 0;
+                local_how_many_prims_on_background = 0;
+                local_how_many_dots_on_background = 0;
+                break;
+            case 'i':
+                if (pstack[i][2] == "#fff") {
+                    if (pstack[i][1] == ctx_foreground) {
+                        local_is_foreground_used = false;
+                        local_is_drawing_on_foreground = true;
+                        local_sure_on_foreground = true;
+                        local_how_many_prims_on_foreground = 0;
+                        local_how_many_dots_on_foreground = 0;
+                    }
+                    else {
+                        local_is_background_used = false;
+                        local_is_drawing_on_background = true;
+                        local_sure_on_background = true;
+                        local_how_many_prims_on_background = 0;
+                        local_how_many_dots_on_background = 0;
+                    }
+                }
+                else {
+                    if (pstack[i][1] == ctx_foreground) {
+                        local_sure_on_foreground = true;
+                        local_is_drawing_on_foreground = true;
+                        local_is_foreground_used = true;
+                        local_how_many_prims_on_foreground++;
+                        local_how_many_prims_on_foreground = 0;
+                        local_how_many_dots_on_foreground = 0;
+                    }
+                    else {
+                        local_sure_on_background = false;
+                        local_is_drawing_on_background = true;
+                        local_is_background_used = true;
+                        local_how_many_prims_on_background++;
+                        local_how_many_prims_on_background = 0;
+                        local_how_many_dots_on_background = 0;
+                    }
+                }
+                break;
+            case 'c':
+                if (pstack[i][1] == ctx_foreground) {
+                    local_is_foreground_used = false;
+                    local_is_drawing_on_foreground = true;
+                    local_sure_on_foreground = true;
+                    local_how_many_prims_on_foreground = 0;
+                    local_how_many_dots_on_foreground = 0;
+                }
+                else {
+                    local_is_background_used = false;
+                    local_is_drawing_on_background = true;
+                    local_sure_on_background = true;
+                    local_how_many_prims_on_background = 0;
+                    local_how_many_dots_on_background = 0;
+                }
+                break;
+            case 'u':
+                if (pstack[i][1] == ctx_foreground) {
+                    if (local_is_drawing_on_foreground == true && local_sure_on_foreground == true) {
+                        local_sure_on_foreground = false;
+                    }
+                    local_is_drawing_on_foreground = false;
+                    local_is_foreground_used = true;
+                    local_how_many_prims_on_foreground = 0;
+                    local_how_many_dots_on_foreground = 0;
+                }
+                else {
+                    if (local_is_drawing_on_background == true && local_sure_on_background == true) {
+                        local_sure_on_background = false;
+                    }
+                    local_is_drawing_on_background = false;
+                    local_is_background_used = true;
+                    local_how_many_prims_on_background = 0;
+                    local_how_many_dots_on_background = 0;
+                }
+                break;
+            default:
+                break;
+        }
+    }
+    let local_is_drawing;
+    let local_sure;
+    let local_how_many_prims;
+    let local_how_many_dots;
+    if (!local_is_foreground_used) {
+        local_how_many_prims_on_foreground = 0;
+        local_how_many_dots_on_foreground = 0;
+        local_sure_on_foreground = true;
+        local_is_drawing_on_foreground = true;
+    }
+    if (!local_is_background_used) {
+        local_how_many_prims_on_background = 0;
+        local_how_many_dots_on_background = 0;
+        local_sure_on_background = true;
+        local_is_drawing_on_background = true;
+    }
+    if (local_sure_on_foreground && local_sure_on_background) {
+        local_sure = true;
+    }
+    else {
+        local_sure = false;
+    }
+    if (local_is_drawing_on_foreground && !local_is_drawing_on_background) {
+        local_is_drawing = true;
+        local_sure = false;
+    }
+    else {
+        if (!local_is_drawing_on_foreground && local_is_drawing_on_background) {
+            local_is_drawing = false;
+            local_sure = false;
+        }
+        else {
+            if (local_is_drawing_on_foreground && local_is_drawing_on_background) {
+                local_is_drawing = true;
+            }
+            else {
+                local_is_drawing = false;
+            }
+        }
+    }
+    local_how_many_prims = local_how_many_prims_on_foreground + local_how_many_prims_on_background;
+    local_how_many_dots = local_how_many_dots_on_foreground + local_how_many_dots_on_background;
+    if (local_how_many_prims == 0) {
+        local_is_drawing = false;
+        local_sure = true;
+    }
+    return { local_is_foreground_used, local_is_background_used, local_is_drawing, local_sure, local_how_many_prims, local_how_many_dots };
+}
+function push_action_to_stack(local_act) {
+    let need_add = true;
+    let pstack_length = pstack.length - 1;
+    if (pstack_length != -1 && pstack[pstack_length][0] == local_act[0] && local_act[0] != 'p' && local_act[0] != 'u' && pstack[pstack_length] == local_act) {
+        need_add = false;
+    }
+    if (need_add) {
+        pstack.push(local_act);
+        nstack = [];
     }
 }
+function gen_picture_by_drawing(params, full_prompt, data_prop) {
+    let is_depth = params[1];
+    let is_inpainting = params[2];
+    let is_upscale = params[3];
+    let is_upscale_xX = params[4];
+    blackout.style.display = "block";
+    let send_data_pbp;
+    let foreground_data;
+    let { local_is_foreground_used, local_is_background_used, local_is_drawing, local_sure, local_how_many_prims, local_how_many_dots } = data_prop;
+    if (is_human_caption) {
+        let background_data;
+        if (original_image_buf == "") {
+            if (!is_foreground_visible && !is_background_visible) {
+                alert("Выключены оба слоя, вы не можете отправить изображение");
+                return;
+            }
+            if (local_is_foreground_used && is_foreground_visible) {
+                foreground_data = canvas_foreground.toDataURL("imag/png");
+            }
+            else {
+                foreground_data = "";
+            }
+            if (local_is_background_used && is_background_visible) {
+                background_data = canvas_background.toDataURL("imag/png");
+            }
+            else {
+                background_data = "";
+            }
+        }
+        else {
+            if (is_inpainting) {
+                foreground_data = canvas_foreground.toDataURL("imag/png");
+                background_data = original_image_buf;
+            }
+            else {
+                foreground_data = original_image_buf;
+                background_data = "";
+            }
+        }
+        if (chain_id != "") {
+            if (!is_inpainting) {
+                foreground_data = "";
+            }
+            background_data = "";
+        }
+        send_data_pbp = JSON.stringify({
+            "type": 'g',
+            "is_human_caption": true,
+            "is_depth": is_depth,
+            "is_inpainting": is_inpainting,
+            "is_upscale": is_upscale,
+            "is_upscale_xX": is_upscale_xX,
+            "chain_id": chain_id,
+            "task_id": task_id,
+            "foreground": foreground_data,
+            "backgroung": background_data,
+            "prompt": full_prompt,
+            "is_drawing": local_is_drawing,
+            "sure": local_sure,
+            "prims_count": local_how_many_prims,
+            "dots_count": local_how_many_dots,
+            "img_name": last_task_image_name,
+            "img_suf": last_task_image_suffix
+        });
+        /*send_data_pbp = JSON.stringify({
+            "type": 'g', //рисунок
+            "is_human_caption": true,
+            "is_depth": is_depth,
+            "is_inpainting": is_inpainting,
+            "is_upscale": is_upscale,
+            "chain_id": chain_id, //id последнего звена цепочки
+            "task_id": task_id, //id задания
+            "foreground": foreground_data,
+            "backgroung": background_data,
+            "prompt": full_prompt, //описание изображения
+            "img_name": last_task_image_name,
+            "img_suf": last_task_image_suffix
+        })*/
+    }
+    else {
+        send_data_pbp = JSON.stringify({
+            "type": 'g',
+            "is_human_caption": false,
+            "prompt": full_prompt,
+            "is_depth": is_depth,
+            "is_upscale": is_upscale,
+            "is_upscale_xX": is_upscale_xX,
+            "chain_id": chain_id,
+            "task_id": task_id,
+            "img_name": last_task_image_name,
+            "img_suf": last_task_image_suffix
+        });
+    }
+    ws.send(send_data_pbp);
+}
+function gen_picture_by_prompt(full_prompt) {
+    blackout.style.display = "block";
+    let local_type;
+    let send_data_pbt;
+    send_data_pbt = JSON.stringify({
+        "type": "t",
+        "prompt": full_prompt //описание изображения
+    });
+    ws.send(send_data_pbt);
+}
+function delete_background() {
+    blackout.style.display = "block";
+    let data = original_image_buf;
+    if (chain_id != "") {
+        data = "";
+    }
+    let send_data_del = JSON.stringify({
+        "type": 'b',
+        "data": data,
+        "chain_id": chain_id,
+        "task_id": task_id,
+        "img_name": last_task_image_name,
+        "img_suf": last_task_image_suffix
+    });
+    ws.send(send_data_del);
+}
+function colorize_picture() {
+    blackout.style.display = "block";
+    let data = original_image_buf;
+    if (chain_id != "") {
+        data = "";
+    }
+    let send_data_del = JSON.stringify({
+        "type": 'c',
+        "data": data,
+        "chain_id": chain_id,
+        "task_id": task_id,
+        "img_name": last_task_image_name,
+        "img_suf": last_task_image_suffix
+    });
+    ws.send(send_data_del);
+}
+function upscale() {
+    blackout.style.display = "block";
+    let data = original_image_buf;
+    if (chain_id != "") {
+        data = "";
+    }
+    let send_data_ups = JSON.stringify({
+        "type": 'a',
+        "data": data,
+        "chain_id": chain_id,
+        "task_id": task_id,
+        "img_name": last_task_image_name,
+        "img_suf": last_task_image_suffix
+    });
+    ws.send(send_data_ups);
+}
+window.onresize = function () {
+    W = document.documentElement.clientWidth;
+    H = document.documentElement.clientHeight;
+    fW_max = W * 0.8;
+    fH_max = H * 0.8;
+    fW_min = W * 0.1;
+    fH_min = H * 0.1;
+    cW = canvas_foreground.offsetWidth;
+    cH = canvas_foreground.offsetHeight;
+    Max_cW = cW;
+    Max_cH = cH;
+    cur_real_ratio = cH / cW;
+    W_f = (W - cW) / 2 - l_width / 2 + 12;
+    H_f = (H - cH) / 2 - l_width / 2 + 12;
+    f_dW = d_frame.offsetWidth;
+    f_dH = d_frame.offsetHeight;
+    orig_f_dW = f_dW;
+    orig_f_dH = f_dH;
+    d_frame.width = f_dW;
+    d_frame.height = f_dH;
+    H_min = (H - f_dH) / 4;
+    H_max = f_dH + H_min;
+    W_min = (W - f_dW) / 4;
+    W_max = f_dW + W_min;
+    canvas_foreground.height = cH;
+    canvas_foreground.width = cW;
+    canvas_background.height = cH;
+    canvas_background.width = cW;
+    canvas_additional.height = cH;
+    canvas_additional.width = cW;
+    replay_actions(pstack);
+};
+let slider_range = document.querySelectorAll('input[type="range"]');
+let slider_element;
+function update_slider() {
+    for (slider_element of slider_range) {
+        slider_element.style.setProperty('--value', slider_element.value);
+    }
+}
+for (slider_element of slider_range) {
+    slider_element.style.setProperty("--value", slider_element.value);
+    slider_element.style.setProperty("--min", slider_element.min == "" ? '0' : slider_element.min);
+    slider_element.style.setProperty("--max", slider_element.max == "" ? "100" : slider_element.max);
+    slider_element.addEventListener("input", () => slider_element.style.setProperty("--value", slider_element.value));
+}
+ratio_field.onchange = function () {
+    let t_v = ratio_field.value;
+    let pos = t_v.indexOf(':');
+    if (pos == -1) {
+        ratio_field.value = cur_ratio_val;
+        return;
+    }
+    if (t_v[0] == '≈') {
+        t_v = t_v.slice(1);
+        pos--;
+    }
+    let new_r_w_s = t_v.slice(0, pos);
+    let new_r_h_s = t_v.slice(pos + 1);
+    let new_r_w = parseInt(new_r_w_s);
+    let new_r_h = parseInt(new_r_h_s);
+    let new_dfw;
+    let new_dfh;
+    if (new_r_w / new_r_h > Max_cW / Max_cH) {
+        new_dfh = Math.max(fH_min, (fW_max / new_r_w) * new_r_h);
+        new_dfw = fW_max;
+    }
+    else {
+        new_dfw = Math.max(fW_min, (fH_max / new_r_h) * new_r_w);
+        new_dfh = fH_max;
+    }
+    fW_pred = f_dW;
+    fH_pred = f_dH;
+    change_drawfield_size(new_dfw, new_dfh);
+    push_action_to_stack(['r', new_dfw, new_dfh, true]);
+    replay_actions(pstack); //Повторная отрисовка с новым разрешением
+    return get_visual_ratio(true, new_dfw, new_dfh);
+};
+function get_visual_ratio(abs, w, h) {
+    const rat = [[2.0556, 21, 9], [1.5556, 16, 9], [1.1667, 4, 3], [0.875, 1, 1], [0.6562, 3, 4], [0.4955, 9, 16]];
+    let cur_ratio = w / h;
+    let v_w = 0;
+    let v_h = 0;
+    let cur_k;
+    if (cur_ratio <= 0.4955) {
+        v_w = 9;
+        v_h = 21;
+    }
+    else {
+        let r;
+        for (r of rat) {
+            if (cur_ratio > r[0]) {
+                v_w = r[1];
+                v_h = r[2];
+                break;
+            }
+        }
+    }
+    if (cur_ratio > v_w / v_h) {
+        cur_k = h / v_h;
+        v_w = Math.round(w / cur_k);
+    }
+    else {
+        cur_k = w / v_w;
+        v_h = Math.round(h / cur_k);
+    }
+    let res = (v_w).toString() + ":" + (v_h).toString();
+    if (!abs) {
+        res = "≈" + res;
+    }
+    return res;
+}
+// Установить ширину боковой панели на 250 пикселей (показать)
+function openNav() {
+    is_side_panel_open = true;
+    side_panel_blackout.style.display = "block";
+    spanel.style.width = "250px";
+    spanel.style.border = "2px solid #4c4c4c";
+    spanel.style.borderLeftStyle = "hidden";
+    spanel.style.borderTopStyle = "hidden";
+}
+const openBtn = document.querySelector(".openbtn");
+openBtn.addEventListener("click", () => {
+    openNav();
+});
+function closeNav_border() {
+    spanel.style.borderLeftStyle = "hidden";
+    spanel.style.borderRightStyle = "hidden";
+}
+function closeNav() {
+    is_side_panel_open = false;
+    side_panel_blackout.style.display = "none";
+    spanel.style.width = "0";
+    setTimeout(closeNav_border, 490);
+}
+const closeeBtn = document.getElementById("size_panel_closebtn");
+closeeBtn.addEventListener("pointerup", () => {
+    closeNav();
+});
+close_before_gen_block.addEventListener("pointerup", () => {
+    before_gen_block.style.display = "none";
+});
+before_gen.addEventListener("pointerup", () => {
+    undo_action();
+});
+let backBtn = document.getElementById("arrow_back");
+backBtn.addEventListener("click", () => {
+    undo_action();
+});
+let nextBtn = document.getElementById("arrow_next");
+nextBtn.addEventListener("click", () => {
+    repeat_action();
+});
+const initial_picker = $(function () {
+    let picker = $("#picker");
+    picker.farbtastic("#color");
+});
+function hexDec(h) {
+    let m_s = h.slice(1).match(/.{2}/g);
+    let m_n = [];
+    m_n[0] = parseInt(m_s[0], 16);
+    m_n[1] = parseInt(m_s[1], 16);
+    m_n[2] = parseInt(m_s[2], 16);
+    return m_n[0] + m_n[1] + m_n[2];
+}
+colourBtn.style.background = "#000000";
+function handleclr_PointerMove() {
+    on_clr_window = true;
+    let ccv = cur_color.value;
+    let local_clf_layer_type;
+    if (ccv == "#NaNNaNNaN") {
+        ccv = "#" + colourBtn.style.background.split("(")[1].split(")")[0].split(",").map(function (x) {
+            x = parseInt(x).toString(16);
+            return (x.length == 1) ? "0" + x : x;
+        }).join("");
+        cur_color.value = ccv;
+    }
+    if (is_clr_brash) {
+        local_clf_layer_type = 0;
+    }
+    else {
+        local_clf_layer_type = 1;
+    }
+    if (hexDec(ccv) > 382) {
+        if (!old_btn_clr[local_clf_layer_type]) {
+            old_btn_clr[local_clf_layer_type] = true;
+            ok_clr_btn.style.color = "#000000";
+            clrimg.style.filter = "invert(0)";
+        }
+    }
+    else {
+        if (old_btn_clr[local_clf_layer_type]) {
+            old_btn_clr[local_clf_layer_type] = false;
+            ok_clr_btn.style.color = "#ffffff";
+            clrimg.style.filter = "invert(1)";
+        }
+    }
+    ok_clr_btn.style.background = ccv;
+    colourBtn.style.background = ccv;
+}
+function handlet_clr_Click() {
+    if (is_clr_brash) {
+        cur_brush_clr = cur_color.value;
+        ctype_clr_btn.textContent = "Цвет кисти";
+        cur_color.value = cur_background_clr;
+        if (hexDec(cur_brush_clr) > 382) {
+            ctype_clr_btn.style.color = "#000000";
+            clrimg.style.filter = "invert(0)";
+        }
+        else {
+            ctype_clr_btn.style.color = "#ffffff";
+            clrimg.style.filter = "invert(1)";
+        }
+        ctype_clr_btn.style.background = cur_brush_clr;
+        is_clr_brash = false;
+    }
+    else {
+        ctype_clr_btn.textContent = "Цвет фона";
+        let ccv = cur_brush_clr;
+        new_background_clr = cur_color.value;
+        cur_color.value = ccv;
+        if (hexDec(new_background_clr) > 382) {
+            ctype_clr_btn.style.color = "#000000";
+            clrimg.style.filter = "invert(0)";
+        }
+        else {
+            ctype_clr_btn.style.color = "#ffffff";
+            clrimg.style.filter = "invert(1)";
+        }
+        ctype_clr_btn.style.background = new_background_clr;
+        if (hexDec(ccv) > 382) {
+            if (!old_btn_clr[1]) {
+                old_btn_clr[1] = true;
+                clrimg.style.filter = "invert(0)";
+            }
+        }
+        else {
+            if (old_btn_clr[1]) {
+                old_btn_clr[1] = false;
+                clrimg.style.filter = "invert(1)";
+            }
+        }
+        ok_clr_btn.style.background = ccv;
+        colourBtn.style.background = ccv;
+        is_clr_brash = true;
+    }
+}
+function close_clr_window() {
+    clr_w.removeEventListener("pointermove", handleclr_PointerMove);
+    ctype_clr_btn.removeEventListener("click", handlet_clr_Click);
+    is_clr_window = false;
+    let ccv = cur_color.value;
+    if (ccv == "#NaNNaNNaN") {
+        ccv = "#" + colourBtn.style.background.split("(")[1].split(")")[0].split(",").map(function (x) {
+            x = parseInt(x).toString(16);
+            return (x.length == 1) ? "0" + x : x;
+        }).join("");
+        cur_color.value = ccv;
+    }
+    if (!is_clr_brash) {
+        new_background_clr = ccv;
+        is_clr_brash = true;
+    }
+    else {
+        cur_brush_clr = ccv;
+    }
+    if (cur_background_clr != new_background_clr) //почему-то не работает, из-за этого пришлось сделать костыль строчкой сверху. Убрать
+     {
+        push_action_to_stack(['i', ctx_background, new_background_clr]); //залить фон
+        ctx_background.fillStyle = new_background_clr; //заливка фона
+        ctx_background.fillRect(0, 0, cW, cH);
+        canvas_to_layer(canvas_background, ctx_layer_2);
+    }
+    ctx_foreground.strokeStyle = cur_brush_clr;
+    ctx_add.strokeStyle = cur_brush_clr;
+    ctx_background.strokeStyle = cur_brush_clr;
+    clr_w.style.display = "none";
+}
+change_themeBtn.addEventListener("click", () => {
+    if (is_dark_mode) {
+        tmimg.setAttribute("src", "dark mode.png");
+        is_dark_mode = false;
+        nav_panel.style.filter = "invert(0)";
+        graphic_tabletBtn.style.filter = "invert(0)";
+        spanel.style.filter = "invert(0)";
+        spanel_openbtn.style.filter = "invert(0)";
+        colourBtn.style.filter = "invert(0)";
+        scale_field.style.filter = "invert(0)";
+        layers_buttons.style.filter = "invert(0)";
+        first_layer_visibilityBtn.style.filter = "invert(0)";
+        second_layer_visibilityBtn.style.filter = "invert(0)";
+        clear_first_layer_Btn.style.filter = "invert(0)";
+        clear_second_layer_Btn.style.filter = "invert(0)";
+        pencil_w.style.filter = "invert(0)";
+        pencil_w.style.border = "2px solid #292929";
+        eraser_w.style.filter = "invert(0)";
+        eraser_w.style.border = "2px solid #292929";
+        clr_w.style.backgroundColor = "#ffffff";
+        clr_w.style.border = "2px solid #292929";
+        body.style.backgroundColor = "#ffffff";
+        div_layers.style.backgroundColor = "#ffffff";
+        text_label_clr.style.color = "#000000";
+        if (is_foreground_selected) {
+            layer_1.style.border = "5px solid #000000";
+        }
+        else {
+            layer_2.style.border = "5px solid #000000";
+        }
+    }
+    else {
+        tmimg.setAttribute("src", "light mode.png");
+        is_dark_mode = true;
+        nav_panel.style.filter = "invert(0.9)";
+        graphic_tabletBtn.style.filter = "invert(0.9)";
+        spanel.style.filter = "invert(0.9)";
+        spanel_openbtn.style.filter = "invert(0.9)";
+        colourBtn.style.filter = "invert(1.1)";
+        scale_field.style.filter = "invert(0.9)";
+        layers_buttons.style.filter = "invert(0.9)";
+        first_layer_visibilityBtn.style.filter = "invert(0.9)";
+        second_layer_visibilityBtn.style.filter = "invert(0.9)";
+        clear_first_layer_Btn.style.filter = "invert(0.9)";
+        clear_second_layer_Btn.style.filter = "invert(0.9)";
+        pencil_w.style.filter = "invert(0.9)";
+        pencil_w.style.border = "2px solid #aaaaaa";
+        eraser_w.style.filter = "invert(0.9)";
+        eraser_w.style.border = "2px solid #aaaaaa";
+        clr_w.style.backgroundColor = "#303030";
+        clr_w.style.border = "2px solid #aaaaaa";
+        body.style.backgroundColor = "#303030";
+        div_layers.style.backgroundColor = "#222222";
+        text_label_clr.style.color = "#ffffff";
+        if (is_foreground_selected) {
+            layer_1.style.border = "5px solid #cccccc";
+        }
+        else {
+            layer_2.style.border = "5px solid #cccccc";
+        }
+    }
+});
+select_first_layerBtn.addEventListener("click", () => {
+    if (!is_foreground_selected) {
+        if (is_dark_mode) {
+            layer_1.style.border = "5px solid #cccccc";
+        }
+        else {
+            layer_1.style.border = "5px solid #000000";
+        }
+        layer_2.style.border = "1px solid #707070";
+        cur_draw_ctx = ctx_foreground;
+        cur_canvas = canvas_foreground;
+        cur_ctx_layer = ctx_layer_1;
+        is_foreground_selected = true;
+    }
+});
+const select_second_layerBtn = document.getElementById("layer_button_2");
+select_second_layerBtn.addEventListener("click", () => {
+    if (is_foreground_selected) {
+        layer_1.style.border = "1px solid #707070";
+        if (is_dark_mode) {
+            layer_2.style.border = "5px solid #cccccc";
+        }
+        else {
+            layer_2.style.border = "5px solid #000000";
+        }
+        cur_draw_ctx = ctx_background;
+        cur_canvas = canvas_background;
+        cur_ctx_layer = ctx_layer_2;
+        is_foreground_selected = false;
+    }
+});
+first_layer_visibilityBtn.addEventListener("click", () => {
+    if (is_foreground_visible) {
+        is_foreground_visible = false;
+        canvas_foreground.style.display = "none";
+        first_layer_visibility_img.setAttribute("src", "visibility_off.png");
+    }
+    else {
+        is_foreground_visible = true;
+        canvas_foreground.style.display = "block";
+        first_layer_visibility_img.setAttribute("src", "visibility_on.png");
+    }
+});
+clear_first_layer_Btn.addEventListener("click", () => {
+    original_image_buf = "";
+    before_gen_block.style.display = "none";
+    ctx_foreground.clearRect(0, 0, cW, cH);
+    ctx_layer_1.clearRect(0, 0, lwW, lwH);
+    push_action_to_stack(['c', ctx_foreground]);
+});
+second_layer_visibilityBtn.addEventListener("click", () => {
+    if (is_background_visible) {
+        is_background_visible = false;
+        canvas_background.style.display = "none";
+        second_layer_visibility_img.setAttribute("src", "visibility_off.png");
+    }
+    else {
+        is_background_visible = true;
+        canvas_background.style.display = "block";
+        second_layer_visibility_img.setAttribute("src", "visibility_on.png");
+    }
+});
+clear_second_layer_Btn.addEventListener("click", () => {
+    original_image_buf = "";
+    before_gen_block.style.display = "none";
+    ctx_background.clearRect(0, 0, cW, cH);
+    ctx_layer_2.clearRect(0, 0, lwW, lwH);
+    push_action_to_stack(['c', ctx_background]);
+});
+const merge_layersBtn = document.getElementById("merge_layers");
+function merge_layers_in_stack(stack, local_ctx) {
+    let substack_1 = [];
+    let substack_2 = [];
+    let is_changed_stack = [];
+    let another_ctx;
+    let is_foreground;
+    let return_value;
+    if (local_ctx == ctx_foreground) {
+        another_ctx = ctx_background;
+        is_foreground = true;
+    }
+    else {
+        another_ctx = ctx_foreground;
+        is_foreground = false;
+    }
+    for (let i = 0; i < stack.length; i++) {
+        if (id_list.includes(stack[i][0]) && stack[i][1] == another_ctx) {
+            stack[i][1] = local_ctx;
+            substack_1.push(stack[i]);
+            is_changed_stack.push(true);
+        }
+        else {
+            substack_2.push(stack[i]);
+            is_changed_stack.push(false);
+        }
+    }
+    if (is_foreground) {
+        if (substack_1.length == 0) {
+            return_value = [stack, []];
+            return return_value;
+        }
+        return_value = [substack_1.concat(substack_2), is_changed_stack];
+        return return_value;
+    }
+    else {
+        if (substack_1.length == 0) {
+            return_value = [stack, []];
+            return return_value;
+        }
+        return_value = [substack_2.concat(substack_1), is_changed_stack];
+        return return_value;
+    }
+}
+function unmerge_layers_in_stack(stack, local_ctx, local_ics) {
+    if (local_ics.length == 0) {
+        return stack;
+    }
+    let substack_1 = [];
+    let substack_2 = [];
+    let another_ctx;
+    let is_foreground;
+    if (local_ctx == ctx_foreground) {
+        another_ctx = ctx_background;
+        is_foreground = true;
+    }
+    else {
+        another_ctx = ctx_foreground;
+        is_foreground = false;
+    }
+    for (let i = 0; i < stack.length; i++) {
+        if (local_ics[i] == true) {
+            stack[i][1] = another_ctx;
+            substack_1.push(stack[i]);
+        }
+        else {
+            substack_2.push(stack[i]);
+        }
+    }
+    if (is_foreground) {
+        return substack_1.concat(substack_2);
+    }
+    else {
+        return substack_2.concat(substack_1);
+    }
+}
+function unmerge_layers(local_ctx, local_ics_1, local_ics_2) {
+    pstack = unmerge_layers_in_stack(pstack, local_ctx, local_ics_1);
+    nstack = unmerge_layers_in_stack(nstack, local_ctx, local_ics_2);
+    replay_actions(pstack);
+    ctx_layer_1.clearRect(0, 0, lwW, lwH);
+    canvas_to_layer(canvas_foreground, ctx_layer_1);
+    ctx_layer_2.clearRect(0, 0, lwW, lwH);
+    canvas_to_layer(canvas_background, ctx_layer_2);
+}
+function merge_layers(local_draw_ctx) {
+    let merge_elem = merge_layers_in_stack(pstack, local_draw_ctx);
+    let return_value = [merge_elem[1], []];
+    pstack = merge_elem[0];
+    if (return_value[0].length == 0) {
+        return_value[1] = [];
+        return return_value;
+    }
+    merge_elem = merge_layers_in_stack(nstack, local_draw_ctx);
+    return_value[1] = merge_elem[1];
+    nstack = merge_elem[0];
+    replay_actions(pstack);
+    if (local_draw_ctx == ctx_foreground) {
+        ctx_layer_2.clearRect(0, 0, lwW, lwH);
+        canvas_to_layer(canvas_foreground, ctx_layer_1);
+    }
+    else {
+        ctx_layer_1.clearRect(0, 0, lwW, lwH);
+        canvas_to_layer(canvas_background, ctx_layer_2);
+    }
+    return return_value;
+}
+merge_layersBtn.addEventListener("click", () => {
+    let is_changed_stack = merge_layers(cur_draw_ctx);
+    if (is_changed_stack[0].length == 0 && is_changed_stack[1].length == 0) {
+        return;
+    }
+    push_action_to_stack(['m', cur_draw_ctx, is_changed_stack[0], is_changed_stack[1]]);
+});
+const swap_layersBtn = document.getElementById("swap_layers");
+function swap_layers_in_stack(stack) {
+    let return_value = [[], false];
+    for (let i = 0; i < stack.length; i++) {
+        if (id_list.includes(stack[i][0])) {
+            return_value[1] = true;
+            if (stack[i][1] == ctx_foreground) {
+                stack[i][1] = ctx_background;
+            }
+            else {
+                stack[i][1] = ctx_foreground;
+            }
+        }
+    }
+    return_value[0] = stack;
+    return return_value;
+}
+function swap_layers() {
+    let input_value = swap_layers_in_stack(pstack);
+    pstack = input_value[0];
+    if (input_value[1] == false) {
+        return;
+    }
+    input_value = swap_layers_in_stack(nstack);
+    nstack = input_value[0];
+    replay_actions(pstack);
+    ctx_layer_1.clearRect(0, 0, lwW, lwH);
+    canvas_to_layer(canvas_foreground, ctx_layer_1);
+    ctx_layer_2.clearRect(0, 0, lwW, lwH);
+    canvas_to_layer(canvas_background, ctx_layer_2);
+}
+swap_layersBtn.addEventListener("click", () => {
+    swap_layers();
+    push_action_to_stack(['s']);
+});
+graphic_tabletBtn.addEventListener("click", () => {
+    if (graphic_tablet_mode) {
+        graphic_tabletBtn.style.border = "1px solid #707070";
+        graphic_tablet_mode = false;
+    }
+    else {
+        graphic_tabletBtn.style.border = "5px solid #000000";
+        graphic_tablet_mode = true;
+    }
+});
+function close_all_add_windows() {
+    pencil_w.style.display = "none";
+    is_pencil_window = false;
+    eraser_w.style.display = "none";
+    is_eraser_window = false;
+    clr_w.style.display = "none";
+    is_clr_window == false;
+}
+colourBtn.addEventListener("click", () => {
+    if (is_pencil_window || is_eraser_window) {
+        pencil_w.style.display = "none";
+        is_pencil_window = false;
+        eraser_w.style.display = "none";
+        is_eraser_window = false;
+    }
+    cur_color.value = cur_brush_clr;
+    if (is_clr_window == false) {
+        clr_w.style.display = "block";
+        update_slider();
+        is_clr_window = true;
+        clr_w.addEventListener("pointermove", handleclr_PointerMove);
+        ctype_clr_btn.addEventListener("click", handlet_clr_Click);
+        ok_clr.addEventListener("click", () => {
+            cursor_type = 3;
+            cursor_image.setAttribute("src", cur_tool[2]);
+            cursor.style.left = (cX + 7.5) + "px";
+            cursor.style.top = (cY + 7.5) + "px";
+            cursor.style.display = "block";
+            close_clr_window();
+        }, {
+            once: true
+        });
+    }
+    else {
+        close_clr_window();
+    }
+});
+function change_thickness(flag) {
+    let t_v;
+    if (flag) {
+        t_v = parseInt(thickness_field.value);
+    }
+    else {
+        t_v = parseInt(e_thickness_field.value);
+    }
+    t_v -= 1;
+    let real_t_v = Math.min(100, Math.max(0, t_v));
+    if (t_v != real_t_v) {
+        t_v = real_t_v;
+    }
+    thickness_field.value = (t_v + 1).toString();
+    e_thickness_field.value = (t_v + 1).toString();
+    thickness_slider.value = (t_v + 1).toString();
+    e_thickness_slider.value = (t_v + 1).toString();
+    let thickness_k = t_v * t_v * 0.0001; //коэффициент, чтобы толщина не увеличивалась так резко, сейчас это квадрат
+    l_width = 1 + Math.max(cW, cH) * thickness_k;
+    W_f = (W - cW) / 2 - l_width / 2 + 12;
+    H_f = (H - cH) / 2 - l_width / 2 + 12;
+    ctx_foreground.lineWidth = l_width;
+    ctx_add.lineWidth = l_width;
+    ctx_background.lineWidth = l_width;
+    update_slider();
+}
+function change_smoothing() {
+    cur_smoothing = parseInt(smoothing_field.value);
+    let real_s_v = Math.min(100, Math.max(0, cur_smoothing));
+    if (cur_smoothing != real_s_v) {
+        cur_smoothing = real_s_v;
+        smoothing_field.value = cur_smoothing.toString();
+    }
+    k_smooth = 0;
+    let step = 1.0 / cur_smoothing;
+    for (let t = 0; t < 1 + step; t += step) //очень странный костыль, исправлю позже
+     {
+        t = Math.min(1, t);
+        k_smooth++;
+    }
+    update_slider();
+}
+thickness_slider.oninput = function () {
+    thickness_field.value = thickness_slider.value;
+    change_thickness(true);
+};
+smoothing_slider.oninput = function () {
+    smoothing_field.value = smoothing_slider.value;
+    change_smoothing();
+};
+e_thickness_slider.oninput = function () {
+    e_thickness_field.value = e_thickness_slider.value;
+    change_thickness(false);
+};
+thickness_field.oninput = function () {
+    thickness_slider.value = thickness_field.value;
+    change_thickness(true);
+};
+smoothing_field.oninput = function () {
+    smoothing_slider.value = smoothing_field.value;
+    change_smoothing();
+};
+e_thickness_field.oninput = function () {
+    e_thickness_slider.value = e_thickness_field.value;
+    change_thickness(false);
+};
+const setpencilBtn = document.getElementById("pencil");
+setpencilBtn.style.border = "5px solid #000000";
+let cur_tool = ['k', setpencilBtn, "aero_pen.cur"]; //текущий инструмент (карандаш)
+setpencilBtn.addEventListener("click", () => {
+    if (is_clr_window) {
+        close_clr_window();
+    }
+    if (cur_tool[0] != 'k') {
+        if (cur_tool[0] == 'e') {
+            change_thickness(false);
+            eraser_w.style.display = "none";
+            is_eraser_window = false;
+        }
+        is_pencil_window = true;
+        pencil_w.style.display = "block";
+        update_slider();
+        setpencilBtn.style.border = "5px solid #000000";
+        cur_tool[1].style.border = "1px solid #707070";
+        cur_tool = ['k', setpencilBtn, "aero_pen.cur"];
+    }
+    else {
+        if (is_pencil_window) {
+            change_thickness(true);
+            pencil_w.style.display = "none";
+            is_pencil_window = false;
+        }
+        else {
+            pencil_w.style.display = "block";
+            update_slider();
+            is_pencil_window = true;
+        }
+    }
+});
+const seteraserBtn = document.getElementById("eraser");
+seteraserBtn.addEventListener("click", () => {
+    if (is_clr_window) {
+        close_clr_window();
+    }
+    if (cur_tool[0] != 'e') {
+        if (cur_tool[0] == 'k') {
+            change_thickness(true);
+            pencil_w.style.display = "none";
+            is_pencil_window = false;
+        }
+        is_eraser_window = true;
+        eraser_w.style.display = "block";
+        update_slider();
+        seteraserBtn.style.border = "5px solid #000000";
+        cur_tool[1].style.border = "1px solid #707070";
+        cur_tool = ['e', seteraserBtn, "aero_eraser.png"];
+    }
+    else {
+        if (is_eraser_window) {
+            change_thickness(false);
+            eraser_w.style.display = "none";
+            is_eraser_window = false;
+        }
+        else {
+            eraser_w.style.display = "block";
+            update_slider();
+            is_eraser_window = true;
+        }
+    }
+});
+const setbucketBtn = document.getElementById("bucket");
+setbucketBtn.addEventListener("click", () => {
+    if (cur_tool[0] != 'b') {
+        if (cur_tool[0] == 'k' || cur_tool[0] == 'e') {
+            pencil_w.style.display = "none";
+            is_pencil_window = false;
+            eraser_w.style.display = "none";
+            is_eraser_window = false;
+            if (cur_tool[0] == 'k') {
+                change_thickness(true);
+            }
+            else {
+                change_thickness(false);
+            }
+            pencil_w.style.display = "none";
+        }
+        setbucketBtn.style.border = "5px solid #000000";
+        cur_tool[1].style.border = "1px solid #707070";
+        cur_tool = ['b', setbucketBtn, "aero_bucket.png"];
+    }
+});
+const setpipetteBtn = document.getElementById("pipette");
+setpipetteBtn.addEventListener("click", () => {
+    if (cur_tool[0] != 'p') {
+        if (cur_tool[0] == 'k' || cur_tool[0] == 'e') {
+            pencil_w.style.display = "none";
+            is_pencil_window = false;
+            eraser_w.style.display = "none";
+            is_eraser_window = false;
+            if (cur_tool[0] == 'k') {
+                change_thickness(true);
+            }
+            else {
+                change_thickness(false);
+            }
+            pencil_w.style.display = "none";
+        }
+        setpipetteBtn.style.border = "5px solid #000000";
+        cur_tool[1].style.border = "1px solid #707070";
+        cur_tool = ['p', setpipetteBtn, "aero_pipette.png"];
+    }
+});
+function full_clear_drawfield() {
+    original_image_buf = "";
+    before_gen_block.style.display = "none";
+    cur_background_clr = "#fff";
+    ctx_background.fillStyle = cur_background_clr;
+    ctx_foreground.clearRect(0, 0, cW, cH);
+    ctx_background.clearRect(0, 0, cW, cH);
+}
+function clear_drawfield() {
+    original_image_buf = "";
+    before_gen_block.style.display = "none";
+    cur_background_clr = "#fff";
+    ctx_background.fillStyle = cur_background_clr;
+    ctx_foreground.clearRect(0, 0, cW, cH);
+    ctx_background.fillRect(0, 0, cW, cH);
+}
+const clearBtn = document.getElementById("clear");
+clearBtn.addEventListener("click", () => {
+    clear_drawfield();
+    push_action_to_stack(['d']); //тип - очистка экрана
+});
+const mhf = document.getElementById("my_hidden_file");
+const uploadBtn = document.getElementById("upload");
+uploadBtn.addEventListener("click", () => {
+    if (!is_first_upload_btn_click) //костыль чтобы кнопка не срабатывала дважды
+     {
+        is_first_upload_btn_click = true;
+        return;
+    }
+    is_first_upload_btn_click = false;
+    mhf.click();
+    mhf.addEventListener("change", function readImage() {
+        if (!this.files || !this.files[0])
+            return;
+        chain_id = "";
+        const FR = new FileReader();
+        FR.addEventListener("load", (evt) => {
+            let new_img_w;
+            let new_img_h;
+            let img = new Image();
+            img.addEventListener("load", () => {
+                let img_w = img.width;
+                let img_h = img.height;
+                original_image_w = img_w;
+                original_image_h = img_h;
+                let new_dfw;
+                let new_dfh;
+                let is_drawfield_used = false;
+                let ps_size = pstack.length;
+                let x_paste_pos = 0;
+                let y_paste_pos = 0;
+                let i;
+                if (ps_size != 0 && pstack[0] == 'i', ctx_background, "#fff") {
+                    i = 1;
+                }
+                else {
+                    i = 0;
+                }
+                let local_id_list = ['r', 'p', 'i', 'u', 'f'];
+                for (i; i < ps_size; i++) {
+                    if (local_id_list.includes(pstack[i][0])) {
+                        is_drawfield_used = true;
+                        break;
+                    }
+                }
+                if (is_drawfield_used) {
+                    if (img_w / img_h > cW / cH) {
+                        new_img_w = cW;
+                        new_img_h = (cW / img_w) * img_h;
+                        y_paste_pos = (cH - new_img_h) / 2;
+                    }
+                    else {
+                        new_img_h = cH;
+                        new_img_w = (cH / img_h) * img_w;
+                        x_paste_pos = (cW - new_img_w) / 2;
+                    }
+                    cur_draw_ctx.clearRect(0, 0, cW, cH); //очищаем текущий слой
+                }
+                else {
+                    if (img_w / img_h > Max_cW / Max_cH) {
+                        new_dfw = fW_max;
+                        new_dfh = (fW_max / img_w) * img_h;
+                        new_img_w = Max_cW;
+                        new_img_h = (Max_cW / img_w) * img_h;
+                    }
+                    else {
+                        new_dfh = fH_max;
+                        new_dfw = (fH_max / img_h) * img_w;
+                        new_img_h = Max_cH;
+                        new_img_w = (Max_cH / img_h) * img_w;
+                    }
+                    change_drawfield_size(new_dfw, new_dfh);
+                    cur_ratio_val = get_visual_ratio(false, cW, cH);
+                    ratio_field.value = cur_ratio_val; //устанавливаем соотношение сторон
+                    replay_actions(pstack); //воспроизводим действия
+                    fW_pred = f_dW;
+                    fH_pred = f_dH;
+                    push_action_to_stack(['r', new_dfw, new_dfh, false]);
+                }
+                cur_draw_ctx.drawImage(img, 0, 0, img_w, img_h, x_paste_pos, y_paste_pos, cW - x_paste_pos * 2, cH - y_paste_pos * 2);
+                push_action_to_stack(['u', cur_draw_ctx, img, img_w, img_h, x_paste_pos, y_paste_pos]);
+                original_image_buf = img.src;
+                cur_ctx_layer.clearRect(0, 0, lwW, lwH);
+                canvas_to_layer(cur_canvas, cur_ctx_layer);
+            }, {
+                once: true
+            });
+            original_image_buf = evt.target.result;
+            img.src = original_image_buf;
+        }, {
+            once: true
+        });
+        FR.readAsDataURL(this.files[0]);
+    }, {
+        once: true
+    });
+});
+const saveBtn = document.getElementById("save");
+saveBtn.addEventListener("click", () => {
+    let image = new Image();
+    if (original_image_buf == "") {
+        if (!is_foreground_visible) {
+            ctx_foreground.clearRect(0, 0, cW, cH);
+        }
+        if (!is_background_visible) {
+            ctx_background.clearRect(0, 0, cW, cH);
+        }
+        image.onload = function () {
+            let a = document.createElement("a");
+            ctx_background.drawImage(image, 0, 0, image.width, image.height, 0, 0, cW, cH);
+            a.href = canvas_background.toDataURL("imag/png");
+            a.download = "drawing.png";
+            a.click();
+            replay_actions(pstack);
+            canvas_to_layer(canvas_foreground, ctx_layer_1);
+            canvas_to_layer(canvas_background, ctx_layer_2);
+        };
+        image.src = canvas_foreground.toDataURL();
+    }
+    else {
+        let a = document.createElement("a");
+        a.href = original_image_buf;
+        a.download = "drawing.png";
+        a.click();
+    }
+});
+function gen_caption_for_image(data_prop) {
+    blackout.style.display = "block";
+    let send_data_cpt;
+    let data;
+    let background_data;
+    let { local_is_foreground_used, local_is_background_used, local_is_drawing, local_sure, local_how_many_prims, local_how_many_dots } = data_prop;
+    if (original_image_buf == "") {
+        if (local_is_foreground_used && is_foreground_visible) {
+            data = canvas_foreground.toDataURL("imag/png");
+        }
+        else {
+            data = canvas_background.toDataURL("imag/png");
+        }
+    }
+    else {
+        data = original_image_buf;
+    }
+    if (local_is_background_used && is_background_visible) {
+        background_data = canvas_background.toDataURL("imag/png");
+    }
+    else {
+        background_data = "";
+    }
+    send_data_cpt = JSON.stringify({
+        "type": 'd',
+        "chain_id": chain_id,
+        "task_id": task_id,
+        "data": data,
+        "backgroung": background_data,
+        "is_drawing": local_is_drawing,
+        "sure": local_sure,
+        "prims_count": local_how_many_prims,
+        "dots_count": local_how_many_dots,
+        "img_name": last_task_image_name,
+        "img_suf": last_task_image_suffix
+    });
+    /*
+    send_data = JSON.stringify({
+        "type": 'd', //просьба сгенерировать описание изображения
+        "chain_id": chain_id, //id последнего звена цепочки
+        "task_id": task_id, //id задания
+        "data": data,
+        "backgroung": background_data,
+        "img_name": last_task_image_name,
+        "img_suf": last_task_image_suffix
+    })*/
+    ws.send(send_data_cpt);
+}
+document.addEventListener("pointerenter", (e) => {
+    let cX = e.clientX;
+    let cY = e.clientY;
+    cursor.style.left = (cX + 7.5) + "px";
+    cursor.style.top = (cY + 7.5) + "px";
+}, { once: true });
+function replay_action(act, k_X, k_Y, fW_pred, fH_pred) {
+    let act_type = act[0];
+    switch (act_type) {
+        case 'p': //если это примитив
+            let prim = act[2];
+            act[1].strokeStyle = act[3];
+            act[1].globalCompositeOperation = act[4];
+            act[1].beginPath();
+            for (let i = 1; i < prim.length; i++) {
+                act[1].lineWidth = prim[i][2];
+                act[1].moveTo(prim[i - 1][0] / k_X, prim[i - 1][1] / k_Y);
+                act[1].lineTo(prim[i][0] / k_X, prim[i][1] / k_Y);
+            }
+            act[1].stroke();
+            act[1].globalCompositeOperation = "source-over";
+            break;
+        case 'd': //если очистка экрана
+            cur_background_clr = "#fff";
+            ctx_background.fillStyle = cur_background_clr;
+            ctx_background.fillRect(0, 0, cW, cH);
+            ctx_foreground.clearRect(0, 0, cW, cH);
+            break;
+        case 'r': //если изменение размеров экрана
+            k_X = (k_X * act[1]) / fW_pred;
+            k_Y = (k_Y * act[2]) / fH_pred;
+            fW_pred = act[1];
+            fH_pred = act[2];
+            break;
+        case 'i': //если заливка слоя целиком
+            act[1].fillStyle = act[2];
+            act[1].fillRect(0, 0, cW, cH);
+            break;
+        case 'u': //если добавление изображения с ПК
+            act[1].clearRect(0, 0, cW, cH); //очищаем нужный слой
+            act[1].drawImage(act[2], 0, 0, act[3], act[4], act[5], act[6], cW - act[5] * 2, cH - act[6] * 2);
+            original_image_buf = act[2];
+            break;
+        case 'f': //если заливка
+            floodFill(act[1], act[2], act[3], act[4]);
+            break;
+        case 'c': //если очистка одного слоя
+            act[1].clearRect(0, 0, cW, cH);
+            break;
+        default:
+            break;
+    }
+    return [k_X, k_Y, fW_pred, fH_pred];
+}
+function replay_actions(cur_pstack) {
+    full_clear_drawfield();
+    let k_X = fW_pred / f_dW;
+    let k_Y = fH_pred / f_dH;
+    let cur_thickness = 1;
+    ctx_foreground.lineWidth = cur_thickness;
+    ctx_background.lineWidth = cur_thickness;
+    ctx_background.strokeStyle = "#000000";
+    ctx_foreground.lineCap = "round";
+    ctx_foreground.lineJoin = "round";
+    ctx_add.lineCap = "round";
+    ctx_add.lineJoin = "round";
+    ctx_background.lineCap = "round";
+    ctx_background.lineJoin = "round";
+    let elem;
+    for (let act of cur_pstack) {
+        elem = replay_action(act, k_X, k_Y, fW_pred, fH_pred);
+        k_X = elem[0];
+        k_Y = elem[1];
+        fW_pred = elem[2];
+        fH_pred = elem[3];
+    }
+    ctx_add.strokeStyle = cur_brush_clr;
+    ctx_foreground.strokeStyle = cur_brush_clr;
+    ctx_background.strokeStyle = cur_brush_clr;
+    ctx_background.fillStyle = cur_brush_clr;
+    ctx_add.lineWidth = l_width;
+    ctx_foreground.lineWidth = l_width;
+    ctx_background.lineWidth = l_width;
+}
+function canvas_to_layer(local_canvas, local_layer) {
+    let image_layer = new Image();
+    image_layer.onload = function () {
+        local_layer.drawImage(image_layer, 0, 0, cW, cH, 0, 0, lwW, lwH);
+    };
+    image_layer.src = local_canvas.toDataURL();
+}
+function undo_action() {
+    let pstack_size = pstack.length;
+    if (pstack_size != 0) {
+        let cur_act = pstack.pop();
+        let is_r = false;
+        if (id_list.includes(cur_act[0])) {
+            if (cur_act[0] == 'r') {
+                is_r = true;
+            }
+        }
+        pstack_size--;
+        nstack.push(cur_act);
+        if (cur_act[0] == 's') {
+            swap_layers();
+            return;
+        }
+        else {
+            if (cur_act[0] == 'm') {
+                unmerge_layers(cur_act[1], cur_act[2], cur_act[3]);
+                return;
+            }
+        }
+        if (is_r) {
+            let buf_r_elem = ['r', fW_max, fH_max, false];
+            for (let i = pstack_size - 1; i > -1; i--) {
+                if (pstack[i][0] == 'r') {
+                    buf_r_elem = pstack[i];
+                    break;
+                }
+            }
+            change_drawfield_size(buf_r_elem[1], buf_r_elem[2]);
+            cur_ratio_val = get_visual_ratio(buf_r_elem[3], cW, cH);
+            ratio_field.value = cur_ratio_val;
+        }
+        replay_actions(pstack);
+        ctx_layer_1.clearRect(0, 0, lwW, lwH);
+        canvas_to_layer(canvas_foreground, ctx_layer_1);
+        ctx_layer_2.clearRect(0, 0, lwW, lwH);
+        canvas_to_layer(canvas_background, ctx_layer_2);
+    }
+}
+function repeat_action() {
+    if (nstack.length != 0) {
+        let cur_act = nstack.pop();
+        let local_cur_ctx_layer = cur_ctx_layer;
+        let local_cur_canvas = cur_canvas;
+        if (id_list.includes(cur_act[0])) {
+            if (cur_act[1] == ctx_foreground) {
+                local_cur_ctx_layer = ctx_layer_1;
+                local_cur_canvas = canvas_foreground;
+            }
+            else {
+                local_cur_ctx_layer = ctx_layer_2;
+                local_cur_canvas = canvas_background;
+            }
+        }
+        pstack.push(cur_act);
+        if (cur_act[0] == 's') {
+            swap_layers();
+            return;
+        }
+        else {
+            if (cur_act[0] == 'm') {
+                merge_layers(cur_act[1]);
+                return;
+            }
+        }
+        if (cur_act[0] == 'r') {
+            change_drawfield_size(cur_act[1], cur_act[2]);
+            cur_ratio_val = get_visual_ratio(cur_act[3], cW, cH);
+            ratio_field.value = cur_ratio_val;
+        }
+        replay_action(cur_act, orig_f_dW / f_dW, orig_f_dH / f_dH, orig_f_dW, orig_f_dH);
+        canvas_to_layer(local_cur_canvas, local_cur_ctx_layer);
+    }
+}
+document.addEventListener("keydown", (event) => {
+    if (is_modal_open || is_side_panel_open) {
+        return;
+    }
+    switch (event.code) {
+        case "KeyT": //Режим графического планшета
+            if (graphic_tabletBtn.style.display == "block") {
+                graphic_tabletBtn.click();
+            }
+            return;
+        case "KeyP": //Палитра (выбор цвета)
+            colourBtn.click();
+            return;
+        case "KeyB": //Карандаш
+            setpencilBtn.click();
+            return;
+        case "KeyE": //Ластик
+            seteraserBtn.click();
+            return;
+        case "KeyG": //Заливка
+            setbucketBtn.click();
+            return;
+        case "KeyI": //Пипетка
+            setpipetteBtn.click();
+            return;
+        case "Delete": //Очистить всё
+            clearBtn.click();
+            return;
+        case "KeyO": //Добавить изображение с ПК
+            uploadBtn.click();
+            return;
+        case "KeyD": //Сохранить изображение на ПК
+            saveBtn.click();
+            return;
+        case "KeyR": //Открыть окно генерации
+            generateBtn.click();
+            return;
+        case "KeyС": //очистить текущий слой
+            if (is_foreground_selected) {
+                clear_first_layer_Btn.click();
+            }
+            else {
+                clear_second_layer_Btn.click();
+            }
+            return;
+        case "KeyS": //поменять слои местами
+            swap_layersBtn.click();
+            return;
+        case "KeyM": //объединить слои
+            merge_layersBtn.click();
+            return;
+        case "Escape": //скрыть окно просмотра изображения до генерации
+            before_gen_block.style.display = "none";
+            return;
+        default:
+            if (event.shiftKey) {
+                is_shift_on = true;
+                return;
+            }
+            if (event.ctrlKey) {
+                switch (event.code) {
+                    case "KeyZ": //отмена последнего действия
+                        undo_action();
+                        return;
+                    case "KeyY": //вернуть последнее отменённое действие
+                        repeat_action();
+                        return;
+                }
+            }
+    }
+}, false);
+document.addEventListener("keyup", (event) => {
+    if (event.code.slice(0, 5) == "Shift") {
+        if (draw) {
+            ctx_add.clearRect(0, 0, cW, cH);
+            drawLines(cur_draw_ctx, curprim);
+            let cpl = curprim.length - 1;
+            prevX = curprim[cpl][0];
+            prevY = curprim[cpl][1];
+        }
+        is_shift_on = false;
+    }
+}, false);
+canvas_additional.addEventListener("pointerdown", (e) => {
+    if (is_foreground_selected) {
+        if (!is_foreground_visible) {
+            if (!is_background_visible) {
+                is_foreground_visible = true;
+                canvas_foreground.style.display = "block";
+                first_layer_visibility_img.setAttribute("src", "visibility_on.png");
+            }
+            else {
+                layer_1.style.border = "1px solid #707070";
+                layer_2.style.border = "5px solid #000000";
+                cur_draw_ctx = ctx_background;
+                cur_canvas = canvas_layer_2;
+                cur_ctx_layer = ctx_layer_2;
+                is_foreground_selected = false;
+            }
+        }
+    }
+    else {
+        if (!is_background_visible) {
+            if (!is_foreground_visible) {
+                is_foreground_visible = true;
+                canvas_foreground.style.display = "block";
+                first_layer_visibility_img.setAttribute("src", "visibility_on.png");
+                layer_1.style.border = "5px solid #000000";
+                layer_2.style.border = "1px solid #707070";
+                cur_draw_ctx = ctx_foreground;
+                cur_canvas = canvas_layer_1;
+                cur_ctx_layer = ctx_layer_1;
+                is_foreground_selected = true;
+            }
+            else {
+                layer_1.style.border = "5px solid #000000";
+                layer_2.style.border = "1px solid #707070";
+                cur_draw_ctx = ctx_foreground;
+                cur_canvas = canvas_layer_1;
+                cur_ctx_layer = ctx_layer_1;
+                is_foreground_selected = true;
+            }
+        }
+    }
+    let cur_x = e.clientX;
+    let cur_y = e.clientY;
+    prevX = cur_x - W_f;
+    prevY = cur_y - H_f;
+    draw = true;
+    enddraw = false;
+    if (is_clr_window == true) {
+        close_clr_window();
+    }
+});
+function rgbToHex(r, g, b) {
+    return ((r << 16) | (g << 8) | b).toString(16);
+}
+function rgbaToHex(r, g, b, a) {
+    return ((r << 24) | (g << 16) | (b << 8) | a).toString(16);
+}
+function getPixel(pixelData, x, y) {
+    if (x < 0 || y < 0 || x >= pixelData.width || y >= pixelData.height) {
+        return -1;
+    }
+    else {
+        return pixelData.data[y * pixelData.width + x];
+    }
+}
+function addSpan(spansToCheck, left, right, y, direction) {
+    spansToCheck.push({ left, right, y, direction });
+}
+function checkSpan(pixelData, targetColor, spansToCheck, left, right, y, direction) {
+    let inSpan = false;
+    let start = 0;
+    let x;
+    for (x = left; x < right; ++x) {
+        let color = getPixel(pixelData, x, y);
+        if (color === targetColor) {
+            if (!inSpan) {
+                inSpan = true;
+                start = x;
+            }
+        }
+        else {
+            if (inSpan) {
+                inSpan = false;
+                addSpan(spansToCheck, start, x - 1, y, direction);
+            }
+        }
+    }
+    if (inSpan) {
+        inSpan = false;
+        addSpan(spansToCheck, start, x - 1, y, direction);
+    }
+}
+function floodFill(local_ctx, x, y, fillColor) {
+    let dex_clr = parseInt("FF" + fillColor.slice(6, 8) + fillColor.slice(4, 6) + fillColor.slice(2, 4), 16);
+    let imageData = local_ctx.getImageData(0, 0, local_ctx.canvas.width, local_ctx.canvas.height);
+    /*let imageData_test_data: Uint8ClampedArray = imageData.data
+    for (let i: number = 3; i < imageData_test_data.length; i += 4)
+    {
+        if (imageData_test_data[i] != 255)
+        {
+            imageData_test_data[i] = 0
+        }
+    }
+    let pixelData: any = {
+        width: imageData.width,
+        height: imageData.height,
+        data: new Uint32Array(imageData_test_data.buffer),
+    }*/
+    let pixelData = {
+        width: imageData.width,
+        height: imageData.height,
+        data: new Uint32Array(imageData.data.buffer),
+    };
+    let targetColor = getPixel(pixelData, x, y);
+    if (targetColor !== fillColor) {
+        let spansToCheck = [];
+        addSpan(spansToCheck, x, x, y, 0);
+        let iter_max = Math.round(cH) * 2;
+        let iter = 0;
+        while (spansToCheck.length > 0 && iter <= iter_max) {
+            iter++;
+            let { left, right, y, direction } = spansToCheck.pop();
+            let l = left;
+            let iter_l_max = left - cH / 2;
+            while (true) {
+                --l;
+                let color = getPixel(pixelData, l, y);
+                if (color !== targetColor || l < iter_l_max) {
+                    break;
+                }
+            }
+            ++l;
+            let r = right;
+            let iter_r_max = right + cW / 2;
+            while (true) {
+                ++r;
+                let color = getPixel(pixelData, r, y);
+                if (color !== targetColor || r > iter_r_max) {
+                    break;
+                }
+            }
+            let lineOffset = y * pixelData.width;
+            pixelData.data.fill(dex_clr, lineOffset + l, lineOffset + r);
+            if (direction <= 0) {
+                checkSpan(pixelData, targetColor, spansToCheck, l, r, y - 1, -1);
+            }
+            else {
+                checkSpan(pixelData, targetColor, spansToCheck, l, left, y - 1, -1);
+                checkSpan(pixelData, targetColor, spansToCheck, right, r, y - 1, -1);
+            }
+            if (direction >= 0) {
+                checkSpan(pixelData, targetColor, spansToCheck, l, r, y + 1, +1);
+            }
+            else {
+                checkSpan(pixelData, targetColor, spansToCheck, l, left, y + 1, +1);
+                checkSpan(pixelData, targetColor, spansToCheck, right, r, y + 1, +1);
+            }
+        }
+        local_ctx.putImageData(imageData, 0, 0);
+    }
+}
+d_frame.addEventListener("pointerdown", (e) => {
+    if (!draw) {
+        prevX = e.clientX - W_f;
+        prevY = e.clientY - H_f;
+        cfup = fup;
+        cfleft = fleft;
+        f_move = true;
+        end_f_move = false;
+    }
+    else {
+        let cur_x = e.clientX - W_f;
+        let cur_y = e.clientY - H_f;
+        if (cur_tool[0] == 'p') //если выбрана пипетка
+         {
+            let rgba = ctx_foreground.getImageData(cur_x - 1, cur_y - 1, 1, 1).data;
+            if (!is_foreground_visible) {
+                rgba[3] = 0;
+            }
+            let hex;
+            if (rgba[3] == 0) {
+                if (cur_draw_ctx == ctx_foreground && is_background_visible) {
+                    rgba = ctx_background.getImageData(cur_x - 1, cur_y - 1, 1, 1).data;
+                }
+            }
+            if (rgba[3] != 0) {
+                hex = '#' + ("000000" + rgbToHex(rgba[0], rgba[1], rgba[2])).slice(-6);
+            }
+            else {
+                hex = "#255255255";
+            }
+            cur_brush_clr = hex;
+            cur_draw_ctx.strokeStyle = cur_brush_clr;
+            if (rgba[0] + rgba[1] + rgba[2] > 382) {
+                clrimg.style.filter = "invert(0)";
+            }
+            else {
+                clrimg.style.filter = "invert(1)";
+            }
+            colourBtn.style.background = cur_brush_clr;
+            draw = false;
+            return;
+        }
+        else {
+            if (cur_tool[0] == 'b') //если выбрана заливка
+             {
+                cur_x = Math.floor(cur_x + 2);
+                cur_y = Math.floor(cur_y + 18);
+                let rgba = cur_draw_ctx.getImageData(cur_x, cur_y, 1, 1).data;
+                let hex = '#' + ("00000000" + rgbaToHex(rgba[0], rgba[1], rgba[2], rgba[3])).slice(-8);
+                if (cur_brush_clr + "ff" != hex) //если цвет выбранной точки не равен текущему
+                 {
+                    let cur_form_clr = "0x" + cur_brush_clr.slice(1) + "FF";
+                    floodFill(cur_draw_ctx, cur_x, cur_y, cur_form_clr);
+                    push_action_to_stack(['f', cur_draw_ctx, cur_x, cur_y, cur_form_clr]);
+                    canvas_to_layer(cur_canvas, cur_ctx_layer);
+                }
+                draw = false;
+                return;
+            }
+            else {
+                if (is_pencil_window) {
+                    if (cur_tool[0] == 'k') {
+                        change_thickness(true);
+                    }
+                    else {
+                        change_thickness(false);
+                    }
+                    pencil_w.style.display = "none";
+                    is_pencil_window = false;
+                }
+            }
+        }
+    }
+});
+window.addEventListener("pointerup", (e) => {
+    enddraw = true;
+    end_f_move = true;
+});
+function addGraphicTabletButton(e) {
+    if (e.pointerType == "pen") {
+        graphic_tabletBtn.style.display = "block";
+        nav_panel.removeEventListener("pointermove", addGraphicTabletButton);
+    }
+}
+nav_panel.addEventListener("pointermove", addGraphicTabletButton); //проверка курсора на поле с кнопками
+window.addEventListener("pointermove", (e) => //проверка курсора на всём окне, но только один раз
+ {
+    if (e.pointerType == "pen") {
+        graphic_tabletBtn.style.display = "block";
+        nav_panel.removeEventListener("pointermove", addGraphicTabletButton);
+    }
+}, {
+    once: true
+});
+canvas_additional.addEventListener("pointermove", (e) => //проверка курсора на поле для рисования
+ {
+    on_d_fiend = true;
+    if (cursor_type != 3 && !f_move) {
+        cursor_type = 3;
+        cursor_image.setAttribute("src", cur_tool[2]);
+    }
+});
+function getBezierBasis(i, n, t) {
+    // Факториал
+    function f(n) {
+        return (n <= 1) ? 1 : n * f(n - 1);
+    }
+    // считаем i-й элемент полинома Берштейна
+    return (f(n) / (f(i) * f(n - i))) * Math.pow(t, i) * Math.pow(1 - t, n - i);
+}
+// arr - массив опорных точек. Точка - двухэлементный массив, (x = arr[0], y = arr[1]), step - шаг при расчете кривой (0 < step < 1), по умолчанию 0.01
+function getBezierCurve(arr, step) {
+    step = 1.0 / step;
+    let res = new Array();
+    for (let t = 0; t < 1 + step; t += step) {
+        t = Math.min(1, t);
+        let ind = res.length;
+        res[ind] = [0, 0, 0];
+        for (let i = 0; i < arr.length; i++) {
+            let b = getBezierBasis(i, arr.length - 1, t);
+            res[ind][0] += arr[i][0] * b;
+            res[ind][1] += arr[i][1] * b;
+            res[ind][2] += arr[i][2] * b;
+        }
+    }
+    return res;
+}
+function drawLines(local_ctx, arr) {
+    local_ctx.beginPath();
+    for (let i = 0; i < arr.length - 1; i++) {
+        local_ctx.lineWidth = arr[i][2];
+        local_ctx.moveTo(arr[i][0], arr[i][1]);
+        local_ctx.lineTo(arr[i + 1][0], arr[i + 1][1]);
+        local_ctx.stroke();
+    }
+}
+d_frame.addEventListener("pointermove", (e) => //проверка курсора на поле вместе с рамкой
+ {
+    on_d_frame = true;
+    if (!on_d_fiend && !draw) {
+        let X = e.clientX - W_min;
+        let Y = e.clientY - H_min;
+        fup = false;
+        fdown = false;
+        fright = false;
+        fleft = false;
+        if (H_min + 40 > Y) //если верхняя часть горизонтальной части рамки 
+         {
+            fup = true;
+        }
+        else {
+            if (Y > H_max - 40) //если нижняя часть горизонтальной рамки
+             {
+                fdown = true;
+            }
+        }
+        if (W_min + 40 > X) //если левая часть вертикальной рамки
+         {
+            fleft = true;
+        }
+        else {
+            if (X > W_max - 40) //если правая часть вертикальной рамки
+             {
+                fright = true;
+            }
+        }
+        if (fleft && fup || fright && fdown) {
+            if (cursor_type != 4) {
+                cursor_type = 4;
+                cursor_image.setAttribute("src", "aero_nwse.cur");
+            }
+        }
+        else {
+            if (fleft && fdown || fright && fup) {
+                if (cursor_type != 5) {
+                    cursor_type = 5;
+                    cursor_image.setAttribute("src", "aero_nesw.cur");
+                }
+            }
+            else {
+                if (fleft || fright) {
+                    if (cursor_type != 2) {
+                        cursor_type = 2;
+                        cursor_image.setAttribute("src", "aero_ew.cur");
+                    }
+                }
+                else {
+                    if (cursor_type != 1) {
+                        cursor_type = 1;
+                        cursor_image.setAttribute("src", "aero_ns.cur");
+                    }
+                }
+            }
+        }
+    }
+    on_d_fiend = false;
+    if (!draw && !f_move) {
+        return;
+    }
+    let pX = e.clientX - W_f;
+    let pY = e.clientY - H_f;
+    let pW = e.pressure;
+    //Рисование
+    if (draw) {
+        if (enddraw) {
+            if (cur_smoothing != 0) {
+                ctx_add.clearRect(0, 0, cW, cH);
+                drawLines(cur_draw_ctx, cur_smooth_prim);
+            }
+            if (is_shift_on) {
+                ctx_add.clearRect(0, 0, cW, cH);
+                drawLines(cur_draw_ctx, curprim);
+            }
+            draw = false;
+            enddraw = false;
+            prevX = pX;
+            prevY = pY;
+            fp = true;
+            let drawing_mode;
+            if (cur_tool[0] == 'e') {
+                cur_ctx_layer.clearRect(0, 0, lwW, lwH);
+                drawing_mode = "destination-out";
+                cur_draw_ctx.globalCompositeOperation = "source-over";
+            }
+            else {
+                drawing_mode = "source-over";
+            }
+            if (cur_smoothing == 0) {
+                push_action_to_stack(['p', cur_draw_ctx, curprim, cur_brush_clr, drawing_mode]);
+            }
+            else {
+                push_action_to_stack(['p', cur_draw_ctx, cur_smooth_prim, cur_brush_clr, drawing_mode]);
+            }
+            canvas_to_layer(cur_canvas, cur_ctx_layer);
+            nstack = [];
+            curprim = [];
+            return;
+        }
+        let currentX = pX * cmp_W - l_width / 2;
+        let currentY = pY * cmp_H - l_width / 2;
+        let currentW;
+        if (graphic_tablet_mode) {
+            currentW = pW * l_width;
+            cur_draw_ctx.lineWidth = currentW;
+            ctx_add.lineWidth = currentW;
+            currentX += (l_width - currentW) / 2;
+        }
+        else {
+            currentW = l_width;
+        }
+        if (fp) {
+            before_gen_block.style.display = "none";
+            if (cur_tool[0] == 'e') {
+                cur_draw_ctx.globalCompositeOperation = "destination-out";
+            }
+            cur_smooth_prim = [];
+            fp = false;
+            curprim.push([currentX, currentY, currentW]);
+            if (is_shift_on) {
+                curprim.push([currentX, currentY, currentW]);
+            }
+            prevX = currentX;
+            prevY = currentY;
+            return;
+        }
+        if (is_shift_on) {
+            let delta_x = currentX - prevX;
+            let delta_y = currentY - prevY;
+            let k_tan = Math.round(Math.atan(delta_y / delta_x) / Pi_div_4);
+            if (k_tan == 2 || k_tan == -2) {
+                k_tan = 0;
+            }
+            if (Math.abs(delta_x) > Math.abs(delta_y)) {
+                currentY = prevY + delta_x * k_tan;
+            }
+            else {
+                currentX = prevX + delta_y * k_tan;
+            }
+            curprim[curprim.length - 1] = [currentX, currentY, currentW];
+            ctx_add.clearRect(0, 0, cW, cH);
+            ctx_add.beginPath();
+            ctx_add.moveTo(prevX, prevY);
+            ctx_add.lineTo(currentX, currentY);
+            ctx_add.stroke();
+            return;
+        }
+        cur_draw_ctx.beginPath();
+        if (cur_smoothing == 0 || cur_tool[0] == 'e') {
+            cur_draw_ctx.moveTo(prevX, prevY);
+            cur_draw_ctx.lineTo(currentX, currentY);
+            cur_draw_ctx.stroke();
+        }
+        else {
+            //drawLines(cur_draw_ctx, cur_smooth_prim.slice(0, -k_smooth + 2))
+            //cur_smooth_prim = getBezierCurve(curprim.slice(-cur_smoothing), cur_smoothing)
+            cur_smooth_prim = cur_smooth_prim.slice(0, -k_smooth + 1).concat(getBezierCurve(curprim.slice(-cur_smoothing), cur_smoothing));
+            ctx_add.clearRect(0, 0, cW, cH);
+            drawLines(ctx_add, cur_smooth_prim);
+        }
+        curprim.push([currentX, currentY, currentW]);
+        prevX = currentX;
+        prevY = currentY;
+    }
+});
+function change_drawfield_size(new_dfw, new_dfh) {
+    let prev_f_dW = f_dW;
+    let prev_f_dH = f_dH;
+    f_dW = Math.min(fW_max, Math.max(fW_min, new_dfw));
+    f_dH = Math.min(fH_max, Math.max(fH_min, new_dfh));
+    d_frame.style.width = f_dW + "px";
+    d_frame.style.height = f_dH + "px";
+    cW = cW * (f_dW / prev_f_dW);
+    cH = cH * (f_dH / prev_f_dH);
+    cD = cW / cH;
+    if (cD > orig_lD) {
+        lW = orig_lW;
+        lH = orig_lW / cD;
+    }
+    else {
+        lH = orig_lH;
+        lW = orig_lH * cD;
+    }
+    lWp = Math.round(995 * (lW / orig_lW)) / 10 + '%';
+    lHp = Math.round(1000 * (lH / orig_lH)) / 10 + '%';
+    layer_icon_1.style.width = lWp;
+    layer_icon_2.style.width = lWp;
+    layer_icon_1.style.height = lHp;
+    layer_icon_2.style.height = lHp;
+    canvas_foreground.width = cW;
+    canvas_foreground.height = cH;
+    canvas_background.width = cW;
+    canvas_background.height = cH;
+    canvas_additional.height = cH;
+    canvas_additional.width = cW;
+    ctx_foreground.lineWidth = l_width;
+    ctx_background.lineWidth = l_width;
+    W_f = (W - cW) / 2 - l_width / 2 + 12;
+    W_min = (W - f_dW) / 4;
+    W_max = f_dW + W_min;
+    H_f = (H - cH) / 2 - l_width / 2 + 12;
+    H_min = (H - f_dH) / 4;
+    H_max = f_dH + H_min;
+    X_move = f_dW - prev_f_dW;
+    Y_move = f_dH - prev_f_dH;
+}
+window.addEventListener("pointermove", (e) => //проверка курсора на всём окне
+ {
+    cX = e.clientX - 7.5;
+    cY = e.clientY - 7.5;
+    if (is_clr_window) {
+        if (!on_clr_window) {
+            if (cursor_type != 0) {
+                cursor_type = 0;
+                cursor.style.display = "block";
+            }
+        }
+        else {
+            if (cursor_type != -1) {
+                cursor_type = -1;
+                cursor.style.display = "none";
+            }
+            on_clr_window = false;
+            return;
+        }
+    }
+    if (!f_move) {
+        if (!on_d_frame && !draw) {
+            if (cursor_type != -1) {
+                cursor_type = -1;
+                cursor.style.display = "none";
+            }
+        }
+        else {
+            if (cursor_type != 0) {
+                cursor_type = 0;
+                cursor.style.display = "block";
+            }
+        }
+    }
+    else //Изменение размеров области рисования
+     {
+        X_move = (cX - move_prevX) * 2;
+        Y_move = (cY - move_prevY) * 2;
+        if (end_f_move) {
+            f_move = false;
+            end_f_move = false;
+            return;
+        }
+        if (cursor_type == 2) //если вертикальные
+         {
+            Y_move = 0;
+        }
+        else {
+            if (cursor_type == 1) //если горизонтальные
+             {
+                X_move = 0;
+            }
+        }
+        if (cfleft == true) {
+            X_move *= -1;
+        }
+        if (cfup == true) {
+            Y_move *= -1;
+        }
+        let cur_new_dfw = f_dW + X_move;
+        let cur_new_dfh = f_dH + Y_move;
+        change_drawfield_size(cur_new_dfw, cur_new_dfh);
+        cur_ratio_val = get_visual_ratio(false, cW, cH);
+        ratio_field.value = cur_ratio_val; //устанавливаем соотношение сторон
+        fW_pred = f_dW;
+        fH_pred = f_dH;
+        pstack.push(['r', cur_new_dfw, cur_new_dfh, false]);
+        replay_actions(pstack); //Повторная отрисовка с новым разрешением
+    }
+    if (cursor_type != 0 && cursor_type != 3) {
+        cursor.style.left = cX + "px";
+        cursor.style.top = cY + "px";
+    }
+    else {
+        cursor.style.left = (cX + 7.5) + "px";
+        cursor.style.top = (cY + 7.5) + "px";
+    }
+    move_prevX = cX;
+    move_prevY = cY;
+    on_d_frame = false;
+});
