@@ -1,4 +1,4 @@
-# Stable-Draw
+# StableDraw
 Website with Stable Diffusion and many additional features
 
 ## Тущие направления работы:
