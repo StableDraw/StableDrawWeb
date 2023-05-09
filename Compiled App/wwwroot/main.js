@@ -263,6 +263,7 @@ var main_modal = function (options) {
         show: _showModal,
         hide: _hideModal,
         destroy: function () {
+            // eslint-disable-next-line no-unused-expressions
             _elemModal.parentElement.removeChild(_elemModal),
                 _elemModal.removeEventListener("click", _handlerCloseModal),
                 _destroyed = true;
@@ -301,7 +302,7 @@ var main_modal = function (options) {
             else {
                 if (original_image_buf == "") {
                     footerButtons_list.push({ class: "modal_btn modal_btn-2", id: "SD_btn", text: "AIColorize", handler: "modalHandlerGenBWToCLR" }, { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Img2Img", handler: "modalHandlerGenImg2Img" }, { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Depth2Img", handler: "modalHandlerGenDepth2Img" });
-                    content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"></input><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image(data_prop)">Сгенерировать автоматически</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"></input>';
+                    content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"></input><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image(data_prop)">Сгенерировать описание автоматически</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"></input>';
                 }
                 else {
                     footerButtons_list.push({ class: "modal_btn modal_btn-2", id: "SD_btn", text: "AIColorize", handler: "modalHandlerGenBWToCLR" }, { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Img2Img", handler: "modalHandlerGenImg2Img" }, { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Depth2Img", handler: "modalHandlerGenDepth2Img" });
@@ -309,7 +310,7 @@ var main_modal = function (options) {
                         footerButtons_list.push({ class: "modal_btn modal_btn-2", id: "SD_btn", text: "Inpainting", handler: "modalHandlerGenInpainting" });
                     }
                     if (original_image_h * original_image_w > 262144) {
-                        content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"/><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image(data_prop)">Сгенерировать автоматически</button><button class = "modal_btn modal_btn-4" onclick = "delete_background()">Удалить фон</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"/>';
+                        content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"/><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image(data_prop)">Сгенерировать описание автоматически</button><button class = "modal_btn modal_btn-4" onclick = "delete_background()">Удалить фон</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"/>';
                     }
                     else {
                         if (original_image_h * original_image_w < 65537) {
@@ -318,7 +319,7 @@ var main_modal = function (options) {
                         else {
                             footerButtons_list.push({ class: "modal_btn modal_btn-2", id: "SD_btn", text: "SDx2 Апскейл", handler: "modalHandlerGenUpscale_xX" });
                         }
-                        content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"/><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image(data_prop)">Сгенерировать автоматически</button><button class = "modal_btn modal_btn-4" style = "right: 18.5%" onclick = "upscale()">Апскейл</button><button class = "modal_btn modal_btn-4" onclick = "delete_background()">Удалить фон</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"/>';
+                        content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"/><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image(data_prop)">Сгенерировать описание автоматически</button><button class = "modal_btn modal_btn-4" style = "right: 18.5%" onclick = "upscale()">Апскейл</button><button class = "modal_btn modal_btn-4" onclick = "delete_background()">Удалить фон</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"/>';
                     }
                 }
             }
@@ -351,7 +352,7 @@ var main_modal = function (options) {
                 let type = jdata[0];
                 if (type == 't') //если текстовое сообщение
                  {
-                    //alert(jdata[1])
+                    alert(jdata[1]);
                     return;
                 }
                 if (type == 'c') //если описание
@@ -1473,7 +1474,7 @@ function close_all_add_windows() {
     eraser_w.style.display = "none";
     is_eraser_window = false;
     clr_w.style.display = "none";
-    is_clr_window == false;
+    is_clr_window = false;
 }
 colourBtn.addEventListener("click", () => {
     if (is_pencil_window || is_eraser_window) {

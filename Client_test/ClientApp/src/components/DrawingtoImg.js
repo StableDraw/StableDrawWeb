@@ -67,16 +67,16 @@ export class DrawingtoImg extends Component
                         &times;
                     </a>
                     <div id="mods_of_work" className="mods_of_work">
-                        <a href="#" className="work_mode_href" title="Картина по текстовому описанию" style={{ borderBottomStyle: "hidden" }}>
+                        <a href="text-to-img" className="work_mode_href" title="Картина по текстовому описанию" style={{ borderBottomStyle: "hidden" }}>
                             <img className="work_mode_img_btn" alt="text_to_image.png" src="text_to_image.png"></img>
                         </a>
                         <a className="work_mode_href" id="selected_work_mode" title="Картина из рисунка (выбрано)">
                             <img className="work_mode_img_btn" alt="image_to_image.png" src="image_to_image.png"></img>
                         </a>
-                        <a href="#" className="work_mode_href" title="Обработка изображений с комьютера" style={{ borderTopStyle: "hidden" }}>
+                        <a href="photo-to-img" className="work_mode_href" title="Обработка изображений с комьютера" style={{ borderTopStyle: "hidden" }}>
                             <img className="work_mode_img_btn" alt="photo_to_image.png" src="photo_to_image.png"></img>
                         </a>
-                        <a href="#" className="work_mode_href" title="Создание анимации" style={{ borderTopStyle: "hidden" }}>
+                        <a href="frames-to-animation" className="work_mode_href" title="Создание анимации" style={{ borderTopStyle: "hidden" }}>
                             <img className="work_mode_img_btn" alt="frames_to_animation.png" src="frames_to_animation.png"></img>
                         </a>
                     </div>

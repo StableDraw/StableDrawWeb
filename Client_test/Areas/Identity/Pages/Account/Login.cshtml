@@ -14,12 +14,36 @@
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                 <div class="form-floating mb-3">
-                    <input asp-for="Input.UserName" class="form-control" autocomplete="username" aria-required="true" placeholder="Alex227" />
+                    <input asp-for="Input.UserName" class="form-control" autocomplete="username" aria-required="true" placeholder="логин или email" />
                     <label asp-for="Input.UserName">Имя пользователя или email</label>
                     <span asp-validation-for="Input.UserName" class="text-danger"></span>
                 </div>
-                <div class="form-floating mb-3">
-                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
+                <div class="form-floating mb-3" style="position: relative; height: calc(3.5rem + 2px);">
+                    <input asp-for="Input.Password" class="form-control" id="password" type="password" autocomplete="current-password" aria-required="true" placeholder="password" style="height: 100%; position: absolute; z-index: 1;" />
+                    <div class = "pass_visibility_btn" onclick="togglePassword()" style="position: absolute; border: none; height: 50%; top: 25%; padding: 0; right: calc(0.25 * (3.5rem + 2px)); aspect-ratio: 1 / 1; z-index: 2; cursor: pointer">
+                        <img id = "pass_vis_btn" src = "~/visibility_on.png" alt = "Показать пароль" style="position: relative; opacity: .5; z-index: 2; height: 100%; width: 100%">
+                    </div>
+                        <script>
+                            function togglePassword() 
+                            {
+                                var x = document.getElementById("password");
+                                var y = document.getElementById("pass_vis_btn");
+                                if (x.type === "password") 
+                                {
+                                    x.type = "text";
+                                    y.alt = "Скрыть пароль";
+                                    y.title = "Скрыть пароль";
+                                    y.src = "/visibility_off.png";
+                                } 
+                                else 
+                                {
+                                    x.type = "password";
+                                    y.alt = "Показать пароль";
+                                    y.title = "Показать пароль";
+                                    y.src = "/visibility_on.png";
+                                }
+                            }
+                        </script>
                     <label asp-for="Input.Password" class="form-label">Пароль</label>
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
@@ -78,6 +102,7 @@
     </div>
 </div>
 
-@section Scripts {
+@section Scripts 
+{
     <partial name="_ValidationScriptsPartial" />
 }

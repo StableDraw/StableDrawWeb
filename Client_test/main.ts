@@ -1,4 +1,4 @@
-const body: HTMLElement = <HTMLElement> document.querySelector("body")
+const body: HTMLElement = <HTMLElement>document.querySelector("body")
 const cursor: HTMLElement = <HTMLElement> document.querySelector(".cursor")
 const cursor_image: HTMLElement = <HTMLElement> document.querySelector(".cursimg")
 let cursor_type: number = -1
@@ -228,8 +228,10 @@ ctx_add.lineJoin = "round"
 ctx_background.lineCap = "round"
 ctx_background.lineJoin = "round"
 
-layer_1.style.border = "5px solid #000000"
-layer_2.style.border = "1px solid #707070"
+layer_1.style.border = "1px solid #000000"
+layer_1.style.outline = "3px solid #000000"
+layer_2.style.border = "none"
+layer_2.style.outline = "1px solid #000000"
 
 let is_dark_mode: boolean = false //тёмная тема (отключена по-умолчанию)
 let is_modal_open: boolean = false
@@ -271,11 +273,11 @@ var main_modal: any = function (options: object)
     function _createModal (options: any) 
     {
         var elemModal: HTMLElement = document.createElement("div"),
-        modalTemplate = '<div class = "modal__backdrop"><div class="modal__content"><div class="modal__header"><div class="modal__title" data-modal="title">{{title}}</div><span class="modal__btn-close" data-dismiss="modal" title="Закрыть">&times;</span></div><div class="modal__body" data-modal="content">{{content}}</div>{{footer}}</div></div>',
+        modalTemplate = '<div class = "modal__backdrop"><div class="modal__content"><div class="modal__header"><div class="modal__title" data-modal="title">{{title}}</div><span class="modal__btn-close" data-dismiss="gen_modal" title="Закрыть">&times;</span></div><div class="modal__body" data-modal="content">{{content}}</div>{{footer}}</div></div>',
         modalFooterTemplate = '<div class = "modal__footer">{{buttons}}</div>',
         modalButtonTemplate = '<button type = "button" class="{{button_class}}" data-handler={{button_handler}}>{{button_text}}</button>',
         modalHTML, modalFooterHTML = ""
-        elemModal.classList.add("modal")
+        elemModal.classList.add("gen_modal")
         modalHTML = modalTemplate.replace("{{title}}", options.title || "")
         modalHTML = modalHTML.replace("{{content}}", options.content || "")
         if (options.footerButtons) 
@@ -318,7 +320,7 @@ var main_modal: any = function (options: object)
     }
     function _handlerCloseModal(e: any) 
     {
-        if (e.target.dataset.dismiss === "modal") 
+        if (e.target.dataset.dismiss === "gen_modal") 
         {
             _hideModal()
         }
@@ -332,6 +334,7 @@ var main_modal: any = function (options: object)
         hide: _hideModal,
         destroy: function () 
         {
+            // eslint-disable-next-line no-unused-expressions
             _elemModal.parentElement.removeChild(_elemModal),
             _elemModal.removeEventListener("click", _handlerCloseModal),
             _destroyed = true;
@@ -364,7 +367,7 @@ var main_modal: any = function (options: object)
     {
         data_prop = check_data_before_sending()
         let { local_is_foreground_used, local_is_background_used, local_is_drawing, local_sure, local_how_many_prims, local_how_many_dots }: any = data_prop
-        if (e.target.dataset.toggle === "modal") 
+        if (e.target.dataset.toggle === "gen_modal") 
         {
             let content: string
             let footerButtons_list: object[] = [{ class: "modal_btn modal_btn-3", id: "cur_gen_params_btn", text: "Параметры", handler: "modalHandlerParams" }]
@@ -382,7 +385,7 @@ var main_modal: any = function (options: object)
                         { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Img2Img", handler: "modalHandlerGenImg2Img" },
                         { class: "modal_btn modal_btn-2", id: "SD_btn", text: "Depth2Img", handler: "modalHandlerGenDepth2Img" }
                     )
-                    content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"></input><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image(data_prop)">Сгенерировать автоматически</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"></input>'
+                    content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"></input><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image(data_prop)">Сгенерировать описание автоматически</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"></input>'
                 }
                 else
                 {
@@ -397,7 +400,7 @@ var main_modal: any = function (options: object)
                     }
                     if (original_image_h * original_image_w > 262144)
                     {
-                        content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"/><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image(data_prop)">Сгенерировать автоматически</button><button class = "modal_btn modal_btn-4" onclick = "delete_background()">Удалить фон</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"/>'
+                        content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"/><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image(data_prop)">Сгенерировать описание автоматически</button><button class = "modal_btn modal_btn-4" onclick = "delete_background()">Удалить фон</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"/>'
                     }
                     else
                     {
@@ -409,7 +412,7 @@ var main_modal: any = function (options: object)
                         {
                             footerButtons_list.push({ class: "modal_btn modal_btn-2", id: "SD_btn", text: "SDx2 Апскейл", handler: "modalHandlerGenUpscale_xX" })
                         }
-                        content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"/><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image(data_prop)">Сгенерировать автоматически</button><button class = "modal_btn modal_btn-4" style = "right: 18.5%" onclick = "upscale()">Апскейл</button><button class = "modal_btn modal_btn-4" onclick = "delete_background()">Удалить фон</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"/>'
+                        content = 'Описание:<p><input class = "modal_input" id = "caption_input" required placeholder = "Введите описание изображения" oninput = "is_human_caption = true"/><p><button class = "modal_btn modal_btn-2" id = "modal_caption_auto_gen" onclick = "gen_caption_for_image(data_prop)">Сгенерировать описание автоматически</button><button class = "modal_btn modal_btn-4" style = "right: 18.5%" onclick = "upscale()">Апскейл</button><button class = "modal_btn modal_btn-4" onclick = "delete_background()">Удалить фон</button><p>Стиль:<p><input class = "modal_input" id = "style_input" value = "4к фотореалистично" required placeholder = "Введите стиль изображения" oninput = "is_human_caption = true"/>'
                     }
                 }
             }
@@ -619,7 +622,7 @@ var main_modal: any = function (options: object)
         {
             colorize_picture()
         }
-        else if (e.target.dataset.dismiss === "modal") 
+        else if (e.target.dataset.dismiss === "gen_modal") 
         {
             //document.querySelector(".message").textContent = "Вы закрыли модальное окно нажав на крестик или на область вне модального окна, а открыли окно с помощью кнопки " + elemTarget.textContent
         }
@@ -1475,11 +1478,13 @@ change_themeBtn.addEventListener("click", () =>
         text_label_clr.style.color = "#000000"
         if (is_foreground_selected)
         {
-            layer_1.style.border = "5px solid #000000"
+            layer_1.style.outline = "3px solid #000000"
+            layer_1.style.border = "1px solid #000000"
         }
         else
         {
-            layer_2.style.border = "5px solid #000000"
+            layer_2.style.outline = "3px solid #000000"
+            layer_2.style.border = "1px solid #000000"
         }
     }
     else
@@ -1508,11 +1513,13 @@ change_themeBtn.addEventListener("click", () =>
         text_label_clr.style.color = "#ffffff"
         if (is_foreground_selected)
         {
-            layer_1.style.border = "5px solid #cccccc"
+            layer_1.style.outline = "3px solid #cccccc"
+            layer_1.style.border = "1px solid #cccccc"
         }
         else
         {
-            layer_2.style.border = "5px solid #cccccc"
+            layer_2.style.outline = "3px solid #cccccc"
+            layer_2.style.border = "1px solid #cccccc"
         }
     }
 })
@@ -1523,13 +1530,16 @@ select_first_layerBtn.addEventListener("click", () =>
     {
         if (is_dark_mode)
         {
-            layer_1.style.border = "5px solid #cccccc"
+            layer_1.style.border = "1px solid #cccccc"
+            layer_1.style.outline = "3px solid #cccccc"
         }
         else
         {
-            layer_1.style.border = "5px solid #000000"
+            layer_1.style.border = "1px solid #000000"
+            layer_1.style.outline = "3px solid #000000"
         }
-        layer_2.style.border = "1px solid #707070"
+        layer_2.style.outline = "1px solid #707070"
+        layer_2.style.border = "none"
         cur_draw_ctx = ctx_foreground
         cur_canvas = canvas_foreground
         cur_ctx_layer = ctx_layer_1
@@ -1543,14 +1553,17 @@ select_second_layerBtn.addEventListener("click", () =>
 {
     if (is_foreground_selected)
     {
-        layer_1.style.border = "1px solid #707070"
+        layer_1.style.outline = "1px solid #707070"
+        layer_1.style.border = "none"
         if (is_dark_mode)
         {
-            layer_2.style.border = "5px solid #cccccc"
+            layer_2.style.border = "1px solid #cccccc"
+            layer_2.style.outline = "3px solid #cccccc"
         }
         else
         {
-            layer_2.style.border = "5px solid #000000"
+            layer_2.style.border = "1px solid #000000"
+            layer_2.style.outline = "3px solid #000000"
         }
         cur_draw_ctx = ctx_background
         cur_canvas = canvas_background
@@ -1823,7 +1836,7 @@ function close_all_add_windows()
     eraser_w.style.display = "none"
     is_eraser_window = false
     clr_w.style.display = "none"
-    is_clr_window == false
+    is_clr_window = false
 }
 
 colourBtn.addEventListener("click", () => 
@@ -1941,12 +1954,13 @@ smoothing_field.oninput = function ()
 
 e_thickness_field.oninput = function () 
 {
-    e_thickness_slider.value = e_thickness_field.value;
+    e_thickness_slider.value = e_thickness_field.value
     change_thickness(false)
 }
 
 const setpencilBtn: HTMLElement = <HTMLElement> document.getElementById("pencil")
 setpencilBtn.style.border = "5px solid #000000"
+setpencilBtn.style.transform = "translateY(7%)"
 let cur_tool: [string, HTMLElement, string] = ['k', setpencilBtn, "aero_pen.cur"] //текущий инструмент (карандаш)
 
 setpencilBtn.addEventListener("click", () =>
@@ -1967,7 +1981,9 @@ setpencilBtn.addEventListener("click", () =>
         pencil_w.style.display = "block"
         update_slider()
         setpencilBtn.style.border = "5px solid #000000"
+        setpencilBtn.style.transform = "translateY(7%)"
         cur_tool[1].style.border = "1px solid #707070"
+        cur_tool[1].style.transform = "translateY(0%)"
         cur_tool = ['k', setpencilBtn, "aero_pen.cur"]
     }
     else
@@ -2007,7 +2023,9 @@ seteraserBtn.addEventListener("click", () =>
         eraser_w.style.display = "block"
         update_slider()
         seteraserBtn.style.border = "5px solid #000000"
+        seteraserBtn.style.transform = "translateY(7%)"
         cur_tool[1].style.border = "1px solid #707070"
+        cur_tool[1].style.transform = "translateY(0%)"
         cur_tool = ['e', seteraserBtn, "aero_eraser.png"]
     }
     else
@@ -2050,7 +2068,9 @@ setbucketBtn.addEventListener("click", () =>
             pencil_w.style.display = "none"
         }
         setbucketBtn.style.border = "5px solid #000000"
+        setbucketBtn.style.transform = "translateY(7%)"
         cur_tool[1].style.border = "1px solid #707070"
+        cur_tool[1].style.transform = "translateY(0%)"
         cur_tool = ['b', setbucketBtn, "aero_bucket.png"]
     }
 })
@@ -2078,7 +2098,9 @@ setpipetteBtn.addEventListener("click", () =>
             pencil_w.style.display = "none"
         }
         setpipetteBtn.style.border = "5px solid #000000"
+        setpipetteBtn.style.transform = "translateY(7%)"
         cur_tool[1].style.border = "1px solid #707070"
+        cur_tool[1].style.transform = "translateY(0%)"
         cur_tool = ['p', setpipetteBtn, "aero_pipette.png"]
     }
 })
@@ -2290,7 +2312,7 @@ function gen_caption_for_image(data_prop: any)
     }
     else
     {
-         background_data = ""
+            background_data = ""
     }
 
     send_data_cpt = JSON.stringify({
@@ -2631,8 +2653,10 @@ canvas_additional.addEventListener("pointerdown", (e: PointerEvent) =>
             }
             else
             {
-                layer_1.style.border = "1px solid #707070"
-                layer_2.style.border = "5px solid #000000"
+                layer_1.style.border = "none"
+                layer_1.style.outline = "1px solid #707070"
+                layer_2.style.border = "1px solid #000000"
+                layer_2.style.outline = "3px solid #000000"
                 cur_draw_ctx = ctx_background
                 cur_canvas = canvas_layer_2
                 cur_ctx_layer = ctx_layer_2
@@ -2649,8 +2673,10 @@ canvas_additional.addEventListener("pointerdown", (e: PointerEvent) =>
                 is_foreground_visible = true
                 canvas_foreground.style.display = "block"
                 first_layer_visibility_img.setAttribute("src", "visibility_on.png")
-                layer_1.style.border = "5px solid #000000"
-                layer_2.style.border = "1px solid #707070"
+                layer_1.style.border = "1px solid #000000"
+                layer_1.style.outline = "3px solid #000000"
+                layer_2.style.border = "none"
+                layer_2.style.outline = "1px solid #707070"
                 cur_draw_ctx = ctx_foreground
                 cur_canvas = canvas_layer_1
                 cur_ctx_layer = ctx_layer_1
@@ -2658,8 +2684,10 @@ canvas_additional.addEventListener("pointerdown", (e: PointerEvent) =>
             }
             else
             {
-                layer_1.style.border = "5px solid #000000"
-                layer_2.style.border = "1px solid #707070"
+                layer_1.style.border = "1px solid #000000"
+                layer_1.style.outline = "3px solid #000000"
+                layer_2.style.border = "none"
+                layer_2.style.outline = "1px solid #707070"
                 cur_draw_ctx = ctx_foreground
                 cur_canvas = canvas_layer_1
                 cur_ctx_layer = ctx_layer_1
