@@ -15,12 +15,12 @@ orig_params = {
 params = orig_params
 
 test_list = [
-    #["steps", [10, 100, 50]],
-    #["f", [4, 8]],
-    #["scale", [4.0, 15.0, 9.0]],
-    #["ckpt", [1, 0]],
-    #["seed", [415, 758, 8613, 42]],
-    #["sampler", ["plms", "dpm", "ddim"]],
+    ["steps", [10, 100, 50]],
+    ["f", [4, 8]],
+    ["scale", [4.0, 15.0, 9.0]],
+    ["ckpt", [1, 0]],
+    ["seed", [415, 758, 8613, 42]],
+    ["sampler", ["plms", "dpm", "ddim"]],
     ["ddim_eta", [0.25, 0.75, 1.0, 0.0]],
 ]
 
@@ -29,7 +29,7 @@ with open("data.txt") as file_in:
     for line in file_in:
         caption.append(line.replace("\n", ""))
 
-path1 = "C:\\Users\\Robolightning\\Desktop\\r\\"
+path1 = "C:\\Users\\Robolightning\\Desktop\\r2\\"
 
 for tl in tqdm(test_list):
     for tp in tqdm(tl[1]):

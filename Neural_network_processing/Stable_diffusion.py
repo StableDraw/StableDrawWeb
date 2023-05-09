@@ -144,7 +144,7 @@ def Stable_diffusion_image_to_image(binary_data, prompt, opt):
     sampler.make_schedule(ddim_num_steps = opt['ddim_steps'], ddim_eta = opt['ddim_eta'], verbose = False)
     assert 0. <= opt['strength'] <= 1., 'can only work with strength in [0.0, 1.0]'
     t_enc = int(opt['strength'] * opt['ddim_steps'])
-    print("Целевое декодирование t_enc из {t_enc} шагов")
+    print(f"Целевое декодирование t_enc из {t_enc} шагов")
     precision_scope = autocast
     with torch.no_grad():
         with precision_scope("cuda"):
