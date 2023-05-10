@@ -739,6 +739,7 @@ function push_action_to_stack(local_act) {
     }
 }
 function gen_picture_by_drawing(params, full_prompt, data_prop) {
+    console.log(original_image_buf);
     let is_depth = params[1];
     let is_inpainting = params[2];
     let is_upscale = params[3];

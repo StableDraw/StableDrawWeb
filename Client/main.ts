@@ -449,7 +449,7 @@ var main_modal: any = function (options: object)
                 let type: string = jdata[0]
                 if (type == 't') //если текстовое сообщение
                 {
-                    alert(jdata[1])
+                    //alert(jdata[1])
                     return
                 }
                 if (type == 'c') //если описание
@@ -917,6 +917,7 @@ function push_action_to_stack(local_act: any)
 
 function gen_picture_by_drawing(params: boolean[], full_prompt: string, data_prop: any)
 {
+    console.log(original_image_buf)
     let is_depth: boolean = params[1]
     let is_inpainting: boolean = params[2]
     let is_upscale: boolean = params[3]

@@ -1144,7 +1144,7 @@ async def pre_processing(websocket, dictData_list):
 
 
             #обработка ошибок, временная
-            if dictData["type"] != 't' and "chain_id" in dictData and dictData["chain_id"] == "" and "data" in dictData and (dictData["data"] in ("", {})) and (not("backgroung" in dictData) or dictData["backgroung"] == ""):
+            if dictData["type"] != 't' and "chain_id" in dictData and dictData["chain_id"] == "" and "data" in dictData and (dictData["data"] in ("", {})) and (not("backgroung" in dictData) or (dictData["backgroung"] == "" or dictData["backgroung"] == {})):
                 resp_data = {
                     '0' : "t",
                     '1' : "Извините, почему-то к нам ничего не пришло..."
@@ -1166,7 +1166,7 @@ async def pre_processing(websocket, dictData_list):
                 binary_data = base64.b64decode(bytes(dictData["data"][22:], 'utf-8'))
                 pillow_img = Image.open(io.BytesIO(binary_data)).convert("RGBA")
                 (w, h) = pillow_img.size
-                if dictData["backgroung"] == "":
+                if dictData["backgroung"] == "" or dictData["backgroung"] == {}:
                     noback = True
                     background_img = Image.new('RGBA', (w, h), (255, 255, 255))
                 else:
@@ -1236,7 +1236,7 @@ async def pre_processing(websocket, dictData_list):
                     binary_data = base64.b64decode(bytes(dictData["foreground"][22:], 'utf-8'))
                     pillow_img = Image.open(io.BytesIO(binary_data)).convert("RGBA")
                     (w, h) = pillow_img.size
-                    if dictData["backgroung"] == "":
+                    if dictData["backgroung"] == "" or dictData["backgroung"] == {}:
                         noback = True
                         background_img = Image.new('RGBA', (w, h), (255, 255, 255))
                     else:
@@ -1440,7 +1440,7 @@ async def handler(websocket): #здесь нужно формировать сп
 pre_process = False
 
 if __name__ == "__main__":
-    translators.preaccelerate()
+    #translators.preaccelerate()
     load_dotenv()
     ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
     ssl_context.load_cert_chain("domain_name.crt", "private.key")

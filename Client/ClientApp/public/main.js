@@ -352,7 +352,7 @@ var main_modal = function (options) {
                 let type = jdata[0];
                 if (type == 't') //если текстовое сообщение
                  {
-                    alert(jdata[1]);
+                    //alert(jdata[1])
                     return;
                 }
                 if (type == 'c') //если описание
@@ -739,6 +739,7 @@ function push_action_to_stack(local_act) {
     }
 }
 function gen_picture_by_drawing(params, full_prompt, data_prop) {
+    console.log(original_image_buf);
     let is_depth = params[1];
     let is_inpainting = params[2];
     let is_upscale = params[3];

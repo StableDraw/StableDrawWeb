@@ -47,7 +47,8 @@ export class Home extends Component {
         }
     }
 
-    authenticatedView(userName, profilePath, logoutPath, logoutState) {
+    authenticatedView(userName, profilePath, logoutPath, logoutState)
+    {
         return (
             <div className="start-page" data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
                 <div>

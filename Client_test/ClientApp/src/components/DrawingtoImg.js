@@ -175,8 +175,8 @@ export class DrawingtoImg extends Component
                     </datalist>
                 </div>
                 <div id="before_gen_block" style={{ position: "fixed", top: "50px", left: "5%", height: "20%", width: "20%", border: "2px solid #111111", zIndex: "15", display: "none" }}>
-                    <div className="closebtn" id="close_before_gen_block" style={{ position: "absolute", zIndex: "16", right: "-2px", top: "-2px", width: "20px", height: "20px", cursor: "pointer", textAlign: "center", background: "#ffffff", border: "2px solid #111111" }}>
-                        <a style={{ position: "relative", top: "-40%", fontSize: "25px" }}>
+                    <div className="closebtn" id="close_before_gen_block" style={{ position: "absolute", background: "rgba(0, 0, 0, 0)", zIndex: "16", right: "-2px", top: "-2px", width: "20px", height: "20px", cursor: "pointer", textAlign: "center", background: "#ffffff", border: "2px solid #111111" }}>
+                        <a style={{ position: "relative", fontSize: "25px", top: "-80%", verticalAlign: "middle", textAlign: "center", height: "100%", width: "100%", display: "block" }}>
                             &times;
                         </a>
                     </div>
