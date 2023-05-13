@@ -125,7 +125,6 @@ let orig_lW: number = lW
 let orig_lH: number = lH
 let orig_lD: number = lW / lH
 
-
 if (cD > orig_lD)
 {
     lW = orig_lW

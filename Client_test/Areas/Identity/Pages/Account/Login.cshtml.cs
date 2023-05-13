@@ -160,7 +160,6 @@ namespace CLI.Areas.Identity.Pages.Account
                 }
             }
             return Page();
-            //return Redirect("~/drawing-to-img");
         }
     }
 }

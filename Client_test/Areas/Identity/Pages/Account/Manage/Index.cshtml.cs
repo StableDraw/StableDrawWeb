@@ -3,6 +3,7 @@
 #nullable disable
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
@@ -114,7 +115,7 @@ namespace CLI.Areas.Identity.Pages.Account.Manage
                 var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
                 if (!setPhoneResult.Succeeded)
                 {
-                    StatusMessage = "Unexpected error when trying to set phone number.";
+                    StatusMessage = "Непредвиденная ошибка при смене телефонного номера";
                     return RedirectToPage();
                 }
                 await _signInManager.RefreshSignInAsync(user);
@@ -124,7 +125,15 @@ namespace CLI.Areas.Identity.Pages.Account.Manage
                 var setUserNameResult = await _userManager.SetUserNameAsync(user, Input.UserName);
                 if (!setUserNameResult.Succeeded)
                 {
-                    StatusMessage = "Unexpected error when trying to set username.";
+                    var e = setUserNameResult.Errors.First();
+                    if (e.Code == "DuplicateUserName")
+                    {
+                        StatusMessage = e.Description;
+                    }
+                    else
+                    {
+                        StatusMessage = "Непредвиденная ошибка при смене имени пользователя";
+                    }
                     return RedirectToPage();
                 }
                 StatusMessage = "Информация профиля успешно обновлена";

@@ -58,16 +58,16 @@ export class DrawingtoImg extends Component
     static authenticatedView(userName, profilePath, logoutPath, logoutState)
     {
         return (
-            <div className="subbody">
-                <div className="blackout" id="full_blackout">
-                    <img className="loading" alt="loading.webp" src="loading.webp"></img>
+            <div className = "subbody">
+                <div className = "blackout" id = "full_blackout">
+                    <img className = "loading" alt = "loading.webp" src = "loading.webp"></img>
                 </div>
-                <div id="mySidepanel" className="sidepanel">
-                    <a className="closebtn" id="size_panel_closebtn">
+                <div id = "mySidepanel" className = "sidepanel">
+                    <a className = "closebtn" id = "size_panel_closebtn">
                         &times;
                     </a>
-                    <div id="mods_of_work" className="mods_of_work">
-                        <a href="text-to-img" className="work_mode_href" title="Картина по текстовому описанию" style={{ borderBottomStyle: "hidden" }}>
+                    <div id = "mods_of_work" className = "mods_of_work">
+                        <a href = "text-to-img" className = "work_mode_href" title = "Картина по текстовому описанию" style={{ borderBottomStyle: "hidden" }}>
                             <img className="work_mode_img_btn" alt="text_to_image.png" src="text_to_image.png"></img>
                         </a>
                         <a className="work_mode_href" id="selected_work_mode" title="Картина из рисунка (выбрано)">
