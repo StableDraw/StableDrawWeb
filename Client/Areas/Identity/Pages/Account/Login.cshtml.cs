@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
@@ -72,7 +72,7 @@ namespace CLI.Areas.Identity.Pages.Account
             /// </summary>
             [Required]
             [DataType(DataType.Text)]
-            [RegularExpression("^[a-zA-Z0-9@.]*$", ErrorMessage = "Only Alphabets and Numbers allowed.")]
+            [RegularExpression("^[a-zA-Z0-9@.]*$", ErrorMessage = "Допустимы только цифры и латинские буквы")]
             public string UserName { get; set; }
 
             /// <summary>

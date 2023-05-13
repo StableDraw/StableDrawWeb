@@ -4,28 +4,30 @@ import { TexttoImg } from "./components/TexttoImg";
 import { DrawingtoImg } from "./components/DrawingtoImg";
 import { PhototoImg } from "./components/PhototoImg";
 import { FramestoAnimation } from "./components/FramestoAnimation";
+//import { RefreshAuthorization } from "./components/api-authorization/RefreshAuthorization";
 import { Counter } from "./components/Counter";
 import { FetchData } from "./components/FetchData";
 import { Home } from "./components/Home";
 
 const AppRoutes = [
-  {
-    index: true,
-    element: <Home />
-  },
-  {
-    path: '/design',
-    element: <Design />
+    {
+        index: true,
+        element: <Home />
+    },
+    {
+        path: '/design',
+        requireAuth: true,
+        element: <Design />
     },
     {
         path: '/text-to-img',
         requireAuth: true,
         element: <TexttoImg />
     },
-  {
-      path: '/drawing-to-img',
-      requireAuth: true,
-      element: <DrawingtoImg />
+    {
+        path: '/drawing-to-img',
+        requireAuth: true,
+        element: <DrawingtoImg />
     },
     {
         path: '/photo-to-img',
@@ -37,17 +39,23 @@ const AppRoutes = [
         requireAuth: true,
         element: <FramestoAnimation />
     },
-  {
-    path: '/counter',
-    requireAuth: true,
-    element: <Counter />
-  },
-  {
-    path: '/fetch-data',
-    requireAuth: true,
-    element: <FetchData />
-  },
-  ...ApiAuthorzationRoutes
+    /*
+    {
+        path: '/authentication/refresh-authorization',
+        requireAuth: true,
+        element: <RefreshAuthorization />
+    },*/
+    {
+        path: '/counter',
+        requireAuth: true,
+        element: <Counter />
+    },
+    {
+        path: '/fetch-data',
+        requireAuth: true,
+        element: <FetchData />
+    },
+    ...ApiAuthorzationRoutes
 ];
 
 export default AppRoutes;

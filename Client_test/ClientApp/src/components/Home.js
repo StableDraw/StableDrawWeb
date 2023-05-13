@@ -54,7 +54,7 @@ export class Home extends Component {
                 <div>
                     <header className="site-navbar site-navbar-target">
                         <div className="nav-up-left-block">
-                            <a href="https://stabledraw.com" className="bootstrap-nav-link">
+                            <a href="/" className="bootstrap-nav-link">
                                 Главная
                             </a>
                         </div>
@@ -115,7 +115,7 @@ export class Home extends Component {
                 <div>
                     <header className="site-navbar site-navbar-target">
                         <div className="nav-up-left-block">
-                            <a href="https://stabledraw.com" className="bootstrap-nav-link">
+                            <a href="/" className="bootstrap-nav-link">
                                 Главная
                             </a>
                         </div>

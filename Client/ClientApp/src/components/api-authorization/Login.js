@@ -17,51 +17,58 @@ export class Login extends Component {
     };
   }
 
-  componentDidMount() {
-    const action = this.props.action;
-    switch (action) {
-      case LoginActions.Login:
-        this.login(this.getReturnUrl());
-        break;
-      case LoginActions.LoginCallback:
-        this.processLoginCallback();
-        break;
-      case LoginActions.LoginFailed:
-        const params = new URLSearchParams(window.location.search);
-        const error = params.get(QueryParameterNames.Message);
-        this.setState({ message: error });
-        break;
-      case LoginActions.Profile:
-        this.redirectToProfile();
-        break;
-      case LoginActions.Register:
-        this.redirectToRegister();
-        break;
-      default:
-        throw new Error(`Invalid action '${action}'`);
+    componentDidMount()
+    {
+        const action = this.props.action;
+        switch (action)
+        {
+            case LoginActions.Login:
+                this.login(this.getReturnUrl());
+                break;
+            case LoginActions.LoginCallback:
+                this.processLoginCallback();
+                break;
+            case LoginActions.LoginFailed:
+                const params = new URLSearchParams(window.location.search);
+                const error = params.get(QueryParameterNames.Message);
+                this.setState({ message: error });
+                break;
+            case LoginActions.Profile:
+                this.redirectToProfile();
+                break;
+            case LoginActions.Register:
+                this.redirectToRegister();
+                break;
+            default:
+                throw new Error(`Invalid action '${action}'`);
+        }
     }
-  }
 
-  render() {
-    const action = this.props.action;
-    const { message } = this.state;
+    render()
+    {
+        const action = this.props.action;
+        const { message } = this.state;
 
-    if (!!message) {
-      return <div>{message}</div>
-    } else {
-      switch (action) {
-        case LoginActions.Login:
-          return (<div>Processing login</div>);
-        case LoginActions.LoginCallback:
-          return (<div>Processing login callback</div>);
-        case LoginActions.Profile:
-        case LoginActions.Register:
-          return (<div></div>);
-        default:
-          throw new Error(`Invalid action '${action}'`);
-      }
+        if (!!message)
+        {
+            return <div>{message}</div>
+        }
+        else
+        {
+            switch (action)
+            {
+                case LoginActions.Login:
+                    return (<div>Processing login</div>);
+                case LoginActions.LoginCallback:
+                    return (<div>Processing login callback</div>);
+                case LoginActions.Profile:
+                case LoginActions.Register:
+                    return (<div></div>);
+                default:
+                    throw new Error(`Invalid action '${action}'`);
+            }
+        }
     }
-  }
 
   async login(returnUrl) {
     const state = { returnUrl };

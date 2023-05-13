@@ -84,7 +84,7 @@ namespace CLI.Areas.Identity.Pages.Account
 
             [Required]
             [StringLength(20, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
-            [RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "Only Alphabets and Numbers allowed.")]
+            [RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "Допустимы только цифры и латинские буквы")]
             [Display(Name = "Username")]
             public string Username { get; set; }
 
@@ -104,7 +104,7 @@ namespace CLI.Areas.Identity.Pages.Account
             /// </summary>
             [DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Compare("Password", ErrorMessage = "Пароли не совпадают")]
             public string ConfirmPassword { get; set; }
         }
 

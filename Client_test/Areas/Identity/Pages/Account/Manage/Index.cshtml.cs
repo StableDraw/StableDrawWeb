@@ -10,6 +10,7 @@ using CLI.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Mono.TextTemplating;
 
 namespace CLI.Areas.Identity.Pages.Account.Manage
 {
@@ -106,15 +107,17 @@ namespace CLI.Areas.Identity.Pages.Account.Manage
 
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             var userName = await _userManager.GetUserNameAsync(user);
+            bool isUpdated = false;
             if (Input.PhoneNumber != phoneNumber)
             {
+                isUpdated = true;
                 var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
                 if (!setPhoneResult.Succeeded)
                 {
                     StatusMessage = "Unexpected error when trying to set phone number.";
                     return RedirectToPage();
                 }
-
+                await _signInManager.RefreshSignInAsync(user);
             }
             if (Input.UserName != userName)
             {
@@ -124,10 +127,18 @@ namespace CLI.Areas.Identity.Pages.Account.Manage
                     StatusMessage = "Unexpected error when trying to set username.";
                     return RedirectToPage();
                 }
+                StatusMessage = "Информация профиля успешно обновлена";
+                await _signInManager.RefreshSignInAsync(user);
+                return Redirect($"~/authentication/login?returnUrl={Request.Scheme}://{Request.Host}{Request.Path}{Request.QueryString}");
             }
-
-            await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
+            if (isUpdated)
+            {
+                StatusMessage = "Информация профиля успешно обновлена";
+            }
+            else
+            {
+                StatusMessage = "Не обнаружено изменений";
+            }
             return RedirectToPage();
         }
     }
