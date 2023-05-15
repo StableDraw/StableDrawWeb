@@ -9,6 +9,7 @@ Website with Stable Diffusion and many additional features
 - [ ] Текстровое преобразование (а вот с этим я не справился. Пытался, но не смог запустить. Да и вдруг есть аналоги, надо поискать. В общем: удачи) https://github.com/google/prompt-to-prompt
 - [x] Раскрашивание ~https://github.com/SerialLain3170/Colorization~ (во-первых, конкретно эта нейронка без весов. Во-вторых, пункт теперь разбился на подпункты)
 - c) Outpainting (Stable diffusion Infinity) https://github.com/lkwq007/stablediffusion-infinity
+- d) DeepFlydAI https://github.com/deep-floyd/IF
 #### Расскрашивание (AI Colorize) (нас интересует в первую очередь возможность окрашивания чёрно-белого лайна):
 - a) Без подсказок (no hint):
 - Попытаться алгоритмическими настройками улучшить существующую нейронку для колоризации, провести исследование
