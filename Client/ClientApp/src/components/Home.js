@@ -47,8 +47,7 @@ export class Home extends Component {
         }
     }
 
-    authenticatedView(userName, profilePath, logoutPath, logoutState)
-    {
+    authenticatedView(userName, profilePath, logoutPath, logoutState) {
         return (
             <div className="start-page" data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
                 <div>
@@ -79,8 +78,8 @@ export class Home extends Component {
                                             Веб-платформа для рисования, обработки изображений и создания анимаций с применением искусственных нейронных сетей
                                         </p>
                                         <p className="block-start-button">
-                                            <NavLink tag={Link} to="/drawing-to-img" className = "bootstrap-btn primary-outline-white--hover">
-                                                <a className = "start-button-text">
+                                            <NavLink tag={Link} to="/drawing-to-img" className="bootstrap-btn primary-outline-white--hover">
+                                                <a className="start-button-text">
                                                     Начать
                                                 </a>
                                             </NavLink>
@@ -108,8 +107,7 @@ export class Home extends Component {
         );
     }
 
-    anonymousView(registerPath, loginPath)
-    {
+    anonymousView(registerPath, loginPath) {
         return (
             <div className="start-page" data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
                 <div>
@@ -119,7 +117,7 @@ export class Home extends Component {
                                 Главная
                             </a>
                         </div>
-                        <div className = "nav-up-right-block">
+                        <div className="nav-up-right-block">
                             <NavLink tag={Link} to={registerPath} className="nav-up-reg-link">
                                 Регистрация
                             </NavLink>
@@ -141,7 +139,7 @@ export class Home extends Component {
                                         </p>
                                         <p className="block-start-button">
                                             <NavLink tag={Link} to={loginPath} className="bootstrap-btn primary-outline-white--hover">
-                                                <a className = "start-button-text">
+                                                <a className="start-button-text">
                                                     Начать
                                                 </a>
                                             </NavLink>

@@ -1,11 +1,8 @@
 {
-  "dependencies": {
-    "jquery": "^3.6.4",
-    "react-helmet": "^6.1.0"
-  },
   "devDependencies": {
-    "@types/jquery": "^3.5.16",
-    "@types/react": "^18.2.0",
-    "eslint": "^8.39.0"
+    "@types/jquery": "^3.5.16"
+  },
+  "dependencies": {
+    "react-helmet": "^6.1.0"
   }
 }

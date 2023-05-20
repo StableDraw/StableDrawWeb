@@ -11,7 +11,6 @@ using CLI.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Mono.TextTemplating;
 
 namespace CLI.Areas.Identity.Pages.Account.Manage
 {
