@@ -22,7 +22,7 @@ Write-Output F|xcopy /H /Y /C /R /S Client\Program.cs CLI\Program.cs
 Write-Output F|xcopy /H /Y /C /R /S Client\tsconfig.json CLI\tsconfig.json
 Write-Output D|xcopy /H /Y /C /R /S Client\ClientApp\public CLI\ClientApp\public
 Write-Output D|xcopy /H /Y /C /R /S Client\ClientApp\src CLI\ClientApp\src
-Remove-Item /S /Q Client_test
+Remove-Item /S Client_test
 rename CLI Client_test
 Set-Location Client_test
-dotnet watch CLI.csproj
+dotnet watch
