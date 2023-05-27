@@ -25,4 +25,4 @@ Write-Output D|xcopy /H /Y /C /R /S Client\ClientApp\src CLI\ClientApp\src
 Write-Output Y|Remove-Item /S Client_test
 rename CLI Client_test
 Set-Location Client_test
-Write-Output Y|dotnet watch
+dotnet watch
