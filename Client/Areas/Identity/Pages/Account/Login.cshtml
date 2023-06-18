@@ -1,4 +1,6 @@
 ﻿@page
+@using Microsoft.Extensions.Options
+@inject IOptions<GoogleRecaptchaSettings> GoogleRecaptcha
 @model LoginModel
 
 @{
@@ -20,6 +22,7 @@
                 </div>
                 <div class="form-floating mb-3" style="position: relative; height: calc(3.5rem + 2px);">
                     <input asp-for="Input.Password" class="form-control" id="password" type="password" autocomplete="current-password" aria-required="true" placeholder="password" style="height: 100%; position: absolute; z-index: 1;" />
+                    <input type="hidden" asp-for="Input.Token" />
                     <div class = "pass_visibility_btn" onclick="togglePassword()" style="position: absolute; border: none; height: 50%; top: 25%; padding: 0; right: calc(0.25 * (3.5rem + 2px)); aspect-ratio: 1 / 1; z-index: 2; cursor: pointer">
                         <img id = "pass_vis_btn" src = "~/visibility_on.png" alt = "Показать пароль" style="position: relative; opacity: .5; z-index: 2; height: 100%; width: 100%">
                     </div>
@@ -105,4 +108,20 @@
 @section Scripts 
 {
     <partial name="_ValidationScriptsPartial" />
+    <script src="https://www.google.com/recaptcha/api.js?render=@GoogleRecaptcha.Value.RecaptchaSiteKey"></script>
+    <script>
+        grecaptcha.ready(
+            function () {                
+                document.querySelectorAll(".btn").forEach(elem => {                    
+                    elem.addEventListener("click", (event) => {
+                        console.log(elem)
+                        event.preventDefault();
+                        window.grecaptcha.execute('@GoogleRecaptcha.Value.RecaptchaSiteKey', { action: 'submit' }).then(function (token) {
+                            $("#Input_Token").val(token);
+                            document.getElementById('account').submit();               
+                        });
+                    })
+                })
+            });                
+    </script>
 }

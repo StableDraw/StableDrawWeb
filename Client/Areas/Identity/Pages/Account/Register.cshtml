@@ -1,4 +1,6 @@
 ﻿@page
+@using Microsoft.Extensions.Options
+@inject IOptions<GoogleRecaptchaSettings> GoogleRecaptcha
 @model RegisterModel
 @{
     ViewData["Title"] = "Регистрация";
@@ -32,6 +34,7 @@
                 <label asp-for="Input.ConfirmPassword">Повторите пароль</label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
+            <input type="hidden" asp-for="Input.Token" />
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Зарегистрироваться</button>
         </form>
     </div>
@@ -71,4 +74,17 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script src="https://www.google.com/recaptcha/api.js?render=@GoogleRecaptcha.Value.RecaptchaSiteKey"></script>
+    <script>
+        grecaptcha.ready(function () {
+            document.getElementById('registerForm').addEventListener("submit",
+                function (event) {
+                    event.preventDefault();
+                    window.grecaptcha.execute('@GoogleRecaptcha.Value.RecaptchaSiteKey', { action: 'submit' }).then(function (token) {
+                        $("#Input_Token").val(token);
+                        document.getElementById('registerForm').submit();
+                    });
+                }, false);
+        });
+    </script>
 }
