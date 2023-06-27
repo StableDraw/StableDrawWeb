@@ -1,0 +1,60 @@
+@page
+@model CLI.Pages_ResultCaptions.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ResultCaptions[0].ResultTextId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResultCaptions[0].InitTextId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResultCaptions[0].IsInitEng)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResultCaptions[0].IsFinalEng)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResultCaptions[0].IsHuman)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.ResultCaptions) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResultTextId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InitTextId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsInitEng)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsFinalEng)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsHuman)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

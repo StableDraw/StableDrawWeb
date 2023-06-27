@@ -11,11 +11,20 @@ const context = [
   "/Identity",
   "/connect",
   "/ApplyDatabaseMigrations",
-  "/_framework"
+  "/_framework",
+  "/UserStatus",  // Страница с тестовым отображением таблицы UserStatus
+  "/UserTasks",  // Страница с тестовым отображением таблицы UserTasks
+  "/AllTasks",  // Страница с тестовым отображением таблицы AllTasks
+  "/ResultCaptions",  // Страница с тестовым отображением таблицы ResultCaptions
+  "/AllResults",  // Страница с тестовым отображением таблицы AllResults
+  "/AllCaptions",  // Страница с тестовым отображением таблицы AllCaptions
+  "/ResultImgs",  // Страница с тестовым отображением таблицы ResultImgs
+  "/AllImgs",  // Страница с тестовым отображением таблицы AllImgs
+  "/ResultParams",  // Страница с тестовым отображением таблицы ResultParams
 ];
 
 const onError = (err, req, resp, target) => {
-    console.error(`${err.message}`);
+  console.error(`${err.message}`);
 }
 
 module.exports = function (app) {

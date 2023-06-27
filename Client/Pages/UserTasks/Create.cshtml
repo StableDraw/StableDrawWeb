@@ -1,0 +1,58 @@
+@page
+@model CLI.Pages_UserTasks.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>UserTasks</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="UserTasks.UserStatusId" class="control-label"></label>
+                <select asp-for="UserTasks.UserStatusId" class ="form-control" asp-items="ViewBag.UserStatusId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserTasks.LastLinkId" class="control-label"></label>
+                <input asp-for="UserTasks.LastLinkId" class="form-control" />
+                <span asp-validation-for="UserTasks.LastLinkId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserTasks.UserTaskType" class="control-label"></label>
+                <input asp-for="UserTasks.UserTaskType" class="form-control" />
+                <span asp-validation-for="UserTasks.UserTaskType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserTasks.ResultImgId" class="control-label"></label>
+                <input asp-for="UserTasks.ResultImgId" class="form-control" />
+                <span asp-validation-for="UserTasks.ResultImgId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserTasks.ResultCaptionId" class="control-label"></label>
+                <input asp-for="UserTasks.ResultCaptionId" class="form-control" />
+                <span asp-validation-for="UserTasks.ResultCaptionId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserTasks.UserSettingsKey" class="control-label"></label>
+                <input asp-for="UserTasks.UserSettingsKey" class="form-control" />
+                <span asp-validation-for="UserTasks.UserSettingsKey" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

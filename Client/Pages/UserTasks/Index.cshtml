@@ -1,0 +1,66 @@
+@page
+@model CLI.Pages_UserTasks.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserTasks[0].UserStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserTasks[0].LastLinkId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserTasks[0].UserTaskType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserTasks[0].ResultImgId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserTasks[0].ResultCaptionId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserTasks[0].UserSettingsKey)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.UserTasks) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserStatus.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastLinkId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserTaskType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResultImgId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResultCaptionId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserSettingsKey)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

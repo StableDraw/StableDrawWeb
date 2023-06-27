@@ -1,0 +1,69 @@
+@page
+@model CLI.Pages_ResultImgs.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>ResultImgs</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ResultImgs.ResultPicId" class="control-label"></label>
+                <input asp-for="ResultImgs.ResultPicId" class="form-control" />
+                <span asp-validation-for="ResultImgs.ResultPicId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResultImgs.ResultParamsId" class="control-label"></label>
+                <input asp-for="ResultImgs.ResultParamsId" class="form-control" />
+                <span asp-validation-for="ResultImgs.ResultParamsId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResultImgs.InitImgID" class="control-label"></label>
+                <input asp-for="ResultImgs.InitImgID" class="form-control" />
+                <span asp-validation-for="ResultImgs.InitImgID" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="ResultImgs.IsDrawing" /> @Html.DisplayNameFor(model => model.ResultImgs.IsDrawing)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="ResultImgs.IsDrawingSure" /> @Html.DisplayNameFor(model => model.ResultImgs.IsDrawingSure)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResultImgs.PrimsCount" class="control-label"></label>
+                <input asp-for="ResultImgs.PrimsCount" class="form-control" />
+                <span asp-validation-for="ResultImgs.PrimsCount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResultImgs.DotsCount" class="control-label"></label>
+                <input asp-for="ResultImgs.DotsCount" class="form-control" />
+                <span asp-validation-for="ResultImgs.DotsCount" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="ResultImgs.NeedRestore" /> @Html.DisplayNameFor(model => model.ResultImgs.NeedRestore)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

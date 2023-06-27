@@ -1,0 +1,49 @@
+@page
+@model CLI.Pages_ResultCaptions.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>ResultCaptions</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ResultCaptions.ResultTextId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ResultCaptions.ResultTextId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ResultCaptions.InitTextId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ResultCaptions.InitTextId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ResultCaptions.IsInitEng)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ResultCaptions.IsInitEng)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ResultCaptions.IsFinalEng)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ResultCaptions.IsFinalEng)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ResultCaptions.IsHuman)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ResultCaptions.IsHuman)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.ResultCaptions?.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

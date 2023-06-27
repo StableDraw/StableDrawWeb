@@ -1,0 +1,67 @@
+@page
+@model CLI.Pages_ResultImgs.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>ResultImgs</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ResultImgs.ResultPicId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ResultImgs.ResultPicId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ResultImgs.ResultParamsId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ResultImgs.ResultParamsId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ResultImgs.InitImgID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ResultImgs.InitImgID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ResultImgs.IsDrawing)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ResultImgs.IsDrawing)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ResultImgs.IsDrawingSure)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ResultImgs.IsDrawingSure)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ResultImgs.PrimsCount)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ResultImgs.PrimsCount)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ResultImgs.DotsCount)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ResultImgs.DotsCount)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ResultImgs.NeedRestore)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ResultImgs.NeedRestore)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.ResultImgs?.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

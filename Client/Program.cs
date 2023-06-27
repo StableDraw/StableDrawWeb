@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using CLI.Services;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.OAuth;
+using Microsoft.Extensions.DependencyInjection;
+using CLI;
 
 var builder = WebApplication.CreateBuilder(args);
 

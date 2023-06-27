@@ -1,0 +1,78 @@
+@page
+@model CLI.Pages_ResultImgs.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ResultImgs[0].ResultPicId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResultImgs[0].ResultParamsId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResultImgs[0].InitImgID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResultImgs[0].IsDrawing)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResultImgs[0].IsDrawingSure)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResultImgs[0].PrimsCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResultImgs[0].DotsCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResultImgs[0].NeedRestore)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.ResultImgs) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResultPicId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResultParamsId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InitImgID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDrawing)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDrawingSure)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrimsCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DotsCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NeedRestore)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

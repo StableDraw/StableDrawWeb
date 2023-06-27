@@ -1,0 +1,48 @@
+@page
+@model CLI.Pages_AllImgs.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AllImgs[0].IsReady)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AllImgs[0].PixelWidth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AllImgs[0].PixelHeight)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.AllImgs) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsReady)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PixelWidth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PixelHeight)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

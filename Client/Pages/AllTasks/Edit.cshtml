@@ -1,0 +1,55 @@
+@page
+@model CLI.Pages_AllTasks.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>AllTasks</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="AllTasks.Id" />
+            <div class="form-group">
+                <label asp-for="AllTasks.UserTasksId" class="control-label"></label>
+                <select asp-for="AllTasks.UserTasksId" class="form-control" asp-items="ViewBag.UserTasksId"></select>
+                <span asp-validation-for="AllTasks.UserTasksId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AllTasks.UserStatusId" class="control-label"></label>
+                <select asp-for="AllTasks.UserStatusId" class="form-control" asp-items="ViewBag.UserStatusId"></select>
+                <span asp-validation-for="AllTasks.UserStatusId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AllTasks.PrevLinkId" class="control-label"></label>
+                <input asp-for="AllTasks.PrevLinkId" class="form-control" />
+                <span asp-validation-for="AllTasks.PrevLinkId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AllTasks.TechTaskType" class="control-label"></label>
+                <input asp-for="AllTasks.TechTaskType" class="form-control" />
+                <span asp-validation-for="AllTasks.TechTaskType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AllTasks.AllResultsId" class="control-label"></label>
+                <select asp-for="AllTasks.AllResultsId" class="form-control" asp-items="ViewBag.AllResultsId"></select>
+                <span asp-validation-for="AllTasks.AllResultsId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

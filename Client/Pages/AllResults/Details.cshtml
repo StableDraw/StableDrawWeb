@@ -1,0 +1,31 @@
+@page
+@model CLI.Pages_AllResults.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>AllResults</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AllResults.ResultType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AllResults.ResultType)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AllResults.ResultId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AllResults.ResultId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.AllResults?.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
