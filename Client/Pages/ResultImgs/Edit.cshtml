@@ -55,6 +55,21 @@
                 </label>
             </div>
             <div class="form-group">
+                <label asp-for="ResultImgs.ClrRGBA" class="control-label"></label>
+                <input asp-for="ResultImgs.ClrRGBA" class="form-control" />
+                <span asp-validation-for="ResultImgs.ClrRGBA" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResultImgs.ScaleXY" class="control-label"></label>
+                <input asp-for="ResultImgs.ScaleXY" class="form-control" />
+                <span asp-validation-for="ResultImgs.ScaleXY" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResultImgs.PositionXY" class="control-label"></label>
+                <input asp-for="ResultImgs.PositionXY" class="form-control" />
+                <span asp-validation-for="ResultImgs.PositionXY" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>

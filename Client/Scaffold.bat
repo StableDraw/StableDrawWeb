@@ -1,4 +1,5 @@
-set list=UserStatus UserTasks AllTasks ResultCaptions AllResults AllCaptions ResultImgs AllImgs ResultParams
+set list=UserStatus ResultImgs
+@REM UserStatus UserTasks AllTasks ResultCaptions AllResults AllCaptions ResultImgs AllImgs ResultParams
 set ctx=CLI.Data.ApplicationDbContext
 for %%i in (%list%) do (
     @RD /S /Q "Pages/"%%i

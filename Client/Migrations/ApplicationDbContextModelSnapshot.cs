@@ -199,6 +199,9 @@ namespace CLI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("ClrRGBA")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("DotsCount")
                         .HasColumnType("INTEGER");
 
@@ -214,6 +217,10 @@ namespace CLI.Migrations
                     b.Property<bool>("NeedRestore")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("PositionXY")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("PrimsCount")
                         .HasColumnType("INTEGER");
 
@@ -222,6 +229,10 @@ namespace CLI.Migrations
 
                     b.Property<int>("ResultPicId")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("ScaleXY")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
