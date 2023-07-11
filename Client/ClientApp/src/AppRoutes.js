@@ -8,6 +8,7 @@ import { FramestoAnimation } from "./components/FramestoAnimation";
 import { Counter } from "./components/Counter";
 import { FetchData } from "./components/FetchData";
 import { Home } from "./components/Home";
+import {TestFetch} from "./components/TestFetch";
 
 const AppRoutes = [
     {
@@ -54,6 +55,11 @@ const AppRoutes = [
         path: '/fetch-data',
         requireAuth: true,
         element: <FetchData />
+    },
+    {
+        path: '/tf',
+        requireAuth: false,
+        element: <TestFetch />
     },
     ...ApiAuthorzationRoutes
 ];

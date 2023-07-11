@@ -1,0 +1,11 @@
+import axios from "axios";
+import AuthorizeService from "../api-authorization/AuthorizeService";
+
+
+export default class ApiToken {
+    static async token() {
+        const response = AuthorizeService.getAccessToken();
+        return response;
+
+    }
+}
