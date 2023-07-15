@@ -1,5 +1,5 @@
 import axios from "axios";
-import AuthorizeService from "../api-authorization/AuthorizeService";
+import AuthorizeService from "../components/api-authorization/AuthorizeService";
 
 
 export default class ApiToken {
