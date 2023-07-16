@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using CLI.Services;
 
 namespace CLI.Areas.Identity.Pages.Account
 {
@@ -22,11 +23,13 @@ namespace CLI.Areas.Identity.Pages.Account
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IEmailSender _emailSender;
+        private readonly GoogleRecaptchaService _googleRecaptchaService;
 
-        public ResendEmailConfirmationModel(UserManager<ApplicationUser> userManager, IEmailSender emailSender)
+        public ResendEmailConfirmationModel(UserManager<ApplicationUser> userManager, IEmailSender emailSender, GoogleRecaptchaService googleRecaptchaService)
         {
             _userManager = userManager;
             _emailSender = emailSender;
+            _googleRecaptchaService = googleRecaptchaService;
         }
 
         /// <summary>
@@ -49,6 +52,9 @@ namespace CLI.Areas.Identity.Pages.Account
             [Required]
             [EmailAddress]
             public string Email { get; set; }
+
+            [Required]
+            public string Token { get; set; }
         }
 
         public void OnGet()
@@ -57,7 +63,9 @@ namespace CLI.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            var capthca = _googleRecaptchaService.Verefication(Input.Token);
+
+            if (!ModelState.IsValid && !capthca.Result.success && capthca.Result.score <= 0.5)
             {
                 return Page();
             }

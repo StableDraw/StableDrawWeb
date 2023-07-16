@@ -1,4 +1,6 @@
 ﻿@page
+@using Microsoft.Extensions.Options
+@inject IOptions<GoogleRecaptchaSettings> GoogleRecaptcha
 @model ResendEmailConfirmationModel
 @{
     ViewData["Title"] = "Resend email confirmation";
@@ -12,6 +14,7 @@
         <form method="post">
             <div asp-validation-summary="All" class="text-danger" role="alert"></div>
             <div class="form-floating mb-3">
+                <input type="hidden" asp-for="Input.Token" />
                 <input asp-for="Input.Email" class="form-control" aria-required="true" placeholder="name@example.com" />
                 <label asp-for="Input.Email" class="form-label"></label>
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
@@ -23,4 +26,17 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script src="https://www.google.com/recaptcha/api.js?render=@GoogleRecaptcha.Value.RecaptchaSiteKey"></script>
+    <script>
+        grecaptcha.ready(function () {
+            document.getElementById('post').addEventListener("submit",
+                function (event) {
+                    event.preventDefault();
+                    window.grecaptcha.execute('@GoogleRecaptcha.Value.RecaptchaSiteKey', { action: 'submit' }).then(function (token) {
+                        $("#Input_Token").val(token);
+                        document.getElementById('post').submit();
+                    });
+                }, false);
+        });
+    </script>
 }
