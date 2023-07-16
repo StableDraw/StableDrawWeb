@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using CLI.Services;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.OAuth;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -108,6 +109,12 @@ builder.Services.AddHttpsRedirection(options =>
     options.RedirectStatusCode = (int)HttpStatusCode.TemporaryRedirect;
     options.HttpsPort = 443;
 });
+
+//recaptcha
+builder.Services.Configure<GoogleRecaptchaSettings>(builder.Configuration.GetSection("GoogleRecaptcha"));
+builder.Services.AddTransient<GoogleRecaptchaService>();
+
+builder.Services.Configure<JwtBearerOptions>("IdentityServerJwtBearer", o => o.Authority = "https://localhost:44452");
 
 var app = builder.Build();
 

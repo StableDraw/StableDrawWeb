@@ -18,6 +18,7 @@ using CLI.Models;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using IdentityModel;
+using CLI.Services;
 
 namespace CLI.Areas.Identity.Pages.Account
 {
@@ -26,12 +27,17 @@ namespace CLI.Areas.Identity.Pages.Account
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly GoogleRecaptchaService _googleRecaptchaService;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<ApplicationUser> signInManager, 
+                          UserManager<ApplicationUser> userManager, 
+                          ILogger<LoginModel> logger, 
+                          GoogleRecaptchaService googleRecaptchaService)
         {
             _signInManager = signInManager;
             _logger = logger;
             _userManager = userManager;
+            _googleRecaptchaService = googleRecaptchaService;
         }
 
         /// <summary>
@@ -89,6 +95,9 @@ namespace CLI.Areas.Identity.Pages.Account
             /// </summary>
             [Display(Name = "Запомнить меня?")]
             public bool RememberMe { get; set; }
+
+            [Required]
+            public string Token { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -113,6 +122,13 @@ namespace CLI.Areas.Identity.Pages.Account
             returnUrl ??= Url.Content("~/drawing-to-img");
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            var capthca = _googleRecaptchaService.Verefication(Input.Token);
+
+            if (!capthca.Result.success && capthca.Result.score <= 0.5)
+            {
+                ModelState.AddModelError(string.Empty, "Капча не пройдена, подождите 2 минуты, пожалуйста");
+                return Page();
+            }
 
             if (ModelState.IsValid)
             {
