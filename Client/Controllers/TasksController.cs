@@ -22,10 +22,11 @@ public class TasksController : Controller
         return Ok(_repository.GetTasks());
     }
 
-    [HttpGet("{id}")]
-    public IActionResult GetTask(Guid id)
+    [HttpGet("{id:string}")]
+    public IActionResult GetTask(string id)
     {
-        if (id == Guid.Empty)
+        //if (id == Guid.Empty)
+        if(string.IsNullOrEmpty(id))
         {
             return BadRequest("The id should not be empty");
         }
@@ -48,7 +49,7 @@ public class TasksController : Controller
             return BadRequest("The id should not be empty");
         }
 
-        var task = _repository.GetTask(newTask.Id);
+        var task = _repository.GetTask(newTask.Id.ToString());
         var user = _usersRepository.GetUser(newTask.UserId);
 
         if (task is not null)

@@ -11,6 +11,9 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
 {
     private readonly string _connectionString;
     private readonly string _providerName;
+   
+    public DbSet<Subscriber> Subscribers { get; set; }
+    public DbSet<GenerationFlow> GenerationFlows { get; set; }
 
     public ApplicationDbContext(DbContextOptions options, IOptions<OperationalStoreOptions> operationalStoreOptions, IOptions<ConnectionOptions> connectionOptions)
         : base(options, operationalStoreOptions)

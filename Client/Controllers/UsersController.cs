@@ -78,7 +78,7 @@ public class UsersController : Controller
         var generationInfo = _repository.GetGenerationInfo(id, DateTime.Now);
         var subscriptionInfo = _repository.GetSubscriptionInfo(id);
 
-        return Ok(UserToDTO(user, subscriptionInfo, generationInfo));
+        return Ok(UserToDTO(user));
     }
 
     [HttpPost]
@@ -101,15 +101,26 @@ public class UsersController : Controller
 
         return Ok(newUser);
     }
-        
-    private Models.DTOs.User UserToDTO(User user, SubscriptionInfo? subscriptionInfo, GenerationInfo? generationInfo)
+   
+    private Models.DTOs.User UserToDTO(ApplicationUser user)
     {
         return new Models.DTOs.User()
         {
             Id = user.Id,
             IsDesignAcces = true,
-            GenerationInfo = generationInfo,
-            SubscriptionInfo = subscriptionInfo
+            GenerationInfo = user.GenerationInfo,
+            SubscriptionInfo = user.SubscriptionInfo
         };
     }
+    
+    // private Models.DTOs.User UserToDTO(User user, SubscriptionInfo? subscriptionInfo, GenerationInfo? generationInfo)
+    // {
+    //     return new Models.DTOs.User()
+    //     {
+    //         Id = user.Id,
+    //         IsDesignAcces = true,
+    //         GenerationInfo = generationInfo,
+    //         SubscriptionInfo = subscriptionInfo
+    //     };
+    // }
 }

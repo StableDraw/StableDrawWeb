@@ -1,13 +1,16 @@
 using CLI.Data;
+using CLI.Extentions;
 using CLI.Models;
 
 namespace CLI.Repositories;
 
 public class UsersRepository : IUsersRepository
 {
-    private readonly UserContext _context;
+    //private readonly UserContext _context;
+    private readonly ApplicationDbContext _context;
 
-    public UsersRepository(UserContext context)
+    //public UsersRepository(UserContext context)
+    public UsersRepository(ApplicationDbContext context)
     {
         _context = context;
     }
@@ -24,10 +27,15 @@ public class UsersRepository : IUsersRepository
 
     public void CreateUser(User user)
     {
+        _context.Users.Add(new ApplicationUser() {Id = user.Id.ToString()});
+    }
+
+    public void CreateUser(ApplicationUser user)
+    {
         _context.Users.Add(user);
     }
 
-    public void DeleteUser(User user)
+    public void DeleteUser(ApplicationUser user)
     {
         _context.Users.Remove(user);
     }
@@ -61,12 +69,12 @@ public class UsersRepository : IUsersRepository
             .FirstOrDefault();
     }
 
-    public User? GetUser(Guid id)
+    public ApplicationUser? GetUser(Guid id)
     {
-        return _context.Users.Where(u => u.Id == id).FirstOrDefault();
+        return _context.Users.FirstOrDefault(u => u.Id == id.ToString());
     }
 
-    public IEnumerable<User> GetUsers()
+    public IEnumerable<ApplicationUser> GetUsers()
     {
         return _context.Users.ToList();
     }

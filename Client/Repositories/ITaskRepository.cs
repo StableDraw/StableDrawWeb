@@ -10,7 +10,8 @@ public interface ITasksRepository
     Generation? GetGeneration(Guid id, int number);
     Result? GetResult(Guid id);
     IEnumerable<Result> GetResults();
-    Models.Task? GetTask(Guid id);
+    //Models.Task? GetTask(Guid id);
+    Models.Task? GetTask(string id);
     IEnumerable<Models.Task> GetTasks();
     void Save();
 }

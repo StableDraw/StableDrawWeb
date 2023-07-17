@@ -10,15 +10,15 @@ public class Result
 
 public class ImageResult : Result
 {
-    public dynamic Property { get; set; }
+    public dynamic? Property { get; set; }
 }
 
 public class CaptionResult : Result
 {
-    public dynamic Property { get; set; }
+    public dynamic? Property { get; set; }
 }
 
 public class ParamsResult : Result
 {
-    public dynamic Property { get; set; }
+    public dynamic? Property { get; set; }
 }

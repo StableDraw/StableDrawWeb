@@ -2,25 +2,17 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Threading;
-using System.Threading.Tasks;
+using CLI.Models;
+using CLI.Services;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.Extensions.Logging;
-using CLI.Models;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using System.Security.Claims;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
+using System.Text.Encodings.Web;
 
 namespace CLI.Areas.Identity.Pages.Account
 {
@@ -32,13 +24,14 @@ namespace CLI.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly GoogleRecaptchaService _googleRecaptchaService;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             IUserStore<ApplicationUser> userStore,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender, GoogleRecaptchaService googleRecaptchaService)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -46,6 +39,7 @@ namespace CLI.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _googleRecaptchaService = googleRecaptchaService;
         }
 
         /// <summary>
@@ -106,6 +100,9 @@ namespace CLI.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "Пароли не совпадают")]
             public string ConfirmPassword { get; set; }
+
+            [Required]
+            public string Token { get; set; }
         }
 
 
@@ -119,6 +116,14 @@ namespace CLI.Areas.Identity.Pages.Account
         {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            var capthca = _googleRecaptchaService.Verefication(Input.Token);
+
+            if (!capthca.Result.success && capthca.Result.score <= 0.5)
+            {
+                ModelState.AddModelError(string.Empty, "Капча не пройдена, подождите 2 минуты, пожалуйста");
+                return Page();
+            }
+
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
