@@ -39,6 +39,14 @@ public class UserContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<GenerationFlow>().HasKey(entity => new { entity.UserId, entity.Date });
+        modelBuilder.Entity<User>().Property(t => t.Id).HasColumnType("uuid");
+        modelBuilder.Entity<User>().HasKey(t => t.Id);
+
+        modelBuilder.Entity<Subscriber>().Property(t => t.Expiration).HasColumnType("datetime2");
+                
+        modelBuilder.Entity<GenerationFlow>().Property(t => t.Date).HasColumnType("datetime2");
+        modelBuilder.Entity<GenerationFlow>().Property(t => t.Flow).HasColumnType("integer");
+        modelBuilder.Entity<GenerationFlow>().Property(t => t.UserId).HasColumnType("uuid");
+        modelBuilder.Entity<GenerationFlow>().HasKey(t => new { t.UserId, t.Date });
     }
 }
