@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+namespace CLI.Models.DTOs;
 
-namespace CLI.Models;
-
-public class ApplicationUser : IdentityUser
+public class User
 {
+    public string? Id { get; set; }
     public bool IsDesignAcces { get; set; }
     public SubscriptionInfo? SubscriptionInfo { get; set; }
     public GenerationInfo? GenerationInfo { get; set; }

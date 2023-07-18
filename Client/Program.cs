@@ -1,35 +1,43 @@
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using CLI.Data;
-using CLI.Models;
 using System.Net;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using CLI.Services;
 using System.Security.Claims;
+using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OAuth;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using CLI.Data;
+using CLI.Extentions;
+using CLI.Settings;
+using CLI.Options;
+using CLI.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Task = System.Threading.Tasks.Task;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.Configure<ConnectionOptions>(builder.Configuration.GetSection(ConnectionOptions.Context));
+builder.Services.AddDatabases();
+
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+// var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+// if (builder.Environment.IsDevelopment())
+// {
+//     builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(connectionString));
+//     builder.Services.AddDbContext<SLN.Data.TaskContext>(options => options.UseSqlite(connectionString));
+//     builder.Services.AddDbContext<SLN.Data.UserContext>(options => options.UseSqlite(connectionString));
+// }
+// else
+// {
+//     builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString));
+//     builder.Services.AddDbContext<SLN.Data.TaskContext>(options => options.UseNpgsql(connectionString));
+//     builder.Services.AddDbContext<SLN.Data.UserContext>(options => options.UseNpgsql(connectionString));
+// }
+// builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-if (builder.Environment.IsDevelopment())
-{
-    builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(connectionString));
-}
-else
-{
-    builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString));
-}
-
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddDefaultIdentity<CLI.Models.ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 
-builder.Services.AddIdentityServer().AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
 builder.Services.AddAuthentication().AddGoogle(googleOptions =>
 {
@@ -56,18 +64,31 @@ builder.Services.AddAuthentication().AddGoogle(googleOptions =>
             context.RunClaimActions(context.TokenResponse.Response.RootElement);
             return Task.CompletedTask;
         },
-        OnRemoteFailure = OnFailure
+        //OnRemoteFailure = OnFailure
+        OnRemoteFailure = (RemoteFailureContext arg) =>
+        {
+            Console.WriteLine(arg);
+            return Task.CompletedTask;
+        }
     };
 });
-Task OnFailure(RemoteFailureContext arg)
-{
-    Console.WriteLine(arg);
-    return Task.CompletedTask;
-}
+
+// Task OnFailure(RemoteFailureContext arg)
+// {
+//     Console.WriteLine(arg);
+//     return Task.CompletedTask;
+// }
 
 builder.Services.AddAuthentication().AddIdentityServerJwt();
 
 builder.Services.AddAuthorization();
+
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddControllersWithViews();
 
@@ -109,16 +130,20 @@ builder.Services.AddHttpsRedirection(options =>
     options.HttpsPort = 443;
 });
 
+//recaptcha
+builder.Services.Configure<GoogleRecaptchaSettings>(builder.Configuration.GetSection("GoogleRecaptcha"));
+builder.Services.AddTransient<GoogleRecaptchaService>();
+
+builder.Services.Configure<JwtBearerOptions>("IdentityServerJwtBearer", o => o.Authority = "https://localhost:44452");
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
 }
 else
 {
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 

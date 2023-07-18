@@ -7,6 +7,8 @@
 *.crt
 *.safetensors
 *.bin
+Client/appsettings.Production.json
+Client/Migrations
 Client/.config
 Client/.vs
 Client/bin
@@ -15,7 +17,6 @@ Client/Migrations
 Client/node_modules
 Client/obj
 Client/app.db
-Client/CLI.csproj
 Client/CLI.csproj.user
 Client/CLI.sln
 Client/package.json
