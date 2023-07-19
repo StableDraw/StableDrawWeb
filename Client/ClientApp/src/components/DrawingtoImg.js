@@ -62,6 +62,7 @@ export class DrawingtoImg extends Component
                 <div className = "blackout" id = "full_blackout">
                     <img className = "loading" alt = "loading.webp" src = "loading.webp"></img>
                 </div>
+                {/* Боковая минюшка */}
                 <div id = "mySidepanel" className = "sidepanel">
                     <a className = "closebtn" id = "size_panel_closebtn">
                         &times;
@@ -112,13 +113,20 @@ export class DrawingtoImg extends Component
                         </div>
                     </div>
                 </div>
+                
                 <div className="blackout" id="side_panel_blackout" style={{ zIndex: 20 }}></div>
                 <button className="openbtn">
                     &#9776;
                 </button>
+                {/* Конец боковой менюшки */}
+                
+                
                 <div className="cursor">
                     <img className="cursimg" alt="cursimg" style={{ width: "30px", height: "30px" }}></img>
                 </div>
+                
+                
+                {/* Нижняя правая менюшка */}
                 <div className="layers">
                     <div className="layers_buttons">
                         <button className="layers_mini_button" id="merge_layers" title="Объединить слои">
@@ -163,6 +171,8 @@ export class DrawingtoImg extends Component
                         </div>
                     </div>
                 </div>
+                {/* Конец нижней правой менюшки */}
+                
                 <div className="scale_field">
                     <input type="text" className="f_ratio" list="default_ratio" name="f_ratio" required placeholder="W:H" />
                     <datalist id="default_ratio">
@@ -175,7 +185,7 @@ export class DrawingtoImg extends Component
                     </datalist>
                 </div>
                 <div id="before_gen_block" style={{ position: "fixed", top: "50px", left: "5%", height: "20%", width: "20%", border: "2px solid #111111", zIndex: "15", display: "none" }}>
-                    <div className="closebtn" id="close_before_gen_block" style={{ position: "absolute", background: "rgba(0, 0, 0, 0)", zIndex: "16", right: "-2px", top: "-2px", width: "20px", height: "20px", cursor: "pointer", textAlign: "center", background: "#ffffff", border: "2px solid #111111" }}>
+                    <div className="closebtn" id="close_before_gen_block" style={{ position: "absolute", zIndex: "16", right: "-2px", top: "-2px", width: "20px", height: "20px", cursor: "pointer", textAlign: "center", background: "#ffffff", border: "2px solid #111111" }}>
                         <a style={{ position: "relative", fontSize: "25px", top: "-80%", verticalAlign: "middle", textAlign: "center", height: "100%", width: "100%", display: "block" }}>
                             &times;
                         </a>

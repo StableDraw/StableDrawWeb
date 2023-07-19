@@ -3,6 +3,7 @@ import ApiTestConst from "../API/ApiTestConst";
 import ApiToken from "../API/ApiToken";
 import ApiLogin from "../API/ApiLogin";
 import {AuthorizeService} from "./api-authorization/AuthorizeService";
+import Drawing from "./Drawing";
 
 export class TestFetch extends Component {
     static displayName = TestFetch.name;
@@ -48,21 +49,23 @@ export class TestFetch extends Component {
     }
 
     render() {
-        let contents = TestFetch.renderAPI(this.state.tokenstest);
+        // let contents = TestFetch.renderAPI(this.state.tokenstest);
 
         return (
             <div>
-                <h1 id="tableLabel">API Test</h1>
-                <p>This component demonstrates fetching data from the server.</p>
-                <code>
-                    {this.state.token}
-                </code>
-                {contents}
-                <div>
-                    <button onClick={this.Login}>login</button>
-                    <button onClick={this.Logout}>logout</button>
-                </div>
-
+                {/*<h1 id="tableLabel">API Test</h1>*/}
+                {/*<p>This component demonstrates fetching data from the server.</p>*/}
+                {/*<code>*/}
+                {/*    {this.state.token}*/}
+                {/*</code>*/}
+                {/*{contents}*/}
+                {/*<div>*/}
+                {/*    <button onClick={this.Login}>login</button>*/}
+                {/*    <button onClick={this.Logout}>logout</button>*/}
+                {/*</div>*/}
+                <br/>
+                <hr/>
+                <Drawing />
             </div>
         );
     }
