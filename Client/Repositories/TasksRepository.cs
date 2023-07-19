@@ -23,6 +23,21 @@ public class TasksRepository : ITasksRepository
         _context.Results.Add(result);
     }
 
+    public void CreateResult(ImageResult result)
+    {
+        _context.ImageResults.Add(result);
+    }
+
+    public void CreateResult(ParamsResult result)
+    {
+        _context.ParamsResults.Add(result);
+    }
+
+    public void CreateResult(CaptionResult result)
+    {
+        _context.CaptionResults.Add(result);
+    }
+
     public void CreateTask(Models.Task task)
     {
         _context.Tasks.Add(task);
