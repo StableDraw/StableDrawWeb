@@ -62,7 +62,7 @@ export class DrawingtoImg extends Component
                 <div className = "blackout" id = "full_blackout">
                     <img className = "loading" alt = "loading.webp" src = "loading.webp"></img>
                 </div>
-                {/* Боковая минюшка */}
+                {/* (перенесено)Боковая минюшка */}
                 <div id = "mySidepanel" className = "sidepanel">
                     <a className = "closebtn" id = "size_panel_closebtn">
                         &times;
@@ -118,13 +118,13 @@ export class DrawingtoImg extends Component
                 <button className="openbtn">
                     &#9776;
                 </button>
-                {/* Конец боковой менюшки */}
+                {/* (перенесено)Конец боковой менюшки */}
                 
-                
+                {/* !!!Поробовать добавить через стили!!! */}
                 <div className="cursor">
                     <img className="cursimg" alt="cursimg" style={{ width: "30px", height: "30px" }}></img>
                 </div>
-                
+                {/* !!!Понец пробовалок!!! */}
                 
                 {/* Нижняя правая менюшка */}
                 <div className="layers">
