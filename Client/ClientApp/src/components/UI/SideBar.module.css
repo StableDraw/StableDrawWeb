@@ -19,7 +19,7 @@
     padding-top: 60px;
     transition: 0.5s;
 }
-.work_mode_href{
+.work_mode_href {
     touch-action: none;
     border: 1px solid rgb(76, 76, 76);
     border-left-style: hidden;
