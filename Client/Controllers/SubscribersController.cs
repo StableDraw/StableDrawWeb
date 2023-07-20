@@ -18,7 +18,7 @@ public class SubscribersController : Controller
     [HttpPut]
     public IActionResult UpdateSubscription(Subscriber newSubscriber)
     {
-        if (newSubscriber.Id == Guid.Empty)
+        if (newSubscriber.Id == string.Empty)
         {
             return BadRequest("The id should not be empty");
         }

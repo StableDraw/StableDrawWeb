@@ -16,9 +16,9 @@ public class UsersController : Controller
     }
 
     [HttpDelete("{id}")]
-    public IActionResult DeleteUser(Guid id)
+    public IActionResult DeleteUser(string id)
     {
-        if (id == Guid.Empty)
+        if (id == string.Empty)
         {
             return BadRequest("The id should not be empty");
         }
@@ -43,9 +43,9 @@ public class UsersController : Controller
     }
 
     [HttpGet("{id}")]
-    public IActionResult GetUser(Guid id)
+    public IActionResult GetUser(string id)
     {
-        if (id == Guid.Empty)
+        if (id == string.Empty)
         {
             return BadRequest("The id should not be empty");
         }
@@ -61,9 +61,9 @@ public class UsersController : Controller
     }
 
     [HttpGet("{id}/info")]
-    public IActionResult GetUserInfo(Guid id)
+    public IActionResult GetUserInfo(string id)
     {
-        if (id == Guid.Empty)
+        if (id == string.Empty)
         {
             return BadRequest("The id should not be empty");
         }
@@ -82,9 +82,9 @@ public class UsersController : Controller
     }
 
     [HttpPost]
-    public IActionResult CreateUser(User newUser)
+    public IActionResult CreateUser(ApplicationUser newUser)
     {
-        if (newUser.Id == Guid.Empty)
+        if (newUser.Id == string.Empty)
         {
             return BadRequest("The id should not be empty");
         }
@@ -102,7 +102,7 @@ public class UsersController : Controller
         return Ok(newUser);
     }
         
-    private Models.DTOs.User UserToDTO(User user, SubscriptionInfo? subscriptionInfo, GenerationInfo? generationInfo)
+    private Models.DTOs.User UserToDTO(ApplicationUser user, SubscriptionInfo? subscriptionInfo, GenerationInfo? generationInfo)
     {
         return new Models.DTOs.User()
         {

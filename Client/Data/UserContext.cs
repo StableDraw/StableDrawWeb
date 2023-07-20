@@ -1,46 +1,45 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using CLI.Models;
-using CLI.Options;
 
 namespace CLI.Data;
 
 public class UserContext : DbContext
 {
-    private readonly string _connectionString;
-    private readonly string _providerName;
+    private readonly IConfiguration _configuration;
 
-    public UserContext(IOptions<ConnectionOptions> configuration)
+    public UserContext(IConfiguration configuration)
     {
-        _connectionString = configuration.Value.ConnectionString;
-        _providerName = configuration.Value.ProviderName;
+        _configuration = configuration;
     }
 
-    public DbSet<User> Users { get; set; }
+    public DbSet<ApplicationUser> Users { get; set; }
     public DbSet<Subscriber> Subscribers { get; set; }
     public DbSet<GenerationFlow> GenerationFlows { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        switch (_providerName)
+        var provider = _configuration.GetValue("Provider", "");
+        switch (provider)
         {
-            case "SQLLite":
-                optionsBuilder.UseSqlite(_connectionString);
+            case "InMemory":
+                optionsBuilder.UseInMemoryDatabase(_configuration.GetConnectionString("InMemoryConnection"));
                 break;
-
+            case "Sqlite":
+                optionsBuilder.UseSqlite(_configuration.GetConnectionString("SqliteConnection"));
+                break;
             case "PostgreSQL":
-                optionsBuilder.UseNpgsql(_connectionString);
+                optionsBuilder.UseNpgsql(_configuration.GetConnectionString("NpgsqlConnection"));
                 break;
-
             default:
-                throw new NotImplementedException();
+                throw new Exception($"Unsupported provider: {provider}");
         }
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<User>().Property(t => t.Id).HasColumnType("uuid");
-        modelBuilder.Entity<User>().HasKey(t => t.Id);
+        modelBuilder.Entity<ApplicationUser>().Property(t => t.Id).HasColumnType("uuid");
+        modelBuilder.Entity<ApplicationUser>().HasKey(t => t.Id);
 
         modelBuilder.Entity<Subscriber>().Property(t => t.Expiration).HasColumnType("datetime2");
                 

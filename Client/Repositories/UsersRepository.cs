@@ -22,17 +22,17 @@ public class UsersRepository : IUsersRepository
         _context.Subscribers.Add(subscriber);
     }
 
-    public void CreateUser(User user)
+    public void CreateUser(ApplicationUser user)
     {
         _context.Users.Add(user);
     }
 
-    public void DeleteUser(User user)
+    public void DeleteUser(ApplicationUser user)
     {
         _context.Users.Remove(user);
     }
 
-    public GenerationInfo? GetGenerationInfo(Guid id, DateTime date)
+    public GenerationInfo? GetGenerationInfo(string id, DateTime date)
     {
         return _context.GenerationFlows
             .Where(g => g.UserId == id && g.Date <= date)
@@ -45,12 +45,12 @@ public class UsersRepository : IUsersRepository
             .FirstOrDefault();
     }
 
-    public Subscriber? GetSubscriber(Guid id)
+    public Subscriber? GetSubscriber(string id)
     {
         return _context.Subscribers.Where(s => s.Id == id).FirstOrDefault();
     }
 
-    public SubscriptionInfo? GetSubscriptionInfo(Guid id)
+    public SubscriptionInfo? GetSubscriptionInfo(string id)
     {
         return _context.Subscribers
             .Where(s => s.Id == id)
@@ -61,12 +61,12 @@ public class UsersRepository : IUsersRepository
             .FirstOrDefault();
     }
 
-    public User? GetUser(Guid id)
+    public ApplicationUser? GetUser(string id)
     {
         return _context.Users.Where(u => u.Id == id).FirstOrDefault();
     }
 
-    public IEnumerable<User> GetUsers()
+    public IEnumerable<ApplicationUser> GetUsers()
     {
         return _context.Users.ToList();
     }

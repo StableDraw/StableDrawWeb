@@ -18,7 +18,7 @@ public class GenerationsFlowController : Controller
     [HttpPut]
     public IActionResult UpdateGenerationsFlow(GenerationFlow flow)
     {
-        if (flow.UserId == Guid.Empty)
+        if (flow.UserId == string.Empty)
         {
             return BadRequest("The id should not be empty");
         }

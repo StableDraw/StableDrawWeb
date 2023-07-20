@@ -43,7 +43,7 @@ public class TasksController : Controller
     [HttpPost]
     public IActionResult CreateTask(Models.Task newTask)
     {
-        if (newTask.Id == Guid.Empty || newTask.UserId == Guid.Empty)
+        if (newTask.Id == Guid.Empty || newTask.UserId == string.Empty)
         {
             return BadRequest("The id should not be empty");
         }

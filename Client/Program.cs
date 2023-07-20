@@ -7,29 +7,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using CLI.Data;
 using CLI.Extentions;
-using CLI.Options;
 using CLI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.Configure<ConnectionOptions>(builder.Configuration.GetSection(ConnectionOptions.Context));
 builder.Services.AddDatabases();
-
-// Add services to the container.
-// var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-// if (builder.Environment.IsDevelopment())
-// {
-//     builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(connectionString));
-//     builder.Services.AddDbContext<SLN.Data.TaskContext>(options => options.UseSqlite(connectionString));
-//     builder.Services.AddDbContext<SLN.Data.UserContext>(options => options.UseSqlite(connectionString));
-// }
-// else
-// {
-//     builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString));
-//     builder.Services.AddDbContext<SLN.Data.TaskContext>(options => options.UseNpgsql(connectionString));
-//     builder.Services.AddDbContext<SLN.Data.UserContext>(options => options.UseNpgsql(connectionString));
-// }
-// builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<CLI.Models.ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
 
@@ -70,12 +52,6 @@ builder.Services.AddAuthentication().AddGoogle(googleOptions =>
         }
     };
 });
-
-// Task OnFailure(RemoteFailureContext arg)
-// {
-//     Console.WriteLine(arg);
-//     return Task.CompletedTask;
-// }
 
 builder.Services.AddAuthentication().AddIdentityServerJwt();
 
@@ -132,6 +108,8 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 else
 {
@@ -146,7 +124,8 @@ app.UseAuthentication();
 app.UseIdentityServer();
 app.UseAuthorization();
 
-app.MapControllerRoute(name: "default", pattern: "{controller}/{action=Index}/{id?}");
+app.MapControllers();
+app.MapDefaultControllerRoute();
 
 app.MapRazorPages();
 
