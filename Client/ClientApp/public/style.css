@@ -8,7 +8,7 @@ body
 {
     touch-action: none;
 }
-.subbody
+.subbody 
 {
     touch-action: none;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
