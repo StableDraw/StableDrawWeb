@@ -41,7 +41,7 @@ public class GenerationsController : Controller
             return BadRequest("The id should not be empty");
         }
 
-        var task = _repository.GetTask(newGeneration.TaskId);
+        var task = _repository.GetTask(newGeneration.TaskId.ToString());
 
         if (task is null)
         {

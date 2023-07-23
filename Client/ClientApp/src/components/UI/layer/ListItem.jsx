@@ -2,12 +2,13 @@
 import Visability from "../buttons/lablebar/layer/Visability";
 import Clear from "../buttons/lablebar/layer/Clear";
 import Destroy from "../buttons/lablebar/Destroy";
+import Cl from "./ListItem.module.css"
 
 const ListItem = (props) => {
     // console.log(props)
     return (
-        <div className="layer" id={props.item.id}>
-            <div className="layer_button_box">
+        <div className={Cl.layer} id={props.item.id}>
+            <div className={Cl.layer_button_box}>
                 <Visability ids={props.item.id}/>
                 <Clear ids={props.item.id}/>
                 <Destroy remove={props.remove} item={props.item}/>
