@@ -1,3 +1,14 @@
+.config/
+.vs/
+.vscode/
+*.db
+*.sln
+bin/
+obj/
+node_modules/
+package-lock.json
+package.json
+
 *.pt
 *.ckpt
 *.pth
