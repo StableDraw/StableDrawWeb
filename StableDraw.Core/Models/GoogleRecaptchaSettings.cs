@@ -1,4 +1,4 @@
-﻿namespace CLI.Models
+﻿namespace StableDraw.Core.Models
 {
     public class GoogleRecaptchaSettings
     {

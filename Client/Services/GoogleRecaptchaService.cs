@@ -1,6 +1,6 @@
-﻿using CLI.Models;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using StableDraw.Core.Models;
 
 namespace CLI.Services
 {

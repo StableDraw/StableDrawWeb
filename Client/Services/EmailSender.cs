@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MimeKit;
 using MailKit.Net.Smtp;
-using CLI.Data;
 using static Duende.IdentityServer.Models.IdentityResources;
 
 namespace CLI.Services

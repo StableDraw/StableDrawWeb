@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace CLI.Models;
+namespace StableDraw.Core.Models;
 
 public class ApplicationUser : IdentityUser
 {

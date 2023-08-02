@@ -2,16 +2,11 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System;
 using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
-using CLI.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
+using StableDraw.Core.Models;
 
 namespace CLI.Areas.Identity.Pages.Account
 {
