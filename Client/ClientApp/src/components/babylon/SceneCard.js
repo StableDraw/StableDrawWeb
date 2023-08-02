@@ -29,9 +29,8 @@ export const SceneCard = ({
 				<img
 					src={img}
 					alt={name}
-					width={160}
+					width={200}
 					height={'auto'}
-					style={{ flexShrink: 0 }}
 				/>
 			</Button>
 		</div>

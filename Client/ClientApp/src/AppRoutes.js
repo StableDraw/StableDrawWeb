@@ -27,7 +27,7 @@ const AppRoutes = [
     },
     {
         path: '/drawing-to-img',
-        requireAuth: true,
+        requireAuth: false,
         element: <DrawingtoImg />
     },
     {

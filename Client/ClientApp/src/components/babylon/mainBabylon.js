@@ -4,14 +4,19 @@ import { Scene } from './Scene'
 import { Button, AppBar, Box, Toolbar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import SendIcon from '@mui/icons-material/Send';
+import ViewInArOutlinedIcon from '@mui/icons-material/ViewInArOutlined';
+import AspectRatioIcon from '@mui/icons-material/AspectRatio';
 import { useMemo, useState } from "react";
+import { SizeBar } from "./sizeBar";
+import { ModelsBar } from "./modelsBar";
 
-const modelFileName = 'PackNonTexSmall'; // Эти данные должны приходить с бека
+const modelFileName = 'PackNonTexBig'; // Эти данные должны приходить с бека
 const tex = 'packTexBig2.jpeg';					 // Эти данные должны приходить с бека
 
 export const MainBabylon = () => {
-	const [isVisible, setIsVisible] = useState(false);
+	const [scenesIsVisible, setScenesIsVisible] = useState(false);
 	const [currentScene, setCurrentScene] = useState('');
+	const [modelsIsVisible, setModelsIsVisible] = useState(false);
 	const memoizedScene = useMemo(() =>
 		<Scene
 			modelFileName={modelFileName}
@@ -29,28 +34,42 @@ export const MainBabylon = () => {
 	// в данном случае для этого лучше использовать композицию компонентов или context,
 	// разбираюсь с ними...
 	const showSceneBar = () => {
-		setIsVisible(!isVisible);
+		setScenesIsVisible(!scenesIsVisible);
 	};
+
+	const showModelsBar = () => {
+		setModelsIsVisible(!modelsIsVisible);
+	}
 
 	return (
 		<>
 			<AppBar position="static">
 				<Toolbar >
 					<Box sx={{ flexGrow: 1 }}></Box>
-					<Button
-						color="inherit"
-						onClick={showSceneBar}
-						endIcon={<MenuIcon />}>
-						Select scene
-					</Button>
+					<div style={{ display: 'flex', gap: " 20px" }}>
+						<Button
+							color="inherit"
+							onClick={showModelsBar}
+							endIcon={<ViewInArOutlinedIcon />}>
+							Select model
+						</Button>
+						<Button
+							color="inherit"
+							onClick={showSceneBar}
+							endIcon={<AspectRatioIcon />}>
+							Select scene
+						</Button>
+					</div>
+
 				</Toolbar>
 			</AppBar>
 
-			{isVisible &&
+			{scenesIsVisible &&
 				<SceneBar
 					toggleSceneBar={showSceneBar}
 					changeScene={changeScene} />
 			}
+			{modelsIsVisible && <ModelsBar />}
 
 			{memoizedScene}
 

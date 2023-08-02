@@ -1,6 +1,7 @@
 import React from 'react';
 import { SceneCard } from './SceneCard';
 import Paper from '@mui/material/Paper';
+import { Card } from 'reactstrap';
 
 //Эти данные должны приходить с бека
 const scenes = [
@@ -21,16 +22,15 @@ export const SceneBar = ({
 
 	return (
 		<div style={{ display: 'flex', justifyContent: "flex-end",}}>
-			<Paper elevation={1} style={{
+			<Card sx={{
 				display: "flex",
 				padding: 10,
-				flexDirection: "row",
+				flexDirection: "column",
 				justifyContent: "flex-start",
 				position: "absolute",
-				overflowX: "scroll",
-				maxWidth: "700px",
+				overflowY: "scroll",
+				maxWidth: "400px",
 				maxHeight: "auto",
-				border: "3px solid white",
 				borderRadius: "8px",
 			}}>
 				{scenes.map(scene => <SceneCard
@@ -42,7 +42,7 @@ export const SceneBar = ({
 					changeScene={changeScene}
 				/>
 				)}
-			</Paper>
+			</Card>
 		</div>
 	);
 };
