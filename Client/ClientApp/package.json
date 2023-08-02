@@ -3,6 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babylonjs/loaders": "^6.14.1",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.3",
+    "@mui/material": "^5.14.3",
     "bootstrap": "^5.2.3",
     "http-proxy-middleware": "^2.0.6",
     "jquery": "^3.6.3",
@@ -30,6 +35,8 @@
     "workbox-streams": "^6.5.4"
   },
   "devDependencies": {
+    "@babylonjs/core": "^6.14.1",
+    "@babylonjs/inspector": "^6.14.1",
     "ajv": "^8.12.0",
     "cross-env": "^7.0.3",
     "eslint": "^8.34.0",
