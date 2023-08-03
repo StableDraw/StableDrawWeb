@@ -19,8 +19,8 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
     {
         _configuration = configuration;
         _operationalStoreOptions = operationalStoreOptions;
-        //Database.EnsureDeleted();
-        //Database.EnsureCreated();                
+        // Database.EnsureDeleted();
+        // Database.EnsureCreated();                
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

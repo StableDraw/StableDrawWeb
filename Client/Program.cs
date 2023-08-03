@@ -9,29 +9,32 @@ using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using StableDraw.Core.Models;
 using StableDraw.Domain.Data.Identity;
+using StableDraw.Domain.Extensions;
 using Task = System.Threading.Tasks.Task;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-
-if (builder.Environment.IsDevelopment())
-{
-    builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(connectionString));
-}
-else
-{
-    builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString));
-}
-
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+// var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+//
+// if (builder.Environment.IsDevelopment())
+// {
+//     builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(connectionString));
+// }
+// else
+// {
+//     builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString));
+// }
+//
+// builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 
 builder.Services.AddIdentityServer().AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+
+builder.Services.AddDatabases();
 
 builder.Services.AddAuthentication().AddGoogle(googleOptions =>
 {
