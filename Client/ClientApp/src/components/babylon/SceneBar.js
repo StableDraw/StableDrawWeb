@@ -6,8 +6,8 @@ import { Card } from 'reactstrap';
 //Эти данные должны приходить с бека
 const scenes = [
 	{ id: 1, name: "trolley", img: '/babylon/imgPreviewScenes/Cart.jpeg', scene: 'Cart' },
-	{ id: 2, name: "rack", img: '/babylon/imgPreviewScenes/rack.jpg', scene: '' },
-	{ id: 3, name: "shopping box", img: '/babylon/imgPreviewScenes/shopping box.jpg', scene: '' },
+	// { id: 2, name: "rack", img: '/babylon/imgPreviewScenes/rack.jpg', scene: '' },
+	// { id: 3, name: "shopping box", img: '/babylon/imgPreviewScenes/shopping box.jpg', scene: '' },
 ];
 
 // interface Props {
@@ -21,17 +21,15 @@ export const SceneBar = ({
 }) => {
 
 	return (
-		<div style={{ display: 'flex', justifyContent: "flex-end",}}>
-			<Card sx={{
+			<Card style={{
 				display: "flex",
-				padding: 10,
-				flexDirection: "column",
-				justifyContent: "flex-start",
-				position: "absolute",
-				overflowY: "scroll",
-				maxWidth: "400px",
-				maxHeight: "auto",
-				borderRadius: "8px",
+				flexDirection: 'column',
+				gap: "10px", 
+				padding: "30px",
+				justifyContent: "center",
+				maxWidth: '600px',
+				borderRadius: '20px',
+				position:'absolute'
 			}}>
 				{scenes.map(scene => <SceneCard
 					img={scene.img}
@@ -43,6 +41,5 @@ export const SceneBar = ({
 				/>
 				)}
 			</Card>
-		</div>
 	);
 };

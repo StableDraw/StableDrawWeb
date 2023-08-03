@@ -17,12 +17,17 @@ export const MainBabylon = () => {
 	const [scenesIsVisible, setScenesIsVisible] = useState(false);
 	const [currentScene, setCurrentScene] = useState('');
 	const [modelsIsVisible, setModelsIsVisible] = useState(false);
+	const [modelType, setModelType] = useState('');
 	const memoizedScene = useMemo(() =>
 		<Scene
 			modelFileName={modelFileName}
 			sceneFileName={currentScene}
 			texture={tex} />,
 		[currentScene]);
+
+		const changeModel = (model) =>{
+			setModelType(model);
+		}
 
 	//Пока не придумал, как реализовать адекватный обмен свойствами между компонентами,
 	//поэтому эта функция реализует передачу сцены в этот компонент из дочернего компонента SceneCard
@@ -34,10 +39,12 @@ export const MainBabylon = () => {
 	// в данном случае для этого лучше использовать композицию компонентов или context,
 	// разбираюсь с ними...
 	const showSceneBar = () => {
+		setModelsIsVisible(false);
 		setScenesIsVisible(!scenesIsVisible);
 	};
 
 	const showModelsBar = () => {
+		setScenesIsVisible(false);
 		setModelsIsVisible(!modelsIsVisible);
 	}
 
@@ -63,13 +70,18 @@ export const MainBabylon = () => {
 
 				</Toolbar>
 			</AppBar>
-
-			{scenesIsVisible &&
+			<div style={{display:'flex', flexDirection:'row', justifyContent:'flex-end', gap:'10px'}}>
+				{modelsIsVisible && <ModelsBar changeModel={changeModel}/>}
+				
+				{scenesIsVisible &&
 				<SceneBar
 					toggleSceneBar={showSceneBar}
 					changeScene={changeScene} />
 			}
-			{modelsIsVisible && <ModelsBar />}
+			
+			</div>
+
+			
 
 			{memoizedScene}
 

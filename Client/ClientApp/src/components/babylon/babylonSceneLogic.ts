@@ -9,7 +9,8 @@ export class BabylonScene {
 	constructor(canvas: HTMLCanvasElement, 
 		modelFileName: string, 
 		sceneFileName: string = '',
-		textureFileName: string = '',) {
+		textureFileName: string = '',
+		modelsAmount: number = 1) {
 		this.engine = new BABYLON.Engine(canvas, true);
 
 		this.engine.displayLoadingUI();
