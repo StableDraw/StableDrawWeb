@@ -1,0 +1,61 @@
+
+
+.bar{
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding: 30px;
+	justify-content: center;
+	max-width: 600px;
+	position: absolute;
+	border-radius: 20px;
+	/* opacity: 90%; */
+}
+
+.barContainer{
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+}
+
+.modelCard{
+	display: flex;
+	justify-content: center;
+	padding: 3px;
+	flex-direction: column;
+	border-radius: 20px;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+	min-width: 250px;
+}
+
+.imgCard{
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.textCard{
+	padding: 5px;
+	display: flex;
+	justify-content: center;
+}
+
+.sizeBar{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap:10px;
+	padding: 20px;
+	background-color: gray;
+}
+.buttonsSizeBar{
+	display: flex;
+	max-width: 400px;
+	flex-direction: row;
+	justify-content: center;
+	gap: 10px;
+	padding: 10px;
+	box-shadow: none;
+	background-color: #cccccc;
+}

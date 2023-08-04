@@ -9,8 +9,7 @@ export class BabylonScene {
 	constructor(canvas: HTMLCanvasElement, 
 		modelFileName: string, 
 		sceneFileName: string = '',
-		textureFileName: string = '',
-		modelsAmount: number = 1) {
+		textureFileName: string = '',) {
 		this.engine = new BABYLON.Engine(canvas, true);
 
 		this.engine.displayLoadingUI();
@@ -58,7 +57,7 @@ export class BabylonScene {
 
 		return camera;
 	}
-
+	// Сделать таргет для камеры! Разобраться с аксисами у моделей!
 	async createOwnModel(
 			modelFileName: string,
 			textureFileName: string,
@@ -71,6 +70,8 @@ export class BabylonScene {
 		);
 
 		await this.applyMaterial(model, textureFileName);
+
+		// this.camera.target = model.meshes[1].position;
 		
 		model.meshes.forEach((mesh) => mesh.position = new BABYLON.Vector3(0,0,0));
 

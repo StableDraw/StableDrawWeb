@@ -876,4 +876,5 @@ input[type=range].up_add_window_slider::-ms-fill-lower
 
 #babylonjsLoadingDiv{
     border-radius: 30px;
+    z-index: 1;
 }
