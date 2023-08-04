@@ -26,4 +26,8 @@
       <ProjectReference Include="..\StableDraw.Core\StableDraw.Core.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Data\Identity\Migrations\" />
+    </ItemGroup>
+
 </Project>
