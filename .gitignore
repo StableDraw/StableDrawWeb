@@ -35,3 +35,7 @@ Client/ClientApp/aspnetcore-react.js
 Client/ClientApp/package.json
 Client/ClientApp/package-lock.json
 Client/ClientApp/README.MD
+/.idea
+/.vs
+/Client/*.db
+/StableDraw.Core/bin
