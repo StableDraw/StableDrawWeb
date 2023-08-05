@@ -16,9 +16,11 @@ const spanel = document.getElementById("mySidepanel");
 const spanel_openbtn = document.querySelector(".openbtn");
 const generateBtn = document.getElementById("generate");
 const clr_w = document.getElementById("clr_window");
+const clr_w1 = document.getElementById("clr_window1");
 const pencil_w = document.getElementById("pencil_window");
 const eraser_w = document.getElementById("eraser_window");
 const ok_clr_btn = document.getElementById("ok_clr_btn");
+const ok_clr_btn1 = document.getElementById("ok_clr_btn1");
 const cur_color = document.getElementById("color");
 const clrimg = document.getElementById("clrimg");
 const ctx_foreground = canvas_foreground.getContext("2d", { willReadFrequently: true });
@@ -40,7 +42,9 @@ const scale_field = document.querySelector(".scale_field");
 const div_layers = document.querySelector(".layers");
 const layers_buttons = document.querySelector(".layers_buttons");
 const text_label_clr = document.getElementById("text_label_clr");
+const text_label_clr1 = document.getElementById("text_label_clr1");
 const blackout = document.getElementById("full_blackout");
+const blackout1 = document.getElementById("full_blackout1");
 const side_panel_blackout = document.getElementById("side_panel_blackout");
 const before_gen_block = document.getElementById("before_gen_block");
 const close_before_gen_block = document.getElementById("close_before_gen_block");
@@ -58,7 +62,9 @@ const clear_second_layer_Btn = document.getElementById("clear_layer_2");
 const select_first_layerBtn = document.getElementById("layer_button_1");
 const colourBtn = document.getElementById("palette");
 const ok_clr = document.querySelector(".ok_clr_btn");
+const ok_clr1 = document.querySelector(".ok_clr_btn1");
 const ctype_clr_btn = document.querySelector(".ctype_clr_btn");
+const ctype_clr_btn1 = document.querySelector(".ctype_clr_btn1");
 const id_list = ['p', 'i', 'u', 'f'];
 const Pi_div_4 = Math.PI / 4;
 let nstack = [];
@@ -150,6 +156,7 @@ let f_move = false;
 let end_f_move = false;
 let old_btn_clr = [false, true]; //изначально чёрный текст у кнопок цвета
 let on_clr_window = false;
+let on_clr_window1 = false;
 let cur_background_clr = "#fff";
 let new_background_clr = cur_background_clr;
 let cur_brush_clr = "#000000";
@@ -168,6 +175,7 @@ let cur_canvas = canvas_foreground; //текущий выбранный слой
 let cur_ctx_layer = ctx_layer_1; //текущий выбранный слой для рисования ввиде контекста кнопки который в углу, по-умолчанию верхний
 let graphic_tablet_mode = false; //режим графического планшета
 let is_clr_window = false; //отображение окна с палитрой
+let is_clr_window1 = false; //отображение окна с палитрой
 let is_pencil_window = true; //отображение окна настроек кисти
 let is_eraser_window = false; //отображение окна настроек ластика
 let cur_smoothing = 0; //параметр сглаживания
@@ -205,6 +213,7 @@ let ws = new WebSocket("wss://stabledraw.com:8081");
 let chain_id = "";
 let task_id;
 const subbody = document.querySelector(".subbody");
+const subbody1 = document.querySelector(".subbody1");
 let if_first_time_modal = true;
 var main_modal = function (options) {
     var _elemModal;
@@ -230,6 +239,7 @@ var main_modal = function (options) {
         modalHTML = modalHTML.replace("{{footer}}", modalFooterHTML);
         elemModal.innerHTML = modalHTML;
         subbody.appendChild(elemModal);
+        subbody1.appendChild(elemModal);
         return elemModal;
     }
     function _showModal() {
@@ -364,6 +374,7 @@ var main_modal = function (options) {
                     last_task_image_suffix = jdata[5];
                     is_human_caption = false;
                     blackout.style.display = "none";
+                    blackout1.style.display = "none";
                     if (need_gen_after_caption[0]) {
                         gen_picture_by_drawing(need_gen_after_caption, caption_field.value + " " + style_field.value, data_prop);
                         need_gen_after_caption[0] = false;
@@ -404,6 +415,7 @@ var main_modal = function (options) {
                             show_gen_result(image);
                         }
                         blackout.style.display = "none";
+                        blackout1.style.display = "none";
                         modal.hide();
                         original_image_buf = image.src;
                         return;
@@ -535,7 +547,7 @@ function show_gen_result(image) {
 }
 let last_task_image_name = "drawing.png";
 let last_task_image_suffix = "0";
-//ws.onopen = function(){alert("open");} 
+//ws.onopen = function(){alert("open");}
 ws.onclose = function () {
     alert("Извините, произошла ошибка на стороне сервера. Пожалуйста перезагрузите страницу");
 };
@@ -745,6 +757,7 @@ function gen_picture_by_drawing(params, full_prompt, data_prop) {
     let is_upscale = params[3];
     let is_upscale_xX = params[4];
     blackout.style.display = "block";
+    blackout1.style.display = "block";
     let send_data_pbp;
     let foreground_data;
     let { local_is_foreground_used, local_is_background_used, local_is_drawing, local_sure, local_how_many_prims, local_how_many_dots } = data_prop;
@@ -836,6 +849,7 @@ function gen_picture_by_drawing(params, full_prompt, data_prop) {
 }
 function gen_picture_by_prompt(full_prompt) {
     blackout.style.display = "block";
+    blackout1.style.display = "block";
     let local_type;
     let send_data_pbt;
     send_data_pbt = JSON.stringify({
@@ -846,6 +860,7 @@ function gen_picture_by_prompt(full_prompt) {
 }
 function delete_background() {
     blackout.style.display = "block";
+    blackout1.style.display = "block";
     let data = original_image_buf;
     if (chain_id != "") {
         data = "";
@@ -862,6 +877,7 @@ function delete_background() {
 }
 function colorize_picture() {
     blackout.style.display = "block";
+    blackout1.style.display = "block";
     let data = original_image_buf;
     if (chain_id != "") {
         data = "";
@@ -878,6 +894,7 @@ function colorize_picture() {
 }
 function upscale() {
     blackout.style.display = "block";
+    blackout1.style.display = "block";
     let data = original_image_buf;
     if (chain_id != "") {
         data = "";
@@ -1059,6 +1076,7 @@ function hexDec(h) {
 colourBtn.style.background = "#000000";
 function handleclr_PointerMove() {
     on_clr_window = true;
+    on_clr_window1 = true;
     let ccv = cur_color.value;
     let local_clf_layer_type;
     if (ccv == "#NaNNaNNaN") {
@@ -1078,6 +1096,7 @@ function handleclr_PointerMove() {
         if (!old_btn_clr[local_clf_layer_type]) {
             old_btn_clr[local_clf_layer_type] = true;
             ok_clr_btn.style.color = "#000000";
+            ok_clr_btn1.style.color = "#000000";
             clrimg.style.filter = "invert(0)";
         }
     }
@@ -1085,42 +1104,52 @@ function handleclr_PointerMove() {
         if (old_btn_clr[local_clf_layer_type]) {
             old_btn_clr[local_clf_layer_type] = false;
             ok_clr_btn.style.color = "#ffffff";
+            ok_clr_btn1.style.color = "#ffffff";
             clrimg.style.filter = "invert(1)";
         }
     }
     ok_clr_btn.style.background = ccv;
+    ok_clr_btn1.style.background = ccv;
     colourBtn.style.background = ccv;
 }
 function handlet_clr_Click() {
     if (is_clr_brash) {
         cur_brush_clr = cur_color.value;
         ctype_clr_btn.textContent = "Цвет кисти";
+        ctype_clr_btn1.textContent = "Цвет кисти";
         cur_color.value = cur_background_clr;
         if (hexDec(cur_brush_clr) > 382) {
             ctype_clr_btn.style.color = "#000000";
+            ctype_clr_btn1.style.color = "#000000";
             clrimg.style.filter = "invert(0)";
         }
         else {
             ctype_clr_btn.style.color = "#ffffff";
+            ctype_clr_btn1.style.color = "#ffffff";
             clrimg.style.filter = "invert(1)";
         }
         ctype_clr_btn.style.background = cur_brush_clr;
+        ctype_clr_btn1.style.background = cur_brush_clr;
         is_clr_brash = false;
     }
     else {
         ctype_clr_btn.textContent = "Цвет фона";
+        ctype_clr_btn1.textContent = "Цвет фона";
         let ccv = cur_brush_clr;
         new_background_clr = cur_color.value;
         cur_color.value = ccv;
         if (hexDec(new_background_clr) > 382) {
             ctype_clr_btn.style.color = "#000000";
+            ctype_clr_btn1.style.color = "#000000";
             clrimg.style.filter = "invert(0)";
         }
         else {
             ctype_clr_btn.style.color = "#ffffff";
+            ctype_clr_btn1.style.color = "#ffffff";
             clrimg.style.filter = "invert(1)";
         }
         ctype_clr_btn.style.background = new_background_clr;
+        ctype_clr_btn1.style.background = new_background_clr;
         if (hexDec(ccv) > 382) {
             if (!old_btn_clr[1]) {
                 old_btn_clr[1] = true;
@@ -1134,6 +1163,7 @@ function handlet_clr_Click() {
             }
         }
         ok_clr_btn.style.background = ccv;
+        ok_clr_btn1.style.background = ccv;
         colourBtn.style.background = ccv;
         is_clr_brash = true;
     }
@@ -1169,6 +1199,37 @@ function close_clr_window() {
     ctx_background.strokeStyle = cur_brush_clr;
     clr_w.style.display = "none";
 }
+function close_clr_window1() {
+    clr_w1.removeEventListener("pointermove", handleclr_PointerMove);
+    ctype_clr_btn1.removeEventListener("click", handlet_clr_Click);
+    is_clr_window1 = false;
+    let ccv = cur_color.value;
+    if (ccv == "#NaNNaNNaN") {
+        ccv = "#" + colourBtn.style.background.split("(")[1].split(")")[0].split(",").map(function (x) {
+            x = parseInt(x).toString(16);
+            return (x.length == 1) ? "0" + x : x;
+        }).join("");
+        cur_color.value = ccv;
+    }
+    if (!is_clr_brash) {
+        new_background_clr = ccv;
+        is_clr_brash = true;
+    }
+    else {
+        cur_brush_clr = ccv;
+    }
+    if (cur_background_clr != new_background_clr) //почему-то не работает, из-за этого пришлось сделать костыль строчкой сверху. Убрать
+    {
+        push_action_to_stack(['i', ctx_background, new_background_clr]); //залить фон
+        ctx_background.fillStyle = new_background_clr; //заливка фона
+        ctx_background.fillRect(0, 0, cW, cH);
+        canvas_to_layer(canvas_background, ctx_layer_2);
+    }
+    ctx_foreground.strokeStyle = cur_brush_clr;
+    ctx_add.strokeStyle = cur_brush_clr;
+    ctx_background.strokeStyle = cur_brush_clr;
+    clr_w1.style.display = "none";
+}
 change_themeBtn.addEventListener("click", () => {
     if (is_dark_mode) {
         tmimg.setAttribute("src", "dark mode.png");
@@ -1190,9 +1251,12 @@ change_themeBtn.addEventListener("click", () => {
         eraser_w.style.border = "2px solid #292929";
         clr_w.style.backgroundColor = "#ffffff";
         clr_w.style.border = "2px solid #292929";
+        clr_w1.style.backgroundColor = "#ffffff";
+        clr_w1.style.border = "2px solid #292929";
         body.style.backgroundColor = "#ffffff";
         div_layers.style.backgroundColor = "#ffffff";
         text_label_clr.style.color = "#000000";
+        text_label_clr1.style.color = "#000000";
         if (is_foreground_selected) {
             layer_1.style.outline = "3px solid #000000";
             layer_1.style.border = "1px solid #000000";
@@ -1222,9 +1286,12 @@ change_themeBtn.addEventListener("click", () => {
         eraser_w.style.border = "2px solid #aaaaaa";
         clr_w.style.backgroundColor = "#303030";
         clr_w.style.border = "2px solid #aaaaaa";
+        clr_w1.style.backgroundColor = "#303030";
+        clr_w1.style.border = "2px solid #aaaaaa";
         body.style.backgroundColor = "#303030";
         div_layers.style.backgroundColor = "#222222";
         text_label_clr.style.color = "#ffffff";
+        text_label_clr1.style.color = "#ffffff";
         if (is_foreground_selected) {
             layer_1.style.outline = "3px solid #cccccc";
             layer_1.style.border = "1px solid #cccccc";
@@ -1334,11 +1401,11 @@ function merge_layers_in_stack(stack, local_ctx) {
         }
         else {
             substack_2.push(stack[i]);
-            is_changed_stack.push(false);
+            is_changed_stack.push(true);
         }
     }
     if (is_foreground) {
-        if (substack_1.length == 0) {
+        if (substack_1.length === 0) {
             return_value = [stack, []];
             return return_value;
         }
@@ -1346,7 +1413,7 @@ function merge_layers_in_stack(stack, local_ctx) {
         return return_value;
     }
     else {
-        if (substack_1.length == 0) {
+        if (substack_2.length === 0) {
             return_value = [stack, []];
             return return_value;
         }
@@ -1408,12 +1475,12 @@ function merge_layers(local_draw_ctx) {
     nstack = merge_elem[0];
     replay_actions(pstack);
     if (local_draw_ctx == ctx_foreground) {
-        ctx_layer_2.clearRect(0, 0, lwW, lwH);
-        canvas_to_layer(canvas_foreground, ctx_layer_1);
+         ctx_layer_2.clearRect(0, 0, lwW, lwH);
+         canvas_to_layer(canvas_foreground, ctx_layer_1);
     }
     else {
-        ctx_layer_1.clearRect(0, 0, lwW, lwH);
-        canvas_to_layer(canvas_background, ctx_layer_2);
+         ctx_layer_1.clearRect(0, 0, lwW, lwH);
+         canvas_to_layer(canvas_background, ctx_layer_2);
     }
     return return_value;
 }
@@ -1475,7 +1542,9 @@ function close_all_add_windows() {
     eraser_w.style.display = "none";
     is_eraser_window = false;
     clr_w.style.display = "none";
+    clr_w1.style.display = "none";
     is_clr_window = false;
+    is_clr_window1 = false;
 }
 colourBtn.addEventListener("click", () => {
     if (is_pencil_window || is_eraser_window) {
@@ -1491,6 +1560,7 @@ colourBtn.addEventListener("click", () => {
         is_clr_window = true;
         clr_w.addEventListener("pointermove", handleclr_PointerMove);
         ctype_clr_btn.addEventListener("click", handlet_clr_Click);
+
         ok_clr.addEventListener("click", () => {
             cursor_type = 3;
             cursor_image.setAttribute("src", cur_tool[2]);
@@ -1501,9 +1571,30 @@ colourBtn.addEventListener("click", () => {
         }, {
             once: true
         });
+
     }
     else {
         close_clr_window();
+    }
+    if (is_clr_window1 == false) {
+        clr_w1.style.display = "block";
+        update_slider();
+        is_clr_window1 = true;
+        clr_w1.addEventListener("pointermove", handleclr_PointerMove);
+        ctype_clr_btn1.addEventListener("click", handlet_clr_Click);
+        ok_clr1.addEventListener("click", () => {
+            cursor_type = 3;
+            cursor_image.setAttribute("src", cur_tool[2]);
+            cursor.style.left = (cX + 7.5) + "px";
+            cursor.style.top = (cY + 7.5) + "px";
+            cursor.style.display = "block";
+            close_clr_window1();
+        }, {
+            once: true
+        });
+    }
+    else {
+        close_clr_window1();
     }
 });
 function change_thickness(flag) {
@@ -1580,6 +1671,9 @@ setpencilBtn.addEventListener("click", () => {
     if (is_clr_window) {
         close_clr_window();
     }
+    if (is_clr_window1) {
+        close_clr_window1();
+    }
     if (cur_tool[0] != 'k') {
         if (cur_tool[0] == 'e') {
             change_thickness(false);
@@ -1612,6 +1706,9 @@ const seteraserBtn = document.getElementById("eraser");
 seteraserBtn.addEventListener("click", () => {
     if (is_clr_window) {
         close_clr_window();
+    }
+    if (is_clr_window1) {
+        close_clr_window1();
     }
     if (cur_tool[0] != 'e') {
         if (cur_tool[0] == 'k') {
@@ -1835,6 +1932,7 @@ saveBtn.addEventListener("click", () => {
 });
 function gen_caption_for_image(data_prop) {
     blackout.style.display = "block";
+    blackout1.style.display = "block";
     let send_data_cpt;
     let data;
     let background_data;
@@ -1936,7 +2034,7 @@ function replay_action(act, k_X, k_Y, fW_pred, fH_pred) {
     return [k_X, k_Y, fW_pred, fH_pred];
 }
 function replay_actions(cur_pstack) {
-    full_clear_drawfield();
+    // full_clear_drawfield();
     let k_X = fW_pred / f_dW;
     let k_Y = fH_pred / f_dH;
     let cur_thickness = 1;
@@ -2186,6 +2284,9 @@ canvas_additional.addEventListener("pointerdown", (e) => {
     enddraw = false;
     if (is_clr_window == true) {
         close_clr_window();
+    }
+    if (is_clr_window1 == true) {
+        close_clr_window1();
     }
 });
 function rgbToHex(r, g, b) {
@@ -2444,7 +2545,7 @@ d_frame.addEventListener("pointermove", (e) => //проверка курсора
         fdown = false;
         fright = false;
         fleft = false;
-        if (H_min + 40 > Y) //если верхняя часть горизонтальной части рамки 
+        if (H_min + 40 > Y) //если верхняя часть горизонтальной части рамки
          {
             fup = true;
         }
@@ -2663,6 +2764,22 @@ window.addEventListener("pointermove", (e) => //проверка курсора 
             return;
         }
     }
+     if (is_clr_window1) {
+         if (!on_clr_window1) {
+             if (cursor_type != 0) {
+                 cursor_type = 0;
+                 cursor.style.display = "block";
+             }
+         }
+         else {
+             if (cursor_type != -1) {
+                 cursor_type = -1;
+                 cursor.style.display = "none";
+             }
+             on_clr_window1 = false;
+             return;
+         }
+     }
     if (!f_move) {
         if (!on_d_frame && !draw) {
             if (cursor_type != -1) {

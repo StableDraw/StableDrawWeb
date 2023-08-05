@@ -71,18 +71,7 @@ export class App1 extends Component {
                         Выйти
                     </NavLink>
                 </div>
-                <div className="helpfull_links" fontSize="2px">
-                    <div className="helpfull_link">
-                        <a href="#">
-                            О нас
-                        </a>
-                    </div>
-                    <div className="helpfull_link">
-                        <a href="#">
-                            Помощь
-                        </a>
-                    </div>
-                </div>
+
                 <h1>STABLEDRAW EDITOR</h1>
                 <DrawPane width={1800} height={750}/>
                 <h2>MADE BY FAST™️</h2>
@@ -112,11 +101,7 @@ export class App1 extends Component {
 
                 </footer>
 
-                <React.Fragment>
-                    <Helmet>
-                        <script src='main.js'></script>
-                    </Helmet>
-                </React.Fragment>
+
 
             </div>
 

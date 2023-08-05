@@ -8,6 +8,7 @@ import { FramestoAnimation } from "./components/FramestoAnimation";
 import { Counter } from "./components/Counter";
 import { FetchData } from "./components/FetchData";
 import { Home } from "./components/Home";
+import {App1} from "./App1";
 
 const AppRoutes = [
     {
@@ -28,6 +29,11 @@ const AppRoutes = [
         path: '/drawing-to-img',
         requireAuth: true,
         element: <DrawingtoImg />
+    },
+    {
+        path: '/notdrawing-to-img',
+        requireAuth: true,
+        element: <App1 />
     },
     {
         path: '/photo-to-img',
