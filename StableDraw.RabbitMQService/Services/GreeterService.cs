@@ -24,7 +24,6 @@ public class GreeterService : Greeter.GreeterBase
 
     public override Task<StatusReply> GenCaption(FromImageRequest request, ServerCallContext context)
     {
-        
         return Task.FromResult(new StatusReply
         {
                 

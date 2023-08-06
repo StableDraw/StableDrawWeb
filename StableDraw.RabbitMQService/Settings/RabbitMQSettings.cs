@@ -4,11 +4,11 @@ namespace StableDraw.RabbitMQService.Settings;
 
 public class RabbitMQSettings
 {
-    public string HostName { get; set; }
+    public string Address { get; set; }
     public Dictionary<RebbitMQQueueEnum, string> QueuesDictionary { get; set; }
 }
 
 public enum RebbitMQQueueEnum
 {
-    
+    Status
 }

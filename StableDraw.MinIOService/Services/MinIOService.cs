@@ -2,19 +2,22 @@
 using Minio;
 using Minio.Exceptions;
 using StableDraw.MinIOService.Models;
+using StableDraw.MinIOService.Settings;
 
 namespace StableDraw.MinIOService.Services;
 
 public class MinIOService : IMinIOService
 {
     private MinioClient _minio;
-
-    public MinIOService()
+    private readonly MinIOSettings _minIoSettings;
+    
+    public MinIOService(MinIOSettings minIoSettings)
     {
+        _minIoSettings = minIoSettings;
         _minio = new MinioClient()
-            .WithEndpoint("Address")
-            .WithCredentials("YOUR-ACCESSKEYID",
-                "YOUR-SECRETACCESSKEY")
+            .WithEndpoint(_minIoSettings.Address)
+            .WithCredentials(_minIoSettings.AccessKey,
+                _minIoSettings.SecretKey)
             .WithSSL()//if Domain is SSL
             .Build();
     }
