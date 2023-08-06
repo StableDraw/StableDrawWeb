@@ -1355,8 +1355,11 @@ clear_first_layer_Btn.addEventListener("click", () => {
     original_image_buf = "";
     before_gen_block.style.display = "none";
     ctx_foreground.clearRect(0, 0, cW, cH);
+
     ctx_layer_1.clearRect(0, 0, lwW, lwH);
+
     push_action_to_stack(['c', ctx_foreground]);
+    pstack=[];
 });
 second_layer_visibilityBtn.addEventListener("click", () => {
     if (is_background_visible) {
@@ -1374,8 +1377,11 @@ clear_second_layer_Btn.addEventListener("click", () => {
     original_image_buf = "";
     before_gen_block.style.display = "none";
     ctx_background.clearRect(0, 0, cW, cH);
+
     ctx_layer_2.clearRect(0, 0, lwW, lwH);
     push_action_to_stack(['c', ctx_background]);
+    pstack=[];
+
 });
 const merge_layersBtn = document.getElementById("merge_layers");
 function merge_layers_in_stack(stack, local_ctx) {
@@ -1511,6 +1517,9 @@ function swap_layers_in_stack(stack) {
 function swap_layers() {
     let input_value = swap_layers_in_stack(pstack);
     pstack = input_value[0];
+    alert(pstack);
+    console.log(pstack);
+
     if (input_value[1] == false) {
         return;
     }
@@ -2034,7 +2043,7 @@ function replay_action(act, k_X, k_Y, fW_pred, fH_pred) {
     return [k_X, k_Y, fW_pred, fH_pred];
 }
 function replay_actions(cur_pstack) {
-    // full_clear_drawfield();
+    full_clear_drawfield();
     let k_X = fW_pred / f_dW;
     let k_Y = fH_pred / f_dH;
     let cur_thickness = 1;
@@ -2063,7 +2072,7 @@ function replay_actions(cur_pstack) {
     ctx_foreground.lineWidth = l_width;
     ctx_background.lineWidth = l_width;
 }
-function canvas_to_layer(local_canvas, local_layer) {
+function canvas_to_layer(local_canvas, local_layer) { //отображение изображений на мини-слоях
     let image_layer = new Image();
     image_layer.onload = function () {
         local_layer.drawImage(image_layer, 0, 0, cW, cH, 0, 0, lwW, lwH);
@@ -2524,6 +2533,7 @@ function getBezierCurve(arr, step) {
             res[ind][2] += arr[i][2] * b;
         }
     }
+    console.log(res);
     return res;
 }
 function drawLines(local_ctx, arr) {
