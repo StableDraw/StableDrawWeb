@@ -1,4 +1,6 @@
-﻿using Minio;
+﻿using Grpc.Core;
+using Minio;
+using Minio.Exceptions;
 using StableDraw.MinIOService.Models;
 
 namespace StableDraw.MinIOService.Services;
@@ -67,5 +69,22 @@ public class MinIOService : IMinIOService
             Data = destination.ToArray(),
             ObjectStat = objstatreply
         });
+    }
+
+    public async Task<StatusCode> DelObj(DeleteObjectRequest request)
+    {
+        var objstatreply = await _minio.StatObjectAsync(new StatObjectArgs()
+                .WithBucket(request.Bucket)
+                .WithObject(request.ObjectName)
+            );
+        if (objstatreply == null || objstatreply.DeleteMarker) 
+            throw new Exception("object not found or Deleted");
+
+        RemoveObjectArgs rmArgs = new RemoveObjectArgs()
+            .WithBucket(request.Bucket)
+            .WithObject(request.ObjectName);
+        await _minio.RemoveObjectAsync(rmArgs);
+
+        return await Task.FromResult(StatusCode.OK);
     }
 }

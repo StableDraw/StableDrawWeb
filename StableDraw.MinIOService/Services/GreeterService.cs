@@ -41,4 +41,10 @@ public class GreeterService : Greeter.GreeterBase
             ImageId = result
         });
     }
+
+    public override async Task<StatusReply> DelObject(ImageIdRequest request, ServerCallContext context)
+    {
+        var result = await _minIo.DelObj(new DeleteObjectRequest { Bucket = request.Id = request.Id });
+        return await Task.FromResult(new StatusReply{Code = (int)result});
+    }
 }

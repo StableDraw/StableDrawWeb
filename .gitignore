@@ -46,3 +46,7 @@ Client/ClientApp/README.MD
 /StableDraw.MinIOService/bin
 /StableDraw.RabbitMQService/bin
 /StableDraw.RabbitMQService/obj
+/PushpullMinIO
+/StableDraw.Domain/obj
+/StableDraw.Core/obj
+/StableDraw.Domain/bin

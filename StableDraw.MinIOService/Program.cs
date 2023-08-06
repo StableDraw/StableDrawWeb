@@ -1,4 +1,5 @@
 using StableDraw.MinIOService.Services;
+using StableDraw.MinIOService.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddGrpc();
 builder.Services.AddScoped<IMinIOService, MinIOService>();
+
+builder.Services.Configure<MinIOSettings>(builder.Configuration.GetSection("MinIO"));
 
 var app = builder.Build();
 
