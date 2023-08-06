@@ -101,18 +101,6 @@ body {
     height: 24px;
 }
 
-.clr_window1
-{
-    touch-action: none;
-    display: none;
-    z-index: 19;
-    position: fixed;
-    justify-content: flex-end;
-    top: 6%;
-    margin-right: 21.6%;
-    border: 2px solid rgb(29, 29, 29);
-    background-color:#ffffff;
-}
 
 .color_palette
 {

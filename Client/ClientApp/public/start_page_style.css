@@ -23,8 +23,8 @@ body
 .container 
 {
     max-width: 100% !important;
-    padding-right: 0px !important;
-    padding-left: 0px !important;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
 }
 .start-page 
 {
@@ -108,7 +108,7 @@ body
 {
   .col-lg 
   {
-    flex: 1 0 0% !important;
+    flex: 1 0 0 !important;
   }
 }
 .col-lg-7 
@@ -190,7 +190,7 @@ body
 }
 .site-navbar 
 {
-  margin-bottom: 0px;
+  margin-bottom: 0;
   z-index: 1999;
   position: absolute;
   top: 0;
@@ -221,7 +221,7 @@ body
     width: 340px;
     display: inline-block;
     margin-left: auto;
-    margin-right: 0em;
+    margin-right: 0;
 }
 .nav-up-reg-link
 {
@@ -246,7 +246,6 @@ body
 {
     display: inline-block !important;
     padding: 0.5rem 1rem;
-    color: #ffffff;
     text-decoration: none;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
     color: #ffffff !important;
