@@ -501,6 +501,7 @@ var main_modal = function (options) {
         }
     });
 })();
+
 function show_gen_result(image) {
     close_all_add_windows();
     is_background_visible = false;
@@ -537,7 +538,7 @@ let last_task_image_name = "drawing.png";
 let last_task_image_suffix = "0";
 //ws.onopen = function(){alert("open");} 
 ws.onclose = function () {
-    alert("Извините, произошла ошибка на стороне сервера. Пожалуйста перезагрузите страницу");
+    //alert("Извините, произошла ошибка на стороне сервера. Пожалуйста перезагрузите страницу");
 };
 //ws.onerror = function(){alert("error");}
 function check_data_before_sending() {
@@ -844,6 +845,7 @@ function gen_picture_by_prompt(full_prompt) {
     });
     ws.send(send_data_pbt);
 }
+
 function delete_background() {
     blackout.style.display = "block";
     let data = original_image_buf;
@@ -860,6 +862,7 @@ function delete_background() {
     });
     ws.send(send_data_del);
 }
+
 function colorize_picture() {
     blackout.style.display = "block";
     let data = original_image_buf;
@@ -937,6 +940,7 @@ for (slider_element of slider_range) {
     slider_element.style.setProperty("--max", slider_element.max == "" ? "100" : slider_element.max);
     slider_element.addEventListener("input", () => slider_element.style.setProperty("--value", slider_element.value));
 }
+
 ratio_field.onchange = function () {
     let t_v = ratio_field.value;
     let pos = t_v.indexOf(':');
@@ -969,7 +973,7 @@ ratio_field.onchange = function () {
     replay_actions(pstack); //Повторная отрисовка с новым разрешением
     return get_visual_ratio(true, new_dfw, new_dfh);
 };
-function get_visual_ratio(abs, w, h) {
+function get_visual_ratio(abs, w, h) { // массштаб экрана
     const rat = [[2.0556, 21, 9], [1.5556, 16, 9], [1.1667, 4, 3], [0.875, 1, 1], [0.6562, 3, 4], [0.4955, 9, 16]];
     let cur_ratio = w / h;
     let v_w = 0;
@@ -1284,13 +1288,6 @@ first_layer_visibilityBtn.addEventListener("click", () => {
         first_layer_visibility_img.setAttribute("src", "visibility_on.png");
     }
 });
-clear_first_layer_Btn.addEventListener("click", () => {
-    original_image_buf = "";
-    before_gen_block.style.display = "none";
-    ctx_foreground.clearRect(0, 0, cW, cH);
-    ctx_layer_1.clearRect(0, 0, lwW, lwH);
-    push_action_to_stack(['c', ctx_foreground]);
-});
 second_layer_visibilityBtn.addEventListener("click", () => {
     if (is_background_visible) {
         is_background_visible = false;
@@ -1303,12 +1300,39 @@ second_layer_visibilityBtn.addEventListener("click", () => {
         second_layer_visibility_img.setAttribute("src", "visibility_on.png");
     }
 });
+clear_first_layer_Btn.addEventListener("click", () => {
+    original_image_buf = "";
+    before_gen_block.style.display = "none";
+    ctx_foreground.clearRect(0, 0, cW, cH);
+    ctx_layer_1.clearRect(0, 0, lwW, lwH);
+    push_action_to_stack(['c', ctx_foreground]);
+
+    pstack.push(['i',  ctx_foreground, '#fff']);
+    // pstack = [];
+    
+});
 clear_second_layer_Btn.addEventListener("click", () => {
     original_image_buf = "";
     before_gen_block.style.display = "none";
     ctx_background.clearRect(0, 0, cW, cH);
     ctx_layer_2.clearRect(0, 0, lwW, lwH);
     push_action_to_stack(['c', ctx_background]);
+
+    pstack.push(['i',ctx_background , '#fff']);
+    // pstack = [];
+
+    // pstack[0][0] =[]; // фон
+    
+    // pstack[1][0] =[];
+    // pstack[1][1] =[]; // контур
+
+    // pstack[2][0] =[];
+    // pstack[2][1] =[]; // заливка
+    
+    // pstack[3][0] =[];
+    // pstack[3][1] =[];
+
+
 });
 const merge_layersBtn = document.getElementById("merge_layers");
 function merge_layers_in_stack(stack, local_ctx) {
@@ -1425,6 +1449,7 @@ merge_layersBtn.addEventListener("click", () => {
     push_action_to_stack(['m', cur_draw_ctx, is_changed_stack[0], is_changed_stack[1]]);
 });
 const swap_layersBtn = document.getElementById("swap_layers");
+
 function swap_layers_in_stack(stack) {
     let return_value = [[], false];
     for (let i = 0; i < stack.length; i++) {
@@ -1442,23 +1467,29 @@ function swap_layers_in_stack(stack) {
     return return_value;
 }
 function swap_layers() {
+
     let input_value = swap_layers_in_stack(pstack);
     pstack = input_value[0];
-    if (input_value[1] == false) {
-        return;
-    }
+    
+    console.log(pstack)
+    if (input_value[1] == false) return;
+    
+
     input_value = swap_layers_in_stack(nstack);
     nstack = input_value[0];
     replay_actions(pstack);
+    
     ctx_layer_1.clearRect(0, 0, lwW, lwH);
     canvas_to_layer(canvas_foreground, ctx_layer_1);
     ctx_layer_2.clearRect(0, 0, lwW, lwH);
     canvas_to_layer(canvas_background, ctx_layer_2);
 }
+
 swap_layersBtn.addEventListener("click", () => {
     swap_layers();
     push_action_to_stack(['s']);
 });
+
 graphic_tabletBtn.addEventListener("click", () => {
     if (graphic_tablet_mode) {
         graphic_tabletBtn.style.border = "1px solid #707070";
@@ -1887,6 +1918,7 @@ document.addEventListener("pointerenter", (e) => {
     cursor.style.left = (cX + 7.5) + "px";
     cursor.style.top = (cY + 7.5) + "px";
 }, { once: true });
+
 function replay_action(act, k_X, k_Y, fW_pred, fH_pred) {
     let act_type = act[0];
     switch (act_type) {
@@ -1965,13 +1997,15 @@ function replay_actions(cur_pstack) {
     ctx_foreground.lineWidth = l_width;
     ctx_background.lineWidth = l_width;
 }
-function canvas_to_layer(local_canvas, local_layer) {
+
+function canvas_to_layer(local_canvas, local_layer) { // отображение рисунка на мини-слоях
     let image_layer = new Image();
     image_layer.onload = function () {
         local_layer.drawImage(image_layer, 0, 0, cW, cH, 0, 0, lwW, lwH);
     };
     image_layer.src = local_canvas.toDataURL();
 }
+
 function undo_action() {
     let pstack_size = pstack.length;
     if (pstack_size != 0) {
@@ -2048,6 +2082,7 @@ function repeat_action() {
         canvas_to_layer(local_cur_canvas, local_cur_ctx_layer);
     }
 }
+
 document.addEventListener("keydown", (event) => {
     if (is_modal_open || is_side_panel_open) {
         return;
@@ -2400,6 +2435,7 @@ canvas_additional.addEventListener("pointermove", (e) => //проверка ку
         cursor_image.setAttribute("src", cur_tool[2]);
     }
 });
+
 function getBezierBasis(i, n, t) {
     // Факториал
     function f(n) {
