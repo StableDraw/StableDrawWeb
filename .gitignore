@@ -39,3 +39,10 @@ Client/ClientApp/README.MD
 /.vs
 /Client/*.db
 /StableDraw.Core/bin
+/StableDraw.MinIOService/.idea
+/StableDraw.MinIOService/obj
+/StableDraw.RabbitMQService/.idea
+/StableDraw.RabbitMQService/.vs
+/StableDraw.MinIOService/bin
+/StableDraw.RabbitMQService/bin
+/StableDraw.RabbitMQService/obj
