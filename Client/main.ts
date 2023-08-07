@@ -2136,7 +2136,7 @@ clearBtn.addEventListener("click", () =>
 const mhf: HTMLElement = <HTMLElement> document.getElementById("my_hidden_file")
 const uploadBtn: HTMLElement = <HTMLElement> document.getElementById("upload")
 
-uploadBtn.addEventListener("click", () => 
+uploadBtn.addEventListener("click", () => /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 {
     if(!is_first_upload_btn_click) //костыль чтобы кнопка не срабатывала дважды
     {

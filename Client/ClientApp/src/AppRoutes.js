@@ -8,6 +8,7 @@ import { FramestoAnimation } from "./components/FramestoAnimation";
 import { Counter } from "./components/Counter";
 import { FetchData } from "./components/FetchData";
 import { Home } from "./components/Home";
+import { MainBabylon } from "./components/babylon/mainBabylon";
 
 const AppRoutes = [
     {
@@ -26,7 +27,7 @@ const AppRoutes = [
     },
     {
         path: '/drawing-to-img',
-        requireAuth: true,
+        requireAuth: false,
         element: <DrawingtoImg />
     },
     {
@@ -54,6 +55,11 @@ const AppRoutes = [
         path: '/fetch-data',
         requireAuth: true,
         element: <FetchData />
+    },
+    {
+        path: '/babylon',
+        requireAuth: false,
+        element: <MainBabylon />
     },
     ...ApiAuthorzationRoutes
 ];
