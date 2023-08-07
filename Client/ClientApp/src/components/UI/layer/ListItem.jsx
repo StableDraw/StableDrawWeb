@@ -15,9 +15,14 @@ const ListItem = (props) => {
                 <Visability ids={props.item.id}/>
                 <Clear ids={props.item.id}/>
                 <div className='right_shift' hidden = {isHovering}>
+<<<<<<< HEAD
                     <Destroy remove={props.remove} item={props.item}/>
+=======
+                            <Destroy remove={props.remove} item={props.item}/>
+>>>>>>> f1508366e1130bd19519dd6f5339e549472fcd6d
                 </div>
             </div>
+
             <div className="layer_button" id={"layer_button_"+props.item.id}>
                 <div className="layer_display_icon" id={"layer_display_icon_"+props.item.id}>
                     <canvas className="layer_display_canvas" id={"layer_"+props.item.id+"_display_canvas"} style={{ zIndex: 1 }}></canvas>
