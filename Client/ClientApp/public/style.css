@@ -404,11 +404,11 @@ body
 }
 .layers_buttons
 {
-    position: relative;
+    /* position: relative; */
     left: 2%;
     top: 0;
     width: 95%;
-    height: 15%;
+    /* height: 15%; */
 }
 .layers_mini_button
 {
@@ -438,18 +438,28 @@ body
 }
 .layer_box
 {
-    position: relative;
+    /* position: relative; */
+    display: block;
     top: 1.5%;
     left: 3px;
-    width: 91%;
-    height: 78%;
+    width: 100%;
+    height: 100%;
 }
+
+.right_shift {
+    position: relative;
+    transform: translate(-50%, -50%);
+    left: 135px;
+    bottom: 55px;
+    z-index: 2;
+}
+
 .layer
 {
     margin-top: 5px;
     display: flex;
     width: 100%;
-    height: 47%;
+    height: 65px; /*фикс-я размера слоя, для отвязки от лейбла*/ 
     border-radius: 3px;
     outline: 1px solid rgb(85, 85, 85);
 }

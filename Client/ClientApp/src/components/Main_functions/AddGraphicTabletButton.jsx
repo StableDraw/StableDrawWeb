@@ -7,7 +7,7 @@ const AddGraphicTabletButton = () => {
     }
     return (
         <div>
-
+            
         </div>
     );
 };
