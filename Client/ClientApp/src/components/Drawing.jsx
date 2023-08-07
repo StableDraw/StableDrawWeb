@@ -14,8 +14,9 @@ import ToolBar from "./UI/menu/ToolBar";
 const Drawing = () => {
     return (
         <div>
-            <h1>
-                Test Drawing
+            <h1><span style={{textDecoration: 'underline', margin: 80, color: 'rgba(204,32,32,0.8)'}}>
+                <span style={{color: 'rgba(83,107,234,0.9)', fontWeight: "bold" }}>S</span>table Drawing
+            </span>
             </h1>
             <div className = "subbody">
                 

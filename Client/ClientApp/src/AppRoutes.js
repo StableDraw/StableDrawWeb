@@ -9,6 +9,7 @@ import { Counter } from "./components/Counter";
 import { FetchData } from "./components/FetchData";
 import { Home } from "./components/Home";
 import {App1} from "./App1";
+import Drawing from "./components/Drawing";
 
 const AppRoutes = [
     {
@@ -28,7 +29,7 @@ const AppRoutes = [
     {
         path: '/drawing-to-img',
         requireAuth: true,
-        element: <DrawingtoImg />
+        element: <Drawing />
     },
     {
         path: '/notdrawing-to-img',

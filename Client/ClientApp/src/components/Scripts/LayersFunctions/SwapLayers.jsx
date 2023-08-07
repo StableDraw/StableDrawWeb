@@ -16,10 +16,12 @@ const SwapLayers = () => {
     canvas_to_layer(canvas_foreground, ctx_layer_1);
     ctx_layer_2.clearRect(0, 0, lwW, lwH);
     canvas_to_layer(canvas_background, ctx_layer_2);
-    return (
-        <div>
 
-        </div>
+
+    return (
+        <button onClick={SwapLayers} className="layers_mini_button" id="add_layers" title="Добавить слой">
+            <img className="layers_mini_button_image" alt="swap.png" src="plus.png"></img>
+        </button>
     );
 };
 

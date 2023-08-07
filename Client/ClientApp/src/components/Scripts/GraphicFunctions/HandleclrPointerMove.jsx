@@ -2,7 +2,6 @@ import React from 'react';
 
 const HandleclrPointerMove = () => {
     on_clr_window = true;
-    on_clr_window1 = true;
     let ccv = cur_color.value;
     let local_clf_layer_type;
     if (ccv == "#NaNNaNNaN") {
@@ -22,7 +21,6 @@ const HandleclrPointerMove = () => {
         if (!old_btn_clr[local_clf_layer_type]) {
             old_btn_clr[local_clf_layer_type] = true;
             ok_clr_btn.style.color = "#000000";
-            ok_clr_btn1.style.color = "#000000";
             clrimg.style.filter = "invert(0)";
         }
     }
@@ -30,12 +28,10 @@ const HandleclrPointerMove = () => {
         if (old_btn_clr[local_clf_layer_type]) {
             old_btn_clr[local_clf_layer_type] = false;
             ok_clr_btn.style.color = "#ffffff";
-            ok_clr_btn1.style.color = "#ffffff";
             clrimg.style.filter = "invert(1)";
         }
     }
     ok_clr_btn.style.background = ccv;
-    ok_clr_btn1.style.background = ccv;
     colourBtn.style.background = ccv;
     return (
         <div>
