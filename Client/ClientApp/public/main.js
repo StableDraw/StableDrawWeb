@@ -559,7 +559,7 @@ function show_gen_result(image) { //Показывает сгенерирова�
 
 //ws.onopen = function(){alert("open");}
 ws.onclose = function () {
-    alert("Извините, произошла ошибка на стороне сервера. Пожалуйста перезагрузите страницу");
+    //alert("Извините, произошла ошибка на стороне сервера. Пожалуйста перезагрузите страницу");
 };
 //ws.onerror = function(){alert("error");}
 function check_data_before_sending() {
@@ -1478,6 +1478,7 @@ function swap_layers() { //перемещение слоев
     input_value = swap_layers_in_stack(nstack);
     nstack = input_value[0];
     replay_actions(pstack);
+    
     ctx_layer_1.clearRect(0, 0, lwW, lwH);
     canvas_to_layer(canvas_foreground, ctx_layer_1);
     ctx_layer_2.clearRect(0, 0, lwW, lwH);

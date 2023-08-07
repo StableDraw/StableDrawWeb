@@ -1,0 +1,109 @@
+﻿.clr_w
+{
+    touch-action: none;
+    display: none;
+    z-index: 19;
+    position: fixed;
+    justify-content: flex-end;
+    top: 6%;
+    margin-right: 21.6%;
+    border: 2px solid rgb(29, 29, 29);
+    background-color:#ffffff;
+}
+.ctype_clr
+{
+    touch-action: none;
+    font-size: 15px;
+    color: #000000;
+    background-color:#ffffff;
+    height: 30%;
+    width: 40%;
+    float: left;
+    display: flex;
+    margin-left: auto;
+}
+.clr_btn
+{
+    touch-action: none;
+    font-size: 15px;
+    color: #ffffff;
+    background-color:#000000;
+    height: 30%;
+    width: 40%;
+    float: right;
+    display: flex;
+    margin-left: auto;
+}
+.add_w
+{
+    touch-action: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    z-index: 18;
+    position: fixed;
+    justify-content: flex-end;
+    top: 6%;
+    width: 230px;
+    border: 2px solid rgb(29, 29, 29);
+    background-color:#fff;
+}
+.thick
+{
+    touch-action: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    pointer-events: none;
+    height: 20px;
+    width: 20px;
+}
+.w_slider
+{
+    touch-action: none;
+    width: 60%;
+}
+.w_field
+{
+    touch-action: none;
+    width: 20%;
+}
+.sidepanel .cls_btn 
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    touch-action: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    right: 0px;
+    font-size: 36px;
+    width: 45px;
+    height: 44px;
+}
+.up_btn
+{
+    touch-action: none;
+    cursor: pointer;
+    border: 1px solid #707070;
+    border-radius: 3px;
+    height: 40px;
+    width: 50px;
+}
+.btnimg
+{
+    touch-action: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    pointer-events: none;
+    height: 100%;
+    width: 100%;
+}
