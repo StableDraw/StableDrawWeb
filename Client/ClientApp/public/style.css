@@ -52,7 +52,7 @@ body
     pointer-events: none;
     position: absolute;
     box-sizing: border-box;
-    transition: 0, 1s;
+    transition: 0.1s;
     transform: translate(-25%, -25%);
 }
 .sidepanel 
@@ -103,7 +103,7 @@ body
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-    right: 0px;
+    right: 0;
     font-size: 36px;
     width: 45px;
     height: 44px;
@@ -131,9 +131,10 @@ body
 }
 .work_mode_href#selected_work_mode
 {
-    cursor: auto; 
-    border: 5px solid rgb(0, 0, 0);
-    border-bottom-style: 1px solid rgb(0, 0, 0);
+    cursor: auto;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(0, 0, 0);
+    border-bottom-width: 5px;
 }
 .work_mode_img_btn
 {
@@ -220,7 +221,7 @@ body
     opacity: 0;
     z-index: -1;
     pointer-events: none;
-    transition: opacity 0 .2s ease-in;
+    transition: opacity 0.2s ease-in;
 }
 .modal__content 
 {
@@ -403,11 +404,11 @@ body
 }
 .layers_buttons
 {
-    position: relative;
+    /* position: relative; */
     left: 2%;
-    top: 0%;
+    top: 0;
     width: 95%;
-    height: 15%;
+    /* height: 15%; */
 }
 .layers_mini_button
 {
@@ -437,18 +438,28 @@ body
 }
 .layer_box
 {
-    position: relative;
+    /* position: relative; */
+    display: block;
     top: 1.5%;
     left: 3px;
-    width: 91%;
-    height: 78%;
+    width: 100%;
+    height: 100%;
 }
+
+.right_shift {
+    position: relative;
+    transform: translate(-50%, -50%);
+    left: 135px;
+    bottom: 55px;
+    z-index: 2;
+}
+
 .layer
 {
     margin-top: 5px;
     display: flex;
     width: 100%;
-    height: 47%;
+    height: 65px; /*фикс-я размера слоя, для отвязки от лейбла*/ 
     border-radius: 3px;
     outline: 1px solid rgb(85, 85, 85);
 }
@@ -461,7 +472,7 @@ body
 .layer_left_mini_button 
 {
     top: 3%;
-    margin: 0px;
+    margin: 0;
     position: relative;
     display: inline-block;
     vertical-align: top;
@@ -479,7 +490,6 @@ body
     -moz-user-select: none;
     -ms-user-select: none;
     margin-top: auto;
-    left: -5px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -520,7 +530,7 @@ body
     -moz-user-select: none;
     -ms-user-select: none;
     width: 100%;
-    height: 75px;
+    height: 100%;
 }
 .openbtn
 {
@@ -529,8 +539,8 @@ body
     -moz-user-select: none;
     -ms-user-select: none;
     position: fixed;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     font-size: 20px;
     cursor: pointer;
     background-color: rgb(255, 255, 255);
@@ -557,7 +567,6 @@ body
     border-radius: 3px;
     cursor: pointer;
     width: 50px;
-    height: 40px;
     top: 4px;
     left: 10%;
 }
@@ -598,7 +607,7 @@ body
     -moz-user-select: none;
     -ms-user-select: none;
     margin-left: auto;
-    display: flex;
+    /*display: flex;*/
     display: inline-block;
     width: 100%;
 }
@@ -812,8 +821,8 @@ input[type=range].up_add_window_slider::-ms-fill-lower
     position: absolute;
     overflow: hidden;
     display: block;
-    height: 0px;
-    width: 0px;
+    height: 0;
+    width: 0;
 }
 .up_panel_button_image
 {

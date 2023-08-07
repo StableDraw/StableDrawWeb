@@ -59,12 +59,9 @@ export class DrawingtoImg extends Component
     {
         return (
             <div className = "subbody">
-                {/*Перенесено*/}
                 <div className = "blackout" id = "full_blackout">
                     <img className = "loading" alt = "loading.webp" src = "loading.webp"></img>
                 </div>
-                {/*Конец Перенесено*/}
-                {/* (перенесено частично)Боковая минюшка */}
                 <div id = "mySidepanel" className = "sidepanel">
                     <a className = "closebtn" id = "size_panel_closebtn">
                         &times;
@@ -115,20 +112,13 @@ export class DrawingtoImg extends Component
                         </div>
                     </div>
                 </div>
-                
                 <div className="blackout" id="side_panel_blackout" style={{ zIndex: 20 }}></div>
                 <button className="openbtn">
                     &#9776;
                 </button>
-                {/* (перенесено)Конец боковой менюшки */}
-                
-                {/* !!!Поробовать добавить через стили!!! */}
                 <div className="cursor">
                     <img className="cursimg" alt="cursimg" style={{ width: "30px", height: "30px" }}></img>
                 </div>
-                {/* !!!Понец пробовалок!!! */}
-                
-                {/* (перенесено частично)Нижняя правая менюшка */}
                 <div className="layers">
                     <div className="layers_buttons">
                         <button className="layers_mini_button" id="merge_layers" title="Объединить слои">
@@ -173,9 +163,6 @@ export class DrawingtoImg extends Component
                         </div>
                     </div>
                 </div>
-                {/* (перенесено частично)Конец нижней правой менюшки */}
-                
-                {/* (Перенесено частично)Расширение полотна */}
                 <div className="scale_field">
                     <input type="text" className="f_ratio" list="default_ratio" name="f_ratio" required placeholder="W:H" />
                     <datalist id="default_ratio">
@@ -187,9 +174,6 @@ export class DrawingtoImg extends Component
                         <option value="9:21"></option>
                     </datalist>
                 </div>
-                {/* (Перенесено частично)Конец Расширение полотна */}
-                
-                {/* (Перенесено частично)Блок дегенерации */}
                 <div id="before_gen_block" style={{ position: "fixed", top: "50px", left: "5%", height: "20%", width: "20%", border: "2px solid #111111", zIndex: "15", display: "none" }}>
                     <div className="closebtn" id="close_before_gen_block" style={{ position: "absolute", zIndex: "16", right: "-2px", top: "-2px", width: "20px", height: "20px", cursor: "pointer", textAlign: "center", background: "#ffffff", border: "2px solid #111111" }}>
                         <a style={{ position: "relative", fontSize: "25px", top: "-80%", verticalAlign: "middle", textAlign: "center", height: "100%", width: "100%", display: "block" }}>
@@ -198,9 +182,6 @@ export class DrawingtoImg extends Component
                     </div>
                     <canvas id="before_gen" style={{ position: "relative", width: "100%", height: "100%", cursor: "pointer" }}></canvas>
                 </div>
-                {/* (перенесено частично)Конец Блок дегенерации */}
-                
-                {/* (Перенесено частично)Полотно */}
                 <div className="d_frame" id="d_frame">
                     <div className="v_frame" id="v_frame">
                         <canvas className="drawfield" id="canvas_additional" style={{ zIndex: 10 }}></canvas>
@@ -209,9 +190,6 @@ export class DrawingtoImg extends Component
                         <div className="drawfield" id="alpha_img" style={{ zIndex: 7, backgroundImage: "url(alpha_pattern.png)", backgroundRepeat: "repeat" }}></div>
                     </div>
                 </div>
-                {/* (Перенесено частично)Конец полотна */}
-                
-                {/* (перенесено частично)Раскрасить фон (передать в компонент кнопки при вызове модалки!) */}
                 <div className="clr_window" id="clr_window">
                     <form action="">
                         <div className="form-item">
@@ -229,9 +207,6 @@ export class DrawingtoImg extends Component
                         Сохранить
                     </button>
                 </div>
-                {/* (перенесено частично)Конец раскраски фона */}
-                
-                {/* (Перенесено частично)Карандаш (передать в компонент кнопки при вызове модалки!) */}
                 <div className="up_add_window" id="pencil_window" style={{ marginRight: "14.5%", display: "block" }}>
                     <div className="pencil_window_thickness_block">
                         <img className="thicknessimg" alt="thickness.png" src="thickness.png"></img>
@@ -244,9 +219,6 @@ export class DrawingtoImg extends Component
                         <input className="up_add_window_field" type="number" id="smoothing_rangeValue" min="0" max="100" defaultValue="0"></input>
                     </div>
                 </div>
-                {/* Конец Карандаша */}
-                
-                {/* (Перенесено частично)Ластик (передать в компонент кнопки при вызове модалки!)*/}
                 <div className="up_add_window" id="eraser_window" style={{ marginRight: "7.5%", display: "none" }}>
                     <div className="eraser_window_thickness_block">
                         <img className="thicknessimg" alt="thickness.png" src="thickness.png"></img>
@@ -254,17 +226,10 @@ export class DrawingtoImg extends Component
                         <input className="up_add_window_field" type="number" id="e_thickness_rangeValue" min="1" max="100" defaultValue="1"></input>
                     </div>
                 </div>
-                {/* (Перенесено частично)Конец ластик */}
-
-                {/*(Перенесено частично) Учитывать граф. планшет*/}
                 <button className="up_panel_button" id="graphic_tablet" title="Учитывать силу нажатия" style={{ display: "none", position: "fixed", top: "4px", left: "10%" }}>
                     <img className="up_panel_button_image" id="graphic_tablet_image" alt="graphic_tablet.png" src="graphic_tablet.png"></img>
                 </button>
-                {/*(Перенесено частично) Конец Учитывать граф. планшет*/}
-                
                 <div className="palette_nav"></div>
-                
-                {/*(Перенесено частино) Навигация помечена как ToolBar, <Кнопки сделать как обекты>*/}
                 <div className="nav">
                     <div className="icon_buttons">
                         <button className="up_panel_button" id="arrow_back" title={"Отменить"}>
@@ -302,8 +267,6 @@ export class DrawingtoImg extends Component
                             <img className="up_panel_button_image" id="generateimg" alt="generate.png" src="generate.png"></img>
                         </button>
                     </div>
-                    {/*(Перенесено частино) Конец Навигация помечена как ToolBar, <Кнопки сделать как обекты>*/}
-                    
                 </div>
                 <React.Fragment>
                     <Helmet>

@@ -1,7 +1,3 @@
-.vscode/
-node_modules/
-package-lock.json
-package.json
 *.pt
 *.ckpt
 *.pth
@@ -16,6 +12,8 @@ Client/Migrations
 Client/.config
 Client/.vs
 Client/bin
+Client/Data
+Client/Migrations
 Client/node_modules
 Client/obj
 Client/app.db
