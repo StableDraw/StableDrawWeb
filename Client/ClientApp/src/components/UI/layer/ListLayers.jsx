@@ -3,7 +3,6 @@ import ListItem from "./ListItem";
 
 const ListLayers = ({layers, remove, ...props}) => {
     const [layer, setLeyer] = useState()
-    
     return (
         <div className="layer_box">
             {layers.map((item, index) =>

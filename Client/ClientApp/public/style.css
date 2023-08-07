@@ -446,21 +446,16 @@ body
 }
 .layer_box
 {
-<<<<<<< HEAD
+
     position: relative;
-=======
     /* position: relative; */
->>>>>>> f1508366e1130bd19519dd6f5339e549472fcd6d
+
     display: block;
     top: 1.5%;
     left: 3px;
     width: 100%;
     height: 100%;
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> f1508366e1130bd19519dd6f5339e549472fcd6d
 .right_shift {
     position: relative;
     transform: translate(-50%, -50%);
@@ -474,11 +469,7 @@ body
     margin-top: 5px;
     display: flex;
     width: 100%;
-<<<<<<< HEAD
     height: 65px;
-=======
-    height: 65px; /*фикс-я размера слоя, для отвязки от лейбла*/ 
->>>>>>> f1508366e1130bd19519dd6f5339e549472fcd6d
     border-radius: 3px;
     outline: 1px solid rgb(85, 85, 85);
 }

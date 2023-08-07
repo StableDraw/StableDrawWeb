@@ -6,6 +6,7 @@ export class PhototoImg extends Component
 
     render()
     {
+
         return (
             <div>
                  <h1>Анимация по кадрам</h1>

@@ -2,9 +2,20 @@
 import Visability from "../buttons/lablebar/layer/Visability";
 import Clear from "../buttons/lablebar/layer/Clear";
 import Destroy from "../buttons/lablebar/Destroy";
+import { useDrag } from '@use-gesture/react'
+
+
 
 const ListItem = (props) => {
     const [isHovering, setIsHovering] = useState(true);
+    const [logoPos, setLogoPos] = useState({x:0, y:0});
+
+    const bingLoyerPos = useDrag((params)=>{
+        setLogoPos({
+            x: params.offset[0],
+            y: params.offset[1],
+        });
+    });
 
     function someHandler() {setIsHovering(false);};
     function handleMouseOut() {setIsHovering(true);};
@@ -12,14 +23,16 @@ const ListItem = (props) => {
     return (
         <div className="layer" id={props.item.id} onMouseOver={someHandler} onMouseOut={handleMouseOut}>
             <div className="layer_button_box">
+                 <div {...bingLoyerPos()} style={{
+                    position: 'relative',
+                    top: logoPos.y,
+                    left: logoPos.x,}}>
+                </div>
                 <Visability ids={props.item.id}/>
                 <Clear ids={props.item.id}/>
                 <div className='right_shift' hidden = {isHovering}>
-<<<<<<< HEAD
                     <Destroy remove={props.remove} item={props.item}/>
-=======
-                            <Destroy remove={props.remove} item={props.item}/>
->>>>>>> f1508366e1130bd19519dd6f5339e549472fcd6d
+
                 </div>
             </div>
 
