@@ -10,6 +10,7 @@ import { useMemo, useState } from "react";
 import { ModelsBar } from "./modelsBar";
 import barClasses from './styles/bar.module.css';
 import headerClasses from './styles/appBar.module.css';
+import { Loader } from "./loader";
 
 const modelFileName = 'PackNonTexBig'; // Эти данные должны приходить с бека
 const tex = 'packTexBig2.jpeg';					 // Эти данные должны приходить с бека
@@ -82,12 +83,15 @@ export const MainBabylon = () => {
 			</div>
 
 			{memoizedScene}
-
-			<Button
-				variant="outlined"
-				endIcon={<SendIcon />}>
-				Send to render
-			</Button>
+			
+			<div style={{display:'flex', justifyContent:'center', padding:'10px'}}>
+				<Loader/>
+			</div>
+			{/*<Button*/}
+			{/*	variant="outlined"*/}
+			{/*	endIcon={<SendIcon />}>*/}
+			{/*	Send to render*/}
+			{/*</Button>*/}
 		</>
 	);
 };
