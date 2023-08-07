@@ -2,7 +2,7 @@
 import Merge from "../buttons/lablebar/Merge";
 import Swap from "../buttons/lablebar/Swap";
 import Add from "../buttons/lablebar/Add";
-import cl from "./ListItemMenu.module.css";
+import cl from "./LabelBar.module.css";
 import ListLayers from "../layer/ListLayers";
 
 const LableBar = () => {
@@ -18,7 +18,7 @@ const LableBar = () => {
     
     return (
         <div className={cl.layers}>
-            <div className={cl.layers_buttons}>
+            <div className="layers_buttons">
                 <Merge/>
                 <Swap/>
                 <Add create={AddNewlabels}/>
