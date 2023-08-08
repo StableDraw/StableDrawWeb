@@ -63,6 +63,7 @@ export class DrawingtoImg extends Component
                     <img className = "loading" alt = "loading.webp" src = "loading.webp"></img>
                 </div>
                 <div id = "mySidepanel" className = "sidepanel">
+                    <h1>hello</h1>
                     <a className = "closebtn" id = "size_panel_closebtn">
                         &times;
                     </a>

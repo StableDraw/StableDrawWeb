@@ -6,9 +6,9 @@ import { useDrag } from '@use-gesture/react'
 
 
 
-const ListItem = (props) => {
+const ListItem1 = (props) => {
     const [isHovering, setIsHovering] = useState(true);
-    const [logoPos, setLogoPos] = useState({x:0, y:0});
+    // const [logoPos, setLogoPos] = useState({x:0, y:0});
 
     // const bingLoyerPos = useDrag((params)=>{
     //     setLogoPos({
@@ -28,11 +28,11 @@ const ListItem = (props) => {
                 {/*    top: logoPos.y,*/}
                 {/*    left: logoPos.x,}}>*/}
                 {/*</div>*/}
+
                 <Visability ids={props.item.id}/>
                 <Clear ids={props.item.id}/>
                 <div className='right_shift' hidden = {isHovering}>
                     <Destroy remove={props.remove} item={props.item}/>
-
                 </div>
             </div>
 

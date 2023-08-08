@@ -1,12 +1,12 @@
 ﻿import React, {useState} from 'react';
 import {NavLink} from "reactstrap";
 import {Link} from "react-router-dom";
-import Setting from "../buttons/sidebar/Setting";
-import Language from "../buttons/sidebar/Language";
-import DarkMode from "../buttons/sidebar/DarkMode";
-import OpenSideBar from "../buttons/sidebar/OpenSideBar";
-import cl from "../SideBar.module.css"
-import CloseSideBar from "../buttons/sidebar/CloseSideBar";
+import Setting from "./sidebar.utils/Setting";
+import Language from "./sidebar.utils/Language";
+import DarkMode from "./sidebar.utils/DarkMode";
+import OpenSideBar from "./sidebar.utils/OpenSideBar";
+import cl from "./SideBar.module.css"
+import CloseSideBar from "./sidebar.utils/CloseSideBar";
 
 const SideBar = (...props) => {
     const [active, setActive] = useState(cl.close)

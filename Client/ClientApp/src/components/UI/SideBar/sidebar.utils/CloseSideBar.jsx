@@ -1,13 +1,12 @@
-﻿import React, {useState} from 'react';
-import cl from "../../SideBar.module.css";
-import classes from "../../SideBar.module.css";
+﻿import {useState} from 'react';
+import cl from "../SideBar.module.css";
 const CloseSideBar = ({children, active}) => {
 
     const [action, setAction] = useState(active);
     const Action = (e) => {
         e.preventDefault()
-        const newActive = classes.close;
-        setAction(classes.close)
+        const newActive = cl.close;
+        setAction(cl.close)
         active(newActive)
     }
     

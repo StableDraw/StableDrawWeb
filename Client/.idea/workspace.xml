@@ -5,14 +5,66 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b708f48a-3ec0-4500-897f-8e3b2675a853" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/ScaleField/ScaleField.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/Toolbar/ToolBar.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/Toolbar/ToolButtons.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/canvas/Canvas.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/layer/ListItem/ListItem.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/layer/ListItem/ListItem.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/layer/ListLayers/ListLayers.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/ColorMenu/ColorMenu.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/Eraser/Eraser.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/Eraser/Eraser.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/Pencil/Pencil.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/Pencil/Pencil.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClientApp/public/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/public/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/layer/ListItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/layer/ListItem.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/AppRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/AppRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Drawing.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Drawing.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/DrawingtoImg.js" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/DrawingtoImg.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Scripts/LayersFunctions/SwapLayers.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Scripts/LayersFunctions/SwapLayers.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/SideBar.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/SideBar/SideBar.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/buttons/lablebar/Add.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/LableBar/LableBar.utils/Add.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/buttons/lablebar/Destroy.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/LableBar/LableBar.utils/Destroy.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/buttons/lablebar/Merge.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/LableBar/LableBar.utils/Merge.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/buttons/lablebar/Swap.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/LableBar/LableBar.utils/Swap.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/buttons/lablebar/layer/Clear.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/layer/ListItem/ListItem.utils/Clear.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/buttons/lablebar/layer/Visability.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/layer/ListItem/ListItem.utils/Visability.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/buttons/sidebar/CloseSideBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/SideBar/sidebar.utils/CloseSideBar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/buttons/sidebar/DarkMode.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/SideBar/sidebar.utils/DarkMode.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/buttons/sidebar/Language.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/SideBar/sidebar.utils/Language.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/buttons/sidebar/OpenSideBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/SideBar/sidebar.utils/OpenSideBar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/buttons/sidebar/Setting.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/SideBar/sidebar.utils/Setting.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/buttons/toolbar/ToolButtons.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/canvas/Canvas.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/canvas/Canvas.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/inputs/TestInput.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/layer/ListItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/layer/ListItem1.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/layer/ListLayers.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/layer/ListLayers/ListLayers.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/menu/LabelBar.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/LableBar/LableBar.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/menu/LableBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/LableBar/LableBar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/menu/ScaleField.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/ScaleField/ScaleField.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/menu/SideBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/SideBar/SideBar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/menu/ToolBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/Toolbar/ToolBar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/ColorMenu.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/ColorMenu/ColorMenu.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/Eraser.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/GraphicTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/GraphicTable.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/Pencil.jsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/app.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -45,7 +97,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1691477703492</updated>
-      <workItem from="1691477713793" duration="1061000" />
+      <workItem from="1691477713793" duration="5498000" />
     </task>
     <servers />
   </component>

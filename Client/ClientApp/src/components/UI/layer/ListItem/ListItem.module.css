@@ -1,0 +1,50 @@
+.layer
+{
+    margin-top: 5px;
+    display: flex;
+    width: 100%;
+    height: 65px;
+    border-radius: 3px;
+    outline: 1px solid rgb(85, 85, 85);
+}
+.layer_button_box
+{
+    width: 15%;
+    height: 99%;
+    line-height: 80% !important;
+}
+.layer_button
+{
+    touch-action: none;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    cursor: pointer;
+    width: 82%;
+    height: 95%;
+}
+.layer_display_icon
+{
+    position: absolute;
+    touch-action: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    top: 53%;
+    transform: translate(0, -50%);
+    margin: 0;
+    border: 1px solid rgb(0, 0, 0);
+    width: 99.5%;
+    height: 100%;
+}
+.layer_display_canvas
+{
+    position: absolute;
+    touch-action: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    width: 100%;
+    height: 100%;
+}

@@ -1,10 +1,11 @@
 ﻿import React from 'react';
-
+import cl from './ToolBar.module.css'
+import Pencil from '../modal/Pencil/Pencil';
 const ToolBar = () => {
     
     return (
-        <div className="nav">
-            <div className="icon_buttons">
+        <div className={cl.nav}>
+            <div className={cl.icon_buttons}>
                 <button className="up_panel_button" id="arrow_back" title={"Отменить"}>
                     <img className="up_panel_button_image" id="arrow_back_image" alt="undo_arrow.png" src="undo_arrow.png"></img>
                 </button>
@@ -14,9 +15,10 @@ const ToolBar = () => {
                 <button className="up_panel_button" id="palette" title="Выбор цвета">
                     <img className="up_panel_button_image" id="clrimg" alt="palette.png" src="palette.png" style={{ filter: "invert(1)" }} ></img>
                 </button>
-                <button className="up_panel_button" id="pencil" title="Карандаш">
+                <Pencil/>
+                {/* <button className="up_panel_button" id="pencil" title="Карандаш">
                     <img className="up_panel_button_image" id="pencil_image" alt="pencil.png" src="pencil.png"></img>
-                </button>
+                </button> */}
                 <button className="up_panel_button" id="eraser" title="Ластик">
                     <img className="up_panel_button_image" id="eraser_image" alt="eraser.png" src="eraser.png"></img>
                 </button>

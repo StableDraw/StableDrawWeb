@@ -2,14 +2,14 @@ import ApiAuthorzationRoutes from './components/api-authorization/ApiAuthorizati
 import { Design } from "./components/Design";
 import { TexttoImg } from "./components/TexttoImg";
 import { DrawingtoImg } from "./components/DrawingtoImg";
+import  Drawing  from './components/Drawing'
 import { PhototoImg } from "./components/PhototoImg";
 import { FramestoAnimation } from "./components/FramestoAnimation";
 //import { RefreshAuthorization } from "./components/api-authorization/RefreshAuthorization";
 import { Counter } from "./components/Counter";
 import { FetchData } from "./components/FetchData";
 import { Home } from "./components/Home";
-import {App1} from "./App1";
-import Drawing from "./components/Drawing";
+import {App1} from "./App1";    
 
 const AppRoutes = [
     {
@@ -29,12 +29,17 @@ const AppRoutes = [
     {
         path: '/drawing-to-img',
         requireAuth: true,
-        element: <Drawing />
+        element: <Drawing/>
     },
     {
         path: '/notdrawing-to-img',
         requireAuth: true,
         element: <App1 />
+    },
+    {
+        path: '/test',
+        requireAuth: true,
+        element: <DrawingtoImg />   
     },
     {
         path: '/photo-to-img',

@@ -1,9 +1,9 @@
 ﻿import React, {useState} from 'react';
-import Merge from "../buttons/lablebar/Merge";
-import Swap from "../buttons/lablebar/Swap";
-import Add from "../buttons/lablebar/Add";
-import cl from "./LabelBar.module.css";
-import ListLayers from "../layer/ListLayers";
+import Merge from "./LableBar.utils/Merge";
+import Swap from "./LableBar.utils/Swap";
+import Add from "./LableBar.utils/Add";
+import cl from "./LableBar.module.css";
+import ListLayers from "../layer/ListLayers/ListLayers.jsx";
 
 const LableBar = () => {
     const [layers, SetLayer] = useState([

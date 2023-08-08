@@ -1,0 +1,36 @@
+.clr_window
+{
+    touch-action: none;
+    display: none;
+    z-index: 19;
+    position: fixed;
+    justify-content: flex-end;
+    top: 6%;
+    margin-right: 21.6%;
+    border: 2px solid rgb(29, 29, 29);
+    background-color:#ffffff;
+}
+.ctype_clr_btn
+{
+    touch-action: none;
+    font-size: 15px;
+    color: #000000;
+    background-color:#ffffff;
+    height: 30%;
+    width: 40%;
+    float: left;
+    display: flex;
+    margin-left: auto;
+}
+.ok_clr_btn
+{
+    touch-action: none;
+    font-size: 15px;
+    color: #ffffff;
+    background-color:#000000;
+    height: 30%;
+    width: 40%;
+    float: right;
+    display: flex;
+    margin-left: auto;
+}
