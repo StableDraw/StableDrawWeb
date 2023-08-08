@@ -8,31 +8,38 @@
 	justify-content: center;
 	max-width: 600px;
 	position: absolute;
-	border-radius: 20px;
-	/* opacity: 90%; */
+	padding-top: 700px;
+	max-height: 700px;
+	/* не применяется из - за material ui */
+	overflow-y:auto !important;
+	z-index: 1000 !important;
 }
 
 .barContainer{
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-end;
+	padding-right: 5px;
 }
 
 .modelCard{
 	display: flex;
 	justify-content: center;
+	box-sizing: border-box;
 	padding: 3px;
 	flex-direction: column;
-	border-radius: 20px;
-	border-bottom-left-radius: 0;
-	border-bottom-right-radius: 0;
+	border-radius: 20px !important;
+	border-bottom-left-radius: 0 !important;
+	border-bottom-right-radius: 0 !important;
 	min-width: 250px;
+	z-index: 1001 !important;
 }
 
 .imgCard{
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
+	z-index: 1002 !important;
 }
 
 .textCard{
@@ -47,8 +54,12 @@
 	justify-content: center;
 	gap:10px;
 	padding: 20px;
-	background-color: gray;
+	background-color: gray !important;
+	border-radius: 20px !important;
+	border-top-left-radius: 0 !important;
+	border-top-right-radius: 0 !important;
 }
+
 .buttonsSizeBar{
 	display: flex;
 	max-width: 400px;
@@ -57,5 +68,6 @@
 	gap: 10px;
 	padding: 10px;
 	box-shadow: none;
-	background-color: #cccccc;
+	border-radius: 20px !important;
+	background-color: #cccccc !important;
 }

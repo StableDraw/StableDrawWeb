@@ -28,6 +28,15 @@ public class ImageController : Controller
         return File(data, type);
     }
 
+    [HttpDelete("{id}")]
+
+    public IActionResult Delete(Guid id)
+    {
+	    var path = Path.Combine(dirPath, id.ToString());
+	    System.IO.File.Delete(path);
+	    return Ok("File Delete: " + id);
+    }
+
     [HttpGet]
     public IActionResult Get()
     {

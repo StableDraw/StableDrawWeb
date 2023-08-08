@@ -3,7 +3,6 @@ import api from '../../api/api'
 
 export const Loader = ({call}) => {
 	const [drag, setDrag] = useState(false);
-	const [texture, setTexture] = useState([])
 
 	const dragStartHandler = (e) => {
 		e.preventDefault();
@@ -19,8 +18,9 @@ export const Loader = ({call}) => {
 	async function Send(File) {
 		try {
 			const data = await api.LoadFile(File)
-			setTexture( [...data.data])
-			call(texture)
+			const texes = data.data.map((el)=> "https://localhost:44404/api/image/" + el)
+			console.log(texes);
+			call([...texes])
 			return data
 		} catch (e) {
 			console.error(e);
@@ -28,7 +28,7 @@ export const Loader = ({call}) => {
 		}
 	}
 
-	console.log(texture)
+	// console.log(texture)
 	const onDropHandler = (e) => {
 		e.preventDefault();
 		let files = [...e.dataTransfer.files];
@@ -41,8 +41,6 @@ export const Loader = ({call}) => {
 		setDrag(false);
 	};
 	
-
-
 
 
 	return (

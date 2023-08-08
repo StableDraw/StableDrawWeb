@@ -7,9 +7,12 @@ export default class Files{
 		await axios.post(url, File);
 		return axios.get(url);
 	}
-	static async StaticFile() {
+	static async DeleteFile(id) {
+		const idNew = id.split("/");
+		
+		const lastIndex = idNew.lastIndexOf() + 1;
 		const url = "api/image"
-		return axios.get(url);
+		return await axios.delete("api/image/" + idNew[5])
 	}
 	
 }

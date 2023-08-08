@@ -12,11 +12,9 @@ export const ModelsCard = ({ type, model, img, changeModel, toggleModelBar }) =>
 	const showSizeBar = () => {
 		setIsVisible(!isVisible);
 	}
-//borderRadius приходится применять через sx из - за специфики material ui :(
 	return (
 		<div >
 			<Card 
-			sx={{borderRadius:'20px', borderBottomLeftRadius:0, borderBottomRightRadius:0}}
 			className={barClasses.modelCard}>
 				<Button onClick={showSizeBar}>
 					<div className={barClasses.imgCard}>

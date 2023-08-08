@@ -86,7 +86,7 @@ export class BabylonScene {
 			const pbrMaterial = new BABYLON.PBRMaterial('pbr', this.scene);
 			pbrMaterial.roughness = 1;
 
-			const texture = new BABYLON.Texture(`babylon/textures/${textureFileName}`, this.scene);
+			const texture = new BABYLON.Texture(textureFileName, this.scene);
 			texture.vScale = -1;
 
 			pbrMaterial._albedoTexture = texture;

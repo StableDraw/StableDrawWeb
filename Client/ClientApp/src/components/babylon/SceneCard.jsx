@@ -24,7 +24,7 @@ export const SceneCard = ({
 	return (
 		<Card
 			className={barClasses.modelCard}
-			sx={{ borderRadius: '20px', }}>
+			>
 			<Button
 				onClick={() => {
 					SetScene();
@@ -32,7 +32,7 @@ export const SceneCard = ({
 				}}>
 				<div className={barClasses.imgCard}>
 					<img
-						style={{ borderRadius: '20px' }}
+						style={{ borderRadius: '20px', }}
 						src={img}
 						alt={name}
 						width={250}
