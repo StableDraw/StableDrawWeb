@@ -3,6 +3,9 @@
     "@types/jquery": "^3.5.16"
   },
   "dependencies": {
-    "react-helmet": "^6.1.0"
+    "axios": "^1.4.0",
+    "babylonjs": "^6.15.0",
+    "react-helmet": "^6.1.0",
+    "swagger": "^0.7.5"
   }
 }

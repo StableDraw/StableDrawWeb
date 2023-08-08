@@ -1,0 +1,12 @@
+.sceneCont{
+	display: flex;
+	justify-content: center;
+	padding: 10px;
+}
+
+.canvas{
+	height: 80%;
+	width: 80%;
+	border-radius: 30px;
+	
+}

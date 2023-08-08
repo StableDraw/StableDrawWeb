@@ -873,3 +873,8 @@ input[type=range].up_add_window_slider::-ms-fill-lower
     width: 100%;
     height: 100%;
 }
+
+#babylonjsLoadingDiv{
+    border-radius: 30px;
+    z-index: 1;
+}

@@ -18,7 +18,10 @@ const context = [
   "/Identity",
   "/connect",
   "/ApplyDatabaseMigrations",
-  "/_framework"
+  "/_framework",
+  "/api/image",
+  "/api",
+  "/image"
 ];
 
 const onError = (err, req, resp, target) => {
