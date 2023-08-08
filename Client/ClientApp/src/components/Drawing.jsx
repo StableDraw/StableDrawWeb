@@ -14,7 +14,7 @@ import ToolBar from "./UI/Toolbar/ToolBar.jsx";
 const Drawing = () => {
     return (
         <div>
-            <h1 style={{marginLeft:'70px'}}>
+            <h1  style={{marginLeft:'60px'}}>
                 Test Drawing
             </h1>
             <div className = "subbody">

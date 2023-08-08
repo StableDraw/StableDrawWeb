@@ -9,7 +9,7 @@ import { FramestoAnimation } from "./components/FramestoAnimation";
 import { Counter } from "./components/Counter";
 import { FetchData } from "./components/FetchData";
 import { Home } from "./components/Home";
-import {App1} from "./App1";
+import {App1} from "./App1";    
 
 const AppRoutes = [
     {

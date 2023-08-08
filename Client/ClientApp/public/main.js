@@ -16,11 +16,9 @@ const spanel = document.getElementById("mySidepanel");
 const spanel_openbtn = document.querySelector(".openbtn");
 const generateBtn = document.getElementById("generate");
 const clr_w = document.getElementById("clr_window");
-const clr_w1 = document.getElementById("clr_window1");
 const pencil_w = document.getElementById("pencil_window");
 const eraser_w = document.getElementById("eraser_window");
 const ok_clr_btn = document.getElementById("ok_clr_btn");
-const ok_clr_btn1 = document.getElementById("ok_clr_btn1");
 const cur_color = document.getElementById("color");
 const clrimg = document.getElementById("clrimg");
 const ctx_foreground = canvas_foreground.getContext("2d", { willReadFrequently: true });
@@ -42,9 +40,7 @@ const scale_field = document.querySelector(".scale_field");
 const div_layers = document.querySelector(".layers");
 const layers_buttons = document.querySelector(".layers_buttons");
 const text_label_clr = document.getElementById("text_label_clr");
-const text_label_clr1 = document.getElementById("text_label_clr1");
 const blackout = document.getElementById("full_blackout");
-const blackout1 = document.getElementById("full_blackout1");
 const side_panel_blackout = document.getElementById("side_panel_blackout");
 const before_gen_block = document.getElementById("before_gen_block");
 const close_before_gen_block = document.getElementById("close_before_gen_block");
@@ -62,9 +58,7 @@ const clear_second_layer_Btn = document.getElementById("clear_layer_2");
 const select_first_layerBtn = document.getElementById("layer_button_1");
 const colourBtn = document.getElementById("palette");
 const ok_clr = document.querySelector(".ok_clr_btn");
-const ok_clr1 = document.querySelector(".ok_clr_btn1");
 const ctype_clr_btn = document.querySelector(".ctype_clr_btn");
-const ctype_clr_btn1 = document.querySelector(".ctype_clr_btn1");
 const id_list = ['p', 'i', 'u', 'f'];
 const Pi_div_4 = Math.PI / 4;
 let nstack = [];
@@ -156,7 +150,6 @@ let f_move = false;
 let end_f_move = false;
 let old_btn_clr = [false, true]; //изначально чёрный текст у кнопок цвета
 let on_clr_window = false;
-let on_clr_window1 = false;
 let cur_background_clr = "#fff";
 let new_background_clr = cur_background_clr;
 let cur_brush_clr = "#000000";
@@ -175,7 +168,6 @@ let cur_canvas = canvas_foreground; //текущий выбранный слой
 let cur_ctx_layer = ctx_layer_1; //текущий выбранный слой для рисования ввиде контекста кнопки который в углу, по-умолчанию верхний
 let graphic_tablet_mode = false; //режим графического планшета
 let is_clr_window = false; //отображение окна с палитрой
-let is_clr_window1 = false; //отображение окна с палитрой
 let is_pencil_window = true; //отображение окна настроек кисти
 let is_eraser_window = false; //отображение окна настроек ластика
 let cur_smoothing = 0; //параметр сглаживания
@@ -213,16 +205,38 @@ let ws = new WebSocket("wss://stabledraw.com:8081");
 let chain_id = "";
 let task_id;
 const subbody = document.querySelector(".subbody");
-const subbody1 = document.querySelector(".subbody1");
 let if_first_time_modal = true;
-var main_modal = function (options) {
+const setpipetteBtn = document.getElementById("pipette");
+const saveBtn = document.getElementById("save");
+const mhf = document.getElementById("my_hidden_file");
+const uploadBtn = document.getElementById("upload");
+const clearBtn = document.getElementById("clear");
+const setbucketBtn = document.getElementById("bucket");
+const seteraserBtn = document.getElementById("eraser");
+const setpencilBtn = document.getElementById("pencil");
+const swap_layersBtn = document.getElementById("swap_layers");
+const merge_layersBtn = document.getElementById("merge_layers");
+const select_second_layerBtn = document.getElementById("layer_button_2");
+const closeeBtn = document.getElementById("size_panel_closebtn");
+const openBtn = document.querySelector(".openbtn");
+let backBtn = document.getElementById("arrow_back");
+let nextBtn = document.getElementById("arrow_next");
+let last_task_image_name = "drawing.png";
+let last_task_image_suffix = "0";
+let slider_range = document.querySelectorAll('input[type="range"]');
+let slider_element;
+colourBtn.style.background = "#000000";
+setpencilBtn.style.border = "5px solid #000000";
+setpencilBtn.style.transform = "translateY(7%)";
+let cur_tool = ['k', setpencilBtn, "aero_pen.cur"]; //текущий инструмент (карандаш)
+var main_modal = function (options) { //главное модальное окно
     var _elemModal;
     var _eventShowModal;
     var _eventHideModal;
     var _hiding = false;
     var _destroyed = false;
     var _animationSpeed = 200;
-    function _createModal(options) {
+    function _createModal(options) { //создание модального окна
         var elemModal = document.createElement("div"), modalTemplate = '<div class = "modal__backdrop"><div class="modal__content"><div class="modal__header"><div class="modal__title" data-modal="title">{{title}}</div><span class="modal__btn-close" data-dismiss="gen_modal" title="Закрыть">&times;</span></div><div class="modal__body" data-modal="content">{{content}}</div>{{footer}}</div></div>', modalFooterTemplate = '<div class = "modal__footer">{{buttons}}</div>', modalButtonTemplate = '<button type = "button" class="{{button_class}}" data-handler={{button_handler}}>{{button_text}}</button>', modalHTML, modalFooterHTML = "";
         elemModal.classList.add("gen_modal");
         modalHTML = modalTemplate.replace("{{title}}", options.title || "");
@@ -239,17 +253,16 @@ var main_modal = function (options) {
         modalHTML = modalHTML.replace("{{footer}}", modalFooterHTML);
         elemModal.innerHTML = modalHTML;
         subbody.appendChild(elemModal);
-        subbody1.appendChild(elemModal);
         return elemModal;
     }
-    function _showModal() {
+    function _showModal() { //показать модальное окно
         is_modal_open = true;
         if (!_destroyed && !_hiding) {
             _elemModal.classList.add("modal__show");
             document.dispatchEvent(_eventShowModal);
         }
     }
-    function _hideModal() {
+    function _hideModal() { //спрятать модальное окно
         is_modal_open = false;
         _hiding = true;
         _elemModal.classList.remove("modal__show");
@@ -260,7 +273,7 @@ var main_modal = function (options) {
         }, _animationSpeed);
         document.dispatchEvent(_eventHideModal);
     }
-    function _handlerCloseModal(e) {
+    function _handlerCloseModal(e) { //обработчик закрытия модального окна
         if (e.target.dataset.dismiss === "gen_modal") {
             _hideModal();
         }
@@ -336,7 +349,7 @@ var main_modal = function (options) {
             footerButtons_list.push({ class: "modal_btn modal_btn-1", text: "Отмена", handler: "modalHandlerCancel" });
             modal = main_modal({
                 title: "Генерация",
-                content: "<p>Содержмиое модального окна...<p>",
+                content: "<p>Содержимое модального окна...<p>",
                 footerButtons: footerButtons_list
             });
             modal.show();
@@ -374,7 +387,6 @@ var main_modal = function (options) {
                     last_task_image_suffix = jdata[5];
                     is_human_caption = false;
                     blackout.style.display = "none";
-                    blackout1.style.display = "none";
                     if (need_gen_after_caption[0]) {
                         gen_picture_by_drawing(need_gen_after_caption, caption_field.value + " " + style_field.value, data_prop);
                         need_gen_after_caption[0] = false;
@@ -415,7 +427,6 @@ var main_modal = function (options) {
                             show_gen_result(image);
                         }
                         blackout.style.display = "none";
-                        blackout1.style.display = "none";
                         modal.hide();
                         original_image_buf = image.src;
                         return;
@@ -513,7 +524,7 @@ var main_modal = function (options) {
         }
     });
 })();
-function show_gen_result(image) {
+function show_gen_result(image) { //Показывает сгенерированный результат
     close_all_add_windows();
     is_background_visible = false;
     canvas_background.style.display = "none";
@@ -545,14 +556,14 @@ function show_gen_result(image) {
     ctx_layer_1.clearRect(0, 0, lwW, lwH);
     canvas_to_layer(cur_canvas, cur_ctx_layer);
 }
-let last_task_image_name = "drawing.png";
-let last_task_image_suffix = "0";
+
 //ws.onopen = function(){alert("open");}
 ws.onclose = function () {
     alert("Извините, произошла ошибка на стороне сервера. Пожалуйста перезагрузите страницу");
 };
 //ws.onerror = function(){alert("error");}
 function check_data_before_sending() {
+    //проверяет данные перед отправкой на рендер
     let local_is_foreground_used = false;
     let local_is_background_used = false;
     let local_is_drawing_on_foreground = true;
@@ -565,7 +576,7 @@ function check_data_before_sending() {
     let local_how_many_dots_on_background = 0;
     for (let i = 0; i < pstack.length; i++) {
         switch (pstack[i][0]) {
-            case 'p':
+            case 'p': //мод пипетки
                 if (pstack[i][1] == ctx_foreground) {
                     if (local_is_drawing_on_foreground == false && local_sure_on_foreground == true) {
                         local_sure_on_foreground = false;
@@ -585,7 +596,7 @@ function check_data_before_sending() {
                     local_how_many_dots_on_background += pstack[i][2].length;
                 }
                 break;
-            case 'f':
+            case 'f': //мод заливки
                 if (pstack[i][1] == ctx_foreground) {
                     if (local_is_drawing_on_foreground == false && local_sure_on_foreground == true) {
                         local_sure_on_foreground = false;
@@ -603,7 +614,7 @@ function check_data_before_sending() {
                     local_how_many_prims_on_background++;
                 }
                 break;
-            case 'd':
+            case 'd': //мод очистки экрана
                 local_is_foreground_used = false;
                 local_is_background_used = false;
                 local_is_drawing_on_foreground = true;
@@ -615,7 +626,7 @@ function check_data_before_sending() {
                 local_how_many_prims_on_background = 0;
                 local_how_many_dots_on_background = 0;
                 break;
-            case 'i':
+            case 'i': //мод заливки экрана
                 if (pstack[i][2] == "#fff") {
                     if (pstack[i][1] == ctx_foreground) {
                         local_is_foreground_used = false;
@@ -651,7 +662,7 @@ function check_data_before_sending() {
                     }
                 }
                 break;
-            case 'c':
+            case 'c': //мод удаления
                 if (pstack[i][1] == ctx_foreground) {
                     local_is_foreground_used = false;
                     local_is_drawing_on_foreground = true;
@@ -667,7 +678,7 @@ function check_data_before_sending() {
                     local_how_many_dots_on_background = 0;
                 }
                 break;
-            case 'u':
+            case 'u': //мод добавления изображения с ПК
                 if (pstack[i][1] == ctx_foreground) {
                     if (local_is_drawing_on_foreground == true && local_sure_on_foreground == true) {
                         local_sure_on_foreground = false;
@@ -739,7 +750,7 @@ function check_data_before_sending() {
     }
     return { local_is_foreground_used, local_is_background_used, local_is_drawing, local_sure, local_how_many_prims, local_how_many_dots };
 }
-function push_action_to_stack(local_act) {
+function push_action_to_stack(local_act) { //добавление действий в стек
     let need_add = true;
     let pstack_length = pstack.length - 1;
     if (pstack_length != -1 && pstack[pstack_length][0] == local_act[0] && local_act[0] != 'p' && local_act[0] != 'u' && pstack[pstack_length] == local_act) {
@@ -750,14 +761,13 @@ function push_action_to_stack(local_act) {
         nstack = [];
     }
 }
-function gen_picture_by_drawing(params, full_prompt, data_prop) {
+function gen_picture_by_drawing(params, full_prompt, data_prop) { //генерация изображений по рисунку
     console.log(original_image_buf);
     let is_depth = params[1];
     let is_inpainting = params[2];
     let is_upscale = params[3];
     let is_upscale_xX = params[4];
     blackout.style.display = "block";
-    blackout1.style.display = "block";
     let send_data_pbp;
     let foreground_data;
     let { local_is_foreground_used, local_is_background_used, local_is_drawing, local_sure, local_how_many_prims, local_how_many_dots } = data_prop;
@@ -847,9 +857,8 @@ function gen_picture_by_drawing(params, full_prompt, data_prop) {
     }
     ws.send(send_data_pbp);
 }
-function gen_picture_by_prompt(full_prompt) {
+function gen_picture_by_prompt(full_prompt) { //генерация изображения по описанию
     blackout.style.display = "block";
-    blackout1.style.display = "block";
     let local_type;
     let send_data_pbt;
     send_data_pbt = JSON.stringify({
@@ -858,9 +867,8 @@ function gen_picture_by_prompt(full_prompt) {
     });
     ws.send(send_data_pbt);
 }
-function delete_background() {
+function delete_background() { //удаление заднего слоя
     blackout.style.display = "block";
-    blackout1.style.display = "block";
     let data = original_image_buf;
     if (chain_id != "") {
         data = "";
@@ -875,9 +883,8 @@ function delete_background() {
     });
     ws.send(send_data_del);
 }
-function colorize_picture() {
+function colorize_picture() { //функция отправки цветной картинки на рендер
     blackout.style.display = "block";
-    blackout1.style.display = "block";
     let data = original_image_buf;
     if (chain_id != "") {
         data = "";
@@ -892,9 +899,8 @@ function colorize_picture() {
     });
     ws.send(send_data_del);
 }
-function upscale() {
+function upscale() { //?
     blackout.style.display = "block";
-    blackout1.style.display = "block";
     let data = original_image_buf;
     if (chain_id != "") {
         data = "";
@@ -909,7 +915,7 @@ function upscale() {
     });
     ws.send(send_data_ups);
 }
-window.onresize = function () {
+window.onresize = function () { //функция изменения размера?
     W = document.documentElement.clientWidth;
     H = document.documentElement.clientHeight;
     fW_max = W * 0.8;
@@ -941,9 +947,8 @@ window.onresize = function () {
     canvas_additional.width = cW;
     replay_actions(pstack);
 };
-let slider_range = document.querySelectorAll('input[type="range"]');
-let slider_element;
-function update_slider() {
+
+function update_slider() { //обновить слайдер
     for (slider_element of slider_range) {
         slider_element.style.setProperty('--value', slider_element.value);
     }
@@ -954,7 +959,7 @@ for (slider_element of slider_range) {
     slider_element.style.setProperty("--max", slider_element.max == "" ? "100" : slider_element.max);
     slider_element.addEventListener("input", () => slider_element.style.setProperty("--value", slider_element.value));
 }
-ratio_field.onchange = function () {
+ratio_field.onchange = function () { //изменение масштабирования
     let t_v = ratio_field.value;
     let pos = t_v.indexOf(':');
     if (pos == -1) {
@@ -986,7 +991,7 @@ ratio_field.onchange = function () {
     replay_actions(pstack); //Повторная отрисовка с новым разрешением
     return get_visual_ratio(true, new_dfw, new_dfh);
 };
-function get_visual_ratio(abs, w, h) {
+function get_visual_ratio(abs, w, h) { //наглядное изменение масштаба
     const rat = [[2.0556, 21, 9], [1.5556, 16, 9], [1.1667, 4, 3], [0.875, 1, 1], [0.6562, 3, 4], [0.4955, 9, 16]];
     let cur_ratio = w / h;
     let v_w = 0;
@@ -1029,39 +1034,39 @@ function openNav() {
     spanel.style.borderLeftStyle = "hidden";
     spanel.style.borderTopStyle = "hidden";
 }
-const openBtn = document.querySelector(".openbtn");
-openBtn.addEventListener("click", () => {
+
+openBtn.addEventListener("click", () => { //кнопка открытия навигационной панели
     openNav();
 });
-function closeNav_border() {
+function closeNav_border() { //окантовка навигационного окна
     spanel.style.borderLeftStyle = "hidden";
     spanel.style.borderRightStyle = "hidden";
 }
-function closeNav() {
+function closeNav() { //функция закрытия навигационного окна
     is_side_panel_open = false;
     side_panel_blackout.style.display = "none";
     spanel.style.width = "0";
     setTimeout(closeNav_border, 490);
 }
-const closeeBtn = document.getElementById("size_panel_closebtn");
-closeeBtn.addEventListener("pointerup", () => {
+
+closeeBtn.addEventListener("pointerup", () => { //кнопка закрытия навигационного окна
     closeNav();
 });
-close_before_gen_block.addEventListener("pointerup", () => {
+close_before_gen_block.addEventListener("pointerup", () => { //блокировка закрытия перед генерацией
     before_gen_block.style.display = "none";
 });
-before_gen.addEventListener("pointerup", () => {
+before_gen.addEventListener("pointerup", () => { //вызов функции вернуть действие перед генерацией
     undo_action();
 });
-let backBtn = document.getElementById("arrow_back");
-backBtn.addEventListener("click", () => {
+
+backBtn.addEventListener("click", () => { //кнопка отмены действий
     undo_action();
 });
-let nextBtn = document.getElementById("arrow_next");
-nextBtn.addEventListener("click", () => {
+
+nextBtn.addEventListener("click", () => { //кнопка перехода к следующим действиям
     repeat_action();
 });
-const initial_picker = $(function () {
+const initial_picker = $(function () { //неиспользуемая функция для вызова цветовой палитры
     let picker = $("#picker");
     picker.farbtastic("#color");
 });
@@ -1073,10 +1078,9 @@ function hexDec(h) {
     m_n[2] = parseInt(m_s[2], 16);
     return m_n[0] + m_n[1] + m_n[2];
 }
-colourBtn.style.background = "#000000";
-function handleclr_PointerMove() {
+
+function handleclr_PointerMove() { //возможность рисования выбранным цветом?
     on_clr_window = true;
-    on_clr_window1 = true;
     let ccv = cur_color.value;
     let local_clf_layer_type;
     if (ccv == "#NaNNaNNaN") {
@@ -1096,7 +1100,6 @@ function handleclr_PointerMove() {
         if (!old_btn_clr[local_clf_layer_type]) {
             old_btn_clr[local_clf_layer_type] = true;
             ok_clr_btn.style.color = "#000000";
-            ok_clr_btn1.style.color = "#000000";
             clrimg.style.filter = "invert(0)";
         }
     }
@@ -1104,52 +1107,42 @@ function handleclr_PointerMove() {
         if (old_btn_clr[local_clf_layer_type]) {
             old_btn_clr[local_clf_layer_type] = false;
             ok_clr_btn.style.color = "#ffffff";
-            ok_clr_btn1.style.color = "#ffffff";
             clrimg.style.filter = "invert(1)";
         }
     }
     ok_clr_btn.style.background = ccv;
-    ok_clr_btn1.style.background = ccv;
     colourBtn.style.background = ccv;
 }
-function handlet_clr_Click() {
+function handlet_clr_Click() { //выбор цвета кисти
     if (is_clr_brash) {
         cur_brush_clr = cur_color.value;
         ctype_clr_btn.textContent = "Цвет кисти";
-        ctype_clr_btn1.textContent = "Цвет кисти";
         cur_color.value = cur_background_clr;
         if (hexDec(cur_brush_clr) > 382) {
             ctype_clr_btn.style.color = "#000000";
-            ctype_clr_btn1.style.color = "#000000";
             clrimg.style.filter = "invert(0)";
         }
         else {
             ctype_clr_btn.style.color = "#ffffff";
-            ctype_clr_btn1.style.color = "#ffffff";
             clrimg.style.filter = "invert(1)";
         }
         ctype_clr_btn.style.background = cur_brush_clr;
-        ctype_clr_btn1.style.background = cur_brush_clr;
         is_clr_brash = false;
     }
     else {
         ctype_clr_btn.textContent = "Цвет фона";
-        ctype_clr_btn1.textContent = "Цвет фона";
         let ccv = cur_brush_clr;
         new_background_clr = cur_color.value;
         cur_color.value = ccv;
         if (hexDec(new_background_clr) > 382) {
             ctype_clr_btn.style.color = "#000000";
-            ctype_clr_btn1.style.color = "#000000";
             clrimg.style.filter = "invert(0)";
         }
         else {
             ctype_clr_btn.style.color = "#ffffff";
-            ctype_clr_btn1.style.color = "#ffffff";
             clrimg.style.filter = "invert(1)";
         }
         ctype_clr_btn.style.background = new_background_clr;
-        ctype_clr_btn1.style.background = new_background_clr;
         if (hexDec(ccv) > 382) {
             if (!old_btn_clr[1]) {
                 old_btn_clr[1] = true;
@@ -1163,12 +1156,11 @@ function handlet_clr_Click() {
             }
         }
         ok_clr_btn.style.background = ccv;
-        ok_clr_btn1.style.background = ccv;
         colourBtn.style.background = ccv;
         is_clr_brash = true;
     }
 }
-function close_clr_window() {
+function close_clr_window() { //закрыть окно с цветовой палитрой
     clr_w.removeEventListener("pointermove", handleclr_PointerMove);
     ctype_clr_btn.removeEventListener("click", handlet_clr_Click);
     is_clr_window = false;
@@ -1199,38 +1191,8 @@ function close_clr_window() {
     ctx_background.strokeStyle = cur_brush_clr;
     clr_w.style.display = "none";
 }
-function close_clr_window1() {
-    clr_w1.removeEventListener("pointermove", handleclr_PointerMove);
-    ctype_clr_btn1.removeEventListener("click", handlet_clr_Click);
-    is_clr_window1 = false;
-    let ccv = cur_color.value;
-    if (ccv == "#NaNNaNNaN") {
-        ccv = "#" + colourBtn.style.background.split("(")[1].split(")")[0].split(",").map(function (x) {
-            x = parseInt(x).toString(16);
-            return (x.length == 1) ? "0" + x : x;
-        }).join("");
-        cur_color.value = ccv;
-    }
-    if (!is_clr_brash) {
-        new_background_clr = ccv;
-        is_clr_brash = true;
-    }
-    else {
-        cur_brush_clr = ccv;
-    }
-    if (cur_background_clr != new_background_clr) //почему-то не работает, из-за этого пришлось сделать костыль строчкой сверху. Убрать
-    {
-        push_action_to_stack(['i', ctx_background, new_background_clr]); //залить фон
-        ctx_background.fillStyle = new_background_clr; //заливка фона
-        ctx_background.fillRect(0, 0, cW, cH);
-        canvas_to_layer(canvas_background, ctx_layer_2);
-    }
-    ctx_foreground.strokeStyle = cur_brush_clr;
-    ctx_add.strokeStyle = cur_brush_clr;
-    ctx_background.strokeStyle = cur_brush_clr;
-    clr_w1.style.display = "none";
-}
-change_themeBtn.addEventListener("click", () => {
+
+change_themeBtn.addEventListener("click", () => { //Изменение цветовой темы
     if (is_dark_mode) {
         tmimg.setAttribute("src", "dark mode.png");
         is_dark_mode = false;
@@ -1251,12 +1213,9 @@ change_themeBtn.addEventListener("click", () => {
         eraser_w.style.border = "2px solid #292929";
         clr_w.style.backgroundColor = "#ffffff";
         clr_w.style.border = "2px solid #292929";
-        clr_w1.style.backgroundColor = "#ffffff";
-        clr_w1.style.border = "2px solid #292929";
         body.style.backgroundColor = "#ffffff";
         div_layers.style.backgroundColor = "#ffffff";
         text_label_clr.style.color = "#000000";
-        text_label_clr1.style.color = "#000000";
         if (is_foreground_selected) {
             layer_1.style.outline = "3px solid #000000";
             layer_1.style.border = "1px solid #000000";
@@ -1286,12 +1245,9 @@ change_themeBtn.addEventListener("click", () => {
         eraser_w.style.border = "2px solid #aaaaaa";
         clr_w.style.backgroundColor = "#303030";
         clr_w.style.border = "2px solid #aaaaaa";
-        clr_w1.style.backgroundColor = "#303030";
-        clr_w1.style.border = "2px solid #aaaaaa";
         body.style.backgroundColor = "#303030";
         div_layers.style.backgroundColor = "#222222";
         text_label_clr.style.color = "#ffffff";
-        text_label_clr1.style.color = "#ffffff";
         if (is_foreground_selected) {
             layer_1.style.outline = "3px solid #cccccc";
             layer_1.style.border = "1px solid #cccccc";
@@ -1302,7 +1258,7 @@ change_themeBtn.addEventListener("click", () => {
         }
     }
 });
-select_first_layerBtn.addEventListener("click", () => {
+select_first_layerBtn.addEventListener("click", () => { //кнопка выбора первого слоя
     if (!is_foreground_selected) {
         if (is_dark_mode) {
             layer_1.style.border = "1px solid #cccccc";
@@ -1320,8 +1276,8 @@ select_first_layerBtn.addEventListener("click", () => {
         is_foreground_selected = true;
     }
 });
-const select_second_layerBtn = document.getElementById("layer_button_2");
-select_second_layerBtn.addEventListener("click", () => {
+
+select_second_layerBtn.addEventListener("click", () => { //кнопка выбора второго слоя
     if (is_foreground_selected) {
         layer_1.style.outline = "1px solid #707070";
         layer_1.style.border = "none";
@@ -1339,7 +1295,7 @@ select_second_layerBtn.addEventListener("click", () => {
         is_foreground_selected = false;
     }
 });
-first_layer_visibilityBtn.addEventListener("click", () => {
+first_layer_visibilityBtn.addEventListener("click", () => { //кнопка видимости первого слоя
     if (is_foreground_visible) {
         is_foreground_visible = false;
         canvas_foreground.style.display = "none";
@@ -1351,14 +1307,15 @@ first_layer_visibilityBtn.addEventListener("click", () => {
         first_layer_visibility_img.setAttribute("src", "visibility_on.png");
     }
 });
-clear_first_layer_Btn.addEventListener("click", () => {
+clear_first_layer_Btn.addEventListener("click", () => { //кнопка очистки первого слоя
     original_image_buf = "";
     before_gen_block.style.display = "none";
     ctx_foreground.clearRect(0, 0, cW, cH);
     ctx_layer_1.clearRect(0, 0, lwW, lwH);
     push_action_to_stack(['c', ctx_foreground]);
+    pstack=[];
 });
-second_layer_visibilityBtn.addEventListener("click", () => {
+second_layer_visibilityBtn.addEventListener("click", () => { //кнопка видимости второго слоя
     if (is_background_visible) {
         is_background_visible = false;
         canvas_background.style.display = "none";
@@ -1370,15 +1327,16 @@ second_layer_visibilityBtn.addEventListener("click", () => {
         second_layer_visibility_img.setAttribute("src", "visibility_on.png");
     }
 });
-clear_second_layer_Btn.addEventListener("click", () => {
+clear_second_layer_Btn.addEventListener("click", () => { //кнопка очистки второго слоя
     original_image_buf = "";
     before_gen_block.style.display = "none";
     ctx_background.clearRect(0, 0, cW, cH);
     ctx_layer_2.clearRect(0, 0, lwW, lwH);
     push_action_to_stack(['c', ctx_background]);
+    pstack=[];
 });
-const merge_layersBtn = document.getElementById("merge_layers");
-function merge_layers_in_stack(stack, local_ctx) {
+
+function merge_layers_in_stack(stack, local_ctx) { //функция объединения слоев в стеке
     let substack_1 = [];
     let substack_2 = [];
     let is_changed_stack = [];
@@ -1421,7 +1379,7 @@ function merge_layers_in_stack(stack, local_ctx) {
         return return_value;
     }
 }
-function unmerge_layers_in_stack(stack, local_ctx, local_ics) {
+function unmerge_layers_in_stack(stack, local_ctx, local_ics) { //функция отмены объединения слоев в стеке
     if (local_ics.length == 0) {
         return stack;
     }
@@ -1453,7 +1411,7 @@ function unmerge_layers_in_stack(stack, local_ctx, local_ics) {
         return substack_2.concat(substack_1);
     }
 }
-function unmerge_layers(local_ctx, local_ics_1, local_ics_2) {
+function unmerge_layers(local_ctx, local_ics_1, local_ics_2) { //функция отмены объединения слоев
     pstack = unmerge_layers_in_stack(pstack, local_ctx, local_ics_1);
     nstack = unmerge_layers_in_stack(nstack, local_ctx, local_ics_2);
     replay_actions(pstack);
@@ -1462,7 +1420,7 @@ function unmerge_layers(local_ctx, local_ics_1, local_ics_2) {
     ctx_layer_2.clearRect(0, 0, lwW, lwH);
     canvas_to_layer(canvas_background, ctx_layer_2);
 }
-function merge_layers(local_draw_ctx) {
+function merge_layers(local_draw_ctx) { //Объединение слоев
     let merge_elem = merge_layers_in_stack(pstack, local_draw_ctx);
     let return_value = [merge_elem[1], []];
     pstack = merge_elem[0];
@@ -1484,15 +1442,15 @@ function merge_layers(local_draw_ctx) {
     }
     return return_value;
 }
-merge_layersBtn.addEventListener("click", () => {
+merge_layersBtn.addEventListener("click", () => { //кнопка для осуществления объединения слоев
     let is_changed_stack = merge_layers(cur_draw_ctx);
     if (is_changed_stack[0].length == 0 && is_changed_stack[1].length == 0) {
         return;
     }
     push_action_to_stack(['m', cur_draw_ctx, is_changed_stack[0], is_changed_stack[1]]);
 });
-const swap_layersBtn = document.getElementById("swap_layers");
-function swap_layers_in_stack(stack) {
+
+function swap_layers_in_stack(stack) { //перемещение слоев в стеке
     let return_value = [[], false];
     for (let i = 0; i < stack.length; i++) {
         if (id_list.includes(stack[i][0])) {
@@ -1508,9 +1466,12 @@ function swap_layers_in_stack(stack) {
     return_value[0] = stack;
     return return_value;
 }
-function swap_layers() {
+function swap_layers() { //перемещение слоев
     let input_value = swap_layers_in_stack(pstack);
     pstack = input_value[0];
+    alert(pstack);
+    console.log(pstack);
+
     if (input_value[1] == false) {
         return;
     }
@@ -1522,11 +1483,11 @@ function swap_layers() {
     ctx_layer_2.clearRect(0, 0, lwW, lwH);
     canvas_to_layer(canvas_background, ctx_layer_2);
 }
-swap_layersBtn.addEventListener("click", () => {
+swap_layersBtn.addEventListener("click", () => { //кнопка перемещения слоев
     swap_layers();
     push_action_to_stack(['s']);
 });
-graphic_tabletBtn.addEventListener("click", () => {
+graphic_tabletBtn.addEventListener("click", () => { //кнопка работы с графическим планшетом
     if (graphic_tablet_mode) {
         graphic_tabletBtn.style.border = "1px solid #707070";
         graphic_tablet_mode = false;
@@ -1536,17 +1497,15 @@ graphic_tabletBtn.addEventListener("click", () => {
         graphic_tablet_mode = true;
     }
 });
-function close_all_add_windows() {
+function close_all_add_windows() { //функция закрытия всех добавляющих окон
     pencil_w.style.display = "none";
     is_pencil_window = false;
     eraser_w.style.display = "none";
     is_eraser_window = false;
     clr_w.style.display = "none";
-    clr_w1.style.display = "none";
     is_clr_window = false;
-    is_clr_window1 = false;
 }
-colourBtn.addEventListener("click", () => {
+colourBtn.addEventListener("click", () => { //кнопка открытия цветовой палитры
     if (is_pencil_window || is_eraser_window) {
         pencil_w.style.display = "none";
         is_pencil_window = false;
@@ -1560,7 +1519,6 @@ colourBtn.addEventListener("click", () => {
         is_clr_window = true;
         clr_w.addEventListener("pointermove", handleclr_PointerMove);
         ctype_clr_btn.addEventListener("click", handlet_clr_Click);
-
         ok_clr.addEventListener("click", () => {
             cursor_type = 3;
             cursor_image.setAttribute("src", cur_tool[2]);
@@ -1571,33 +1529,12 @@ colourBtn.addEventListener("click", () => {
         }, {
             once: true
         });
-
     }
     else {
         close_clr_window();
     }
-    if (is_clr_window1 == false) {
-        clr_w1.style.display = "block";
-        update_slider();
-        is_clr_window1 = true;
-        clr_w1.addEventListener("pointermove", handleclr_PointerMove);
-        ctype_clr_btn1.addEventListener("click", handlet_clr_Click);
-        ok_clr1.addEventListener("click", () => {
-            cursor_type = 3;
-            cursor_image.setAttribute("src", cur_tool[2]);
-            cursor.style.left = (cX + 7.5) + "px";
-            cursor.style.top = (cY + 7.5) + "px";
-            cursor.style.display = "block";
-            close_clr_window1();
-        }, {
-            once: true
-        });
-    }
-    else {
-        close_clr_window1();
-    }
 });
-function change_thickness(flag) {
+function change_thickness(flag) { //функция изменения толщины линии
     let t_v;
     if (flag) {
         t_v = parseInt(thickness_field.value);
@@ -1623,7 +1560,7 @@ function change_thickness(flag) {
     ctx_background.lineWidth = l_width;
     update_slider();
 }
-function change_smoothing() {
+function change_smoothing() { //изменение сглаживания
     cur_smoothing = parseInt(smoothing_field.value);
     let real_s_v = Math.min(100, Math.max(0, cur_smoothing));
     if (cur_smoothing != real_s_v) {
@@ -1639,6 +1576,7 @@ function change_smoothing() {
     }
     update_slider();
 }
+//Далее - блок функций для работы с толщиной и сглаживанием
 thickness_slider.oninput = function () {
     thickness_field.value = thickness_slider.value;
     change_thickness(true);
@@ -1663,16 +1601,9 @@ e_thickness_field.oninput = function () {
     e_thickness_slider.value = e_thickness_field.value;
     change_thickness(false);
 };
-const setpencilBtn = document.getElementById("pencil");
-setpencilBtn.style.border = "5px solid #000000";
-setpencilBtn.style.transform = "translateY(7%)";
-let cur_tool = ['k', setpencilBtn, "aero_pen.cur"]; //текущий инструмент (карандаш)
-setpencilBtn.addEventListener("click", () => {
+setpencilBtn.addEventListener("click", () => { //функция выборки карандаша
     if (is_clr_window) {
         close_clr_window();
-    }
-    if (is_clr_window1) {
-        close_clr_window1();
     }
     if (cur_tool[0] != 'k') {
         if (cur_tool[0] == 'e') {
@@ -1702,14 +1633,13 @@ setpencilBtn.addEventListener("click", () => {
         }
     }
 });
-const seteraserBtn = document.getElementById("eraser");
-seteraserBtn.addEventListener("click", () => {
+
+seteraserBtn.addEventListener("click", () => { //выбор мода-резинки
     if (is_clr_window) {
         close_clr_window();
     }
-    if (is_clr_window1) {
-        close_clr_window1();
-    }
+
+
     if (cur_tool[0] != 'e') {
         if (cur_tool[0] == 'k') {
             change_thickness(true);
@@ -1738,8 +1668,8 @@ seteraserBtn.addEventListener("click", () => {
         }
     }
 });
-const setbucketBtn = document.getElementById("bucket");
-setbucketBtn.addEventListener("click", () => {
+
+setbucketBtn.addEventListener("click", () => { //функция заливки
     if (cur_tool[0] != 'b') {
         if (cur_tool[0] == 'k' || cur_tool[0] == 'e') {
             pencil_w.style.display = "none";
@@ -1761,8 +1691,8 @@ setbucketBtn.addEventListener("click", () => {
         cur_tool = ['b', setbucketBtn, "aero_bucket.png"];
     }
 });
-const setpipetteBtn = document.getElementById("pipette");
-setpipetteBtn.addEventListener("click", () => {
+
+setpipetteBtn.addEventListener("click", () => { //функция пипетки
     if (cur_tool[0] != 'p') {
         if (cur_tool[0] == 'k' || cur_tool[0] == 'e') {
             pencil_w.style.display = "none";
@@ -1784,7 +1714,7 @@ setpipetteBtn.addEventListener("click", () => {
         cur_tool = ['p', setpipetteBtn, "aero_pipette.png"];
     }
 });
-function full_clear_drawfield() {
+function full_clear_drawfield() { //функция полной очистки
     original_image_buf = "";
     before_gen_block.style.display = "none";
     cur_background_clr = "#fff";
@@ -1792,7 +1722,7 @@ function full_clear_drawfield() {
     ctx_foreground.clearRect(0, 0, cW, cH);
     ctx_background.clearRect(0, 0, cW, cH);
 }
-function clear_drawfield() {
+function clear_drawfield() { //?
     original_image_buf = "";
     before_gen_block.style.display = "none";
     cur_background_clr = "#fff";
@@ -1800,14 +1730,13 @@ function clear_drawfield() {
     ctx_foreground.clearRect(0, 0, cW, cH);
     ctx_background.fillRect(0, 0, cW, cH);
 }
-const clearBtn = document.getElementById("clear");
-clearBtn.addEventListener("click", () => {
+
+clearBtn.addEventListener("click", () => { //кнопка очистки
     clear_drawfield();
     push_action_to_stack(['d']); //тип - очистка экрана
 });
-const mhf = document.getElementById("my_hidden_file");
-const uploadBtn = document.getElementById("upload");
-uploadBtn.addEventListener("click", () => {
+
+uploadBtn.addEventListener("click", () => { //кнопка загрузки изображений с ПК
     if (!is_first_upload_btn_click) //костыль чтобы кнопка не срабатывала дважды
      {
         is_first_upload_btn_click = true;
@@ -1901,8 +1830,8 @@ uploadBtn.addEventListener("click", () => {
         once: true
     });
 });
-const saveBtn = document.getElementById("save");
-saveBtn.addEventListener("click", () => {
+
+saveBtn.addEventListener("click", () => { //кнопка сохранения изображений
     let image = new Image();
     if (original_image_buf == "") {
         if (!is_foreground_visible) {
@@ -1930,9 +1859,8 @@ saveBtn.addEventListener("click", () => {
         a.click();
     }
 });
-function gen_caption_for_image(data_prop) {
+function gen_caption_for_image(data_prop) { //получить адрес картинки?
     blackout.style.display = "block";
-    blackout1.style.display = "block";
     let send_data_cpt;
     let data;
     let background_data;
@@ -1979,13 +1907,13 @@ function gen_caption_for_image(data_prop) {
     })*/
     ws.send(send_data_cpt);
 }
-document.addEventListener("pointerenter", (e) => {
+document.addEventListener("pointerenter", (e) => { //функция отклонения курсора?
     let cX = e.clientX;
     let cY = e.clientY;
     cursor.style.left = (cX + 7.5) + "px";
     cursor.style.top = (cY + 7.5) + "px";
 }, { once: true });
-function replay_action(act, k_X, k_Y, fW_pred, fH_pred) {
+function replay_action(act, k_X, k_Y, fW_pred, fH_pred) { //функция повторения действий 1 (без s)
     let act_type = act[0];
     switch (act_type) {
         case 'p': //если это примитив
@@ -2033,8 +1961,8 @@ function replay_action(act, k_X, k_Y, fW_pred, fH_pred) {
     }
     return [k_X, k_Y, fW_pred, fH_pred];
 }
-function replay_actions(cur_pstack) {
-    // full_clear_drawfield();
+function replay_actions(cur_pstack) { //функция повторения действий 2 (с s)
+    full_clear_drawfield();
     let k_X = fW_pred / f_dW;
     let k_Y = fH_pred / f_dH;
     let cur_thickness = 1;
@@ -2063,14 +1991,14 @@ function replay_actions(cur_pstack) {
     ctx_foreground.lineWidth = l_width;
     ctx_background.lineWidth = l_width;
 }
-function canvas_to_layer(local_canvas, local_layer) {
+function canvas_to_layer(local_canvas, local_layer) { //отображение изображений на мини-слоях
     let image_layer = new Image();
     image_layer.onload = function () {
         local_layer.drawImage(image_layer, 0, 0, cW, cH, 0, 0, lwW, lwH);
     };
     image_layer.src = local_canvas.toDataURL();
 }
-function undo_action() {
+function undo_action() { //функция отмены действий
     let pstack_size = pstack.length;
     if (pstack_size != 0) {
         let cur_act = pstack.pop();
@@ -2111,7 +2039,7 @@ function undo_action() {
         canvas_to_layer(canvas_background, ctx_layer_2);
     }
 }
-function repeat_action() {
+function repeat_action() { //функция повторения действий
     if (nstack.length != 0) {
         let cur_act = nstack.pop();
         let local_cur_ctx_layer = cur_ctx_layer;
@@ -2146,7 +2074,7 @@ function repeat_action() {
         canvas_to_layer(local_cur_canvas, local_cur_ctx_layer);
     }
 }
-document.addEventListener("keydown", (event) => {
+document.addEventListener("keydown", (event) => { //выбор режима
     if (is_modal_open || is_side_panel_open) {
         return;
     }
@@ -2217,7 +2145,7 @@ document.addEventListener("keydown", (event) => {
             }
     }
 }, false);
-document.addEventListener("keyup", (event) => {
+document.addEventListener("keyup", (event) => { //
     if (event.code.slice(0, 5) == "Shift") {
         if (draw) {
             ctx_add.clearRect(0, 0, cW, cH);
@@ -2229,7 +2157,7 @@ document.addEventListener("keyup", (event) => {
         is_shift_on = false;
     }
 }, false);
-canvas_additional.addEventListener("pointerdown", (e) => {
+canvas_additional.addEventListener("pointerdown", (e) => { //функция дополнения для канваса?
     if (is_foreground_selected) {
         if (!is_foreground_visible) {
             if (!is_background_visible) {
@@ -2285,17 +2213,15 @@ canvas_additional.addEventListener("pointerdown", (e) => {
     if (is_clr_window == true) {
         close_clr_window();
     }
-    if (is_clr_window1 == true) {
-        close_clr_window1();
-    }
+
 });
-function rgbToHex(r, g, b) {
+function rgbToHex(r, g, b) { //перевод RGB в 16-ричную систему
     return ((r << 16) | (g << 8) | b).toString(16);
 }
-function rgbaToHex(r, g, b, a) {
+function rgbaToHex(r, g, b, a) { //перевод RGBA в 16-ричную систему
     return ((r << 24) | (g << 16) | (b << 8) | a).toString(16);
 }
-function getPixel(pixelData, x, y) {
+function getPixel(pixelData, x, y) { //Получение пикселей
     if (x < 0 || y < 0 || x >= pixelData.width || y >= pixelData.height) {
         return -1;
     }
@@ -2303,10 +2229,10 @@ function getPixel(pixelData, x, y) {
         return pixelData.data[y * pixelData.width + x];
     }
 }
-function addSpan(spansToCheck, left, right, y, direction) {
+function addSpan(spansToCheck, left, right, y, direction) { //Добавить диапазон
     spansToCheck.push({ left, right, y, direction });
 }
-function checkSpan(pixelData, targetColor, spansToCheck, left, right, y, direction) {
+function checkSpan(pixelData, targetColor, spansToCheck, left, right, y, direction) { //Проверить диапазон
     let inSpan = false;
     let start = 0;
     let x;
@@ -2330,7 +2256,7 @@ function checkSpan(pixelData, targetColor, spansToCheck, left, right, y, directi
         addSpan(spansToCheck, start, x - 1, y, direction);
     }
 }
-function floodFill(local_ctx, x, y, fillColor) {
+function floodFill(local_ctx, x, y, fillColor) { //Полная заливка
     let dex_clr = parseInt("FF" + fillColor.slice(6, 8) + fillColor.slice(4, 6) + fillColor.slice(2, 4), 16);
     let imageData = local_ctx.getImageData(0, 0, local_ctx.canvas.width, local_ctx.canvas.height);
     /*let imageData_test_data: Uint8ClampedArray = imageData.data
@@ -2460,7 +2386,7 @@ d_frame.addEventListener("pointerdown", (e) => {
             }
             else {
                 if (is_pencil_window) {
-                    if (cur_tool[0] == 'k') {
+                    if (cur_tool[0] == 'k') { //если выбран карандаш
                         change_thickness(true);
                     }
                     else {
@@ -2477,7 +2403,7 @@ window.addEventListener("pointerup", (e) => {
     enddraw = true;
     end_f_move = true;
 });
-function addGraphicTabletButton(e) {
+function addGraphicTabletButton(e) { //функция добавления кнопки графического планшета
     if (e.pointerType == "pen") {
         graphic_tabletBtn.style.display = "block";
         nav_panel.removeEventListener("pointermove", addGraphicTabletButton);
@@ -2501,7 +2427,7 @@ canvas_additional.addEventListener("pointermove", (e) => //проверка ку
         cursor_image.setAttribute("src", cur_tool[2]);
     }
 });
-function getBezierBasis(i, n, t) {
+function getBezierBasis(i, n, t) { //функция для получения базиса кривых Безье
     // Факториал
     function f(n) {
         return (n <= 1) ? 1 : n * f(n - 1);
@@ -2510,7 +2436,7 @@ function getBezierBasis(i, n, t) {
     return (f(n) / (f(i) * f(n - i))) * Math.pow(t, i) * Math.pow(1 - t, n - i);
 }
 // arr - массив опорных точек. Точка - двухэлементный массив, (x = arr[0], y = arr[1]), step - шаг при расчете кривой (0 < step < 1), по умолчанию 0.01
-function getBezierCurve(arr, step) {
+function getBezierCurve(arr, step) { //функция для получения кривых Безье
     step = 1.0 / step;
     let res = new Array();
     for (let t = 0; t < 1 + step; t += step) {
@@ -2524,9 +2450,10 @@ function getBezierCurve(arr, step) {
             res[ind][2] += arr[i][2] * b;
         }
     }
+    console.log(res);
     return res;
 }
-function drawLines(local_ctx, arr) {
+function drawLines(local_ctx, arr) { //Функция отрисовки линий
     local_ctx.beginPath();
     for (let i = 0; i < arr.length - 1; i++) {
         local_ctx.lineWidth = arr[i][2];
@@ -2618,7 +2545,7 @@ d_frame.addEventListener("pointermove", (e) => //проверка курсора
             prevY = pY;
             fp = true;
             let drawing_mode;
-            if (cur_tool[0] == 'e') {
+            if (cur_tool[0] == 'e') { //если выбрана резинка
                 cur_ctx_layer.clearRect(0, 0, lwW, lwH);
                 drawing_mode = "destination-out";
                 cur_draw_ctx.globalCompositeOperation = "source-over";
@@ -2651,7 +2578,7 @@ d_frame.addEventListener("pointermove", (e) => //проверка курсора
         }
         if (fp) {
             before_gen_block.style.display = "none";
-            if (cur_tool[0] == 'e') {
+            if (cur_tool[0] == 'e') { //если выбрана резинка
                 cur_draw_ctx.globalCompositeOperation = "destination-out";
             }
             cur_smooth_prim = [];
@@ -2703,7 +2630,7 @@ d_frame.addEventListener("pointermove", (e) => //проверка курсора
         prevY = currentY;
     }
 });
-function change_drawfield_size(new_dfw, new_dfh) {
+function change_drawfield_size(new_dfw, new_dfh) { //функция изменения поля для рисования (снова???)
     let prev_f_dW = f_dW;
     let prev_f_dH = f_dH;
     f_dW = Math.min(fW_max, Math.max(fW_min, new_dfw));
@@ -2764,22 +2691,6 @@ window.addEventListener("pointermove", (e) => //проверка курсора 
             return;
         }
     }
-     if (is_clr_window1) {
-         if (!on_clr_window1) {
-             if (cursor_type != 0) {
-                 cursor_type = 0;
-                 cursor.style.display = "block";
-             }
-         }
-         else {
-             if (cursor_type != -1) {
-                 cursor_type = -1;
-                 cursor.style.display = "none";
-             }
-             on_clr_window1 = false;
-             return;
-         }
-     }
     if (!f_move) {
         if (!on_d_frame && !draw) {
             if (cursor_type != -1) {

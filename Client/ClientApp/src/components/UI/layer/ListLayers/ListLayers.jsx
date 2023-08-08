@@ -4,7 +4,6 @@ import cl from './ListLayers.module.css'
 
 const ListLayers = ({layers, remove, ...props}) => {
     const [layer, setLeyer] = useState()
-    
     return (
         <div className={cl.layer_box}>
             {layers.map((item, index) =>
