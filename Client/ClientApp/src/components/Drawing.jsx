@@ -1,20 +1,20 @@
 ﻿import React from 'react';
-import SideBar from "./UI/menu/SideBar";
-import LableBar from "./UI/menu/LableBar";
-import ScaleField from "./UI/menu/ScaleField";
-import GenBlock from "./UI/modal/GenBlock";
-import Canvas from "./UI/canvas/Canvas";
-import ColorMenu from "./UI/modal/ColorMenu";
-import Pencil from "./UI/modal/Pencil";
-import Eraser from "./UI/modal/Eraser";
-import GraphicTable from "./UI/modal/GraphicTable";
-import ToolBar from "./UI/menu/ToolBar";
+import SideBar from "./UI/SideBar/SideBar.jsx";
+import LableBar from "./UI/LableBar/LableBar.jsx";
+import ScaleField from "./UI/ScaleField/ScaleField.jsx";
+import GenBlock from "./UI/modal/GenBlock.jsx";
+import Canvas from "./UI/Canvas/Canvas.jsx";
+import ColorMenu from "./UI/modal/ColorMenu/ColorMenu.jsx";
+import Pencil from "./UI/modal/Pencil/Pencil.jsx";
+import Eraser from "./UI/modal/Eraser/Eraser.jsx";
+import GraphicTable from "./UI/modal/GraphicTable.jsx";
+import ToolBar from "./UI/Toolbar/ToolBar.jsx";
 
 
 const Drawing = () => {
     return (
         <div>
-            <h1>
+            <h1 style={{marginLeft:'70px'}}>
                 Test Drawing
             </h1>
             <div className = "subbody">
@@ -25,9 +25,9 @@ const Drawing = () => {
                 
                 {/* Будет принемать компонент с изображением <GenBlock><Сам компонент /> </GenBlock>*/}
                 {/*<GenBlock />*/}
-                
+
                 <Canvas />
-                
+
                 {/*Переделать в компонент модалок У верхней менюшке*/}
                 {/* <ColorMenu />*/}
                 {/*<Pencil />*/}

@@ -2,6 +2,7 @@ import ApiAuthorzationRoutes from './components/api-authorization/ApiAuthorizati
 import { Design } from "./components/Design";
 import { TexttoImg } from "./components/TexttoImg";
 import { DrawingtoImg } from "./components/DrawingtoImg";
+import  Drawing  from './components/Drawing'
 import { PhototoImg } from "./components/PhototoImg";
 import { FramestoAnimation } from "./components/FramestoAnimation";
 //import { RefreshAuthorization } from "./components/api-authorization/RefreshAuthorization";
@@ -28,12 +29,17 @@ const AppRoutes = [
     {
         path: '/drawing-to-img',
         requireAuth: true,
-        element: <DrawingtoImg />
+        element: <Drawing/>
     },
     {
         path: '/notdrawing-to-img',
         requireAuth: true,
         element: <App1 />
+    },
+    {
+        path: '/test',
+        requireAuth: true,
+        element: <DrawingtoImg />   
     },
     {
         path: '/photo-to-img',

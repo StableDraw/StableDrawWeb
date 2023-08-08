@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import cl from '../../SideBar.module.css'
+import cl from "../SideBar.module.css";
 
 const Setting = () => {
     return (

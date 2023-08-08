@@ -1,0 +1,24 @@
+﻿import Visability from "./ListItem.utils/Visability";
+import Clear from "./ListItem.utils/Clear";
+import Destroy from "../../LableBar/LableBar.utils/Destroy";
+import  cl from './ListItem.module.css'
+
+const ListItem = (props) => {
+    return (
+        <div className={cl.layer} id={props.item.id}>
+            <div className={cl.layer_button_box}>
+                <Visability ids={props.item.id}/>
+                <Clear ids={props.item.id}/>
+                <Destroy remove={props.remove} item={props.item}/>
+            </div>
+            <div className={cl.layer_button} id={"layer_button_"+props.item.id}>
+                <div className={cl.layer_display_icon} id={"layer_display_icon_"+props.item.id}>
+                    <canvas className={cl.layer_display_canvas} id={"layer_"+props.item.id+"_display_canvas"} style={{ zIndex: 1 }}></canvas>
+                    <div className={cl.layer_display_canvas} id={"layer_alpha_img_"+props.item.id} style={{ zIndex: 0, backgroundImage: "url(mini_alpha_pattern.png)", backgroundRepeat: "repeat" }}></div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default ListItem;

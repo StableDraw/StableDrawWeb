@@ -52,7 +52,7 @@ body
     pointer-events: none;
     position: absolute;
     box-sizing: border-box;
-    transition: 0.1s;
+    transition: 0, 1s;
     transform: translate(-25%, -25%);
 }
 .sidepanel 
