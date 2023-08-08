@@ -11,16 +11,21 @@ import { ModelsBar } from "./modelsBar";
 import barClasses from './styles/bar.module.css';
 import headerClasses from './styles/appBar.module.css';
 import { Loader } from "./loader";
+import api from "../../api/api";
+import axios from "axios";
 
 const modelFileName = 'PackNonTexBig'; // Эти данные должны приходить с бека
-const tex = 'packTexBig2.jpeg';					 // Эти данные должны приходить с бека
+const tex = 'packTexBig1.jpeg';					 // Эти данные должны приходить с бека
 
 export const MainBabylon = () => {
 	const [scenesIsVisible, setScenesIsVisible] = useState(false);
 	const [currentScene, setCurrentScene] = useState('');
 	const [modelsIsVisible, setModelsIsVisible] = useState(false);
 	const [modelType, setModelType] = useState('PackBig');
-
+	
+	const [texture, setTexture] = useState(['packTexBig1.jpeg'])
+	
+	
 	const memoizedScene = useMemo(() =>
 		<Scene
 			modelFileName={modelType}
@@ -32,6 +37,8 @@ export const MainBabylon = () => {
 		setModelType(model);
 	}
 
+	console.log("mas")
+	console.log(texture);
 	const changeScene = (scene) => {
 		setCurrentScene(scene);
 	}
@@ -45,6 +52,11 @@ export const MainBabylon = () => {
 		setScenesIsVisible(false);
 		setModelsIsVisible(!modelsIsVisible);
 	}
+	
+	const uploadTexture = (el) => {
+		setTexture([...el]);
+	}
+	
 
 	return (
 		<>
@@ -85,7 +97,8 @@ export const MainBabylon = () => {
 			{memoizedScene}
 			
 			<div style={{display:'flex', justifyContent:'center', padding:'10px'}}>
-				<Loader/>
+				<Loader call={uploadTexture}/>
+				
 			</div>
 			{/*<Button*/}
 			{/*	variant="outlined"*/}

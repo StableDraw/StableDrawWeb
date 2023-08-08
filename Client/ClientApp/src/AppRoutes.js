@@ -53,7 +53,7 @@ const AppRoutes = [
     },
     {
         path: '/fetch-data',
-        requireAuth: true,
+        requireAuth: false,
         element: <FetchData />
     },
     {
@@ -61,7 +61,12 @@ const AppRoutes = [
         requireAuth: false,
         element: <MainBabylon />
     },
-    ...ApiAuthorzationRoutes
+    ...ApiAuthorzationRoutes,
+    // {
+    //     path: '/api',
+    //     requireAuth: false,
+    //     element: Proxy
+    // }
 ];
 
 export default AppRoutes;

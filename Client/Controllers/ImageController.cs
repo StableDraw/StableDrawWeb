@@ -8,10 +8,21 @@ namespace StableDraw.Image.API.Controllers;
 [Route("api/[controller]")]
 public class ImageController : Controller
 {
+	private string dirPath;
+
+	public ImageController()
+	{
+		dirPath = Path.Combine(Directory.GetCurrentDirectory(), "images");
+		if(!Directory.Exists(dirPath))
+		{
+			Directory.CreateDirectory(dirPath);
+		}
+	}
+
     [HttpGet("{id}")]
     public IActionResult Get(Guid id)
     {
-        var path = $"images/{id}";
+        var path = Path.Combine(dirPath, id.ToString());
         var data = System.IO.File.ReadAllBytes(path);
         var type = "image/jpeg";
         return File(data, type);
@@ -20,9 +31,9 @@ public class ImageController : Controller
     [HttpGet]
     public IActionResult Get()
     {
-        var files = Directory.GetFiles("/images");
-
-        return Ok(files);
+        var files = Directory.GetFiles(dirPath);
+		var ids = files.Select(f => f.Split("\\")[^1]);
+        return Ok(ids);
     }
 
     [HttpPost]

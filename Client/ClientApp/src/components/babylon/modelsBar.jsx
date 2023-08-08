@@ -6,10 +6,12 @@ import barClasses from'./styles/bar.module.css'
 
 // Отфотать модельки!!
 const models = [
-	{ id: 1, type: "standard pack", model:{ big: 'PackBig', small: 'PackSmall'}, img: '/babylon/imgPreviewModels/StandardPack.png' },
-	{ id: 2, type: "pack with cap", model:{ big: 'PackBigCap', small: 'PackSmallCap'}, img: '/babylon/imgPreviewModels/StandardPack.png' },
+	{ id: 1, type: "Type A", model:{ big: 'TypeABig', small: 'TypeASmall'}, img: '/babylon/imgPreviewModels/StandardPack.png' },
+	{ id: 2, type: "Type A with cap", model:{ big: 'TypeABigCap', small: 'TypeASmallCap'}, img: '/babylon/imgPreviewModels/StandardPackCap.png' },
+	{ id: 3, type: "Type A with cap", model:{ big: 'TypeABigCap', small: 'TypeASmallCap'}, img: '/babylon/imgPreviewModels/StandardPack.png' },
+	{ id: 4, type: "pack with cap", model:{ big: 'PackBigCap', small: 'PackSmallCap'}, img: '/babylon/imgPreviewModels/StandardPack.png' },
+	// { id: 5, type: "pack with cap", model:{ big: 'PackBigCap', small: 'PackSmallCap'}, img: '/babylon/imgPreviewModels/StandardPack.png' },
 ];
-
 export const ModelsBar = ({changeModel, toggleModelBar}) => {
 // есть проблема с borderRadius.
 	return (

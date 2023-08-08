@@ -1,10 +1,9 @@
-import React from "react";
-import { useState } from "react";
-import { Button, Card, Typography, } from '@mui/material';
+import React, {useState} from "react";
 import api from '../../api/api'
 
-export const Loader = () => {
+export const Loader = ({call}) => {
 	const [drag, setDrag] = useState(false);
+	const [texture, setTexture] = useState([])
 
 	const dragStartHandler = (e) => {
 		e.preventDefault();
@@ -16,18 +15,32 @@ export const Loader = () => {
 		setDrag(false);
 	}
 
-	async function data(){
-		const data = await api.connect
-
-		return data
-	}
 	
+	async function Send(File) {
+		try {
+			const data = await api.LoadFile(File)
+			setTexture( [...data.data])
+			call(texture)
+			return data
+		} catch (e) {
+			console.error(e);
+			throw e;
+		}
+	}
+
+	console.log(texture)
 	const onDropHandler = (e) => {
 		e.preventDefault();
-		setDrag(false);
 		let files = [...e.dataTransfer.files];
+		
+		let formData = new FormData();
+		formData.append("file", files[0]);
+		formData.append("Content-Type", 'multipart/form-data')
+		
+		const res = Send(formData)
+		setDrag(false);
 	};
-
+	
 
 
 
@@ -47,7 +60,8 @@ export const Loader = () => {
 			{drag ? 
 			<div style={{width: '390px', height: '95px',borderRadius: '20px', display:'flex', alignItems:'center', justifyContent:'center',}}
 			onDragLeave={e=>dragLeaveHandler(e)} 
-			onDrop={e => onDropHandler(e)}>
+			onDrop={e => onDropHandler(e)}
+				 onDragOver={e=>dragStartHandler(e)}>
 				Отпустите файл, чтобы загрузить его
 			</div> :
 			<div style={{width: '390px', height: '95px',borderRadius: '20px', display:'flex', alignItems:'center', justifyContent:'center',}}
