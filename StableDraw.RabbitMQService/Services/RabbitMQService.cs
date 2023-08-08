@@ -40,4 +40,25 @@ public class RabbitMQService : IRabbitMQService
                 body: body);
         }
     }
+
+    public void SendMesssage<T>(T message)
+    {
+        var factory = new ConnectionFactory() { HostName = _rabbitMqSettings.Address };
+        using (var connection = factory.CreateConnection())
+        using (var channel = connection.CreateModel())
+        {
+            channel.QueueDeclare(queue: _rabbitMqSettings.QueuesDictionary[RebbitMQQueueEnum.Status],
+                durable: false,
+                exclusive: false,
+                autoDelete: false,
+                arguments: null);
+
+            var body = Encoding.UTF8.GetBytes(message);
+
+            channel.BasicPublish(exchange: "",
+                routingKey: _rabbitMqSettings.QueuesDictionary[RebbitMQQueueEnum.Status],
+                basicProperties: null,
+                body: body);
+        }
+    }
 }
