@@ -10,12 +10,12 @@ const ListItem = (props) => {
     const [isHovering, setIsHovering] = useState(true);
     const [logoPos, setLogoPos] = useState({x:0, y:0});
 
-    const bingLoyerPos = useDrag((params)=>{
-        setLogoPos({
-            x: params.offset[0],
-            y: params.offset[1],
-        });
-    });
+    // const bingLoyerPos = useDrag((params)=>{
+    //     setLogoPos({
+    //         x: params.offset[0],
+    //         y: params.offset[1],
+    //     });
+    // });
 
     function someHandler() {setIsHovering(false);};
     function handleMouseOut() {setIsHovering(true);};
@@ -23,11 +23,11 @@ const ListItem = (props) => {
     return (
         <div className="layer" id={props.item.id} onMouseOver={someHandler} onMouseOut={handleMouseOut}>
             <div className="layer_button_box">
-                 <div {...bingLoyerPos()} style={{
-                    position: 'relative',
-                    top: logoPos.y,
-                    left: logoPos.x,}}>
-                </div>
+                {/* <div {...bingLoyerPos()} style={{*/}
+                {/*    position: 'relative',*/}
+                {/*    top: logoPos.y,*/}
+                {/*    left: logoPos.x,}}>*/}
+                {/*</div>*/}
                 <Visability ids={props.item.id}/>
                 <Clear ids={props.item.id}/>
                 <div className='right_shift' hidden = {isHovering}>
