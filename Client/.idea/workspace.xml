@@ -5,9 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b708f48a-3ec0-4500-897f-8e3b2675a853" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/MyInput/MyInput.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/MyInput/MyInput.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/Toolbar/ToolButton.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/DrawingtoImg.js" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/DrawingtoImg.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/Toolbar/ToolBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/Toolbar/ToolBar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/Toolbar/ToolBar.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/Toolbar/ToolBar.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/Toolbar/ToolButtons.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/Eraser/Eraser.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/Eraser/Eraser.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/Eraser/Eraser.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/Eraser/Eraser.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/Pencil/Pencil.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/Pencil/Pencil.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/Pencil/Pencil.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/Pencil/Pencil.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/app.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -65,7 +73,7 @@
       <updated>1691477703492</updated>
       <workItem from="1691477713793" duration="6283000" />
       <workItem from="1691484482190" duration="11610000" />
-      <workItem from="1691558512029" duration="4174000" />
+      <workItem from="1691558512029" duration="5329000" />
     </task>
     <servers />
   </component>

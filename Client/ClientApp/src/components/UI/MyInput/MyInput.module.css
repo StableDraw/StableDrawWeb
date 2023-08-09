@@ -1,39 +1,9 @@
-
-.myModal {
-    display: none;
-}
-.up_add_window
-{
-    display: block;
-    touch-action: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    z-index: 18;
-    position: fixed;
-    justify-content: flex-end;
-    width: 230px;
-    border: 2px solid rgb(29, 29, 29);
-    background-color:#fff;
-    margin-left: 4.5%;
-    margin-top: 5px;
-}
-.thicknessimg
-{
-    touch-action: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    pointer-events: none;
-    height: 20px;
-    width: 20px;
-}
-.up_add_window_slider
+up_add_window_slider
 {
     touch-action: none;
     width: 60%;
 }
-input[type=range].up_add_window_slider
+input[type=range].up_add_window_slider 
 {
     height: 0.9em;
     -webkit-appearance: none;
@@ -97,7 +67,7 @@ input[type=range].up_add_window_slider::-moz-range-thumb:active
 {
     background: #aaaaaa;
 }
-input[type=range].up_add_window_slider::-moz-range-track
+input[type=range].up_add_window_slider::-moz-range-track 
 {
     background: linear-gradient(#aaaaaa,#aaaaaa) 0/var(--sx) 100% no-repeat, #dddddd;
 }
@@ -122,7 +92,7 @@ input[type=range].up_add_window_slider::-ms-thumb
     margin-top: 0;
     box-sizing: border-box;
 }
-input[type=range].up_add_window_slider::-ms-track
+input[type=range].up_add_window_slider::-ms-track 
 {
     height: 1em;
     border-radius: 0.5em;
@@ -131,15 +101,15 @@ input[type=range].up_add_window_slider::-ms-track
     box-shadow: none;
     box-sizing: border-box;
 }
-input[type=range].up_add_window_slider::-ms-thumb:hover
+input[type=range].up_add_window_slider::-ms-thumb:hover 
 {
     background: #cccccc;
 }
-input[type=range].up_add_window_slider::-ms-thumb:active
+input[type=range].up_add_window_slider::-ms-thumb:active 
 {
     background: #aaaaaa;
 }
-input[type=range].up_add_window_slider::-ms-fill-lower
+input[type=range].up_add_window_slider::-ms-fill-lower 
 {
     height: max(calc(1em - 1px - 1px),0px);
     border-radius: 0.5em 0 0 0.5em;

@@ -2,30 +2,23 @@
 import cl from './ToolBar.module.css';
 import Pencil from '../modal/Pencil/Pencil';
 import Eraser from '../modal/Eraser/Eraser';
-import ColorMenu from '../modal/ColorMenu/ColorMenu'
+import ToolButton from './ToolButton';
+
 const ToolBar = () => {
-    
+
     return (
         <div className={cl.nav}>
             <div className={cl.icon_buttons}>
-                <button className="up_panel_button" id="arrow_back" title={"Отменить"}>
-                    <img className="up_panel_button_image" id="arrow_back_image" alt="undo_arrow.png" src="undo_arrow.png"></img>
-                </button>
-                <button className="up_panel_button" id="arrow_next" title="Повторить">
-                    <img className="up_panel_button_image" id="arrow_next_image" alt="repeat_arrow.png" src="repeat_arrow.png"></img>
-                </button>
-                {/*<button className="up_panel_button" id="palette" title="Выбор цвета">*/}
-                {/*    <img className="up_panel_button_image" id="clrimg" alt="palette.png" src="palette.png" style={{ filter: "invert(1)" }} ></img>*/}
+                {/* <button className="up_panel_button" id="arrow_back" title={"Отменить"}>*/}
+                {/*    <img className="up_panel_button_image" id="arrow_back_image" alt="undo_arrow.png" src="undo_arrow.png"></img>*/}
                 {/*</button>*/}
-                <ColorMenu/>
-                <Pencil/>
+                {/*<button className="up_panel_button" id="arrow_next" title="Повторить">*/}
+                {/*    <img className="up_panel_button_image" id="arrow_next_image" alt="repeat_arrow.png" src="repeat_arrow.png"></img>*/}
+                {/*</button>*/}
+                <Pencil />
+                <Eraser/>
                 {/* <button className="up_panel_button" id="pencil" title="Карандаш">
                     <img className="up_panel_button_image" id="pencil_image" alt="pencil.png" src="pencil.png"></img>
-                </button> */}
-                {/*<button className="up_panel_button" id="eraser" title="Ластик">*/}
-                {/*    <img className="up_panel_button_image" id="eraser_image" alt="eraser.png" src="eraser.png"></img>*/}
-                {/*</button>*/}
-                <Eraser/>
                 <button className="up_panel_button" id="bucket" title="Заливка">
                     <img className="up_panel_button_image" id="bucket_image" alt="bucket.png" src="bucket.png"></img>
                 </button>
@@ -44,7 +37,7 @@ const ToolBar = () => {
                 </button>
                 <button className="up_panel_button" id="generate" data-toggle="gen_modal" title="ИИ обработка">
                     <img className="up_panel_button_image" id="generateimg" alt="generate.png" src="generate.png"></img>
-                </button>
+                </button> */}
             </div>
         </div>
     );
