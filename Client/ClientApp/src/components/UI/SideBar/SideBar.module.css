@@ -59,8 +59,9 @@
 }
 .selected {
     cursor: auto;
-    border: 5px solid rgb(0, 0, 0);
-    border-bottom-style: 1px solid rgb(0, 0, 0);
+    border-bottom-style: solid;
+    border-bottom-color: rgb(0, 0, 0);
+    border-bottom-width: 5px;
 }
 .openbtn {
     touch-action: none;
@@ -68,8 +69,8 @@
     -moz-user-select: none;
     -ms-user-select: none;
     position: fixed;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     font-size: 20px;
     cursor: pointer;
     background-color: rgb(255, 255, 255);

@@ -1,4 +1,4 @@
-﻿import {React, useState } from 'react';
+﻿import React, {useState} from 'react';
 import cl from './Pencil.module.css'
 
 const Pencil = () => {
@@ -23,7 +23,7 @@ const Pencil = () => {
                 <input className={cl.up_add_window_slider} type="range" id="smoothing_sliderValue" min="0" max="100" defaultValue="0"></input>
                 <input className={cl.up_add_window_field} type="number" id="smoothing_rangeValue" min="0" max="100" defaultValue="0"></input>
             </div>
-        </div>
+            </div>
         </div>
     )
     

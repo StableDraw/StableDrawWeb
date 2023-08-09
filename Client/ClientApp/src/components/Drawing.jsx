@@ -23,16 +23,16 @@ const Drawing = () => {
                 <LableBar />
                 <ScaleField />
                 
-                {/* Будет принемать компонент с изображением <GenBlock><Сам компонент /> </GenBlock>*/}
-                {/*<GenBlock />*/}
+                {/* Будет принимать компонент с изображением <GenBlock><Сам компонент /> </GenBlock>*/}
+                <GenBlock />
 
                 <Canvas />
 
                 {/*Переделать в компонент модалок У верхней менюшке*/}
                 {/* <ColorMenu />*/}
-                {/*<Pencil />*/}
-                {/*<Eraser />*/}
-                {/*<GraphicTable />*/}
+                <Pencil />
+                <Eraser />
+                <GraphicTable />
 
                 {/*НЕ ЕБУ ДЛЯ ЧЕГО*/}
                 {/*<div className="palette_nav"></div>*/} 
