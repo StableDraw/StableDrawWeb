@@ -1,0 +1,16 @@
+.btn
+{
+    position: absolute;
+    bottom: 95%;
+    left: 95%;
+
+    height: 40px;
+    width: 50px;
+}
+
+.window
+{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+}

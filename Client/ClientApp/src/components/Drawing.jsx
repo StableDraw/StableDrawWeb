@@ -9,7 +9,11 @@ import Pencil from "./UI/modal/Pencil/Pencil.jsx";
 import Eraser from "./UI/modal/Eraser/Eraser.jsx";
 import GraphicTable from "./UI/modal/GraphicTable.jsx";
 import ToolBar from "./UI/Toolbar/ToolBar.jsx";
+<<<<<<< HEAD
 import Bucket from "./UI/modal/Bucket/Bucket";
+=======
+import PayModule from "./UI/payModule/PayBtn.jsx";
+>>>>>>> bde3105a69ef374c60bfe6bb657bae35d3d21505
 
 
 const Drawing = () => {
@@ -40,6 +44,8 @@ const Drawing = () => {
                 {/*<div className="palette_nav"></div>*/} 
                 
                 <ToolBar />
+
+                <PayModule/>
             </div>
         </div>
     );

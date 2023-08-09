@@ -5,10 +5,16 @@ import MyInput from '../../MyInput/MyInput';
 
 const ColorMenu = () => {
     const [modal, setModal] = useState(false)
+<<<<<<< HEAD
     const rootClass = [cl.myModal]
 
     const initial_picker = $(function () {
         let picker = $("#picker");
+=======
+    const rootClass = [cl.myModal2]
+    const initial_picker = (function () {
+        let picker = ("#picker");
+>>>>>>> bde3105a69ef374c60bfe6bb657bae35d3d21505
         picker.farbtastic("#color");
     });
     if(modal) {
