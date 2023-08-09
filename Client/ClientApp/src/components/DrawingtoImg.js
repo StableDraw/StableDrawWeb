@@ -208,7 +208,7 @@ export class DrawingtoImg extends Component
                         Сохранить
                     </button>
                 </div>
-                <div className="up_add_window" id="pencil_window" style={{ marginRight: "14.5%", display: "block" }}>
+                <div className="up_add_window" id="pencil_window">
                     <div className="pencil_window_thickness_block">
                         <img className="thicknessimg" alt="thickness.png" src="thickness.png"></img>
                         <input className="up_add_window_slider" type="range" id="thickness_sliderValue" min="1" max="100" defaultValue="1"></input>

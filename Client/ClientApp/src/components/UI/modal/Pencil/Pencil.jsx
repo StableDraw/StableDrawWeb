@@ -4,6 +4,7 @@ import cl from './Pencil.module.css'
 const Pencil = () => {
     const [modal, setModal] = useState(false)
     const rootClass = [cl.myModal]
+    const pencil_w = document.getElementById("pencil_window");
     if(modal) {
         rootClass.push(cl.up_add_window)
     } 

@@ -6,24 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="b708f48a-3ec0-4500-897f-8e3b2675a853" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/public/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/public/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/AppRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/AppRoutes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Drawing.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Drawing.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/SideBar/SideBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/SideBar/SideBar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/SideBar/SideBar.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/SideBar/SideBar.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/Toolbar/ToolBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/Toolbar/ToolBar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/canvas/Canvas.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/canvas/Canvas.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/layer/ListItem1.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/layer/ListLayers/ListLayers.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/layer/ListLayers/ListLayers.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/ColorMenu/ColorMenu.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/ColorMenu/ColorMenu.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/ColorMenu/ColorMenu.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/ColorMenu/ColorMenu.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/Eraser/Eraser.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/Eraser/Eraser.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/Eraser/Eraser.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/Eraser/Eraser.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/GraphicTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/GraphicTable.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/DrawingtoImg.js" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/DrawingtoImg.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/Pencil/Pencil.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/Pencil/Pencil.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/app.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.db-shm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.db-wal" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +65,7 @@
       <updated>1691477703492</updated>
       <workItem from="1691477713793" duration="6283000" />
       <workItem from="1691484482190" duration="11610000" />
-      <workItem from="1691558512029" duration="2295000" />
+      <workItem from="1691558512029" duration="4174000" />
     </task>
     <servers />
   </component>
