@@ -3,8 +3,8 @@ import cl from './ColorMenu.module.css'
 const ColorMenu = () => {
     const [modal, setModal] = useState(false)
     const rootClass = [cl.myModal2]
-    const initial_picker = $(function () {
-        let picker = $("#picker");
+    const initial_picker = (function () {
+        let picker = ("#picker");
         picker.farbtastic("#color");
     });
     if(modal) {

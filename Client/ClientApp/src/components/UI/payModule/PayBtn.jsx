@@ -1,23 +1,27 @@
 ﻿import React, {useState} from 'react';
 import cl from "./PayBtn.module.css";
-import PayWindow from '../../../order/PayWindow';
+import Button from '@mui/material/Button';
+import { Modal } from '@mui/material';
+import Content from '../../../order/Content';
 
 
-const ToolBar = () => {
 
-const [modal, setModal] = useState(true)
+const PayModule = () => {
+
+const [modal, setModal] = useState(false)
 
 function showPayModal(){
-    if(!modal) setModal(true)
-    else setModal(false)
+    setModal(!modal)
 }
 
     return (
         <div>
-            <div onClick={showPayModal} className={cl.btn}> {modal} </div>
-            <PayWindow visible = {modal}/>
+            <div className={cl.btn}> <Button variant="outlined" startIcon={"png"} onClick={showPayModal}/> </div> 
+            <Modal open= {modal} onClose={showPayModal} className={cl.window}>
+                <Content/>
+            </Modal>
         </div>
     );
 };
 
-export default ToolBar;
+export default PayModule;
