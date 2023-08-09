@@ -9,6 +9,7 @@ import Pencil from "./UI/modal/Pencil/Pencil.jsx";
 import Eraser from "./UI/modal/Eraser/Eraser.jsx";
 import GraphicTable from "./UI/modal/GraphicTable.jsx";
 import ToolBar from "./UI/Toolbar/ToolBar.jsx";
+import PayModule from "./UI/payModule/PayBtn.jsx";
 
 
 const Drawing = () => {
@@ -38,6 +39,8 @@ const Drawing = () => {
                 {/*<div className="palette_nav"></div>*/} 
                 
                 <ToolBar />
+
+                <PayModule/>
             </div>
         </div>
     );
