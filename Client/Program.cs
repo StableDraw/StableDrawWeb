@@ -5,6 +5,9 @@ using System.Net;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using CLI.Services;
 using System.Security.Claims;
+using CLI.BackgroundServices;
+using CLI.BackgroundServises;
+using EasyNetQ;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using StableDraw.Core.Models;
@@ -117,6 +120,13 @@ builder.Services.AddHttpsRedirection(options =>
 //recaptcha
 builder.Services.Configure<GoogleRecaptchaSettings>(builder.Configuration.GetSection("GoogleRecaptcha"));
 builder.Services.AddTransient<GoogleRecaptchaService>();
+
+//rabbitMQ
+string rabbitmqConnectionString = "host=localhost;username=rmuser;password=rmpassword;timeout=60";
+var bus = RabbitHutch.CreateBus(rabbitmqConnectionString);
+builder.Services.AddSingleton(bus);
+//builder.Services.AddHostedService<CaptionEventHandler>();
+builder.Services.AddHostedService<WeatherForecastHandler>();
 
 builder.Services.Configure<JwtBearerOptions>("IdentityServerJwtBearer", o => o.Authority = "https://localhost:44452");
 

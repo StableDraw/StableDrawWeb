@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using CLI.BackgroundServices;
+using EasyNetQ;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CLI.Controllers;
@@ -14,10 +16,12 @@ public class WeatherForecastController : ControllerBase
     };
 
     private readonly ILogger<WeatherForecastController> _logger;
+    private readonly IBus _bus;
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger)
+    public WeatherForecastController(ILogger<WeatherForecastController> logger, IBus bus)
     {
         _logger = logger;
+        _bus = bus;
     }
 
     [HttpGet]
@@ -30,5 +34,14 @@ public class WeatherForecastController : ControllerBase
             Summary = Summaries[Random.Shared.Next(Summaries.Length)]
         })
         .ToArray();
+    }
+
+    [HttpPost]
+    public WeatherForecastReply Post()
+    {
+        WeatherForecast test = new WeatherForecast();
+        var reply = _bus.Rpc.RequestAsync<WeatherForecast, WeatherForecastReply>(test);
+
+        return reply.Result;
     }
 }
