@@ -1,8 +1,9 @@
 ﻿import React from 'react';
-import cl from './ToolBar.module.css'
+import cl from './ToolBar.module.css';
 import Pencil from '../modal/Pencil/Pencil';
 import Eraser from '../modal/Eraser/Eraser';
 import ToolButton from './ToolButton';
+
 const ToolBar = () => {
 
     return (
@@ -14,17 +15,10 @@ const ToolBar = () => {
                 <button className="up_panel_button" id="arrow_next" title="Повторить">
                     <img className="up_panel_button_image" id="arrow_next_image" alt="repeat_arrow.png" src="repeat_arrow.png"></img>
                 </button>
-                <button className="up_panel_button" id="palette" title="Выбор цвета">
-                    <img className="up_panel_button_image" id="clrimg" alt="palette.png" src="palette.png" style={{ filter: "invert(1)" }} ></img>
-                </button> */}
                 <Pencil />
                 <Eraser/>
                 {/* <button className="up_panel_button" id="pencil" title="Карандаш">
                     <img className="up_panel_button_image" id="pencil_image" alt="pencil.png" src="pencil.png"></img>
-                </button>
-                <button className="up_panel_button" id="eraser" title="Ластик">
-                    <img className="up_panel_button_image" id="eraser_image" alt="eraser.png" src="eraser.png"></img>
-                </button>
                 <button className="up_panel_button" id="bucket" title="Заливка">
                     <img className="up_panel_button_image" id="bucket_image" alt="bucket.png" src="bucket.png"></img>
                 </button>

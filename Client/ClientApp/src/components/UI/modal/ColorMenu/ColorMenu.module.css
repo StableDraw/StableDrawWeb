@@ -1,15 +1,24 @@
+.myModal2 {
+    display: none;
+}
 .clr_window
 {
     touch-action: none;
-    display: none;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+
+    display: block;
     z-index: 19;
     position: fixed;
     justify-content: flex-end;
-    top: 6%;
     margin-right: 21.6%;
     border: 2px solid rgb(29, 29, 29);
-    background-color:#ffffff;
+    background-color:#fff;
+    width: 230px;
 }
+
 .ctype_clr_btn
 {
     touch-action: none;

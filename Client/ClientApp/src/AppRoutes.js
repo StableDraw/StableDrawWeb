@@ -39,7 +39,7 @@ const AppRoutes = [
     {
         path: '/test',
         requireAuth: true,
-        element: <DrawingtoImg />   
+        element: <DrawingtoImg />
     },
     {
         path: '/photo-to-img',

@@ -1,4 +1,4 @@
-﻿import {React, useState } from 'react';
+﻿import React, {useState} from 'react';
 import cl from './Pencil.module.css'
 import ToolButton from '../../Toolbar/ToolButton';
 import MyInput from '../../MyInput/MyInput';

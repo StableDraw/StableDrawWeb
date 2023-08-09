@@ -1,4 +1,4 @@
-﻿import {useState} from 'react';
+﻿import React, {useState} from 'react';
 import {NavLink} from "reactstrap";
 import {Link} from "react-router-dom";
 import Setting from "./sidebar.utils/Setting";
@@ -10,7 +10,7 @@ import CloseSideBar from "./sidebar.utils/CloseSideBar";
 
 const SideBar = (...props) => {
     const [active, setActive] = useState(cl.close)
-    const craateAction = (newActive) => {
+    const createAction = (newActive) => {
         setActive(newActive)
     }
     const links = ([
@@ -23,7 +23,7 @@ const SideBar = (...props) => {
     return (
         <div>
             <div className ={[cl.sidebar, cl.close, active].join(" ")}>
-                <CloseSideBar active={craateAction}>&times;</CloseSideBar>
+                <CloseSideBar active={createAction}>&times;</CloseSideBar>
                 <div className = {cl.mods_of_work}>
                     
                     {links.map(link =>
@@ -66,7 +66,7 @@ const SideBar = (...props) => {
                 </div>
             </div>
             <div className={[cl.blackout, cl.close, active].join(" ")} id="side_panel_blackout" style={{ zIndex: 20 }}></div>
-            <OpenSideBar active={craateAction} >&#9776;</OpenSideBar>
+            <OpenSideBar active={createAction} >&#9776;</OpenSideBar>
         </div>
     );
     
