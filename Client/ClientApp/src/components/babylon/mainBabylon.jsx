@@ -1,17 +1,13 @@
 import React from "react";
 import { SceneBar } from "./SceneBar";
 import { Scene } from './Scene'
-import { Button} from '@mui/material';
 import { useMemo, useState, useEffect } from "react";
 import { ModelsBar } from "./modelsBar";
 import barClasses from './styles/bar.module.css';
 import { Loader } from "./loader";
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import { IconButton } from '@mui/material';
 import { Header } from "./header";
-import CloseIcon from '@mui/icons-material/Close';
 import api from '../../api/api'
+import { SelectTexMenu } from "./selectTexMenu";
 
 
 export const MainBabylon = () => {
@@ -20,17 +16,28 @@ export const MainBabylon = () => {
 	const [modelsIsVisible, setModelsIsVisible] = useState(false);
 	const [modelType, setModelType] = useState('TypeABig');
 	const [texCount, setTexCount] = useState(0);
-	
 	const [currenTexture, setCurrenTexture] = useState([])
-	
-	// console.log(currenTexture);	
+	const [textureStore, setTextureStore] = useState([]);
+
+	useEffect(() => {
+		const getTexStore = async () => {
+			await api.GetTextureStore()
+				.then(res => {
+					const links = res.data.map(id => "https://localhost:44404/api/image/" + id);
+					setCurrenTexture(links)
+				})
+				.catch(err => console.log(err))
+		};
+		getTexStore();
+	}, [textureStore]);
+	// console.log("store>>", textureStore)
+	// console.log("current>>", currenTexture)
 	const memoizedScene = useMemo(() =>
 		<Scene
 			modelFileName={modelType}
 			sceneFileName={currentScene}
 			texture={currenTexture[texCount]} />,
 		[currentScene, modelType, texCount, currenTexture]);
-
 
 	const changeModel = (model) => {
 		setModelType(model);
@@ -43,17 +50,17 @@ export const MainBabylon = () => {
 	const showSceneBar = () => {
 		setModelsIsVisible(false);
 		setScenesIsVisible(!scenesIsVisible);
-	};
+	}
 
 	const showModelsBar = () => {
 		setScenesIsVisible(false);
 		setModelsIsVisible(!modelsIsVisible);
 	}
-	
+
 	const uploadTexture = (el) => {
 		setCurrenTexture([...el]);
 	}
-	
+
 	const changeTextureUp = () => {
 		if (texCount === currenTexture.length - 1)
 			return
@@ -67,10 +74,11 @@ export const MainBabylon = () => {
 	};
 
 
-	async function deleteTex(id) { 
-		const data = await api.DeleteFile(id.toString())
-		setCurrenTexture()
-		console.log(data)
+	async function deleteTex(link) {
+		await api.DeleteTexture(link.toString())
+		await api.GetTextureStore()
+			.then(newTexStore => { setTextureStore(newTexStore.data); })
+			.catch(err => console.log(err))
 	}
 
 	return (
@@ -94,45 +102,23 @@ export const MainBabylon = () => {
 			</div>
 
 			{memoizedScene}
-			
-			<div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'row', padding:'5px' }}>
 
-					{currenTexture.length > 0 && <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'row' }}>
-						
-						
-					<IconButton onClick={changeTextureDown}>
-						<KeyboardArrowLeftIcon />
-					</IconButton>
-					<div>
-						{currenTexture.map((tex, index) => 
-						<Button onClick={()=>setTexCount(index)}>
-							<div>
-								<div style={{display:'flex', alignItems:'flex-start'}}>
-							<IconButton onClick={()=>{deleteTex(tex)}}>
-						<CloseIcon/>
-					</IconButton>
-					<img src={tex}
-								alt="texture" 
-								style={{ height: '100px', width: 'auto', border:index === texCount ? '3px solid #1976d2': 'none', borderRadius: '10px' }}
-								key={tex}/>
-						</div>
-							</div>
-							
-						</Button>
-						)}
-						<div>
-							
-						</div>
-					</div>
-					<IconButton onClick={changeTextureUp}>
-						<KeyboardArrowRightIcon />
-					</IconButton>
-					
-				</div>}
+			<div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'row', padding: '5px' }}>
 
-				
+				{
+					currenTexture.length > 0 &&
+					<SelectTexMenu
+						currenTexture={currenTexture}
+						changeTextureDown={changeTextureDown}
+						changeTextureUp={changeTextureUp}
+						texCount={texCount}
+						setTexCount={setTexCount}
+						deleteTex={deleteTex}
+					/>
+				}
+
 				<div style={{ display: 'flex', justifyContent: 'center', padding: '10px' }}>
-					<Loader call={uploadTexture}/>
+					<Loader call={uploadTexture} />
 				</div>
 			</div>
 		</>
