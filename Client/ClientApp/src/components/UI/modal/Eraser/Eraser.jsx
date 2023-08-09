@@ -1,4 +1,4 @@
-﻿import {React, useState} from 'react';
+﻿import React, {useState} from 'react';
 import cl from './Eraser.module.css'
 import ToolButton from '../../Toolbar/ToolButton';
 import MyInput from '../../MyInput/MyInput';

@@ -233,7 +233,7 @@ export class DrawingtoImg extends Component
                 <div className="palette_nav"></div>
                 <div className="nav">
                     <div className="icon_buttons">
-                        <button className="up_panel_button" id="arrow_back" title={"Отменить"}>
+                        <button className="up_panel_button" id="arrow_back" title="Отменить">
                             <img className="up_panel_button_image" id="arrow_back_image" alt="undo_arrow.png" src="undo_arrow.png"></img>
                         </button>
                         <button className="up_panel_button" id="arrow_next" title="Повторить">

@@ -23,6 +23,7 @@ const SideBar = (...props) => {
     return (
         <div>
             <div className ={[cl.sidebar, cl.close, active].join(" ")}>
+                <h1>StableDraw</h1>
                 <CloseSideBar active={createAction}>&times;</CloseSideBar>
                 <div className = {cl.mods_of_work}>
                     

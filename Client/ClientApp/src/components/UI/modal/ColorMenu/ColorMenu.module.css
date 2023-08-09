@@ -1,4 +1,4 @@
-.myModal2 {
+.myModal {
     display: none;
 }
 .clr_window
@@ -10,7 +10,7 @@
     -ms-user-select: none;
 
     display: block;
-    z-index: 19;
+    z-index: 20;
     position: fixed;
     justify-content: flex-end;
     margin-right: 21.6%;

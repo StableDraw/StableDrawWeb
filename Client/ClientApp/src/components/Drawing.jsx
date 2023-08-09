@@ -9,6 +9,7 @@ import Pencil from "./UI/modal/Pencil/Pencil.jsx";
 import Eraser from "./UI/modal/Eraser/Eraser.jsx";
 import GraphicTable from "./UI/modal/GraphicTable.jsx";
 import ToolBar from "./UI/Toolbar/ToolBar.jsx";
+import Bucket from "./UI/modal/Bucket/Bucket";
 
 
 const Drawing = () => {
@@ -29,9 +30,10 @@ const Drawing = () => {
                 <Canvas />
 
                 {/*Переделать в компонент модалок У верхней менюшке*/}
-                {/* <ColorMenu />*/}
+                <ColorMenu />
                 <Pencil />
                 <Eraser />
+                <Bucket/>
                 <GraphicTable />
 
                 {/*НЕ ЕБУ ДЛЯ ЧЕГО*/}

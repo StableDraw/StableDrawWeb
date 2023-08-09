@@ -1,0 +1,19 @@
+.myModal {
+    display: none;
+}
+.pipette {
+    touch-action: none;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+
+    display: block;
+    z-index: 21;
+    position: fixed;
+    justify-content: flex-end;
+    margin-right: 21.6%;
+    border: 2px solid rgb(29, 29, 29);
+    background-color:#fff;
+    width: 230px;
+}

@@ -1,8 +1,12 @@
 ﻿import React, {useState} from 'react';
 import cl from './ColorMenu.module.css'
+import ToolButton from "../../Toolbar/ToolButton";
+import MyInput from '../../MyInput/MyInput';
+
 const ColorMenu = () => {
     const [modal, setModal] = useState(false)
-    const rootClass = [cl.myModal2]
+    const rootClass = [cl.myModal]
+
     const initial_picker = $(function () {
         let picker = $("#picker");
         picker.farbtastic("#color");
@@ -12,13 +16,8 @@ const ColorMenu = () => {
     }
     return (
         <div style={{width:50, display:'inline'}}>
-            <div className="cursor">
-                <img className="cursimg" alt="cursimg" style={{ width: "30px", height: "30px" }}></img>
-            </div>
-            <button className="up_panel_button" id="palette" title="Выбор цвета" onClick={()=>setModal(true)}>
-                <img className="up_panel_button_image" id="clrimg" alt="palette.png" src="palette.png" />
-            </button>
-            <div className={rootClass.join(' ')} id="clr_window" onClick={() => setModal(false)}>
+            <ToolButton src={'palette.png'} visible={modal} setVisible={setModal} title={'Выбор цвета'}/>
+            <div className={rootClass.join(' ')} id="clr_window">
             <form action="">
                 <div className="form-item">
                     <label id="text_label_clr" htmlFor="color">

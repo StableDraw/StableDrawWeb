@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+пшеimport React, { useCallback } from "react";
 import PropTypes, { InferProps } from "prop-types";
 
 function ZoomPanel(props) {
