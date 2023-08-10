@@ -6,24 +6,22 @@
   <component name="ChangeListManager">
     <list default="true" id="b708f48a-3ec0-4500-897f-8e3b2675a853" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/public/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/public/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/AppRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/AppRoutes.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Drawing.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Drawing.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/DrawingtoImg.js" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/DrawingtoImg.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/SideBar/SideBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/SideBar/SideBar.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/SideBar/SideBar.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/SideBar/SideBar.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/Toolbar/ToolBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/Toolbar/ToolBar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/canvas/Canvas.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/canvas/Canvas.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/layer/ListItem1.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/layer/ListLayers/ListLayers.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/layer/ListLayers/ListLayers.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/Toolbar/ToolBar.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/Toolbar/ToolBar.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/ColorMenu/ColorMenu.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/ColorMenu/ColorMenu.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/ColorMenu/ColorMenu.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/ColorMenu/ColorMenu.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/Eraser/Eraser.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/Eraser/Eraser.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/Eraser/Eraser.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/Eraser/Eraser.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/GraphicTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/GraphicTable.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/Pencil/Pencil.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/modal/Pencil/Pencil.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/app.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.db-shm" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app.db-wal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +32,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -48,19 +47,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;F:\\StableDraw\\StableDrawWeb4\\StableDrawWeb\\Client\\ClientApp\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "configurable.group.editor",
+    "ts.external.directory.path": "F:\\StableDraw\\StableDrawWeb4\\StableDrawWeb\\Client\\ClientApp\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="ReactDesignerToolWindowState">
     <option name="myId2Visible">
       <map>
@@ -69,6 +70,11 @@
         <entry key="com.haulmont.rcb.storybook" value="false" />
       </map>
     </option>
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\StableDraw\StableDrawWeb4\StableDrawWeb\Client\ClientApp\src\components\UI\modal" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -80,7 +86,8 @@
       <updated>1691477703492</updated>
       <workItem from="1691477713793" duration="6283000" />
       <workItem from="1691484482190" duration="11610000" />
-      <workItem from="1691558512029" duration="2295000" />
+      <workItem from="1691558512029" duration="6906000" />
+      <workItem from="1691566166386" duration="16411000" />
     </task>
     <servers />
   </component>

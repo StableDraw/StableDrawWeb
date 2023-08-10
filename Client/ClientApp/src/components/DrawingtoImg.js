@@ -208,7 +208,7 @@ export class DrawingtoImg extends Component
                         Сохранить
                     </button>
                 </div>
-                <div className="up_add_window" id="pencil_window" style={{ marginRight: "14.5%", display: "block" }}>
+                <div className="up_add_window" id="pencil_window">
                     <div className="pencil_window_thickness_block">
                         <img className="thicknessimg" alt="thickness.png" src="thickness.png"></img>
                         <input className="up_add_window_slider" type="range" id="thickness_sliderValue" min="1" max="100" defaultValue="1"></input>
@@ -233,7 +233,7 @@ export class DrawingtoImg extends Component
                 <div className="palette_nav"></div>
                 <div className="nav">
                     <div className="icon_buttons">
-                        <button className="up_panel_button" id="arrow_back" title={"Отменить"}>
+                        <button className="up_panel_button" id="arrow_back" title="Отменить">
                             <img className="up_panel_button_image" id="arrow_back_image" alt="undo_arrow.png" src="undo_arrow.png"></img>
                         </button>
                         <button className="up_panel_button" id="arrow_next" title="Повторить">

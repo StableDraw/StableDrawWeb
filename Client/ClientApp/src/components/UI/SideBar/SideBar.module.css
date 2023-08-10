@@ -25,6 +25,17 @@
     border-left-style: hidden;
     border-right-style: hidden;
 }
+.work_mode_href#selected_work_mode:hover
+{
+    background: none;
+}
+.work_mode_href#selected_work_mode
+{
+    cursor: auto;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(0, 0, 0);
+    border-bottom-width: 5px;
+}
 .mods_of_work {
     touch-action: none;
     -webkit-user-select: none;
@@ -40,6 +51,9 @@
     pointer-events: none;
     /*height: 100%;*/
     width: 100%;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 .blackout {
     display: block;
@@ -123,7 +137,7 @@
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-    right: 0px;
+    right: 0;
     font-size: 36px;
     width: 45px;
     height: 44px;
@@ -155,4 +169,36 @@
     text-align: center;
     width: 50%;
     display: inline-block;
+}
+.sidepanel a
+{
+    touch-action: none;
+    padding: 8px 8px 8px 8px;
+    text-decoration: none;
+    color: #1d1d1d;
+    display: block;
+    transition: 0.3s;
+}
+.sidepanel a:hover
+{
+    color: black;
+    touch-action: none;
+    background: #d9d9d9;
+}
+.work_mode_img_btn
+{
+    touch-action: none;
+    pointer-events: none;
+    height: 100%;
+    width: 100%;
+}
+.sidepanel_bottom_button_img
+{
+    touch-action: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    pointer-events: none;
+    height: 100%;
+    width: auto;
 }

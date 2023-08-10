@@ -1,0 +1,19 @@
+.myModal {
+    display: none;
+}
+.bucket {
+    touch-action: none;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+
+    display: block;
+    z-index: 22;
+    position: fixed;
+    justify-content: flex-end;
+    margin-right: 21.6%;
+    border: 2px solid rgb(29, 29, 29);
+    background-color:#fff;
+    width: 230px;
+}

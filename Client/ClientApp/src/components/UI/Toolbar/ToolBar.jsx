@@ -2,7 +2,14 @@
 import cl from './ToolBar.module.css';
 import Pencil from '../modal/Pencil/Pencil';
 import Eraser from '../modal/Eraser/Eraser';
+import ColorMenu from '../modal/ColorMenu/ColorMenu';
+import Pipette from '../modal/Pipette/Pipette';
+import Bucket from '../modal/Bucket/Bucket';
+import ClearPane from '../modal/ClearPane/ClearPane';
+import UploadButton from '../modal/UploadButton/UploadButton';
+import SaveButton from '../modal/SaveButton/SaveButton';
 import ToolButton from './ToolButton';
+import GenerateButton from '../modal/GenerateButton/GenerateButton';
 
 const ToolBar = ({callback}) => {
 
@@ -19,6 +26,13 @@ const ToolBar = ({callback}) => {
                 </button>
                 <Pencil />
                 <Eraser/>
+                <ColorMenu/>
+                <Pipette/>
+                <Bucket/>
+                <ClearPane/>
+                <UploadButton/>
+                <SaveButton/>
+                <GenerateButton/>
                 {/* <button className="up_panel_button" id="pencil" title="Карандаш">
                     <img className="up_panel_button_image" id="pencil_image" alt="pencil.png" src="pencil.png"></img>
                 <button className="up_panel_button" id="bucket" title="Заливка">

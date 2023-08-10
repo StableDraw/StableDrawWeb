@@ -5,6 +5,7 @@ import MyInput from '../../MyInput/MyInput';
 const Pencil = ({isActive,  setRes}) => {
     const [modal, setModal] = useState(false)
     const rootClass = [cl.myModal]
+    const pencil_w = document.getElementById("pencil_window");
     if(modal) {
         rootClass.push(cl.up_add_window)
     }
