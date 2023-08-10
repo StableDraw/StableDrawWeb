@@ -1,10 +1,8 @@
-<<<<<<< HEAD
+
 .myModal {
-=======
-.myModal1 {
->>>>>>> 72b71bc6b1306d4088b50a1beb13fc1df8e8a237
     display: none;
 }
+
 .up_add_window
 {
     display: block;
@@ -19,10 +17,7 @@
     border: 2px solid rgb(29, 29, 29);
     background-color:#fff;
     margin-left: 4.5%;
-<<<<<<< HEAD
     margin-top: 5px;
-=======
->>>>>>> 72b71bc6b1306d4088b50a1beb13fc1df8e8a237
 }
 .thicknessimg
 {

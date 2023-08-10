@@ -3,7 +3,6 @@ import Visability from "./ListItem.utils/Visability";
 import Clear from "./ListItem.utils/Clear";
 import Destroy from "../../LableBar/LableBar.utils/Destroy";
 import  cl from './ListItem.module.css'
-import { useDrag } from '@use-gesture/react'
 
 const ListItem = (props) => {
     const [isHovering, setIsHovering] = useState(true);

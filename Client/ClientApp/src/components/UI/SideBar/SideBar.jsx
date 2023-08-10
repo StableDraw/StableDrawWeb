@@ -1,4 +1,4 @@
-﻿import React, {useState} from 'react';
+﻿import {React, useState, } from 'react';
 import {NavLink} from "reactstrap";
 import {Link} from "react-router-dom";
 import Setting from "./sidebar.utils/Setting";
@@ -10,6 +10,8 @@ import CloseSideBar from "./sidebar.utils/CloseSideBar";
 
 const SideBar = (...props) => {
     const [active, setActive] = useState(cl.close)
+    // setState()
+   
     const createAction = (newActive) => {
         setActive(newActive)
     }
@@ -26,10 +28,10 @@ const SideBar = (...props) => {
                 <CloseSideBar active={createAction}>&times;</CloseSideBar>
                 <div className = {cl.mods_of_work}>
                     
-                    {links.map(link =>
-                        <a href={link.url} className = {cl.work_mode_href} title={link.title} style={{ borderBottomStyle: "hidden" }}>
+                    {links.map((link, id) =>
+                        <Link key={id} to={link.url} className = {cl.work_mode_href} title={link.title} style={{ borderBottomStyle: "hidden" }}>
                             <img className={cl.img} alt={link.img} srcSet={link.img}></img>
-                        </a>
+                        </Link>
                     )};
                     
                 </div>

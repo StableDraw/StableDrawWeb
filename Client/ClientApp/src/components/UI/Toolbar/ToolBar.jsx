@@ -1,14 +1,16 @@
-﻿import React from 'react';
+﻿import React, { useState } from 'react';
 import cl from './ToolBar.module.css';
 import Pencil from '../modal/Pencil/Pencil';
 import Eraser from '../modal/Eraser/Eraser';
 import ToolButton from './ToolButton';
 
-const ToolBar = () => {
+const ToolBar = ({callback}) => {
 
     return (
         <div className={cl.nav}>
             <div className={cl.icon_buttons}>
+                <Pencil setRes={callback}/>
+                <Eraser setRes={callback}/>
                 {/* <button className="up_panel_button" id="arrow_back" title={"Отменить"}>
                     <img className="up_panel_button_image" id="arrow_back_image" alt="undo_arrow.png" src="undo_arrow.png"></img>
                 </button>

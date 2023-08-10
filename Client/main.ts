@@ -1132,7 +1132,7 @@ window.onresize = function()
 let slider_range: NodeListOf<Element> = document.querySelectorAll('input[type="range"]')
 let slider_element: any
 
-function update_slider() //заменить на обдновление одного слайдера, а не всех (костыль)
+function update_slider() //заменить на обновление одного слайдера, а не всех (костыль)
 {
     for (slider_element of slider_range)
     {
@@ -2013,7 +2013,7 @@ seteraserBtn.addEventListener("click", () =>
     }
     if (cur_tool[0] != 'e')
     {
-        if (cur_tool[0] == 'k')
+        if (cur_tool[0] == 'k') 
         {
             change_thickness(true)
             pencil_w.style.display = "none"
