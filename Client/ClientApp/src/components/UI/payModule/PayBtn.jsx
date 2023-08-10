@@ -2,7 +2,8 @@
 import cl from "./PayBtn.module.css";
 import Button from '@mui/material/Button';
 import { Modal } from '@mui/material';
-import Content from '../../../order/Content';
+import Content from './Content';
+
 
 
 
@@ -16,7 +17,8 @@ const PayModule = () => {
 
     return (
         <div>
-            <div className={cl.btn}> <Button variant="outlined" startIcon={"PAY"} onClick={showPayModal}/> </div>
+            <div className={cl.btn}> 
+            <Button variant="outlined" startIcon={"PAY"} onClick={showPayModal}/> </div>
             <Modal open= {modal} onClose={showPayModal} className={cl.window}>
                 <Content/>
             </Modal>

@@ -10,7 +10,6 @@ import Eraser from "./UI/modal/Eraser/Eraser.jsx";
 import GraphicTable from "./UI/modal/GraphicTable.jsx";
 import ToolBar from "./UI/Toolbar/ToolBar.jsx";
 import Bucket from "./UI/modal/Bucket/Bucket";
-
 import PayModule from "./UI/payModule/PayBtn.jsx";
 
 

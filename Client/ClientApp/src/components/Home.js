@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { NavLink } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import authService from './api-authorization/AuthorizeService';
 import { ApplicationPaths } from './api-authorization/ApiAuthorizationConstants';
+
 export class Home extends Component {
     constructor(props) {
         super(props);
@@ -111,6 +112,9 @@ export class Home extends Component {
                             <a href="https://vk.com/app6613443#snippet_id=2&owner_id=402965562&project_id=296524">
                                 <img className="img-link" alt="money.png" src="money.png" width="50" height="50"></img>
                             </a>
+                            <a href="Pay">
+                                <img className="img-link" alt="money.png" src="money.png" width="50" height="50"></img>
+                            </a>
                         </div>
                     </div>
                 </footer>
@@ -180,6 +184,9 @@ export class Home extends Component {
                                 <img className="img-link" alt="vk.png" src="vk.png" width="50" height="50"></img>
                             </a>
                             <a href="https://vk.com/app6613443#snippet_id=2&owner_id=402965562&project_id=296524">
+                                <img className="img-link" alt="money.png" src="money.png" width="50" height="50"></img>
+                            </a>
+                            <a href="Pay">
                                 <img className="img-link" alt="money.png" src="money.png" width="50" height="50"></img>
                             </a>
                         </div>

@@ -10,6 +10,7 @@ import { Counter } from "./components/Counter";
 import { FetchData } from "./components/FetchData";
 import { Home } from "./components/Home";
 import {App1} from "./App1";    
+import Pay from './components/Pay';
 
 const AppRoutes = [
     {
@@ -66,6 +67,11 @@ const AppRoutes = [
         path: '/fetch-data',
         requireAuth: true,
         element: <FetchData />
+    },
+    {
+        path: '/Pay',
+        requireAuth: true,
+        element: <Pay/>
     },
     ...ApiAuthorzationRoutes
 ];
