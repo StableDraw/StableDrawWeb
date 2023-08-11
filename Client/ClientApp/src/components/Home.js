@@ -77,13 +77,24 @@ export class Home extends Component {
                                         <p className="font-size-24" style={{ color: "#cccccc" }} >
                                             Веб-платформа для рисования, обработки изображений и создания анимаций с применением искусственных нейронных сетей
                                         </p>
-                                        <p className="block-start-button">
-                                            <NavLink tag={Link} to="/drawing-to-img" className="bootstrap-btn primary-outline-white--hover">
-                                                <a className="start-button-text">
-                                                    Начать
-                                                </a>
+                                        <div className="block-start-button">
+                                            <NavLink tag={Link} to="/drawing-to-img" className="bootstrap-btn primary-outline-blue--hover">
+                                                <button className="start-button-text">
+                                                    <span className='glowing-txt'>Н<span
+                                                        className='faulty-letter'>А</span>ЧАТЬ</span>
+                                                </button>
                                             </NavLink>
-                                        </p>
+                                            <NavLink tag={Link} to="/notdrawing-to-img" className="bootstrap-btn primary-outline-blue--hover">
+                                                <button className="start-button-text1">
+                                                    <span className='glowing-txt'>ТЕС<span
+                                                        className='faulty-letter'>ТИ</span>РОВАТЬ</span>
+                                                </button>
+                                            </NavLink>
+                                            <button className="start-button-text2">
+                                                    <span className='glowing-txt'>ТЕС<span
+                                                        className='faulty-letter'>ТИ</span>РОВАТЬ1</span>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -137,13 +148,24 @@ export class Home extends Component {
                                         <p className="font-size-24" style={{ color: "#cccccc" }} >
                                             Веб-платформа для рисования, обработки изображений и создания анимаций с применением искусственных нейронных сетей
                                         </p>
-                                        <p className="block-start-button">
-                                            <NavLink tag={Link} to={loginPath} className="bootstrap-btn primary-outline-white--hover">
-                                                <a className="start-button-text">
-                                                    Начать
-                                                </a>
+                                        <div className="block-start-button">
+                                            <NavLink tag={Link} to="/drawing-to-img" className="bootstrap-btn primary-outline-blue--hover">
+                                                <button className="start-button-text">
+                                                    <span className='glowing-txt'>Н<span
+                                                        className='faulty-letter'>А</span>ЧАТЬ</span>
+                                                </button>
                                             </NavLink>
-                                        </p>
+                                            <NavLink tag={Link} to="/notdrawing-to-img" className="bootstrap-btn primary-outline-blue--hover">
+                                                <button className="start-button-text1">
+                                                    <span className='glowing-txt'>ТЕС<span
+                                                        className='faulty-letter'>ТИ</span>РОВАТЬ</span>
+                                                </button>
+                                            </NavLink>
+                                            <button className="start-button-text2">
+                                                    <span className='glowing-txt'>ТЕС<span
+                                                        className='faulty-letter'>ТИ</span>РОВАТЬ1</span>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

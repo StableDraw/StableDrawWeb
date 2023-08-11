@@ -10,7 +10,7 @@ export class FramestoAnimation extends Component
             <div>
                  <h1>Анимация по кадрам</h1>
 
-                 <p>К сожалению, этот режим пока нереализован</p>
+                 <p>К сожалению, этот режим пока не реализован</p>
 
                  <a href="drawing-to-img">Вернуться к редактору</a>
             </div>

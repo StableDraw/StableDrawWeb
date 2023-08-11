@@ -1,0 +1,14 @@
+﻿.layers
+{
+    touch-action: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    position: absolute;
+    bottom: 10%;
+    right: 5px;
+    height: auto;
+    width: 8.9%;
+    border-radius: 3px !important;
+    border: 2px solid rgb(85, 85, 85);
+}

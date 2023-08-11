@@ -2,6 +2,7 @@ import ApiAuthorzationRoutes from './components/api-authorization/ApiAuthorizati
 import { Design } from "./components/Design";
 import { TexttoImg } from "./components/TexttoImg";
 import { DrawingtoImg } from "./components/DrawingtoImg";
+import  Drawing  from './components/Drawing'
 import { PhototoImg } from "./components/PhototoImg";
 import { FramestoAnimation } from "./components/FramestoAnimation";
 //import { RefreshAuthorization } from "./components/api-authorization/RefreshAuthorization";
@@ -9,6 +10,7 @@ import { Counter } from "./components/Counter";
 import { FetchData } from "./components/FetchData";
 import { Home } from "./components/Home";
 import { MainBabylon } from "./components/babylon/mainBabylon";
+import {App1} from "./components/testUI/App1";    
 
 const AppRoutes = [
     {
@@ -27,6 +29,16 @@ const AppRoutes = [
     },
     {
         path: '/drawing-to-img',
+        requireAuth: false,
+        element: <Drawing/>
+    },
+    {
+        path: '/notdrawing-to-img',
+        requireAuth: false,
+        element: <App1 />
+    },
+    {
+        path: '/test',
         requireAuth: false,
         element: <DrawingtoImg />
     },
