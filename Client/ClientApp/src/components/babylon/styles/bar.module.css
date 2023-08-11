@@ -6,11 +6,7 @@
 	gap: 10px;
 	padding: 30px;
 	justify-content: center;
-	max-width: 600px;
-	position: absolute;
-	padding-top: 700px;
 	max-height: 700px;
-	/* не применяется из - за material ui */
 	overflow-y:auto !important;
 	z-index: 1000 !important;
 }
@@ -31,7 +27,6 @@
 	border-radius: 20px !important;
 	border-bottom-left-radius: 0 !important;
 	border-bottom-right-radius: 0 !important;
-	min-width: 250px;
 	z-index: 1001 !important;
 }
 

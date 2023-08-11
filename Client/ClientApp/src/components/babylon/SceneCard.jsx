@@ -15,20 +15,17 @@ export const SceneCard = ({
 	name,
 	img,
 	scene,
-	toggleSceneBar,
 	changeScene
 }) => {
 	const SetScene = () => {
 		changeScene(scene);
 	};
 	return (
-		<Card
-			className={barClasses.modelCard}
-			>
+		<div style={{minWidth:'80%', minHeight:'auto'}}>
+			<Card className={barClasses.modelCard}>
 			<Button
 				onClick={() => {
 					SetScene();
-					toggleSceneBar()
 				}}>
 				<div className={barClasses.imgCard}>
 					<img
@@ -45,5 +42,7 @@ export const SceneCard = ({
 
 			</Button>
 		</Card>
+		</div>
+		
 	);
 };

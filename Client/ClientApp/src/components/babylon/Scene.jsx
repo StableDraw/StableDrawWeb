@@ -58,16 +58,12 @@ export const Scene = ({
 	});
 	return (
 		<>
-			<Card
-				variant="outlined"
-				className={sceneClass.sceneCont}>
-				<canvas
+			<canvas
 					id='canvas'
 					ref={babylonCanvas}
 					className={sceneClass.canvas}>
 
 				</canvas>
-			</Card>
 		</>
 	);
 };

@@ -4,7 +4,7 @@ import FileUploadIcon from '@mui/icons-material/FileUpload';
 import { useState } from "react";
 import barClasses from './styles/bar.module.css'
 
-export const SizeBar = ({ changeModel, model, toggleModelBar }) => {
+export const SizeBar = ({ changeModel, model }) => {
 	const [isSmallButtonClicked, setIsSmallButtonClicked] = useState(false);
 	const [isBigButtonClicked, setIsBigButtonClicked] = useState(true);
 
@@ -19,9 +19,6 @@ export const SizeBar = ({ changeModel, model, toggleModelBar }) => {
 	}
 
 	const modelSetUp = () => {
-		if (isSmallButtonClicked || isBigButtonClicked)
-			toggleModelBar();
-
 		if (isSmallButtonClicked && model.small)
 			changeModel(model.small);
 

@@ -12,20 +12,27 @@ const models = [
 	{ id: 4, type: "Mini with cap", model:{ big: 'MiniCap', small: ''}, img: '/babylon/imgPreviewModels/miniCap.jpeg' },
 	// { id: 5, type: "pack with cap", model:{ big: 'PackBigCap', small: 'PackSmallCap'}, img: '/babylon/imgPreviewModels/StandardPack.png' },
 ];
-export const ModelsBar = ({changeModel, toggleModelBar}) => {
-// есть проблема с borderRadius.
+export const ModelsBar = ({changeModel}) => {
+
 	return (
-			<Card className={barClasses.bar}>
-			{models.map(model => <ModelsCard
+		<>
+		{models.map(model => <ModelsCard
 				type = {model.type}
 				model={model.model}
 				img={model.img}
 				key={model.id}
 				changeModel={changeModel}
-				toggleModelBar={toggleModelBar} />
+				 />
 			)}
 
-			</Card>
+		</>
+
+		
+
+			// <Card className={barClasses.bar}>
+			
+
+			// </Card>
 		
 	)
 };

@@ -6,27 +6,13 @@ import headerClasses from './styles/appBar.module.css';
 
 
 
-export const Header = ({showSceneBar, showModelsBar}) => {
+export const Header = () => {
 
 
 	return (
 		<AppBar position="static">
 				<Toolbar >
 					<Box sx={{ flexGrow: 1 }}></Box>
-					<div className={headerClasses.buttonContainer}>
-						<Button
-							color="inherit"
-							onClick={showModelsBar}
-							endIcon={<ViewInArOutlinedIcon />}>
-							Select model
-						</Button>
-						<Button
-							color="inherit"
-							onClick={showSceneBar}
-							endIcon={<AspectRatioIcon />}>
-							Select scene
-						</Button>
-					</div>
 				</Toolbar>
 			</AppBar>
 	)

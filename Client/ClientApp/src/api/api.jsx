@@ -9,12 +9,16 @@ export default class Textures{
 	}
 
 	static async DeleteTexture(linkToTexture) {
-		const id = linkToTexture.split("/");
-
-		return await axios.delete("api/image/" + id[5]);
+		if(linkToTexture.includes('/')){
+			const id = linkToTexture.split("/");
+			return await axios.delete("api/image/" + id[5]);
+		}
+			
+		return await axios.delete("api/image/" + linkToTexture);
+		
 	}
 
-	static async GetTextureStore(){
+	static async GetTextureStorage(){
 		return await axios.get("api/image");
 	}
 	
