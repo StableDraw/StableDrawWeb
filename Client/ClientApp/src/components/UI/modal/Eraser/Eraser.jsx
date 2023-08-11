@@ -3,7 +3,8 @@ import cl from './Eraser.module.css'
 import ToolButton from '../../Toolbar/ToolButton';
 import MyInput from '../../MyInput/MyInput';
 
-const Eraser = ({setRes}) => {
+const Eraser = ({setActive,getRes}) => {
+    // console.log(setActive)
     const [modal, setModal] = useState(false)
     const rootClass = [cl.myModal]
     if(modal) {
@@ -14,7 +15,7 @@ const Eraser = ({setRes}) => {
             <ToolButton src={'eraser.png'} visible={modal} setVisible={setModal} title={'Ластик'}/>
             <div className={rootClass.join(' ')} id="eraser_window">
                 <div className="eraser_window_thickness_block">
-                    <MyInput id='eraser' callback={setRes} imgPath={"thickness.png"} type={'thickness'} imgClass={cl.thicknessimg}/>
+                    <MyInput id='eraser' callback={getRes} imgPath={"thickness.png"} type={'thickness'} imgClass={cl.thicknessimg}/>
                 </div>
             </div>
         </div>

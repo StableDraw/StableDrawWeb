@@ -6,7 +6,8 @@ const MyInput = ({imgPath, imgClass, callback, id, type}) => {
     const setRes = (res) => {
         if(resMemo !== res){
             resMemo = res
-            callback({id,type,res: parseInt(res)})
+            const arrRes = {id,type,res: parseInt(res)}
+            callback(arrRes)
         }
     }
     

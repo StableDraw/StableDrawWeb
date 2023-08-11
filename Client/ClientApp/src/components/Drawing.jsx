@@ -3,7 +3,7 @@ import SideBar from "./UI/SideBar/SideBar.jsx";
 import LableBar from "./UI/LableBar/LableBar.jsx";
 import ScaleField from "./UI/ScaleField/ScaleField.jsx";
 import GenBlock from "./UI/modal/GenBlock.jsx";
-import Canvas from "./UI/Canvas/Canvas.jsx";
+import Canvas from "./UI/canvas/Canvas.jsx";
 import ColorMenu from "./UI/modal/ColorMenu/ColorMenu.jsx";
 import Pencil from "./UI/modal/Pencil/Pencil.jsx";
 import Eraser from "./UI/modal/Eraser/Eraser.jsx";
@@ -12,6 +12,7 @@ import ToolBar from "./UI/Toolbar/ToolBar.jsx";
 
 const Drawing = () => {
     const [res, setRes] = useState()
+    const resPencil = []
     const consol = (result) => {
         setRes(result)
     }
@@ -41,7 +42,7 @@ const Drawing = () => {
                 {/*НЕ ЕБУ ДЛЯ ЧЕГО*/}
                 {/*<div className="palette_nav"></div>*/} 
                 
-                <ToolBar callback={consol}/>
+                <ToolBar getRes={consol}/>
             </div>
         </div>
     );
