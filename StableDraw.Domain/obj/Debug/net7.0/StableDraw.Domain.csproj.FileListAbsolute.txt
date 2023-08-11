@@ -1,0 +1,17 @@
+D:\job\StableDrawWeb\StableDraw.Domain\bin\Debug\net7.0\StableDraw.Domain.deps.json
+D:\job\StableDrawWeb\StableDraw.Domain\bin\Debug\net7.0\StableDraw.Domain.runtimeconfig.json
+D:\job\StableDrawWeb\StableDraw.Domain\bin\Debug\net7.0\StableDraw.Domain.dll
+D:\job\StableDrawWeb\StableDraw.Domain\bin\Debug\net7.0\StableDraw.Domain.pdb
+D:\job\StableDrawWeb\StableDraw.Domain\bin\Debug\net7.0\StableDraw.Core.dll
+D:\job\StableDrawWeb\StableDraw.Domain\bin\Debug\net7.0\StableDraw.Core.pdb
+D:\job\StableDrawWeb\StableDraw.Domain\obj\Debug\net7.0\StableDraw.Domain.csproj.AssemblyReference.cache
+D:\job\StableDrawWeb\StableDraw.Domain\obj\Debug\net7.0\StableDraw.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\job\StableDrawWeb\StableDraw.Domain\obj\Debug\net7.0\StableDraw.Domain.AssemblyInfoInputs.cache
+D:\job\StableDrawWeb\StableDraw.Domain\obj\Debug\net7.0\StableDraw.Domain.AssemblyInfo.cs
+D:\job\StableDrawWeb\StableDraw.Domain\obj\Debug\net7.0\StableDraw.Domain.csproj.CoreCompileInputs.cache
+D:\job\StableDrawWeb\StableDraw.Domain\obj\Debug\net7.0\StableDraw.Domain.csproj.CopyComplete
+D:\job\StableDrawWeb\StableDraw.Domain\obj\Debug\net7.0\StableDraw.Domain.dll
+D:\job\StableDrawWeb\StableDraw.Domain\obj\Debug\net7.0\refint\StableDraw.Domain.dll
+D:\job\StableDrawWeb\StableDraw.Domain\obj\Debug\net7.0\StableDraw.Domain.pdb
+D:\job\StableDrawWeb\StableDraw.Domain\obj\Debug\net7.0\StableDraw.Domain.genruntimeconfig.cache
+D:\job\StableDrawWeb\StableDraw.Domain\obj\Debug\net7.0\ref\StableDraw.Domain.dll

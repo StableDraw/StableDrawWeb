@@ -1,0 +1,12 @@
+D:\job\StableDrawWeb\StableDraw.Core\bin\Debug\net7.0\StableDraw.Core.deps.json
+D:\job\StableDrawWeb\StableDraw.Core\bin\Debug\net7.0\StableDraw.Core.dll
+D:\job\StableDrawWeb\StableDraw.Core\bin\Debug\net7.0\StableDraw.Core.pdb
+D:\job\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\StableDraw.Core.csproj.AssemblyReference.cache
+D:\job\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\StableDraw.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\job\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\StableDraw.Core.AssemblyInfoInputs.cache
+D:\job\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\StableDraw.Core.AssemblyInfo.cs
+D:\job\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\StableDraw.Core.csproj.CoreCompileInputs.cache
+D:\job\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\StableDraw.Core.dll
+D:\job\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\refint\StableDraw.Core.dll
+D:\job\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\StableDraw.Core.pdb
+D:\job\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\ref\StableDraw.Core.dll
