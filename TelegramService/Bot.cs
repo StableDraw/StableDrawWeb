@@ -12,7 +12,7 @@ namespace TelegramService
             {
                 return client;
             }
-            client = new TelegramBotClient("ваш токен"); // ЗАПОЛНИТЬ
+            client = new TelegramBotClient("6648603010:AAEeTZT63Cy3p6ys-iQKs6EUV4gVkvauc8Y"); // ЗАПОЛНИТЬ
             return client;
         }
     }
