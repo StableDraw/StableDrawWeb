@@ -22,10 +22,11 @@ namespace Cutter
 
         public ReplyData CutterFunc(RequestData data) // вызывать эту функцию в CutterController
         {
-            Bitmap im = open("test12.png");
+            //Bitmap im = open("test12.png");
+            Bitmap im = data.bitmap;
             Cutterclass dat = Operate(im);     // this func does everything
             im = dat.img;
-            im.Save("C:\\Users\\1392680\\source\\repos\\Cutter\\res3.png", System.Drawing.Imaging.ImageFormat.Png);
+            //im.Save("C:\\Users\\1392680\\source\\repos\\Cutter\\res3.png", System.Drawing.Imaging.ImageFormat.Png);
 
             ReplyData replydata = new ReplyData()
             {
