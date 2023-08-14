@@ -7,8 +7,23 @@
 }
 
 .canvas{
-	height: 95%;
-	width: 95%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 98%;
+	width: 98%;
 	border-radius: 30px;
 }
 
+.loadTexModal{
+	position: absolute;
+	background-color: black;
+	color: white;
+	height: 72%;
+	width: 70%;
+	border-radius: 30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	opacity: 40%;
+}

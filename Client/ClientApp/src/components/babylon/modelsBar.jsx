@@ -10,12 +10,11 @@ const models = [
 	{ id: 2, type: "Type A with cap", model:{ big: 'TypeABigCap', small: 'TypeASmallCap'}, img: '/babylon/imgPreviewModels/StandardPackCap.png' },
 	{ id: 3, type: "Mini", model:{ big: 'Mini', small: ''}, img: '/babylon/imgPreviewModels/mini.jpeg' },
 	{ id: 4, type: "Mini with cap", model:{ big: 'MiniCap', small: ''}, img: '/babylon/imgPreviewModels/miniCap.jpeg' },
-	// { id: 5, type: "pack with cap", model:{ big: 'PackBigCap', small: 'PackSmallCap'}, img: '/babylon/imgPreviewModels/StandardPack.png' },
 ];
 export const ModelsBar = ({changeModel}) => {
 
 	return (
-		<>
+		<div className={barClasses.cont}>
 		{models.map(model => <ModelsCard
 				type = {model.type}
 				model={model.model}
@@ -24,8 +23,7 @@ export const ModelsBar = ({changeModel}) => {
 				changeModel={changeModel}
 				 />
 			)}
-
-		</>
+		</div>
 
 		
 

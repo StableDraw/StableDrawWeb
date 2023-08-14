@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import api from '../../api/api'
 import loadClasses from './styles/loadTex.module.css';
 
@@ -20,7 +20,6 @@ export const Loader = ({ call }) => {
 		try {
 			const data = await api.LoadTexture(img)
 			const texes = data.data.map((el) => "https://localhost:44404/api/image/" + el)
-
 			call([...texes])
 			return data
 		} catch (e) {
@@ -48,7 +47,8 @@ export const Loader = ({ call }) => {
 				<div className={loadClasses.drag_loadImg}
 					onDragLeave={e => dragLeaveHandler(e)}
 					onDrop={e => onDropHandler(e)}
-					onDragOver={e => dragStartHandler(e)}>
+					onDragOver={e => dragStartHandler(e)}
+					>
 					Отпустите файл, чтобы загрузить его
 				</div> :
 				<div className={loadClasses.drag_loadImg}

@@ -1,15 +1,8 @@
 import React from "react";
 import { Button, Card, Typography } from '@mui/material';
 import barClasses from './styles/bar.module.css'
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 
-
-// interface Props {
-// 	name: string;
-// 	img: string;
-// 	scene: string;
-// 	toggleSceneBar: () => void;
-// 	changeScene: (scene: string) => void;
-// }
 
 export const SceneCard = ({
 	name,
@@ -21,12 +14,9 @@ export const SceneCard = ({
 		changeScene(scene);
 	};
 	return (
-		<div style={{minWidth:'80%', minHeight:'auto'}}>
+		<div style={{ minWidth: '70%', minHeight: 'auto' }}>
 			<Card className={barClasses.modelCard}>
-			<Button
-				onClick={() => {
-					SetScene();
-				}}>
+				<Card className={barClasses.dark}></Card>
 				<div className={barClasses.imgCard}>
 					<img
 						style={{ borderRadius: '20px', }}
@@ -39,10 +29,16 @@ export const SceneCard = ({
 						<Typography>{name}</Typography>
 					</div>
 				</div>
-
-			</Button>
-		</Card>
+				<div className={barClasses.sizeBar}>
+					<Button
+						onClick={SetScene}
+						variant='contained'
+						className={barClasses.loadButton_sizeBar}
+						endIcon={<FileUploadIcon />}>
+						<Typography>Load scene</Typography>
+					</Button>
+				</div>
+			</Card>
 		</div>
-		
 	);
 };

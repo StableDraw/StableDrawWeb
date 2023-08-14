@@ -1,5 +1,4 @@
 
-
 .bar{
 	display: flex;
 	flex-direction: column;
@@ -25,15 +24,51 @@
 	padding: 3px;
 	flex-direction: column;
 	border-radius: 20px !important;
-	border-bottom-left-radius: 0 !important;
-	border-bottom-right-radius: 0 !important;
 	z-index: 1001 !important;
+	position: relative;
+}
+
+.modelCard:hover .dark{
+	opacity: 50%;
+}
+
+.modelCard:hover .sizeBar{
+	bottom:0;
+}
+
+.dark{
+	border-radius: 20px !important;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: black !important;
+	opacity: 0;
+	transition: 300ms ease-out !important;
+	z-index: 10000;
+	left: 0;
+}
+
+.sizeBar{
+	gap: 40px;
+	padding: 10px;
+	position: absolute;
+	bottom: -100%;
+	justify-content: center;
+	display: flex;
+	flex-direction: column;
+	border-radius: 20px;
+	width: 100%;
+	height: 100%;
+	z-index: 10001;
+	transition: bottom 0.3s ease;
 }
 
 .imgCard{
 	display: flex;
 	justify-content: center;
+	align-items: center;
 	flex-direction: column;
+	padding-top: 6px;
 	z-index: 1002 !important;
 }
 
@@ -43,26 +78,37 @@
 	justify-content: center;
 }
 
-.sizeBar{
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	gap:10px;
-	padding: 20px;
-	background-color: gray !important;
-	border-radius: 20px !important;
-	border-top-left-radius: 0 !important;
-	border-top-right-radius: 0 !important;
-}
-
 .buttonsSizeBar{
 	display: flex;
 	max-width: 400px;
+	height: 100px;
 	flex-direction: row;
 	justify-content: center;
-	gap: 10px;
+	/* gap: 10px; */
 	padding: 10px;
 	box-shadow: none;
 	border-radius: 20px !important;
 	background-color: #cccccc !important;
+}
+
+.button_sizeBar{
+	width: 50%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 5px;
+}
+
+.loadButton_sizeBar{
+	border-radius: 10px !important;
+	height: 50px;
+}
+
+.cont{
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding-bottom: 100px;
+	min-width: 70%;
 }

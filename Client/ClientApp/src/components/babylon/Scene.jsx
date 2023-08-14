@@ -1,21 +1,18 @@
 import React from "react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BabylonScene } from "./babylonSceneLogic.ts";
 import { Card } from "@mui/material";
 import sceneClass from './styles/scene.module.css'
-
-// interface Props {
-// 	modelFileName: string;
-// 	sceneFileName: string;
-// 	texture: string;
-// }
+import api from '../../api/api'
 
 export const Scene = ({
 	modelFileName,
 	sceneFileName,
-	texture
+	texture,
+	call,
 }) => {
 	const babylonCanvas = useRef(null);
+
 
 	useEffect(() => {
 		const canvas = babylonCanvas.current;
@@ -59,11 +56,13 @@ export const Scene = ({
 	return (
 		<>
 			<canvas
-					id='canvas'
-					ref={babylonCanvas}
-					className={sceneClass.canvas}>
+				id='canvas'
+				ref={babylonCanvas}
+				className={sceneClass.canvas}
+			>
 
-				</canvas>
+			</canvas>
+			
 		</>
 	);
 };

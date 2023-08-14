@@ -15,7 +15,7 @@ export const SceneBar = ({
 }) => {
 
 	return (
-		<>
+		<div className={barClasses.cont}>
 		{scenes.map(scene => <SceneCard
 					img={scene.img}
 					name={scene.name}
@@ -25,7 +25,6 @@ export const SceneBar = ({
 					changeScene={changeScene}
 				/>
 				)}
-		</>
-				
+		</div>
 	);
 };
