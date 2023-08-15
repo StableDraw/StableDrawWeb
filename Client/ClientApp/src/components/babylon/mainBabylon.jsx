@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { SceneBar } from "./SceneBar";
 import { Scene } from './Scene'
 import { useMemo, useState, useEffect } from "react";
@@ -10,6 +10,7 @@ import { Button, Typography, Grid, ButtonGroup, Card, IconButton, Input, InputLa
 import mainClass from './styles/main.module.css'
 import sceneClass from './styles/scene.module.css'
 import { Menu } from "./menu";
+import { ToggleBar } from "./toggleBar";
 
 
 // Выбор моделей/сцен: либо модалка, либо закос под ютуб | done
@@ -41,47 +42,16 @@ export const MainBabylon = () => {
 	const [modelType, setModelType] = useState('TypeABig');
 	const [texCount, setTexCount] = useState(0);
 	const [currenTexture, setCurrenTexture] = useState([])
-	const [isModelsBar, setModelsBar] = useState(true);
-	const [drag, setDrag] = useState(false);
-	// const [storage, setStorage] = useState([]);
-
-	const [textureStorage, setTextureStore] = useState([]);
-
-	useEffect(() => {
-		const getTexStorage = async () => {
-			await api.GetTextureStorage()
-				.then(res => {
-					const id = res.data
-					setTextureStore(id)
-				})
-				.catch(err => console.log(err))
-		};
-		getTexStorage();
-	}, []);
-
-
-	console.log(currenTexture)
-
-	// const getStorage = (storage) => {
-	// 	setStorage(storage)
-	// }
-
-	const uploadTexture = (el) => {
-		setCurrenTexture([...el]);
-	}
 
 	const dragStartHandler = (e) => {
 		e.preventDefault();
-		setDrag(true)
 	};
 
 	const dragLeaveHandler = (e) => {
 		e.preventDefault();
-		setDrag(false);
 	}
 
-
-	async function Send(img) {
+	const Send = useCallback(async (img) => {
 		try {
 			const data = await api.LoadTexture(img)
 			const texes = data.data.map((el) => "https://localhost:44404/api/image/" + el)
@@ -91,23 +61,24 @@ export const MainBabylon = () => {
 			console.error(e);
 			throw e;
 		}
-	}
+	}, [])
+	
 
 	const onDropHandler = (e) => {
 		e.preventDefault();
 		let filesName = e.dataTransfer.files[0].name.split('.')
 		console.log("split:", filesName)
-		if (!textureStorage.includes(filesName[0])) {
-			let files = [...e.dataTransfer.files];
-			console.log("Хранилище:", textureStorage);
+		let files = [...e.dataTransfer.files];
 			let formData = new FormData();
 
 			formData.append(`file`, files[0]);
 			formData.append("Content-Type", 'multipart/form-data')
 
 			Send(formData)
-			setDrag(false);
-		}
+		
+		// if (!textureStorage.includes(filesName[0])) {
+			
+		// }
 	}
 
 	const memoizedScene = useMemo(() =>
@@ -116,37 +87,19 @@ export const MainBabylon = () => {
 			onDrop={e => onDropHandler(e)}
 			onDragOver={e => dragStartHandler(e)}
 			className={sceneClass.canvas}>
-			{
-				drag &&
-				// Не работает :(
-				<div
-					// onDragLeave={e => dragLeaveHandler(e)}
-					// onDrop={e => onDropHandler(e)}
-					// onDragOver={e => dragStartHandler(e)}
-					className={sceneClass.loadTexModal}>
-					<Typography fontSize={25}>
-						Отпустите текстуру для загрузки
-					</Typography>
-				</div>
-			}
 			<Scene
 				modelFileName={modelType}
 				sceneFileName={currentScene}
-				texture={currenTexture[texCount]}
-				call={uploadTexture} />
+				texture={currenTexture[texCount]} />
 		</div>, [currentScene, modelType, texCount, currenTexture]);
 
-	const changeModel = (model) => {
+	const changeModel = useCallback((model) => {
 		setModelType(model);
-	}
+	}, [])
 
-	const changeScene = (scene) => {
+	const changeScene = useCallback((scene) => {
 		setCurrentScene(scene);
-	}
-
-	const showModelsBar = () => {
-		setModelsBar(!isModelsBar)
-	}
+	}, [])
 
 	return (
 		<>
@@ -168,29 +121,9 @@ export const MainBabylon = () => {
 							/>
 						</div>
 					</div>
-					<div className={mainClass.bar}>
-						<div className={mainClass.selectButtons}>
-							<ButtonGroup>
-								<Button variant={isModelsBar ? 'contained' : 'outlined'} onClick={showModelsBar}>
-									<Typography>
-										Select model
-									</Typography>
-								</Button>
-								<Button variant={isModelsBar ? 'outlined' : 'contained'} onClick={showModelsBar}>
-									<Typography>
-										Select scene
-									</Typography>
-								</Button>
-							</ButtonGroup>
-						</div>
-						<div className={mainClass.modelsBox}>
-							{isModelsBar ? <ModelsBar changeModel={changeModel} /> : <SceneBar changeScene={changeScene} />}
-						</div>
-					</div>
+					<ToggleBar changeModel={changeModel} changeScene={changeScene}/>
 				</div>
 			</div>
-
-
 		</>
 	);
 };

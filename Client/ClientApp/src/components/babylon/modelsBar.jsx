@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, AppBar, Box, Toolbar, Paper, Card } from '@mui/material';
-import { useState } from "react";
+import { useState, memo } from "react";
 import { ModelsCard } from './modelCard'
 import barClasses from'./styles/bar.module.css'
 
@@ -11,7 +11,9 @@ const models = [
 	{ id: 3, type: "Mini", model:{ big: 'Mini', small: ''}, img: '/babylon/imgPreviewModels/mini.jpeg' },
 	{ id: 4, type: "Mini with cap", model:{ big: 'MiniCap', small: ''}, img: '/babylon/imgPreviewModels/miniCap.jpeg' },
 ];
-export const ModelsBar = ({changeModel}) => {
+export const ModelsBar = memo(({changeModel}) => {
+
+	console.log("modelsBar rerendered");
 
 	return (
 		<div className={barClasses.cont}>
@@ -33,4 +35,4 @@ export const ModelsBar = ({changeModel}) => {
 			// </Card>
 		
 	)
-};
+});

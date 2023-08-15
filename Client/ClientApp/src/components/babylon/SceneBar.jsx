@@ -2,6 +2,7 @@ import React from 'react';
 import { SceneCard } from './SceneCard';
 import {Paper, Card }from '@mui/material';
 import barClasses from'./styles/bar.module.css'
+import { useState, memo } from "react";
 
 
 const scenes = [
@@ -9,11 +10,11 @@ const scenes = [
 ];
 
 
-export const SceneBar = ({
+export const SceneBar = memo(({
 	toggleSceneBar,
 	changeScene,
 }) => {
-
+	console.log("sceneBar rerendered");
 	return (
 		<div className={barClasses.cont}>
 		{scenes.map(scene => <SceneCard
@@ -27,4 +28,4 @@ export const SceneBar = ({
 				)}
 		</div>
 	);
-};
+});

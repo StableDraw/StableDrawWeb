@@ -21,6 +21,7 @@ export const Menu = ({
  }) => {
 		const [textureStorage, setTextureStore] = useState([]);
 
+		console.log("menu rerender")
 		useEffect(() => {
 			const getTexStorage = async () => {
 				await api.GetTextureStorage()

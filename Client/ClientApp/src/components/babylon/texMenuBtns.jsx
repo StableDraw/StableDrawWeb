@@ -1,13 +1,16 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { Button, Typography, Grid, ButtonGroup, Card, Input, InputLabel, } from '@mui/material';
 import mainClass from './styles/main.module.css'
 
-export const TexMenuBtn = ({ send }) => {
+export const TexMenuBtn = memo(({ send }) => {
+
+
+	console.log("TexMenuBtn rerendered")
 
 	const handleFileChange = (event) => {
 		let files = [...event.target.files];
-		console.log("файлы c кнопки:", files);
+		// console.log("файлы c кнопки:", files);
 
 		let formData = new FormData();
 		formData.append(`file`, files[0]);
@@ -40,5 +43,5 @@ export const TexMenuBtn = ({ send }) => {
 			</Button>
 		</div>
 	);
-}
+})
 

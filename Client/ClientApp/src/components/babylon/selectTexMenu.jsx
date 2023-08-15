@@ -1,6 +1,4 @@
 import React from "react";
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { IconButton } from '@mui/material';
 import { Button, Typography } from '@mui/material';
 import loadClasses from './styles/loadTex.module.css';
@@ -8,21 +6,16 @@ import CancelIcon from '@mui/icons-material/Cancel';
 
 export const SelectTexMenu = ({
 	currenTexture = [],
-	changeTextureDown,
-	changeTextureUp,
 	texCount,
 	setTexCount,
-	deleteTex,
-	cleanStorage }) => {
+	deleteTex, 
+}) => {
 
 
 	return (
 		<div className={loadClasses.selectTexMenu}>
 			<div className={loadClasses.buttons_selectTexMenu}>
 				<div className={loadClasses.selectTexMenu}>
-					{/* <IconButton onClick={changeTextureDown}>
-						<KeyboardArrowLeftIcon />
-					</IconButton> */}
 					<div className={loadClasses.previewTexes_selectTexMenu}>
 						{currenTexture.map((tex, index) =>
 							<div className={loadClasses.buttons_selectTexMenu} key={tex + index + index}>
@@ -49,9 +42,6 @@ export const SelectTexMenu = ({
 							</div>
 						)}
 					</div>
-					{/* <IconButton onClick={changeTextureUp}>
-						<KeyboardArrowRightIcon />
-					</IconButton> */}
 				</div>
 			</div>
 		</div>
