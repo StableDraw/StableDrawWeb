@@ -62,8 +62,7 @@ export const Scene = ({
 					id='canvas'
 					ref={babylonCanvas}
 					className={sceneClass.canvas}>
-
-				</canvas>
+			</canvas>
 		</>
 	);
 };

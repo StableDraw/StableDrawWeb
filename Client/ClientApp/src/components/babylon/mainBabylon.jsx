@@ -65,7 +65,7 @@ export const MainBabylon = () => {
 	}
 
 	const showSceneBar = () =>{
-		setIsSceneBar()
+		setIsSceneBar();
 	}
 
 
@@ -142,9 +142,9 @@ export const MainBabylon = () => {
 							<Typography>
 								Select model
 							</Typography>
-							</Button>
+						</Button>
 						<Button variant="outlined">
-						<Typography>
+							<Typography>
 								Select scene
 							</Typography>
 						</Button>

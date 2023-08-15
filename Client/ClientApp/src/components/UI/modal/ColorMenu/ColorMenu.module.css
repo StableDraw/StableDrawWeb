@@ -1,4 +1,4 @@
-.myModal2 {
+.myModal {
     display: none;
 }
 .clr_window
@@ -10,7 +10,7 @@
     -ms-user-select: none;
 
     display: block;
-    z-index: 19;
+    z-index: 20;
     position: fixed;
     justify-content: flex-end;
     margin-right: 21.6%;
@@ -42,4 +42,11 @@
     float: right;
     display: flex;
     margin-left: auto;
+}
+.active {
+    border: 4px solid #000;
+    transform: translateY(4%);
+}
+.unactive {
+    border: 1px solid #000;
 }

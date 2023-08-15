@@ -30,14 +30,14 @@ export const SizeBar = ({ changeModel, model }) => {
 		<Card className={barClasses.sizeBar}>
 			<Card className={barClasses.buttonsSizeBar}>
 				<Button
-					disabled={model.big ? false : true}
+					disabled={!model.big}
 					onClick={changeBigButtonColor}
 					variant={isBigButtonClicked ? "contained" : 'outlined'}
 					sx={{ borderRadius: "10px" }}>
 					<Typography fontSize={14}>Big pack</Typography>
 				</Button>
 				<Button
-					disabled={model.small ? false : true}
+					disabled={!model.small}
 					onClick={changeSmallButtonColor}
 					variant={isSmallButtonClicked ? "contained" : 'outlined'}
 					sx={{ borderRadius: "10px" }}>
