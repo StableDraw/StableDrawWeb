@@ -2,6 +2,7 @@
 {
     margin-top: 5px;
     display: flex;
+    justify-content: start;
     width: 100%;
     height: 65px;
     border-radius: 3px;
@@ -34,8 +35,8 @@
     top: 53%;
     transform: translate(0, -50%);
     margin: 0;
-    border: 1px solid rgb(0, 0, 0);
-    width: 99.5%;
+    border: 0px solid rgb(0, 0, 0);
+    width: 100%;
     height: 100%;
 }
 .layer_display_canvas
@@ -45,6 +46,33 @@
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    width: 100%;
+    width: 80px;
     height: 100%;
+}
+.destroy_button{
+    display: flex;
+    bottom: 1000px;
+    /*right: 5px; */
+    height: 20px;
+    width: 20px;
+    border: none;
+}
+.right_shift {
+    position: absolute;
+    /* display: flex; */
+    /* transform: translate(-50%, -50%); */
+    left: 83%;
+    bottom: 70%;
+    cursor: pointer;
+    z-index: 2;
+}
+.layer_left_mini_button 
+{
+    position: relative;
+    cursor: pointer;
+    left: 0%;
+    width: 100%;
+    height: 50%;
+    border-radius: 3px;
+    border: 1px solid rgb(80, 76, 76);
 }

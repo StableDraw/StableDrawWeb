@@ -5,12 +5,15 @@ import Add from "./LableBar.utils/Add";
 import cl from "./LableBar.module.css";
 import ListLayers from "../layer/ListLayers/ListLayers.jsx";
 
-const LableBar = () => {
+const LableBar = (props) => {
     const [layers, SetLayer] = useState([
         {id: Date.now()}
     ])
     const AddNewlabels = (newLayer) => {
         SetLayer([...layers, newLayer])
+        props.Clear()
+        console.log(newLayer.id);
+        // alert(props.clear())
     }
     const Removelabels = (layer) => {
         SetLayer(layers.filter(l => l.id !== layer.id))
@@ -18,12 +21,12 @@ const LableBar = () => {
     
     return (
         <div className={cl.layers}>
-            <div className="layers_buttons">
+            <div className={cl.layers_buttons}>
                 <Merge/>
-                <Swap/>
+                {/* <Swap/> */}
                 <Add create={AddNewlabels}/>
             </div>
-               <ListLayers layers={layers} remove={Removelabels}/>
+               <ListLayers drawingsArr = {props.drawingsArr} Clear ={props.Clear} layers={layers} remove={Removelabels}/>
         </div>
     );
 };

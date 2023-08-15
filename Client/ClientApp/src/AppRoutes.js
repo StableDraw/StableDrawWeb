@@ -11,6 +11,7 @@ import { FetchData } from "./components/FetchData";
 import { Home } from "./components/Home";
 import {App1} from "./App1";    
 import Pay from './components/Pay';
+import AgreementWindow from './components/AgreementWindow';
 
 const AppRoutes = [
     {
@@ -72,6 +73,11 @@ const AppRoutes = [
         path: '/Pay',
         requireAuth: true,
         element: <Pay/>
+    },
+    {
+        path: '/AgreementWindow',
+        requireAuth: true,
+        element: <AgreementWindow/>
     },
     ...ApiAuthorzationRoutes
 ];
