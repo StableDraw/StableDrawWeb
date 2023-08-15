@@ -22,3 +22,15 @@ E:\workFiles\programing\stableDrowFixed\StableDrawWeb\StableDraw.Core\obj\Debug\
 E:\workFiles\programing\stableDrowFixed\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\refint\StableDraw.Core.dll
 E:\workFiles\programing\stableDrowFixed\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\StableDraw.Core.pdb
 E:\workFiles\programing\stableDrowFixed\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\ref\StableDraw.Core.dll
+D:\job\babilon\StableDrawWeb\StableDraw.Core\bin\Debug\net7.0\StableDraw.Core.deps.json
+D:\job\babilon\StableDrawWeb\StableDraw.Core\bin\Debug\net7.0\StableDraw.Core.dll
+D:\job\babilon\StableDrawWeb\StableDraw.Core\bin\Debug\net7.0\StableDraw.Core.pdb
+D:\job\babilon\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\StableDraw.Core.csproj.AssemblyReference.cache
+D:\job\babilon\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\StableDraw.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\job\babilon\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\StableDraw.Core.AssemblyInfoInputs.cache
+D:\job\babilon\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\StableDraw.Core.AssemblyInfo.cs
+D:\job\babilon\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\StableDraw.Core.csproj.CoreCompileInputs.cache
+D:\job\babilon\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\StableDraw.Core.dll
+D:\job\babilon\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\refint\StableDraw.Core.dll
+D:\job\babilon\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\StableDraw.Core.pdb
+D:\job\babilon\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\ref\StableDraw.Core.dll

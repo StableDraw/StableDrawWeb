@@ -2,7 +2,6 @@
 .myModal {
     display: none;
 }
-
 .up_add_window
 {
     display: block;
@@ -10,7 +9,7 @@
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    z-index: 18;
+    z-index: 19;
     position: fixed;
     justify-content: flex-end;
     width: 230px;
@@ -153,4 +152,11 @@ input[type=range].up_add_window_slider::-ms-fill-lower
 {
     touch-action: none;
     width: 20%;
+}
+.active {
+    border: 4px solid #000;
+    transform: translateY(4%);
+}
+.unactive {
+    border: 1px solid #000;
 }

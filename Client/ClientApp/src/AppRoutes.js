@@ -10,7 +10,8 @@ import { Counter } from "./components/Counter";
 import { FetchData } from "./components/FetchData";
 import { Home } from "./components/Home";
 import { MainBabylon } from "./components/babylon/mainBabylon";
-import {App1} from "./components/testUI/App1";    
+import {App1} from "./components/testUI/App1";
+import Pay from './components/Pay';    
 
 const AppRoutes = [
     {
@@ -67,6 +68,11 @@ const AppRoutes = [
         path: '/fetch-data',
         requireAuth: false,
         element: <FetchData />
+    },
+    {
+        path: '/Pay',
+        requireAuth: false,
+        element: <Pay/>
     },
     {
         path: '/babylon',
