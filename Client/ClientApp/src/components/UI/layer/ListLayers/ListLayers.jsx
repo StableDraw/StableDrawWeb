@@ -2,12 +2,12 @@
 import ListItem from "../ListItem/ListItem";
 import cl from './ListLayers.module.css'
 
-const ListLayers = ({layers, remove, ...props}) => {
+const ListLayers = ({drawingsArr, layers, remove, ...props}) => {
     const [layer, setLayer] = useState()
     return (
         <div className={cl.layer_box}>
             {layers.map((item, index) =>
-                <ListItem remove={remove} key={item.id} item={item}/>
+                <ListItem drawingsArr = {drawingsArr} Clear ={props.Clear} remove={remove} key={item.id} item={item}/>
             )}
         </div>
     );

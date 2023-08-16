@@ -6,9 +6,49 @@
     -ms-user-select: none;
     position: absolute;
     bottom: 10%;
-    right: 5px;
+    right: 15px;
     height: auto;
+    max-height: 350px;
+    overflow-y: scroll;
     width: 8.9%;
     border-radius: 3px !important;
     border: 2px solid rgb(85, 85, 85);
+}
+.layers_mini_button
+{
+    /* position: relative; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    width: 25px;
+    height: 21px;
+    border-radius: 3px;
+    border: 1px solid rgb(138, 138, 138);
+}
+.layers_buttons
+{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    position: relative;
+    left: 2%;
+    top: 0;
+    width: 95%;
+    height: 30px;
+}
+
+::-webkit-scrollbar {
+    width: 10px; /* ширина для вертикального скролла */
+    height: 10px; /* высота для горизонтального скролла */
+    /* background-color: #143861; */
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    /* background-color: #206cb8dc; */
+    background-color: gray;
+    border-radius: 10px;
+    height: 10px;
 }

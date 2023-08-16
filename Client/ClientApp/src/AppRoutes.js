@@ -11,7 +11,8 @@ import { FetchData } from "./components/FetchData";
 import { Home } from "./components/Home";
 import { MainBabylon } from "./components/babylon/mainBabylon";
 import {App1} from "./components/testUI/App1";
-import Pay from './components/Pay';    
+import Pay from './components/Pay';
+import AgreementWindow from './components/AgreementWindow';
 
 const AppRoutes = [
     {
@@ -78,6 +79,11 @@ const AppRoutes = [
         path: '/babylon',
         requireAuth: false,
         element: <MainBabylon />
+    },
+    {
+        path: '/AgreementWindow',
+        requireAuth: false,
+        element: <AgreementWindow/>
     },
     ...ApiAuthorzationRoutes,
     // {

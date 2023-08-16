@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import authService from './api-authorization/AuthorizeService';
 import { ApplicationPaths } from './api-authorization/ApiAuthorizationConstants';
 export class Home extends Component {
@@ -90,10 +90,13 @@ export class Home extends Component {
                                                         className='faulty-letter'>ТИ</span>РОВАТЬ</span>
                                                 </button>
                                             </NavLink>
-                                            <button className="start-button-text2">
-                                                    <span className='glowing-txt'>ТЕС<span
-                                                        className='faulty-letter'>ТИ</span>РОВАТЬ1</span>
-                                            </button>
+                                            <NavLink tag={Link} to="/babylon" className="bootstrap-btn primary-outline-blue--hover">
+                                                <button className="start-button-text2">
+                                                    <span className='glowing-txt'>BAB<span
+                                                        className='faulty-letter'>YL</span>ON</span>
+                                                </button>
+                                            </NavLink>
+
                                         </div>
                                     </div>
                                 </div>
@@ -109,6 +112,9 @@ export class Home extends Component {
                                 <img className="img-link" alt="vk.png" src="vk.png" width="50" height="50"></img>
                             </a>
                             <a href="https://vk.com/app6613443#snippet_id=2&owner_id=402965562&project_id=296524">
+                                <img className="img-link" alt="money.png" src="money.png" width="50" height="50"></img>
+                            </a>
+                            <a href="Pay">
                                 <img className="img-link" alt="money.png" src="money.png" width="50" height="50"></img>
                             </a>
                         </div>
@@ -161,10 +167,13 @@ export class Home extends Component {
                                                         className='faulty-letter'>ТИ</span>РОВАТЬ</span>
                                                 </button>
                                             </NavLink>
-                                            <button className="start-button-text2">
-                                                    <span className='glowing-txt'>ТЕС<span
-                                                        className='faulty-letter'>ТИ</span>РОВАТЬ1</span>
-                                            </button>
+                                            <NavLink tag={Link} to="/babylon" className="bootstrap-btn primary-outline-blue--hover">
+                                                <button className="start-button-text2">
+                                                    <span className='glowing-txt'>BAB<span
+                                                        className='faulty-letter'>YL</span>ON</span>
+                                                </button>
+                                            </NavLink>
+
                                         </div>
                                     </div>
                                 </div>
@@ -180,6 +189,9 @@ export class Home extends Component {
                                 <img className="img-link" alt="vk.png" src="vk.png" width="50" height="50"></img>
                             </a>
                             <a href="https://vk.com/app6613443#snippet_id=2&owner_id=402965562&project_id=296524">
+                                <img className="img-link" alt="money.png" src="money.png" width="50" height="50"></img>
+                            </a>
+                            <a href="Pay">
                                 <img className="img-link" alt="money.png" src="money.png" width="50" height="50"></img>
                             </a>
                         </div>
