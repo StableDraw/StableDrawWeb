@@ -6,9 +6,7 @@ import AirplayIcon from '@mui/icons-material/Airplay';
 import {Box} from '@mui/material';
 import Button from '@mui/material/Button';
 import {Link} from 'react-router-dom';
-
 const Text = () => {
-
     return (
         <div>
             <div className={cl.points}>
@@ -27,5 +25,4 @@ const Text = () => {
         </div>
     );
 };
-
 export default Text;

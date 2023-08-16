@@ -1,13 +1,12 @@
 .myModal {
     display: none;
 }
+
 .save {
     touch-action: none;
-
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-
     display: block;
     z-index: 21;
     position: fixed;
@@ -17,13 +16,16 @@
     background-color:#fff;
     width: 230px;
 }
+
 .active {
     border: 4px solid #000;
     transform: translateY(4%);
 }
+
 .unactive {
     border: 1px solid #000;
 }
+
 .window
 {
     position: fixed;

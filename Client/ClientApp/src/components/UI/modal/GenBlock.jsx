@@ -1,5 +1,4 @@
 ﻿import React from 'react';
-
 const GenBlock = () => {
     return (
         <div id="before_gen_block" style={{ position: "fixed", top: "50px", left: "5%", height: "20%", width: "20%", border: "2px solid #111111", zIndex: "15", display: "none" }}>

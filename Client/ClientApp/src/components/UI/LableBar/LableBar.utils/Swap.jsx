@@ -8,5 +8,4 @@ const Swap = () => {
         </button>
     );
 };
-
 export default Swap;

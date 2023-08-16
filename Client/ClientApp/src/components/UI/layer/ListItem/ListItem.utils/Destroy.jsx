@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import CloseIcon from '@mui/icons-material/Close';
-
 const Destroy = ({ids, ...props}) => {
     const [id, setid] = useState(props.ids)
     const [item, setId] = useState(ids)

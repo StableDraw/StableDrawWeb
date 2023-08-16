@@ -3,15 +3,11 @@ import cl from '../Pay.module.css';
 import Button from '@mui/material/Button';
 import CheckList from './Checklist';
 import Agreement from './Agreement';
-
 const Content2 = () => {
-
     const [checked, setChecked] = React.useState(true);
-
     const handleChange = () => {
         setChecked(!checked);
     };
-
     return (
         <div className={cl.content_box2}>
             <CheckList/>
@@ -20,5 +16,4 @@ const Content2 = () => {
         </div>
     );
 };
-
 export default Content2;

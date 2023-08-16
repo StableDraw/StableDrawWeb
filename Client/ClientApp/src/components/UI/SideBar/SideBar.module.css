@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 .sidebar {
     touch-action: none;
     border: 2px solid #4c4c4c;
@@ -19,16 +20,19 @@
     padding-top: 60px;
     transition: 0.5s;
 }
+
 .work_mode_href {
     touch-action: none;
     border: 1px solid rgb(76, 76, 76);
     border-left-style: hidden;
     border-right-style: hidden;
 }
+
 .work_mode_href#selected_work_mode:hover
 {
     background: none;
 }
+
 .work_mode_href#selected_work_mode
 {
     cursor: auto;
@@ -36,6 +40,7 @@
     border-bottom-color: rgb(0, 0, 0);
     border-bottom-width: 5px;
 }
+
 .mods_of_work {
     touch-action: none;
     -webkit-user-select: none;
@@ -45,6 +50,7 @@
     height: 100%;
     width: 100%;
 }
+
 .img
 {
     touch-action: none;
@@ -55,6 +61,7 @@
     -moz-user-select: none;
     -ms-user-select: none;
 }
+
 .blackout {
     display: block;
     position: fixed;
@@ -64,6 +71,7 @@
     height: 100%;
     background: rgba(0,0,0,0.5);
 }
+
 .close {
     display: none;
 }
@@ -71,12 +79,14 @@
 .active {
     display: block;
 }
+
 .selected {
     cursor: auto;
     border-bottom-style: solid;
     border-bottom-color: rgb(0, 0, 0);
     border-bottom-width: 5px;
 }
+
 .openbtn {
     touch-action: none;
     -webkit-user-select: none;
@@ -123,6 +133,7 @@
     height: 90%;
     width: 25%;
 }
+
 .closebtn {
     display: flex;
     justify-content: center;
@@ -155,11 +166,13 @@
     width: 100%;
     bottom: 2%;
 }
+
 .helpfull_links a:hover
 {
     touch-action: none;
     text-decoration: none;
 }
+
 .helpfull_link
 {
     touch-action: none;
@@ -170,6 +183,7 @@
     width: 50%;
     display: inline-block;
 }
+
 .sidepanel a
 {
     touch-action: none;
@@ -179,12 +193,14 @@
     display: block;
     transition: 0.3s;
 }
+
 .sidepanel a:hover
 {
     color: black;
     touch-action: none;
     background: #d9d9d9;
 }
+
 .work_mode_img_btn
 {
     touch-action: none;
@@ -192,6 +208,7 @@
     height: 100%;
     width: 100%;
 }
+
 .sidepanel_bottom_button_img
 {
     touch-action: none;

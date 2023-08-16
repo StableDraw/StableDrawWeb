@@ -1,7 +1,6 @@
 ﻿import {useState} from 'react';
 import cl from "../SideBar.module.css";
 const CloseSideBar = ({children, active}) => {
-
     const [action, setAction] = useState(active);
     const Action = (e) => {
         e.preventDefault()

@@ -39,7 +39,6 @@
     font-weight: 600;
 }
 
-
 .content_box1
 {
     position: absolute;
@@ -70,17 +69,20 @@
     width: 100%;
     height: 200px;
 }
+
 .check
 {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
+
 .text_in_check
 {
     width: 80%;
     font-size: 16px;
 }
+
 .agreeText
 {
     width: 80%;
@@ -94,6 +96,7 @@
     flex-direction: row;
     justify-content: space-between;
 }
+
 .footer
 {
     position: absolute;

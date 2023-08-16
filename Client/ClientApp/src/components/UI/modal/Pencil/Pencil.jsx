@@ -1,14 +1,11 @@
 ﻿import React, {useState,useMemo} from 'react';
 import cl from './Pencil.module.css'
-import ToolButton from '../../Toolbar/ToolButton';
 import MyInput from '../../MyInput/MyInput';
 import Button from '@mui/material/Button';
-import { Modal } from '@mui/material';
 import Stack from '@mui/material/Stack';
 let resMemo=[{},{}]
 
 const Pencil = ({active, activeBtn,  getRes}) => {
-
     const [modal, setModal] = useState(false)
     const [thicknessValue, setThicknessValue] = useState(1)
     const rootClass = [cl.myModal]

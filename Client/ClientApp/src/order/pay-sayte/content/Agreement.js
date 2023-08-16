@@ -1,7 +1,6 @@
 import React from 'react';
 import cl from '../Pay.module.css';
 import {Checkbox} from '@mui/material';
-
 const Agreement = (props) => {
 
     return (

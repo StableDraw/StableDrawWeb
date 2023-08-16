@@ -6,12 +6,14 @@
     height: 40px;
     width: 50px;
 }
+
 .window
 {
     position: fixed;
     height: 100%;
     width: 100%;
 }
+
 .contentBox
 {
     position: absolute;
@@ -24,6 +26,7 @@
     width: 400px;
     background-color: rgb(255, 255, 255);
 }
+
 .contentText
 {
     position: absolute;
@@ -51,9 +54,9 @@
 .png
 {
     line-height: 60px;
-    top: 0%;
-    left: 0%;
-    width: 0%;
+    top: 0;
+    left: 0;
+    width: 0;
 }
 
 .header
@@ -78,7 +81,7 @@
     align-items: center;
     flex-direction: row;
     justify-content:space-between;
-    left: 0%;
+    left: 0;
     width: 100%;
     height: 90px;
 }
@@ -86,7 +89,7 @@
 .btnText
 {
     text-align: right;
-    line-height: 100px; /*вертикальноее выравнивание*/
+    line-height: 100px; /*вертикальное выравнивание*/
     top: 100px;
     height: 100px;
     left: 500px;

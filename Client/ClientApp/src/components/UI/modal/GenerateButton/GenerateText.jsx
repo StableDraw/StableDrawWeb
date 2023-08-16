@@ -1,10 +1,6 @@
 import React, {useState} from 'react';
 import cl from "./GenerateButton.module.css";
-
-
-
 const GenerateText = () => {
-
     return (
         <div className={cl.contentText}>
             <header>
@@ -16,5 +12,4 @@ const GenerateText = () => {
         </div>
     );
 };
-
 export default GenerateText;

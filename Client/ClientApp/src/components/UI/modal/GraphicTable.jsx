@@ -1,5 +1,4 @@
 ﻿import React from 'react';
-
 const GraphicTable = () => {
     return (
         <button className="up_panel_button" id="graphic_tablet" title="Учитывать силу нажатия" style={{ display: "none", position: "fixed", top: "4px", left: "10%" }}>
@@ -7,5 +6,4 @@ const GraphicTable = () => {
         </button>
     );
 };
-
 export default GraphicTable;

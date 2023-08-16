@@ -1,11 +1,6 @@
 import React, {useState} from 'react';
-import cl from './Bucket.module.css'
-import ToolButton from '../../Toolbar/ToolButton';
 import Button from '@mui/material/Button';
-import { Modal } from '@mui/material';
 import Stack from '@mui/material/Stack';
-import MyInput from '../../MyInput/MyInput';
-import Content1 from "../../BabylonModule/Content1";
 const Bucket = () => {
     const [modal, setModal] = useState(false)
     const showBucketModal = () => {

@@ -8,14 +8,10 @@ import Bucket from '../modal/Bucket/Bucket';
 import ClearPane from '../modal/ClearPane/ClearPane';
 import UploadButton from '../modal/UploadButton/UploadButton';
 import SaveButton from '../modal/SaveButton/SaveButton';
-import ToolButton from './ToolButton';
 import GenerateButton from '../modal/GenerateButton/GenerateButton';
 import ArrowsBar from "../ArrowsBar/ArrowsBar";
-
-
 const ToolBar = ({getRes}) => {
     const [activeBtn, setActiveBtn] = useState(null)
-
     return (
         <div className={cl.t}>
             <div className={cl.bar}>

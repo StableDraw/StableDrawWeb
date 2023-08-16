@@ -1,7 +1,6 @@
 ﻿import {useState} from 'react';
 import ListItem from "../ListItem/ListItem";
 import cl from './ListLayers.module.css'
-
 const ListLayers = ({drawingsArr, layers, remove, ...props}) => {
     const [layer, setLayer] = useState()
     return (
@@ -12,5 +11,4 @@ const ListLayers = ({drawingsArr, layers, remove, ...props}) => {
         </div>
     );
 };
-
 export default ListLayers;

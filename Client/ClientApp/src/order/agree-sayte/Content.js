@@ -1,6 +1,5 @@
 import React from 'react';
 import cl from './Agree.module.css';
-
 const Content = () => {
     return (
         <div className={cl.Text}>

@@ -4,11 +4,7 @@ import {Box, createTheme, ThemeProvider} from '@mui/material';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 import GenerateText from './GenerateText';
-
-
-
 const GenerateContent = () => {
-
     return (
         <div className={cl.contentBox}>
             <GenerateText/>
@@ -39,24 +35,7 @@ const GenerateContent = () => {
                     </Link>
                 </Box>
             </div>
-
-            {/*<div className={cl.BabylonBtn1}>*/}
-            {/*    <Box display="flex" justifyContent="center">*/}
-            {/*        <Link to="https://github.com/BabylonJS/Babylon.js">*/}
-            {/*            <ThemeProvider theme={theme}>*/}
-            {/*                <Button color="apple" variant="contained" disableElevation >*/}
-
-            {/*                    <img src={'github_logo.png'} alt={"github_icon"} style={{ fontSize: 20, height: 25 }}/>*/}
-            {/*                    Import Babylon to your project*/}
-            {/*                </Button>*/}
-            {/*            </ThemeProvider>*/}
-            {/*        </Link>*/}
-            {/*    </Box>*/}
-            {/*</div>*/}
-
-
         </div>
     );
 };
-
 export default GenerateContent;

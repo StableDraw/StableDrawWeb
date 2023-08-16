@@ -15,6 +15,7 @@
     border: 1px solid #000000;
     background-color: #4c4c4c;
 }
+
 .nav:hover
 {
     touch-action: none;
@@ -30,6 +31,7 @@
     height: 40px;
     width: 50px;
 }
+
 .side_panel_button_image
 {
     touch-action: none;
@@ -40,6 +42,7 @@
     height: 100%;
     width: 100%;
 }
+
 .hiddenInput
 {
     touch-action: none;
@@ -49,6 +52,7 @@
     height: 0;
     width: 0;
 }
+
 .active {
     border: 4px solid #000;
     transform: translateY(4%);

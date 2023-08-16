@@ -6,7 +6,6 @@ import DarkMode from "./sidebar.utils/DarkMode";
 import OpenSideBar from "./sidebar.utils/OpenSideBar";
 import cl from "./SideBar.module.css"
 import CloseSideBar from "./sidebar.utils/CloseSideBar";
-
 const SideBar = (...props) => {
     const [active, setActive] = useState(cl.close)
     const createAction = (newActive) => {

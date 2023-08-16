@@ -1,6 +1,5 @@
 ﻿import React from 'react';
 import cl from "../SideBar.module.css";
-
 const Setting = () => {
     return (
         <button className={cl.sidepanel_bottom_button} title="Настройки">
@@ -8,5 +7,4 @@ const Setting = () => {
         </button>
     );
 };
-
 export default Setting;

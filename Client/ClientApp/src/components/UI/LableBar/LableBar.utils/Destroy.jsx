@@ -9,5 +9,4 @@ const Destroy = ({ids, ...props}) => {
         </button>
     );
 };
-
 export default Destroy;

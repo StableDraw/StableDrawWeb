@@ -1,7 +1,6 @@
 ﻿import React, {useState} from 'react';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import  cl from '.././ListItem.module.css'
-
 const Clear = ({ids, ...props}) => {
     const [item, setId] = useState(ids)
     return (

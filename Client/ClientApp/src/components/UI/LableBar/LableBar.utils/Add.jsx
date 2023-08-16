@@ -3,7 +3,6 @@ import cl from "../LableBar.module.css";
 import AddIcon from '@mui/icons-material/Add';
 const Add = ({create}) => {
     const [label, NewLabel] = useState({})
-    
     const AddNewlabels = (e) => {
         e.preventDefault()
         const newLayer = {
@@ -19,5 +18,4 @@ const Add = ({create}) => {
         </button>
     );
 };
-
 export default Add;

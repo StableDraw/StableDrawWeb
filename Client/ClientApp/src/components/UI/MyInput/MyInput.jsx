@@ -10,7 +10,6 @@ const MyInput = ({imgPath, imgClass, callback, id, type}) => {
             callback(arrRes)
         }
     }
-    
     return (
         <div>
             <img className={imgClass} alt={imgPath} src={imgPath}></img>

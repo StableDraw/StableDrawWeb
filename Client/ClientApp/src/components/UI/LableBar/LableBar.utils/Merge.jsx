@@ -8,5 +8,4 @@ const Merge = () => {
         </button>
     );
 };
-
 export default Merge;
