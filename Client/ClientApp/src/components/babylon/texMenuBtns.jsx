@@ -5,17 +5,21 @@ import mainClass from './styles/main.module.css'
 
 export const TexMenuBtn = memo(({ send }) => {
 
+	const [InputKey, setInputKey] = useState(0);
 
 	console.log("TexMenuBtn rerendered")
 
 	const handleFileChange = (event) => {
 		let files = [...event.target.files];
-		// console.log("файлы c кнопки:", files);
 
+		console.log("файлы c кнопки:", files);
+		
 		let formData = new FormData();
 		formData.append(`file`, files[0]);
 		formData.append("Content-Type", 'multipart/form-data');
 		send(formData);
+
+		setInputKey(InputKey + 1);
 	};
 
 	return (
@@ -27,11 +31,14 @@ export const TexMenuBtn = memo(({ send }) => {
 					</Typography>
 				</InputLabel>
 				<Input
+					key={InputKey}
 					id="file-input"
 					type="file"
 					hidden
+					multiple={true}
 					inputProps={{
-						accept: 'image/*', // Можете указать типы файлов, которые разрешены
+						accept: 'image/*',
+						multiple: true,
 					}}
 					onChange={handleFileChange}
 				/>

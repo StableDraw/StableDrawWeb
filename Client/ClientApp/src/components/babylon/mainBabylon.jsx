@@ -22,26 +22,30 @@ import { ToggleBar } from "./toggleBar";
 // Новый sizeBar | done
 // Ограничить размеры меню с текстурами, добавить скролл | done
 
+// Максимально оптимизировать компоненты(мемоизация)| done
+// карта окружения лагает(возможно решится после оптимизации)|done
+// Решить баг с загрузкой нескольких одинаковых текстур подряд | done
+
 
 // Сделать сдвиг скролла при переключении текстур в меню
 // Внедрить новую сцену и модели
 // Пофиксить баги с вёрсткой(расширение грида)
-// Максимально оптимизировать компоненты(мемоизация)
 // Иногда после загрузки текстур с кнопки они подгружаются только в меню(в сцену - нет)
 // загрузка нескольких текстур
 // Решить вопросы с контроллером
 // Тёмная тема основная
 // Сделать так, чтобы при перерендере сцены, положение модельки сохранялось
 // Возможность открыть canvas в большем экране
-// карта окружения лагает(возможно решится после оптимизации)
+
 // Адаптивная вёрстка
+// кнопка перехода со сцен 
 
 
 export const MainBabylon = () => {
 	const [currentScene, setCurrentScene] = useState('');
 	const [modelType, setModelType] = useState('TypeABig');
-	const [texCount, setTexCount] = useState(0);
-	const [currenTexture, setCurrenTexture] = useState([])
+	const [currenTexture, setCurrenTexture] = useState('')
+	// кнопка перехода со сцен 
 
 	const dragStartHandler = (e) => {
 		e.preventDefault();
@@ -90,8 +94,8 @@ export const MainBabylon = () => {
 			<Scene
 				modelFileName={modelType}
 				sceneFileName={currentScene}
-				texture={currenTexture[texCount]} />
-		</div>, [currentScene, modelType, texCount, currenTexture]);
+				texture={currenTexture} />
+		</div>, [currentScene, modelType, currenTexture]);
 
 	const changeModel = useCallback((model) => {
 		setModelType(model);
@@ -114,9 +118,7 @@ export const MainBabylon = () => {
 						<div className={mainClass.loadMenu}>
 							<Menu
 								setCurrenTexture={setCurrenTexture}
-								currenTexture={currenTexture}
-								texCount={texCount}
-								setTexCount={setTexCount}
+								// currenTexture={currenTexture}
 								send={Send}
 							/>
 						</div>
