@@ -4,7 +4,6 @@ import Button from '@mui/material/Button';
 import { Modal } from '@mui/material';
 import Content from './ModalWindow/Content';
 const PayModule = () => {
-
     const [modal, setModal] = useState(false)
     const showPayModal = () => {
         setModal(!modal)

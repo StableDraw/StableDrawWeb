@@ -5,16 +5,11 @@ import { Modal } from '@mui/material';
 
 import Content1 from './Content1';
 
-
-
 const BabylonModule = () => {
-
     const [modal, setModal] = useState(false)
-
     const showBabylonModal = () =>{
         setModal(!modal)
     }
-
     return (
         <div>
             <div className={cl.btn}> <Button variant="contained" startIcon={"TRY BABYLON"} onClick={showBabylonModal}/> </div>

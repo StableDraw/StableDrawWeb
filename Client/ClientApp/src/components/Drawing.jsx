@@ -16,17 +16,13 @@ const Drawing = () => {
         setRes(result)
     }
     console.log(res)
-
     const [background, setBackground] = useState("rgb(255, 255, 255)");
     const [drawingsArr, setDrawingsArr] = useState([background]);
-
     const Clear = () => {
         setBackground("rgb(255, 255, 255)");
         setDrawingsArr([background]);
         // alert(drawingsArr)
     }
-
-
     return (
         <div>
             <h1><span style={{textDecoration: 'underline', margin: 80, color: 'rgba(204,32,32,0.8)'}}>

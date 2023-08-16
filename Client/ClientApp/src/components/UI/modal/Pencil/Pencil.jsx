@@ -4,10 +4,10 @@ import MyInput from '../../MyInput/MyInput';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 let resMemo=[{},{}]
-
 const Pencil = ({active, activeBtn,  getRes}) => {
     const [modal, setModal] = useState(false)
-    const [thicknessValue, setThicknessValue] = useState(1)
+    const [valueThickness, setValueThickness] = useState({id: 'pencil', type: 'thickness', res: 1})
+    const [valueSmoothing, setValueSmoothing] = useState({id: 'pencil', type: 'smoothing', res: 1})
     const rootClass = [cl.myModal]
     if (active==='pencil') {
         if (modal) {
@@ -15,15 +15,12 @@ const Pencil = ({active, activeBtn,  getRes}) => {
         }
     }
     console.log(modal)
-    const [valueThickness, setValueThickness] = useState({id: 'pencil', type: 'thickness', res: 1})
-    const [valueSmoothing, setValueSmoothing] = useState({id: 'pencil', type: 'smoothing', res: 1})
     const getThickness = (value) => {
         setValueThickness(value)
     }
     const getSmoothing = (value) => {
         setValueSmoothing(value)
     }
-
     const showPencilModal = () => {
         setModal(!modal)
     }

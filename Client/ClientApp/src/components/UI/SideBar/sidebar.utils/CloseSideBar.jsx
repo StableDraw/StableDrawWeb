@@ -8,7 +8,6 @@ const CloseSideBar = ({children, active}) => {
         setAction(cl.close)
         active(newActive)
     }
-    
     return (
         <button className = {cl.closebtn} onClick={Action} >
             {children}

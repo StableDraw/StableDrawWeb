@@ -68,7 +68,6 @@ const SideBar = (...props) => {
             <OpenSideBar active={createAction} >&#9776;</OpenSideBar>
         </div>
     );
-
 };
 
 export default SideBar;

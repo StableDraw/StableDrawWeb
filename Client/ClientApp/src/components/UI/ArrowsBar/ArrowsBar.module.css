@@ -16,6 +16,7 @@
     border: 1px solid #000000;
     background-color: #4c4c4c;
 }
+
 .bar:hover
 {
     touch-action: none;
@@ -31,6 +32,7 @@
     height: 20px;
     width: 25px;
 }
+
 .arrowsbar_panel_button_image
 {
     touch-action: none;
@@ -41,6 +43,7 @@
     height: 100%;
     width: 100%;
 }
+
 .icon_buttons
 {
     touch-action: none;
@@ -48,11 +51,11 @@
     -moz-user-select: none;
     -ms-user-select: none;
     /*margin-left: auto;*/
-
     display: inline-block;
     /*display: inline-block;*/
     /*width: auto;*/
 }
+
 .side_panel_button
 {
     touch-action: none;

@@ -4,7 +4,6 @@ import Button from '@mui/material/Button';
 import { Modal } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import GenerateContent from "./GenerateContent";
-
 const GenerateButton = () => {
     const [modal, setModal] = useState(false)
     const showGenerateModal = () => {

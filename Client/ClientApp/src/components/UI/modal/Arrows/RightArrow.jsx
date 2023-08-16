@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
 import cl from './RightArrow.module.css';
 import ArrowButton from '../../ArrowsBar/ArrowButton';
-import MyInput from '../../MyInput/MyInput';
-import Bucket from "../Bucket/Bucket";
 const RightArrow = () => {
     const [modal, setModal] = useState(false)
     const rootClass = [cl.myModal]
