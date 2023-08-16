@@ -6,6 +6,7 @@ import { TexMenuBtn } from "./texMenuBtns";
 import { useMemo, useState, useEffect, useCallback } from "react";
 import api from '../../api/api'
 import DeleteIcon from '@mui/icons-material/Delete';
+import AddPhotoAlternateRoundedIcon from '@mui/icons-material/AddPhotoAlternateRounded';
 
 
 
@@ -13,18 +14,33 @@ export const SelectTexMenu = ({
 	setCurrenTexture,
 	texCount,
 	setTexCount,
-	setTextureStore,
-	textureStorage=[],
+	textureStorage = [],
 	updateTexStorage,
 }) => {
-	// console.log("SelectMenu rerender, textureStorage: ", textureStorage);
-
-	async function deleteTex(link) {
+	async function deleteTex(link, index) {
 		await api.DeleteTexture(link.toString())
 		updateTexStorage();
+
+		//логика перестановки рамки выбора и смены текстуры в сцене после удаления:
+		if (index < texCount) {
+			setTexCount(texCount - 1);
+			return;
+		}
+		if (index === texCount) {
+			if (index ) {
+			setCurrenTexture(textureStorage[index - 1]);
+			setTexCount(index - 1);
+		}
+		else {
+			if (!textureStorage.length){
+				setCurrenTexture('');
+				return;
+			}
+			setCurrenTexture(textureStorage[index + 1]);
+		}
+		}
+		
 	}
-
-
 	return (
 		<>
 			<div>
@@ -39,14 +55,14 @@ export const SelectTexMenu = ({
 										<IconButton
 											key={tex + index}
 											sx={{ width: '20px', height: '20px', }}
-											onClick={() => { deleteTex(tex) }} >
+											onClick={() => {deleteTex(tex, index);}} >
 											<CancelIcon
 												key={index + tex + index + tex}
 												color="black"
 												sx={{ width: '20px', height: '20px' }} />
 										</IconButton>
 									</div>
-									<Button onClick={() =>{setTexCount(index); setCurrenTexture(tex)} } key={tex + tex}>
+									<Button onClick={() => { setTexCount(index); setCurrenTexture(tex) }} key={tex + tex}>
 										<div key={tex + index}>
 											<img src={tex}
 												alt="texture"
@@ -61,6 +77,7 @@ export const SelectTexMenu = ({
 					</div>
 				</div>
 			</div>
+			
 		</>
 
 

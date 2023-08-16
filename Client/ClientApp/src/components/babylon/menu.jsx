@@ -7,14 +7,13 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { Button, Typography, Grid, ButtonGroup, Card, IconButton, Tooltip } from '@mui/material';
 import mainClass from './styles/main.module.css'
 import { SelectTexMenu } from "./selectTexMenu";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import api from '../../api/api'
 import DeleteIcon from '@mui/icons-material/Delete';
+import sceneClass from './styles/scene.module.css'
 
 
-export const Menu = ({ 
-	setCurrenTexture,
- }) => {
+export const Menu = ({ setCurrenTexture, canvasTextures,  }) => {
 	const [textureStorage, setTextureStore] = useState([]);
 	const [texCount, setTexCount] = useState(0);
 
@@ -24,23 +23,31 @@ export const Menu = ({
 		const getTexStorage = async () => {
 			await api.GetTextureStorage()
 				.then(res => {
-					const links = res.data.map(id => "https://localhost:44404/api/image/" + id);
-					setTextureStore(links)
+					if (res.data){
+						const links = res.data.map(id => "https://localhost:44404/api/image/" + id);
+						setTextureStore(links);
+						// если это включить, то будет лишний перерендер, но за то текстуры будут сразу подрубаться в сцену.
+						// setCurrenTexture(links[0]);
+					}
 				})
-				.catch(err => console.log(err))
+				.catch(err => console.log(err));
 		};
 		getTexStorage();
 	}, []);
 
+	useMemo(()=> setTextureStore([...canvasTextures]), [canvasTextures])
 
+// тут проблема, что LoadTexture возвращает весь массив id, когда нужно только добавленный(позволит грамотно отслеживать и подключать к сцене при загрузке)
 	const Send = useCallback(async (img) => {
 		try {
-			const data = await api.LoadTexture(img)
-			const texes = data.data.map((id) => "https://localhost:44404/api/image/" + id)
-			setTextureStore([...texes])
-			return data
+			const data = await api.LoadTexture(img);
+			const texes = data.data.map((id) => "https://localhost:44404/api/image/" + id);
+			console.log('Loading tex: ', texes )
+			setTextureStore(texes);
+			setCurrenTexture(texes[0]);
+			return data;
 		} catch (e) {
-			console.log('error loading texture')
+			console.log('error loading texture');
 			console.error(e);
 			throw e;
 		}
@@ -48,9 +55,10 @@ export const Menu = ({
 
 	const updateTexStorage = useCallback(async () => {
 		await api.GetTextureStorage()
-			.then(newTexStore => { 
-				const links = newTexStore.data.map(id=>"https://localhost:44404/api/image/" + id)
-				setTextureStore(links); })
+			.then(newTexStore => {
+				const links = newTexStore.data.map(id => "https://localhost:44404/api/image/" + id)
+				setTextureStore(links);
+			})
 			.catch(err => console.log("Ошибка подключения к хранилищу" + err))
 	}, [])
 
@@ -61,9 +69,10 @@ export const Menu = ({
 				storage.data.map(async (store) => {
 					await api.DeleteTexture(store)
 				})
+				setCurrenTexture('');
 			})
 			.catch(err => console.log('Ошибка очистки хранилища'))
-			updateTexStorage();
+		updateTexStorage();
 	}
 
 	return (
@@ -89,7 +98,6 @@ export const Menu = ({
 							<SelectTexMenu
 								updateTexStorage={updateTexStorage}
 								textureStorage={textureStorage}
-								setTextureStore={setTextureStore}
 								texCount={texCount}
 								setTexCount={setTexCount}
 								setCurrenTexture={setCurrenTexture}
@@ -103,6 +111,7 @@ export const Menu = ({
 					</div>
 				}
 			</div>
+			
 		</>
 	);
 }
