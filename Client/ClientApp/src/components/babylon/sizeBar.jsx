@@ -29,9 +29,10 @@ import FileUploadIcon from '@mui/icons-material/FileUpload';
 	return (
 		<div className={barClasses.sizeBar}>
 			<Card className={barClasses.buttonsSizeBar}>
+
 				<div className={barClasses.button_sizeBar}>
 					<Button
-					disabled={model.big ? false : true}
+					disabled={!model.big}
 					onClick={changeBigButtonColor}
 					variant={isBigButtonClicked ? "contained" : 'outlined'}
 					sx={{ borderRadius: "10px", width:'100%', height:'100%' }}>
@@ -39,8 +40,10 @@ import FileUploadIcon from '@mui/icons-material/FileUpload';
 				</Button>
 				</div>
 				<div className={barClasses.button_sizeBar}>
-					<Button
-					disabled={model.small ? false : true}
+
+				<Button
+					disabled={!model.small}
+
 					onClick={changeSmallButtonColor}
 					variant={isSmallButtonClicked ? "contained" : 'outlined'}
 					sx={{ borderRadius: "10px", width:'100%', height:'100%' }}>

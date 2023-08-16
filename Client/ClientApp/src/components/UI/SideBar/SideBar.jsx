@@ -1,4 +1,4 @@
-﻿import {React, useState, } from 'react';
+﻿import React, {useState} from 'react';
 import {NavLink} from "reactstrap";
 import {Link} from "react-router-dom";
 import Setting from "./sidebar.utils/Setting";
@@ -10,30 +10,29 @@ import CloseSideBar from "./sidebar.utils/CloseSideBar";
 
 const SideBar = (...props) => {
     const [active, setActive] = useState(cl.close)
-    // setState()
-   
     const createAction = (newActive) => {
         setActive(newActive)
     }
     const links = ([
-        {url: "text-to-img", title: "Картина по текстовому описанию", img: "text_to_image.png"},
-        {url: null, title: "Картина из рисунка (выбрано)", img: "image_to_image.png"},
-        {url: "photo-to-img", title: "Обработка изображений с комьютера", img: "photo_to_image.png"},
+        {url: "text-to-img", title: "Картинка по текстовому описанию", img: "text_to_image.png"},
+        {url: null, title: "Картинка из рисунка (выбрано)", img: "image_to_image.png"},
+        {url: "photo-to-img", title: "Обработка изображений с компьютера", img: "photo_to_image.png"},
         {url: "frames-to-animation", title: "Создание анимации", img: "frames_to_animation.png"}
     ])
-    
+
     return (
         <div>
             <div className ={[cl.sidebar, cl.close, active].join(" ")}>
+                <h1>StableDraw</h1>
                 <CloseSideBar active={createAction}>&times;</CloseSideBar>
                 <div className = {cl.mods_of_work}>
-                    
+
                     {links.map((link, id) =>
                         <Link key={id} to={link.url} className = {cl.work_mode_href} title={link.title} style={{ borderBottomStyle: "hidden" }}>
                             <img className={cl.img} alt={link.img} srcSet={link.img}></img>
                         </Link>
-                    )};
-                    
+                    )}
+
                 </div>
                 <div className={cl.sidepanel_bottom_buttons}>
                     <Setting/>
@@ -54,7 +53,7 @@ const SideBar = (...props) => {
 
                 {/* Конец */}
 
-                <div className={cl.helpfull_links} fontSize="2px">
+                <div className={cl.helpfull_links}>
                     <div className={cl.helpfull_link}>
                         <a href="#">
                             О нас
@@ -71,7 +70,7 @@ const SideBar = (...props) => {
             <OpenSideBar active={createAction} >&#9776;</OpenSideBar>
         </div>
     );
-    
+
 };
 
 export default SideBar;

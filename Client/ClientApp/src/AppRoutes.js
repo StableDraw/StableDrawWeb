@@ -14,6 +14,7 @@ import {App1} from "./components/testUI/App1";
 import Pay from './components/Pay';
 import AgreementWindow from './components/AgreementWindow';
 
+
 const AppRoutes = [
     {
         index: true,

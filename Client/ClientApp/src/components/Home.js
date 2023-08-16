@@ -96,7 +96,6 @@ export class Home extends Component {
                                                         className='faulty-letter'>YL</span>ON</span>
                                                 </button>
                                             </NavLink>
-
                                         </div>
                                     </div>
                                 </div>
@@ -173,7 +172,6 @@ export class Home extends Component {
                                                         className='faulty-letter'>YL</span>ON</span>
                                                 </button>
                                             </NavLink>
-
                                         </div>
                                     </div>
                                 </div>

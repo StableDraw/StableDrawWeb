@@ -3,7 +3,9 @@ import cl from './ArrowsBar.module.css';
 import LeftArrow from "../modal/Arrows/LeftArrow";
 import RightArrow from "../modal/Arrows/RightArrow";
 
-const ArrowsBar = (sost,setSost) => {
+
+const ArrowsBar = () => {
+
 
     return (
         <div className={cl.bar}>
@@ -11,7 +13,7 @@ const ArrowsBar = (sost,setSost) => {
                
                 <LeftArrow/>
                 <RightArrow/>
-                
+
             </div>
         </div>
     );

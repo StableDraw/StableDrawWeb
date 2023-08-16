@@ -1,4 +1,4 @@
-﻿.top_box
+﻿﻿.top_box
 {
     position: absolute;
     display: flex;
@@ -48,6 +48,7 @@
     height: 90%;
     left: 20%;
 }
+
 .content_box2
 {
     display: flex;
@@ -104,3 +105,7 @@
     height: 60px;
     background-color: rgb(255, 255, 255);
 }
+
+
+
+

@@ -4,6 +4,7 @@ import Content from '../order/pay-sayte/content/Content';
 import Footer from '../order/pay-sayte/footer/Footer';
 import cl from '../order/pay-sayte/Pay.module.css';
 
+
 const Pay = () => {
     return (
         <div >

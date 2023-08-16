@@ -6,6 +6,7 @@ import Content from './ModalWindow/Content';
 
 
 
+
 const PayModule = () => {
 
     const [modal, setModal] = useState(false)

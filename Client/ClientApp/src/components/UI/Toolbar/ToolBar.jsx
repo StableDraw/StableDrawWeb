@@ -15,6 +15,7 @@ import ArrowsBar from "../ArrowsBar/ArrowsBar";
 
 const ToolBar = ({getRes}) => {
     const [activeBtn, setActiveBtn] = useState(null)
+
     return (
         <div className={cl.t}>
             <div className={cl.bar}>

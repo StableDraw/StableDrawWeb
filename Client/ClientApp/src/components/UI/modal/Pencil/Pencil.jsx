@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import { Modal } from '@mui/material';
 import Stack from '@mui/material/Stack';
 let resMemo=[{},{}]
+
 const Pencil = ({active, activeBtn,  getRes}) => {
 
     const [modal, setModal] = useState(false)
@@ -25,6 +26,7 @@ const Pencil = ({active, activeBtn,  getRes}) => {
     const getSmoothing = (value) => {
         setValueSmoothing(value)
     }
+
     const showPencilModal = () => {
         setModal(!modal)
     }
@@ -60,7 +62,7 @@ const Pencil = ({active, activeBtn,  getRes}) => {
                 <MyInput id='pencil' callback={getSmoothing} imgPath={"smoothing.png"} type={'smoothing'} imgClass={cl.smoothingimg}/>
             </div>
         </div>
-    )
+    );
 
 };
 

@@ -144,6 +144,7 @@ export const MainBabylon = () => {
 		setCurrentScene(scene);
 	}
 
+
 	const showModelsBar = () => {
 		setModelsBar(!isModelsBar)
 	}
@@ -186,6 +187,7 @@ export const MainBabylon = () => {
 						<div className={mainClass.modelsBox}>
 							{isModelsBar ? <ModelsBar changeModel={changeModel} /> : <SceneBar changeScene={changeScene} />}
 						</div>
+
 					</div>
 				</div>
 			</div>
