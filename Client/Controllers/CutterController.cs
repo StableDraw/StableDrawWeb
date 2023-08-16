@@ -14,27 +14,15 @@ namespace CLI.Controllers
     public class CutterController : Controller
     {
         [HttpGet]
-        public async Task<IActionResult> CutterPhoto([FromBody] string body)
+        public async Task<ReplyData> CutterPhoto([FromBody] string body)
         {
-            var client = new HttpClient();
-
             RequestData requestData = JsonConvert.DeserializeObject<RequestData>(body);
 
-            Cutter cutterfun = new Cutter();
+            CutterService cutterfun = new();
 
-            var sendReply = cutterfun.CutterFunc(requestData);
+            var sendReply = await cutterfun.CutterFunc(requestData);
 
-            ReplyData replydata = new ReplyData()
-            {
-                Id = sendReply.Id,
-                Bitmap = sendReply.Bitmap
-            };
-
-            return Ok(replydata);
+            return Ok(sendReply);
         }
     }
-
-
-
-
 }

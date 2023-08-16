@@ -28,17 +28,17 @@ namespace CLI.Services
         public Bitmap Bitmap { get; set; }
     }
 
-    public class Cutter
+    public class CutterService
     {
         // Data about image
-        public List<Point> points;
-        public Color background;
-        public Bitmap img;
+        private List<Point> points;
+        private Color background;
+        private Bitmap img;
 
         public ReplyData CutterFunc(RequestData data) // вызывать эту функцию в CutterController
         {
             Bitmap im = data.Bitmap;
-            Cutter dat = Operate(im);     // this func does everything
+            CutterService dat = Operate(im);     // this func does everything
             im = dat.img;
             //im.Save("C:\\Users\\1392680\\source\\repos\\Cutter\\res3.png", System.Drawing.Imaging.ImageFormat.Png);
 
@@ -51,9 +51,9 @@ namespace CLI.Services
             return replydata;
         }
 
-        private static Cutter Operate(Bitmap im)
+        private static CutterService Operate(Bitmap im)
         {
-            Cutter data = Getcoordinates(im);
+            CutterService data = Getcoordinates(im);
             Color back = data.background;
             List<Point> coords = data.points;
             if (coords[0].X != -1)
@@ -163,9 +163,9 @@ namespace CLI.Services
             return res;
         }
 
-        private static Cutter Getcoordinates(Bitmap img)
+        private static CutterService Getcoordinates(Bitmap img)
         {
-            Cutter result = new();
+            CutterService result = new();
             List<Point> res = new List<Point>();
             int ifnoborder = 0;
             Color background = img.GetPixel(0, 0);
