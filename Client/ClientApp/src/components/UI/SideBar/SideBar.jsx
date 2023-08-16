@@ -1,5 +1,4 @@
 ﻿import React, {useState} from 'react';
-import {NavLink} from "reactstrap";
 import {Link} from "react-router-dom";
 import Setting from "./sidebar.utils/Setting";
 import Language from "./sidebar.utils/Language";

@@ -4,11 +4,11 @@ import Button from '@mui/material/Button';
 import CheckList from './Checklist';
 import Agreement from './Agreement';
 
-function Content2() {
+const Content2 = () => {
 
     const [checked, setChecked] = React.useState(true);
 
-    function handleChange() {
+    const handleChange = () => {
         setChecked(!checked);
     };
 

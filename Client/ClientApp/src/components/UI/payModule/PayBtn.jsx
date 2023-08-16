@@ -11,7 +11,7 @@ const PayModule = () => {
 
     const [modal, setModal] = useState(false)
 
-    function showPayModal(){
+    const showPayModal = () => {
         setModal(!modal)
     }
 

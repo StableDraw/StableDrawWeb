@@ -11,7 +11,7 @@ const BabylonModule = () => {
 
     const [modal, setModal] = useState(false)
 
-    function showBabylonModal(){
+    const showBabylonModal = () =>{
         setModal(!modal)
     }
 

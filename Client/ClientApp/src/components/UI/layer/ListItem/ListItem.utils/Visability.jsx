@@ -5,7 +5,7 @@ import  cl from '.././ListItem.module.css'
 const Visability = ({ids, ...props}) => {
     const [item, setId] = useState(ids)
     const [img, setImg] = useState(true)
-    function handle() {
+    const handle = () => {
         setImg(!img);
     }
     return (

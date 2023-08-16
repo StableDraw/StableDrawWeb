@@ -2,7 +2,7 @@
 import cl from '../Pay.module.css';
 
 
-function Footer() {
+const Footer = () => {
     return (
         <div className={cl.footer}>
             Официальная информация

@@ -18,8 +18,8 @@ const ColorPalete = ({active, activeBtn, getRes,}) => {
         picker.farbtastic("#color");
     })
 
-    if(active==='palete') {
-        if(modal) {
+    if (active==='palete') {
+        if (modal) {
             rootClass.push(cl.clr_window)
         }
     }

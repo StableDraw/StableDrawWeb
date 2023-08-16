@@ -12,8 +12,8 @@ const Pencil = ({active, activeBtn,  getRes}) => {
     const [modal, setModal] = useState(false)
     const [thicknessValue, setThicknessValue] = useState(1)
     const rootClass = [cl.myModal]
-    if(active==='pencil') {
-        if(modal) {
+    if (active==='pencil') {
+        if (modal) {
             rootClass.push(cl.up_add_window)
         }
     }

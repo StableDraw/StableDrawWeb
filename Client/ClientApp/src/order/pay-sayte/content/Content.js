@@ -3,7 +3,7 @@ import cl from '../Pay.module.css';
 import Content1 from './Content1';
 import Content2 from './Content2';
 
-function Content() {
+const Content = () => {
     return (
         <div>
             <Content1/>

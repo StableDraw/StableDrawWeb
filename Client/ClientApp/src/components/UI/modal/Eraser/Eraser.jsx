@@ -12,8 +12,8 @@ const Eraser = ({active, activeBtn, getRes,}) => {
     // console.log(setActive)
     const [modal, setModal] = useState(false)
     const rootClass = [cl.myModal]
-    if(active==='eraser') {
-        if(modal) {
+    if (active==='eraser') {
+        if (modal) {
             rootClass.push(cl.up_add_window)
         }
     }

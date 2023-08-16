@@ -1,7 +1,7 @@
 import React from 'react';
 import cl from './Agree.module.css';
 
-function Content() {
+const Content = () => {
     return (
         <div className={cl.Text}>
             <header className={cl.header}>  1. Термины и определения </header>

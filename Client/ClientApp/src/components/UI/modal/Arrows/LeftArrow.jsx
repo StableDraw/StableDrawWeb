@@ -6,7 +6,7 @@ import Bucket from "../Bucket/Bucket";
 const LeftArrow = () => {
     const [modal, setModal] = useState(false)
     const rootClass = [cl.myModal]
-    if(modal) {
+    if (modal) {
         rootClass.push(cl.up_add_window)
     }
     return (

@@ -2,7 +2,7 @@ import React from 'react';
 import cl from '../Pay.module.css';
 import {Checkbox} from '@mui/material';
 
-function Agreement(props) {
+const Agreement = (props) => {
 
     return (
         <div className={cl.agreeContent}>

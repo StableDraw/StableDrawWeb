@@ -2,7 +2,7 @@ import React from 'react';
 import cl from '../Pay.module.css';
 import CheckIcon from '@mui/icons-material/Check';
 
-function CheckList() {
+const CheckList = () => {
     return (
         <div className={cl.checkList}>
             <div className={cl.check}>

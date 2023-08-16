@@ -4,11 +4,8 @@ import LableBar from "./UI/LableBar/LableBar.jsx";
 import ScaleField from "./UI/ScaleField/ScaleField.jsx";
 import GenBlock from "./UI/modal/GenBlock.jsx";
 import Canvas from "./UI/canvas/Canvas.jsx";
-import Pencil from "./UI/modal/Pencil/Pencil.jsx";
-import Eraser from "./UI/modal/Eraser/Eraser.jsx";
 import GraphicTable from "./UI/modal/GraphicTable.jsx";
 import ToolBar from "./UI/Toolbar/ToolBar.jsx";
-import Bucket from "./UI/modal/Bucket/Bucket";
 import PayModule from "./UI/payModule/PayBtn.jsx";
 import BabylonModule from "./UI/BabylonModule/BabylonBtn.jsx";
 
@@ -23,13 +20,12 @@ const Drawing = () => {
     const [background, setBackground] = useState("rgb(255, 255, 255)");
     const [drawingsArr, setDrawingsArr] = useState([background]);
 
-    function Clear(){
+    const Clear = () => {
         setBackground("rgb(255, 255, 255)");
         setDrawingsArr([background]);
         // alert(drawingsArr)
     }
 
-    const resPencil = []
 
     return (
         <div>
