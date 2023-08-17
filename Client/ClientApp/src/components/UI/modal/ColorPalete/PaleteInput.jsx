@@ -10,9 +10,10 @@ const PaleteInput = ({callback, id, type}) => {
             callback(arrRes)
         }
     }
+
     return (
         <div>
-            <input className={cl.write_window_field} type="text" value={value} onChange={(e) => setValue(e.target.value)} onMouseLeave={()=> setRes(value)} />
+            <input className={cl.colorPalete} type="color" value={value} onChange={(e) => setValue(e.target.value)} onMouseLeave={()=> setRes(value)} style={{maxWidth: 200, maxHeight: 50, minWidth: 200, minHeight: 50}}/>
         </div>
     )
 }

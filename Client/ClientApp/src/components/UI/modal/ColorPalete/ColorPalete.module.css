@@ -54,3 +54,49 @@
 .unactive {
     border: 1px solid #000;
 }
+
+/*.colorPalete{*/
+/*    width: 50px;*/
+/*    height: 50px;*/
+
+/*}*/
+.colorPalete{
+    border-radius: 0;
+    height: 60px;
+    width: 60px;
+    border: none;
+    outline: none;
+    -webkit-appearance: none;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.colorPalete::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+.colorPalete::-webkit-color-swatch {
+    border: none;
+    border-radius: 0;
+}
+
+.header
+{
+    top: 0;
+    height: 50px;
+    width: 100%;
+    text-align: center;
+}
+
+.headerText
+{
+    color: #000000;
+    position: static;
+    top: 0;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+}

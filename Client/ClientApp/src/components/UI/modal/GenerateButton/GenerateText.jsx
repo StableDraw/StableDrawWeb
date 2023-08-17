@@ -6,7 +6,6 @@ const GenerateText = () => {
             <header>
                 <div className={cl.header}>
                     <div className={cl.headerText}> Генерация </div>
-
                 </div>
             </header>
         </div>
