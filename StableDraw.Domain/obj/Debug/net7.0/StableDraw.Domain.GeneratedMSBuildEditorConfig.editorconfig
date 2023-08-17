@@ -8,4 +8,8 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = StableDraw.Domain
+<<<<<<< HEAD
 build_property.ProjectDir = E:\workFiles\programing\stableDrowFixed\StableDrawWeb\StableDraw.Domain\
+=======
+build_property.ProjectDir = C:\Users\Admin\Desktop\Roboligthing\Robomain\StableDrawWeb\StableDraw.Domain\
+>>>>>>> 34c596b95637f44dda2f7f6e523ff16176c3d070

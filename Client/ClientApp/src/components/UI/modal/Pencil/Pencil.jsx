@@ -5,6 +5,9 @@ import MyInput from '../../MyInput/MyInput';
 import Button from '@mui/material/Button';
 import { Modal } from '@mui/material';
 import Stack from '@mui/material/Stack';
+import toolState from "../../../../store/toolState";
+import Brush from "../../../../tools/Brush";
+import canvasState from "../../../../store/canvasState";
 let resMemo=[{},{}]
 const Pencil = ({active, activeBtn,  getRes}) => {
 
@@ -37,6 +40,11 @@ const Pencil = ({active, activeBtn,  getRes}) => {
             }
         }
     },[valueSmoothing,valueThickness])
+    
+    const CallPencil = () => {
+        showPencilModal()
+        toolState.setTool(new Brush(canvasState.canvas))
+    }
  
     return (
         <div style={{width:50, display:'inline'}} onClick={()=>activeBtn('pencil')}>
@@ -47,7 +55,9 @@ const Pencil = ({active, activeBtn,  getRes}) => {
                         sx={{background: "#fff"}} 
                         style={{maxWidth: 50, maxHeight: 50, minWidth: 50, minHeight: 50}} 
                         visible={modal} setVisible={setModal} variant="contained" 
-                        onClick={showPencilModal} title={'Карандаш'}>
+                        // onClick={showPencilModal} 
+                        title={'Карандаш'} 
+                        onClick={CallPencil}>
                         <img src={"pencil.png"} 
                             alt={"pencil"} 
                             style={{ width: 30, height: 30}}
