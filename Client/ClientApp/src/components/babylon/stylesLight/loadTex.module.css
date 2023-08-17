@@ -82,6 +82,33 @@
 	gap: 1px;
 }
 
+.text{
+	font-size: 15px !important;
+}
+
+.cont{
+	display: flex;
+	flex-direction: row;
+}
+.loadIcon{
+	display: none !important;
+}
+
+@media (max-width: 1350px){
+	.text{
+		display: none !important;
+	}
+
+	.loadIcon{
+		display: flex !important;
+	}
+
+	.selectTexMenu_container{
+		max-width: 100px;
+	}
+
+}
+
 /* Настройки сколлбаров */
 
 ::-webkit-scrollbar {
@@ -98,4 +125,6 @@
 	border-radius: 10px;
 	height: 10px;
 }
+
+
 

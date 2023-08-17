@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Card, Typography } from '@mui/material';
-import barClasses from './styles/bar.module.css'
+import barClasses from './stylesLight/bar.module.css'
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 
 
@@ -14,19 +14,17 @@ export const SceneCard = ({
 		changeScene(scene);
 	};
 	return (
-		<div style={{ minWidth: '70%', minHeight: 'auto' }}>
+		<div >
 			<Card className={barClasses.modelCard}>
 				<Card className={barClasses.dark}></Card>
 				<div className={barClasses.imgCard}>
 					<img
-						style={{ borderRadius: '20px', }}
+						className={barClasses.imgInside}
 						src={img}
 						alt={name}
-						width={250}
-						height={'auto'}
 					/>
 					<div className={barClasses.textCard}>
-						<Typography>{name}</Typography>
+						<Typography className={barClasses.text}>{name}</Typography>
 					</div>
 				</div>
 				<div className={barClasses.sizeBar}>

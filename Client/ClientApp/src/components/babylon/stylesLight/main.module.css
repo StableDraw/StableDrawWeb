@@ -8,6 +8,7 @@
 	/* border: 1px solid gray; */
 	/* background-color:  #1A1A1A; */
 	/* background-color: #2E2E2E; */
+	max-height: 100%;
 }
 
 .sceneBox {
@@ -24,6 +25,8 @@
 	grid-row: 1;
 	justify-content: center;
 	align-items: center;
+	height: 98%;
+	width: 98%;
 }
 
 .modelsBox {
@@ -43,6 +46,7 @@
 	grid-template-rows: 0.1fr 10fr;
 	max-height: 100vh;
 	max-width: 100vh;
+	/* visibility: hidden; */
 }
 
 .selectButtons {
@@ -108,10 +112,84 @@
 	transition: 250ms;
 }
 
-
-
 .inputCont {
 	position: relative;
 	display: inline-block;
 	overflow: hidden;
+}
+
+.barButton {
+	/* border-bottom: 1px solid gray; */
+	display: none;
+	justify-content: center;
+	align-items: center;
+	grid-row: 1;
+}
+
+.mainWide{
+	grid-template-columns: 7.8fr 0.2fr;
+	height: 100vh;
+	margin: 10px;
+	margin-bottom: 10px;
+	max-height: 100%;
+}
+.SceneBarButton{
+	grid-column: 2;
+	display: flex;
+	justify-content: flex-end;
+	align-items: flex-end;
+}
+.buttonGroup{
+	size: 20px !important;
+}
+
+.text{
+
+}
+
+@media (max-width: 1350px) {
+	.main{
+		grid-template-columns: 7.8fr 0.2fr;
+	}
+
+	.selectButtons{
+		right: -100%;
+		position: absolute;
+	}
+
+	.modelsBox{
+		position: absolute;
+		right: -100%;
+		grid-row: none;
+		grid-column: none;
+	}
+
+	.selectButtons.open {
+		right: 0;
+	}
+
+	.modelsBox.open {
+		right: 0;
+	}
+
+	.barButton{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.text{
+		font-size: 12px !important;
+	}
+
+	.tex_loadMenu{
+		justify-content: flex-start;
+	}
+
+	/* .bar{
+		position: absolute;
+		right: -80%;
+		background-color: aliceblue;
+	} */
+
 }

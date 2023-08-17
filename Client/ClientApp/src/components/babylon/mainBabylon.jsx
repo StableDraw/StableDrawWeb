@@ -3,16 +3,21 @@ import { Scene } from './Scene'
 import { useMemo, useState, useEffect } from "react";
 import { Header } from "./header";
 import api from '../../api/api'
-import mainClass from './styles/main.module.css'
-import sceneClass from './styles/scene.module.css'
+import mainClass from './stylesLight/main.module.css'
+import sceneClass from './stylesLight/scene.module.css'
 import { Menu } from "./menu";
 import { ToggleBar } from "./toggleBar";
+import ViewSidebarRoundedIcon from '@mui/icons-material/ViewSidebarRounded';
+import { Button, Typography, ButtonGroup, IconButton } from '@mui/material';
+
 
 export const MainBabylon = () => {
 	const [currentScene, setCurrentScene] = useState('');
 	const [modelType, setModelType] = useState('TypeABig');
 	const [currenTexture, setCurrenTexture] = useState('');
 	const [canvasTextures, setCanvasTextures] = useState([]);
+	const [isOpen, setIsOpen] = useState(false);
+	// const [isOpen, setIsOpen] = useState(false);
 
 	const dragStartHandler = (e) => {
 		e.preventDefault();
@@ -54,17 +59,17 @@ export const MainBabylon = () => {
 	}
 
 	const memoizedScene = useMemo(() =>
-		<div id="sceneMain"
+		<div
 			onDragLeave={e => dragLeaveHandler(e)}
 			onDrop={e => onDropHandler(e)}
 			onDragOver={e => dragStartHandler(e)}
 			className={sceneClass.canvas}>
-				{/* <div className={sceneClass.loadTexModal}>Scene modal</div> */}
+			{/* <div className={sceneClass.loadTexModal}>Scene modal</div> */}
 			<Scene
 				modelFileName={modelType}
 				sceneFileName={currentScene}
 				texture={currenTexture} />
-		</div>, [currentScene, modelType, currenTexture]);
+		</div>, [currentScene, modelType, currenTexture, isOpen]);
 
 	const changeModel = useCallback((model) => {
 		setModelType(model);
@@ -78,8 +83,15 @@ export const MainBabylon = () => {
 		<>
 			<Header />
 
-			<div>
-				<div className={mainClass.main} >
+			<div style={{position:'relative'}}>
+				<div className={ mainClass.main} >
+					{/* {
+							!isOpen && <div className={mainClass.SceneBarButton}>
+							<IconButton onClick={() => setIsOpen(true)}>
+								<ViewSidebarRoundedIcon />
+							</IconButton>
+						</div>
+						} */}
 					<div className={mainClass.sceneBox}>
 						<div className={mainClass.scene}>
 							{memoizedScene}
@@ -91,7 +103,7 @@ export const MainBabylon = () => {
 							/>
 						</div>
 					</div>
-					<ToggleBar changeModel={changeModel} changeScene={changeScene} />
+					<ToggleBar changeModel={changeModel} changeScene={changeScene} setIsOpen={setIsOpen} isOpen={isOpen} />
 				</div>
 			</div>
 		</>

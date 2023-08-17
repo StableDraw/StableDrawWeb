@@ -1,7 +1,9 @@
 import React from 'react';
 import { useState, memo } from 'react';
 import { Button, Typography, Grid, ButtonGroup, Card, Input, InputLabel, } from '@mui/material';
-import mainClass from './styles/main.module.css'
+import mainClass from './stylesLight/main.module.css'
+import loadClasses from './stylesLight/loadTex.module.css';
+import AddPhotoAlternateRoundedIcon from '@mui/icons-material/AddPhotoAlternateRounded';
 
 export const TexMenuBtn = memo(({ send }) => {
 
@@ -26,7 +28,8 @@ export const TexMenuBtn = memo(({ send }) => {
 		<div className={mainClass.btn_loadMenu}>
 			<div className={mainClass.inputCont}>
 				<InputLabel className={mainClass.inputLabel} htmlFor="file-input">
-					<Typography fontSize={15}>
+					<AddPhotoAlternateRoundedIcon className={loadClasses.loadIcon}/>
+					<Typography className={loadClasses.text}>
 						LOAD TEXTURE
 					</Typography>
 				</InputLabel>
@@ -43,11 +46,11 @@ export const TexMenuBtn = memo(({ send }) => {
 					onChange={handleFileChange}
 				/>
 			</div>
-			<Button variant="contained" sx={{ borderRadius: '10px' }} >
-				<Typography fontSize={15} >
+			{/* <Button variant="contained" sx={{ borderRadius: '10px' }} >
+				<Typography className={loadClasses.text} >
 					Send to render
 				</Typography>
-			</Button>
+			</Button> */}
 		</div>
 	);
 })

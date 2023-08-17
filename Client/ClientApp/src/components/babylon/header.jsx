@@ -2,7 +2,7 @@ import React from "react";
 import { Button, AppBar, Box, Toolbar } from '@mui/material';
 import ViewInArOutlinedIcon from '@mui/icons-material/ViewInArOutlined';
 import AspectRatioIcon from '@mui/icons-material/AspectRatio';
-import headerClasses from './styles/appBar.module.css';
+import headerClasses from './stylesLight/appBar.module.css';
 
 
 

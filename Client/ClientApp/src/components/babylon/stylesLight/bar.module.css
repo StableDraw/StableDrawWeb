@@ -20,8 +20,8 @@
 .modelCard{
 	display: flex;
 	justify-content: center;
-	box-sizing: border-box;
-	padding: 3px;
+	/* box-sizing: border-box; */
+	padding: 5px;
 	flex-direction: column;
 	border-radius: 20px !important;
 	z-index: 1001 !important;
@@ -68,7 +68,7 @@
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	padding-top: 6px;
+	padding: 10px;
 	z-index: 1002 !important;
 }
 
@@ -92,12 +92,21 @@
 }
 
 .button_sizeBar{
+	border-radius: 10px !important;
+	width: 100% !important;
+	height: 100% !important;
+}
+
+.buttonCont_sizeBar{
 	width: 50%;
 	height: 100%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	padding: 5px;
+	/* border-radius: 10px !important;
+	width: 100% !important;
+	height: 100% !important; */
 }
 
 .loadButton_sizeBar{
@@ -105,10 +114,69 @@
 	height: 50px;
 }
 
-.cont{
+.modelsCont{
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
 	padding-bottom: 100px;
-	min-width: 70%;
 }
+
+.sceneCont{
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding-bottom: 100px;
+}
+
+.imgInside{
+	width: 250px;
+	border-radius: 20px;
+	height: auto;
+}
+
+.text{
+
+}
+
+@media (max-width: 1350px){
+	.imgInside{
+		width: 100px;
+	}
+	.modelsCont{
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+
+	.text{
+		font-size: 11px !important;
+
+	}
+	.sceneCont{
+		padding-left: 15px;
+		padding-right: 15px;
+		padding-bottom: 620px;
+	}
+
+	.button_sizeBar{
+		height: 40px !important;
+		width: 20px !important;
+	}
+	.buttonCont_sizeBar{
+		width: 60%;
+		height: 100%;
+	}
+
+	.buttonsSizeBar{
+		border-radius: 10px !important;
+	}
+
+}
+@media(min-height: 870px){
+	.modelsCont{
+		padding-bottom: 100px;
+	}	
+	.sceneCont{
+		padding-bottom: 620px;
+	}
+}
+

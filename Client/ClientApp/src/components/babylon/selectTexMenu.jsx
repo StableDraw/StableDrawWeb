@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Typography, Grid, ButtonGroup, Card, IconButton, Tooltip } from '@mui/material';
-import loadClasses from './styles/loadTex.module.css';
+import loadClasses from './stylesLight/loadTex.module.css';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { TexMenuBtn } from "./texMenuBtns";
 import { useMemo, useState, useEffect, useCallback } from "react";

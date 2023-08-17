@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useRef, useState } from "react";
 import { BabylonScene } from "./babylonSceneLogic.ts";
 import { Card } from "@mui/material";
-import sceneClass from './styles/scene.module.css'
+import sceneClass from './stylesLight/scene.module.css'
 import api from '../../api/api'
 
 export const Scene = ({

@@ -1,5 +1,5 @@
 import React from 'react';
-import barClasses from './styles/bar.module.css'
+import barClasses from './stylesLight/bar.module.css'
 import { Button, Card, Typography, ToggleButtonGroup, ToggleButton } from '@mui/material';
 import { useState } from "react";
 import FileUploadIcon from '@mui/icons-material/FileUpload';
@@ -29,22 +29,26 @@ import FileUploadIcon from '@mui/icons-material/FileUpload';
 	return (
 		<div className={barClasses.sizeBar}>
 			<Card className={barClasses.buttonsSizeBar}>
-				<div className={barClasses.button_sizeBar}>
+				<div className={barClasses.buttonCont_sizeBar}>
 					<Button
+					className={barClasses.button_sizeBar}
 					disabled={model.big ? false : true}
 					onClick={changeBigButtonColor}
 					variant={isBigButtonClicked ? "contained" : 'outlined'}
-					sx={{ borderRadius: "10px", width:'100%', height:'100%' }}>
-					<Typography fontSize={14}>Big pack</Typography>
+					// sx={{ borderRadius: "10px", width:'100%', height:'100%' }}
+					>
+					<Typography className={barClasses.text}>Big pack</Typography>
 				</Button>
 				</div>
-				<div className={barClasses.button_sizeBar}>
-					<Button
+				<div className={barClasses.buttonCont_sizeBar}>
+					<Button 
+					className={barClasses.button_sizeBar}
 					disabled={model.small ? false : true}
 					onClick={changeSmallButtonColor}
 					variant={isSmallButtonClicked ? "contained" : 'outlined'}
-					sx={{ borderRadius: "10px", width:'100%', height:'100%' }}>
-					<Typography fontSize={14}>Small pack</Typography>
+					// sx={{ borderRadius: "10px", width:'100%', height:'100%' }}
+					>
+					<Typography className={barClasses.text}>Small pack</Typography>
 				</Button>
 				</div>
 				
@@ -54,7 +58,7 @@ import FileUploadIcon from '@mui/icons-material/FileUpload';
 				variant='contained'
 				className={barClasses.loadButton_sizeBar}
 				endIcon={<FileUploadIcon />}>
-				<Typography>Load scene</Typography>
+				<Typography className={barClasses.text}>Load scene</Typography>
 			</Button>
 			{!isBigButtonClicked && !isSmallButtonClicked &&
 				<Typography color={'red'} fontSize={14}> Select model size*</Typography>}

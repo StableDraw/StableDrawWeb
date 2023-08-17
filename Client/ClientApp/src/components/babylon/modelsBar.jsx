@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, AppBar, Box, Toolbar, Paper, Card } from '@mui/material';
 import { useState, memo } from "react";
 import { ModelsCard } from './modelCard'
-import barClasses from'./styles/bar.module.css'
+import barClasses from'./stylesLight/bar.module.css'
 
 
 const models = [
@@ -16,7 +16,7 @@ export const ModelsBar = memo(({changeModel}) => {
 	console.log("modelsBar rerendered");
 
 	return (
-		<div className={barClasses.cont}>
+		<div className={barClasses.modelsCont}>
 		{models.map(model => <ModelsCard
 				type = {model.type}
 				model={model.model}
