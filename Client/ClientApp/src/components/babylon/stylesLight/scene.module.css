@@ -19,12 +19,6 @@
 	grid-row: 1;
 }
 
-@media (max-width: 1350px) and (min-height: 800px) {
-	.canvas{
-		max-height: 600px;
-	}
-}
-
 .loadTexModal{
 	position: absolute;
 	background-color: black;
@@ -37,4 +31,43 @@
 	align-items: center;
 	opacity: 40%;
 	z-index: 1000;
+}
+
+.sceneModal{
+	position: absolute;
+	background-color: black;
+	color: white;
+	left: 20px;
+	top: 15px;
+	height: 20px;
+	width: 200px;
+	border-radius: 10px;
+	display: flex;
+	justify-content: space-between;
+	padding: 15px 5px 15px 10px;
+	align-items: center;
+	flex-direction: row;
+	opacity: 40%;
+	z-index: 1000;
+}
+
+.cancelBtn{
+	width: 20px !important;
+	height: 20px !important;
+	color: white !important;
+	opacity: 100%;
+}
+
+.txt{
+	color: white !important;
+	opacity: 100% !important;
+	size: 14px !important;
+}
+
+
+@media (max-width: 1350px) and (min-height: 800px) {
+	.canvas{
+		max-height: 600px;
+	}
+	
 }

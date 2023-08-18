@@ -6,7 +6,7 @@ import { ModelsBar } from "./modelsBar";
 import { SceneBar } from "./SceneBar";
 import ViewSidebarRoundedIcon from '@mui/icons-material/ViewSidebarRounded';
 
-export const ToggleBar = memo(({ changeModel, changeScene, isOpen, setIsOpen}) => {
+export const ToggleBar = memo(({ changeModel, changeScene, isOpen, setIsOpen, setSceneModal }) => {
 	const [isModelsBar, setModelsBar] = useState(true);
 
 	const showModelsBar = () => {
@@ -19,7 +19,7 @@ export const ToggleBar = memo(({ changeModel, changeScene, isOpen, setIsOpen}) =
 					<ViewSidebarRoundedIcon />
 				</IconButton>
 			</div>
-			<div className={isOpen ? mainClass.selectButtons.open : mainClass.selectButtons }>
+			<div className={isOpen ? mainClass.selectButtons.open : mainClass.selectButtons}>
 				{/* <div className={mainClass.barButton}>
 					<IconButton onClick={() => setIsOpen(false)}>
 						<ViewSidebarRoundedIcon />
@@ -39,7 +39,8 @@ export const ToggleBar = memo(({ changeModel, changeScene, isOpen, setIsOpen}) =
 				</ButtonGroup>
 			</div>
 			<div className={isOpen ? mainClass.modelsBox.open : mainClass.modelsBox}>
-				{isModelsBar ? <ModelsBar changeModel={changeModel} /> : <SceneBar changeScene={changeScene} />}
+				{isModelsBar ? <ModelsBar changeModel={changeModel} /> :
+					<SceneBar changeScene={changeScene} setSceneModal={setSceneModal} />}
 			</div>
 		</div>
 	);

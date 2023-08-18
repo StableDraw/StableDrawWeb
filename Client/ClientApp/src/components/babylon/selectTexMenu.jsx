@@ -27,7 +27,7 @@ export const SelectTexMenu = ({
 			return;
 		}
 		if (index === texCount) {
-			if (index ) {
+			if (index) {
 			setCurrenTexture(textureStorage[index - 1]);
 			setTexCount(index - 1);
 		}

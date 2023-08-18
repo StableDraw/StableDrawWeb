@@ -8,10 +8,12 @@ export const SceneCard = ({
 	name,
 	img,
 	scene,
-	changeScene
+	changeScene,
+	setSceneModal, 
 }) => {
 	const SetScene = () => {
 		changeScene(scene);
+		setSceneModal(name);
 	};
 	return (
 		<div >

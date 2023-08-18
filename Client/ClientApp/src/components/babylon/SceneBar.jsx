@@ -6,13 +6,15 @@ import { useState, memo } from "react";
 
 
 const scenes = [
-	{ id: 1, name: "Cart", img: '/babylon/imgPreviewScenes/Cart.jpeg', scene: 'Cart' },
+	{ id: 1, name: "Cart", img: '/babylon/imgPreviewScenes/Cart.jpeg', scene: 'Cart01' },
+	{ id: 2, name: "Box", img: '/babylon/imgPreviewScenes/box.png', scene: 'Box' },
 ];
 
 
 export const SceneBar = memo(({
 	toggleSceneBar,
 	changeScene,
+	setSceneModal,
 }) => {
 	console.log("sceneBar rerendered");
 	return (
@@ -24,6 +26,7 @@ export const SceneBar = memo(({
 					toggleSceneBar={toggleSceneBar}
 					key={scene.id}
 					changeScene={changeScene}
+					setSceneModal={setSceneModal}
 				/>
 				)}
 		</div>

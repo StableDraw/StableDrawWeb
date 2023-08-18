@@ -9,6 +9,8 @@ import { Menu } from "./menu";
 import { ToggleBar } from "./toggleBar";
 import ViewSidebarRoundedIcon from '@mui/icons-material/ViewSidebarRounded';
 import { Button, Typography, ButtonGroup, IconButton } from '@mui/material';
+import CancelIcon from '@mui/icons-material/Cancel';
+
 
 
 export const MainBabylon = () => {
@@ -17,7 +19,7 @@ export const MainBabylon = () => {
 	const [currenTexture, setCurrenTexture] = useState('');
 	const [canvasTextures, setCanvasTextures] = useState([]);
 	const [isOpen, setIsOpen] = useState(false);
-	// const [isOpen, setIsOpen] = useState(false);
+	const [sceneModal, setSceneModal] = useState('')
 
 	const dragStartHandler = (e) => {
 		e.preventDefault();
@@ -64,7 +66,17 @@ export const MainBabylon = () => {
 			onDrop={e => onDropHandler(e)}
 			onDragOver={e => dragStartHandler(e)}
 			className={sceneClass.canvas}>
-			{/* <div className={sceneClass.loadTexModal}>Scene modal</div> */}
+			{sceneModal && <div className={sceneClass.sceneModal}>
+				<Typography className={sceneClass.txt}>
+					{sceneModal}
+				</Typography>
+				
+				<IconButton className={sceneClass.cancelBtn}
+					onClick={() => { setSceneModal(''); setCurrentScene('') }}>
+					<CancelIcon className={sceneClass.cancelBtn} />
+				</IconButton>
+			</div>
+			}
 			<Scene
 				modelFileName={modelType}
 				sceneFileName={currentScene}
@@ -83,8 +95,8 @@ export const MainBabylon = () => {
 		<>
 			<Header />
 
-			<div style={{position:'relative'}}>
-				<div className={ mainClass.main} >
+			<div style={{ position: 'relative' }}>
+				<div className={mainClass.main} >
 					{/* {
 							!isOpen && <div className={mainClass.SceneBarButton}>
 							<IconButton onClick={() => setIsOpen(true)}>
@@ -103,7 +115,12 @@ export const MainBabylon = () => {
 							/>
 						</div>
 					</div>
-					<ToggleBar changeModel={changeModel} changeScene={changeScene} setIsOpen={setIsOpen} isOpen={isOpen} />
+					<ToggleBar
+						changeModel={changeModel}
+						changeScene={changeScene}
+						setIsOpen={setIsOpen}
+						isOpen={isOpen}
+						setSceneModal={setSceneModal} />
 				</div>
 			</div>
 		</>
