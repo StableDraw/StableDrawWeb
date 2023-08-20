@@ -46,3 +46,15 @@ D:\job\babilon\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\StableDraw.Core.dl
 D:\job\babilon\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\refint\StableDraw.Core.dll
 D:\job\babilon\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\StableDraw.Core.pdb
 D:\job\babilon\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\ref\StableDraw.Core.dll
+C:\Users\onomy\source\repos\Стартап\StableDrawWeb\StableDraw.Core\bin\Debug\net7.0\StableDraw.Core.deps.json
+C:\Users\onomy\source\repos\Стартап\StableDrawWeb\StableDraw.Core\bin\Debug\net7.0\StableDraw.Core.dll
+C:\Users\onomy\source\repos\Стартап\StableDrawWeb\StableDraw.Core\bin\Debug\net7.0\StableDraw.Core.pdb
+C:\Users\onomy\source\repos\Стартап\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\StableDraw.Core.csproj.AssemblyReference.cache
+C:\Users\onomy\source\repos\Стартап\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\StableDraw.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\onomy\source\repos\Стартап\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\StableDraw.Core.AssemblyInfoInputs.cache
+C:\Users\onomy\source\repos\Стартап\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\StableDraw.Core.AssemblyInfo.cs
+C:\Users\onomy\source\repos\Стартап\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\StableDraw.Core.csproj.CoreCompileInputs.cache
+C:\Users\onomy\source\repos\Стартап\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\StableDraw.Core.dll
+C:\Users\onomy\source\repos\Стартап\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\refint\StableDraw.Core.dll
+C:\Users\onomy\source\repos\Стартап\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\StableDraw.Core.pdb
+C:\Users\onomy\source\repos\Стартап\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\ref\StableDraw.Core.dll

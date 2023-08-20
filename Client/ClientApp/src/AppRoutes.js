@@ -79,12 +79,12 @@ const AppRoutes = [
         requireAuth: false,
         element: <MainBabylon />
     },
-    ...ApiAuthorzationRoutes,
-    // {
-    //     path: '/api',
-    //     requireAuth: false,
-    //     element: Proxy
-    // }
+    {
+        path: '/api',
+        requireAuth: false,
+        element: Proxy
+    },
+    ...ApiAuthorzationRoutes
 ];
 
 export default AppRoutes;

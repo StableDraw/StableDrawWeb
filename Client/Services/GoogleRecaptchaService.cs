@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using CLI.Settings;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using StableDraw.Core.Models;
 

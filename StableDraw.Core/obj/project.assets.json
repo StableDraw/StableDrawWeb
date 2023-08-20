@@ -768,19 +768,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Артём\\.nuget\\packages\\": {}
+    "C:\\Users\\onomy\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\workFiles\\programing\\stableDrowFixed\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj",
+      "projectUniqueName": "C:\\Users\\onomy\\source\\repos\\Стартап\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj",
       "projectName": "StableDraw.Core",
-      "projectPath": "E:\\workFiles\\programing\\stableDrowFixed\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj",
-      "packagesPath": "C:\\Users\\Артём\\.nuget\\packages\\",
-      "outputPath": "E:\\workFiles\\programing\\stableDrowFixed\\StableDrawWeb\\StableDraw.Core\\obj\\",
+      "projectPath": "C:\\Users\\onomy\\source\\repos\\Стартап\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj",
+      "packagesPath": "C:\\Users\\onomy\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\onomy\\source\\repos\\Стартап\\StableDrawWeb\\StableDraw.Core\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Артём\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\onomy\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -827,16 +827,8 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.307\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Ошибка чтения файла кэша E:\\workFiles\\programing\\stableDrowFixed\\StableDrawWeb\\StableDraw.Core\\obj\\project.nuget.cache: Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }

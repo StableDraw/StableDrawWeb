@@ -9,10 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StableDraw.Domain", "Stable
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StableDraw.Core", "StableDraw.Core\StableDraw.Core.csproj", "{9B7BDBC8-8731-4781-BA42-EA2D3915AF0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StableDraw.MinIOService", "StableDraw.MinIOService\StableDraw.MinIOService.csproj", "{68EBF260-B7CA-4AC8-BE10-C8D8ADF3E1E3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StableDraw.RabbitMQService", "StableDraw.RabbitMQService\StableDraw.RabbitMQService.csproj", "{DD3E6889-6AD5-444E-AD43-2DD194D5D938}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,14 +27,6 @@ Global
 		{9B7BDBC8-8731-4781-BA42-EA2D3915AF0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B7BDBC8-8731-4781-BA42-EA2D3915AF0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B7BDBC8-8731-4781-BA42-EA2D3915AF0B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{68EBF260-B7CA-4AC8-BE10-C8D8ADF3E1E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{68EBF260-B7CA-4AC8-BE10-C8D8ADF3E1E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{68EBF260-B7CA-4AC8-BE10-C8D8ADF3E1E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{68EBF260-B7CA-4AC8-BE10-C8D8ADF3E1E3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DD3E6889-6AD5-444E-AD43-2DD194D5D938}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DD3E6889-6AD5-444E-AD43-2DD194D5D938}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DD3E6889-6AD5-444E-AD43-2DD194D5D938}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DD3E6889-6AD5-444E-AD43-2DD194D5D938}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -5,6 +5,8 @@ using System.Net;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using CLI.Services;
 using System.Security.Claims;
+using CLI.Settings;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using StableDraw.Core.Models;
@@ -15,19 +17,6 @@ using Task = System.Threading.Tasks.Task;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-//
-// if (builder.Environment.IsDevelopment())
-// {
-//     builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(connectionString));
-// }
-// else
-// {
-//     builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString));
-// }
-//
-// builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddTransient<IEmailSender, EmailSender>();
@@ -75,6 +64,7 @@ builder.Services.AddAuthentication().AddIdentityServerJwt();
 builder.Services.AddAuthorization();
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddControllers();
 
 builder.Services.AddRazorPages();
 
@@ -114,9 +104,22 @@ builder.Services.AddHttpsRedirection(options =>
     options.HttpsPort = 443;
 });
 
-//recaptcha
+// recaptcha
 builder.Services.Configure<GoogleRecaptchaSettings>(builder.Configuration.GetSection("GoogleRecaptcha"));
 builder.Services.AddTransient<GoogleRecaptchaService>();
+
+// rabbitMQ
+builder.Services.AddMassTransit(x =>
+{
+    x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
+    {
+        cfg.Host("rabbitmq://localhost", h =>
+        {
+            h.Username("rmuser");
+            h.Password("rmpassword");
+        });
+    }));
+});
 
 builder.Services.Configure<JwtBearerOptions>("IdentityServerJwtBearer", o => o.Authority = "https://localhost:44452");
 
