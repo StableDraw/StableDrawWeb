@@ -13,8 +13,8 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
 {
     private readonly IConfiguration _configuration;
     private readonly IOptions<OperationalStoreOptions> _operationalStoreOptions;
-
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IOptions<OperationalStoreOptions> operationalStoreOptions, IConfiguration configuration) 
+    public DbSet<Image> Images { get; set; }
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IOptions<OperationalStoreOptions> operationalStoreOptions, IConfiguration configuration, DbSet<Image> images) 
         : base(options, operationalStoreOptions)
     {
         _configuration = configuration;
@@ -37,7 +37,10 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
                     schema: "AppUser"));
                 break;
             case "PostgreSQL":
-                optionsBuilder.UseNpgsql(_configuration.GetConnectionString("NpgsqlConnection"));
+                optionsBuilder.UseNpgsql(_configuration.GetConnectionString("NpgsqlConnection"), o => o.MigrationsHistoryTable(
+                    
+                    tableName: HistoryRepository.DefaultTableName,
+                    schema: "AppUser"));
                 break;
             default:
                 throw new Exception($"Unsupported provider: {provider}");

@@ -1,44 +1,64 @@
 using CLI.Contracts;
+using Duende.IdentityServer.Extensions;
 using MassTransit;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using StableDraw.Core.Models;
+using StableDraw.Domain.Repositories;
 
 namespace CLI.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/[controller]/")]
 public class ImageController : Controller
 {
     private readonly IRequestClient<IMinIORequest> _clientRequest;
     private readonly ILogger<ImageController> _logger;
-    public ImageController(IRequestClient<IMinIORequest> clientRequest, ILogger<ImageController> logger)
+    private readonly IApplicationRepository _repository;
+    private readonly UserManager<ApplicationUser> _userManager;
+
+    public ImageController(
+        IRequestClient<IMinIORequest> clientRequest, ILogger<ImageController> logger, 
+        IApplicationRepository repository, UserManager<ApplicationUser> userManager)
     {
         _clientRequest = clientRequest;
         _logger = logger;
+        _repository = repository;
+        _userManager = userManager;
     }
 
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetObject(GetObjectRequest request)
+    [HttpGet("{imageName}")]
+    public async Task<IActionResult> GetObject(string imageName)
     {
-        var response = await _clientRequest.GetResponse<GetObjectReply>(request);
+        var user = _userManager.GetUserAsync(User);
+        var image = _repository.GetImage(imageName, user.Id);
+        var response = await _clientRequest.GetResponse<GetObjectReply>(new GetObjectRequest(){ObjectId = image});
         return Ok(response.Message);
     }
 
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteObject(GetObjectRequest request)
+    [HttpDelete("{imageName}")]
+    public async Task<IActionResult> DeleteObject(string imageName)
     {
-        var response = await _clientRequest.GetResponse<DeleteObjectReply>(request);
+        var user = _userManager.GetUserAsync(User);
+        var image = _repository.GetImage(imageName, user.Id);
+        var response = await _clientRequest.GetResponse<DeleteObjectReply>( new DeleteObjectRequest(){ObjectId = image});
+        _repository.DeleteImage(imageName, user.Id);
         return Ok(response.Message);
     }
-    //
-    // [HttpGet]
-    // public IActionResult Get()
-    // {
-    // }
 
     [HttpPost]
-    public async Task<IActionResult> Post(PutObjectRequest request)
+    public async Task<IActionResult> Post(IFormFile file)
     {
-        Response<PutObjectReply> response = await _clientRequest.GetResponse<PutObjectReply>(request);
+        var user = _userManager.GetUserAsync(User);
+        var imgId = _repository.CreateImage(file.FileName, user.Id);
+        Response<PutObjectReply> response;
+        using (var memoryStream = new MemoryStream())
+        {
+            await file.CopyToAsync(memoryStream);
+            response = await _clientRequest
+                .GetResponse<PutObjectReply>(new PutObjectRequest()
+                    { ObjectId = imgId, Data = memoryStream.ToArray() });
+        }
         return Ok(response.Message);
     }
 }
