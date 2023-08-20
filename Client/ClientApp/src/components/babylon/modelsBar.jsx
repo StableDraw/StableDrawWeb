@@ -11,7 +11,7 @@ const models = [
 	{ id: 3, type: "Mini", model:{ big: 'Mini', small: ''}, img: '/babylon/imgPreviewModels/mini.jpeg' },
 	{ id: 4, type: "Mini with cap", model:{ big: 'MiniCap', small: ''}, img: '/babylon/imgPreviewModels/miniCap.jpeg' },
 ];
-export const ModelsBar = memo(({changeModel}) => {
+export const ModelsBar = memo(({changeModel, isLightTheme}) => {
 
 	console.log("modelsBar rerendered");
 
@@ -23,16 +23,9 @@ export const ModelsBar = memo(({changeModel}) => {
 				img={model.img}
 				key={model.id}
 				changeModel={changeModel}
+				isLightTheme={isLightTheme}
 				 />
 			)}
 		</div>
-
-		
-
-			// <Card className={barClasses.bar}>
-			
-
-			// </Card>
-		
 	)
 });

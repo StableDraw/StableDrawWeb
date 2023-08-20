@@ -1,12 +1,13 @@
 import React from 'react';
 import { useMemo, useState, useEffect, memo } from "react";
-import mainClass from './stylesLight/main.module.css'
+import mainClass from './stylesDark/main.module.css'
+import mainClassLight from './stylesLight/main.module.css'
 import { Button, Typography, ButtonGroup, IconButton } from '@mui/material';
 import { ModelsBar } from "./modelsBar";
 import { SceneBar } from "./SceneBar";
 import ViewSidebarRoundedIcon from '@mui/icons-material/ViewSidebarRounded';
 
-export const ToggleBar = memo(({ changeModel, changeScene, isOpen, setIsOpen, setSceneModal }) => {
+export const ToggleBar = memo(({ changeModel, changeScene, isOpen, setIsOpen, setSceneModal, isLightTheme }) => {
 	const [isModelsBar, setModelsBar] = useState(true);
 
 	const showModelsBar = () => {
@@ -16,7 +17,7 @@ export const ToggleBar = memo(({ changeModel, changeScene, isOpen, setIsOpen, se
 		<div className={mainClass.bar}>
 			<div className={mainClass.barButton}>
 				<IconButton onClick={() => setIsOpen(!isOpen)}>
-					<ViewSidebarRoundedIcon />
+					<ViewSidebarRoundedIcon className={ isLightTheme ? mainClassLight.barBtn : mainClass.barBtn} />
 				</IconButton>
 			</div>
 			<div className={isOpen ? mainClass.selectButtons.open : mainClass.selectButtons}>
@@ -39,8 +40,8 @@ export const ToggleBar = memo(({ changeModel, changeScene, isOpen, setIsOpen, se
 				</ButtonGroup>
 			</div>
 			<div className={isOpen ? mainClass.modelsBox.open : mainClass.modelsBox}>
-				{isModelsBar ? <ModelsBar changeModel={changeModel} /> :
-					<SceneBar changeScene={changeScene} setSceneModal={setSceneModal} />}
+				{isModelsBar ? <ModelsBar changeModel={changeModel} isLightTheme={isLightTheme} /> :
+					<SceneBar changeScene={changeScene} setSceneModal={setSceneModal} isLightTheme={isLightTheme} />}
 			</div>
 		</div>
 	);

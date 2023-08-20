@@ -15,6 +15,7 @@ export const SceneBar = memo(({
 	toggleSceneBar,
 	changeScene,
 	setSceneModal,
+	isLightTheme,
 }) => {
 	console.log("sceneBar rerendered");
 	return (
@@ -27,6 +28,7 @@ export const SceneBar = memo(({
 					key={scene.id}
 					changeScene={changeScene}
 					setSceneModal={setSceneModal}
+					isLightTheme={isLightTheme}
 				/>
 				)}
 		</div>

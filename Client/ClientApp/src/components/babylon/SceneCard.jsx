@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Card, Typography } from '@mui/material';
-import barClasses from './stylesLight/bar.module.css'
+import barClasses from './stylesDark/bar.module.css'
+import barClassesLight from './stylesLight/bar.module.css'
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 
 
@@ -9,7 +10,8 @@ export const SceneCard = ({
 	img,
 	scene,
 	changeScene,
-	setSceneModal, 
+	setSceneModal,
+	isLightTheme, 
 }) => {
 	const SetScene = () => {
 		changeScene(scene);
@@ -17,19 +19,19 @@ export const SceneCard = ({
 	};
 	return (
 		<div >
-			<Card className={barClasses.modelCard}>
-				<Card className={barClasses.dark}></Card>
+			<Card className={ isLightTheme ? barClassesLight.modelCard : barClasses.modelCard}>
+				<Card className={ isLightTheme ? barClassesLight.dark :  barClasses.dark}></Card>
 				<div className={barClasses.imgCard}>
 					<img
 						className={barClasses.imgInside}
 						src={img}
 						alt={name}
 					/>
-					<div className={barClasses.textCard}>
-						<Typography className={barClasses.text}>{name}</Typography>
+					<div className={isLightTheme ? barClassesLight.textCard : barClasses.textCard}>
+						<Typography className={isLightTheme ? barClassesLight.text : barClasses.text}>{name}</Typography>
 					</div>
 				</div>
-				<div className={barClasses.sizeBar}>
+				<div className={isLightTheme ? barClassesLight.sizeBar : barClasses.sizeBar}>
 					<Button
 						onClick={SetScene}
 						variant='contained'

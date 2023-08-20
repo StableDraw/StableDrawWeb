@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Typography, Grid, ButtonGroup, Card, IconButton, Tooltip } from '@mui/material';
-import loadClasses from './stylesLight/loadTex.module.css';
+import loadClasses from './stylesDark/loadTex.module.css';
+import loadClassesLight from './stylesLight/loadTex.module.css';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { TexMenuBtn } from "./texMenuBtns";
 import { useMemo, useState, useEffect, useCallback } from "react";
@@ -16,8 +17,10 @@ export const SelectTexMenu = ({
 	setTexCount,
 	textureStorage = [],
 	updateTexStorage,
+	isLightTheme,
 }) => {
 	async function deleteTex(link, index) {
+		console.log('link: ' + link);
 		await api.DeleteTexture(link.toString())
 		updateTexStorage();
 
@@ -55,10 +58,10 @@ export const SelectTexMenu = ({
 										<IconButton
 											key={tex + index}
 											sx={{ width: '20px', height: '20px', }}
-											onClick={() => {deleteTex(tex, index);}} >
+											onClick={() => {deleteTex(tex, index); console.log(tex)}} >
 											<CancelIcon
+												className={isLightTheme ? loadClassesLight.crossIcon : loadClasses.crossIcon}
 												key={index + tex + index + tex}
-												color="black"
 												sx={{ width: '20px', height: '20px' }} />
 										</IconButton>
 									</div>
@@ -77,7 +80,6 @@ export const SelectTexMenu = ({
 					</div>
 				</div>
 			</div>
-			
 		</>
 
 
