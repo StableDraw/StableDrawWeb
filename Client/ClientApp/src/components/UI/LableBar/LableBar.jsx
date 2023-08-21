@@ -10,10 +10,9 @@ const LableBar = (props) => {
         {id: Date.now()}
     ])
     const AddNewlabels = (newLayer) => {
-        SetLayer([...layers, newLayer])
-        props.Clear()
-        console.log(newLayer.id);
-        // alert(props.clear())
+        SetLayer([...layers, newLayer]);
+        props.Clear();
+        // console.log(newLayer.id);
     }
     const Removelabels = (layer) => {
         SetLayer(layers.filter(l => l.id !== layer.id))
@@ -26,7 +25,7 @@ const LableBar = (props) => {
                 {/* <Swap/> */}
                 <Add create={AddNewlabels}/>
             </div>
-               <ListLayers drawingsArr = {props.drawingsArr} Clear ={props.Clear} layers={layers} remove={Removelabels}/>
+               <ListLayers drawingsArr = {props.drawingsArr} index = {props.index} Clear ={props.Clear} layers={layers} remove={Removelabels}/>
         </div>
     );
 };

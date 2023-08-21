@@ -10,15 +10,17 @@ import Menu from './BreadCrumbs';
 
 const Head = () => {
   const buttons = [
-    <Button key="one">?</Button>,
-
-    <Button key="two">
-      <LiveHelpIcon  sx={{ fontSize: 40 }}/>
+    <Button key="one">
+      <HelpOutlineIcon sx={{ fontSize: 40 }}/> 
     </Button>,
 
-    <Button key="three">
-      <HelpOutlineIcon sx={{ fontSize: 40 }}/>
-    </Button>,
+    // <Button key="two">
+    //   <LiveHelpIcon  sx={{ fontSize: 40 }}/>
+    // </Button>,
+
+    // <Button key="three">
+    //   <HelpOutlineIcon sx={{ fontSize: 40 }}/>
+    // </Button>,
   ];
 
   return (

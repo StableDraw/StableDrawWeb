@@ -10,6 +10,7 @@ const ListItem = (props) => {
     const [isHovering, setIsHovering] = useState(true);
     // const [logoPos, setLogoPos] = useState({x:0, y:0});
 
+    let background = props.drawingsArr.find(backgrd => backgrd.id === props.index);
     // const bingLoyerPos = useDrag((params)=>{
     //     setLogoPos({
     //         x: params.offset[0],
@@ -30,7 +31,7 @@ const ListItem = (props) => {
                 
                 <div className={cl.layer_display_icon} id={"layer_display_icon_"+props.item.id}>
                     <canvas className="layer_display_canvas" id={"layer_"+props.item.id+"_display_canvas"} style={{ zIndex: 1 }}></canvas>
-                    <div className="layer_display_canvas" id={"layer_alpha_img_"+props.item.id} style={{ zIndex: 0, background: props.drawingsArr[0], backgroundRepeat: "repeat" }}></div>
+                    <div className="layer_display_canvas" id={"layer_alpha_img_"+props.item.id} style={{ zIndex: 0, background: background.backgrd }}></div>
                 </div>
             </div>
         </div>

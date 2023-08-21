@@ -9,7 +9,7 @@ const Pay = () => {
         <div >
            <Head/>
             <header className={cl.mini_header}>
-                Premium
+                Базовая подписка
             </header>
            <Content/>
            <Footer/>

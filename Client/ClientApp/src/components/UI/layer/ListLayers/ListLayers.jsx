@@ -7,7 +7,7 @@ const ListLayers = ({drawingsArr, layers, remove, ...props}) => {
     return (
         <div className={cl.layer_box}>
             {layers.map((item, index) =>
-                <ListItem drawingsArr = {drawingsArr} Clear ={props.Clear} remove={remove} key={item.id} item={item}/>
+                <ListItem drawingsArr = {drawingsArr} index = {props.index} Clear ={props.Clear} remove={remove} key={item.id} item={item}/>
             )}
         </div>
     );

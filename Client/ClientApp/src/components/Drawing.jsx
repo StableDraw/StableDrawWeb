@@ -14,15 +14,29 @@ import PayModule from "./UI/payModule/PayBtn.jsx";
 
 
 const Drawing = () => {
-    const [background, setBackground] = useState("rgb(255, 100, 100)");
-    const [drawingsArr, setDrawingsArr] = useState([background]);
+    // const [drawingsArr, setDrawingsArr] = useState(["rgb(255, 255, 255)"]);
+    // function Clear(){
+    //     setDrawingsArr(drawingsArr => [...drawingsArr, "url(alpha_pattern.png)"]);
+    // } работает, нужно масштабировать
+
+    const startSet = [
+        {id: 1, backgrd: "rgb(0, 255, 255)"},
+        {id: 2, backgrd: "rgb(255, 0, 255)"},
+        {id: 3, backgrd: "rgb(255, 255, 0)"}
+    ]
+
+    let index = 1;
+    const [drawingsArr, setDrawingsArr] = useState(startSet);
+
+    // alert(startSet[id]);
 
     function Clear(){
-        setBackground("rgb(255, 255, 255)");
-        setDrawingsArr([background]);
-        alert(drawingsArr)
+        // setDrawingsArr([["url(alpha_pattern.png)"]]);
+        // setDrawingsArr(drawingsArr => [drawingsArr].map(el => el.id === index ? ({id: el.id, backgrd: "url(alpha_pattern.png)"}) : el))
+        // console.log(drawingsArr);
+        let background = drawingsArr.find(obj => obj.id === index);
+        setDrawingsArr(drawingsArr.obj = {id: index, backgrd: "url(alpha_pattern.png)"});
     }
-
 
     return (
         <div>
@@ -32,13 +46,13 @@ const Drawing = () => {
             <div className = "subbody">
                 
                 <SideBar light={{item: '1', bla: 2}}/>
-                <LableBar drawingsArr={drawingsArr} Clear = {Clear}/>
+                <LableBar drawingsArr={drawingsArr} index = {index} Clear = {Clear}/>
                 <ScaleField />
                 
                 {/* Будет принимать компонент с изображением <GenBlock><Сам компонент /> </GenBlock>*/}
                 <GenBlock />
 
-                <Canvas drawingsArr={drawingsArr}/>
+                <Canvas drawingsArr={drawingsArr} index = {index}/>
 
                 {/*Переделать в компонент модалок У верхней менюшке*/}
                 <ColorMenu />
