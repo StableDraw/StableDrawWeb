@@ -13,16 +13,16 @@ const Text = () => {
            <div>
                 <div className={cl.points}>
                     <div> <AirplayIcon color="primary" sx={{ fontSize: 30 }}/> </div>
-                    <div className={cl.text_in_point}> Over 500+ components — everything you need to build beautiful application UIs. </div>
+                    <div className={cl.text_in_point}> Дополнительные участники: +5000 рублей каждый. </div>
                 </div>
 
                 <div className={cl.points}>
                     <div> <AccountBalanceWalletIcon color="primary" sx={{ fontSize: 30 }}/> </div>
-                    <div className={cl.text_in_point}> Over 500+ components — everything you need to build beautiful application UIs. </div>
+                    <div className={cl.text_in_point}> При приобретении первого месяца подписки- 3 бесплатные 3D модели. </div>
                 </div>
                 <div className={cl.points}>
                     <div> <AllInclusiveIcon color="primary" sx={{ fontSize: 30 }}/> </div>
-                    <div className={cl.text_in_point}> Over 500+ components — everything you need to build beautiful application UIs. </div>
+                    <div className={cl.text_in_point}> Дополнительные 3D модели: +5000 рублей за штуку.</div>
                 </div>
            </div>
     );

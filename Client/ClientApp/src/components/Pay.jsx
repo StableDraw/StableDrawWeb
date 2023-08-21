@@ -6,13 +6,10 @@ import cl from '../order/pay-sayte/Pay.module.css';
 
 const Pay = () => {
     return (
-        <div >
-           <Head/>
-            <header className={cl.mini_header}>
-                Базовая подписка
-            </header>
+        <div className={cl.backimg}>
+           {/* <Head/> */}
            <Content/>
-           <Footer/>
+           {/* <Footer/> */}
         </div>
     );
 };

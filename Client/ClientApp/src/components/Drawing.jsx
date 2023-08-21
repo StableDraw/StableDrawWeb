@@ -20,9 +20,9 @@ const Drawing = () => {
     // } работает, нужно масштабировать
 
     const startSet = [
-        {id: 1, backgrd: "rgb(0, 255, 255)"},
-        {id: 2, backgrd: "rgb(255, 0, 255)"},
-        {id: 3, backgrd: "rgb(255, 255, 0)"}
+        {id: 1, backgrd: "rgb(0, 0, 0)"},
+        {id: 2, backgrd: "rgb(0, 0, 0)"},
+        {id: 3, backgrd: "rgb(0, 0, 0)"}
     ]
 
     let index = 1;

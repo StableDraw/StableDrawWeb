@@ -1,11 +1,13 @@
 import React from 'react';
 import cl from '../Pay.module.css';
 import Button from '@mui/material/Button';
+import { cyan } from '@mui/material/colors';
 
 function Content1() {
   return (
       <div className={cl.content_box1}>
-          <header className={cl.hederText}> Представляем уникальную подписку для корпоративных клиентов:</header>
+          <header className={cl.hederText}> Premium</header>
+          <div className={cl.contentText}> Представляем уникальную подписку для корпоративных клиентов:</div>
           <div className={cl.contentText}> Цена: 49 900 рублей для 5 человек.</div>
           <div className={cl.contentText}> Дополнительные участники: +5 000 рублей каждый.</div>
           <div className={cl.contentText}> Дополнительные 3D модели: 5 000 рублей за штуку.</div>

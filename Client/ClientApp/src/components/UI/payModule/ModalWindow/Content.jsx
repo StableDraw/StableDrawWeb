@@ -13,16 +13,15 @@ const Content = () => {
 
     return (
         <div className={cl.contentBox}> 
-           <div className={cl.contentText}> 
-           <header>
-                <div className={cl.points}>
+
+                <header className={cl.headerText}> 
                     <div> <AccountCircle color="primary" sx={{ fontSize: 40 }}/> </div>
-                    <div className={cl.headerText}> Персональный </div> 
-                </div>
+                    Персональный 
+                    <div></div>
+                </header>
                 <Text/>
                 <Btn/>
-           </header>
-        </div>
+
     </div>
     );
 };
