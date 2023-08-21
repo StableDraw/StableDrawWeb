@@ -17,13 +17,17 @@ using Task = System.Threading.Tasks.Task;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDatabases();
+
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 
+builder.Services.AddScoped<UserManager<ApplicationUser>>();
+
 builder.Services.AddIdentityServer().AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
-builder.Services.AddDatabases();
+
 
 builder.Services.AddAuthentication().AddGoogle(googleOptions =>
 {

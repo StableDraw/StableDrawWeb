@@ -16,6 +16,7 @@ public class ImageController : Controller
     private readonly ILogger<ImageController> _logger;
     private readonly IApplicationRepository _repository;
     private readonly UserManager<ApplicationUser> _userManager;
+    //private readonly UserManager<IdentityUser> _userManager;
 
     public ImageController(
         IRequestClient<IMinIORequest> clientRequest, ILogger<ImageController> logger, 

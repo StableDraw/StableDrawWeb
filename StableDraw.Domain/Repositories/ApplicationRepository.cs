@@ -14,7 +14,8 @@ public class ApplicationRepository : IApplicationRepository
 
     public Guid CreateImage(string imageName, int userId)
     {
-        var img = new Image(imageName, userId);
+        //var img = new Image(imageName, userId);
+        var img = new Image(){ImageName = imageName, UserId = userId};
         _context.Images.AddAsync(img);
         return img.Oid;
     }
@@ -33,7 +34,7 @@ public class ApplicationRepository : IApplicationRepository
         _context.Images.Where(x => x.UserId == userId).Select(x => x.Oid);
 
     public void CreateImages(IEnumerable<string> imageNames, int userId) => 
-        _context.Images.AddRange(imageNames.Select(x => new Image(x, userId)));
+        _context.Images.AddRange(imageNames.Select(x => new Image(){ImageName = x, UserId = userId}));
 
     public void DeleteImages(IEnumerable<string> imageNames, int userId) =>
         _context.Images.RemoveRange(_context.Images.Where(x => imageNames.Contains(x.ImageName) && userId == x.UserId));

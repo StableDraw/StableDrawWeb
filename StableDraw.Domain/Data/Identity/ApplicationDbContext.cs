@@ -1,4 +1,5 @@
-﻿using Duende.IdentityServer.EntityFramework.Extensions;
+﻿using System.Net.Mime;
+using Duende.IdentityServer.EntityFramework.Extensions;
 using Duende.IdentityServer.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
@@ -13,8 +14,10 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
 {
     private readonly IConfiguration _configuration;
     private readonly IOptions<OperationalStoreOptions> _operationalStoreOptions;
-    public DbSet<Image> Images { get; set; }
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IOptions<OperationalStoreOptions> operationalStoreOptions, IConfiguration configuration, DbSet<Image> images) 
+    
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, 
+        IOptions<OperationalStoreOptions> operationalStoreOptions, 
+        IConfiguration configuration) 
         : base(options, operationalStoreOptions)
     {
         _configuration = configuration;
@@ -22,7 +25,8 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
         // Database.EnsureDeleted();
         // Database.EnsureCreated();                
     }
-
+    
+    public DbSet<Image> Images { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         var provider = _configuration.GetValue("Provider", "");
@@ -51,5 +55,8 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
     {
         base.OnModelCreating(builder);
         builder.ConfigurePersistedGrantContext(_operationalStoreOptions.Value);
+
+        //builder.Entity<Image>().ToTable("Images");
+        //builder.Entity<Image>()
     }
 }

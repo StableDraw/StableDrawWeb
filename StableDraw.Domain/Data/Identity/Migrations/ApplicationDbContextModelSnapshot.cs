@@ -298,6 +298,9 @@ namespace StableDraw.Domain.Data.Identity.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("Company")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("TEXT");
@@ -335,6 +338,9 @@ namespace StableDraw.Domain.Data.Identity.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime?>("SubscribeExpiration")
+                        .HasColumnType("TEXT");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("INTEGER");
 
@@ -352,6 +358,24 @@ namespace StableDraw.Domain.Data.Identity.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("StableDraw.Core.Models.Image", b =>
+                {
+                    b.Property<Guid>("Oid")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ImageName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Oid");
+
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
