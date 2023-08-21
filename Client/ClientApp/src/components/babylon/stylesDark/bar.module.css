@@ -22,6 +22,7 @@
 	justify-content: center;
 	padding: 5px;
 	flex-direction: column;
+	background-color: #3b3b3b !important;
 	border-radius: 20px !important;
 	z-index: 1001 !important;
 	position: relative;
@@ -87,7 +88,7 @@
 	padding: 10px;
 	box-shadow: none;
 	border-radius: 20px !important;
-	background-color: #cccccc !important;
+	background-color: #3b3b3b !important;
 }
 
 .button_sizeBar{
@@ -134,7 +135,7 @@
 }
 
 .text{
-
+	color: white !important;
 }
 
 @media (max-width: 1350px){

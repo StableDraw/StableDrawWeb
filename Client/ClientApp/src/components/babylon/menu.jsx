@@ -1,19 +1,20 @@
 import React from "react";
-import loadClasses from './stylesLight/loadTex.module.css';
+import loadClasses from './stylesDark/loadTex.module.css';
+import loadClassesLight from './stylesLight/loadTex.module.css';
 import { TexMenuBtn } from "./texMenuBtns";
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 // import DeleteIcon from '@mui/icons-material/Delete';
 import { Button, Typography, Grid, ButtonGroup, Card, IconButton, Tooltip } from '@mui/material';
-import mainClass from './stylesLight/main.module.css'
+import mainClass from './stylesDark/main.module.css'
+import mainClassLight from './stylesLight/main.module.css'
 import { SelectTexMenu } from "./selectTexMenu";
 import { useState, useEffect, useCallback, useMemo } from "react";
 import api from '../../api/api'
 import DeleteIcon from '@mui/icons-material/Delete';
-import sceneClass from './stylesLight/scene.module.css'
 
 
-export const Menu = ({ setCurrenTexture, canvasTextures,  }) => {
+export const Menu = ({ setCurrenTexture, canvasTextures, isLightTheme}) => {
 	const [textureStorage, setTextureStore] = useState([]);
 	const [texCount, setTexCount] = useState(0);
 
@@ -24,7 +25,7 @@ export const Menu = ({ setCurrenTexture, canvasTextures,  }) => {
 			await api.GetTextureStorage()
 				.then(res => {
 					if (res.data){
-						const links = res.data.map(id => "https://localhost:44404/api/image/" + id);
+						const links = res.data.map(id => "./api/image/" + id);
 						setTextureStore(links);
 						// если это включить, то будет лишний перерендер, но за то текстуры будут сразу подрубаться в сцену.
 						// setCurrenTexture(links[0]);
@@ -41,7 +42,7 @@ export const Menu = ({ setCurrenTexture, canvasTextures,  }) => {
 	const Send = useCallback(async (img) => {
 		try {
 			const data = await api.LoadTexture(img);
-			const texes = data.data.map((id) => "https://localhost:44404/api/image/" + id);
+			const texes = data.data.map((id) => "./api/image/" + id);
 			console.log('Loading tex: ', texes )
 			setTextureStore(texes);
 			setCurrenTexture(texes[0]);
@@ -56,7 +57,7 @@ export const Menu = ({ setCurrenTexture, canvasTextures,  }) => {
 	const updateTexStorage = useCallback(async () => {
 		await api.GetTextureStorage()
 			.then(newTexStore => {
-				const links = newTexStore.data.map(id => "https://localhost:44404/api/image/" + id)
+				const links = newTexStore.data.map(id => "./api/image/" + id)
 				setTextureStore(links);
 			})
 			.catch(err => console.log("Ошибка подключения к хранилищу" + err))
@@ -83,30 +84,25 @@ export const Menu = ({ setCurrenTexture, canvasTextures,  }) => {
 					textureStorage.length > 0 &&
 					<div className={loadClasses.cont}>
 						<div className={loadClasses.arrowDelete_selectTexMenu}>
-							{/* <IconButton onClick={changeTextureDown} >
-								<KeyboardArrowLeftIcon />
-							</IconButton> */}
 							<div>
 								<Tooltip title='Delete all textures' placement="left">
 									<IconButton onClick={cleanTexStorage}>
-										<DeleteIcon />
+										<DeleteIcon className={ isLightTheme ? loadClassesLight.deleteIcon : loadClasses.deleteIcon}/>
 									</IconButton>
 								</Tooltip>
 							</div>
 						</div>
-						<div className={loadClasses.selectTexMenu_container}>
+						<div className={ isLightTheme ? loadClassesLight.selectTexMenu_container : loadClasses.selectTexMenu_container}>
 							<SelectTexMenu
 								updateTexStorage={updateTexStorage}
 								textureStorage={textureStorage}
 								texCount={texCount}
 								setTexCount={setTexCount}
 								setCurrenTexture={setCurrenTexture}
+								isLightTheme={isLightTheme}
 							/>
 						</div>
 						<div className={loadClasses.arrow_selectTexMenu}>
-							{/* <IconButton onClick={changeTextureUp}>
-								<KeyboardArrowRightIcon />
-							</IconButton> */}
 						</div>
 					</div>
 				}

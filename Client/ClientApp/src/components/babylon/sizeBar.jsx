@@ -1,11 +1,12 @@
 import React from 'react';
-import barClasses from './stylesLight/bar.module.css'
+import barClasses from './stylesDark/bar.module.css'
+import barClassesLight from './stylesLight/bar.module.css'
 import { Button, Card, Typography, ToggleButtonGroup, ToggleButton } from '@mui/material';
 import { useState } from "react";
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 
 
- export const SizeBar = ({ changeModel, model }) => {
+ export const SizeBar = ({ changeModel, model, isLightTheme }) => {
 	const [isSmallButtonClicked, setIsSmallButtonClicked] = useState(false);
 	const [isBigButtonClicked, setIsBigButtonClicked] = useState(true);
 
@@ -27,8 +28,8 @@ import FileUploadIcon from '@mui/icons-material/FileUpload';
 			changeModel(model.big);
 	};
 	return (
-		<div className={barClasses.sizeBar}>
-			<Card className={barClasses.buttonsSizeBar}>
+		<div className={isLightTheme ? barClassesLight.sizeBar : barClasses.sizeBar}>
+			<Card className={ isLightTheme ? barClassesLight.buttonsSizeBar : barClasses.buttonsSizeBar}>
 				<div className={barClasses.buttonCont_sizeBar}>
 					<Button
 					className={barClasses.button_sizeBar}

@@ -57,7 +57,7 @@ export class BabylonScene {
 
 		return camera;
 	}
-	// Сделать таргет для камеры! Разобраться с аксисами у моделей!
+
 	async createOwnModel(
 			modelFileName: string,
 			textureFileName: string,
@@ -74,6 +74,7 @@ export class BabylonScene {
 		// this.camera.target = model.meshes[1].position;
 		
 		model.meshes.forEach((mesh) => mesh.position = new BABYLON.Vector3(0,0,0));
+		// model.meshes.forEach((mesh) => mesh.rotation = new BABYLON.Vector3(0,0,Math.PI/8));
 
 		this.engine.hideLoadingUI();
 	}

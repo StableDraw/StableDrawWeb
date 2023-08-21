@@ -1,10 +1,12 @@
-.appBar{
 
-}
 
 .buttonContainer{
 	display: flex;
 	gap: 30px;
+}
+
+.appBar{
+	background: #152A3D !important;
 }
 
 .txt{
@@ -18,7 +20,6 @@
 	gap:10px;
 	scale: 0.8;
 }
-
 
 @media (max-width: 1350px){
 	.themeToggle{

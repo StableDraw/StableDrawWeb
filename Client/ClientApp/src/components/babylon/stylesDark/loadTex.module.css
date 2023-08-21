@@ -66,8 +66,8 @@
 	max-width: 1000px;
 	border: 1px solid gray;
 	border-radius: 10px;
-	background: #e3f2fd;
-	margin-top: 10px;
+	background: #3b3b3b;
+	margin-top: 20px;
 }
 
 .arrow_selectTexMenu{
@@ -95,7 +95,12 @@
 	display: none !important;
 }
 
+.deleteIcon{
+	color: white !important;
+}
+
 .crossIcon{
+	color: white !important;
 }
 
 @media (max-width: 1350px){
