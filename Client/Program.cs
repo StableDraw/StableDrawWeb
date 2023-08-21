@@ -114,6 +114,9 @@ builder.Services.AddHttpsRedirection(options =>
 builder.Services.Configure<GoogleRecaptchaSettings>(builder.Configuration.GetSection("GoogleRecaptcha"));
 builder.Services.AddTransient<GoogleRecaptchaService>();
 
+//Cutter
+builder.Services.AddTransient<CutterService>();
+
 builder.Services.Configure<JwtBearerOptions>("IdentityServerJwtBearer", o => o.Authority = "https://localhost:44452");
 
 var app = builder.Build();
