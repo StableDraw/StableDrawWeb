@@ -8,6 +8,7 @@ import GraphicTable from "./UI/modal/GraphicTable.jsx";
 import ToolBar from "./UI/Toolbar/ToolBar.jsx";
 import PayModule from "./UI/payModule/PayBtn.jsx";
 import BabylonModule from "./UI/BabylonModule/BabylonBtn.jsx";
+import GenerateModule from "./UI/GenerateModule/GenerationBtn/GenerationBtn.jsx";
 
 
 const Drawing = () => {
@@ -48,7 +49,8 @@ const Drawing = () => {
                 <GraphicTable />
 
                 {/*НЕ ЕБУ ДЛЯ ЧЕГО*/}
-                {/*<div className="palette_nav"></div>*/} 
+                {/*<div className="palette_nav"></div>*/}
+                <GenerateModule/>
                 <BabylonModule/>
                 <PayModule/>
                 <ToolBar getRes={consol}/>

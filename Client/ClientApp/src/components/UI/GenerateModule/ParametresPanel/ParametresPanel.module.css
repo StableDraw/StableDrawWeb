@@ -1,0 +1,9 @@
+.contented{
+    position: static;
+    border: 1px solid rgb(0, 0, 0);
+    width: 1300px;
+    height: 720px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: #333333;
+}

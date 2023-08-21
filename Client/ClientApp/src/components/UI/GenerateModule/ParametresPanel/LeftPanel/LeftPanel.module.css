@@ -1,0 +1,133 @@
+.agreeWindow
+{
+    display: inline-block;
+    justify-content: center;
+    height: 720px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border-bottom-left-radius: 10px;
+    background-color: #333333;
+    border-bottom: 1px solid #000000;
+    width: 237px;
+    cursor: grab;
+
+}
+
+:root {
+    --scrollbarBg: rgba(71, 71, 71, 1);
+    --scrollbarThumb: rgba(102, 102, 102, 1);
+    --scrollbarWidth: 36px;
+    --scrollbarBorder: 8px solid var(--scrollbarBg);
+    --scrollbarBorderRadius: calc(var(--scrollbarWidth) / 2);
+
+}
+
+.agreeWindow::-webkit-scrollbar {
+    width: var(--scrollbarWidth);
+}
+.agreeWindow::-webkit-scrollbar-track {
+    background: var(--scrollbarBg);
+    border-radius: 0;
+    border: 1px solid #000000;
+
+}
+.agreeWindow::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbarThumb);
+    border-radius: var(--scrollbarBorderRadius);
+    border: var(--scrollbarBorder);
+    height:135px;
+}
+.hrLine{
+    top: 0;
+    margin-top: 0;
+    border: 5px solid rgba(0,0,0,0.85);
+}
+.header
+{
+    display: block;
+    justify-content: center;
+    font-size: large;
+}
+.Text
+{
+    width: 100%;
+    color: #ffffff;
+    display: block;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    vertical-align: middle;
+
+}
+
+.leftpanel{
+    display: inline-block;
+    position: static;
+    width: 238px;
+    height: 720px;
+    border-bottom-left-radius: 10px;
+    border: 1px solid #000000;
+}
+
+.content {
+    width: 100%;
+}
+
+.leftpanel::after {
+    content:'';
+
+    z-index: 40;
+    height: calc(100% - 10px);
+    top: 20px;
+    width: 5px;
+    background: #666;
+}
+
+.searcher{
+    width: 206px;
+    height: 67px;
+    background-color: #333333;
+    font-size: 20px;
+    color: #ffffff;
+    position: absolute;
+    display: block;
+    flex-direction: row;
+    justify-content: start;
+
+}
+
+.adding1{
+    flex-direction: column;
+    display: block;
+    margin-top: 45px;
+}
+
+.adding2{
+    flex-direction: column;
+    display: block;
+    margin-top: 64px;
+}
+
+.adding3{
+    flex-direction: column;
+    display: block;
+    margin-top: 83px;
+}
+
+.adding4{
+    flex-direction: column;
+    display: block;
+    margin-top: 102px;
+}
+
+.adding5{
+    flex-direction: column;
+    display: block;
+    margin-top: 121px;
+}
+
+.adding6{
+    flex-direction: column;
+    display: block;
+    margin-top: 140px;
+}

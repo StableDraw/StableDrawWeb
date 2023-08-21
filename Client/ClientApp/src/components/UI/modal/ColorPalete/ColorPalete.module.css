@@ -100,3 +100,41 @@
     font-size: 16px;
     font-weight: 600;
 }
+label img{
+    display: block; /* requirement */
+    /* fix */
+    pointer-events: none;
+    position: relative;
+}
+
+/* fix */
+label{
+    display: inline-block;
+    position: relative;
+}
+label::before{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+}
+
+.imgi{
+
+    display: flex;
+    vertical-align: middle;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.colori{
+
+    display: block;
+
+    margin-left: auto;
+    margin-right: auto;
+}

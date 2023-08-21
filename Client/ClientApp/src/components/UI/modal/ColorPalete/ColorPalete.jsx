@@ -1,10 +1,9 @@
 ﻿import React, {useMemo, useState, useRef} from 'react';
 import cl from './ColorPalete.module.css'
 import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
 import PaleteInput from "./PaleteInput";
 import useOnClickOutside from "./useOnClickOutside";
-import Icon from "@material-ui/core/Icon";
+import Icon from "@mui/material/Icon";
 let resMemo=[{},{}]
 const ColorPalete = ({active, activeBtn, getRes,}) => {
     const ref = useRef(null)
@@ -60,11 +59,15 @@ const ColorPalete = ({active, activeBtn, getRes,}) => {
     return (
         <div style={{width:50, display:'inline'}} onClick={()=>activeBtn('palete')}>
 
-            <Button sx={{background: "#fff"}} style={{maxWidth: 50, maxHeight: 50, minWidth: 50, minHeight: 50}} visible={modal}
-                    setVisible={setModal} variant="contained" onClick={showColorMenuModal} title={'Выбор цвета'}>
-                <img src={"palette.png"} alt={"palette"} style={{ width: 30, height: 30}}/>
-            </Button>
-
+            {/*<Button sx={{background: "#fff"}} style={{maxWidth: 50, maxHeight: 50, minWidth: 50, minHeight: 50}} visible={modal}*/}
+            {/*        setVisible={setModal} variant="contained" onClick={showColorMenuModal} title={'Выбор цвета'}>*/}
+            {/*    <label><img src={"palette.png"} alt={"palette"} style={{ width: 30, height: 30}}/>*/}
+            {/*        <input type={'color'} style={{hidden: "hidden", maxWidth: 50, maxHeight: 50, minWidth: 50, minHeight: 50}}/></label>*/}
+            {/*</Button>*/}
+            <label title={'Выбор цвета'} style={{background: "#fff", maxWidth: 50, maxHeight: 50, minWidth: 50, minHeight: 50}}>
+                <input className={cl.colori} type={'color'} onClick={showColorMenuModal} style={{background: "#fff", maxWidth: 0, maxHeight: 0, minWidth: 0, minHeight: 0}}/>
+                <img className={cl.imgi} src={"palette.png"} alt={"palette"} style={{ maxWidth: 30, maxHeight: 30, minWidth: 30, minHeight: 30}}/>
+            </label>
             <div className={rootClass.join(' ')} id="clr_window" onMouseLeave={()=> console.log('yes')}>
                 <header>
                     <div className={cl.header}>
