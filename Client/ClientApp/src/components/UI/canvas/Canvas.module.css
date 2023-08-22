@@ -1,24 +1,24 @@
-.d_frame {
-    touch-action: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    position: fixed;
-    width: 80%;
-    height: 80%;
-    padding: 10px;
-    cursor: pointer;
-    overflow: hidden;
-}
+/*.d_frame {*/
+/*    touch-action: none;*/
+/*    -webkit-user-select: none;*/
+/*    -moz-user-select: none;*/
+/*    -ms-user-select: none;*/
+/*    position: fixed;*/
+/*    width: 80%;*/
+/*    height: 80%;*/
+/*    padding: 10px;*/
+/*    cursor: pointer;*/
+/*    overflow: hidden;*/
+/*}*/
 .v_frame {
     touch-action: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    position: relative;
-    width: 100%;
-    height: 100%;
-    border: 4px solid rgb(154, 154, 154);
+    /*position: relative;*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+    /*border: 4px solid rgb(154, 154, 154);*/
 }
 .drawfield {
     touch-action: none;

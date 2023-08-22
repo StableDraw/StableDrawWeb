@@ -2,7 +2,6 @@
 
 class ToolState{
     tool = null
-    
 
     setTool(tool) {
         this.tool = tool
@@ -19,7 +18,10 @@ class ToolState{
     
     setBezieCurve(strong) {
         this.tool.bezieCurve = strong
-        console.log(strong)
+        // console.log(strong)
+    }
+    resTool() {
+        return this.tool
     }
     
 }

@@ -4,20 +4,39 @@ import LableBar from "./UI/LableBar/LableBar.jsx";
 import ScaleField from "./UI/ScaleField/ScaleField.jsx";
 import GenBlock from "./UI/modal/GenBlock.jsx";
 import Canvas from "./UI/canvas/Canvas.jsx";
-import ColorMenu from "./UI/modal/ColorMenu/ColorMenu.jsx";
-import Pencil from "./UI/modal/Pencil/Pencil.jsx";
-import Eraser from "./UI/modal/Eraser/Eraser.jsx";
 import GraphicTable from "./UI/modal/GraphicTable.jsx";
 import ToolBar from "./UI/Toolbar/ToolBar.jsx";
 import PayModule from "./UI/payModule/PayBtn.jsx";
 import BabylonModule from "./UI/BabylonModule/BabylonBtn.jsx";
+import canvasState from "../store/canvasState";
+import CanvasState from "../store/canvasState";
 const Drawing = () => {
     const [res, setRes] = useState()
     const resPencil = []
+    
+    const [label, setLabel] = useState()
     const consol = (result) => {
         setRes(result)
     }
-    console.log(res)
+    const resLabel = (res) => {
+        setLabel(res)
+    }
+
+    /*Canvas STATE*/
+    const [canvasList, setCanvasList] = useState([{
+        id: Date.now(),
+        index: 0,
+        style: {border: "4px solid rgb(154, 154, 154)", zIndex: 0, position: "absolute", backgroundColor: "white", touchAction: "none",userSelect: "none"}
+    }])
+
+    const AddNewcanva = (newCanva) => {
+        setCanvasList([...canvasList, newCanva])
+    }
+    const DeleteCanva = (data) => {
+        // пожарный случай    Setcanvas(canvas.filter(c => canvasState.getCanvasList() !== c.find(item => item.attributes[1].value === приходные данные index canvas)))
+            setCanvasList(canvasList.filter(c => c.index  !== parseInt(data)))
+    }
+
     return (
         <div>
             <h1><span style={{textDecoration: 'underline', margin: 80, color: 'rgba(204,32,32,0.8)'}}>
@@ -26,13 +45,13 @@ const Drawing = () => {
             <div className = "subbody">
                 
                 <SideBar light={{item: '1', bla: 2}}/>
-                <LableBar />
+                <LableBar deleteCanva={DeleteCanva} canva={label} newCanva={AddNewcanva}/>
                 <ScaleField />
                 
                 {/* Будет принимать компонент с изображением <GenBlock><Сам компонент /> </GenBlock>*/}
                 <GenBlock />
 
-                <Canvas width={"1080px"} height={"732px"}/>
+                <Canvas  canvasDate={canvasList} labelData={resLabel} width={"1080px"} height={"732px"}/>
 
                 {/*Переделать в компонент модалок У верхней менюшке*/}
                 {/* <ColorMenu />*/}

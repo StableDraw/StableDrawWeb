@@ -5,9 +5,9 @@ import Add from "./LableBar.utils/Add";
 import cl from "./LableBar.module.css";
 import ListLayers from "../layer/ListLayers/ListLayers.jsx";
 
-const LableBar = () => {
+const LableBar = (props) => {
     const [layers, SetLayer] = useState([
-        {id: Date.now()}
+        {id: Date.now(), index: 0}
     ])
     const AddNewlabels = (newLayer) => {
         SetLayer([...layers, newLayer])
@@ -21,9 +21,9 @@ const LableBar = () => {
             <div className="layers_buttons">
                 <Merge/>
                 <Swap/>
-                <Add create={AddNewlabels}/>
+                <Add create={AddNewlabels} canva={props.newCanva}/>
             </div>
-               <ListLayers layers={layers} remove={Removelabels}/>
+               <ListLayers deleteCanva={props.deleteCanva} canva={props.canva} layers={layers} remove={Removelabels}/>
         </div>
     );
 };

@@ -50,3 +50,21 @@
 .unactive {
     border: 1px solid #000;
 }
+
+.label__color {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.color {
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border: none;
+    transform: translateX(50%) translateY(50%);
+    bottom: 0;
+    right: 0;
+    opacity: 0;
+}

@@ -40,7 +40,6 @@ const ToolBar = ({getRes}) => {
                         activeBtn={setActiveBtn}
                         active={activeBtn}
                     />
-                    <Pipette/>
                     <Bucket />
                     <ClearPane/>
                     <UploadButton/>

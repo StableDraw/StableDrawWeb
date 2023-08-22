@@ -19,15 +19,13 @@ const Pencil = ({active, activeBtn,  getRes}) => {
             rootClass.push(cl.up_add_window)
         }
     }
-    console.log(modal)
+    // console.log(modal)
     const [valueThickness, setValueThickness] = useState({id: 'pencil', type: 'thickness', res: 1})
     const [valueSmoothing, setValueSmoothing] = useState({id: 'pencil', type: 'smoothing', res: 1})
     const getThickness = (value) => {
         setValueThickness(value)
     }
-    const getSmoothing = (value) => {
-        setValueSmoothing(value)
-    }
+
     const showPencilModal = () => {
         setModal(!modal)
     }
@@ -43,7 +41,8 @@ const Pencil = ({active, activeBtn,  getRes}) => {
     
     const CallPencil = () => {
         showPencilModal()
-        toolState.setTool(new Brush(canvasState.canvas))
+        toolState.setTool(new Brush(canvasState.getCanvas()))
+        console.log(canvasState.getCanvas())
     }
  
     return (
@@ -54,8 +53,7 @@ const Pencil = ({active, activeBtn,  getRes}) => {
                     <Button 
                         sx={{background: "#fff"}} 
                         style={{maxWidth: 50, maxHeight: 50, minWidth: 50, minHeight: 50}} 
-                        visible={modal} setVisible={setModal} variant="contained" 
-                        // onClick={showPencilModal} 
+                        visible={modal} setVisible={setModal} variant="contained"
                         title={'Карандаш'} 
                         onClick={CallPencil}>
                         <img src={"pencil.png"} 
@@ -65,9 +63,8 @@ const Pencil = ({active, activeBtn,  getRes}) => {
                     </Button>
                 </div>
             </Stack>
-            <div className={rootClass.join(' ')} id="pencil_window" onMouseLeave={()=> console.log('uraaaaaaaaa')}>
+            <div className={rootClass.join(' ')} id="pencil_window">
                 <MyInput  id='pencil' callback={getThickness} imgPath={"thickness.png"} type={'thickness'} imgClass={cl.thicknessimg}/>
-                <MyInput id='pencil' callback={getSmoothing} imgPath={"smoothing.png"} type={'smoothing'} imgClass={cl.smoothingimg}/>
             </div>
         </div>
     )
