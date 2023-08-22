@@ -3,6 +3,7 @@ import { Button, Card, Typography } from '@mui/material';
 import barClasses from './stylesDark/bar.module.css'
 import barClassesLight from './stylesLight/bar.module.css'
 import FileUploadIcon from '@mui/icons-material/FileUpload';
+import { themeDark, themeLight } from './customThemes';
 
 
 export const SceneCard = ({
@@ -33,6 +34,7 @@ export const SceneCard = ({
 				</div>
 				<div className={isLightTheme ? barClassesLight.sizeBar : barClasses.sizeBar}>
 					<Button
+						theme={isLightTheme ? themeLight : themeDark}
 						onClick={SetScene}
 						variant='contained'
 						className={barClasses.loadButton_sizeBar}

@@ -12,6 +12,7 @@
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
+	align-items: center;
 }
 
 .buttons_selectTexMenu{
@@ -25,7 +26,6 @@
 .closeButton_selectTexMenu{
 	padding-left: 40px;
 	height: 20px;
-	
 }
 
 .texImg_selectTexMenu{
@@ -64,9 +64,11 @@
 	flex-direction: row;
 	overflow-x: auto;
 	max-width: 1000px;
-	border: 1px solid gray;
+	/* border: 1px solid gray; */
+	box-shadow: 5px;
 	border-radius: 10px;
-	background: #3b3b3b;
+	background: #1D1D1D;
+	/* background: #3b3b3b; */
 	margin-top: 20px;
 }
 
@@ -101,6 +103,46 @@
 
 .crossIcon{
 	color: white !important;
+}
+
+.addIconCont{
+	width: 40px;
+	height: 100px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.addIcon{
+	width: 40px !important;
+	height: 40px !important;
+	color: rgba(255, 255, 255, 0.582) !important;
+}
+
+.addIconContMain{
+	width: 80px;
+	height: 120px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.addIconMain{
+	width: 50px !important;
+	height: 50px !important;
+	color: rgba(255, 255, 255, 0.582) !important;
+}
+
+.addIcon:hover{
+	color: rgba(255, 255, 255, 0.863) !important;
+	transition: 150ms ease-in-out !important;
+	cursor: pointer;
+}
+
+.addIconMain:hover{
+	color: rgba(255, 255, 255, 0.863) !important;
+	transition: 150ms ease-in-out !important;
+	cursor: pointer;
 }
 
 @media (max-width: 1350px){
