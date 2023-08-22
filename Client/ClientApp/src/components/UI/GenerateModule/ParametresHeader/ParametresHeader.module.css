@@ -5,7 +5,9 @@
     height: 59px;
     width: 1300px;
     background-color: rgb(71, 71, 71);
-    border: 1px solid #000000;
+    border-left: 1px solid #000000;
+    border-right: 1px solid #000000;
+    border-top: 1px solid #000000;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
@@ -13,8 +15,6 @@
 .closebtn{
     border: 1px solid #000000;
     border-radius: 5px;
-    /*top: auto;*/
-    /*left: auto;*/
     float: right;
     top: 12px;
     bottom: 12px;
@@ -28,7 +28,6 @@
     color: #ff0000;
     position: static;
     top: auto;
-    /*text-align: center;*/
     margin-top: 15px;
     margin-left: 40px;
     margin-right: auto;

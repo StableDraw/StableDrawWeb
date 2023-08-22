@@ -1,21 +1,90 @@
-import React, {useState} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
+import axios from 'axios';
 import cl from "./LeftPanel.module.css";
 import ContentTest from "./ContentTest";
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+// import NeuronItem from './NeuronItem/NeuronItem';
+
+
 const LeftPanel = () => {
+    // const [neurons, setNeurons] = useState([])
+    // const [value, setValue] = useState('')
+    // const getNeurons = () => {
+    //     axios.get("https://localhost:44404")
+    //         .then((response)=>{
+    //             setNeurons(response.data)
+    //         })
+    // }
+    // useEffect(()=>{
+    //     getNeurons()
+    // }, [])
+
+    // const filteredNeurons = neurons.filter(neuron => {
+    //     return neuron.name.toLowerCase().includes(value.toLowerCase())
+    // })
+    // const myFunction = () => {
+    //     let input, filter, ul, li, a, i;
+    //     input = document.getElementById("search_box");
+    //     filter = input.value.toUpperCase();
+    //     ul = document.getElementById("myMenu");
+    //     li = ul.getElementsByTagName("li");
+      
+        
+    //     for (i = 0; i < li.length; i++) {
+    //       a = li[i].getElementsByTagName("a")[0];
+    //       if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+    //         li[i].style.display = "";
+    //       } else {
+    //         li[i].style.display = "none";
+    //       }
+    //     }
+    // } 
     return (
         <div className={cl.leftpanel}>
             <div className={cl.content}>
                 <div className={cl.agreeWindow}>
-                    <input
-                        className={cl.searcher}
-                        type="text"
-                        id="name"
-                        name="name"
-                        required minLength="1"
-                        maxLength="100"
-                        size="100"
-                    />
+                    <div className={cl.search_container}>
+                        <input 
+                            type="text" 
+                            className={cl.search_box}
+                            required minLength="1"
+                            maxLength="100"
+                            size="100"
+                            placeholder="Search Neuron.."
+                            // onChange={(event)=>setValue(event.target.value)}
+                            // onkeyup={myFunction}
+                        />
+                        
+                        {/* <ul className={cl.myMenu}>
+                            <li><a href="#">HTML</a></li>
+                            <li><a href="#">CSS</a></li>
+                            <li><a href="#">JavaScript</a></li>
+                            <li><a href="#">PHP</a></li>
+                            <li><a href="#">Python</a></li>
+                            <li><a href="#">jQuery</a></li>
+                            <li><a href="#">SQL</a></li>
+                            <li><a href="#">Bootstrap</a></li>
+                            <li><a href="#">Node.js</a></li>
+                        </ul> */}
+                        <IconButton>
+                            <img
+                                src={"search1.webp"}
+                                alt={"search1"}
+                                style={{width: 30, height: 30, borderRadius: 100, backgroundColor: "#474747"}}
+                            />
+                        </IconButton>
+                    </div>
                     <hr className={cl.hrLine}/>
+                    {/* <div className={cl.neurons}>
+                        {
+                        filteredNeurons.map((neuron, index) => {
+                            // return(
+                            //     <NeuronItem neuron={neuron} key={index} />
+                            // )
+                        })
+                        }
+                    </div> */}
                     <ContentTest/>
                 </div>
             </div>

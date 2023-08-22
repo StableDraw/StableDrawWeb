@@ -8,6 +8,7 @@
     border-bottom-left-radius: 10px;
     background-color: #333333;
     border-bottom: 1px solid #000000;
+    border-right: 1px solid #000000;
     width: 237px;
     cursor: grab;
 
@@ -28,7 +29,7 @@
 .agreeWindow::-webkit-scrollbar-track {
     background: var(--scrollbarBg);
     border-radius: 0;
-    border: 1px solid #000000;
+   
 
 }
 .agreeWindow::-webkit-scrollbar-thumb {
@@ -37,11 +38,7 @@
     border: var(--scrollbarBorder);
     height:135px;
 }
-.hrLine{
-    top: 0;
-    margin-top: 0;
-    border: 5px solid rgba(0,0,0,0.85);
-}
+
 .header
 {
     display: block;
@@ -50,13 +47,14 @@
 }
 .Text
 {
+    display: flex;
     width: 100%;
     color: #ffffff;
     display: block;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     text-align: center;
-    vertical-align: middle;
+    border-right: 1px solid #000000;
 
 }
 
@@ -66,7 +64,7 @@
     width: 238px;
     height: 720px;
     border-bottom-left-radius: 10px;
-    border: 1px solid #000000;
+    
 }
 
 .content {
@@ -83,17 +81,48 @@
     background: #666;
 }
 
-.searcher{
-    width: 206px;
-    height: 67px;
-    background-color: #333333;
-    font-size: 20px;
-    color: #ffffff;
+.search_container {
+    background-color: #444444;
+    position: relative;
     position: absolute;
     display: block;
     flex-direction: row;
     justify-content: start;
+    border-bottom: 1px solid #000000;
+    border-bottom-right-radius: 10px;
+  }
+  .search_box {
+    background-color: transparent;
+    outline: none;
+    height: 40px;
+    font-size: 15px;
+    color: #ffffff;
+    border: 0;
+    width: 158px;
+  }
+  .search_button {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    background-color: #474747;
+    color: #474747;
+    border-radius: 50%;
+    border: 0;
+    width: 35px;
+    height: 35px;
+    outline: 0;
+  }
 
+
+
+.hrLine{
+    margin-top: 45px;
+    display: block;
+    border: 5px solid #000000;
+    flex-direction: row;
+    justify-content: start;
+    position: absolute;
+    width: 204px;
 }
 
 .adding1{
@@ -131,3 +160,20 @@
     display: block;
     margin-top: 140px;
 }
+
+/* .myMenu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .myMenu li a {
+    padding: 12px;
+    text-decoration: none;
+    color: black;
+    display: block
+  }
+  
+  .myMenu li a:hover {
+    background-color: #eee;
+  } */
