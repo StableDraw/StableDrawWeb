@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, AppBar, Box, Toolbar, Paper, Card } from '@mui/material';
 import { useState } from "react";
-import { ModelsCard } from './modelCard'
+import { NeuronsCard } from './NeuronsCard'
 import barClasses from'./styles/bar.module.css'
 
 
@@ -13,13 +13,13 @@ const neurons = [
     { id: 5, type: "DALL-E", description:"DALLE 2 — это представленная компанией OpenAI нейросеть, которая генерирует изображения, используя современные алгоритмы глубокого обучения", img: '/neurons/dall-e.webp' },
     { id: 6, type: "LoveGPT", description:"Enhance your romantic relationships with LoveGPT, an AI-powered platform that helps you initiate interesting conversations & build stronger connections", img: '/neurons/LoveGPT.jpg' },
 ];
-export const NeuronsItem = ({changeNeuron}) => {
+export const NeuronItem = ({changeNeuron}) => {
 
 	return (
 		<div className={barClasses.cont}>
-		{neurons.map(neuron => <ModelsCard
+		{neurons.map(neuron => <NeuronsCard
 				type = {neuron.type}
-				model={neuron.model}
+				description={neuron.description}
 				img={neuron.img}
 				key={neuron.id}
 				changeNeuron={changeNeuron}

@@ -1,7 +1,7 @@
 import React, {useState, useRef, useEffect} from 'react';
 import cl from './LeftPanel.module.css';
 import Button from "@mui/material/Button";
-const ContentTest = () => {
+const ContentTest = ({props}) => {
     // const allNeurons = useRef([])
     // const [neurons, setNeurons]=useState([])
     // const [input, setInput] = useState('')

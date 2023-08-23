@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import cl from "./RightPanel.module.css";
 import ParamsWindow from "./ParamsWindow/ParamsWindow";
-const RightPanel = ({setModal}) => {
+const RightPanel = ({setModal, props}) => {
+    
     return (
         <div className={cl.paramsWindow}>
             <ParamsWindow setModal={setModal}/>

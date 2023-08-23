@@ -8,8 +8,41 @@ import Tooltip from '@mui/material/Tooltip';
 import Slider from '@mui/material/Slider';
 import SettingsIcon from '@mui/icons-material/Settings';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import IconButton from '@mui/material/IconButton';
+import MyNewInput from './MyNewInput';
 
-const ParamsWindow = ({setModal}) => {
+const ParamsWindow = ({setModal, props}) => {
+    const [checked1, setChecked1] = React.useState(true);
+    const [checked2, setChecked2] = React.useState(true);
+    const [checked3, setChecked3] = React.useState(true);
+    const [checked4, setChecked4] = React.useState(true);
+    const [checked5, setChecked5] = React.useState(true);
+    const [checked6, setChecked6] = React.useState(true);
+
+    const showAdding1Modal = () => {
+        setChecked1(!checked1);
+    }
+    const showAdding2Modal = () => {
+        setChecked2(!checked2);
+    }
+    const showAdding3Modal = () => {
+        setChecked3(!checked3);
+    }
+    const showAdding4Modal = () => {
+        setChecked4(!checked4);
+    }
+    const showAdding5Modal = () => {
+        setChecked5(!checked5);
+    }
+    const showAdding6Modal = () => {
+        setChecked6(!checked6);
+    }
+
+    const [res, setRes] = useState()
+    const consol = (result) => {
+        setRes(result)
+    }
+    console.log(res)
     const fileRef = useRef();
     const handleChange1 = (e) => {
         const [file] = e.target.files;
@@ -152,26 +185,40 @@ const ParamsWindow = ({setModal}) => {
                 </div>
             </div>
             <div className={cl.parametrsWindow}>
-                <input
-                    className={cl.searcher}
-                    type="text"
-                    id="name"
-                    name="name"
-                    required minLength="1"
-                    maxLength="100"
-                    size="100"
-                />
+                <div className={cl.search_container}>
+                    <input
+                        className={cl.searcher}
+                        type="text"
+                        id="name"
+                        name="name"
+                        required minLength="1"
+                        maxLength="100"
+                        size="100"
+                        placeholder="Поиск параметров выбранной нейронки.."
+                    />
+                    <IconButton>
+                        <img
+                            src={"search1.webp"}
+                            alt={"search1"}
+                            style={{width: 25, height: 25, borderRadius: 100, backgroundColor: "#666666"}}
+                        />
+                    </IconButton>
+                </div>
                 <Button
                     className={cl.searchBtn}
                     variant="contained"
-                    sx={{background: "#474747", color: "#ffffff", fontSize: 11}}
+                    sx={{background: "#474747", color: "#ffffff", '&:hover': {backgroundColor: '#ffffff', color: '#555DD3'}, fontSize: 11}}
                 >
-                    <SettingsIcon sx={{ fontSize: 20 }}/>
+                    <img
+                        src={"saveset.png"}
+                        alt={"saveset"}
+                        style={{width: 40, height: 40, borderRadius: 2}}
+                    />
                 </Button>
-                <div className={cl.parametresWind}>
+                    <div className={cl.parametresWind}>
                     <div className={cl.bordercont}>
                         <div className={cl.Tex}>
-                            <div className={cl.pointText}> 
+                            <div className={cl.pointText1}>
                                 Params: 
                             </div>
                             <div className={cl.pointText}>
@@ -186,7 +233,7 @@ const ParamsWindow = ({setModal}) => {
                                 />
                                 <Tooltip 
                                     title={'Я подсказка'} 
-                                    placement="right-start"
+                                    placement="top"
                                 >
                                     <HelpOutlineIcon 
                                         sx={{ fontSize: 18, marginLeft: 1, marginTop: 1, cursor: "help", backgroundColor: "#000000", borderRadius: 100}}
@@ -194,9 +241,9 @@ const ParamsWindow = ({setModal}) => {
                                 </Tooltip>
                             </div>
                         </div>
-                        <div className={cl.Tex}>
+                        {/* <div className={cl.Tex}>
                             <div className={cl.pointText}>
-                                 Params1: 
+                                Params1: 
                             </div>
                             <div className={cl.pointText}>
                                 <div> 
@@ -208,7 +255,7 @@ const ParamsWindow = ({setModal}) => {
                                 <div>
                                     <Tooltip 
                                         title={'Я подсказка'} 
-                                        placement="right-start"
+                                        placement="top"
                                     >
                                         <HelpOutlineIcon 
                                             sx={{ fontSize: 18,  marginTop: 1.5, cursor: "help", backgroundColor: "#000000", borderRadius: 100}}
@@ -216,63 +263,66 @@ const ParamsWindow = ({setModal}) => {
                                     </Tooltip>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                         <div className={cl.Tex}>
-                                <div className={cl.pointText}> 
-                                    Params2: 
-                                </div>
-                                <div className={cl.pointText}>
-                                    <div>
-                                        <label className={cl.agree1}>
-                                            <select
-                                                className={cl.liststyle}
-                                                value={roomId}
-                                                onChange={e => setRoomId(e.target.value)}
-                                            >
-                                                <option 
-                                                    className={cl.opt} 
+                            <div className={cl.pointText1}> 
+                                Params2: 
+                            </div>
+                            <div className={cl.pointText}>
+                                <div>
+                                    <label className={cl.agree1}>
+                                        <select
+                                            className={cl.liststyle}
+                                            value={roomId}
+                                            onChange={e => setRoomId(e.target.value)}
+                                        >   
+                                            {/* <div className={cl.dropdown_options}>
+                                                <a href="#" value="sound">sound</a>
+                                                <a href="#" value="smoothing">smoothing</a>
+                                                <a href="#" value="brightness">brightness</a>
+                                                <a href="#" value="usability">usability</a> */}
+                                                <option  
                                                     value="sound"
                                                 >
                                                     sound
                                                 </option>
 
                                                 <option 
-                                                    className={cl.opt} 
                                                     value="smoothing"
                                                 >
                                                     smoothing
                                                 </option>
 
                                                 <option 
-                                                    className={cl.opt} 
                                                     value="brightness"
                                                 >
                                                     brightness
                                                 </option>
 
                                                 <option 
-                                                    className={cl.opt} 
                                                     value="usability"
                                                 >
                                                     usability
                                                 </option>
-                                            </select>
-                                        </label>
-                                    </div>
-                                    <div>
-                                        <Tooltip 
-                                            title={'Я подсказка'} 
-                                            placement="right-start"
-                                        >
-                                            <HelpOutlineIcon 
-                                                sx={{ fontSize: 18, marginLeft: 1, cursor: "help", backgroundColor: "#000000", borderRadius: 100}}
-                                            />
-                                        </Tooltip>
-                                    </div>
+                                            {/* </div> */}
+                                            
+                                        </select>
+                                    </label>
                                 </div>
+                                <div>
+                                    <Tooltip 
+                                        title={'Я подсказка'} 
+                                        placement="top"
+                                    >
+                                        <HelpOutlineIcon 
+                                            sx={{ fontSize: 18, marginLeft: 1, marginBottom: 0.5, cursor: "help", backgroundColor: "#000000", borderRadius: 100}}
+                                        />
+                                    </Tooltip>
+                                </div>
+                            </div>
                         </div>
                         <div className={cl.Tex}>
-                            <div className={cl.pointText}> 
+                            <div className={cl.pointText1}> 
                                 Params3: 
                             </div> 
                             <div className={cl.pointText}>
@@ -288,7 +338,7 @@ const ParamsWindow = ({setModal}) => {
                                 <div>
                                     <Tooltip 
                                         title={'Я подсказка'} 
-                                        placement="right-start"
+                                        placement="top"
                                     >
                                         <HelpOutlineIcon 
                                             sx={{ fontSize: 18, marginLeft: 1, marginTop: 0.5, cursor: "help", backgroundColor: "#000000", borderRadius: 100}}
@@ -298,22 +348,19 @@ const ParamsWindow = ({setModal}) => {
                             </div>
                         </div>   
                         <div className={cl.Tex}>
-                            <div className={cl.pointText}> 
+                            <div className={cl.pointText1}> 
                                 Params4: 
                             </div>
                             <div className={cl.pointText}>
-                                <div className={cl.slider}> 
-                                    <Slider 
-                                        size="small" 
-                                        aria-label="Small"  
-                                        defaultValue={70} 
-                                        valueLabelDisplay="auto"
-                                    />
+                                
+                                <div className={cl.slider}>
+                                    <MyNewInput id='slider' callback={consol}/>
                                 </div>
+                                
                                 <div>
                                     <Tooltip 
                                         title={'Я подсказка'} 
-                                        placement="right-start"
+                                        placement="top"
                                     >
                                         <HelpOutlineIcon 
                                             sx={{ fontSize: 18, marginLeft: 1.5, cursor: "help", backgroundColor: "#000000", borderRadius: 100}}
@@ -324,10 +371,11 @@ const ParamsWindow = ({setModal}) => {
                         </div>
                     </div>
                 </div>
+                
                 <Button
                     className={cl.cancelBtn}
                     variant="contained"
-                    sx={{background: "#474747", color: "#ffffff", fontSize: 14}} 
+                    sx={{background: "#474747", '&:hover': {backgroundColor: '#ffffff', color: '#555DD3'}, color: "#ffffff", fontSize: 14}} 
                     onClick={()=>setModal(false)}
                 >
                     Отмена

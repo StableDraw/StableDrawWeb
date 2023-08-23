@@ -83,15 +83,16 @@
 
 .search_container {
     background-color: #444444;
-    position: relative;
     position: absolute;
     display: block;
     flex-direction: row;
     justify-content: start;
     border-bottom: 1px solid #000000;
     border-bottom-right-radius: 10px;
-  }
-  .search_box {
+    
+}
+
+.search_box {
     background-color: transparent;
     outline: none;
     height: 40px;
@@ -99,20 +100,8 @@
     color: #ffffff;
     border: 0;
     width: 158px;
-  }
-  .search_button {
-    position: absolute;
-    right: 4px;
-    top: 4px;
-    background-color: #474747;
-    color: #474747;
-    border-radius: 50%;
-    border: 0;
-    width: 35px;
-    height: 35px;
-    outline: 0;
-  }
-
+    padding-left: 10px;
+}
 
 
 .hrLine{

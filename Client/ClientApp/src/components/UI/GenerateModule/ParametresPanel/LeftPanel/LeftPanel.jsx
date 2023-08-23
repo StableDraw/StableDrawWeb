@@ -4,10 +4,11 @@ import cl from "./LeftPanel.module.css";
 import ContentTest from "./ContentTest";
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-// import NeuronItem from './NeuronItem/NeuronItem';
+// import NeuronItem from './NeuronItem';
 
 
-const LeftPanel = () => {
+const LeftPanel = ({props}) => {
+    
     // const [neurons, setNeurons] = useState([])
     // const [value, setValue] = useState('')
     // const getNeurons = () => {
@@ -23,23 +24,7 @@ const LeftPanel = () => {
     // const filteredNeurons = neurons.filter(neuron => {
     //     return neuron.name.toLowerCase().includes(value.toLowerCase())
     // })
-    // const myFunction = () => {
-    //     let input, filter, ul, li, a, i;
-    //     input = document.getElementById("search_box");
-    //     filter = input.value.toUpperCase();
-    //     ul = document.getElementById("myMenu");
-    //     li = ul.getElementsByTagName("li");
-      
-        
-    //     for (i = 0; i < li.length; i++) {
-    //       a = li[i].getElementsByTagName("a")[0];
-    //       if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
-    //         li[i].style.display = "";
-    //       } else {
-    //         li[i].style.display = "none";
-    //       }
-    //     }
-    // } 
+    
     return (
         <div className={cl.leftpanel}>
             <div className={cl.content}>
@@ -51,7 +36,7 @@ const LeftPanel = () => {
                             required minLength="1"
                             maxLength="100"
                             size="100"
-                            placeholder="Search Neuron.."
+                            placeholder="Поиск нейронок.."
                             // onChange={(event)=>setValue(event.target.value)}
                             // onkeyup={myFunction}
                         />
@@ -85,7 +70,8 @@ const LeftPanel = () => {
                         })
                         }
                     </div> */}
-                    <ContentTest/>
+                    <ContentTest 
+                    />
                 </div>
             </div>
         </div>
