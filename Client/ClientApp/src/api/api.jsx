@@ -13,9 +13,7 @@ export default class Textures{
 			const id = linkToTexture.split("/");
 			return await axios.delete("api/image/" + id[5]);
 		}
-			
 		return await axios.delete("api/image/" + linkToTexture);
-		
 	}
 
 	static async GetTextureStorage(){

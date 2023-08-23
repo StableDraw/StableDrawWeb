@@ -6,7 +6,7 @@ import { Modal } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import MyInput from '../../MyInput/MyInput';
 import Content1 from "../../BabylonModule/Content1";
-const ColorPalete = ({active, activeBtn, getRes,}) => {
+const ColorPalete = ({active, activeBtn}) => {
     const [modal, setModal] = useState(false)
 
     const rootClass = [cl.myModal]
@@ -32,11 +32,20 @@ const ColorPalete = ({active, activeBtn, getRes,}) => {
             <div className="cursor">
                 <img className="cursimg" alt="cursimg" style={{ width: "30px", height: "30px" }}></img>
             </div>
-            <Stack spacing={1} direction="row">
-                <div>
-                    <Button sx={{background: "#fff"}} style={{maxWidth: 50, maxHeight: 50, minWidth: 50, minHeight: 50}} visible={modal} setVisible={setModal} variant="contained" onClick={showColorMenuModal} title={'Выбор цвета'}><img src={"palette.png"} alt={"palette"} style={{ width: 30, height: 30}}/> </Button>
-                    
-                </div>
+            <Stack spacing={1} direction="row"> 
+                <Button 
+                    sx={{background: "#fff"}} 
+                    style={{maxWidth: 50, maxHeight: 50, minWidth: 50, minHeight: 50}} 
+                    visible={modal} 
+                    setVisible={setModal} 
+                    variant="contained" 
+                    onClick={showColorMenuModal} 
+                    title={'Выбор цвета'}>
+                        <img src={"palette.png"} 
+                            alt={"palette"} 
+                            style={{ width: 30, height: 30}}
+                        /> 
+                </Button>   
             </Stack>
             
             <div className={rootClass.join(' ')} id="clr_window">

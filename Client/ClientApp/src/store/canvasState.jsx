@@ -2,15 +2,16 @@
 
 class CanvasState {
     canvas = null
+
     undoList = []
     redoList = []
-    
     setCanvas(canvas) {
         this.canvas = canvas
     }
 
     pushToUndo(data) {
         this.undoList.push(data)
+        this.redoList = []
     }
 
     pushToRedo(data) {
@@ -30,7 +31,8 @@ class CanvasState {
             }
         } else {
             ctx.clearRect(0, 0, this.canvas.width, this.canvas.heigth)
-        }
+        } 
+        console.log(`undo:${this.undoList}`)
     }
 
     redo() {
@@ -45,6 +47,7 @@ class CanvasState {
                 ctx.drawImage(img, 0, 0, this.canvas.width, this.canvas.height)
             }
         }
+        console.log(`redo: ${this.redoList}`)
     }
 
 }

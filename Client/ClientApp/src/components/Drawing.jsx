@@ -11,13 +11,9 @@ import GraphicTable from "./UI/modal/GraphicTable.jsx";
 import ToolBar from "./UI/Toolbar/ToolBar.jsx";
 import PayModule from "./UI/payModule/PayBtn.jsx";
 import BabylonModule from "./UI/BabylonModule/BabylonBtn.jsx";
+import ToolOptionsBar from './UI/ToolOptionsBar/ToolOptionsBar.jsx';
 const Drawing = () => {
-    const [res, setRes] = useState()
-    const resPencil = []
-    const consol = (result) => {
-        setRes(result)
-    }
-    console.log(res)
+  
     return (
         <div>
             <h1><span style={{textDecoration: 'underline', margin: 80, color: 'rgba(204,32,32,0.8)'}}>
@@ -28,23 +24,18 @@ const Drawing = () => {
                 <SideBar light={{item: '1', bla: 2}}/>
                 <LableBar />
                 <ScaleField />
-                
-                {/* Будет принимать компонент с изображением <GenBlock><Сам компонент /> </GenBlock>*/}
+                <ToolOptionsBar/>
                 <GenBlock />
 
                 <Canvas width={"1080px"} height={"732px"}/>
 
-                {/*Переделать в компонент модалок У верхней менюшке*/}
-                {/* <ColorMenu />*/}
-                {/* <Pencil />
-                <Eraser /> */}
+               
                 <GraphicTable />
 
-                {/*НЕ ЕБУ ДЛЯ ЧЕГО*/}
-                {/*<div className="palette_nav"></div>*/} 
+                
                 <BabylonModule/>
                 <PayModule/>
-                <ToolBar getRes={consol}/>
+                <ToolBar/>
             </div>
         </div>
     );

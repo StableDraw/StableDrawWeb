@@ -18,17 +18,15 @@ const Canvas = ({width, height}) => {
     return (
         <div className={cl.d_frame} id="d_frame">
             <div className={cl.v_frame}  id="v_frame">
-                <canvas 
+                <canvas
                     onMouseDown={() => mouseDownHandler()} 
-                    ref={canvasRef} 
-                    width={width} 
+                    ref={canvasRef}
+                    width={width}
                     height={height} 
-                    // className={cl.drawfield} 
+                    className={cl.drawfield} 
                     id="canvas_background" 
                     style={{ zIndex: 8 }}>
-                    
                 </canvas>
-                {/*<div className={cl.drawfield} id="alpha_img" style={{ zIndex: 7, backgroundImage: "url(alpha_pattern.png)", backgroundRepeat: "repeat" }}></div>*/}
             </div>
         </div>
     );

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\job\\babilon\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj": {}
+    "C:\\Users\\Сергей\\Desktop\\job\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj": {}
   },
   "projects": {
-    "D:\\job\\babilon\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj": {
+    "C:\\Users\\Сергей\\Desktop\\job\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\job\\babilon\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj",
+        "projectUniqueName": "C:\\Users\\Сергей\\Desktop\\job\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj",
         "projectName": "StableDraw.Core",
-        "projectPath": "D:\\job\\babilon\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj",
+        "projectPath": "C:\\Users\\Сергей\\Desktop\\job\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj",
         "packagesPath": "C:\\Users\\Сергей\\.nuget\\packages\\",
-        "outputPath": "D:\\job\\babilon\\StableDrawWeb\\StableDraw.Core\\obj\\",
+        "outputPath": "C:\\Users\\Сергей\\Desktop\\job\\StableDrawWeb\\StableDraw.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Сергей\\AppData\\Roaming\\NuGet\\NuGet.Config",

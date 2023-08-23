@@ -2,7 +2,6 @@
 
 class ToolState{
     tool = null
-    
 
     setTool(tool) {
         this.tool = tool
