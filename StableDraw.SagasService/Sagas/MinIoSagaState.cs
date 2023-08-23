@@ -3,7 +3,7 @@ using MassTransit;
 
 namespace StableDraw.SagasService.Sagas;
 
-public class MinIoSagaState : MassTransit.SagaStateMachineInstance
+public sealed class MinIoSagaState : MassTransit.SagaStateMachineInstance
 {
     public Guid CorrelationId { get; set; }
     public string? CurrentState { get; set; }

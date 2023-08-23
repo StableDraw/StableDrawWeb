@@ -4,17 +4,19 @@ using StableDraw.Contracts;
 
 namespace StableDraw.SagasService.Sagas;
 
-public class MinIoSaga : MassTransitStateMachine<MinIoSagaState>
+public sealed class MinIoSaga : MassTransitStateMachine<MinIoSagaState>
 {
     private readonly ILogger<MinIoSaga> _logger;
-
-    [Obsolete("Obsolete")]
+    
     public MinIoSaga(ILogger<MinIoSaga> logger)
     {
         _logger = logger;
+        //GetObjectEvent = Event<GetObjectMinIoRequest>("GetObjectEvent");
+        // PutObjectEvent = new MessageEvent<PutObjectMinIoRequest>("PutObjectEvent");
+        // DeleteObjectEvent = new MessageEvent<DeleteObjectMinIoRequest>("DeleteObjectEvent");
         InstanceState(x => x.CurrentState);
         
-        Event<GetObjectMinIoRequest>(() => 
+        Event(() => 
             GetObjectEvent, x => 
             x.CorrelateById(y => y.Message.OrderId));
 
@@ -51,7 +53,7 @@ public class MinIoSaga : MassTransitStateMachine<MinIoSagaState>
                     throw new Exception("Unable to retrieve required getImage for callback data.");
                 x.Saga.RequestId = putImage.RequestId;
                 x.Saga.ResponseAddress = putImage.ResponseAddress;
-
+            
             }).Request(PutObject, x => x.Init<IPutObjectRequest>(new
             {
                 OrderId = x.Message.OrderId,
@@ -65,7 +67,7 @@ public class MinIoSaga : MassTransitStateMachine<MinIoSagaState>
                     throw new Exception("Unable to retrieve required getImage for callback data.");
                 x.Saga.RequestId = deleteImage.RequestId;
                 x.Saga.ResponseAddress = deleteImage.ResponseAddress;
-
+            
             }).Request(DeleteObject, x => x.Init<IDeleteObjectRequest>(new
             {
                 OrderId = x.Message.OrderId,
@@ -138,9 +140,9 @@ public class MinIoSaga : MassTransitStateMachine<MinIoSagaState>
     public Request<MinIoSagaState, IPutObjectRequest, IPutObjectReply> PutObject { get; set; }
     public Request<MinIoSagaState, IDeleteObjectRequest, IDeleteObjectReply> DeleteObject { get; set; }
 
-    public Event<GetObjectMinIoRequest> GetObjectEvent;
-    public Event<PutObjectMinIoRequest> PutObjectEvent;
-    public Event<DeleteObjectMinIoRequest> DeleteObjectEvent;
+    public Event<GetObjectMinIoRequest> GetObjectEvent { get; set; }
+    public Event<PutObjectMinIoRequest> PutObjectEvent { get; set; }
+    public Event<DeleteObjectMinIoRequest> DeleteObjectEvent { get; set; }
     public State Failed { get; set; }
     private static async Task RespondFromSaga<T>(BehaviorContext<MinIoSagaState, T> context, string error) where T : class
     {

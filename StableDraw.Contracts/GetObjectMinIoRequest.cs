@@ -1,6 +1,6 @@
 ﻿namespace StableDraw.Contracts;
 
-public record GetObjectMinIoRequest
+public class GetObjectMinIoRequest
 {
     public Guid OrderId { get; set; }
     public string? ErrorMsg { get; set; }

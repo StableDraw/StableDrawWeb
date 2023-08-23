@@ -5,7 +5,6 @@ using Serilog;
 using StableDraw.SagasService;
 using StableDraw.SagasService.Sagas;
 
-
 var builder = WebApplication.CreateBuilder(args);
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Debug()
@@ -24,9 +23,9 @@ Log.Logger = new LoggerConfiguration()
 builder.Host.UseSerilog();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-
+builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<SagasDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("default")));
+    options.UseSqlite(builder.Configuration.GetConnectionString("default")));
 builder.Services.AddMassTransit(cfg =>
 {
     cfg.SetKebabCaseEndpointNameFormatter();
@@ -37,9 +36,11 @@ builder.Services.AddMassTransit(cfg =>
             r.ConcurrencyMode = ConcurrencyMode.Pessimistic;
             r.ExistingDbContext<SagasDbContext>();
             r.LockStatementProvider = new PostgresLockStatementProvider();
+            
         });
     cfg.UsingRabbitMq((brc, rbfc) =>
     {
+        rbfc.UseInMemoryOutbox();
         rbfc.UseMessageRetry(r => { r.Incremental(3, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1)); });
         rbfc.UseDelayedMessageScheduler();
         rbfc.Host("localhost", h =>

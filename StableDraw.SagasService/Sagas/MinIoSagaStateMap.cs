@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace StableDraw.SagasService.Sagas;
 
-public class MinIoSagaStateMap : SagaClassMap<MinIoSagaState>
+public sealed class MinIoSagaStateMap : SagaClassMap<MinIoSagaState>
 {
     protected override void Configure(EntityTypeBuilder<MinIoSagaState> entity, ModelBuilder model)
     {
