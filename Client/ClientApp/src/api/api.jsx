@@ -5,12 +5,12 @@ export default class Textures {
 	static async LoadTexture(file) {
 		const url = "api/image"
 		const token = await AuthorizeService.getAccessToken();
-		if (token) {
-			file.append('token', token)
-		}
+		// if (token) {
+		// 	file.append('token', token)
+		// }
 		console.log('token: ', token)
-		await axios.post(url, file);
-		return axios.get(url);
+		return  await axios.post(url, file);
+		//return axios.get(url);
 	}
 
 	static async DeleteTexture(linkToTexture) {

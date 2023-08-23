@@ -1,8 +1,7 @@
-using CLI.Contracts;
-using Duende.IdentityServer.Extensions;
 using MassTransit;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using StableDraw.Contracts;
 using StableDraw.Core.Models;
 using StableDraw.Domain.Repositories;
 
@@ -12,28 +11,28 @@ namespace CLI.Controllers;
 [Route("api/[controller]/")]
 public class ImageController : Controller
 {
-    private readonly IRequestClient<IMinIORequest> _clientRequest;
+    private readonly IBus _bus;
     private readonly ILogger<ImageController> _logger;
     private readonly IApplicationRepository _repository;
     private readonly UserManager<ApplicationUser> _userManager;
-    //private readonly UserManager<IdentityUser> _userManager;
 
     public ImageController(
-        IRequestClient<IMinIORequest> clientRequest, ILogger<ImageController> logger, 
-        IApplicationRepository repository, UserManager<ApplicationUser> userManager)
+         ILogger<ImageController> logger, 
+        IApplicationRepository repository, UserManager<ApplicationUser> userManager, IBus bus)
     {
-        _clientRequest = clientRequest;
         _logger = logger;
         _repository = repository;
         _userManager = userManager;
+        _bus = bus;
     }
 
-    [HttpGet("{imageName}")]
+    [HttpGet]
     public async Task<IActionResult> GetObject(string imageName)
     {
         var user = _userManager.GetUserAsync(User);
         var image = _repository.GetImage(imageName, user.Id);
-        var response = await _clientRequest.GetResponse<GetObjectReply>(new GetObjectRequest(){ObjectId = image});
+        var response = await _bus.Request<GetObjectMinIoRequest, GetObjectMinIoReply>(new GetObjectRequestModel()
+            {ObjectId = image, OrderId = Guid.NewGuid()});
         return Ok(response.Message);
     }
 
@@ -42,7 +41,9 @@ public class ImageController : Controller
     {
         var user = _userManager.GetUserAsync(User);
         var image = _repository.GetImage(imageName, user.Id);
-        var response = await _clientRequest.GetResponse<DeleteObjectReply>( new DeleteObjectRequest(){ObjectId = image});
+        var response = 
+            await _bus.Request<DeleteObjectMinIoRequest, DeleteObjectMinIoReply>(new DeleteObjectRequestModel()
+                { ObjectId = image, OrderId = Guid.NewGuid()});
         _repository.DeleteImage(imageName, user.Id);
         return Ok(response.Message);
     }
@@ -52,14 +53,14 @@ public class ImageController : Controller
     {
         var user = _userManager.GetUserAsync(User);
         var imgId = _repository.CreateImage(file.FileName, user.Id);
-        Response<PutObjectReply> response;
+        Response<PutObjectMinIoReply> response;
         using (var memoryStream = new MemoryStream())
         {
             await file.CopyToAsync(memoryStream);
-            response = await _clientRequest
-                .GetResponse<PutObjectReply>(new PutObjectRequest()
+            response = await _bus
+                .Request<PutObjectMinIoRequest, PutObjectMinIoReply>(new PutObjectRequestModel()
                     { ObjectId = imgId, Data = memoryStream.ToArray() });
         }
-        return Ok(response.Message);
+        return Ok(response.ResponseAddress.ToString());
     }
 }

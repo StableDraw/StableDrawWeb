@@ -46,6 +46,7 @@
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\StableDraw.Contracts\StableDraw.Contracts.csproj" />
     <ProjectReference Include="..\StableDraw.Domain\StableDraw.Domain.csproj" />
   </ItemGroup>
 

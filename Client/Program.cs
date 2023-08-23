@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using System.Net;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using CLI.Services;
 using System.Security.Claims;
 using CLI.Settings;
+using GreenPipes;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -113,17 +113,53 @@ builder.Services.Configure<GoogleRecaptchaSettings>(builder.Configuration.GetSec
 builder.Services.AddTransient<GoogleRecaptchaService>();
 
 // rabbitMQ
-builder.Services.AddMassTransit(x =>
-{
-    x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
+// builder.Services.AddMassTransit(x =>
+// {
+//     x.UsingRabbitMq((context, cfg) =>
+//     {
+//         //cfg.Host("rabbitmq");
+//         cfg.Host("localhost", "/", h =>
+//         {
+//             h.Username("rmuser");
+//             h.Password("rmpassword");
+//         });
+//     });
+//     x.AddRequestClient<GetObjectRequest>(new Uri("queue:getObj?durable=false"));
+//     x.AddRequestClient<PutObjectRequest>(new Uri("queue:putObj?durable=false"));
+//     x.AddRequestClient<DeleteObjectRequest>(new Uri("queue:delObj?durable=false"));
+//     // x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
+//     // {
+//     //     //cfg.Host("rabbitmq://localhost", h =>
+//     //     cfg.Host("http://localhost:15672", h =>
+//     //     {
+//     //         h.Username("rmuser");
+//     //         h.Password("rmpassword");
+//     //     });
+//     // }));
+// });
+
+builder.Services.AddMassTransit(cfg =>
     {
-        cfg.Host("rabbitmq://localhost", h =>
+        cfg.SetKebabCaseEndpointNameFormatter();
+        cfg.AddDelayedMessageScheduler();
+        cfg.UsingRabbitMq((brc, rbfc) =>
         {
-            h.Username("rmuser");
-            h.Password("rmpassword");
+            rbfc.UseInMemoryOutbox();
+            rbfc.UseMessageRetry(r =>
+            {
+                r.Incremental(3, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
+            });
+            rbfc.UseDelayedMessageScheduler();
+            rbfc.Host("localhost", h =>
+            {
+                h.Username("rmuser");
+                h.Password("rmpassword");
+            });
+            rbfc.ConfigureEndpoints(brc);
         });
-    }));
-});
+    })
+    .AddMassTransitHostedService();
+
 
 builder.Services.Configure<JwtBearerOptions>("IdentityServerJwtBearer", o => o.Authority = "https://localhost:44452");
 
