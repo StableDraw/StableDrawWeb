@@ -1,4 +1,4 @@
-﻿import {React, useState, useMemo} from 'react';
+﻿import {React, useState} from 'react';
 import SideBar from "./UI/SideBar/SideBar.jsx";
 import LableBar from "./UI/LableBar/LableBar.jsx";
 import ScaleField from "./UI/ScaleField/ScaleField.jsx";
@@ -8,9 +8,8 @@ import GraphicTable from "./UI/modal/GraphicTable.jsx";
 import ToolBar from "./UI/Toolbar/ToolBar.jsx";
 import PayModule from "./UI/payModule/PayBtn.jsx";
 import BabylonModule from "./UI/BabylonModule/BabylonBtn.jsx";
-import canvasState from "../store/canvasState";
-import CanvasState from "../store/canvasState";
 import ToolOptionsBar from './UI/ToolOptionsBar/ToolOptionsBar.jsx';
+import GenerateModule from "./UI/GenerateModule/GenerationBtn/GenerationBtn.jsx";
 const Drawing = () => {
 
     const [label, setLabel] = useState()
@@ -54,6 +53,7 @@ const Drawing = () => {
 
 
                 <BabylonModule/>
+                <GenerateModule/>
                 <PayModule/>
                 <ToolBar/>
             </div>

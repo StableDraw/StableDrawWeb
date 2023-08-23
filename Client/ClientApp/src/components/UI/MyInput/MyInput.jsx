@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from "react"
 import cl from './MyInput.module.css'
 import toolState from "../../../store/toolState";
-const MyInput = ({imgPath, imgClass, id, type}) => {
+const MyInput = ({imgPath, imgClass}) => {
     const [value, setValue] = useState(1)
 
     const CallRange = (e) => {

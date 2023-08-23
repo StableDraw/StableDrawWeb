@@ -51,7 +51,7 @@ const Pencil = ({active, activeBtn}) => {
                     </Button>
             </Stack>
             <div className={rootClass.join(' ')} id="pencil_window">
-                <MyInput  id='pencil' callback={getThickness} imgPath={"thickness.png"} type={'thickness'} imgClass={cl.thicknessimg}/>
+                <MyInput  id='pencil' imgPath={"thickness.png"} type={'thickness'} imgClass={cl.thicknessimg}/>
             </div>
         </div>
     )

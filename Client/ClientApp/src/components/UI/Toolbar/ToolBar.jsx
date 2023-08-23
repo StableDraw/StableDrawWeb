@@ -28,10 +28,9 @@ const ToolBar = () => {
                     activeBtn={setActiveBtn}
                     active={activeBtn}
                 />
-                <Pipette/>
                 <Bucket />
                 <ClearPane/>
-                <GenerateButton />
+                {/*<GenerateButton />*/}
             </div>
         </div>
 
