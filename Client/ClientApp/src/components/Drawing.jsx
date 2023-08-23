@@ -10,14 +10,11 @@ import PayModule from "./UI/payModule/PayBtn.jsx";
 import BabylonModule from "./UI/BabylonModule/BabylonBtn.jsx";
 import canvasState from "../store/canvasState";
 import CanvasState from "../store/canvasState";
+import ToolOptionsBar from './UI/ToolOptionsBar/ToolOptionsBar.jsx';
 const Drawing = () => {
-    const [res, setRes] = useState()
-    const resPencil = []
-    
+
     const [label, setLabel] = useState()
-    const consol = (result) => {
-        setRes(result)
-    }
+
     const resLabel = (res) => {
         setLabel(res)
     }
@@ -47,23 +44,18 @@ const Drawing = () => {
                 <SideBar light={{item: '1', bla: 2}}/>
                 <LableBar deleteCanva={DeleteCanva} canva={label} newCanva={AddNewcanva}/>
                 <ScaleField />
-                
-                {/* Будет принимать компонент с изображением <GenBlock><Сам компонент /> </GenBlock>*/}
+                <ToolOptionsBar/>
                 <GenBlock />
 
                 <Canvas  canvasDate={canvasList} labelData={resLabel} width={"1080px"} height={"732px"}/>
 
-                {/*Переделать в компонент модалок У верхней менюшке*/}
-                {/* <ColorMenu />*/}
-                {/* <Pencil />
-                <Eraser /> */}
+
                 <GraphicTable />
 
-                {/*НЕ ЕБУ ДЛЯ ЧЕГО*/}
-                {/*<div className="palette_nav"></div>*/} 
+
                 <BabylonModule/>
                 <PayModule/>
-                <ToolBar getRes={consol}/>
+                <ToolBar/>
             </div>
         </div>
     );

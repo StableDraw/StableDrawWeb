@@ -9,7 +9,7 @@ import Brush from "../../../../tools/Brush";
 import canvasState from "../../../../store/canvasState";
 
 const ListItem = (props) => {
-    
+
     const CanvasRef = useRef(null)
 
 
@@ -38,13 +38,13 @@ const ListItem = (props) => {
                 <Visability ids={props.item.id}/>
                 <Clear ids={props.item.id}/>
                 <Destroy deleteCanva={props.deleteCanva} indexDelete={props.index} remove={props.remove} item={props.item}/>
-                
+
             </div>
             <div className={cl.layer_button} id={"layer_button_"+props.item.id}>
                 <div className={cl.layer_display_icon} id={"layer_display_icon_"+props.item.id}>
-                    <canvas 
+                    <canvas
                         ref={CanvasRef}
-                        // className={cl.layer_display_canvas} 
+                        // className={cl.layer_display_canvas}
                         id={"layer_"+props.item.id+"_display_canvas"}
                         index={props.index}
                         style={{ zIndex: props.index }}>

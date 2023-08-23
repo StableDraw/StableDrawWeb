@@ -9,8 +9,8 @@ import toolState from "../../../../store/toolState";
 import Brush from "../../../../tools/Brush";
 import canvasState from "../../../../store/canvasState";
 let resMemo=[{},{}]
-const Pencil = ({active, activeBtn,  getRes}) => {
-
+const Pencil = ({active, activeBtn}) => {
+    console.log('render')
     const [modal, setModal] = useState(false)
     const [thicknessValue, setThicknessValue] = useState(1)
     const rootClass = [cl.myModal]
@@ -19,25 +19,13 @@ const Pencil = ({active, activeBtn,  getRes}) => {
             rootClass.push(cl.up_add_window)
         }
     }
-    // console.log(modal)
-    const [valueThickness, setValueThickness] = useState({id: 'pencil', type: 'thickness', res: 1})
-    const [valueSmoothing, setValueSmoothing] = useState({id: 'pencil', type: 'smoothing', res: 1})
-    const getThickness = (value) => {
-        setValueThickness(value)
-    }
+
 
     const showPencilModal = () => {
         setModal(!modal)
     }
 
-    const tochnolast = useMemo(()=>{
-        if (valueSmoothing !==  undefined && valueThickness !== undefined) {
-            if (JSON.stringify(resMemo[0]) !== JSON.stringify(valueThickness) || JSON.stringify(resMemo[1]) !== JSON.stringify(valueSmoothing)) {
-                resMemo =  [valueThickness,valueSmoothing]
-                getRes([valueThickness,valueSmoothing])
-            }
-        }
-    },[valueSmoothing,valueThickness])
+
     
     const CallPencil = () => {
         showPencilModal()
@@ -47,13 +35,13 @@ const Pencil = ({active, activeBtn,  getRes}) => {
  
     return (
         <div style={{width:50, display:'inline'}} onClick={()=>activeBtn('pencil')}>
-           
             <Stack spacing={1} direction="row">
-                <div>
                     <Button 
                         sx={{background: "#fff"}} 
                         style={{maxWidth: 50, maxHeight: 50, minWidth: 50, minHeight: 50}} 
-                        visible={modal} setVisible={setModal} variant="contained"
+                        visible={modal}
+                        setVisible={setModal}
+                        variant="contained"
                         title={'Карандаш'} 
                         onClick={CallPencil}>
                         <img src={"pencil.png"} 
@@ -61,7 +49,6 @@ const Pencil = ({active, activeBtn,  getRes}) => {
                             style={{ width: 30, height: 30}}
                         /> 
                     </Button>
-                </div>
             </Stack>
             <div className={rootClass.join(' ')} id="pencil_window">
                 <MyInput  id='pencil' callback={getThickness} imgPath={"thickness.png"} type={'thickness'} imgClass={cl.thicknessimg}/>

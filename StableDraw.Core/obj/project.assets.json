@@ -773,11 +773,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\job\\babilon\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj",
+      "projectUniqueName": "C:\\Users\\Сергей\\Desktop\\job\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj",
       "projectName": "StableDraw.Core",
-      "projectPath": "D:\\job\\babilon\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj",
+      "projectPath": "C:\\Users\\Сергей\\Desktop\\job\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj",
       "packagesPath": "C:\\Users\\Сергей\\.nuget\\packages\\",
-      "outputPath": "D:\\job\\babilon\\StableDrawWeb\\StableDraw.Core\\obj\\",
+      "outputPath": "C:\\Users\\Сергей\\Desktop\\job\\StableDrawWeb\\StableDraw.Core\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Сергей\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -830,5 +830,13 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400-preview.23225.8\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Ошибка чтения файла кэша C:\\Users\\Сергей\\Desktop\\job\\StableDrawWeb\\StableDraw.Core\\obj\\project.nuget.cache: Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

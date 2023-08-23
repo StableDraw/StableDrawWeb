@@ -7,7 +7,7 @@ import CanvasItems from "./CanvasItems";
 import canvasState from "../../../store/canvasState";
 const Canvas = ({width, height, labelData,canvasDate}) => {
     const [canva, setCanva] = useState([])
-    
+
     const setRef = (ref) => {
         setCanva( [...canva, ref])
         CanvasState.setCanvasList(ref.current)
@@ -19,7 +19,7 @@ const Canvas = ({width, height, labelData,canvasDate}) => {
     useEffect(() => {
         CanvasState.setCanvas(CanvasState.getCanvas());
     }, []);
-    
+
     const mouseDownHandler = (e) => {
         CanvasState.pushToUndo(CanvasState.getCanvas().toDataURL())
         labelData(CanvasState.getUndo())
@@ -27,7 +27,7 @@ const Canvas = ({width, height, labelData,canvasDate}) => {
     return (
             <div className={cl.v_frame} onMouseDown={(e) => mouseDownHandler(e)}  style={{width: `calc(${width} + 4px)`, height: `calc(${height} + 4px)`,backgroundColor: "transparent"}}  id="v_frame" >
                 {canvasDate.map((item) =>
-                    <CanvasItems 
+                    <CanvasItems
                      style={item.style}
                       id={item.id}
                        height={height}
@@ -38,7 +38,7 @@ const Canvas = ({width, height, labelData,canvasDate}) => {
                 )}
                 <div style={{ border: "4px solid rgb(154, 154, 154)",width: `calc(${width} + 8px)`, height: `calc(${height} + 8px)`, zIndex: -1, backgroundImage: "url(alpha_pattern.png)", backgroundRepeat: "repeat", position: "absolute" }}></div>
             </div>
-        
+
     );
 };
 

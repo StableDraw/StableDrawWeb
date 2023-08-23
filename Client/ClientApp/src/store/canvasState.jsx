@@ -11,7 +11,7 @@ class CanvasState {
     getTestCanvaList() {
         return this.canvaList.find(item => item.attributes[1].value === this.labelSelected)
     }
-    
+
     setCanvas(canvas) {
         this.canvas = null
 
@@ -30,7 +30,7 @@ class CanvasState {
         return this.canvaList
     }
     setLabel(label) {
-        
+
         this.labelSelected = label
 
         // console.log("Текущая канваЖ ", this.canvas);
@@ -56,6 +56,7 @@ class CanvasState {
     }
     pushToUndo(data) {
         this.undoList.push(data)
+        this.redoList = []
     }
     pushToRedo(data) {
         this.redoList.push(data)

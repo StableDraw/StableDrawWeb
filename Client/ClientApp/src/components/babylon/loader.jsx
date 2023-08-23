@@ -57,7 +57,6 @@ export const Loader = ({ call }) => {
 					onDragOver={e => dragStartHandler(e)}>
 					Перетащите текстуру, чтобы загрузить её
 				</div>}
-
 		</div>
 	)
 };

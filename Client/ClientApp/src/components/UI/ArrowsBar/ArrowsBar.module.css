@@ -23,7 +23,7 @@
 }
 
 .arrowsbar_panel_button
-{
+{   box-sizing: border-box;
     touch-action: none;
     cursor: pointer;
     border: 1px solid #707070;
@@ -31,9 +31,11 @@
     height: 20px;
     width: 25px;
 }
+.arrowsbar_panel_button:hover {
+    border: 2px solid #000;
+}
 .arrowsbar_panel_button_image
-{
-    touch-action: none;
+{   padding-bottom: 4px;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;

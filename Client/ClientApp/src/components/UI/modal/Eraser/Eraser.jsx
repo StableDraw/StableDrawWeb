@@ -10,9 +10,9 @@ import canvasState from "../../../../store/canvasState";
 import Erar from "../../../../tools/Eraser"
 
 const Eraser = ({active, activeBtn, getRes,}) => {
-    // console.log(setActive)
     const [modal, setModal] = useState(false)
     const rootClass = [cl.myModal]
+    
     if(active==='eraser') {
         if(modal) {
             rootClass.push(cl.up_add_window)
@@ -21,7 +21,6 @@ const Eraser = ({active, activeBtn, getRes,}) => {
     
     const Eraser = () => {
         toolState.setTool(new Erar(canvasState.canvas))
-        activeBtn('eraser')
         setModal(!modal)
     }
     return (
@@ -33,7 +32,7 @@ const Eraser = ({active, activeBtn, getRes,}) => {
 
             <div className={rootClass.join(' ')} id="eraser_window">
                 <div className="eraser_window_thickness_block">
-                    <MyInput id='eraser' callback={getRes} imgPath={"thickness.png"} type={'thickness'} imgClass={cl.thicknessimg}/>
+                    <MyInput id='eraser'  imgPath={"thickness.png"} type={'thickness'} imgClass={cl.thicknessimg}/>
                 </div>
             </div>
         </div>

@@ -27,7 +27,7 @@ const ColorPalete = ({active, activeBtn, getRes,}) => {
                 <div>
                     <Label className={cl.label__color} sx={{background: "#fff"}} style={{maxWidth: 50, maxHeight: 50, minWidth: 50, minHeight: 50}} variant="contained" title={'Выбор цвета'}><img src={"palette.png"} alt={"palette"} style={{ width: 30, height: 30}}/> <input type="color" className={cl.color} onChange={e => changeColor(e)}/></Label>
                 </div>
-                
+
             </Stack>
 
         </div>
