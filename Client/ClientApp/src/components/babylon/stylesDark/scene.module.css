@@ -1,0 +1,73 @@
+.sceneCont{
+	display: flex;
+	justify-content: center;
+	padding: 10px;
+	height: auto;
+	width: auto;
+}
+
+.canvas{
+	display: flex;
+	position: relative;
+	justify-content: center;
+	align-items: center;
+	max-height: 700px;
+	max-width: 1400px;
+	height: 100%;
+	width: 100%;
+	border-radius: 30px;
+	grid-row: 1;
+}
+
+.loadTexModal{
+	position: absolute;
+	background-color: black;
+	color: white;
+	height: 100%;
+	width: 100%;
+	border-radius: 30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	opacity: 40%;
+	z-index: 1000;
+}
+
+.sceneModal{
+	position: absolute;
+	background-color: black;
+	color: white;
+	left: 20px;
+	top: 15px;
+	height: 20px;
+	width: 200px;
+	border-radius: 10px;
+	display: flex;
+	justify-content: space-between;
+	padding: 15px 5px 15px 10px;
+	align-items: center;
+	flex-direction: row;
+	opacity: 40%;
+	z-index: 1000;
+}
+
+.cancelBtn{
+	width: 20px !important;
+	height: 20px !important;
+	color: white !important;
+	opacity: 100%;
+}
+
+.txt{
+	color: white !important;
+	opacity: 100% !important;
+	size: 14px !important;
+}
+
+
+@media (max-width: 1350px) and (min-height: 800px) {
+	.canvas{
+		max-height: 600px;
+	}
+	
+}

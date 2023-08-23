@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\Users\\Сергей\\Desktop\\job\\StableDrawWeb\\StableDraw.Domain\\StableDraw.Domain.csproj": {}
   },
   "projects": {
@@ -12,9 +13,22 @@
         "projectPath": "C:\\Users\\Сергей\\Desktop\\job\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj",
         "packagesPath": "C:\\Users\\Сергей\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\Сергей\\Desktop\\job\\StableDrawWeb\\StableDraw.Core\\obj\\",
+=======
+    "E:\\workFiles\\programing\\stableDrowFixed\\StableDrawWeb\\StableDraw.Domain\\StableDraw.Domain.csproj": {}
+  },
+  "projects": {
+    "E:\\workFiles\\programing\\stableDrowFixed\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\workFiles\\programing\\stableDrowFixed\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj",
+        "projectName": "StableDraw.Core",
+        "projectPath": "E:\\workFiles\\programing\\stableDrowFixed\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj",
+        "packagesPath": "C:\\Users\\Артём\\.nuget\\packages\\",
+        "outputPath": "E:\\workFiles\\programing\\stableDrowFixed\\StableDrawWeb\\StableDraw.Core\\obj\\",
+>>>>>>> 55fcb89f4abdb98ecf709422e61bb17236237c92
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Сергей\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Артём\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -61,10 +75,11 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400-preview.23225.8\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.307\\RuntimeIdentifierGraph.json"
         }
       }
     },
+<<<<<<< HEAD
     "C:\\Users\\Сергей\\Desktop\\job\\StableDrawWeb\\StableDraw.Domain\\StableDraw.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -73,9 +88,19 @@
         "projectPath": "C:\\Users\\Сергей\\Desktop\\job\\StableDrawWeb\\StableDraw.Domain\\StableDraw.Domain.csproj",
         "packagesPath": "C:\\Users\\Сергей\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\Сергей\\Desktop\\job\\StableDrawWeb\\StableDraw.Domain\\obj\\",
+=======
+    "E:\\workFiles\\programing\\stableDrowFixed\\StableDrawWeb\\StableDraw.Domain\\StableDraw.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\workFiles\\programing\\stableDrowFixed\\StableDrawWeb\\StableDraw.Domain\\StableDraw.Domain.csproj",
+        "projectName": "StableDraw.Domain",
+        "projectPath": "E:\\workFiles\\programing\\stableDrowFixed\\StableDrawWeb\\StableDraw.Domain\\StableDraw.Domain.csproj",
+        "packagesPath": "C:\\Users\\Артём\\.nuget\\packages\\",
+        "outputPath": "E:\\workFiles\\programing\\stableDrowFixed\\StableDrawWeb\\StableDraw.Domain\\obj\\",
+>>>>>>> 55fcb89f4abdb98ecf709422e61bb17236237c92
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Сергей\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Артём\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -89,8 +114,13 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
+<<<<<<< HEAD
               "C:\\Users\\Сергей\\Desktop\\job\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj": {
                 "projectPath": "C:\\Users\\Сергей\\Desktop\\job\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj"
+=======
+              "E:\\workFiles\\programing\\stableDrowFixed\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj": {
+                "projectPath": "E:\\workFiles\\programing\\stableDrowFixed\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj"
+>>>>>>> 55fcb89f4abdb98ecf709422e61bb17236237c92
               }
             }
           }
@@ -154,7 +184,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400-preview.23225.8\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.307\\RuntimeIdentifierGraph.json"
         }
       }
     }

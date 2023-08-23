@@ -1,0 +1,33 @@
+
+
+.buttonContainer{
+	display: flex;
+	gap: 30px;
+}
+
+.appBar{
+	/* background: #152A3D !important; */
+	/* background: #3a3a3a !important; */
+}
+
+.txt{
+	font-size: 25px !important;
+}
+
+.themeToggle{
+	display: flex;
+	flex-direction: row;
+	margin-right: 10px;
+	gap:10px;
+	scale: 0.8;
+}
+
+@media (max-width: 1350px){
+	.themeToggle{
+		scale: 0.7;
+		margin-right: 0;
+	}
+	.txt{
+		font-size: 20px !important;
+	}
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Card, Typography, } from '@mui/material';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import { useState } from "react";
-import barClasses from './styles/bar.module.css'
+import barClasses from './stylesLight/bar.module.css'
 
 export const SizeBarOld = ({ changeModel, model }) => {
 	const [isSmallButtonClicked, setIsSmallButtonClicked] = useState(false);
