@@ -39,7 +39,7 @@ export const SizeBar = ({ changeModel, model, isLightTheme }) => {
 						onClick={changeBigButtonColor}
 						variant={isBigButtonClicked ? "contained" : 'outlined'}
 					>
-						<Typography className={barClasses.text}>Big pack</Typography>
+						<Typography className={barClasses.text}>большая</Typography>
 					</Button>
 				</div>
 				<div className={barClasses.buttonCont_sizeBar}>
@@ -50,7 +50,7 @@ export const SizeBar = ({ changeModel, model, isLightTheme }) => {
 						onClick={changeSmallButtonColor}
 						variant={isSmallButtonClicked ? "contained" : 'outlined'}
 					>
-						<Typography className={barClasses.text}>Small pack</Typography>
+						<Typography className={barClasses.text}>маленькая</Typography>
 					</Button>
 				</div>
 
@@ -61,7 +61,7 @@ export const SizeBar = ({ changeModel, model, isLightTheme }) => {
 				variant='contained'
 				className={barClasses.loadButton_sizeBar}
 				endIcon={<FileUploadIcon />}>
-				<Typography className={barClasses.text}>Load scene</Typography>
+				<Typography className={barClasses.text}>Загрузить</Typography>
 			</Button>
 			{!isBigButtonClicked && !isSmallButtonClicked &&
 				<Typography color={'red'} fontSize={14}> Select model size*</Typography>}

@@ -45,7 +45,7 @@ export class BabylonScene {
 	createCamera(canvas: HTMLCanvasElement): BABYLON.ArcRotateCamera {
 		const camera = new BABYLON.ArcRotateCamera(
 			"camera",
-			Math.PI / 2, // Угол по оси Y (горизонтальное вращение)
+			2*Math.PI , // Угол по оси Y (горизонтальное вращение)
 			Math.PI / 2, // Угол по оси X (вертикальное вращение)
 			5, // Радиус (расстояние от целевой точки)
 			BABYLON.Vector3.Zero(), // Целевая точка, вокруг которой будет вращаться камера
@@ -64,7 +64,7 @@ export class BabylonScene {
 		textureFileName: string,
 		sceneFileName: string,
 	): Promise<void> {
-		if (sceneFileName === 'FridgeFix') {
+		if (sceneFileName === 'Fridge') {
 			for(let i = 0; i < 3; i++) {
 				const model = await BABYLON.SceneLoader.ImportMeshAsync(
 				"",

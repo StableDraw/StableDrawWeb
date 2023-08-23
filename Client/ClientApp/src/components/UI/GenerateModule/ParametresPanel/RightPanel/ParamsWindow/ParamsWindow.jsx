@@ -129,6 +129,10 @@ const ParamsWindow = ({setModal, props}) => {
             setDrago(false);
         }
     }
+    const End = () => {
+        setModal(false)
+        alert('Генерация в данный момент недоступна')
+    }
 
     return (
         <div className={cl.parametresBlock}>
@@ -385,7 +389,7 @@ const ParamsWindow = ({setModal, props}) => {
                     className={cl.generatingBtn}
                     variant="contained"
                     sx={{background: "#474747", '&:hover': {backgroundColor: '#474747', color: '#555DD3'}, fontSize: 14}}
-                    onClick={()=>setModal(false)}
+                    onClick={()=>End()}
                 >
                     <t>
                         Отправить на генерацию

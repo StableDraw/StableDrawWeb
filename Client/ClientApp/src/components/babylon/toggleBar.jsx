@@ -2,7 +2,7 @@ import React from 'react';
 import { useMemo, useState, useEffect, memo } from "react";
 import mainClass from './stylesDark/main.module.css'
 import mainClassLight from './stylesLight/main.module.css'
-import { Button, Typography, ButtonGroup, IconButton, createTheme } from '@mui/material';
+import { Button, Typography, ButtonGroup, IconButton} from '@mui/material';
 import { ModelsBar } from "./modelsBar";
 import { SceneBar } from "./SceneBar";
 import ViewSidebarRoundedIcon from '@mui/icons-material/ViewSidebarRounded';
@@ -27,14 +27,14 @@ export const ToggleBar = memo(({ changeModel, changeScene, isOpen, setIsOpen, se
 						className={isLightTheme ? mainClassLight.buttonGroup : mainClass.buttonGroup}
 						variant={isModelsBar ? 'contained' : 'outlined'} onClick={showModelsBar}>
 						<Typography className={mainClass.text}>
-							Select model
+							Выбрать модель
 						</Typography>
 					</Button>
 					<Button theme = { isLightTheme ? themeLight : themeDark}
 						className={isLightTheme ? mainClassLight.buttonGroup : mainClass.buttonGroup}
 						variant={isModelsBar ? 'outlined' : 'contained'} onClick={showModelsBar}>
 						<Typography className={mainClass.text}>
-							Select scene
+							Выбрать сцену
 						</Typography>
 					</Button>
 				</ButtonGroup>

@@ -13,8 +13,6 @@ const Canvas = ({width, height, labelData,canvasDate}) => {
         CanvasState.setCanvasList(ref.current)
         CanvasState.setCanvas(CanvasState.getCanvaRef());
         toolState.setTool(new Brush(CanvasState.getCanvasList().at(-1)))
-
-
     }
     useEffect(() => {
         CanvasState.setCanvas(CanvasState.getCanvas());

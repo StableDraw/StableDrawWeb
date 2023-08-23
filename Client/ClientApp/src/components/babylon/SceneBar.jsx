@@ -6,9 +6,9 @@ import { useState, memo } from "react";
 
 
 const scenes = [
-	{ id: 1, name: "Box", img: '/babylon/imgPreviewScenes/box.png', scene: 'BoxFix2' },
-	{ id: 2, name: "Cart", img: '/babylon/imgPreviewScenes/Cart.jpeg', scene: 'CartFix' },
-	{ id: 3, name: "Fridge", img: '/babylon/imgPreviewScenes/Fridge.png', scene: 'FridgeFix' },
+	{ id: 1, name: "Корзинка", img: '/babylon/imgPreviewScenes/box.png', scene: 'BoxFix2' },
+	{ id: 2, name: "Холодильник", img: '/babylon/imgPreviewScenes/Fridge.png', scene: 'Fridge' },
+	{ id: 3, name: "Тележка", img: '/babylon/imgPreviewScenes/Cart.jpeg', scene: 'CartFix' },
 ];
 
 

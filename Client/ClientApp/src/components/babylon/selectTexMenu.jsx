@@ -95,14 +95,14 @@ export const SelectTexMenu = ({
 								textureStorage.length === 0 ?
 									<InputLabel htmlFor="file-input">
 										<div className={loadClasses.addIconContMain}>
-											<Tooltip title='add textures' placement="top">
+											<Tooltip title='Загрузить текстуру' placement="top">
 												<AddPhotoAlternateRoundedIcon className={loadClasses.addIconMain} />
 											</Tooltip>
 										</div>
 									</InputLabel> :
 									<InputLabel htmlFor="file-input">
 										<div className={loadClasses.addIconCont}>
-											<Tooltip title='add textures' placement="top">
+											<Tooltip title='Загрузить текстуру' placement="top">
 												<AddCircleOutlineIcon className={loadClasses.addIcon} />
 											</Tooltip>
 										</div>

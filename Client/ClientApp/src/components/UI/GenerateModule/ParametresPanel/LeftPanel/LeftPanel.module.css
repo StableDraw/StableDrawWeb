@@ -83,7 +83,7 @@
 
 .search_container {
     background-color: #444444;
-    position: absolute;
+    
     display: block;
     flex-direction: row;
     justify-content: start;

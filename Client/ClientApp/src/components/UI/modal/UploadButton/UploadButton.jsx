@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import { Modal } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Content1 from "../../BabylonModule/Content1";
+import canvasState from '../../../../store/canvasState';
 
 import { createTheme } from '@mui/material/styles';
 import {  Typography, Input, InputLabel, } from '@mui/material';
@@ -11,13 +12,26 @@ const UploadButton = () => {
   
     const handleFileChange = (event) => {
 		let files = [...event.target.files];
-		console.log("файлы c кнопки:", files);
-
-		let formData = new FormData();
-		formData.append(`file`, files[0]);
-		formData.append("Content-Type", 'multipart/form-data');
-		// send(formData);
+		var reader = new FileReader();
+        reader.onload = function(event){
+            var img = new Image();
+            
+            img.onload = function(){
+                canvasState.getCanvasList().at(-1).getContext("2d", { willReadFrequently: true }).clearRect(0,0, 1080, 732)
+                canvasState.getCanvasList().at(-1).getContext("2d", { willReadFrequently: true }).drawImage(img, 0, 0, 1080, 732)
+            }
+            img.src = event.target.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+        // img.src = files[0].toDataURL()
+        // img.onload = () => {
+        //     canvasState.getCanvas().current.getContext("2d", { willReadFrequently: true }).clearRect(0,0, 1080, 732)
+        //     canvasState.getCanvas().current.getContext("2d", { willReadFrequently: true }).drawImage(image, 0, 0, 1080, 732)
+        // }
 	};
+    function handleImage(e){
+        
+    }
     return (
         <div className={cl.button}>
             <InputLabel htmlFor="file-input">

@@ -1,80 +1,164 @@
 ﻿.top_box
-
 {
-
     position: absolute;
-
+    display: flex;
+    justify-content: space-between;
     width: 100%;
-
     height: 8%;
-
     background-color: rgb(255, 255, 255);
-
 }
 
-
-
-
-.right_btns
-
+.menu_hed
 {
-
-    position: absolute;
-
-    width: 200px;
-
-    height: 50%;
-
-    right: 0%;
-
-    top: 25%;
-
+    display: flex;
+    align-self: flex-end;
+    justify-content: space-around;
+    width: 15%;
+    height: 60%;
 }
 
+.top_box_btn
+{
+    display: flex;
+    align-self: center;
+    justify-content: space-around;
+    width: 5%;
+    height: 60%;
+}
 
+.mini_header
+{
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 8%;
+    width: 60%;
+    height: 8%;
+    left: 20%;
+    font-size: 30px;
+    font-weight: 600;
+}
 
 
 .content_box1
-
 {
-
     position: absolute;
-
-    width: 38%;
-
-    top: 15%;
-
-    height: 90%;
-
-    left: 20%;
-
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: end;
+    border-radius: 10px;
+    width: 34%;
+    top: 11%;
+    height: 73%;
+    left: 19%;
+    background: rgba(99, 99, 99, 0.3);
 }
-
-
-
 
 .content_box2
-
 {
-
+    background: rgba(99, 99, 99, 0.3);
+    display: flex;
     position: absolute;
-
-    width: 20%;
-
-    top: 15%;
-
-    height: 90%;
-
-    right: 20%;
+    flex-direction: column;
+    flex-wrap: wrap;
+    border-radius: 10px;
+    width: 30%;
+    top: 26%;
+    height: 49%;
+    right: 10%;
 
 }
 
-.buy_btn
-
+.checkList
 {
+    display: flex;  
+    flex-direction: column;
+    justify-content:space-around;
+    align-items: center;
+    width: 100%;
+    height: 65%;
+    /* background-color: brown; */
+}
+.check
+{
+    display: flex;  
+    flex-direction: row;
+    align-items: center;
+    align-content: end;
+    left: 6%;
+    width: 90%;
+}
+.text_in_check
+{  
+    color: rgb(255, 255, 255);
+    width: 80%;
+    font-size: 16px;
+}
+.agreeText
+{
+    color: rgb(255, 255, 255);
+    width: 80%;
+    font-size: 12px;
+    text-align: left;
+}
 
+.agreeContent
+{
+    border-radius: 10px;
+    display: flex;  
+    flex-direction: row;
+    justify-content:space-around;
+    align-items: center;
+    align-self: center;
+    width: 100%;
+    height: 25%;
+}
+.footer
+{
     position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    bottom: 0%;
+    width: 100%;
+    height: 60px;
+}
 
-    right: 0%;
+.hederText{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px 10px 0 0;
+    width:100%;
+    top: 15%;
+    height: 11%;
+    left: 20%;
+    background-color: rgb(0,188,212);
+    /* opacity: .3; */
+    font-size: 30px;
+    /* font-weight: 600; */
+}
+.contentText{
+    color: rgb(255, 255, 255);
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    width: 90%;
+    /* top: 15%; */
+    height: 90px;
+    left: 20%;
 
+    font-size: 20px;
+    /* opacity: .3; */
+    /* font-weight: 600; */
+}
+
+.backimg{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* background-image: url("backimg.png"); */
+    background-image: url("backimg1.png");
+    background-size: 100% auto
 }

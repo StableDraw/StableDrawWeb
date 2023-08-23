@@ -39,7 +39,7 @@ export const SceneCard = ({
 						variant='contained'
 						className={barClasses.loadButton_sizeBar}
 						endIcon={<FileUploadIcon />}>
-						<Typography>Load scene</Typography>
+						<Typography>Загрузить</Typography>
 					</Button>
 				</div>
 			</Card>

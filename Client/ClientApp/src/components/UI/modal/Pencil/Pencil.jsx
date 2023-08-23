@@ -10,7 +10,6 @@ import Brush from "../../../../tools/Brush";
 import canvasState from "../../../../store/canvasState";
 let resMemo=[{},{}]
 const Pencil = ({active, activeBtn}) => {
-    console.log('render')
     const [modal, setModal] = useState(false)
     const [thicknessValue, setThicknessValue] = useState(1)
     const rootClass = [cl.myModal]
@@ -20,27 +19,28 @@ const Pencil = ({active, activeBtn}) => {
         }
     }
 
-
     const showPencilModal = () => {
         setModal(!modal)
     }
 
 
-    
     const CallPencil = () => {
         showPencilModal()
         toolState.setTool(new Brush(canvasState.getCanvas()))
-        console.log(canvasState.getCanvas())
+        activeBtn('pencil')
+        console.log(modal)
+        
+        
     }
  
     return (
-        <div style={{width:50, display:'inline'}} onClick={()=>activeBtn('pencil')}>
+        <div style={{width:50, display:'inline'}}>
             <Stack spacing={1} direction="row">
                     <Button 
                         sx={{background: "#fff"}} 
                         style={{maxWidth: 50, maxHeight: 50, minWidth: 50, minHeight: 50}} 
-                        visible={modal}
-                        setVisible={setModal}
+                        visible={modal} 
+                        
                         variant="contained"
                         title={'Карандаш'} 
                         onClick={CallPencil}>
@@ -51,7 +51,7 @@ const Pencil = ({active, activeBtn}) => {
                     </Button>
             </Stack>
             <div className={rootClass.join(' ')} id="pencil_window">
-                <MyInput  id='pencil' imgPath={"thickness.png"} type={'thickness'} imgClass={cl.thicknessimg}/>
+                <MyInput  imgPath={"thickness.png"} type={'thickness'} imgClass={cl.thicknessimg}/>
             </div>
         </div>
     )

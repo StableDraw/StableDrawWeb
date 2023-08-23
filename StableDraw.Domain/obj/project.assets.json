@@ -2761,24 +2761,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Admin\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Сергей\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Admin\\Desktop\\Roboligthing\\Robomain\\StableDrawWeb\\StableDraw.Domain\\StableDraw.Domain.csproj",
+      "projectUniqueName": "C:\\Users\\Сергей\\Desktop\\job\\StableDrawWeb\\StableDraw.Domain\\StableDraw.Domain.csproj",
       "projectName": "StableDraw.Domain",
-      "projectPath": "C:\\Users\\Admin\\Desktop\\Roboligthing\\Robomain\\StableDrawWeb\\StableDraw.Domain\\StableDraw.Domain.csproj",
-      "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Admin\\Desktop\\Roboligthing\\Robomain\\StableDrawWeb\\StableDraw.Domain\\obj\\",
+      "projectPath": "C:\\Users\\Сергей\\Desktop\\job\\StableDrawWeb\\StableDraw.Domain\\StableDraw.Domain.csproj",
+      "packagesPath": "C:\\Users\\Сергей\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Сергей\\Desktop\\job\\StableDrawWeb\\StableDraw.Domain\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\Сергей\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -2792,8 +2787,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\Admin\\Desktop\\Roboligthing\\Robomain\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj": {
-              "projectPath": "C:\\Users\\Admin\\Desktop\\Roboligthing\\Robomain\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj"
+            "C:\\Users\\Сергей\\Desktop\\job\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj": {
+              "projectPath": "C:\\Users\\Сергей\\Desktop\\job\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj"
             }
           }
         }
@@ -2857,7 +2852,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400-preview.23225.8\\RuntimeIdentifierGraph.json"
       }
     }
   }

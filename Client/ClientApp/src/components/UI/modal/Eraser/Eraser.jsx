@@ -21,14 +21,15 @@ const Eraser = ({active, activeBtn, getRes,}) => {
     
     const Eraser = () => {
         toolState.setTool(new Erar(canvasState.canvas))
+        activeBtn('eraser')
         setModal(!modal)
     }
     return (
         <div style={{width:50, display:'inline'}} onClick={Eraser}>
          
-            <div>
+          
                 <Button sx={{background: "#fff"}} style={{maxWidth: 50, maxHeight: 50, minWidth: 50, minHeight: 50}} visible={modal} setVisible={setModal} variant="contained" title={'Ластик'}><img src={"eraser.png"} alt={"eraser"} style={{ width: 30, height: 30}}/> </Button>
-            </div>
+
 
             <div className={rootClass.join(' ')} id="eraser_window">
                 <div className="eraser_window_thickness_block">

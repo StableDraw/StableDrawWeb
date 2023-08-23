@@ -29,7 +29,7 @@ export const TexMenuBtn = memo(({ send, isLightTheme }) => {
 			<div className={mainClass.inputCont}>
 				<InputLabel className={isLightTheme ? mainClassLight.inputLabel : mainClass.inputLabel} htmlFor="file-input">
 					<AddPhotoAlternateRoundedIcon className={loadClasses.loadIcon} />
-					<Typography className={loadClasses.text}>LOAD TEXTURE</Typography>
+					<Typography className={loadClasses.text}>ЗАГРУЗИТЬ ТЕКСТУРУ</Typography>
 				</InputLabel>
 				<Input
 					key={InputKey}

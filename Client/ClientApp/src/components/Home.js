@@ -149,22 +149,23 @@ export class Home extends Component {
                                             Веб-платформа для рисования, обработки изображений и создания анимаций с применением искусственных нейронных сетей
                                         </p>
                                         <div className="block-start-button">
-                                            <NavLink tag={Link} to="/drawing-to-img" className="bootstrap-btn primary-outline-blue--hover">
+                                            <NavLink tag={Link} to="/test" className="bootstrap-btn primary-outline-blue--hover">
                                                 <button className="start-button-text">
                                                     <span className='glowing-txt'>Н<span
                                                         className='faulty-letter'>А</span>ЧАТЬ</span>
                                                 </button>
                                             </NavLink>
-                                            <NavLink tag={Link} to="/notdrawing-to-img" className="bootstrap-btn primary-outline-blue--hover">
+                                            <NavLink tag={Link} to="/drawing-to-img" className="bootstrap-btn primary-outline-blue--hover">
                                                 <button className="start-button-text1">
-                                                    <span className='glowing-txt'>ТЕС<span
-                                                        className='faulty-letter'>ТИ</span>РОВАТЬ</span>
+                                                    <span className='glowing-txt'>БЕТА <span 
+                                                    style={{paddingRight:'5'}}
+                                                        className='faulty-letter'>ВЕР</span>СИЯ</span>
                                                 </button>
                                             </NavLink>
-                                            <button className="start-button-text2">
+                                            {/* <button className="start-button-text2">
                                                     <span className='glowing-txt'>ТЕС<span
                                                         className='faulty-letter'>ТИ</span>РОВАТЬ1</span>
-                                            </button>
+                                            </button> */}
                                         </div>
                                     </div>
                                 </div>
@@ -179,7 +180,10 @@ export class Home extends Component {
                             <a href="https://vk.com/stabledraw">
                                 <img className="img-link" alt="vk.png" src="vk.png" width="50" height="50"></img>
                             </a>
-                            <a href="https://vk.com/app6613443#snippet_id=2&owner_id=402965562&project_id=296524">
+                            {/* <a href="https://vk.com/app6613443#snippet_id=2&owner_id=402965562&project_id=296524">
+                                <img className="img-link" alt="money.png" src="money.png" width="50" height="50"></img>
+                            </a> */}
+                            <a href="Pay">
                                 <img className="img-link" alt="money.png" src="money.png" width="50" height="50"></img>
                             </a>
                         </div>
@@ -187,5 +191,5 @@ export class Home extends Component {
                 </footer>
             </div>
         );
-    }
+    }   
 }
