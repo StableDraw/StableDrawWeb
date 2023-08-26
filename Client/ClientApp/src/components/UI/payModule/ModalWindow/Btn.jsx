@@ -17,8 +17,8 @@ function handleChange() {
 
     return (
         <div className={cl.buyBtn}> 
-        <CurrencyRubleIcon color="primary" sx={{ fontSize: 30 }}/>
-        <Button disabled={checked} variant="contained" disableElevation > Приобрести сейчас </Button>
+        {/* <CurrencyRubleIcon color="primary" sx={{ fontSize: 30 }}/> */}
+        <Button disabled={checked} variant="contained" disableElevation  sx={{ fontSize: 20 }}> Приобрести сейчас </Button>
         <Agreement checked = {!checked} handleChange = {handleChange}/>
         </div>
     );
