@@ -16,7 +16,7 @@ public class MinIoService : IMinIoService
     {
         _minIoSettings = minIoSettings.Value;
         _minio = new MinioClient()
-            .WithEndpoint(_minIoSettings.Address)
+            .WithEndpoint(_minIoSettings.Address, 9000)
             .WithCredentials(_minIoSettings.AccessKey,
                 _minIoSettings.SecretKey)
             //.WithSSL()//if Domain is SSL
@@ -25,27 +25,48 @@ public class MinIoService : IMinIoService
     
     public async Task<PutObjectResult> PutObj(IPutObjectRequest request)
     {
-        // Check Exists bucket
-        bool found = await _minio.BucketExistsAsync(new BucketExistsArgs().WithBucket(_minIoSettings.BucketName));
-        
-        if (!found)
+        try
         {
-            // if bucket not Exists,make bucket
-            await _minio.MakeBucketAsync(new MakeBucketArgs().WithBucket(_minIoSettings.BucketName));
+            // Check Exists bucket
+            bool found = await _minio.BucketExistsAsync(new BucketExistsArgs().WithBucket(_minIoSettings.BucketName));
+        
+            if (!found)
+            {
+                // if bucket not Exists,make bucket
+                await _minio.MakeBucketAsync(new MakeBucketArgs().WithBucket(_minIoSettings.BucketName));
+            }
+        
+            MemoryStream filestream = new System.IO.MemoryStream(request.Data);
+            //var filename = Guid.NewGuid();
+        
+            // upload object
+            
+            
+            await _minio.PutObjectAsync(new PutObjectArgs()
+                    .WithBucket(_minIoSettings.BucketName)
+                    .WithObject(request.ObjectId.ToString().Replace("-", "_"))
+                    .WithStreamData(filestream)
+                    .WithObjectSize(filestream.Length)
+                    .WithContentType("application/octet-stream")
+            );
+            // var result = await _minio.PutObjectAsync(new PutObjectArgs()
+            //     .WithBucket(_minIoSettings.BucketName)
+            //     .WithStreamData(filestream).);
+            // var result = await _minio.PutObjectAsync(new PutObjectArgs()
+            //     .WithBucket(_minIoSettings.BucketName)
+            //     .WithFileName(request.ObjectId.ToString().Replace("-", "_"))
+            //     .WithStreamData(filestream).WithObject(request.ObjectId.ToString().Replace("-", "_")).WithObjectSize(filestream.Length)
+            // );
+            return await Task.FromResult(new PutObjectResult()
+            {
+                ObjectId = request.ObjectId,
+            });
         }
-        
-        MemoryStream filestream = new System.IO.MemoryStream(request.Data);
-        var filename = Guid.NewGuid();
-        
-        // upload object
-        await _minio.PutObjectAsync(new PutObjectArgs()
-            .WithBucket(_minIoSettings.BucketName).WithFileName(filename.ToString())
-            .WithStreamData(filestream).WithObjectSize(filestream.Length)
-        );
-        return await Task.FromResult(new PutObjectResult()
+        catch (Exception e)
         {
-            ObjectId = request.ObjectId
-        });
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
     public async Task<GetObjectResult> GetObj(IGetObjectRequest request)

@@ -11,9 +11,6 @@ public sealed class MinIoSaga : MassTransitStateMachine<MinIoSagaState>
     public MinIoSaga(ILogger<MinIoSaga> logger)
     {
         _logger = logger;
-        //GetObjectEvent = Event<GetObjectMinIoRequest>("GetObjectEvent");
-        // PutObjectEvent = new MessageEvent<PutObjectMinIoRequest>("PutObjectEvent");
-        // DeleteObjectEvent = new MessageEvent<DeleteObjectMinIoRequest>("DeleteObjectEvent");
         InstanceState(x => x.CurrentState);
         
         Event(() => 
@@ -83,7 +80,7 @@ public sealed class MinIoSaga : MassTransitStateMachine<MinIoSagaState>
             When(GetObject.Faulted)
                 .ThenAsync(async context =>
                 {
-                    await RespondFromSaga(context, "Faulted On Get Objects " + string.Join("; ", context.Data.Exceptions.Select(x => x.Message)));
+                    await RespondFromSaga(context, "Faulted On Get Objects " + string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
                 })
                 .TransitionTo(Failed),
 
@@ -103,7 +100,7 @@ public sealed class MinIoSaga : MassTransitStateMachine<MinIoSagaState>
             When(PutObject.Faulted)
                 .ThenAsync(async context =>
                 {
-                    await RespondFromSaga(context, "Faulted On Put Objects " + string.Join("; ", context.Data.Exceptions.Select(x => x.Message)));
+                    await RespondFromSaga(context, "Faulted On Put Objects " + string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
                 })
                 .TransitionTo(Failed),
 
@@ -123,7 +120,7 @@ public sealed class MinIoSaga : MassTransitStateMachine<MinIoSagaState>
             When(DeleteObject.Faulted)
                 .ThenAsync(async context =>
                 {
-                    await RespondFromSaga(context, "Faulted On Delete Objects " + string.Join("; ", context.Data.Exceptions.Select(x => x.Message)));
+                    await RespondFromSaga(context, "Faulted On Delete Objects " + string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
                 })
                 .TransitionTo(Failed),
 
@@ -146,33 +143,19 @@ public sealed class MinIoSaga : MassTransitStateMachine<MinIoSagaState>
     public State Failed { get; set; }
     private static async Task RespondFromSaga<T>(BehaviorContext<MinIoSagaState, T> context, string error) where T : class
     {
-        var endpoint = await context.GetSendEndpoint(context.Saga.ResponseAddress);
-        await endpoint.Send(new
+        try
         {
-            OrderId = context.Saga.CorrelationId,
-            ErrorMessage = error
-        }, r => r.RequestId = context.Saga.RequestId);
+            var endpoint = await context.GetSendEndpoint(context.Saga.ResponseAddress);
+            await endpoint.Send(new
+            {
+                OrderId = context.Saga.CorrelationId,
+                ErrorMessage = error
+            }, r => r.RequestId = context.Saga.RequestId);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
-    
-    // private static async Task GetReplyFromSaga<T>(BehaviorContext<MinIoSagaState, T> context, string error) where T : class
-    // {
-    //     var endpoint = await context.GetSendEndpoint(context.Saga.ResponseAddress);
-    //
-    //     await endpoint.Send(context.Message);
-    // }
-    //
-    // private static async Task PutReplyFromSaga(SagaConsumeContext<MinIoSagaState, T> context, string error) where T : class
-    // {
-    //     var endpoint = await context.GetSendEndpoint(context.Saga.ResponseAddress);
-    //
-    //     await endpoint.Send(context.Message);
-    // }
-    //
-    // private static async Task DeleteReplyFromSaga(SagaConsumeContext<MinIoSagaState, DeleteObjectMinIoReply> context, string error)
-    // {
-    //     var endpoint = await context.GetSendEndpoint(context.Saga.ResponseAddress);
-    //
-    //     await endpoint.Send(context.Message);
-    // }
-    
 }

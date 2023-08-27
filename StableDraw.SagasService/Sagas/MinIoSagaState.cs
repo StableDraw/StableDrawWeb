@@ -1,7 +1,4 @@
-﻿using Automatonymous;
-using MassTransit;
-
-namespace StableDraw.SagasService.Sagas;
+﻿namespace StableDraw.SagasService.Sagas;
 
 public sealed class MinIoSagaState : MassTransit.SagaStateMachineInstance
 {

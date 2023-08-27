@@ -59,7 +59,7 @@ public class ImageController : Controller
             await file.CopyToAsync(memoryStream);
             response = await _bus
                 .Request<PutObjectMinIoRequest, PutObjectMinIoReply>(new PutObjectRequestModel()
-                    { ObjectId = imgId, Data = memoryStream.ToArray() });
+                    { ObjectId = imgId, Data = memoryStream.ToArray(), OrderId = Guid.NewGuid()});
         }
         return Ok(response.ResponseAddress.ToString());
     }

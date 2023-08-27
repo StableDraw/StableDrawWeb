@@ -1,5 +1,6 @@
 using GreenPipes;
 using MassTransit;
+using Serilog;
 using StableDraw.MinIOService.Consumers;
 using StableDraw.MinIOService.Services;
 using StableDraw.MinIOService.Settings;
@@ -45,10 +46,20 @@ IHost host = Host.CreateDefaultBuilder(args)
         
         services.AddTransient<IMinIoService, MinIoService>();
     })
-    .ConfigureLogging((hostingContext, logging) =>
+    .UseSerilog((context, configuration) =>
     {
-        logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-        logging.AddConsole();
+        configuration.MinimumLevel.Debug()
+            .Enrich.FromLogContext()
+            .WriteTo.Console()
+            .WriteTo.File(
+                System.IO.Path.Combine("./", "logs", "diagnostics.txt"),
+                rollingInterval: RollingInterval.Day,
+                fileSizeLimitBytes: 10 * 1024 * 1024,
+                retainedFileCountLimit: 2,
+                rollOnFileSizeLimit: true,
+                shared: true,
+                flushToDiskInterval: TimeSpan.FromSeconds(1));
+        //.CreateLogger();
     })
     .Build();
 

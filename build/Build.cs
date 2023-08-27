@@ -24,6 +24,9 @@ class Build : NukeBuild
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
+    [Parameter("Path")]
+    static readonly string Path;
+    
     Target Clean => _ => _
         .Before(Restore)
         .Executes(() =>
@@ -39,6 +42,25 @@ class Build : NukeBuild
         .DependsOn(Restore)
         .Executes(() =>
         {
+        });
+
+    Target RunDocker => _ => _
+        .Executes(() =>
+        {
+        });
+    
+    Target Pull => _ => _
+        .Executes(() =>
+        {
+        });    
+    
+    
+    Target Deploy => _ => _
+        .Executes(() =>
+        {
+            // 1) компиляция
+            // 2) кидаем в папку dd_mm_yyyy_v - version
+            // 3) в папке dd_mm_yyyy_v будет 3 папки Beckend, SagaService, MinioService
         });
 
 }

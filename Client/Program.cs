@@ -4,6 +4,7 @@ using System.Net;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using CLI.Services;
 using System.Security.Claims;
+using CLI.Extensions;
 using CLI.Settings;
 using GreenPipes;
 using MassTransit;
@@ -113,31 +114,6 @@ builder.Services.Configure<GoogleRecaptchaSettings>(builder.Configuration.GetSec
 builder.Services.AddTransient<GoogleRecaptchaService>();
 
 // rabbitMQ
-// builder.Services.AddMassTransit(x =>
-// {
-//     x.UsingRabbitMq((context, cfg) =>
-//     {
-//         //cfg.Host("rabbitmq");
-//         cfg.Host("localhost", "/", h =>
-//         {
-//             h.Username("rmuser");
-//             h.Password("rmpassword");
-//         });
-//     });
-//     x.AddRequestClient<GetObjectRequest>(new Uri("queue:getObj?durable=false"));
-//     x.AddRequestClient<PutObjectRequest>(new Uri("queue:putObj?durable=false"));
-//     x.AddRequestClient<DeleteObjectRequest>(new Uri("queue:delObj?durable=false"));
-//     // x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
-//     // {
-//     //     //cfg.Host("rabbitmq://localhost", h =>
-//     //     cfg.Host("http://localhost:15672", h =>
-//     //     {
-//     //         h.Username("rmuser");
-//     //         h.Password("rmpassword");
-//     //     });
-//     // }));
-// });
-
 builder.Services.AddMassTransit(cfg =>
     {
         cfg.SetKebabCaseEndpointNameFormatter();
@@ -160,6 +136,9 @@ builder.Services.AddMassTransit(cfg =>
     })
     .AddMassTransitHostedService();
 
+// payment
+builder.Services.AddApplicationServices(builder.Configuration);
+builder.Services.AddHttpClientServices();
 
 builder.Services.Configure<JwtBearerOptions>("IdentityServerJwtBearer", o => o.Authority = "https://localhost:44452");
 
