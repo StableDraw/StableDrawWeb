@@ -59,7 +59,6 @@ IHost host = Host.CreateDefaultBuilder(args)
                 rollOnFileSizeLimit: true,
                 shared: true,
                 flushToDiskInterval: TimeSpan.FromSeconds(1));
-        //.CreateLogger();
     })
     .Build();
 

@@ -24,7 +24,7 @@ IHost host = Host.CreateDefaultBuilder(args)
         {
             cfg.SetKebabCaseEndpointNameFormatter();
             cfg.AddDelayedMessageScheduler();
-            cfg.AddSagaStateMachine<MinIoSaga, MinIoSagaState>()
+            cfg.AddSagaStateMachine<SagaStateMachine, SagaState>()
                 .EntityFrameworkRepository(r =>
                 {
                     r.ConcurrencyMode = ConcurrencyMode.Pessimistic;
@@ -61,8 +61,6 @@ IHost host = Host.CreateDefaultBuilder(args)
                 rollOnFileSizeLimit: true,
                 shared: true,
                 flushToDiskInterval: TimeSpan.FromSeconds(1));
-        //.CreateLogger();
-
     }).Build();
 
 using (var scope = host.Services.CreateScope())

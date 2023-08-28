@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.JavaScript;
 using MassTransit;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -31,19 +32,27 @@ public class ImageController : Controller
     {
         var user = _userManager.GetUserAsync(User);
         var image = _repository.GetImage(imageName, user.Id);
+        if (image == null)
+        {
+            return NotFound();
+        }
         var response = await _bus.Request<GetObjectMinIoRequest, GetObjectMinIoReply>(new GetObjectRequestModel()
-            {ObjectId = image, OrderId = Guid.NewGuid()});
+            {ObjectId = image.Oid, OrderId = Guid.NewGuid()});
         return Ok(response.Message);
     }
 
-    [HttpDelete("{imageName}")]
+    [HttpDelete]
     public async Task<IActionResult> DeleteObject(string imageName)
     {
         var user = _userManager.GetUserAsync(User);
         var image = _repository.GetImage(imageName, user.Id);
+        if (image == null)
+        {
+            return NotFound();
+        }
         var response = 
             await _bus.Request<DeleteObjectMinIoRequest, DeleteObjectMinIoReply>(new DeleteObjectRequestModel()
-                { ObjectId = image, OrderId = Guid.NewGuid()});
+                { ObjectId = image.Oid, OrderId = Guid.NewGuid()});
         _repository.DeleteImage(imageName, user.Id);
         return Ok(response.Message);
     }
@@ -52,8 +61,8 @@ public class ImageController : Controller
     public async Task<IActionResult> Post(IFormFile file)
     {
         var user = _userManager.GetUserAsync(User);
-        var imgId = _repository.CreateImage(file.FileName, user.Id);
         Response<PutObjectMinIoReply> response;
+        var imgId = Guid.NewGuid();
         using (var memoryStream = new MemoryStream())
         {
             await file.CopyToAsync(memoryStream);
@@ -61,6 +70,11 @@ public class ImageController : Controller
                 .Request<PutObjectMinIoRequest, PutObjectMinIoReply>(new PutObjectRequestModel()
                     { ObjectId = imgId, Data = memoryStream.ToArray(), OrderId = Guid.NewGuid()});
         }
+
+        if (response.Message != null)
+            _repository.CreateImage(file.FileName, user.Id);
+        else
+            return BadRequest();
         return Ok(response.ResponseAddress.ToString());
     }
 }

@@ -2,13 +2,15 @@
 
 namespace StableDraw.Domain.Repositories;
 
-public interface IApplicationRepository
+public interface IApplicationRepository : IDisposable
 {
-    Guid CreateImage(string imageName, int userId);
-    Guid GetImage(string imageName, int userId);
+    void CreateImage(string imageName, int userId);
+    Image? GetImage(string imageName, int userId);
     void DeleteImage(string imageName, int userId);
+    void UpdateImage(Image image);
 
-    IEnumerable<Guid> GetImages(int userId);
+    IEnumerable<Image> GetImages(int userId);
     void CreateImages(IEnumerable<string> imageNames, int userId);
     void DeleteImages(IEnumerable<string> imageNames, int userId);
+    void Save();
 }

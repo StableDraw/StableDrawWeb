@@ -1,4 +1,6 @@
-﻿using StableDraw.Core.Models;
+﻿using System.Net.Mime;
+using System.Security.Cryptography;
+using StableDraw.Core.Models;
 using StableDraw.Domain.Data.Identity;
 
 namespace StableDraw.Domain.Repositories;
@@ -12,30 +14,55 @@ public class ApplicationRepository : IApplicationRepository
         _context = context;
     }
 
-    public Guid CreateImage(string imageName, int userId)
+    public void CreateImage(string imageName, int userId)
     {
-        //var img = new Image(imageName, userId);
         var img = new Image(){ImageName = imageName, UserId = userId};
-        _context.Images.AddAsync(img);
-        return img.Oid;
+        _context.Images.Add(img);
     }
-        
-    
 
-    public Guid GetImage(string imageName, int userId) =>
-        _context.Images.FirstOrDefault(x => x.ImageName == imageName && x.UserId == userId)!.Oid;
+    public Image? GetImage(string imageName, int userId) =>
+        _context.Images.FirstOrDefault(x => x.ImageName == imageName && x.UserId == userId);
 
     public void DeleteImage(string imageName, int userId) =>
         _context.Images.Remove(_context.Images
             .FirstOrDefault(x => x.ImageName == imageName && x.UserId == userId) ?? throw new InvalidOperationException());
 
+    public void UpdateImage(Image image)
+    {
+        _context.Images.Update(image);
+    }
 
-    public IEnumerable<Guid> GetImages(int userId) => 
-        _context.Images.Where(x => x.UserId == userId).Select(x => x.Oid);
+    public IEnumerable<Image> GetImages(int userId) => 
+        _context.Images.Where(x => x.UserId == userId);
 
     public void CreateImages(IEnumerable<string> imageNames, int userId) => 
         _context.Images.AddRange(imageNames.Select(x => new Image(){ImageName = x, UserId = userId}));
 
     public void DeleteImages(IEnumerable<string> imageNames, int userId) =>
         _context.Images.RemoveRange(_context.Images.Where(x => imageNames.Contains(x.ImageName) && userId == x.UserId));
+
+    public void Save()
+    {
+        _context.SaveChanges();
+    }
+
+    private bool _disposed = false;
+    
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!this._disposed)
+        {
+            if (disposing)
+            {
+                _context.Dispose();
+            }
+        }
+        this._disposed = true;
+    }
+    
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
 }
