@@ -253,14 +253,27 @@ const ParamsWindow = ({setModal, props}) => {
                         <img
                             src={"search1.webp"}
                             alt={"search1"}
-                            style={{width: 25, height: 25, borderRadius: 100, backgroundColor: "#666666"}}
+                            style={{
+                                width: 25,
+                                height: 25,
+                                borderRadius: 100,
+                                backgroundColor: "#666666"
+                            }}
                         />
                     </IconButton>
                 </div>
                 <Button
                     className={cl.searchBtn}
                     variant="contained"
-                    sx={{background: "#474747", color: "#ffffff", '&:hover': {backgroundColor: '#ffffff', color: '#555DD3'}, fontSize: 11}}
+                    sx={{
+                        background: "#474747",
+                        color: "#ffffff",
+                        '&:hover': {
+                            backgroundColor: '#ffffff',
+                            color: '#555DD3'
+                        },
+                        fontSize: 11
+                    }}
                 >
                     <img
                         src={"saveset.png"}
@@ -289,7 +302,14 @@ const ParamsWindow = ({setModal, props}) => {
                                     placement="top"
                                 >
                                     <HelpOutlineIcon 
-                                        sx={{ fontSize: 18, marginLeft: 1, marginTop: 1, cursor: "help", backgroundColor: "#000000", borderRadius: 100}}
+                                        sx={{
+                                            fontSize: 18,
+                                            marginLeft: 1,
+                                            marginTop: 1,
+                                            cursor: "help",
+                                            backgroundColor: "#000000",
+                                            borderRadius: 100
+                                        }}
                                     />
                                 </Tooltip>
                             </div>
@@ -368,19 +388,23 @@ const ParamsWindow = ({setModal, props}) => {
                                         placement="top"
                                     >
                                         <HelpOutlineIcon 
-                                            sx={{ fontSize: 18, marginLeft: 1, marginBottom: 0.5, cursor: "help", backgroundColor: "#000000", borderRadius: 100}}
+                                            sx={{
+                                                fontSize: 18,
+                                                marginLeft: 1,
+                                                marginBottom: 0.5,
+                                                cursor: "help",
+                                                backgroundColor: "#000000",
+                                                borderRadius: 100
+                                            }}
                                         />
                                     </Tooltip>
                                 </div>
                             </div>
                         </div>
-
                         <div className={cl.Tex}>
                             <div className={cl.pointText1}> 
                                 Params3: 
                             </div>
-
-
                             <div className={cl.pointText}>
                                 {/*<label className={cl.switch}>
                                 <input type="checkbox" />
@@ -398,7 +422,14 @@ const ParamsWindow = ({setModal, props}) => {
                                         placement="top"
                                     >
                                         <HelpOutlineIcon 
-                                            sx={{ fontSize: 18, marginLeft: 1, marginTop: 2, cursor: "help", backgroundColor: "#000000", borderRadius: 100}}
+                                            sx={{
+                                                fontSize: 18,
+                                                marginLeft: 1,
+                                                marginTop: 2,
+                                                cursor: "help",
+                                                backgroundColor: "#000000",
+                                                borderRadius: 100
+                                            }}
                                         />
                                     </Tooltip>
                                 </div>
@@ -409,19 +440,22 @@ const ParamsWindow = ({setModal, props}) => {
                                 Params4: 
                             </div>
                             <div className={cl.pointText}>
-                                
                                 <div className={cl.slider}>
                                     <MyNewInput id='slider' callback={consol}/>
                                 </div>
-                                
                                 <div>
                                     <Tooltip 
                                         title={'Я подсказка'} 
                                         placement="top"
-                                        
                                     >
                                         <HelpOutlineIcon 
-                                            sx={{ fontSize: 18, marginLeft: 1.5, cursor: "help", backgroundColor: "#000000", borderRadius: 100}}
+                                            sx={{
+                                                fontSize: 18,
+                                                marginLeft: 1.5,
+                                                cursor: "help",
+                                                backgroundColor: "#000000",
+                                                borderRadius: 100
+                                            }}
                                         />
                                     </Tooltip>
                                 </div>
@@ -429,11 +463,18 @@ const ParamsWindow = ({setModal, props}) => {
                         </div>
                     </div>
                 </div>
-                
                 <Button
                     className={cl.cancelBtn}
                     variant="contained"
-                    sx={{background: "#474747", '&:hover': {backgroundColor: '#ffffff', color: '#555DD3'}, color: "#ffffff", fontSize: 14}} 
+                    sx={{
+                        background: "#474747",
+                        '&:hover': {
+                            backgroundColor: '#ffffff',
+                            color: '#555DD3'
+                        },
+                        color: "#ffffff",
+                        fontSize: 14
+                    }}
                     onClick={()=>setModal(false)}
                 >
                     Отмена
@@ -441,7 +482,14 @@ const ParamsWindow = ({setModal, props}) => {
                 <Button
                     className={cl.generatingBtn}
                     variant="contained"
-                    sx={{background: "#474747", '&:hover': {backgroundColor: '#474747', color: '#555DD3'}, fontSize: 14}}
+                    sx={{
+                        background: "#474747",
+                        '&:hover': {
+                            backgroundColor: '#474747',
+                            color: '#555DD3'
+                        },
+                        fontSize: 14
+                    }}
                     onClick={()=>End()}
                 >
                     <t>

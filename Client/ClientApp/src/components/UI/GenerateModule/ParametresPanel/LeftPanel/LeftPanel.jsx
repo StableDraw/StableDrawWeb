@@ -42,10 +42,6 @@ const LeftPanel = ({props}) => {
     ];
 
     const FireNav = styled(List)({
-        '& .MuiListItemButton-root': {
-            paddingLeft: 24,
-            paddingRight: 24,
-        },
         '& .MuiListItemIcon-root': {
             minWidth: 0,
             marginRight: 16,
@@ -71,11 +67,28 @@ const LeftPanel = ({props}) => {
                         <img
                             src={"search1.webp"}
                             alt={"search1"}
-                            style={{width: 28, height: 28, borderRadius: 100, backgroundColor: "#474747"}}
+                            style={{
+                                width: 28,
+                                height: 28,
+                                borderRadius: 100,
+                                backgroundColor: "#474747"
+                            }}
                         />
                     </IconButton>
 
-                        <FireNav component="nav" disablePadding sx={{color: '#000000', background: "#444444", borderRadius: 0, borderLeft: 1, borderBottom: 1, borderRight: 1, padding: 0}}>
+                        <FireNav
+                            component="nav"
+                            disablePadding
+                            sx={{
+                                color: '#000000',
+                                background: "#444444",
+                                borderRadius: 0,
+                                borderLeft: 1,
+                                borderBottom: 1,
+                                borderRight: 1,
+                                padding: 0
+                            }}
+                        >
                             <Box
                                 sx={{
                                     padding: 0,
@@ -89,10 +102,13 @@ const LeftPanel = ({props}) => {
 
                                         borderRight: 1,
                                         borderBottom: 1,
-                                        maxHeight: 45, minHeight: 45, maxWidth: 36, minWidth: 36, color: '#000000', background: "#444444",
+                                        maxHeight: 45,
+                                        minHeight: 45,
+                                        maxWidth: 36,
+                                        minWidth: 36,
+                                        color: '#000000',
+                                        background: "#444444",
                                         padding: 0,
-                                        paddingLeft: 0,
-                                        paddingRight: 0,
                                         '&:hover, &:focus': { '& svg': { opacity: activity ? 1 : 0 } },
                                         }}
                                     onClick={()=>setActivety(!activity)}
@@ -101,14 +117,29 @@ const LeftPanel = ({props}) => {
                                     <img
                                         src={"filter.png"}
                                         alt={"filter"}
-                                        style={{width: 28, height: 28, backgroundColor: "#474747", padding: 0}}
+                                        style={{
+                                            width: 28,
+                                            height: 28,
+                                            backgroundColor: "#474747",
+                                            padding: 0
+                                        }}
                                     />
                                 </ListItemButton>
                                 {activity &&
                                     data.map((item) => (
                                         <ListItemButton
                                             key={item.label}
-                                            sx={{ py: 0, minHeight: 32, right: 150, width: 180, color: 'rgba(255,255,255,.8)', backgroundColor: "#000000", border: 1, borderRadius: 1, padding: 0}}
+                                            sx={{
+                                                py: 0,
+                                                minHeight: 32,
+                                                right: 150,
+                                                width: 180,
+                                                color: 'rgba(255,255,255,.8)',
+                                                backgroundColor: "#000000",
+                                                border: 1,
+                                                borderRadius: 1,
+                                                padding: 0
+                                        }}
                                         >
                                             <ListItemIcon sx={{ color: 'inherit', padding: 0}}>
                                                 {item.icon}
@@ -121,10 +152,7 @@ const LeftPanel = ({props}) => {
                                     ))}
                             </Box>
                         </FireNav>
-
                 </div>
-
-
                 {/*<hr className={cl.hrLine}/>*/}
                 {/* <div className={cl.neurons}>
                     {

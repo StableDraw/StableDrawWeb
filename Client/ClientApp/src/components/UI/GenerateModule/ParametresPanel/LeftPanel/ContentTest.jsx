@@ -58,8 +58,20 @@ const ContentTest = ({props}) => {
         <div className={cl.Text}>
             <Button
                 className={cl.adding1}
-                sx={{backgroundColor: modal ? "#ff0000" : "#000000", '&:hover': { borderColor: modal ? "#ffffff" : "#00f139", border: 2, outlineColor: modal ? "#00f139" : "#ffffff", outline: 2},}}
-                style={{maxWidth: 110, maxHeight: 110, minWidth: 110, minHeight: 110}}
+                sx={{
+                    backgroundColor: modal ? "#ff0000" : "#000000",
+                    '&:hover': {
+                        borderColor: modal ? "#ffffff" : "#00f139",
+                        border: 2,
+                        outlineColor: modal ? "#00f139" : "#ffffff",
+                        outline: 2},
+                }}
+                style={{
+                    maxWidth: 110,
+                    maxHeight: 110,
+                    minWidth: 110,
+                    minHeight: 110
+                }}
                 variant="contained"
                 onClick={showAdding1Modal}
                 title={'ChatGPT'}
@@ -73,7 +85,14 @@ const ContentTest = ({props}) => {
             <Button
                 className={cl.adding2}
                 sx={{background: "#fff"}}
-                style={{maxWidth: 110, maxHeight: 110, minWidth: 110, minHeight: 110,  borderColor: modal1 ? "#ff0000" : "#000000", border: 2}}
+                style={{
+                    maxWidth: 110,
+                    maxHeight: 110,
+                    minWidth: 110,
+                    minHeight: 110,
+                    borderColor: modal1 ? "#ff0000" : "#000000",
+                    border: 2
+                }}
                 variant="contained"
                 onClick={showAdding2Modal}
                 title={'Midjourney'}
@@ -87,7 +106,14 @@ const ContentTest = ({props}) => {
             <Button
                 className={cl.adding3}
                 sx={{background: "#fff"}}
-                style={{maxWidth: 110, maxHeight: 110, minWidth: 110, minHeight: 110,  borderColor: modal2 ? "#ff0000" : "#000000", border: 2}}
+                style={{
+                    maxWidth: 110,
+                    maxHeight: 110,
+                    minWidth: 110,
+                    minHeight: 110,
+                    borderColor: modal1 ? "#ff0000" : "#000000",
+                    border: 2
+                }}
                 variant="contained"
                 onClick={showAdding3Modal}
                 title={'Kandinsky'}
@@ -101,7 +127,14 @@ const ContentTest = ({props}) => {
             <Button
                 className={cl.adding4}
                 sx={{background: "#fff"}}
-                style={{maxWidth: 110, maxHeight: 110, minWidth: 110, minHeight: 110,  borderColor: modal3 ? "#ff0000" : "#000000", border: 2}}
+                style={{
+                    maxWidth: 110,
+                    maxHeight: 110,
+                    minWidth: 110,
+                    minHeight: 110,
+                    borderColor: modal1 ? "#ff0000" : "#000000",
+                    border: 2
+                }}
                 variant="contained"
                 onClick={showAdding4Modal}
                 title={'YandexGPT'}
@@ -115,7 +148,14 @@ const ContentTest = ({props}) => {
             <Button
                 className={cl.adding5}
                 sx={{background: "#fff"}}
-                style={{maxWidth: 110, maxHeight: 110, minWidth: 110, minHeight: 110,  borderColor: modal4 ? "#ff0000" : "#000000", border: 2}}
+                style={{
+                    maxWidth: 110,
+                    maxHeight: 110,
+                    minWidth: 110,
+                    minHeight: 110,
+                    borderColor: modal1 ? "#ff0000" : "#000000",
+                    border: 2
+                }}
                 variant="contained"
                 onClick={showAdding5Modal}
                 title={'DALL-E'}
@@ -129,7 +169,14 @@ const ContentTest = ({props}) => {
             <Button
                 className={cl.adding6}
                 sx={{background: "#fff"}}
-                style={{maxWidth: 110, maxHeight: 110, minWidth: 110, minHeight: 110,  borderColor: modal5 ? "#ff0000" : "#000000", border: 2}}
+                style={{
+                    maxWidth: 110,
+                    maxHeight: 110,
+                    minWidth: 110,
+                    minHeight: 110,
+                    borderColor: modal1 ? "#ff0000" : "#000000",
+                    border: 2
+                }}
                 variant="contained"
                 onClick={showAdding6Modal}
                 title={'LoveGPT'}

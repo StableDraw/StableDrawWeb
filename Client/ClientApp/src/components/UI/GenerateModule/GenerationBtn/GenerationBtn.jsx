@@ -14,7 +14,14 @@ const GenerationBtn = () => {
         <div>
             <div className={cl.btn}>
                 <Button
-                    sx={{background: "#474747", '&:hover': {backgroundColor: '#474747', color: '#555DD3'},}}
+                    sx={{
+                        background: "#474747",
+                        '&:hover':
+                            {
+                                backgroundColor: '#474747',
+                                color: '#555DD3'
+                            },
+                    }}
                     variant="contained"
                     onClick={showGenerationModal}
                 >

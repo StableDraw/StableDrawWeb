@@ -9,12 +9,23 @@ const ParametresHeader = ({setModal}) => {
             <div className={cl.header}>
                 <Button
                     className={cl.closebtn}
-                    sx={{maxWidth: 35, maxHeight: 35, minWidth: 35, minHeight: 35, color: '#ffffff', background: "#333333"}}
+                    sx={{
+                        maxWidth: 35,
+                        maxHeight: 35,
+                        minWidth: 35,
+                        minHeight: 35,
+                        color: '#ffffff',
+                        background: "#333333"
+                    }}
                     onClick={()=>setModal(false)}
                 >
                     <Close
                         color="primary"
-                        sx={{fontSize: 28, color: "#fff", justifyContent: "center"}}
+                        sx={{
+                            fontSize: 28,
+                            color: "#fff",
+                            justifyContent: "center"
+                        }}
                     />
                 </Button>
             </div>
