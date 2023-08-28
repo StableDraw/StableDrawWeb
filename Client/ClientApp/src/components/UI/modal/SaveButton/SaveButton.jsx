@@ -3,31 +3,40 @@ import cl from './SaveButton.module.css'
 import Button from '@mui/material/Button';
 import { Modal } from '@mui/material';
 import Stack from '@mui/material/Stack';
+import {  Typography, Input, InputLabel, } from '@mui/material';
+
 
 import Content1 from "../../BabylonModule/Content1";
 const SaveButton = () => {
-    const [modal, setModal] = useState(false)
-    function showSaveButtonModal(){
-        setModal(!modal)
-    }
-    // <div style={{width:50, display:'inline'}}>
-    //     <ToolButton src={'save.png'} visible={modal} setVisible={setModal} title={'Сохранить изображение'} isVisibleClass={cl.active} isInvisibleClass={cl.unactive}/>
-    //     <div className={rootClass.join(' ')} id="save">
-    //     </div>
-    // </div>
+    
+    const handleFileChange = (event) => {
+		let files = [...event.target.files];
+		console.log("файлы c кнопки:", files);
+
+		let formData = new FormData();
+		formData.append(`file`, files[0]);
+		formData.append("Content-Type", 'multipart/form-data');
+	}
     return (
-            <Stack spacing={1} direction="row">
-                <div>
-                    <Button sx={{background: "#fff"}} style={{maxWidth: 50, maxHeight: 50, minWidth: 50, minHeight: 50}} variant="contained" onClick={showSaveButtonModal} title={'Сохранить изображение'}><img src={"save.png"} alt={"save"} style={{ width: 30, height: 30}}/> </Button>
-                    <Modal open={modal} onClose={showSaveButtonModal} className={cl.window}>
-                        <Content1/>
-                    </Modal>
-                </div>
-            </Stack>
-
-
+        <div className={cl.button} >
+            <InputLabel htmlFor="file-input">
+                <img 
+                src={"save.png"} 
+                alt={"save"}
+                title='Сохранить изображение'
+                style={{ width: 45, height: 45}}/>
+            </InputLabel>
+            <Input
+                id="file-input"
+                type="file"
+                hidden
+                inputProps={{
+                    accept: 'image/*', // Можете указать типы файлов, которые разрешены
+                }}
+                onChange={handleFileChange}
+            />
+		</div>
     )
-
 };
 
 export default SaveButton

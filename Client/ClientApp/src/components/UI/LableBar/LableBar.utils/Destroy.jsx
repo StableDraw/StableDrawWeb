@@ -1,12 +1,13 @@
 ﻿import React, {useState} from 'react';
-
-const Destroy = ({ids, ...props}) => {
-    const [id, setid] = useState(props.ids)
-    const [item, setId] = useState(ids)
+import CloseIcon from '@mui/icons-material/Close';
+const Destroy = ({ids,deleteCanva,indexDelete, ...props}) => {
+    const Destroy = () => {
+        props.remove(props.item)
+        deleteCanva(indexDelete)
+        console.log(indexDelete)
+    }
     return (
-        <button onClick={() => props.remove(props.item)} className="layer_left_mini_button" id={"destroy_layers_"+item} title="Нахуй слой">
-            <img className="layer_left_mini_button_image" alt="destroy.png" src="destroy.png"></img>
-        </button>
+            <CloseIcon  onClick={Destroy} sx={{ fontSize: 20 }} title="Удалить слой" style={{position: "absolute", right: 0, top: 0, zIndex: 1000}}/>
     );
 };
 

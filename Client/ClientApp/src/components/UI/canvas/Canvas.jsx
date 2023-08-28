@@ -1,36 +1,42 @@
-﻿import React, {useEffect, useRef} from 'react';
+﻿import React, {useEffect, useRef, useState} from 'react';
 import cl from './Canvas.module.css'
 import CanvasState from "../../../store/canvasState";
 import toolState from "../../../store/toolState";
 import Brush from "../../../tools/Brush";
-const Canvas = ({width, height}) => {
-    const canvasRef = useRef(null)
+import CanvasItems from "./CanvasItems";
+import canvasState from "../../../store/canvasState";
+const Canvas = ({width, height, labelData,canvasDate}) => {
+    const [canva, setCanva] = useState([])
 
+    const setRef = (ref) => {
+        setCanva( [...canva, ref])
+        CanvasState.setCanvasList(ref.current)
+        CanvasState.setCanvas(CanvasState.getCanvaRef());
+        toolState.setTool(new Brush(CanvasState.getCanvasList().at(-1)))
+    }
     useEffect(() => {
-        CanvasState.setCanvas(canvasRef.current);
-        toolState.setTool(new Brush(canvasRef.current))
+        CanvasState.setCanvas(CanvasState.getCanvas());
     }, []);
 
-    const mouseDownHandler = () => {
-        CanvasState.pushToUndo(canvasRef.current.toDataURL())
+    const mouseDownHandler = (e) => {
+        CanvasState.pushToUndo(CanvasState.getCanvas().toDataURL())
+        labelData(CanvasState.getUndo())
     }
-
     return (
-        <div className={cl.d_frame} id="d_frame">
-            <div className={cl.v_frame}  id="v_frame">
-                <canvas 
-                    onMouseDown={() => mouseDownHandler()} 
-                    ref={canvasRef} 
-                    width={width} 
-                    height={height} 
-                    // className={cl.drawfield} 
-                    id="canvas_background" 
-                    style={{ zIndex: 8 }}>
-                    
-                </canvas>
-                {/*<div className={cl.drawfield} id="alpha_img" style={{ zIndex: 7, backgroundImage: "url(alpha_pattern.png)", backgroundRepeat: "repeat" }}></div>*/}
+            <div className={cl.v_frame} onMouseDown={(e) => mouseDownHandler(e)}  style={{width: `calc(${width} + 4px)`, height: `calc(${height} + 4px)`,backgroundColor: "transparent"}}  id="v_frame" >
+                {canvasDate.map((item) =>
+                    <CanvasItems
+                     style={item.style}
+                      id={item.id}
+                       height={height}
+                        width={width}
+                         index={item.index}
+                          key={item.id}
+                            refs={setRef}/>
+                )}
+                <div style={{ border: "4px solid rgb(154, 154, 154)",width: `calc(${width} + 8px)`, height: `calc(${height} + 8px)`, zIndex: -1, backgroundImage: "url(alpha_pattern.png)", backgroundRepeat: "repeat", position: "absolute" }}></div>
             </div>
-        </div>
+
     );
 };
 

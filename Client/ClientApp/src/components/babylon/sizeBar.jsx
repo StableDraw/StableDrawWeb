@@ -4,9 +4,10 @@ import barClassesLight from './stylesLight/bar.module.css'
 import { Button, Card, Typography, ToggleButtonGroup, ToggleButton } from '@mui/material';
 import { useState } from "react";
 import FileUploadIcon from '@mui/icons-material/FileUpload';
+import { themeDark, themeLight } from './customThemes';
 
 
- export const SizeBar = ({ changeModel, model, isLightTheme }) => {
+export const SizeBar = ({ changeModel, model, isLightTheme }) => {
 	const [isSmallButtonClicked, setIsSmallButtonClicked] = useState(false);
 	const [isBigButtonClicked, setIsBigButtonClicked] = useState(true);
 
@@ -29,37 +30,38 @@ import FileUploadIcon from '@mui/icons-material/FileUpload';
 	};
 	return (
 		<div className={isLightTheme ? barClassesLight.sizeBar : barClasses.sizeBar}>
-			<Card className={ isLightTheme ? barClassesLight.buttonsSizeBar : barClasses.buttonsSizeBar}>
+			<Card className={isLightTheme ? barClassesLight.buttonsSizeBar : barClasses.buttonsSizeBar}>
 				<div className={barClasses.buttonCont_sizeBar}>
 					<Button
-					className={barClasses.button_sizeBar}
-					disabled={model.big ? false : true}
-					onClick={changeBigButtonColor}
-					variant={isBigButtonClicked ? "contained" : 'outlined'}
-					// sx={{ borderRadius: "10px", width:'100%', height:'100%' }}
+						theme={isLightTheme ? themeLight : themeDark}
+						className={barClasses.button_sizeBar}
+						disabled={model.big ? false : true}
+						onClick={changeBigButtonColor}
+						variant={isBigButtonClicked ? "contained" : 'outlined'}
 					>
-					<Typography className={barClasses.text}>Big pack</Typography>
-				</Button>
+						<Typography className={barClasses.text}>большая</Typography>
+					</Button>
 				</div>
 				<div className={barClasses.buttonCont_sizeBar}>
-					<Button 
-					className={barClasses.button_sizeBar}
-					disabled={model.small ? false : true}
-					onClick={changeSmallButtonColor}
-					variant={isSmallButtonClicked ? "contained" : 'outlined'}
-					// sx={{ borderRadius: "10px", width:'100%', height:'100%' }}
+					<Button
+						theme={isLightTheme ? themeLight : themeDark}
+						className={barClasses.button_sizeBar}
+						disabled={model.small ? false : true}
+						onClick={changeSmallButtonColor}
+						variant={isSmallButtonClicked ? "contained" : 'outlined'}
 					>
-					<Typography className={barClasses.text}>Small pack</Typography>
-				</Button>
+						<Typography className={barClasses.text}>маленькая</Typography>
+					</Button>
 				</div>
-				
+
 			</Card>
 			<Button
+				theme={isLightTheme ? themeLight : themeDark}
 				onClick={modelSetUp}
 				variant='contained'
 				className={barClasses.loadButton_sizeBar}
 				endIcon={<FileUploadIcon />}>
-				<Typography className={barClasses.text}>Load scene</Typography>
+				<Typography className={barClasses.text}>Загрузить</Typography>
 			</Button>
 			{!isBigButtonClicked && !isSmallButtonClicked &&
 				<Typography color={'red'} fontSize={14}> Select model size*</Typography>}

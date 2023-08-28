@@ -16,9 +16,9 @@ const Bucket = () => {
         <Stack spacing={1} direction="row">
             <div>
                 <Button sx={{background: "#fff"}} style={{maxWidth: 50, maxHeight: 50, minWidth: 50, minHeight: 50}} variant="contained" onClick={showBucketModal} title={'Заливка'}><img src={"bucket.png"} alt={"bucket"} style={{ width: 30, height: 30}}/> </Button>
-                <Modal open={modal} onClose={showBucketModal} className={cl.window}>
-                    <Content1/>
-                </Modal>
+                {/*<Modal open={modal} onClose={showBucketModal} className={cl.window}>*/}
+                {/*    <Content1/>*/}
+                {/*</Modal>*/}
             </div>
         </Stack>
     )

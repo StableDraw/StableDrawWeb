@@ -1,13 +1,11 @@
-﻿import {useState} from 'react';
-import ListItem from "../ListItem/ListItem";
+﻿import ListItem from "../ListItem/ListItem";
 import cl from './ListLayers.module.css'
 
-const ListLayers = ({layers, remove, ...props}) => {
-    const [layer, setLayer] = useState()
+const ListLayers = ({layers, remove, canva,deleteCanva, ...props}) => {
     return (
         <div className={cl.layer_box}>
-            {layers.map((item, index) =>
-                <ListItem remove={remove} key={item.id} item={item}/>
+            {layers.map((item) =>
+                <ListItem deleteCanva={deleteCanva} canva={canva} index={item.index} remove={remove} key={item.id} item={item}/>
             )}
         </div>
     );

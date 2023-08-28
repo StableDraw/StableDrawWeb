@@ -1,6 +1,8 @@
 import Tool from "./Tool";
+import canvasState from "../store/canvasState";
 
 export default class Brush extends Tool {
+        
     constructor(canvas) {
         super(canvas);
         this.listen()
@@ -14,19 +16,23 @@ export default class Brush extends Tool {
 
     mouseUpHandler(e) {
         this.mouseDown = false
+
     }
     mouseDownHandler(e) {
+        this.ctx = canvasState.getCanvaRef().getContext("2d", { willReadFrequently: true })
         this.mouseDown = true
         this.ctx.beginPath()
         this.ctx.moveTo(e.pageX - e.target.offsetLeft, e.pageY - e.target.offsetTop)
     }
+
     mouseMoveHandler(e) {
         if (this.mouseDown) {
-            this.draw(e.pageX - e.target.offsetLeft, e.pageY - e.target.offsetTop)
+            this.draw(e.pageX - e.target.offsetLeft, e.pageY - e.target.offsetTop)      
         }
     }
     
     draw(x, y) {
+        this.ctx.strokeStyle = this.ctx.fillStyle
         this.ctx.lineTo(x, y)
         this.ctx.stroke()
     }

@@ -1,7 +1,7 @@
 export default class Tool {
     constructor(canvas) {
         this.canvas = canvas
-        this.ctx = canvas.getContext('2d')
+        this.ctx = canvas.getContext('2d', { willReadFrequently: true })
         this.destroyEvents()
     }
 
@@ -19,6 +19,7 @@ export default class Tool {
     set bezieCurve(strong) {
         this.ctx.bezieCurve = strong
     }
+
 
     // Переделать
    /* getBezierBasis(i, n, t) {
