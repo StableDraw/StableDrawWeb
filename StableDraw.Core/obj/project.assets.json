@@ -773,11 +773,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\StableDraw\\StableDrawWeb2\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj",
+      "projectUniqueName": "F:\\StableDraw\\StableDrawWeb6\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj",
       "projectName": "StableDraw.Core",
-      "projectPath": "F:\\StableDraw\\StableDrawWeb2\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj",
+      "projectPath": "F:\\StableDraw\\StableDrawWeb6\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj",
       "packagesPath": "C:\\Users\\ysm47\\.nuget\\packages\\",
-      "outputPath": "F:\\StableDraw\\StableDrawWeb2\\StableDrawWeb\\StableDraw.Core\\obj\\",
+      "outputPath": "F:\\StableDraw\\StableDrawWeb6\\StableDrawWeb\\StableDraw.Core\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ysm47\\AppData\\Roaming\\NuGet\\NuGet.Config"

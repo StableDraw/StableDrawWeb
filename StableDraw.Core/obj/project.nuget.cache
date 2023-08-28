@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "BQIkn1xDN4/oEjetyfEw2HCB5EDOe1XxW1+rdDGXn7Z11+buXAco23xLIjvQdk8tNqDkbekpA3fCuXrf+IEPgw==",
+  "dgSpecHash": "1mtF/ABFa9R/akTuZTAoJQeOi/hl8R/yA4elETTbDhj+5AdPtfSfewEVJqeAcbSsZpj1CPS7GfRYwk3YS45XeA==",
   "success": true,
-  "projectFilePath": "F:\\StableDraw\\StableDrawWeb2\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj",
+  "projectFilePath": "F:\\StableDraw\\StableDrawWeb6\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ysm47\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\7.0.5\\microsoft.aspnetcore.cryptography.internal.7.0.5.nupkg.sha512",
     "C:\\Users\\ysm47\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\7.0.5\\microsoft.aspnetcore.cryptography.keyderivation.7.0.5.nupkg.sha512",

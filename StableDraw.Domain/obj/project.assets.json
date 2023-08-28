@@ -2766,11 +2766,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\StableDraw\\StableDrawWeb2\\StableDrawWeb\\StableDraw.Domain\\StableDraw.Domain.csproj",
+      "projectUniqueName": "F:\\StableDraw\\StableDrawWeb6\\StableDrawWeb\\StableDraw.Domain\\StableDraw.Domain.csproj",
       "projectName": "StableDraw.Domain",
-      "projectPath": "F:\\StableDraw\\StableDrawWeb2\\StableDrawWeb\\StableDraw.Domain\\StableDraw.Domain.csproj",
+      "projectPath": "F:\\StableDraw\\StableDrawWeb6\\StableDrawWeb\\StableDraw.Domain\\StableDraw.Domain.csproj",
       "packagesPath": "C:\\Users\\ysm47\\.nuget\\packages\\",
-      "outputPath": "F:\\StableDraw\\StableDrawWeb2\\StableDrawWeb\\StableDraw.Domain\\obj\\",
+      "outputPath": "F:\\StableDraw\\StableDrawWeb6\\StableDrawWeb\\StableDraw.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ysm47\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -2785,8 +2785,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "F:\\StableDraw\\StableDrawWeb2\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj": {
-              "projectPath": "F:\\StableDraw\\StableDrawWeb2\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj"
+            "F:\\StableDraw\\StableDrawWeb6\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj": {
+              "projectPath": "F:\\StableDraw\\StableDrawWeb6\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj"
             }
           }
         }

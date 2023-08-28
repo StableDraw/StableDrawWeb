@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5p2JkBc7OQFjmRLhLmZT/8Xrary12ymHWg6W2EMi+BmJ98+UlyeDzH8O07/J+TomfMZlIUKpG4j7ALCFSexLPA==",
+  "dgSpecHash": "4h6+uCnu/cRZr+WgUcv+oajgIQrj2xJW0C/AcR47TgVguRUtETGhUCZInd6SFqhNNBLT7kpYJPwOcMxVCkRjGA==",
   "success": true,
-  "projectFilePath": "F:\\StableDraw\\StableDrawWeb2\\StableDrawWeb\\StableDraw.Domain\\StableDraw.Domain.csproj",
+  "projectFilePath": "F:\\StableDraw\\StableDrawWeb6\\StableDrawWeb\\StableDraw.Domain\\StableDraw.Domain.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ysm47\\.nuget\\packages\\automapper\\11.0.0\\automapper.11.0.0.nupkg.sha512",
     "C:\\Users\\ysm47\\.nuget\\packages\\duende.identityserver\\6.0.4\\duende.identityserver.6.0.4.nupkg.sha512",
