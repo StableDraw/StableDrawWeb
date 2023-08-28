@@ -9,4 +9,7 @@
     height: 779px;
     width: 1302px;
     background-color: rgb(0, 0, 0);
+    opacity: 1;
+    pointer-events: all;
+    transition: 0.5s;
 }

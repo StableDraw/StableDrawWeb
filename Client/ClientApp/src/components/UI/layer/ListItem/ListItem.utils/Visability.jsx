@@ -15,4 +15,5 @@ const Visability = ({ids, ...props}) => {
         </button>
     );
 };
+
 export default Visability;

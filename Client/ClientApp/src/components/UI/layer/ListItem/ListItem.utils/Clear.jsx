@@ -2,6 +2,7 @@
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import  cl from '.././ListItem.module.css'
 const Clear = ({ids, ...props}) => {
+    
     const [item, setId] = useState(ids)
     return (
         <button className={cl.layer_left_mini_button} onClick={props.Clear} id={"clear_layer_"+item} title="Очистить слой">
@@ -9,4 +10,5 @@ const Clear = ({ids, ...props}) => {
         </button>
     );
 };
+
 export default Clear;

@@ -1,6 +1,6 @@
-
 .header
 {
+    display: block;
     position: static;
     height: 59px;
     width: 1300px;
@@ -21,17 +21,4 @@
     right: 11px;
     display: block;
     position: fixed;
-}
-
-.headerText
-{
-    color: #ff0000;
-    position: static;
-    top: auto;
-    margin-top: 15px;
-    margin-left: 40px;
-    margin-right: auto;
-    font-family: sans-serif;
-    font-size: 24px;
-    font-weight: 600;
 }

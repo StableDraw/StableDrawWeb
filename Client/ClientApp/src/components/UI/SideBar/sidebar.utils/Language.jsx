@@ -7,4 +7,5 @@ const Language = () => {
         </button>
     );
 };
+
 export default Language;

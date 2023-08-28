@@ -10,27 +10,27 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 const Menu = () => {
 
-    return (
-        <div>
-            <Breadcrumbs aria-label="breadcrumb">
-                <Link
-                    underline="hover"
-                    sx={{ display: 'flex', alignItems: 'center', alignself: 'center' }}
-                    color="inherit"
-                    href="/"
-                >
-                    <HomeIcon sx={{ mr: 0.5, fontSize: 20}}  />
-                    Home
-                </Link>
-                <Link>
-                    <AttachMoneyIcon sx={{ mr: 0.5, fontSize: 20}} />
-                    Pay
-                </Link>
+  return (
+    <div>
+  <Breadcrumbs aria-label="breadcrumb">
+        <Link
+               underline="hover"
+                 sx={{ display: 'flex', alignItems: 'center', alignself: 'center' }}
+               color="inherit"
+               href="/"
+            >
+            <HomeIcon sx={{ mr: 0.5, fontSize: 20}}  />
+          Home
+        </Link>
+        <Link>
+          <AttachMoneyIcon sx={{ mr: 0.5, fontSize: 20}} />
+          Pay
+        </Link>
 
-            </Breadcrumbs>
-
-        </div>
-    )
+    </Breadcrumbs>
+      
+    </div>
+  )
 };
 
 export default Menu;

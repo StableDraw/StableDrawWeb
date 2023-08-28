@@ -3,17 +3,29 @@ import cl from "./PayBtn.module.css";
 import Button from '@mui/material/Button';
 import { Modal } from '@mui/material';
 import Content from './ModalWindow/Content';
+import { Link } from 'react-router-dom';
+
+
+
+
 const PayModule = () => {
+
     const [modal, setModal] = useState(false)
-    const showPayModal = () => {
+
+    function showPayModal(){
         setModal(!modal)
     }
+
     return (
-        <div>
-            <div className={cl.btn}> <Button variant="outlined" startIcon={"PAY"} onClick={showPayModal}/> </div>
-            <Modal open= {modal} onClose={showPayModal} className={cl.window}>
+        <div >
+            <div className={cl.btn}> 
+            <Link to='/pay'>
+                <Button variant="outlined" startIcon={"подписка"} onClick={showPayModal}/>
+            </Link>    
+            </div>
+            {/* <Modal open= {modal} onClose={showPayModal} className={cl.window}>
                 <Content/>
-            </Modal>
+            </Modal> */}
         </div>
     );
 };

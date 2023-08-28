@@ -1,10 +1,9 @@
-.header
+﻿.header
 {
     display: flex;
     justify-content: center;
     font-size: large;
 }
-
 .agreeWindow
 {
     display: flex;

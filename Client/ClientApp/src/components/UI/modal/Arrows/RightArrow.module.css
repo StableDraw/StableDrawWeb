@@ -1,18 +1,28 @@
-.myModal {
-    display: none;
-}
-
-.arrow_next {
+.bar
+{
     touch-action: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+    width: 45px;
+    height: 25px;
+
     display: block;
-    z-index: 25;
-    position: fixed;
-    justify-content: flex-end;
-    margin-right: 21.6%;
-    border: 2px solid rgb(29, 29, 29);
-    background-color:#fff;
-    width: 230px;
+   
+    /* border: 1px solid #000000; */
+}
+.bar:hover
+{
+    transform: translateY(4%);
+    opacity: 0.8;
+}
+
+.arrowsbar_panel_button_image
+{  
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    pointer-events: none;
+    height: 100%;
+    width: 100%;
 }

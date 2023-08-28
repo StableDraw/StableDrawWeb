@@ -1,62 +1,60 @@
 ﻿import React, {useState,useMemo} from 'react';
 import cl from './Pencil.module.css'
+import ToolButton from '../../Toolbar/ToolButton';
 import MyInput from '../../MyInput/MyInput';
 import Button from '@mui/material/Button';
+import { Modal } from '@mui/material';
 import Stack from '@mui/material/Stack';
+import toolState from "../../../../store/toolState";
+import Brush from "../../../../tools/Brush";
+import canvasState from "../../../../store/canvasState";
 let resMemo=[{},{}]
-const Pencil = ({active, activeBtn,  getRes}) => {
+const Pencil = ({active, activeBtn}) => {
     const [modal, setModal] = useState(false)
-    const [valueThickness, setValueThickness] = useState({id: 'pencil', type: 'thickness', res: 1})
-    const [valueSmoothing, setValueSmoothing] = useState({id: 'pencil', type: 'smoothing', res: 1})
+    const [thicknessValue, setThicknessValue] = useState(1)
     const rootClass = [cl.myModal]
-    if (active==='pencil') {
-        if (modal) {
+    if(active==='pencil') {
+        if(modal) {
             rootClass.push(cl.up_add_window)
         }
     }
-    console.log(modal)
-    const getThickness = (value) => {
-        setValueThickness(value)
-    }
-    const getSmoothing = (value) => {
-        setValueSmoothing(value)
-    }
+
     const showPencilModal = () => {
         setModal(!modal)
     }
 
-    const tochnolast = useMemo(()=>{
-        if (valueSmoothing !==  undefined && valueThickness !== undefined) {
-            if (JSON.stringify(resMemo[0]) !== JSON.stringify(valueThickness) || JSON.stringify(resMemo[1]) !== JSON.stringify(valueSmoothing)) {
-                resMemo =  [valueThickness,valueSmoothing]
-                getRes([valueThickness,valueSmoothing])
-            }
-        }
-    },[valueSmoothing,valueThickness])
+
+    const CallPencil = () => {
+        showPencilModal()
+        toolState.setTool(new Brush(canvasState.getCanvas()))
+        activeBtn('pencil')
+        console.log(modal)
+        
+        
+    }
  
     return (
-        <div style={{width:50, display:'inline'}} onClick={()=>activeBtn('pencil')}>
-           
+        <div style={{width:50, display:'inline'}}>
             <Stack spacing={1} direction="row">
-                <div>
                     <Button 
                         sx={{background: "#fff"}} 
                         style={{maxWidth: 50, maxHeight: 50, minWidth: 50, minHeight: 50}} 
-                        visible={modal} setVisible={setModal} variant="contained" 
-                        onClick={showPencilModal} title={'Карандаш'}>
+                        visible={modal} 
+                        
+                        variant="contained"
+                        title={'Карандаш'} 
+                        onClick={CallPencil}>
                         <img src={"pencil.png"} 
                             alt={"pencil"} 
                             style={{ width: 30, height: 30}}
                         /> 
                     </Button>
-                </div>
             </Stack>
-            <div className={rootClass.join(' ')} id="pencil_window" onMouseLeave={()=> console.log('uraaaaaaaaa')}>
-                <MyInput  id='pencil' callback={getThickness} imgPath={"thickness.png"} type={'thickness'} imgClass={cl.thicknessimg}/>
-                <MyInput id='pencil' callback={getSmoothing} imgPath={"smoothing.png"} type={'smoothing'} imgClass={cl.smoothingimg}/>
+            <div className={rootClass.join(' ')} id="pencil_window">
+                <MyInput  imgPath={"thickness.png"} type={'thickness'} imgClass={cl.thicknessimg}/>
             </div>
         </div>
-    );
+    )
 
 };
 

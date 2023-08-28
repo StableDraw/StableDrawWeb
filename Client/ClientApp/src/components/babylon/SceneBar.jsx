@@ -1,21 +1,26 @@
 import React from 'react';
 import { SceneCard } from './SceneCard';
 import {Paper, Card }from '@mui/material';
-import barClasses from'./styles/bar.module.css'
+import barClasses from'./stylesLight/bar.module.css'
+import { useState, memo } from "react";
 
 
 const scenes = [
-	{ id: 1, name: "Cart", img: '/babylon/imgPreviewScenes/Cart.jpeg', scene: 'Cart' },
+	{ id: 1, name: "Корзинка", img: '/babylon/imgPreviewScenes/box.png', scene: 'BoxFix2' },
+	{ id: 2, name: "Холодильник", img: '/babylon/imgPreviewScenes/Fridge.png', scene: 'Fridge' },
+	{ id: 3, name: "Тележка", img: '/babylon/imgPreviewScenes/Cart.jpeg', scene: 'CartFix' },
 ];
 
 
-export const SceneBar = ({
+export const SceneBar = memo(({
 	toggleSceneBar,
 	changeScene,
+	setSceneModal,
+	isLightTheme,
 }) => {
-
+	console.log("sceneBar rerendered");
 	return (
-		<div className={barClasses.cont}>
+		<div className={barClasses.sceneCont}>
 		{scenes.map(scene => <SceneCard
 					img={scene.img}
 					name={scene.name}
@@ -23,8 +28,10 @@ export const SceneBar = ({
 					toggleSceneBar={toggleSceneBar}
 					key={scene.id}
 					changeScene={changeScene}
+					setSceneModal={setSceneModal}
+					isLightTheme={isLightTheme}
 				/>
 				)}
 		</div>
 	);
-};
+});

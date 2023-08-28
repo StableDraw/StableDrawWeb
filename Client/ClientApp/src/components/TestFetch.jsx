@@ -53,16 +53,6 @@ export class TestFetch extends Component {
 
         return (
             <div>
-                {/*<h1 id="tableLabel">API Test</h1>*/}
-                {/*<p>This component demonstrates fetching data from the server.</p>*/}
-                {/*<code>*/}
-                {/*    {this.state.token}*/}
-                {/*</code>*/}
-                {/*{contents}*/}
-                {/*<div>*/}
-                {/*    <button onClick={this.Login}>login</button>*/}
-                {/*    <button onClick={this.Logout}>logout</button>*/}
-                {/*</div>*/}
                 <br/>
                 <hr/>
                 <Drawing />
@@ -70,19 +60,19 @@ export class TestFetch extends Component {
         );
     }
 
-    async TestApi() {
-        const data = await ApiTestConst.login("eve.holt@reqres.in", "cityslicka");
-        this.setState({tokenstest: data.token})
-    }
-    async GetToken(){
-        const data = await ApiToken.token();
-        this.setState({token: data})
-    }
-    async Login() {
-        const data = await ApiLogin.Login("test", "123456")
-        console.log(data)
-    }
-    async Logout() {
-        return await ApiLogin.Logout()
-    }
+    // async TestApi() {
+    //     const data = await ApiTestConst.login("eve.holt@reqres.in", "cityslicka");
+    //     this.setState({tokenstest: data.token})
+    // }
+    // async GetToken(){
+    //     const data = await ApiToken.token();
+    //     this.setState({token: data})
+    // }
+    // async Login() {
+    //     const data = await ApiLogin.Login("test", "123456")
+    //     console.log(data)
+    // }
+    // async Logout() {
+    //     return await ApiLogin.Logout()
+    // }
 }

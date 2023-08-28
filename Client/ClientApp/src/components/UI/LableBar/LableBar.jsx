@@ -7,13 +7,10 @@ import ListLayers from "../layer/ListLayers/ListLayers.jsx";
 
 const LableBar = (props) => {
     const [layers, SetLayer] = useState([
-        {id: Date.now()}
+        {id: Date.now(), index: 0}
     ])
     const AddNewlabels = (newLayer) => {
         SetLayer([...layers, newLayer])
-        props.Clear()
-        console.log(newLayer.id);
-        // alert(props.clear())
     }
     const Removelabels = (layer) => {
         SetLayer(layers.filter(l => l.id !== layer.id))
@@ -21,12 +18,12 @@ const LableBar = (props) => {
     
     return (
         <div className={cl.layers}>
-            <div className={cl.layers_buttons}>
+            <div className="layers_buttons">
                 <Merge/>
-                {/*<Swap/>*/}
-                <Add create={AddNewlabels}/>
+                <Swap/>
+                <Add create={AddNewlabels} canva={props.newCanva}/>
             </div>
-               <ListLayers drawingsArr = {props.drawingsArr} Clear ={props.Clear} layers={layers} remove={Removelabels}/>
+               <ListLayers deleteCanva={props.deleteCanva} canva={props.canva} layers={layers} remove={Removelabels}/>
         </div>
     );
 };

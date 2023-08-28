@@ -14,11 +14,15 @@ const MyNewInput = ({callback, id}) => {
     return (
         <div style={{display: "flex"}}>
             <div className={cl.slider}> 
-                <Slider 
+                <Slider
+                    sx={{color: 'success.main',
+                        '& .MuiSlider-thumb': {
+                            borderRadius: '1px',
+                        },}}
                     type='range'
                     size="small" 
                     aria-label="Small"  
-                    defaultValue={0}
+                    defaultValue={50}
                     // min='1'
                     max='100' 
                     valueLabelDisplay="auto"
