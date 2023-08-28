@@ -86,12 +86,15 @@ const LeftPanel = ({props}) => {
                                 borderLeft: 1,
                                 borderBottom: 1,
                                 borderRight: 1,
-                                padding: 0
+                                padding: 0,
+                                backgroundSize: 'cover',
                             }}
+
                         >
                             <Box
                                 sx={{
                                     padding: 0,
+                                    backgroundSize: 'cover',
                                 }}
                             >
 
@@ -99,7 +102,7 @@ const LeftPanel = ({props}) => {
 
                                     className={cl.filter_btn}
                                     sx={{
-
+                                        backgroundSize: 'cover',
                                         borderRight: 1,
                                         borderBottom: 1,
                                         maxHeight: 45,
@@ -121,7 +124,8 @@ const LeftPanel = ({props}) => {
                                             width: 28,
                                             height: 28,
                                             backgroundColor: "#474747",
-                                            padding: 0
+                                            padding: 0,
+                                            backgroundSize: 'cover',
                                         }}
                                     />
                                 </ListItemButton>
@@ -138,7 +142,8 @@ const LeftPanel = ({props}) => {
                                                 backgroundColor: "#000000",
                                                 border: 1,
                                                 borderRadius: 1,
-                                                padding: 0
+                                                padding: 0,
+                                                backgroundSize: 'cover',
                                         }}
                                         >
                                             <ListItemIcon sx={{ color: 'inherit', padding: 0}}>
@@ -146,7 +151,7 @@ const LeftPanel = ({props}) => {
                                             </ListItemIcon>
                                             <ListItemText
                                                 primary={item.label}
-                                                primaryTypographyProps={{ fontSize: 14, fontWeight: 'medium' }}
+                                                primaryTypographyProps={{ fontSize: 14, fontWeight: 'medium'}}
                                             />
                                         </ListItemButton>
                                     ))}
@@ -163,6 +168,7 @@ const LeftPanel = ({props}) => {
                     })
                     }
                 </div> */}
+
                 <ContentTest
                 />
             </div>

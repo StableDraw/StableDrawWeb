@@ -3,7 +3,7 @@ import Slider from '@mui/material/Slider';
 import cl from './MyNewInput.module.css'
 let resMemo = 0
 const MyNewInput = ({callback, id}) => {
-    const [value, setValue] = useState(1)
+    const [value, setValue] = useState(50)
     const setRes = (res) => {
         if(resMemo !== res){
             resMemo = res
@@ -15,10 +15,6 @@ const MyNewInput = ({callback, id}) => {
         <div style={{display: "flex"}}>
             <div className={cl.slider}> 
                 <Slider
-                    sx={{color: 'success.main',
-                        '& .MuiSlider-thumb': {
-                            borderRadius: '1px',
-                        },}}
                     type='range'
                     size="small" 
                     aria-label="Small"  

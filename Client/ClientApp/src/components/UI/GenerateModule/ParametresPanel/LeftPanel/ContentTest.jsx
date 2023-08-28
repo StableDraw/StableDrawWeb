@@ -67,10 +67,11 @@ const ContentTest = ({props}) => {
                         outline: 2},
                 }}
                 style={{
-                    maxWidth: 110,
-                    maxHeight: 110,
-                    minWidth: 110,
-                    minHeight: 110
+                    maxWidth: 150,
+                    maxHeight: 150,
+                    minWidth: 150,
+                    minHeight: 150,
+                    position: "static",
                 }}
                 variant="contained"
                 onClick={showAdding1Modal}
@@ -79,19 +80,19 @@ const ContentTest = ({props}) => {
                 <img
                     src={"ChatGPT.jpg"}
                     alt={"ChatGPT"}
-                    style={{width: 50, height: 50, borderRadius: 5}}
+                    style={{width: 100, height: 100, borderRadius: 5}}
                 />
             </Button>
             <Button
                 className={cl.adding2}
-                sx={{background: "#fff"}}
                 style={{
-                    maxWidth: 110,
-                    maxHeight: 110,
-                    minWidth: 110,
-                    minHeight: 110,
+                    maxWidth: 150,
+                    maxHeight: 150,
+                    minWidth: 150,
+                    minHeight: 150,
                     borderColor: modal1 ? "#ff0000" : "#000000",
-                    border: 2
+                    border: 2,
+                    position: "static",
                 }}
                 variant="contained"
                 onClick={showAdding2Modal}
@@ -100,19 +101,20 @@ const ContentTest = ({props}) => {
                 <img
                     src={"Midjourney.png"}
                     alt={"Midjourney"}
-                    style={{width: 50, height: 50, borderRadius: 5}}
+                    style={{width: 150, height: 150, borderRadius: 5}}
                 />
             </Button>
             <Button
                 className={cl.adding3}
                 sx={{background: "#fff"}}
                 style={{
-                    maxWidth: 110,
-                    maxHeight: 110,
-                    minWidth: 110,
-                    minHeight: 110,
+                    maxWidth: 150,
+                    maxHeight: 150,
+                    minWidth: 150,
+                    minHeight: 150,
                     borderColor: modal1 ? "#ff0000" : "#000000",
-                    border: 2
+                    border: 2,
+                    position: "static",
                 }}
                 variant="contained"
                 onClick={showAdding3Modal}
@@ -121,19 +123,20 @@ const ContentTest = ({props}) => {
                 <img
                     src={"Kandinsky.webp"}
                     alt={"Kandinsky"}
-                    style={{width: 50, height: 50, borderRadius: 5}}
+                    style={{width: 150, height: 150, borderRadius: 5}}
                 />
             </Button>
             <Button
                 className={cl.adding4}
                 sx={{background: "#fff"}}
                 style={{
-                    maxWidth: 110,
-                    maxHeight: 110,
-                    minWidth: 110,
-                    minHeight: 110,
+                    maxWidth: 150,
+                    maxHeight: 150,
+                    minWidth: 150,
+                    minHeight: 150,
                     borderColor: modal1 ? "#ff0000" : "#000000",
-                    border: 2
+                    border: 2,
+                    position: "static",
                 }}
                 variant="contained"
                 onClick={showAdding4Modal}
@@ -142,19 +145,20 @@ const ContentTest = ({props}) => {
                 <img
                     src={"YandexGPT.webp"}
                     alt={"YandexGPT"}
-                    style={{width: 50, height: 50, borderRadius: 5}}
+                    style={{width: 150, height: 150, borderRadius: 5}}
                 />
             </Button>
             <Button
                 className={cl.adding5}
                 sx={{background: "#fff"}}
                 style={{
-                    maxWidth: 110,
-                    maxHeight: 110,
-                    minWidth: 110,
-                    minHeight: 110,
+                    maxWidth: 150,
+                    maxHeight: 150,
+                    minWidth: 150,
+                    minHeight: 150,
                     borderColor: modal1 ? "#ff0000" : "#000000",
-                    border: 2
+                    border: 2,
+                    position: "static",
                 }}
                 variant="contained"
                 onClick={showAdding5Modal}
@@ -163,19 +167,20 @@ const ContentTest = ({props}) => {
                 <img
                     src={"dall-e.webp"}
                     alt={"dall-e"}
-                    style={{width: 50, height: 50, borderRadius: 5}}
+                    style={{width: 150, height: 150, borderRadius: 5}}
                 />
             </Button>
             <Button
                 className={cl.adding6}
                 sx={{background: "#fff"}}
                 style={{
-                    maxWidth: 110,
-                    maxHeight: 110,
-                    minWidth: 110,
-                    minHeight: 110,
+                    maxWidth: 150,
+                    maxHeight: 150,
+                    minWidth: 150,
+                    minHeight: 150,
                     borderColor: modal1 ? "#ff0000" : "#000000",
-                    border: 2
+                    border: 2,
+                    // position: "static",
                 }}
                 variant="contained"
                 onClick={showAdding6Modal}
@@ -184,7 +189,7 @@ const ContentTest = ({props}) => {
                 <img
                     src={"LoveGPT.jpg"}
                     alt={"LoveGPT"}
-                    style={{width: 50, height: 50, borderRadius: 5}}
+                    style={{width: 150, height: 150, borderRadius: 5}}
                 />
             </Button>
         </div>

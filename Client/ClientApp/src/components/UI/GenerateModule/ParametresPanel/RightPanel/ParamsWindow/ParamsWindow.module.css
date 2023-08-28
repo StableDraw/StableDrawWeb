@@ -53,9 +53,9 @@
     display: block;
     flex-direction: row;
     border-radius: 10px;
-   
-  }
-  .searcher {
+}
+
+.searcher {
     background-color: transparent;
     outline: none;
     font-size: 16px;
@@ -64,7 +64,10 @@
     height: 35px;
     border: 0;
     padding-left: 10px;
-  }
+}
+.searcher::placeholder { /* Most modern browsers support this now. */
+    color: #ffffff;
+}
 
 .searcher1{
     border-radius: 10px;
@@ -89,9 +92,9 @@
 
 
 .liststyle{
-    border: 2px solid #000000;
+    border: 2px solid #1976d2;
     border-radius: 10px;
-    background-color: #474747;
+    background-color: #666666;
     color:#ffffff;
     width: 100%;
     cursor: pointer;
@@ -128,7 +131,7 @@
     color: #000000;
     padding: 5px;
     text-decoration: none;
-    padding:20px 40px;
+      /*padding:20px 40px;*/
   }
   
   .dropdown_options a:hover {
@@ -194,9 +197,7 @@
     width: 164px;
     height: 47px;
     border-radius: 10px;
-
     left: 50px;
-    
     top: 27px;
     background-color: #474747;
     border: 1px solid #000000;
@@ -206,9 +207,7 @@
     width: 264px;
     height: 47px;
     border-radius: 5px;
-    
     top: 27px;
-    
     left: 586px;
     background-color: #474747;
     border: 1px solid #000000;
@@ -476,5 +475,24 @@ input:checked + .slider_round:before {
     border-radius: 10px;
     background-color: #474747;
     color:#ffffff;
+}
+
+.Icon_Set{
+    fill: #ffffff;
+    transition: all .8s ease;
+}
+/*svg path {*/
+/*    fill:#ffffff;*/
+/*    stroke-width: 1;*/
+/*}*/
+/*svg path:hover{*/
+/*    fill: #555DD3;*/
+/*    transition: all .8s ease;*/
+/*}*/
+/*.Icon_Set svg:hover{*/
+/*    fill: #555DD3;*/
+/*}*/
+.Icon_Set:hover{
+    fill: #555DD3;
 }
 

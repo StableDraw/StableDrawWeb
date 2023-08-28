@@ -145,21 +145,22 @@ const ParamsWindow = ({setModal, props}) => {
             padding: 0,
             transform: 'translateX(6px)',
             '&.Mui-checked': {
-                color: '#fff',
+                color: '#1976d2',
                 transform: 'translateX(22px)',
                 '& .MuiSwitch-thumb:before': {
-                    backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 20 20"><path fill="${encodeURIComponent(
+                    backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="26" width="26" viewBox="0 0 16 16" fill="none"><path fill="${encodeURIComponent(
                         '#fff',
-                    )}" d="M4.2 2.5l-.7 1.8-1.8.7 1.8.7.7 1.8.6-1.8L6.7 5l-1.9-.7-.6-1.8zm15 8.3a6.7 6.7 0 11-6.6-6.6 5.8 5.8 0 006.6 6.6z"/></svg>')`,
+                    )}" d="M2,9.014L3.414,7.6L6.004,10.189L12.593,3.6L14.007,5.014L6.003,13.017L2,9.014Z"/></svg>')`,
                 },
                 '& + .MuiSwitch-track': {
                     opacity: 1,
-                    backgroundColor: theme.palette.mode === 'dark' ? '#8796A5' : '#aab4be',
+                    backgroundColor: theme.palette.mode === 'dark' ? '#666666' : '#666666',
                 },
+
             },
         },
         '& .MuiSwitch-thumb': {
-            backgroundColor: theme.palette.mode === 'dark' ? '#003892' : '#001e3c',
+            backgroundColor: theme.palette.mode === 'dark' ? '#1976d2' : '#1976d2',
             width: 32,
             height: 32,
             '&:before': {
@@ -171,14 +172,14 @@ const ParamsWindow = ({setModal, props}) => {
                 top: 0,
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center',
-                backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 20 20"><path fill="${encodeURIComponent(
+                backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="26" width="26" viewBox="0 0 24 24"><path fill="${encodeURIComponent(
                     '#fff',
-                )}" d="M9.305 1.667V3.75h1.389V1.667h-1.39zm-4.707 1.95l-.982.982L5.09 6.072l.982-.982-1.473-1.473zm10.802 0L13.927 5.09l.982.982 1.473-1.473-.982-.982zM10 5.139a4.872 4.872 0 00-4.862 4.86A4.872 4.872 0 0010 14.862 4.872 4.872 0 0014.86 10 4.872 4.872 0 0010 5.139zm0 1.389A3.462 3.462 0 0113.471 10a3.462 3.462 0 01-3.473 3.472A3.462 3.462 0 016.527 10 3.462 3.462 0 0110 6.528zM1.665 9.305v1.39h2.083v-1.39H1.666zm14.583 0v1.39h2.084v-1.39h-2.084zM5.09 13.928L3.616 15.4l.982.982 1.473-1.473-.982-.982zm9.82 0l-.982.982 1.473 1.473.982-.982-1.473-1.473zM9.305 16.25v2.083h1.389V16.25h-1.39z"/></svg>')`,
+                )}" d="M6.99486 7.00636C6.60433 7.39689 6.60433 8.03005 6.99486 8.42058L10.58 12.0057L6.99486 15.5909C6.60433 15.9814 6.60433 16.6146 6.99486 17.0051C7.38538 17.3956 8.01855 17.3956 8.40907 17.0051L11.9942 13.4199L15.5794 17.0051C15.9699 17.3956 16.6031 17.3956 16.9936 17.0051C17.3841 16.6146 17.3841 15.9814 16.9936 15.5909L13.4084 12.0057L16.9936 8.42059C17.3841 8.03007 17.3841 7.3969 16.9936 7.00638C16.603 6.61585 15.9699 6.61585 15.5794 7.00638L11.9942 10.5915L8.40907 7.00636C8.01855 6.61584 7.38538 6.61584 6.99486 7.00636Z"/></svg>')`,
             },
         },
         '& .MuiSwitch-track': {
             opacity: 1,
-            backgroundColor: theme.palette.mode === 'dark' ? '#8796A5' : '#aab4be',
+            backgroundColor: theme.palette.mode === 'dark' ? '#666666' : '#666666',
             borderRadius: 20 / 2,
         },
     }));
@@ -208,7 +209,7 @@ const ParamsWindow = ({setModal, props}) => {
                                 variant="contained"
                                 color="primary"
                                 component="span"
-                                style={{width: 210, height:210, backgroundColor: "#474747"}}
+                                style={{width: 210, height: 210, backgroundColor: "#474747"}}
                                 onClick={() => fileRef.current}
                             >
                                 <img
@@ -251,8 +252,8 @@ const ParamsWindow = ({setModal, props}) => {
                     />
                     <IconButton>
                         <img
-                            src={"search1.webp"}
-                            alt={"search1"}
+                            src={"search.svg"}
+                            alt={"search"}
                             style={{
                                 width: 25,
                                 height: 25,
@@ -270,16 +271,14 @@ const ParamsWindow = ({setModal, props}) => {
                         color: "#ffffff",
                         '&:hover': {
                             backgroundColor: '#ffffff',
-                            color: '#555DD3'
+                            color: '#555DD3',
                         },
                         fontSize: 11
                     }}
                 >
-                    <img
-                        src={"saveset.png"}
-                        alt={"saveset"}
-                        style={{width: 40, height: 40, borderRadius: 2}}
-                    />
+                    <svg className={cl.Icon_Set} xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24">
+                        <path d="M18.1716 1C18.702 1 19.2107 1.21071 19.5858 1.58579L22.4142 4.41421C22.7893 4.78929 23 5.29799 23 5.82843V20C23 21.6569 21.6569 23 20 23H4C2.34315 23 1 21.6569 1 20V4C1 2.34315 2.34315 1 4 1H18.1716ZM4 3C3.44772 3 3 3.44772 3 4V20C3 20.5523 3.44772 21 4 21L5 21L5 15C5 13.3431 6.34315 12 8 12L16 12C17.6569 12 19 13.3431 19 15V21H20C20.5523 21 21 20.5523 21 20V6.82843C21 6.29799 20.7893 5.78929 20.4142 5.41421L18.5858 3.58579C18.2107 3.21071 17.702 3 17.1716 3H17V5C17 6.65685 15.6569 8 14 8H10C8.34315 8 7 6.65685 7 5V3H4ZM17 21V15C17 14.4477 16.5523 14 16 14L8 14C7.44772 14 7 14.4477 7 15L7 21L17 21ZM9 3H15V5C15 5.55228 14.5523 6 14 6H10C9.44772 6 9 5.55228 9 5V3Z" />
+                    </svg>
                 </Button>
                     <div className={cl.parametresWind}>
                     <div className={cl.bordercont}>
@@ -485,16 +484,14 @@ const ParamsWindow = ({setModal, props}) => {
                     sx={{
                         background: "#474747",
                         '&:hover': {
-                            backgroundColor: '#474747',
+                            backgroundColor: '#ffffff',
                             color: '#555DD3'
                         },
                         fontSize: 14
                     }}
                     onClick={()=>End()}
                 >
-                    <t>
-                        Отправить на генерацию
-                    </t>
+                    Отправить на генерацию
                 </Button>
             </div>
         </div>
