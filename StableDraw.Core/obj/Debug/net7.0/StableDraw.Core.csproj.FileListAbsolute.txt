@@ -58,3 +58,15 @@ F:\StableDraw\StableDrawWeb6\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\Stab
 F:\StableDraw\StableDrawWeb6\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\refint\StableDraw.Core.dll
 F:\StableDraw\StableDrawWeb6\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\StableDraw.Core.pdb
 F:\StableDraw\StableDrawWeb6\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\ref\StableDraw.Core.dll
+C:\Users\Nurlan\Desktop\TEST\StableDrawWeb\StableDraw.Core\bin\Debug\net7.0\StableDraw.Core.deps.json
+C:\Users\Nurlan\Desktop\TEST\StableDrawWeb\StableDraw.Core\bin\Debug\net7.0\StableDraw.Core.dll
+C:\Users\Nurlan\Desktop\TEST\StableDrawWeb\StableDraw.Core\bin\Debug\net7.0\StableDraw.Core.pdb
+C:\Users\Nurlan\Desktop\TEST\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\StableDraw.Core.csproj.AssemblyReference.cache
+C:\Users\Nurlan\Desktop\TEST\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\StableDraw.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Nurlan\Desktop\TEST\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\StableDraw.Core.AssemblyInfoInputs.cache
+C:\Users\Nurlan\Desktop\TEST\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\StableDraw.Core.AssemblyInfo.cs
+C:\Users\Nurlan\Desktop\TEST\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\StableDraw.Core.csproj.CoreCompileInputs.cache
+C:\Users\Nurlan\Desktop\TEST\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\StableDraw.Core.dll
+C:\Users\Nurlan\Desktop\TEST\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\refint\StableDraw.Core.dll
+C:\Users\Nurlan\Desktop\TEST\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\StableDraw.Core.pdb
+C:\Users\Nurlan\Desktop\TEST\StableDrawWeb\StableDraw.Core\obj\Debug\net7.0\ref\StableDraw.Core.dll

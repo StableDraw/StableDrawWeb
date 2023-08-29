@@ -270,8 +270,8 @@ const ParamsWindow = ({setModal, props}) => {
                         background: "#474747",
                         color: "#ffffff",
                         '&:hover': {
-                            backgroundColor: '#ffffff',
-                            color: '#555DD3',
+                            backgroundColor: '#474747',
+                            color: '#474747',
                         },
                         fontSize: 11
                     }}
