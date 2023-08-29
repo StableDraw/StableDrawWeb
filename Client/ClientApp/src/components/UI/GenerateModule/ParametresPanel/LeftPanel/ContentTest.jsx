@@ -58,20 +58,18 @@ const ContentTest = ({props}) => {
         <div className={cl.Text}>
             <Button
                 className={cl.adding1}
-                sx={{
-                    backgroundColor: modal ? "#ff0000" : "#000000",
+                sx={{background: modal ? "#ff0000" : "#ffffff",
                     '&:hover': {
-                        borderColor: modal ? "#ffffff" : "#00f139",
-                        border: 2,
-                        outlineColor: modal ? "#00f139" : "#ffffff",
-                        outline: 2},
-                }}
+                        backgroundColor: '#ff0000',
+                    },}}
                 style={{
                     maxWidth: 150,
                     maxHeight: 150,
                     minWidth: 150,
                     minHeight: 150,
-                    position: "static",
+                    marginBottom: 15,
+                    marginTop:2,
+                    // position: "static",
                 }}
                 variant="contained"
                 onClick={showAdding1Modal}
@@ -80,19 +78,22 @@ const ContentTest = ({props}) => {
                 <img
                     src={"ChatGPT.jpg"}
                     alt={"ChatGPT"}
-                    style={{width: 100, height: 100, borderRadius: 5}}
+                    style={{width: 148, height: 148, borderRadius: 5}}
                 />
             </Button>
             <Button
                 className={cl.adding2}
+                sx={{background: modal1 ? "#ff0000" : "#ffffff",
+                    '&:hover': {
+                        backgroundColor: '#ff0000',
+                    },}}
                 style={{
                     maxWidth: 150,
                     maxHeight: 150,
                     minWidth: 150,
                     minHeight: 150,
-                    borderColor: modal1 ? "#ff0000" : "#000000",
-                    border: 2,
-                    position: "static",
+                    marginBottom: 15,
+                    // position: "static",
                 }}
                 variant="contained"
                 onClick={showAdding2Modal}
@@ -101,20 +102,22 @@ const ContentTest = ({props}) => {
                 <img
                     src={"Midjourney.png"}
                     alt={"Midjourney"}
-                    style={{width: 150, height: 150, borderRadius: 5}}
+                    style={{width: 148, height: 148, borderRadius: 5}}
                 />
             </Button>
             <Button
                 className={cl.adding3}
-                sx={{background: "#fff"}}
+                sx={{background: modal2 ? "#ff0000" : "#ffffff",
+                    '&:hover': {
+                        backgroundColor: '#ff0000',
+                    },}}
                 style={{
                     maxWidth: 150,
                     maxHeight: 150,
                     minWidth: 150,
                     minHeight: 150,
-                    borderColor: modal1 ? "#ff0000" : "#000000",
-                    border: 2,
-                    position: "static",
+                    marginBottom: 15,
+                    // position: "static",
                 }}
                 variant="contained"
                 onClick={showAdding3Modal}
@@ -123,63 +126,68 @@ const ContentTest = ({props}) => {
                 <img
                     src={"Kandinsky.webp"}
                     alt={"Kandinsky"}
-                    style={{width: 150, height: 150, borderRadius: 5}}
+                    style={{width: 148, height: 148, borderRadius: 5}}
                 />
             </Button>
             <Button
                 className={cl.adding4}
-                sx={{background: "#fff"}}
+                sx={{background: modal3 ? "#ff0000" : "#ffffff",
+                    '&:hover': {
+                        backgroundColor: '#ff0000',
+                    },}}
                 style={{
                     maxWidth: 150,
                     maxHeight: 150,
                     minWidth: 150,
                     minHeight: 150,
-                    borderColor: modal1 ? "#ff0000" : "#000000",
-                    border: 2,
-                    position: "static",
+                    marginBottom: 15,
+                    // position: "static",
                 }}
                 variant="contained"
                 onClick={showAdding4Modal}
                 title={'YandexGPT'}
             >
                 <img
-                    src={"YandexGPT.webp"}
-                    alt={"YandexGPT"}
-                    style={{width: 150, height: 150, borderRadius: 5}}
+                    src={"yandexGPT.jpg"}
+                    alt={"yandexGPT"}
+                    style={{width: 148, height: 148, borderRadius: 5}}
                 />
             </Button>
             <Button
                 className={cl.adding5}
-                sx={{background: "#fff"}}
+                sx={{background: modal4 ? "#ff0000" : "#ffffff",
+                    '&:hover': {
+                        backgroundColor: '#ff0000',
+                    },}}
                 style={{
                     maxWidth: 150,
                     maxHeight: 150,
                     minWidth: 150,
                     minHeight: 150,
-                    borderColor: modal1 ? "#ff0000" : "#000000",
-                    border: 2,
-                    position: "static",
+                    marginBottom: 15,
+                    // position: "static",
                 }}
                 variant="contained"
                 onClick={showAdding5Modal}
                 title={'DALL-E'}
             >
                 <img
-                    src={"dall-e.webp"}
-                    alt={"dall-e"}
-                    style={{width: 150, height: 150, borderRadius: 5}}
+                    src={"Dall-e.jpg"}
+                    alt={"Dall-e"}
+                    style={{width: 148, height: 148, borderRadius: 5}}
                 />
             </Button>
             <Button
                 className={cl.adding6}
-                sx={{background: "#fff"}}
+                sx={{background: modal5 ? "#ff0000" : "#ffffff",
+                    '&:hover': {
+                        backgroundColor: '#ff0000',
+                    },}}
                 style={{
                     maxWidth: 150,
                     maxHeight: 150,
                     minWidth: 150,
                     minHeight: 150,
-                    borderColor: modal1 ? "#ff0000" : "#000000",
-                    border: 2,
                     // position: "static",
                 }}
                 variant="contained"
@@ -189,7 +197,7 @@ const ContentTest = ({props}) => {
                 <img
                     src={"LoveGPT.jpg"}
                     alt={"LoveGPT"}
-                    style={{width: 150, height: 150, borderRadius: 5}}
+                    style={{width: 148, height: 148, borderRadius: 5}}
                 />
             </Button>
         </div>

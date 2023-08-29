@@ -30,7 +30,6 @@
     width: 210px;
     height: 210px;
     background-color: rgb(71, 71, 71);
-    border: 1px solid #000000;
     border-radius: 5px;
 }
 
@@ -111,6 +110,7 @@
 .liststyle .option{
     background-color: #474747;
     color:#ffffff;
+
 } 
 
 .dropdown-options {

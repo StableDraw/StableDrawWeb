@@ -216,6 +216,20 @@
     color: #000000;
 
 }
+
+.liststyle{
+    background-color: #666666;
+    color:#474747;
+    cursor: pointer;
+    text-align: center;
+}
+
+.option{
+    background-color: #000000;
+    color:#ffffff;
+    text-align: center;
+}
+
 /* .myMenu {
     list-style-type: none;
     padding: 0;
