@@ -2,6 +2,9 @@ import React, {useState, useRef, useEffect} from 'react';
 import cl from './LeftPanel.module.css';
 import Button from "@mui/material/Button";
 const ContentTest = ({props}) => {
+    const [activeBtn, setActiveBtn] = useState(null)
+    const rootClass = [cl.myModal]
+
     // const allNeurons = useRef([])
     // const [neurons, setNeurons]=useState([])
     // const [input, setInput] = useState('')
@@ -21,12 +24,14 @@ const ContentTest = ({props}) => {
     //         )
     //     )
     // }, [input])
+
     const [modal, setModal] = useState(false)
     const [modal1, setModal1] = useState(false)
     const [modal2, setModal2] = useState(false)
     const [modal3, setModal3] = useState(false)
     const [modal4, setModal4] = useState(false)
     const [modal5, setModal5] = useState(false)
+
     const showAdding1Modal = () => {
         setModal(!modal)
     }
