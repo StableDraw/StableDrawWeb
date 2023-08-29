@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "F:\\StableDraw\\StableDrawWeb6\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj": {}
+    "C:\\Users\\Nurlan\\Desktop\\TEST\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj": {}
   },
   "projects": {
-    "F:\\StableDraw\\StableDrawWeb6\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj": {
+    "C:\\Users\\Nurlan\\Desktop\\TEST\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\StableDraw\\StableDrawWeb6\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj",
+        "projectUniqueName": "C:\\Users\\Nurlan\\Desktop\\TEST\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj",
         "projectName": "StableDraw.Core",
-        "projectPath": "F:\\StableDraw\\StableDrawWeb6\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj",
-        "packagesPath": "C:\\Users\\ysm47\\.nuget\\packages\\",
-        "outputPath": "F:\\StableDraw\\StableDrawWeb6\\StableDrawWeb\\StableDraw.Core\\obj\\",
+        "projectPath": "C:\\Users\\Nurlan\\Desktop\\TEST\\StableDrawWeb\\StableDraw.Core\\StableDraw.Core.csproj",
+        "packagesPath": "C:\\Users\\Nurlan\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Nurlan\\Desktop\\TEST\\StableDrawWeb\\StableDraw.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ysm47\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Nurlan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -59,7 +61,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.307\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     }
