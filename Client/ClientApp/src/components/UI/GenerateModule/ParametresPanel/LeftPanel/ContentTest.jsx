@@ -1,10 +1,9 @@
 import React, {useState, useRef, useEffect} from 'react';
-import cl from './LeftPanel.module.css';
+import cl from './LeftPanel.module.scss';
 import Button from "@mui/material/Button";
 const ContentTest = ({props}) => {
     const [activeBtn, setActiveBtn] = useState(null)
     const rootClass = [cl.myModal]
-
     // const allNeurons = useRef([])
     // const [neurons, setNeurons]=useState([])
     // const [input, setInput] = useState('')
@@ -58,7 +57,6 @@ const ContentTest = ({props}) => {
                 <li key={neuron.id}>{neuron.name}</li>
             ))}
         </ul> */}
-    // '&:hover': {backgroundColor: '#474747', color: '#555DD3'}
     return (
         <div className={cl.Text}>
             <Button
@@ -74,11 +72,12 @@ const ContentTest = ({props}) => {
                     minHeight: 150,
                     marginBottom: 15,
                     marginTop:2,
-                    // position: "static",
+                    position: "static",
                 }}
                 variant="contained"
                 onClick={showAdding1Modal}
                 title={'ChatGPT'}
+                disableRipple
             >
                 <img
                     src={"ChatGPT.jpg"}
@@ -98,11 +97,12 @@ const ContentTest = ({props}) => {
                     minWidth: 150,
                     minHeight: 150,
                     marginBottom: 15,
-                    // position: "static",
+                    position: "static",
                 }}
                 variant="contained"
                 onClick={showAdding2Modal}
                 title={'Midjourney'}
+                disableRipple
             >
                 <img
                     src={"Midjourney.png"}
@@ -127,6 +127,7 @@ const ContentTest = ({props}) => {
                 variant="contained"
                 onClick={showAdding3Modal}
                 title={'Kandinsky'}
+                disableRipple
             >
                 <img
                     src={"Kandinsky.webp"}
@@ -151,6 +152,7 @@ const ContentTest = ({props}) => {
                 variant="contained"
                 onClick={showAdding4Modal}
                 title={'YandexGPT'}
+                disableRipple
             >
                 <img
                     src={"yandexGPT.jpg"}
@@ -175,6 +177,7 @@ const ContentTest = ({props}) => {
                 variant="contained"
                 onClick={showAdding5Modal}
                 title={'DALL-E'}
+                disableRipple
             >
                 <img
                     src={"Dall-e.jpg"}
@@ -198,6 +201,7 @@ const ContentTest = ({props}) => {
                 variant="contained"
                 onClick={showAdding6Modal}
                 title={'LoveGPT'}
+                disableRipple
             >
                 <img
                     src={"LoveGPT.jpg"}

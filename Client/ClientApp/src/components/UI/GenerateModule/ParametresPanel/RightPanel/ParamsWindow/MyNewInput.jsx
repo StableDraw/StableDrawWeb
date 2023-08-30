@@ -19,7 +19,6 @@ const MyNewInput = ({callback, id}) => {
                     size="small" 
                     aria-label="Small"  
                     defaultValue={50}
-                    // min='1'
                     max='100' 
                     valueLabelDisplay="auto"
                     value={value}
@@ -27,7 +26,6 @@ const MyNewInput = ({callback, id}) => {
                     onMouseLeave={()=>setRes(value)}
                 />
             </div>
-            {/* <input className={cl.up_add_window_slider} type="range" min='1' max='100' value={value} onChange={(e)=>setValue(e.target.value)} onMouseLeave={()=>setRes(value)}/> */}
             <input className={cl.up_add_window_field} type="number" min="0" max="100" value={value} onChange={(e) => setValue(e.target.value)} onMouseLeave={()=> setRes(value)} />
         </div>
     )
