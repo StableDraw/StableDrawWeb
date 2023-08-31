@@ -74,7 +74,7 @@ class CanvasState {
                 ctx.drawImage(img, 0, 0, this.canvas.width, this.canvas.height)
             }
         } else {
-            ctx.clearRect(0, 0, this.canvas.width, this.canvas.heigth)
+            ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
         }
     }
 
