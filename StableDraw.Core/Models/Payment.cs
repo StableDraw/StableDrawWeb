@@ -46,7 +46,7 @@ public class Recipient
 
 public class Payment
 {
-    public string Id { get; set; }
+    public Guid Id { get; set; }
 
     public string Status { get; set; }
 

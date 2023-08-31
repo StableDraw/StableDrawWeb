@@ -4,27 +4,34 @@ namespace StableDraw.Domain.Repositories;
 
 public class FakePaymentRepository : IPaymentRepository
 {
-    public void AddPayment(Payment payment, Guid userId)
+    private readonly PaymentDbContext _context;
+
+    public FakePaymentRepository(PaymentDbContext context)
     {
-        return;
+        _context = context;
+    }
+    
+    public void AddPayment(UserPayment userPayment)
+    {
+        _context.Add(userPayment);
     }
 
-    public Guid GetPaymentIdByUserId(Guid userId)
+    public Guid GetPaymentIdByUserId(string userId)
     {
-        return new Guid("2c789018-000f-5000-9000-19072706b7e1");
+        return _context.UserPayments.Where(x => x.UserId == userId).Select(x => x.PaymentId).FirstOrDefault();
     }
 
-    public bool IsSubscriber(Guid userId)
+    public bool IsSubscriber(string userId)
     {
-        return false;
+        return true;
     }
 
     public void Save()
     {
-        return;
+        _context.SaveChanges();
     }
 
-    public void UpdateUserToSubscriberAsync(Guid userId)
+    public void UpdateUserToSubscriberAsync(string userId)
     {
         return;
     }

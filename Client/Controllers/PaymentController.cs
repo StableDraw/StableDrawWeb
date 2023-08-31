@@ -1,4 +1,6 @@
 ﻿using CLI.Services;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using StableDraw.Core.Models;
 using StableDraw.Domain.Repositories;
@@ -9,29 +11,48 @@ namespace CLI.Controllers;
 [ApiController]
 public class PaymentController : ControllerBase
 {
-    private IPaymentRepository _paymentRepository;
-    private IPaymentService _paymentService;
+    private readonly IPaymentRepository _paymentRepository;
+    private readonly IPaymentService _paymentService;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public PaymentController(IPaymentService paymentService, IPaymentRepository paymentRepository)
+    public PaymentController(IPaymentService paymentService, IPaymentRepository paymentRepository, UserManager<ApplicationUser> userManager)
     {
         _paymentService = paymentService;
         _paymentRepository = paymentRepository;
+        _userManager = userManager;
     }
 
-    [HttpPost("{userId}")]
-    public async Task<IActionResult> CreatePayment(Guid userId, PaymentDTO paymentDTO)
+    [HttpPost]
+    public async Task<IActionResult> CreatePayment(PaymentDTO paymentDTO)
     {
+        var userId = _userManager.GetUserId(User);
+        if (string.IsNullOrEmpty(userId))
+        {
+            return Unauthorized();
+        }
+
         var payment = await _paymentService.CreatePayment(paymentDTO);
 
-        _paymentRepository.AddPayment(payment, userId);
+        var userPayment = new UserPayment{
+            PaymentId = payment.Id,
+            UserId = userId
+        };
+
+        _paymentRepository.AddPayment(userPayment);
         _paymentRepository.Save();
 
         return Ok(payment);
     }
 
-    [HttpGet("{userId}/status")]
-    public async Task<IActionResult> GetPaymentStatus(Guid userId)
+    [HttpGet("/status")]
+    public async Task<IActionResult> GetPaymentStatus()
     {
+        var userId = _userManager.GetUserId(User);
+        if (string.IsNullOrEmpty(userId))
+        {
+            return Unauthorized();
+        }
+
         if (_paymentRepository.IsSubscriber(userId))
         {
             return Ok();
