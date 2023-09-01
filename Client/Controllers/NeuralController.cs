@@ -32,12 +32,12 @@ public class NeuralController : Controller
         return await Task.FromResult(_neuralBuilderSettings.Properties);
     }
 
-    [HttpPost]
-    public async Task<IActionResult> PostNeuralToRun(INeuralObjectRequest request)
-    {
-        if (request is NeuralImpationModel impationModel)
-        {
-            
-        }
-    }
+    // [HttpPost]
+    // public async Task<IActionResult> PostNeuralToRun(INeuralObjectRequest request)
+    // {
+    //     if (request is NeuralImpationModel impationModel)
+    //     {
+    //         
+    //     }
+    // }
 }
