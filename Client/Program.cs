@@ -113,6 +113,9 @@ builder.Services.AddHttpsRedirection(options =>
 builder.Services.Configure<GoogleRecaptchaSettings>(builder.Configuration.GetSection("GoogleRecaptcha"));
 builder.Services.AddTransient<GoogleRecaptchaService>();
 
+// neural settings
+builder.Services.Configure<NeuralBuilderSettings>(builder.Configuration.GetSection("NeuralBuilder"));
+
 // rabbitMQ
 builder.Services.AddMassTransit(cfg =>
     {
