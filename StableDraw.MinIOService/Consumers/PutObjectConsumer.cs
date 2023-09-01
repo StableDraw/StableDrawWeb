@@ -1,5 +1,7 @@
 using MassTransit;
 using StableDraw.Contracts;
+using StableDraw.Contracts.MInIoContracts.Replies;
+using StableDraw.Contracts.MInIoContracts.Requests;
 using StableDraw.MinIOService.Services;
 
 

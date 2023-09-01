@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using StableDraw.Contracts;
+using StableDraw.Contracts.MInIoContracts.Requests;
 using StableDraw.MinIOService.Models;
 
 namespace StableDraw.MinIOService.Services;

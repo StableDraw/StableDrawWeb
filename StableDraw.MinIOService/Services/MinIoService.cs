@@ -2,6 +2,8 @@ using System.Net;
 using Microsoft.Extensions.Options;
 using Minio;
 using StableDraw.Contracts;
+using StableDraw.Contracts.MInIoContracts.Replies;
+using StableDraw.Contracts.MInIoContracts.Requests;
 using StableDraw.MinIOService.Models;
 using StableDraw.MinIOService.Settings;
 
@@ -35,32 +37,48 @@ public class MinIoService : IMinIoService
                 // if bucket not Exists,make bucket
                 await _minio.MakeBucketAsync(new MakeBucketArgs().WithBucket(_minIoSettings.BucketName));
             }
-        
-            MemoryStream filestream = new System.IO.MemoryStream(request.Data);
-            //var filename = Guid.NewGuid();
-        
-            // upload object
-            
-            
-            await _minio.PutObjectAsync(new PutObjectArgs()
-                    .WithBucket(_minIoSettings.BucketName)
-                    .WithObject(request.ObjectId.ToString().Replace("-", "_"))
-                    .WithStreamData(filestream)
-                    .WithObjectSize(filestream.Length)
-                    .WithContentType("application/octet-stream")
-            );
-            // var result = await _minio.PutObjectAsync(new PutObjectArgs()
-            //     .WithBucket(_minIoSettings.BucketName)
-            //     .WithStreamData(filestream).);
-            // var result = await _minio.PutObjectAsync(new PutObjectArgs()
-            //     .WithBucket(_minIoSettings.BucketName)
-            //     .WithFileName(request.ObjectId.ToString().Replace("-", "_"))
-            //     .WithStreamData(filestream).WithObject(request.ObjectId.ToString().Replace("-", "_")).WithObjectSize(filestream.Length)
+
+            var result = await PutImage(request.ObjectId, request.Data);
+            return await Task.FromResult(new PutObjectResult(){ObjectId = result});
+            // MemoryStream filestream = new System.IO.MemoryStream(request.Data);
+            // await _minio.PutObjectAsync(new PutObjectArgs()
+            //         .WithBucket(_minIoSettings.BucketName)
+            //         .WithObject(request.ObjectId.ToString().Replace("-", "_"))
+            //         .WithStreamData(filestream)
+            //         .WithObjectSize(filestream.Length)
+            //         .WithContentType("application/octet-stream")
             // );
-            return await Task.FromResult(new PutObjectResult()
+            // return await Task.FromResult(new PutObjectResult()
+            // {
+            //     ObjectId = request.ObjectId,
+            // });
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    public async Task<PutObjectsResult> PutsObj(IPutObjectsRequest request)
+    {
+        try
+        {
+            // Check Exists bucket
+            bool found = await _minio.BucketExistsAsync(new BucketExistsArgs().WithBucket(_minIoSettings.BucketName));
+        
+            if (!found)
             {
-                ObjectId = request.ObjectId,
-            });
+                // if bucket not Exists,make bucket
+                await _minio.MakeBucketAsync(new MakeBucketArgs().WithBucket(_minIoSettings.BucketName));
+            }
+
+            foreach (var item in request.DataDictionary)
+            {
+                await PutImage(item.Key, item.Value);
+            }
+
+            return await Task.FromResult<PutObjectsResult>(new PutObjectsResult());
         }
         catch (Exception e)
         {
@@ -71,8 +89,6 @@ public class MinIoService : IMinIoService
 
     public async Task<GetObjectResult> GetObj(IGetObjectRequest request)
     {
-        MemoryStream destination = new MemoryStream();
-        
         // Check Exists object
         var objstatreply= await _minio.StatObjectAsync(new StatObjectArgs()
             .WithBucket(_minIoSettings.BucketName)
@@ -83,19 +99,26 @@ public class MinIoService : IMinIoService
             throw new Exception("object not found or Deleted");
         
         // Get object
-        await _minio.GetObjectAsync(new GetObjectArgs()
-            .WithBucket(_minIoSettings.BucketName)
-            .WithObject(request.ObjectId.ToString())
-            .WithCallbackStream((stream) =>
-            {
-                stream.CopyTo(destination);
-            }));
-        
+        var result = await GetImage(request.ObjectId);
         return await Task.FromResult(new GetObjectResult()
         {
             ObjectId = request.ObjectId,
-            Data = destination.ToArray()
+            Data = result.ToArray()
         });
+
+        // await _minio.GetObjectAsync(new GetObjectArgs()
+        //     .WithBucket(_minIoSettings.BucketName)
+        //     .WithObject(request.ObjectId.ToString())
+        //     .WithCallbackStream((stream) =>
+        //     {
+        //         stream.CopyTo(destination);
+        //     }));
+        //
+        // return await Task.FromResult(new GetObjectResult()
+        // {
+        //     ObjectId = request.ObjectId,
+        //     Data = destination.ToArray()
+        // });
     }
 
     public async Task<DeleteObjectResult> DelObj(IDeleteObjectRequest request)
@@ -107,11 +130,75 @@ public class MinIoService : IMinIoService
         if (objstatreply == null || objstatreply.DeleteMarker) 
             throw new Exception("object not found or Deleted");
 
+        // RemoveObjectArgs rmArgs = new RemoveObjectArgs()
+        //     .WithBucket(_minIoSettings.BucketName)
+        //     .WithObject(request.ObjectId.ToString());
+        // await _minio.RemoveObjectAsync(rmArgs);
+
+        var result = await DeleteImage(request.ObjectId);
+        return await Task.FromResult(new DeleteObjectResult() {ObjectId = request.ObjectId});
+    }
+
+    private async Task<Guid> PutImage(Guid imageId, byte[] data)
+    {
+        try
+        {
+            MemoryStream filestream = new System.IO.MemoryStream(data);
+            await _minio.PutObjectAsync(new PutObjectArgs()
+                .WithBucket(_minIoSettings.BucketName)
+                .WithObject(imageId.ToString())
+                .WithStreamData(filestream)
+                .WithObjectSize(filestream.Length)
+                .WithContentType("application/octet-stream")
+            );
+            return await Task.FromResult(imageId);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    private async Task<byte[]> GetImage(Guid imageId)
+    {
+        MemoryStream destination = new MemoryStream();
+        
+        // Check Exists object
+        var objstatreply= await _minio.StatObjectAsync(new StatObjectArgs()
+            .WithBucket(_minIoSettings.BucketName)
+            .WithObject(imageId.ToString())
+        );
+        
+        if (objstatreply == null || objstatreply.DeleteMarker)
+            throw new Exception("object not found or Deleted");
+        
+        // Get object
+        await _minio.GetObjectAsync(new GetObjectArgs()
+            .WithBucket(_minIoSettings.BucketName)
+            .WithObject(imageId.ToString())
+            .WithCallbackStream((stream) =>
+            {
+                stream.CopyTo(destination);
+            }));
+        
+        return await Task.FromResult(destination.ToArray());
+    }
+
+    private async Task<Guid> DeleteImage(Guid imageId)
+    {
+        var objstatreply = await _minio.StatObjectAsync(new StatObjectArgs()
+            .WithBucket(_minIoSettings.BucketName)
+            .WithObject(imageId.ToString())
+        );
+        if (objstatreply == null || objstatreply.DeleteMarker) 
+            throw new Exception("object not found or Deleted");
+
         RemoveObjectArgs rmArgs = new RemoveObjectArgs()
             .WithBucket(_minIoSettings.BucketName)
-            .WithObject(request.ObjectId.ToString());
+            .WithObject(imageId.ToString());
         await _minio.RemoveObjectAsync(rmArgs);
 
-        return await Task.FromResult(new DeleteObjectResult() {ObjectId = request.ObjectId});
+        return await Task.FromResult(imageId);
     }
 }

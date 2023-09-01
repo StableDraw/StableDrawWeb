@@ -14,16 +14,17 @@ public class ApplicationRepository : IApplicationRepository
         _context = context;
     }
 
-    public void CreateImage(string imageName, int userId)
+    public Guid CreateImage(string imageName, string userId)
     {
-        var img = new Image(){ImageName = imageName, UserId = userId};
+        var img = new Image(){ImageName = imageName, UserId = userId, Oid = Guid.NewGuid()};
         _context.Images.Add(img);
+        return img.Oid;
     }
 
-    public Image? GetImage(string imageName, int userId) =>
+    public Image? GetImage(string imageName, string userId) =>
         _context.Images.FirstOrDefault(x => x.ImageName == imageName && x.UserId == userId);
 
-    public void DeleteImage(string imageName, int userId) =>
+    public void DeleteImage(string imageName, string userId) =>
         _context.Images.Remove(_context.Images
             .FirstOrDefault(x => x.ImageName == imageName && x.UserId == userId) ?? throw new InvalidOperationException());
 
@@ -32,13 +33,17 @@ public class ApplicationRepository : IApplicationRepository
         _context.Images.Update(image);
     }
 
-    public IEnumerable<Image> GetImages(int userId) => 
+    public IEnumerable<Image> GetImages(string userId) => 
         _context.Images.Where(x => x.UserId == userId);
 
-    public void CreateImages(IEnumerable<string> imageNames, int userId) => 
-        _context.Images.AddRange(imageNames.Select(x => new Image(){ImageName = x, UserId = userId}));
+    public IEnumerable<Guid> CreateImages(IEnumerable<string> imageNames, string userId)
+    {
+        var imgs = imageNames.Select(x => new Image() { ImageName = x, UserId = userId, Oid = Guid.NewGuid() });
+        _context.Images.AddRange(imgs);
+        return imgs.Select(x => x.Oid);
+    }
 
-    public void DeleteImages(IEnumerable<string> imageNames, int userId) =>
+    public void DeleteImages(IEnumerable<string> imageNames, string userId) =>
         _context.Images.RemoveRange(_context.Images.Where(x => imageNames.Contains(x.ImageName) && userId == x.UserId));
 
     public void Save()

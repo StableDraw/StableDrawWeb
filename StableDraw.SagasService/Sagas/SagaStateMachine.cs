@@ -2,6 +2,8 @@
 using Automatonymous;
 using MassTransit;
 using StableDraw.Contracts;
+using StableDraw.Contracts.MInIoContracts.Replies;
+using StableDraw.Contracts.MInIoContracts.Requests;
 
 namespace StableDraw.SagasService.Sagas;
 
@@ -31,20 +33,11 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
                     await RespondFromSaga(context, "Faulted On Get Objects " + string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
                 })
                 .TransitionTo(Failed)
-
-            // When(GetObject.TimeoutExpired)
-            //     .ThenAsync(async context =>
-            //     {
-            //         await RespondFromSaga(context, "Timeout Expired On Get Objects");
-            //     })
-            //     .TransitionTo(Failed)
         );
         
         During(PutObject.Pending,
             When(PutObject.Completed).ThenAsync(async context =>
             {
-                //await RespondFromSaga(context, string.Empty);
-                
                 await RespondFromSaga(context, string.Empty);
             }).Finalize(),
             When(PutObject.Faulted)
@@ -53,12 +46,6 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
                     await RespondFromSaga(context, "Faulted On Put Objects " + string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
                 })
                 .TransitionTo(Failed)
-            // When(PutObject.TimeoutExpired)
-            //     .ThenAsync(async context =>
-            //     {
-            //         await RespondFromSaga(context, "Timeout Expired On Put Objects");
-            //     })
-            //     .TransitionTo(Failed).Finalize()
         );
         
         During(DeleteObject.Pending, 
@@ -72,13 +59,6 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
                     await RespondFromSaga(context, "Faulted On Delete Objects " + string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
                 })
                 .TransitionTo(Failed)
-
-            // When(DeleteObject.TimeoutExpired)
-            //     .ThenAsync(async context =>
-            //     {
-            //         await RespondFromSaga(context, "Timeout Expired On Delete Objects");
-            //     })
-            //     .TransitionTo(Failed)
         );
     }
 
@@ -99,6 +79,24 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
         })).TransitionTo(PutObject.Pending);
     }
     
+    private EventActivityBinder<SagaState, PutObjectsMinIoRequest> WhenPutObjectsReceived()
+    {
+        return When(PutObjectsEvent).Then(x =>
+        {
+            if (!x.TryGetPayload(out SagaConsumeContext<SagaState, PutObjectsMinIoRequest> putImage))
+                throw new Exception("Unable to retrieve required getImage for callback data.");
+            x.Saga.RequestId = putImage.RequestId;
+            x.Saga.ResponseAddress = putImage.ResponseAddress;
+
+        }).Request(PutObjects, x => x.Init<IPutObjectsRequest>(new
+        {
+            OrderId = x.Message.OrderId,
+            DataDictionary = x.Message.DataDictionary
+            // ObjectsId = x.Message.ObjectsId,
+            // Data = x.Message.Data
+        })).TransitionTo(PutObjects.Pending);
+    }
+    
     private EventActivityBinder<SagaState, GetObjectMinIoRequest> WhenGetObjectReceived()
     {
         return When(GetObjectEvent).Then(x =>
@@ -115,6 +113,23 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
         })).TransitionTo(GetObject.Pending);
     }
     
+    private EventActivityBinder<SagaState, GetObjectsMinIoRequest> WhenGetObjectsReceived()
+    {
+        return When(GetObjectsEvent).Then(x =>
+        {
+            if (!x.TryGetPayload(out SagaConsumeContext<SagaState, GetObjectsMinIoRequest> getImage))
+                throw new Exception("Unable to retrieve required getImage for callback data.");
+            x.Saga.RequestId = getImage.RequestId;
+            x.Saga.ResponseAddress = getImage.ResponseAddress;
+
+        }).Request(GetObjects, x => x.Init<IGetObjectsRequest>(new
+        {
+            OrderId = x.Message.OrderId,
+            ObjectsId = x.Message.ObjectsId
+            
+        })).TransitionTo(GetObjects.Pending);
+    }
+    
     private EventActivityBinder<SagaState, DeleteObjectMinIoRequest> WhenDeleteObjectReceived()
     {
         return When(DeleteObjectEvent).Then(x =>
@@ -129,6 +144,22 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
             OrderId = x.Message.OrderId,
             ObjectId = x.Message.ObjectId
         })).TransitionTo(DeleteObject.Pending);
+    }
+    
+    private EventActivityBinder<SagaState, DeleteObjectsMinIoRequest> WhenDeleteObjectsReceived()
+    {
+        return When(DeleteObjectsEvent).Then(x =>
+        {
+            if (!x.TryGetPayload(out SagaConsumeContext<SagaState, DeleteObjectsMinIoRequest> deleteImage))
+                throw new Exception("Unable to retrieve required getImage for callback data.");
+            x.Saga.RequestId = deleteImage.RequestId;
+            x.Saga.ResponseAddress = deleteImage.ResponseAddress;
+            
+        }).Request(DeleteObjects, x => x.Init<IDeleteObjectsRequest>(new
+        {
+            OrderId = x.Message.OrderId,
+            ObjectsId = x.Message.ObjectsId
+        })).TransitionTo(DeleteObjects.Pending);
     }
 
     // private EventActivityBinder<SagaState, TInstance>[] WherePending<TRequest, TReply, TInstance>(Request<SagaState, TRequest, TReply> request) 
@@ -168,7 +199,14 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
                 await endpoint.Send<PutObjectMinIoReply>(
                     new PutObjectMinIoReply()
                     {
-                        ObjectId = putObjectReply.OrderId,
+                        ObjectId = putObjectReply.ObjectId,
+                        OrderId = context.Saga.CorrelationId
+                    }, r => r.RequestId = context.Saga.RequestId);
+                break;
+            case IPutObjectsReply putObjectsReply:
+                await endpoint.Send<PutObjectsMinIoReply>(
+                    new PutObjectsMinIoReply()
+                    {
                         OrderId = context.Saga.CorrelationId
                     }, r => r.RequestId = context.Saga.RequestId);
                 break;
@@ -181,11 +219,27 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
                         OrderId = context.Saga.CorrelationId
                     }, r => r.RequestId = context.Saga.RequestId);
                 break;
+            case IGetObjectsReply getObjectsReply:
+                await endpoint.Send<GetObjectsMinIoReply>(
+                    new GetObjectsMinIoReply()
+                    {
+                        Data = getObjectsReply.Data,
+                        OrderId = context.Saga.CorrelationId
+                    }, r => r.RequestId = context.Saga.RequestId);
+                break;
             case IDeleteObjectReply deleteObjectReply:
                 await endpoint.Send<DeleteObjectMinIoReply>(
                     new DeleteObjectMinIoReply()
                     {
                         ObjectId = deleteObjectReply.ObjectId,
+                        OrderId = context.Saga.CorrelationId
+                    }, r => r.RequestId = context.Saga.RequestId);
+                break;
+            case IDeleteObjectsReply deleteObjectsReply:
+                await endpoint.Send<DeleteObjectsMinIoReply>(
+                    new DeleteObjectsMinIoReply()
+                    {
+                        ObjectsId = deleteObjectsReply.ObjectsId,
                         OrderId = context.Saga.CorrelationId
                     }, r => r.RequestId = context.Saga.RequestId);
                 break;

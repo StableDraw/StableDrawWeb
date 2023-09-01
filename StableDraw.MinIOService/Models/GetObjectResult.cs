@@ -6,3 +6,9 @@ public class GetObjectResult
     public byte[] Data { get; set; }
     public string ErrorMsg { get; set; }
 }
+
+public class GetObjectsResult
+{
+    public string? ErrorMsg { get; set; }
+    public IEnumerable<byte[]>? Data { get; set; }
+}
