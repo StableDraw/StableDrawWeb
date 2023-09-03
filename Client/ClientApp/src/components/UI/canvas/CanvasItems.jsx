@@ -1,8 +1,4 @@
 ﻿import React, {useEffect, useRef} from 'react';
-import CanvasState from "../../../store/canvasState";
-import toolState from "../../../store/toolState";
-import Brush from "../../../tools/Brush";
-
 const CanvasItems = ({width, height, style, index, id ,labelData, refs}) => {
     const canvasRef = useRef(null)
     useEffect(() => {

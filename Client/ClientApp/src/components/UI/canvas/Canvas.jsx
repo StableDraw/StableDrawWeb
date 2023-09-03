@@ -21,7 +21,16 @@ const Canvas = ({width, height, labelData,canvasDate}) => {
         labelData(CanvasState.getUndo())
     }
     return (
-            <div className={cl.v_frame} onMouseDown={(e) => mouseDownHandler(e)}  style={{width: `calc(${width} + 4px)`, height: `calc(${height} + 4px)`,backgroundColor: "transparent"}}  id="v_frame" >
+            <div
+                className={cl.v_frame}
+                onMouseDown={(e) => mouseDownHandler(e)}
+                style={{
+                    width: `calc(${width} + 4px)`,
+                    height: `calc(${height} + 4px)`,
+                    backgroundColor: "transparent"
+                }}
+                id="v_frame"
+            >
                 {canvasDate.map((item) =>
                     <CanvasItems
                      style={item.style}
@@ -45,7 +54,6 @@ const Canvas = ({width, height, labelData,canvasDate}) => {
                 >
                 </div>
             </div>
-
     );
 };
 

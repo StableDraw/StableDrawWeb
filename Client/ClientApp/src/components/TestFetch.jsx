@@ -4,7 +4,6 @@ import ApiToken from "../API/ApiToken";
 import ApiLogin from "../API/ApiLogin";
 import {AuthorizeService} from "./api-authorization/AuthorizeService";
 import Drawing from "./Drawing";
-
 export class TestFetch extends Component {
     static displayName = TestFetch.name;
 
