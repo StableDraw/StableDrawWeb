@@ -300,7 +300,7 @@ const LeftPanel = ({props}) => {
                 {/*<hr className={cl.hrLine}/>*/}
 
                 {isLoading ? (
-                    <h2>Ухады, я гружусь...</h2>
+                    <h3 style={{color: "#ffffff"}}>Please, wait for the page loading...</h3>
                 ) : (
                 <div className={cl.Text}>
                     <Button

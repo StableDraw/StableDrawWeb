@@ -21,7 +21,6 @@ const Add = (props) => {
             index: i,
             style: {border: "4px solid rgb(154, 154, 154)", zIndex: i, position: "absolute", touchAction: "none",userSelect: "none", backgroundColor: "transparent"}
         }
-
         props.create(newLayer)
         NewLabel({})
         setI(i+1)

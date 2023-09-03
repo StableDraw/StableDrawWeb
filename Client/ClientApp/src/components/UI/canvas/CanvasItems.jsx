@@ -5,12 +5,9 @@ import Brush from "../../../tools/Brush";
 
 const CanvasItems = ({width, height, style, index, id ,labelData, refs}) => {
     const canvasRef = useRef(null)
-    
     useEffect(() => {
         refs(canvasRef)
     }, []);
-
-    
     return (
         <canvas
             ref={canvasRef}

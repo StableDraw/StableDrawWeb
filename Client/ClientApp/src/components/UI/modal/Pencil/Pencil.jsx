@@ -22,36 +22,42 @@ const Pencil = ({active, activeBtn}) => {
     const showPencilModal = () => {
         setModal(!modal)
     }
-
-
     const CallPencil = () => {
         showPencilModal()
         toolState.setTool(new Brush(canvasState.getCanvas()))
         activeBtn('pencil')
         console.log(modal)
-        
-        
     }
- 
     return (
         <div style={{width:50, display:'inline'}}>
             <Stack spacing={1} direction="row">
                     <Button 
                         sx={{background: "#fff"}} 
-                        style={{maxWidth: 50, maxHeight: 50, minWidth: 50, minHeight: 50}} 
-                        visible={modal} 
-                        
+                        style={{
+                            maxWidth: 50,
+                            maxHeight: 50,
+                            minWidth: 50,
+                            minHeight: 50
+                        }}
+                        visible={modal}
                         variant="contained"
                         title={'Карандаш'} 
                         onClick={CallPencil}>
                         <img src={"pencil.png"} 
                             alt={"pencil"} 
-                            style={{ width: 30, height: 30}}
+                            style={{
+                                width: 30,
+                                height: 30
+                            }}
                         /> 
                     </Button>
             </Stack>
             <div className={rootClass.join(' ')} id="pencil_window">
-                <MyInput  imgPath={"thickness.png"} type={'thickness'} imgClass={cl.thicknessimg}/>
+                <MyInput
+                    imgPath={"thickness.png"}
+                    type={'thickness'}
+                    imgClass={cl.thicknessimg}
+                />
             </div>
         </div>
     )

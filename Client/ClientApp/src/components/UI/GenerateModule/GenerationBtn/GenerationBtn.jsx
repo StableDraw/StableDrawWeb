@@ -3,13 +3,11 @@ import cl from "../GenerationBtn/GenerationBtn.module.css";
 import Button from '@mui/material/Button';
 import { Modal } from '@mui/material';
 import GeneratedContent from "../GeneratedContent/GeneratedContent";
-
 const GenerationBtn = () => {
     const [modal, setModal] = useState(false)
     const showGenerationModal = () => {
         setModal(!modal)
     }
-    console.log(modal)
     return (
         <div>
             <div className={cl.btn}>
@@ -30,7 +28,6 @@ const GenerationBtn = () => {
                         {/*    alt={"generate"}*/}
                         {/*    style={{ fontSize: 20, height: 25 }}*/}
                         {/*/>*/}
-
                 </Button>
             </div>
             <Modal

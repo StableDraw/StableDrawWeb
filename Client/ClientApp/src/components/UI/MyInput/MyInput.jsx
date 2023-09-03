@@ -3,7 +3,6 @@ import cl from './MyInput.module.css'
 import toolState from "../../../store/toolState";
 const MyInput = ({imgPath, imgClass,}) => {
     const [value, setValue] = useState(1)
-
     const CallRange = (e) => {
         toolState.setLineWidth(e.target.value)
         setValue(e.target.value)
@@ -12,12 +11,30 @@ const MyInput = ({imgPath, imgClass,}) => {
         toolState.setBezieCurve(e.target.value)
         setValue(e.target.value)
     }
-    
     return (
         <div>
-            <img className={imgClass} alt={imgPath} src={imgPath}></img>
-            <input className={cl.up_add_window_slider} type="range" min='1' max='100' value={value} onChange={e => CallRange(e)} />
-            <input className={cl.up_add_window_field} type="number" min="1" max="100" value={value} onChange={e => CallNumber(e)} />
+            <img
+                className={imgClass}
+                alt={imgPath}
+                src={imgPath}
+            >
+            </img>
+            <input
+                className={cl.up_add_window_slider}
+                type="range"
+                min='1'
+                max='100'
+                value={value}
+                onChange={e => CallRange(e)}
+            />
+            <input
+                className={cl.up_add_window_field}
+                type="number"
+                min="1"
+                max="100"
+                value={value}
+                onChange={e => CallNumber(e)}
+            />
         </div>
     )
 }

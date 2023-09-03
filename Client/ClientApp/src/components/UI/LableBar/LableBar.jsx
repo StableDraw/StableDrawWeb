@@ -21,9 +21,17 @@ const LableBar = (props) => {
             <div className="layers_buttons">
                 <Merge/>
                 <Swap/>
-                <Add create={AddNewlabels} canva={props.newCanva}/>
+                <Add
+                    create={AddNewlabels}
+                    canva={props.newCanva}
+                />
             </div>
-               <ListLayers deleteCanva={props.deleteCanva} canva={props.canva} layers={layers} remove={Removelabels}/>
+               <ListLayers
+                   deleteCanva={props.deleteCanva}
+                   canva={props.canva}
+                   layers={layers}
+                   remove={Removelabels}
+               />
         </div>
     );
 };

@@ -56,11 +56,9 @@ const ListItem = (props) => {
                         </canvas>
                     </div>
                     {/*<div className={cl.layer_display_canvas} id={"layer_alpha_img_"+props.item.id} style={{ zIndex: 0, backgroundImage: "url(mini_alpha_pattern.png)", backgroundRepeat: "repeat" }}></div>*/}
-
             </div>
         </div>
     );
-
 };
 
 export default ListItem;

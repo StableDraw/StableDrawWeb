@@ -7,7 +7,6 @@ import CanvasItems from "./CanvasItems";
 import canvasState from "../../../store/canvasState";
 const Canvas = ({width, height, labelData,canvasDate}) => {
     const [canva, setCanva] = useState([])
-
     const setRef = (ref) => {
         setCanva( [...canva, ref])
         CanvasState.setCanvasList(ref.current)
@@ -17,7 +16,6 @@ const Canvas = ({width, height, labelData,canvasDate}) => {
     useEffect(() => {
         CanvasState.setCanvas(CanvasState.getCanvas());
     }, []);
-
     const mouseDownHandler = (e) => {
         CanvasState.pushToUndo(CanvasState.getCanvas().toDataURL())
         labelData(CanvasState.getUndo())
@@ -34,7 +32,18 @@ const Canvas = ({width, height, labelData,canvasDate}) => {
                           key={item.id}
                             refs={setRef}/>
                 )}
-                <div style={{ border: "4px solid rgb(154, 154, 154)",width: `calc(${width} + 8px)`, height: `calc(${height} + 8px)`, zIndex: -1, backgroundImage: "url(alpha_pattern.png)", backgroundRepeat: "repeat", position: "absolute" }}></div>
+                <div
+                    style={{
+                        border: "4px solid rgb(154, 154, 154)",
+                        width: `calc(${width} + 8px)`,
+                        height: `calc(${height} + 8px)`,
+                        zIndex: -1,
+                        backgroundImage: "url(alpha_pattern.png)",
+                        backgroundRepeat: "repeat",
+                        position: "absolute"
+                    }}
+                >
+                </div>
             </div>
 
     );

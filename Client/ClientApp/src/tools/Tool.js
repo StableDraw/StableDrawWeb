@@ -20,7 +20,6 @@ export default class Tool {
         this.ctx.bezieCurve = strong
     }
 
-
     // Переделать
    /* getBezierBasis(i, n, t) {
         // Факториал

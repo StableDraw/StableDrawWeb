@@ -3,11 +3,9 @@
 }
 .bucket {
     touch-action: none;
-
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-
     display: block;
     z-index: 22;
     position: fixed;

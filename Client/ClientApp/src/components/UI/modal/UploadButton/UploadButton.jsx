@@ -1,15 +1,8 @@
 import React, {useState} from 'react';
 import cl from './UploadButton.module.css'
-import Button from '@mui/material/Button';
-import { Modal } from '@mui/material';
-import Stack from '@mui/material/Stack';
-import Content1 from "../../BabylonModule/Content1";
 import canvasState from '../../../../store/canvasState';
-
-import { createTheme } from '@mui/material/styles';
 import {  Typography, Input, InputLabel, } from '@mui/material';
 const UploadButton = () => {
-  
     const handleFileChange = (event) => {
 		let files = [...event.target.files];
 		var reader = new FileReader();
@@ -29,9 +22,6 @@ const UploadButton = () => {
         //     canvasState.getCanvas().current.getContext("2d", { willReadFrequently: true }).drawImage(image, 0, 0, 1080, 732)
         // }
 	};
-    function handleImage(e){
-        
-    }
     return (
         <div className={cl.button}>
             <InputLabel htmlFor="file-input">
@@ -53,8 +43,6 @@ const UploadButton = () => {
             />
 		</div>
     )
-
-
 };
 
 export default UploadButton;

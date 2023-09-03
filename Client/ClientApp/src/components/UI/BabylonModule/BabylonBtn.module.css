@@ -3,7 +3,6 @@
     position: absolute;
     bottom: 95%;
     left: 85%;
-
     height: 40px;
     width: 170px;
 }
@@ -14,6 +13,7 @@
     height: 100%;
     width: 100%;
 }
+
 .contentBox
 {
     position: absolute;
@@ -35,7 +35,6 @@
     left: 12%;
     height: 80%;
     width: 300px;
-
 }
 
 

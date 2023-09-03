@@ -7,7 +7,17 @@ const Destroy = ({ids,deleteCanva,indexDelete, ...props}) => {
         console.log(indexDelete)
     }
     return (
-            <CloseIcon  onClick={Destroy} sx={{ fontSize: 20 }} title="Удалить слой" style={{position: "absolute", right: 0, top: 0, zIndex: 1000}}/>
+            <CloseIcon
+                onClick={Destroy}
+                sx={{ fontSize: 20 }}
+                title="Удалить слой"
+                style={{
+                    position: "absolute",
+                    right: 0,
+                    top: 0,
+                    zIndex: 1000
+                }}
+            />
     );
 };
 

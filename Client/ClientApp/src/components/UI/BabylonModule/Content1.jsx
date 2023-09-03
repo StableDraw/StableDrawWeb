@@ -4,9 +4,6 @@ import {Box, createTheme, ThemeProvider} from '@mui/material';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 import Text1 from './Text1';
-
-
-
 const Content1 = () => {
     const { palette } = createTheme();
     const { augmentColor } = palette;
@@ -28,7 +25,6 @@ const Content1 = () => {
                     </Link>
                 </Box>
             </div>
-
             {/*<div className={cl.BabylonBtn1}>*/}
             {/*    <Box display="flex" justifyContent="center">*/}
             {/*        <Link to="https://github.com/BabylonJS/Babylon.js">*/}
@@ -42,7 +38,6 @@ const Content1 = () => {
             {/*        </Link>*/}
             {/*    </Box>*/}
             {/*</div>*/}
-
         </div>
     );
 };

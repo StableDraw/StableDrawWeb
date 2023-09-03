@@ -7,11 +7,9 @@ import DarkMode from "./sidebar.utils/DarkMode";
 import OpenSideBar from "./sidebar.utils/OpenSideBar";
 import cl from "./SideBar.module.css"
 import CloseSideBar from "./sidebar.utils/CloseSideBar";
-
 const SideBar = (...props) => {
     const [active, setActive] = useState(cl.close)
     // setState()
-   
     const createAction = (newActive) => {
         setActive(newActive)
     }
@@ -21,19 +19,27 @@ const SideBar = (...props) => {
         {url: "photo-to-img", title: "Обработка изображений с комьютера", img: "photo_to_image.png"},
         {url: "frames-to-animation", title: "Создание анимации", img: "frames_to_animation.png"}
     ])
-    
     return (
         <div>
             <div className ={[cl.sidebar, cl.close, active].join(" ")}>
                 <CloseSideBar active={createAction}>&times;</CloseSideBar>
                 <div className = {cl.mods_of_work}>
-                    
                     {links.map((link, id) =>
-                        <Link key={id} to={link.url} className = {cl.work_mode_href} title={link.title} style={{ borderBottomStyle: "hidden" }}>
-                            <img className={cl.img} alt={link.img} srcSet={link.img}></img>
+                        <Link
+                            key={id}
+                            to={link.url}
+                            className = {cl.work_mode_href}
+                            title={link.title}
+                            style={{ borderBottomStyle: "hidden" }}
+                        >
+                            <img
+                                className={cl.img}
+                                alt={link.img}
+                                srcSet={link.img}
+                            >
+                            </img>
                         </Link>
                     )};
-                    
                 </div>
                 <div className={cl.sidepanel_bottom_buttons}>
                     <Setting/>
@@ -67,11 +73,15 @@ const SideBar = (...props) => {
                     </div>
                 </div>
             </div>
-            <div className={[cl.blackout, cl.close, active].join(" ")} id="side_panel_blackout" style={{ zIndex: 20 }}></div>
+            <div
+                className={[cl.blackout, cl.close, active].join(" ")}
+                id="side_panel_blackout"
+                style={{ zIndex: 20 }}
+            >
+            </div>
             <OpenSideBar active={createAction} >&#9776;</OpenSideBar>
         </div>
     );
-    
 };
 
 export default SideBar;

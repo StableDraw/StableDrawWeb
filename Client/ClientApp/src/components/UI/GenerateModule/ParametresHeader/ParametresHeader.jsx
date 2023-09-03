@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import cl from "../ParametresHeader/ParametresHeader.module.css";
 import Button from "@mui/material/Button";
 import Close from "@mui/icons-material/Close";
-
 const ParametresHeader = ({setModal}) => {
     return (
         <header>

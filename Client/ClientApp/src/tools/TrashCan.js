@@ -9,6 +9,5 @@ export default class TrashCan extends Tool {
     }
     deleteAll() {
         this.ctx.clearRect(0, 0, 1080, 732);
-     
     }
 }

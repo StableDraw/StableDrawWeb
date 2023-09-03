@@ -3,7 +3,7 @@ import cl from './ParamsWindow.module.css';
 import './ParamsWindow.module.css';
 import Button from '@mui/material/Button';
 import api from "../../../../../../api/api";
-import Agreement1 from './Agreement1';
+// import Agreement1 from './Agreement1';
 import Tooltip from '@mui/material/Tooltip';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import IconButton from '@mui/material/IconButton';

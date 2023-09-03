@@ -1,22 +1,15 @@
 import React, {useState} from 'react';
-import cl from './ClearPane.module.css';
-import ToolButton from '../../Toolbar/ToolButton';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import Content1 from "../../BabylonModule/Content1";
-import MyInput from '../../MyInput/MyInput';
 import canvasState from '../../../../store/canvasState';
 import toolState from '../../../../store/toolState';
 import TrashCan from '../../../../tools/TrashCan';
 
 const ClearPane = ({actived, ...props}) => {
-    
     const deleteAll = () => {
         toolState.setTool(new TrashCan(canvasState.canvas))
         // canvasState.undo()
     }
-   
-   
     return (
         <Stack spacing={1} direction="row">
             <div>

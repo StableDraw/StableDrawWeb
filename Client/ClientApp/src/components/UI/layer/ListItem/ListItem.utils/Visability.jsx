@@ -9,7 +9,12 @@ const Visability = ({ids, ...props}) => {
         setImg(!img);
     }
     return (
-        <button onClick={handle} className={cl.layer_left_mini_button} id={"layer_"+item+"_visibility_button"} title="Включить/выключить видимость">
+        <button
+            onClick={handle}
+            className={cl.layer_left_mini_button}
+            id={"layer_"+item+"_visibility_button"}
+            title="Включить/выключить видимость"
+        >
             {img && <VisibilityIcon sx={{ fontSize: 18 }}/>}
             {!img && <VisibilityOffIcon sx={{ fontSize: 18 }}/>}
         </button>

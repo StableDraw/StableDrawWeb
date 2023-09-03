@@ -5,7 +5,6 @@ import MyInput from '../../MyInput/MyInput';
 import Bucket from "../Bucket/Bucket";
 import canvasState from "../../../../store/canvasState";
 const RightArrow = () => {
-    
     const Redo = () => {
         canvasState.redo()
     }

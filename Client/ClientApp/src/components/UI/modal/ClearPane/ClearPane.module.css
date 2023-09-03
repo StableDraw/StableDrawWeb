@@ -3,11 +3,9 @@
 }
 .clear {
     touch-action: none;
-
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-
     display: block;
     z-index: 23;
     position: fixed;
