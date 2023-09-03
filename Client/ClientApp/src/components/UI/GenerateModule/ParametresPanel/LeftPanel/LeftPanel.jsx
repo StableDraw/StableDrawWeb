@@ -31,6 +31,10 @@ import InputBase from '@mui/material/InputBase';
 import Close from "@mui/icons-material/Close";
 import {NeuronObject} from "./NeuronObject";
 const LeftPanel = ({props}) => {
+    const [ros, setRos] = useState()
+    const callback = (result) => {
+        setRos(result)
+    }
     const [modal, setModal] = useState(false)
     const [modal1, setModal1] = useState(false)
     const [modal2, setModal2] = useState(false)
@@ -58,19 +62,21 @@ const LeftPanel = ({props}) => {
     const [searchValue, setSearchValue] = useState('')
     const [isLoading, setIsLoading] = useState(true)
     const [neurons, setNeurons] = useState([])
-    useEffect(()=>{
+
+    useEffect(() => {
         setIsLoading(true)
         fetch(`https://64ef0132219b3e2873c3c53c.mockapi.io/Neurons`
         )
-            .then((res)=>res.json())
-            .then((json)=>{
+            .then((res) => res.json())
+            .then((json) => {
                 setNeurons(json);
+                console.log(json);
             })
-            .catch((err)=>{
+            .catch((err) => {
                 console.warn(err);
-                alert("ТИ ДУРАК");
+                alert("Sorry, you Internet connection isn`t working. Please, restart the page");
             })
-            .finally(()=>setIsLoading(false));
+            .finally(() => setIsLoading(false));
     }, []);
 
     const onChanging = (e) => {
@@ -91,6 +97,11 @@ const LeftPanel = ({props}) => {
     const getActive = () => {
         setActivety(!activity)
     }
+
+    // const getObjectData = (e) => {
+    //     console.log(e.target.value)
+    // }
+
     const data = [
         { label: 'Все' },
         { label: 'Многослойные нейронные сети' },
@@ -261,19 +272,17 @@ const LeftPanel = ({props}) => {
                                                     borderRadius: 1,
                                                     padding: 0,
                                                 }}
-                                                onClick={()=>setActivety(false)}
+                                                onClick={getActive}
                                             >
                                                 <ListItemIcon
                                                     sx={{
                                                         color: 'inherit',
                                                         padding: 0
                                                     }}
-                                                    onClick={()=>setActivety(false)}
                                                 >
                                                     {item.icon}
                                                 </ListItemIcon>
                                                 <ListItemText
-                                                    onClick={()=>setActivety(false)}
                                                     primary={item.label}
                                                     primaryTypographyProps={{
                                                         fontSize: 16,
@@ -290,9 +299,9 @@ const LeftPanel = ({props}) => {
                 </div>
                 {/*<hr className={cl.hrLine}/>*/}
 
-                {/*{isLoading ? (*/}
-                {/*    <h2>Ухады, я гружусь...</h2>*/}
-                {/*) : (*/}
+                {isLoading ? (
+                    <h2>Ухады, я гружусь...</h2>
+                ) : (
                 <div className={cl.Text}>
                     <Button
                         className={cl.adding1}
@@ -480,6 +489,7 @@ const LeftPanel = ({props}) => {
                         ))
                     }
                 </div>
+                )}
                 {/*<ContentTest/>*/}
             </div>
         </div>

@@ -9,6 +9,7 @@ const MyNewInput = ({callback, id}) => {
             resMemo = res
             const arrRes = {id, res: parseInt(res)}
             callback(arrRes)
+            console.log(arrRes)
         }
     }
     return (

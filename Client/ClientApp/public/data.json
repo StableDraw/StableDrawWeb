@@ -4,37 +4,751 @@
       "id": 1,
       "name": "Chat GPT",
       "description": "Чат-бот с искусственным интеллектом, разработанный компанией OpenAI и способный работать в диалоговом режиме, поддерживающий запросы на естественных языках.",
-      "photos": ["https://cdn2.iconfinder.com/data/icons/artificial-intelligence-ai/64/openai-gym-Toolkit-algorithm-Reinforcement-Learning_-1024.png"]
+      "photos": ["https://cdn2.iconfinder.com/data/icons/artificial-intelligence-ai/64/openai-gym-Toolkit-algorithm-Reinforcement-Learning_-1024.png"],
+      "colorizer": {
+        "image_count_input": 1,
+        "discription": "",
+        "params": {
+          "ckpt": {
+            "default": "ColorizeArtistic_gen",
+            "values": "ColorizeArtistic_gen;ColorizeArtistic_gen_GrayScale;ColorizeArtistic_gen_Sketch;ColorizeArtistic_gen_Sketch2Gray",
+            "description": "",
+            "type": "string"
+          },
+          "step": {
+            "default": 1,
+            "description": "",
+            "type": "int"
+          },
+          "compare": {
+            "default": "False",
+            "description": "",
+            "type": "bool"
+          },
+          "artistic": {
+            "default": "True",
+            "description": "",
+            "type": "bool"
+          },
+          "render_factor": {
+            "default": 12,
+            "description": "",
+            "type": "int"
+          },
+          "post_process": {
+            "default": "True",
+            "description": "",
+            "type": "bool"
+          },
+          "clr_saturation_factor": {
+            "default": 1,
+            "description": "",
+            "type": "int"
+          },
+          "line_color_limit": {
+            "default": 100,
+            "description": "",
+            "type": "int"
+          },
+          "clr_saturate_every_step": {
+            "default": "True",
+            "description": "",
+            "type": "bool"
+          }
+        }
+      },
+      "delete_background": {
+        "image_count_input": 1,
+        "discription": "",
+        "params": {
+          "ckpt": {
+            "default": "isnet.pth",
+            "values": "isnet.pth;isnet-general-use.pth",
+            "description": "",
+            "type": "string"
+          },
+          "model": {
+            "default": "DIS",
+            "values": "U2NET;DIS",
+            "description": "",
+            "type": "string"
+          },
+          "RescaleT": {
+            "default": 320,
+            "description": "Только для модели U2NET",
+            "type": "int"
+          },
+          "model_digit": {
+            "default": "full",
+            "values": "full;half",
+            "description": "",
+            "type": "string"
+          },
+          "interm_sup": {
+            "default": "False",
+            "description": "",
+            "type": "bool"
+          },
+          "seed": {
+            "default": 0,
+            "description": "",
+            "type": "int"
+          },
+          "cache_size": {
+            "default": [
+              1024,
+              1024
+            ],
+            "description": "",
+            "type": "int[]"
+          },
+          "input_size": {
+            "default": [
+              1024,
+              1024
+            ],
+            "description": "",
+            "type": "int[]"
+          },
+          "crop_size": {
+            "default": [
+              1024,
+              1024
+            ],
+            "description": "",
+            "type": "int[]"
+          }
+        }
+      },
+      "upscaler": {
+        "image_count_input": 1,
+        "caption": {}
+      }
     },
     {
       "id": 2,
       "name": "Midjourney",
       "description": "Midjourney — это ИИ, который создает изображения из текстовых описаний, подобно DALL-E",
-      "photos": ["https://upload.wikimedia.org/wikipedia/commons/e/e6/Midjourney_Emblem.png"]
+      "photos": ["https://upload.wikimedia.org/wikipedia/commons/e/e6/Midjourney_Emblem.png"],
+      "colorizer": {
+        "image_count_input": 2,
+        "discription": "",
+        "params": {
+          "ckpt": {
+            "default": "ColorizeArtistic_gen",
+            "values": "ColorizeArtistic_gen;ColorizeArtistic_gen_GrayScale;ColorizeArtistic_gen_Sketch;ColorizeArtistic_gen_Sketch2Gray",
+            "description": "",
+            "type": "string"
+          },
+          "step": {
+            "default": 1,
+            "description": "",
+            "type": "int"
+          },
+          "compare": {
+            "default": "False",
+            "description": "",
+            "type": "bool"
+          },
+          "artistic": {
+            "default": "True",
+            "description": "",
+            "type": "bool"
+          },
+          "render_factor": {
+            "default": 12,
+            "description": "",
+            "type": "int"
+          },
+          "post_process": {
+            "default": "True",
+            "description": "",
+            "type": "bool"
+          },
+          "clr_saturation_factor": {
+            "default": 1,
+            "description": "",
+            "type": "int"
+          },
+          "line_color_limit": {
+            "default": 100,
+            "description": "",
+            "type": "int"
+          },
+          "clr_saturate_every_step": {
+            "default": "True",
+            "description": "",
+            "type": "bool"
+          }
+        }
+      },
+      "delete_background": {
+        "image_count_input": 2,
+        "discription": "",
+        "params": {
+          "ckpt": {
+            "default": "isnet.pth",
+            "values": "isnet.pth;isnet-general-use.pth",
+            "description": "",
+            "type": "string"
+          },
+          "model": {
+            "default": "DIS",
+            "values": "U2NET;DIS",
+            "description": "",
+            "type": "string"
+          },
+          "RescaleT": {
+            "default": 320,
+            "description": "Только для модели U2NET",
+            "type": "int"
+          },
+          "model_digit": {
+            "default": "full",
+            "values": "full;half",
+            "description": "",
+            "type": "string"
+          },
+          "interm_sup": {
+            "default": "False",
+            "description": "",
+            "type": "bool"
+          },
+          "seed": {
+            "default": 0,
+            "description": "",
+            "type": "int"
+          },
+          "cache_size": {
+            "default": [
+              1024,
+              1024
+            ],
+            "description": "",
+            "type": "int[]"
+          },
+          "input_size": {
+            "default": [
+              1024,
+              1024
+            ],
+            "description": "",
+            "type": "int[]"
+          },
+          "crop_size": {
+            "default": [
+              1024,
+              1024
+            ],
+            "description": "",
+            "type": "int[]"
+          }
+        }
+      },
+      "upscaler": {
+        "image_count_input": 2,
+        "caption": {}
+      }
     },
     {
       "id": 3,
       "name": "Kandinsky",
       "description": "Kandinsky — проект, сервис и приложение компании «Сбер», с помощью которого пользователи могут генерировать изображения по текстовому описанию с помощью нейросетей.",
-      "photos": ["/neurons/Kandinsky.webp"]
+      "photos": ["/neurons/Kandinsky.webp"],
+      "colorizer": {
+        "image_count_input": 0,
+        "discription": "",
+        "params": {
+          "ckpt": {
+            "default": "ColorizeArtistic_gen",
+            "values": "ColorizeArtistic_gen;ColorizeArtistic_gen_GrayScale;ColorizeArtistic_gen_Sketch;ColorizeArtistic_gen_Sketch2Gray",
+            "description": "",
+            "type": "string"
+          },
+          "step": {
+            "default": 1,
+            "description": "",
+            "type": "int"
+          },
+          "compare": {
+            "default": "False",
+            "description": "",
+            "type": "bool"
+          },
+          "artistic": {
+            "default": "True",
+            "description": "",
+            "type": "bool"
+          },
+          "render_factor": {
+            "default": 12,
+            "description": "",
+            "type": "int"
+          },
+          "post_process": {
+            "default": "True",
+            "description": "",
+            "type": "bool"
+          },
+          "clr_saturation_factor": {
+            "default": 1,
+            "description": "",
+            "type": "int"
+          },
+          "line_color_limit": {
+            "default": 100,
+            "description": "",
+            "type": "int"
+          },
+          "clr_saturate_every_step": {
+            "default": "True",
+            "description": "",
+            "type": "bool"
+          }
+        }
+      },
+      "delete_background": {
+        "image_count_input": 0,
+        "discription": "",
+        "params": {
+          "ckpt": {
+            "default": "isnet.pth",
+            "values": "isnet.pth;isnet-general-use.pth",
+            "description": "",
+            "type": "string"
+          },
+          "model": {
+            "default": "DIS",
+            "values": "U2NET;DIS",
+            "description": "",
+            "type": "string"
+          },
+          "RescaleT": {
+            "default": 320,
+            "description": "Только для модели U2NET",
+            "type": "int"
+          },
+          "model_digit": {
+            "default": "full",
+            "values": "full;half",
+            "description": "",
+            "type": "string"
+          },
+          "interm_sup": {
+            "default": "False",
+            "description": "",
+            "type": "bool"
+          },
+          "seed": {
+            "default": 0,
+            "description": "",
+            "type": "int"
+          },
+          "cache_size": {
+            "default": [
+              1024,
+              1024
+            ],
+            "description": "",
+            "type": "int[]"
+          },
+          "input_size": {
+            "default": [
+              1024,
+              1024
+            ],
+            "description": "",
+            "type": "int[]"
+          },
+          "crop_size": {
+            "default": [
+              1024,
+              1024
+            ],
+            "description": "",
+            "type": "int[]"
+          }
+        }
+      },
+      "upscaler": {
+        "image_count_input": 0,
+        "caption": {}
+      }
     },
     {
       "id": 4,
       "name": "YandexGPT",
       "description": "Находящаяся на этапе тестирования нейросеть семейства GPT от компании «Яндекс», которая генерирует тексты на основе данных из интернета.",
-      "photos": ["/neurons/YandexGPT.webp"]
+      "photos": ["/neurons/YandexGPT.webp"],
+      "colorizer": {
+        "image_count_input": 1,
+        "discription": "",
+        "params": {
+          "ckpt": {
+            "default": "ColorizeArtistic_gen",
+            "values": "ColorizeArtistic_gen;ColorizeArtistic_gen_GrayScale;ColorizeArtistic_gen_Sketch;ColorizeArtistic_gen_Sketch2Gray",
+            "description": "",
+            "type": "string"
+          },
+          "step": {
+            "default": 1,
+            "description": "",
+            "type": "int"
+          },
+          "compare": {
+            "default": "False",
+            "description": "",
+            "type": "bool"
+          },
+          "artistic": {
+            "default": "True",
+            "description": "",
+            "type": "bool"
+          },
+          "render_factor": {
+            "default": 12,
+            "description": "",
+            "type": "int"
+          },
+          "post_process": {
+            "default": "True",
+            "description": "",
+            "type": "bool"
+          },
+          "clr_saturation_factor": {
+            "default": 1,
+            "description": "",
+            "type": "int"
+          },
+          "line_color_limit": {
+            "default": 100,
+            "description": "",
+            "type": "int"
+          },
+          "clr_saturate_every_step": {
+            "default": "True",
+            "description": "",
+            "type": "bool"
+          }
+        }
+      },
+      "delete_background": {
+        "image_count_input": 1,
+        "discription": "",
+        "params": {
+          "ckpt": {
+            "default": "isnet.pth",
+            "values": "isnet.pth;isnet-general-use.pth",
+            "description": "",
+            "type": "string"
+          },
+          "model": {
+            "default": "DIS",
+            "values": "U2NET;DIS",
+            "description": "",
+            "type": "string"
+          },
+          "RescaleT": {
+            "default": 320,
+            "description": "Только для модели U2NET",
+            "type": "int"
+          },
+          "model_digit": {
+            "default": "full",
+            "values": "full;half",
+            "description": "",
+            "type": "string"
+          },
+          "interm_sup": {
+            "default": "False",
+            "description": "",
+            "type": "bool"
+          },
+          "seed": {
+            "default": 0,
+            "description": "",
+            "type": "int"
+          },
+          "cache_size": {
+            "default": [
+              1024,
+              1024
+            ],
+            "description": "",
+            "type": "int[]"
+          },
+          "input_size": {
+            "default": [
+              1024,
+              1024
+            ],
+            "description": "",
+            "type": "int[]"
+          },
+          "crop_size": {
+            "default": [
+              1024,
+              1024
+            ],
+            "description": "",
+            "type": "int[]"
+          }
+        }
+      },
+      "upscaler": {
+        "image_count_input": 1,
+        "caption": {}
+      }
     },
     {
       "id": 5,
       "name": "DALL-E",
       "description": "DALLE 2 — это представленная компанией OpenAI нейросеть, которая генерирует изображения, используя современные алгоритмы глубокого обучения",
-      "photos": ["/neurons/dall-e.webp"]
+      "photos": ["/neurons/dall-e.webp"],
+      "colorizer": {
+        "image_count_input": 2,
+        "discription": "",
+        "params": {
+          "ckpt": {
+            "default": "ColorizeArtistic_gen",
+            "values": "ColorizeArtistic_gen;ColorizeArtistic_gen_GrayScale;ColorizeArtistic_gen_Sketch;ColorizeArtistic_gen_Sketch2Gray",
+            "description": "",
+            "type": "string"
+          },
+          "step": {
+            "default": 1,
+            "description": "",
+            "type": "int"
+          },
+          "compare": {
+            "default": "False",
+            "description": "",
+            "type": "bool"
+          },
+          "artistic": {
+            "default": "True",
+            "description": "",
+            "type": "bool"
+          },
+          "render_factor": {
+            "default": 12,
+            "description": "",
+            "type": "int"
+          },
+          "post_process": {
+            "default": "True",
+            "description": "",
+            "type": "bool"
+          },
+          "clr_saturation_factor": {
+            "default": 1,
+            "description": "",
+            "type": "int"
+          },
+          "line_color_limit": {
+            "default": 100,
+            "description": "",
+            "type": "int"
+          },
+          "clr_saturate_every_step": {
+            "default": "True",
+            "description": "",
+            "type": "bool"
+          }
+        }
+      },
+      "delete_background": {
+        "image_count_input": 2,
+        "discription": "",
+        "params": {
+          "ckpt": {
+            "default": "isnet.pth",
+            "values": "isnet.pth;isnet-general-use.pth",
+            "description": "",
+            "type": "string"
+          },
+          "model": {
+            "default": "DIS",
+            "values": "U2NET;DIS",
+            "description": "",
+            "type": "string"
+          },
+          "RescaleT": {
+            "default": 320,
+            "description": "Только для модели U2NET",
+            "type": "int"
+          },
+          "model_digit": {
+            "default": "full",
+            "values": "full;half",
+            "description": "",
+            "type": "string"
+          },
+          "interm_sup": {
+            "default": "False",
+            "description": "",
+            "type": "bool"
+          },
+          "seed": {
+            "default": 0,
+            "description": "",
+            "type": "int"
+          },
+          "cache_size": {
+            "default": [
+              1024,
+              1024
+            ],
+            "description": "",
+            "type": "int[]"
+          },
+          "input_size": {
+            "default": [
+              1024,
+              1024
+            ],
+            "description": "",
+            "type": "int[]"
+          },
+          "crop_size": {
+            "default": [
+              1024,
+              1024
+            ],
+            "description": "",
+            "type": "int[]"
+          }
+        }
+      },
+      "upscaler": {
+        "image_count_input": 2,
+        "caption": {}
+      }
     },
     {
       "id": 6,
       "name": "LoveGPT",
       "description": "Enhance your romantic relationships with LoveGPT, an AI-powered platform that helps you initiate interesting conversations & build stronger connections",
-      "photos": ["/neurons/LoveGPT.jpg"]
+      "photos": ["/neurons/LoveGPT.jpg"],
+      "colorizer": {
+        "image_count_input": 0,
+        "discription": "",
+        "params": {
+          "ckpt": {
+            "default": "ColorizeArtistic_gen",
+            "values": "ColorizeArtistic_gen;ColorizeArtistic_gen_GrayScale;ColorizeArtistic_gen_Sketch;ColorizeArtistic_gen_Sketch2Gray",
+            "description": "",
+            "type": "string"
+          },
+          "step": {
+            "default": 1,
+            "description": "",
+            "type": "int"
+          },
+          "compare": {
+            "default": "False",
+            "description": "",
+            "type": "bool"
+          },
+          "artistic": {
+            "default": "True",
+            "description": "",
+            "type": "bool"
+          },
+          "render_factor": {
+            "default": 12,
+            "description": "",
+            "type": "int"
+          },
+          "post_process": {
+            "default": "True",
+            "description": "",
+            "type": "bool"
+          },
+          "clr_saturation_factor": {
+            "default": 1,
+            "description": "",
+            "type": "int"
+          },
+          "line_color_limit": {
+            "default": 100,
+            "description": "",
+            "type": "int"
+          },
+          "clr_saturate_every_step": {
+            "default": "True",
+            "description": "",
+            "type": "bool"
+          }
+        }
+      },
+      "delete_background": {
+        "image_count_input": 0,
+        "discription": "",
+        "params": {
+          "ckpt": {
+            "default": "isnet.pth",
+            "values": "isnet.pth;isnet-general-use.pth",
+            "description": "",
+            "type": "string"
+          },
+          "model": {
+            "default": "DIS",
+            "values": "U2NET;DIS",
+            "description": "",
+            "type": "string"
+          },
+          "RescaleT": {
+            "default": 320,
+            "description": "Только для модели U2NET",
+            "type": "int"
+          },
+          "model_digit": {
+            "default": "full",
+            "values": "full;half",
+            "description": "",
+            "type": "string"
+          },
+          "interm_sup": {
+            "default": "False",
+            "description": "",
+            "type": "bool"
+          },
+          "seed": {
+            "default": 0,
+            "description": "",
+            "type": "int"
+          },
+          "cache_size": {
+            "default": [
+              1024,
+              1024
+            ],
+            "description": "",
+            "type": "int[]"
+          },
+          "input_size": {
+            "default": [
+              1024,
+              1024
+            ],
+            "description": "",
+            "type": "int[]"
+          },
+          "crop_size": {
+            "default": [
+              1024,
+              1024
+            ],
+            "description": "",
+            "type": "int[]"
+          }
+        }
+      },
+      "upscaler": {
+        "image_count_input": 0,
+        "caption": {}
+      }
     }
   ]
 }

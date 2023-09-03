@@ -38,7 +38,7 @@ export const Menu = ({ setCurrenTexture, canvasTextures, isLightTheme }) => {
 
 	useMemo(() => setTextureStore([...canvasTextures]), [canvasTextures])
 
-	// тут проблема, что LoadTexture возвращает весь массив id, когда нужно только добавленный(позволит грамотно отслеживать и подключать к сцене при загрузке)
+	// тут проблема, что LoadTexLfб ture возвращает весь массив id, когда нужно только добавленный(позволит грамотно отслеживать и подключать к сцене при загрузке)
 	const Send = useCallback(async (img) => {
 		try {
 			const data = await api.LoadTexture(img);

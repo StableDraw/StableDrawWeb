@@ -10,45 +10,33 @@ import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 import MyNewInput from './MyNewInput';
+import toolState from "../../../../../../store/toolState";
+let resMemo1 = ''
 
 const ParamsWindow = ({setModal, props}) => {
-    const [checked1, setChecked1] = React.useState(true);
-    const [checked2, setChecked2] = React.useState(true);
-    const [checked3, setChecked3] = React.useState(true);
-    const [checked4, setChecked4] = React.useState(true);
-    const [checked5, setChecked5] = React.useState(true);
-    const [checked6, setChecked6] = React.useState(true);
-
-    const showAdding1Modal = () => {
-        setChecked1(!checked1);
-    }
-    const showAdding2Modal = () => {
-        setChecked2(!checked2);
-    }
-    const showAdding3Modal = () => {
-        setChecked3(!checked3);
-    }
-    const showAdding4Modal = () => {
-        setChecked4(!checked4);
-    }
-    const showAdding5Modal = () => {
-        setChecked5(!checked5);
-    }
-    const showAdding6Modal = () => {
-        setChecked6(!checked6);
-    }
-
     const [res, setRes] = useState()
     const consol = (result) => {
         setRes(result)
     }
-    console.log(res)
+    const setRes1 = (res, id) => {
+        if(resMemo1 !== res){
+            resMemo1 = res
+            const arrRes = {id, res: parseInt(res)}
+        }
+    }
+
     const fileRef = useRef();
     const handleChange1 = (e) => {
         const [file] = e.target.files;
         console.log(file);
     };
-    const [roomId, setRoomId] = useState('general');
+    const [roomId, setRoomId] = useState('sound');
+    const onChanging = (e) => {
+        setRoomId(e.target.value)
+        console.log(e.target.value)
+        console.log(e)
+
+    }
     // <h3>  OR  </h3>
     // <input accept="image/*" id="icon-button-file"
     //        type="file" style={{ display: 'none' }} />
@@ -73,7 +61,9 @@ const ParamsWindow = ({setModal, props}) => {
     const [drago, setDrago] = useState(false);
     const [textureStorage, setTextureStore] = useState([]);
     const [currenTexture, setCurrenTexture] = useState([])
-
+    // const changeOption = (e) => {
+    //     toolState.valueOf(e.target.value)
+    // }
     useEffect(() => {
         const getTexStorage = async () => {
             await api.GetTextureStorage()
@@ -340,7 +330,9 @@ const ParamsWindow = ({setModal, props}) => {
                                         <select
                                             className={cl.liststyle}
                                             value={roomId}
-                                            onChange={e => setRoomId(e.target.value)}
+                                            onChange={onChanging}
+                                            id={"dropdownn"}
+                                            onMouseLeave={()=>setRes1(roomId)}
                                         >
                                             <option
                                                 value="sound"
