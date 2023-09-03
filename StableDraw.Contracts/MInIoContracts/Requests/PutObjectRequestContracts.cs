@@ -19,8 +19,6 @@ public record PutObjectsMinIoRequest
     public Guid OrderId { get; set; }
     public string? ErrorMsg { get; set; }
     public IDictionary<Guid, byte[]> DataDictionary { get; set; }
-    // public IEnumerable<Guid> ObjectsId { get; set; }
-    // public IEnumerable<byte[]>? Data { get; set; }
 }
 
 public interface IPutObjectsRequest

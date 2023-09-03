@@ -35,34 +35,50 @@ public class ImageController : Controller
     public async Task<IActionResult> GetObject(string imageName)
     {
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var image = _repository.GetImage(imageName, currentUserId);
-        if (image == null)
+        if (string.IsNullOrEmpty(currentUserId))
         {
-            return NotFound();
-        }
+            var user = await _userManager.FindByIdAsync(currentUserId);
+            if (user != null)
+                return NotFound();
+            var image = _repository.GetImage(imageName, currentUserId);
+            if (image == null)
+            {
+                return NotFound();
+            }
     
-        var response = await _bus.Request<GetObjectMinIoRequest, GetObjectMinIoReply>(new GetObjectRequestModel()
-        {
-            ObjectId = image.Oid, OrderId = Guid.NewGuid()
-        });
-        return Ok(response.Message);
+            var response = await _bus.Request<GetObjectMinIoRequest, GetObjectMinIoReply>(new GetObjectRequestModel()
+            {
+                ObjectId = image.Oid, OrderId = Guid.NewGuid()
+            });
+            return Ok(response.Message);
+        }
+        else
+            return NotFound();
     }
 
     [HttpDelete("{imageName}")]
     public async Task<IActionResult> DeleteObject(string imageName)
     {
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var image = _repository.GetImage(imageName, currentUserId);
-        if (image == null)
+        if (string.IsNullOrEmpty(currentUserId))
         {
-            return NotFound();
+            var user = await _userManager.FindByIdAsync(currentUserId);
+            if (user != null)
+                return NotFound();
+            var image = _repository.GetImage(imageName, currentUserId);
+            if (image == null)
+            {
+                return NotFound();
+            }
+            var response = 
+                await _bus.Request<DeleteObjectMinIoRequest, DeleteObjectMinIoReply>(new DeleteObjectRequestModel()
+                    { ObjectId = image.Oid, OrderId = Guid.NewGuid()});
+            _repository.DeleteImage(imageName, currentUserId);
+            _repository.Save();
+            return Ok(response.Message);
         }
-        var response = 
-            await _bus.Request<DeleteObjectMinIoRequest, DeleteObjectMinIoReply>(new DeleteObjectRequestModel()
-                { ObjectId = image.Oid, OrderId = Guid.NewGuid()});
-        _repository.DeleteImage(imageName, currentUserId);
-        _repository.Save();
-        return Ok(response.Message);
+        else
+            return NotFound();
     }
 
     [HttpPost("{imageName}")]
@@ -70,20 +86,27 @@ public class ImageController : Controller
     {
         Response<PutObjectMinIoReply> response;
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var imgId = _repository.CreateImage(file.FileName, currentUserId);
-        
-        _repository.Save();
-        using (var memoryStream = new MemoryStream())
+        if (string.IsNullOrEmpty(currentUserId))
         {
-            await file.CopyToAsync(memoryStream);
-            response = await _bus
-                .Request<PutObjectMinIoRequest, PutObjectMinIoReply>(new PutObjectRequestModel()
-                    { ObjectId = Guid.NewGuid(), Data = memoryStream.ToArray(), OrderId = Guid.NewGuid()});
-        }
+            var user = await _userManager.FindByIdAsync(currentUserId);
+            if (user != null)
+                return NotFound();
+            var imgId = _repository.CreateImage(file.FileName, currentUserId);
+            _repository.Save();
+            using (var memoryStream = new MemoryStream())
+            {
+                await file.CopyToAsync(memoryStream);
+                response = await _bus
+                    .Request<PutObjectMinIoRequest, PutObjectMinIoReply>(new PutObjectRequestModel()
+                        { ObjectId = Guid.NewGuid(), Data = memoryStream.ToArray(), OrderId = Guid.NewGuid() });
+            }
 
-        if (response.Message == null)
-            return BadRequest();
-        return Ok(response.ResponseAddress.ToString());
+            if (response.Message == null)
+                return BadRequest();
+            return Ok(response.ResponseAddress.ToString());
+        }
+        else
+            return NotFound();
     }
 
     [HttpPost]
@@ -93,6 +116,9 @@ public class ImageController : Controller
         Response<PutObjectsMinIoReply> responce;
         if (string.IsNullOrEmpty(currentUserId))
         {
+            var user = await _userManager.FindByIdAsync(currentUserId);
+            if (user != null)
+                return NotFound();
             var imagesId = _repository.CreateImages(files.Select(x => x.FileName), currentUserId);
             _repository.Save();
             Response<PutObjectsMinIoReply> response;
@@ -123,9 +149,11 @@ public class ImageController : Controller
     public async Task<IActionResult> DeleteObjects()
     {
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
         if (string.IsNullOrEmpty(currentUserId))
         {
+            var user = await _userManager.FindByIdAsync(currentUserId);
+            if (user != null)
+                return NotFound();
             var imgs = _repository.GetImages(currentUserId);
             if (!imgs.Any())
                 return NotFound();
@@ -148,6 +176,9 @@ public class ImageController : Controller
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (string.IsNullOrEmpty(currentUserId))
         {
+            var user = await _userManager.FindByIdAsync(currentUserId);
+            if (user != null)
+                return NotFound();
             var images = _repository.GetImages(currentUserId);
             if (!images.Any())
             {
