@@ -81,7 +81,7 @@ const AppRoutes = [
     },
     {
         path: '/api',
-        requireAuth: false,
+        requireAuth: true,
         element: Proxy
     },
     ...ApiAuthorzationRoutes

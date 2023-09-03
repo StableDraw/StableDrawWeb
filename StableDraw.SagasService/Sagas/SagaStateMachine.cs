@@ -19,7 +19,8 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
         (
             WhenGetObjectReceived(),
             WhenPutObjectReceived(),
-            WhenDeleteObjectReceived()
+            WhenDeleteObjectReceived(),
+            WhenGetObjectsReceived()
         );
 
         During(GetObject.Pending, 
@@ -60,6 +61,18 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
                 })
                 .TransitionTo(Failed)
         );
+        
+        During(GetObjects.Pending,
+            When(GetObjects.Completed).ThenAsync(async context =>
+            {
+                await RespondFromSaga(context, string.Empty);
+            }).Finalize(),
+            When(GetObjects.Faulted)
+                .ThenAsync(async context =>
+                {
+                    await RespondFromSaga(context, "Faulted On Get Objects " + string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
+                })
+                .TransitionTo(Failed));
     }
 
     private EventActivityBinder<SagaState, PutObjectMinIoRequest> WhenPutObjectReceived()
@@ -223,7 +236,7 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
                 await endpoint.Send<GetObjectsMinIoReply>(
                     new GetObjectsMinIoReply()
                     {
-                        Data = getObjectsReply.Data,
+                        DataDictionary = getObjectsReply.DataDictionary,
                         OrderId = context.Saga.CorrelationId
                     }, r => r.RequestId = context.Saga.RequestId);
                 break;

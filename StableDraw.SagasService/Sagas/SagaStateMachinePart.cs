@@ -8,7 +8,7 @@ namespace StableDraw.SagasService.Sagas;
 public sealed partial class SagaStateMachine
 {
     public Request<SagaState, IGetObjectRequest, IGetObjectReply> GetObject { get; set; }
-    public Request<SagaState, IGetObjectsRequest, IGetObjectReply> GetObjects { get; set; }
+    public Request<SagaState, IGetObjectsRequest, IGetObjectsReply> GetObjects { get; set; }
     public Request<SagaState, IPutObjectRequest, IPutObjectReply> PutObject { get; set; }
     public Request<SagaState, IPutObjectsRequest, IPutObjectsReply> PutObjects { get; set; }
     public Request<SagaState, IDeleteObjectRequest, IDeleteObjectReply> DeleteObject { get; set; }

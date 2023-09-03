@@ -9,10 +9,13 @@ export default class Textures {
 		// 	file.append('token', token)
 		// }
 		//console.log('token: ', token)
-		return  await axios.post(url, file);
+		const token = await AuthorizeService.getAccessToken()
+		const config_auth = {
+			headers: !token ? {} : { 'Authorization': `Bearer ${token}` }};
+		return  await axios.post(url, file, config_auth);
 		//return axios.get(url);
 	}
-
+	
 	static async DeleteTexture(linkToTexture) {
 		if (linkToTexture.includes('/')) {
 			const id = linkToTexture.split("/");
@@ -25,6 +28,16 @@ export default class Textures {
 	}
 
 	static async GetTextureStorage() {
-		return await axios.get("api/image");
+		if(AuthorizeService.isAuthenticated())
+		{
+			console.log(AuthorizeService.getUser())
+			const token = await AuthorizeService.getAccessToken()
+			const config_auth = {
+				headers: !token ? {} : { 'Authorization': `Bearer ${token}` }};
+				//headers: !token ? {} : { 'Authorization': `${token}` }};
+			console.log(config_auth)
+			return await axios.get("api/image", config_auth);	
+		}
+		return await axios.HttpStatusCode.NotFound()
 	}
 }

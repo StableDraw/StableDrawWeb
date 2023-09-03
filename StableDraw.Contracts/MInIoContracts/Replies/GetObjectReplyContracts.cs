@@ -20,12 +20,12 @@ public record GetObjectsMinIoReply
 {
     public Guid OrderId { get; set; }
     public string? ErrorMsg { get; set; }
-    public IEnumerable<byte[]>? Data { get; set; } 
+    public IDictionary<Guid ,byte[]>? DataDictionary { get; set; } 
 }
 
 public interface IGetObjectsReply
 {
     public Guid OrderId { get; set; }
     public string? ErrorMsg { get; set; }
-    public IEnumerable<byte[]>? Data { get; set; }
+    public IDictionary<Guid ,byte[]>? DataDictionary { get; set; }
 }

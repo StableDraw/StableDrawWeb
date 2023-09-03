@@ -1,5 +1,6 @@
 ﻿using CLI.Settings;
 using MassTransit;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using StableDraw.Core.Models;
@@ -8,6 +9,7 @@ using StableDraw.Domain.Repositories;
 namespace CLI.Controllers;
 
 [ApiController]
+[Authorize]
 [Route($"api/[controller]/")]
 public class NeuralController : Controller
 {

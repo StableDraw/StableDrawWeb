@@ -65,3 +65,4 @@ Client/ClientApp/README.MD
 /StableDraw.SagasService/bin
 /StableDraw.MinIOService/logs
 /.nuke/temp
+/StableDraw.NeuralService/venv

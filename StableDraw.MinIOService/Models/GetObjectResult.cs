@@ -10,5 +10,5 @@ public class GetObjectResult
 public class GetObjectsResult
 {
     public string? ErrorMsg { get; set; }
-    public IEnumerable<byte[]>? Data { get; set; }
+    public IDictionary<Guid ,byte[]>? DataDictionary { get; set; }
 }

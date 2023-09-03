@@ -1,4 +1,7 @@
+using System.Security.Claims;
+using Duende.IdentityServer.Extensions;
 using MassTransit;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using StableDraw.Contracts.MInIoContracts.Replies;
@@ -9,7 +12,8 @@ using StableDraw.Domain.Repositories;
 namespace CLI.Controllers;
 
 [ApiController]
-[Route($"api/[controller]/")]
+[Authorize]
+[Route("api/[controller]/")]
 public class ImageController : Controller
 {
     private readonly IBus _bus;
@@ -27,16 +31,16 @@ public class ImageController : Controller
         _bus = bus;
     }
 
-    [HttpGet]
+    [HttpGet("{imageName}")]
     public async Task<IActionResult> GetObject(string imageName)
     {
-        var user = await _userManager.GetUserAsync(User);
-        var image = _repository.GetImage(imageName, user.Id);
+        var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var image = _repository.GetImage(imageName, currentUserId);
         if (image == null)
         {
             return NotFound();
         }
-
+    
         var response = await _bus.Request<GetObjectMinIoRequest, GetObjectMinIoReply>(new GetObjectRequestModel()
         {
             ObjectId = image.Oid, OrderId = Guid.NewGuid()
@@ -44,11 +48,11 @@ public class ImageController : Controller
         return Ok(response.Message);
     }
 
-    [HttpDelete]
+    [HttpDelete("{imageName}")]
     public async Task<IActionResult> DeleteObject(string imageName)
     {
-        var user = await _userManager.GetUserAsync(User);
-        var image = _repository.GetImage(imageName, user.Id);
+        var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var image = _repository.GetImage(imageName, currentUserId);
         if (image == null)
         {
             return NotFound();
@@ -56,24 +60,25 @@ public class ImageController : Controller
         var response = 
             await _bus.Request<DeleteObjectMinIoRequest, DeleteObjectMinIoReply>(new DeleteObjectRequestModel()
                 { ObjectId = image.Oid, OrderId = Guid.NewGuid()});
-        _repository.DeleteImage(imageName, user.Id);
+        _repository.DeleteImage(imageName, currentUserId);
+        _repository.Save();
         return Ok(response.Message);
     }
 
-    [HttpPost]
+    [HttpPost("{imageName}")]
     public async Task<IActionResult> PostObject(IFormFile file)
     {
-        var user = await _userManager.GetUserAsync(User);
         Response<PutObjectMinIoReply> response;
-        //var imgId = Guid.NewGuid();
-        var imgId = _repository.CreateImage(file.FileName, user.Id);
+        var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var imgId = _repository.CreateImage(file.FileName, currentUserId);
+        
         _repository.Save();
         using (var memoryStream = new MemoryStream())
         {
             await file.CopyToAsync(memoryStream);
             response = await _bus
                 .Request<PutObjectMinIoRequest, PutObjectMinIoReply>(new PutObjectRequestModel()
-                    { ObjectId = imgId, Data = memoryStream.ToArray(), OrderId = Guid.NewGuid()});
+                    { ObjectId = Guid.NewGuid(), Data = memoryStream.ToArray(), OrderId = Guid.NewGuid()});
         }
 
         if (response.Message == null)
@@ -84,61 +89,79 @@ public class ImageController : Controller
     [HttpPost]
     public async Task<IActionResult> PostObjects(IEnumerable<IFormFile> files)
     {
-        var user = await _userManager.GetUserAsync(User);
+        var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         Response<PutObjectsMinIoReply> responce;
-        var imagesId = _repository.CreateImages(files.Select(x => x.FileName), user.Id);
-        _repository.Save();
-        Response<PutObjectsMinIoReply> response;
-        using (var memoryStream = new MemoryStream())
+        if (string.IsNullOrEmpty(currentUserId))
         {
-            var dataBytes = files.Select(async x =>
+            var imagesId = _repository.CreateImages(files.Select(x => x.FileName), currentUserId);
+            _repository.Save();
+            Response<PutObjectsMinIoReply> response;
+            using (var memoryStream = new MemoryStream())
             {
-                await x.CopyToAsync(memoryStream);
-                return memoryStream.ToArray();
-            }).Select(x => x.Result);
-            
-            response =
-                await _bus.Request<PutObjectsMinIoRequest, PutObjectsMinIoReply>(new PutObjectsRequestModel()
+                var dataBytes = files.Select(async x =>
                 {
-                    OrderId = Guid.NewGuid(),
-                    DataDictionary = imagesId.Zip(dataBytes, (k, v) => new { k, v }).ToDictionary(x => x.k, x => x.v) 
-                });
+                    await x.CopyToAsync(memoryStream);
+                    return memoryStream.ToArray();
+                }).Select(x => x.Result);
+
+                response =
+                    await _bus.Request<PutObjectsMinIoRequest, PutObjectsMinIoReply>(new PutObjectsRequestModel()
+                    {
+                        OrderId = Guid.NewGuid(),
+                        DataDictionary = imagesId.Zip(dataBytes, (k, v) => new { k, v })
+                            .ToDictionary(x => x.k, x => x.v)
+                    });
+            }
+
+            return Ok(response.Message);
         }
-        return Ok(response.Message);
+        else
+            return NotFound();
     }
 
     [HttpDelete]
     public async Task<IActionResult> DeleteObjects()
     {
-        var user = await _userManager.GetUserAsync(User);
-        
-        var imgs = _repository.GetImages(user.Id);
-        if (!imgs.Any())
-            return NotFound();
-        var response = await _bus.Request<DeleteObjectsMinIoRequest, DeleteObjectsMinIoReply>(new DeleteObjectsRequestModel()
+        var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        if (string.IsNullOrEmpty(currentUserId))
         {
-            OrderId = Guid.NewGuid(),
-            ObjectsId = imgs.Select(x => x.Oid),
+            var imgs = _repository.GetImages(currentUserId);
+            if (!imgs.Any())
+                return NotFound();
+            var response = await _bus.Request<DeleteObjectsMinIoRequest, DeleteObjectsMinIoReply>(new DeleteObjectsRequestModel()
+            {
+                OrderId = Guid.NewGuid(),
+                ObjectsId = imgs.Select(x => x.Oid),
             
-        });
-        _repository.DeleteImages(imgs.Select(x => x.ImageName), user.Id);
-        return Ok(response.Message);
+            });
+            _repository.DeleteImages(imgs.Select(x => x.ImageName), currentUserId);
+            return Ok(response.Message);
+        }
+        else
+            return NotFound();
     }
 
     [HttpGet]
     public async Task<IActionResult> GetObjects()
     {
-        var user = await _userManager.GetUserAsync(User);
-        var images = _repository.GetImages(user.Id);
-        if (!images.Any())
+        var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.IsNullOrEmpty(currentUserId))
         {
-            return NotFound();
+            var images = _repository.GetImages(currentUserId);
+            if (!images.Any())
+            {
+                return NotFound();
+            }
+
+            var response = await _bus.Request<GetObjectsMinIoRequest, GetObjectsMinIoReply>(new GetObjectsRequestModel()
+            {
+                OrderId = Guid.NewGuid(),
+                ObjectsId = images.Select(x => x.Oid)
+            });
+            return Ok(response.Message);
         }
-        var response = await _bus.Request<GetObjectsMinIoRequest, GetObjectsMinIoReply>(new GetObjectsMinIoRequest()
-        {
-            OrderId = Guid.NewGuid(),
-            ObjectsId = images.Select(x => x.Oid)
-        });
-        return Ok(response.Message);
+        else
+            return NotFound();
     }
 }
