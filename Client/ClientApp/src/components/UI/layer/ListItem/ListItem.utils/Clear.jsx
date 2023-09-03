@@ -1,11 +1,14 @@
 ﻿import React, {useState} from 'react';
-
-const Clear = ({ids, ...props}) => {
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import  cl from '.././ListItem.module.css'
+const Clear = ({ids,Clear,IndexClear}) => {
     
-    const [item, setId] = useState(ids)
+    const ClearCanvas = () => {
+        Clear(IndexClear)
+    }
     return (
-        <button className="layer_left_mini_button" id={"clear_layer_"+item} title="Очистить слой">
-            <img className="layer_left_mini_button_image" alt="clear.png" src="clear.png"></img>
+        <button className={cl.layer_left_mini_button} onClick={ClearCanvas} id={"clear_layer_"+ids} title="Очистить слой">
+            <DeleteOutlineIcon sx={{ fontSize: 20 }}/>
         </button>
     );
 };

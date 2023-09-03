@@ -8,11 +8,8 @@ import Stack from '@mui/material/Stack';
 import toolState from "../../../../store/toolState";
 import Brush from "../../../../tools/Brush";
 import canvasState from "../../../../store/canvasState";
-let resMemo=[{},{}]
 const Pencil = ({active, activeBtn}) => {
-    console.log('render')
     const [modal, setModal] = useState(false)
-    const [thicknessValue, setThicknessValue] = useState(1)
     const rootClass = [cl.myModal]
     if(active==='pencil') {
         if(modal) {
@@ -20,12 +17,9 @@ const Pencil = ({active, activeBtn}) => {
         }
     }
 
-
     const showPencilModal = () => {
         setModal(!modal)
     }
-
-
     
     const CallPencil = () => {
         showPencilModal()

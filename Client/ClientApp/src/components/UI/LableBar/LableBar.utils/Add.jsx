@@ -1,4 +1,4 @@
-﻿import React, {useState} from 'react';
+﻿import React, {useMemo, useState} from 'react';
 import toolState from "../../../../store/toolState";
 import canvasState from "../../../../store/canvasState";
 import CanvasState from "../../../../store/canvasState";
@@ -27,9 +27,8 @@ const Add = (props) => {
         setI(i+1)
         props.canva(newCanva)
         NewCanva({})
-        // toolState.setTool(new Brush(CanvasState.getCanvasList()[i]))
     }
-    // console.log(i)
+    // console.log(CanvasState.getCanvasList())
     return (
         <button onClick={AddNewlabels} className="layers_mini_button" id="add_layers" title="Добавить слой">
             <img className="layers_mini_button_image" alt="swap.png" src="plus.png"></img>

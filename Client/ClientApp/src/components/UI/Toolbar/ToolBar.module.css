@@ -5,15 +5,15 @@
     -moz-user-select: none;
     -ms-user-select: none;
     width: 50px;
-    height: 365px;
+    /*height: 365px;*/
     position: fixed;
     top: 220px;
     left: 60px;
     transform: translateX(-50%);
     display: block;
     /*align-items: center;*/
-    border: 1px solid #000000;
-    background-color: #4c4c4c;
+    /*border: 1px solid #000000;*/
+    /*background-color: #4c4c4c;*/
 }
 .nav:hover
 {
@@ -25,7 +25,7 @@
 {
     touch-action: none;
     cursor: pointer;
-    border: 1px solid #707070;
+    /*border: 1px solid #707070;*/
     border-radius: 3px;
     height: 40px;
     width: 50px;

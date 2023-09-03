@@ -1,21 +1,22 @@
 ﻿import React, {useState} from 'react';
-
-const Visability = ({ids, ...props}) => {
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import  cl from '.././ListItem.module.css'
+const Visability = ({ids,Visable,IndexVisable, ...props}) => {
     const [item, setId] = useState(ids)
-    const [img, setImg] = useState("visibility_on.png")
-    function handle() {
-        if(img==="visibility_on.png") {
-            setImg("visibility_off.png")
-        }
-        else{
-            setImg("visibility_on.png")
-        }
-
+    const [img, setImg] = useState(true)
+    const handle = () => {
+        setImg(!img)
+        // console.log("ids: ", ids)
+        Visable({
+            index: IndexVisable,
+            visable: !img
+        })
     }
     return (
-        <button onClick={handle} className="layer_left_mini_button" id={"layer_"+item+"_visibility_button"} title="Включить/выключить видимость">
-            <img className="layer_left_mini_button_image" id={"layer_"+item+"_visibility_img"} alt={img} src={img}></img>
-
+        <button onClick={handle} className={cl.layer_left_mini_button} id={"layer_"+item+"_visibility_button"} title="Включить/выключить видимость">
+            {img && <VisibilityIcon sx={{ fontSize: 18 }}/>}
+            {!img && <VisibilityOffIcon sx={{ fontSize: 18 }}/>}
         </button>
     );
 };
