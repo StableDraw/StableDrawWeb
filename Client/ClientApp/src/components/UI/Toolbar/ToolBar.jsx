@@ -27,7 +27,6 @@ const ToolBar = () => {
                 {/*<GenerateButton />*/}
             </div>
         </div>
-
     );
 };
 

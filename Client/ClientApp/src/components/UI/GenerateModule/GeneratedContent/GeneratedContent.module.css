@@ -13,3 +13,38 @@
     pointer-events: all;
     transition: 0.5s;
 }
+
+.contented{
+    position: static;
+    border: 1px solid rgb(0, 0, 0);
+    width: 1300px;
+    height: 720px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: #333333;
+}
+
+.header
+{
+    display: block;
+    position: static;
+    height: 59px;
+    width: 1300px;
+    background-color: rgb(71, 71, 71);
+    border-left: 1px solid #000000;
+    border-right: 1px solid #000000;
+    border-top: 1px solid #000000;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.closebtn{
+    border: 1px solid #000000;
+    border-radius: 5px;
+    float: right;
+    top: 12px;
+    bottom: 12px;
+    right: 11px;
+    display: block;
+    position: fixed;
+}

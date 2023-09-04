@@ -8,10 +8,8 @@ import Stack from '@mui/material/Stack';
 import toolState from "../../../../store/toolState";
 import Brush from "../../../../tools/Brush";
 import canvasState from "../../../../store/canvasState";
-let resMemo=[{},{}]
 const Pencil = ({active, activeBtn}) => {
     const [modal, setModal] = useState(false)
-    const [thicknessValue, setThicknessValue] = useState(1)
     const rootClass = [cl.myModal]
     if(active==='pencil') {
         if(modal) {
@@ -37,7 +35,7 @@ const Pencil = ({active, activeBtn}) => {
                             maxWidth: 50,
                             maxHeight: 50,
                             minWidth: 50,
-                            minHeight: 50
+                            minHeight: 50,
                         }}
                         visible={modal}
                         variant="contained"
@@ -47,7 +45,7 @@ const Pencil = ({active, activeBtn}) => {
                             alt={"pencil"} 
                             style={{
                                 width: 30,
-                                height: 30
+                                height: 30,
                             }}
                         /> 
                     </Button>

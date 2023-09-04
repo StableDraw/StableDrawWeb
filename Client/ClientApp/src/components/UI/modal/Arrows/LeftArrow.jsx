@@ -8,7 +8,11 @@ const LeftArrow = () => {
     return (
         <div  className={cl.bar} >
              <button onClick={Undo} title={'Отменить'}>
-                <img className={cl.arrowsbar_panel_button_image} src={'undo_arrow.png'}></img>
+                <img
+                    className={cl.arrowsbar_panel_button_image}
+                    src={'undo_arrow.png'}
+                >
+                </img>
             </button>
         </div>
     )

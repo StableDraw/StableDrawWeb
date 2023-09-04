@@ -13,7 +13,6 @@ const ListItem = (props) => {
     const [isHovering, setIsHovering] = useState(true);
     const CanvasRef = useRef(null)
 
-
     if (props.canva) {
         let image = new Image()
         image.src = props.canva
@@ -22,7 +21,6 @@ const ListItem = (props) => {
             CanvasRef.current.getContext("2d", { willReadFrequently: true }).drawImage(image, 0, 0, 290, 148)
         }
     }
-
 
     const selectLabel = (e) => {
         e.preventDefault()
@@ -38,24 +36,37 @@ const ListItem = (props) => {
              onMouseOver={someHandler}
              onMouseOut={handleMouseOut}
              onClick={selectLabel}>
-            <ButtonGroup orientation="vertical" sx={{display: 'flex'}}>
+            <ButtonGroup
+                orientation="vertical"
+                sx={{display: 'flex'}}
+            >
                 <Visability ids={props.item.id}/>
                 <Clear ids={props.item.id}/>
             </ButtonGroup>
-            <div className={cl.layer_button} id={"layer_button_"+props.item.id}>
-
-                    <Destroy deleteCanva={props.deleteCanva} indexDelete={props.index} remove={props.remove} item={props.item}/>
-                    <div className={cl.layer_display_icon} id={"layer_display_icon_"+props.item.id}>
-                        <canvas
-                            className={cl.konvo}
-                            ref={CanvasRef}
-                            // className={cl.layer_display_canvas}
-                            id={"layer_"+props.item.id+"_display_canvas"}
-                            index={props.index}
-                            style={{ zIndex: props.index}}>
-                        </canvas>
-                    </div>
-                    {/*<div className={cl.layer_display_canvas} id={"layer_alpha_img_"+props.item.id} style={{ zIndex: 0, backgroundImage: "url(mini_alpha_pattern.png)", backgroundRepeat: "repeat" }}></div>*/}
+            <div
+                className={cl.layer_button}
+                id={"layer_button_"+props.item.id}
+            >
+                <Destroy
+                    deleteCanva={props.deleteCanva}
+                    indexDelete={props.index}
+                    remove={props.remove}
+                    item={props.item}
+                />
+                <div
+                    className={cl.layer_display_icon}
+                    id={"layer_display_icon_"+props.item.id}
+                >
+                    <canvas
+                        className={cl.konvo}
+                        ref={CanvasRef}
+                        // className={cl.layer_display_canvas}
+                        id={"layer_"+props.item.id+"_display_canvas"}
+                        index={props.index}
+                        style={{ zIndex: props.index}}>
+                    </canvas>
+                </div>
+                {/*<div className={cl.layer_display_canvas} id={"layer_alpha_img_"+props.item.id} style={{ zIndex: 0, backgroundImage: "url(mini_alpha_pattern.png)", backgroundRepeat: "repeat" }}></div>*/}
             </div>
         </div>
     );

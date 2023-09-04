@@ -2,7 +2,6 @@ import React, {useState, useRef, useEffect} from 'react';
 import axios from 'axios';
 import cl from "./LeftPanel.module.scss";
 import "./LeftPanel.module.scss";
-// import ContentTest from "./ContentTest";
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
@@ -234,7 +233,14 @@ const LeftPanel = ({props}) => {
                             }}
                             onClick={getActive}
                         >
-                            <svg className={cl.Icon_Set} xmlns="http://www.w3.org/2000/svg" width="28" height="28"  style={{marginLeft: 3}} viewBox="0 0 32 32">
+                            <svg
+                                className={cl.Icon_Set}
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="28"
+                                height="28"
+                                style={{marginLeft: 3}}
+                                viewBox="0 0 32 32"
+                            >
                                 <path d="M12,25l6.67,6.67a1,1,0,0,0,.7.29.91.91,0,0,0,.39-.08,1,1,0,0,0,.61-.92V13.08L31.71,1.71A1,1,0,0,0,31.92.62,1,1,0,0,0,31,0H1A1,1,0,0,0,.08.62,1,1,0,0,0,.29,1.71L11.67,13.08V24.33A1,1,0,0,0,12,25ZM3.41,2H28.59l-10,10a1,1,0,0,0-.3.71V28.59l-4.66-4.67V12.67a1,1,0,0,0-.3-.71Z"/>
                             </svg>
                         </ListItemButton>
@@ -277,7 +283,7 @@ const LeftPanel = ({props}) => {
                                                 <ListItemIcon
                                                     sx={{
                                                         color: 'inherit',
-                                                        padding: 0
+                                                        padding: 0,
                                                     }}
                                                 >
                                                     {item.icon}
@@ -287,7 +293,7 @@ const LeftPanel = ({props}) => {
                                                     primaryTypographyProps={{
                                                         fontSize: 16,
                                                         fontWeight: 'medium',
-                                                        textAlign: 'center'
+                                                        textAlign: 'center',
                                                     }}
                                                 />
                                             </ListItemButton>
@@ -298,7 +304,6 @@ const LeftPanel = ({props}) => {
                     </ThemeProvider>
                 </div>
                 {/*<hr className={cl.hrLine}/>*/}
-
                 {isLoading ? (
                     <h3 style={{color: "#ffffff"}}>Please, wait for the page loading...</h3>
                 ) : (
@@ -315,7 +320,7 @@ const LeftPanel = ({props}) => {
                             minWidth: 150,
                             minHeight: 150,
                             marginBottom: 15,
-                            marginTop:2,
+                            marginTop: 2,
                             position: "static",
                         }}
                         variant="contained"
@@ -329,7 +334,7 @@ const LeftPanel = ({props}) => {
                             style={{
                                 width: 148,
                                 height: 148,
-                                borderRadius: 5
+                                borderRadius: 5,
                             }}
                         />
                     </Button>
@@ -358,7 +363,7 @@ const LeftPanel = ({props}) => {
                             style={{
                                 width: 148,
                                 height: 148,
-                                borderRadius: 5
+                                borderRadius: 5,
                             }}
                         />
                     </Button>

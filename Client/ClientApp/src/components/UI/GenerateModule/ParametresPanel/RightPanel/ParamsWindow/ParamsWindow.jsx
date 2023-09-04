@@ -3,7 +3,6 @@ import cl from './ParamsWindow.module.css';
 import './ParamsWindow.module.css';
 import Button from '@mui/material/Button';
 import api from "../../../../../../api/api";
-// import Agreement1 from './Agreement1';
 import Tooltip from '@mui/material/Tooltip';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import IconButton from '@mui/material/IconButton';
@@ -24,7 +23,6 @@ const ParamsWindow = ({setModal, props}) => {
             const arrRes = {id, res: parseInt(res)}
         }
     }
-
     const fileRef = useRef();
     const handleChange1 = (e) => {
         const [file] = e.target.files;
@@ -35,17 +33,7 @@ const ParamsWindow = ({setModal, props}) => {
         setRoomId(e.target.value)
         console.log(e.target.value)
         console.log(e)
-
     }
-    // <h3>  OR  </h3>
-    // <input accept="image/*" id="icon-button-file"
-    //        type="file" style={{ display: 'none' }} />
-    // <label htmlFor="icon-button-file">
-    //     <IconButton color="primary" aria-label="upload picture"
-    //                 component="span">
-    //         <PhotoCamera />
-    //     </IconButton>
-    // </label>
     // const dispatch = useDispatch();
     // useEffect(() => {
     //     const getNews = async () => {
@@ -81,13 +69,13 @@ const ParamsWindow = ({setModal, props}) => {
     }
 
     const dragStartHandler = (e) => {
-        e.preventDefault();
+        e.preventDefault()
         setDrago(true)
-    };
+    }
 
     const dragLeaveHandler = (e) => {
-        e.preventDefault();
-        setDrago(false);
+        e.preventDefault()
+        setDrago(false)
     }
 
     async function Send(img) {
@@ -163,48 +151,49 @@ const ParamsWindow = ({setModal, props}) => {
         '& .MuiSwitch-track': {
             opacity: 1,
             backgroundColor: theme.palette.mode === 'dark' ? '#666666' : '#666666',
-            borderRadius: 20 / 2,
+            borderRadius: 10,
         },
     }));
     return (
-        <div className={cl.parametresBlock}>
+        <div className={cl.paramsWindow}>
             <div className={cl.imageBlock}>
                 <div className={cl.addBlock}>
-                    <div style={{
-                        display: 'flex',
-                        margin: 'auto',
-                        width: 400,
-                        flexWrap: 'wrap',
-                    }}>
-                        <input
-                            type="file"
-                            accept="image/*"
-                            style={{ display: 'none' }}
-                            id="contained-button-file"
-                            ref={fileRef}
-                            onChange={handleChange1}
-                            multiple={false}
-                            hidden
-                        />
-                        <label htmlFor="contained-button-file">
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                component="span"
-                                style={{width: 210, height: 210, backgroundColor: "#474747"}}
-                                onClick={() => fileRef.current}
-                            >
-                                <img
-                                    className={cl.adding}
-                                    draggable="true"
-                                    onDragStart={dragStartHandler}
-                                    src={"adding.png"}
-                                    alt={"adding"}
-                                    style={{width: 150, height: 150, borderRadius: 5}}
-                                />
-                            </Button>
-                        </label>
-                    </div>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        style={{ display: 'none' }}
+                        id="contained-button-file"
+                        ref={fileRef}
+                        onChange={handleChange1}
+                        multiple={false}
+                        hidden
+                    />
+                    <label htmlFor="contained-button-file">
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            component="span"
+                            style={{
+                                width: 210,
+                                height: 210,
+                                backgroundColor: "#474747"
+                            }}
+                            onClick={() => fileRef.current}
+                        >
+                            <img
+                                className={cl.adding}
+                                draggable="true"
+                                onDragStart={dragStartHandler}
+                                src={"adding.png"}
+                                alt={"adding"}
+                                style={{
+                                    width: 150,
+                                    height: 150,
+                                    borderRadius: 5
+                                }}
+                            />
+                        </Button>
+                    </label>
                     {drago ?
                         <div className={cl.drag_loadImg}
                                 onDragLeave={e => dragLeaveHandler(e)}
@@ -264,11 +253,11 @@ const ParamsWindow = ({setModal, props}) => {
                         </svg>
                     </div>
                 </Button>
-                    <div className={cl.parametresWind}>
+                <div className={cl.parametresWind}>
                     <div className={cl.bordercont}>
                         <div className={cl.Tex}>
                             <div className={cl.pointText1}>
-                                Params: 
+                                Params:
                             </div>
                             <div className={cl.pointText}>
                                 <input
@@ -280,49 +269,26 @@ const ParamsWindow = ({setModal, props}) => {
                                     maxLength="100"
                                     size="100"
                                 />
-                                <Tooltip 
-                                    title={'Я подсказка'} 
+                                <Tooltip
+                                    title={'Я подсказка'}
                                     placement="top"
                                 >
-                                    <HelpOutlineIcon 
+                                    <HelpOutlineIcon
                                         sx={{
                                             fontSize: 18,
                                             marginLeft: 1,
                                             marginTop: 1,
                                             cursor: "help",
                                             backgroundColor: "#000000",
-                                            borderRadius: 100
+                                            borderRadius: 100,
                                         }}
                                     />
                                 </Tooltip>
                             </div>
                         </div>
-                        {/* <div className={cl.Tex}>
-                            <div className={cl.pointText}>
-                                Params1: 
-                            </div>
-                            <div className={cl.pointText}>
-                                <div> 
-                                    <Agreement1 
-                                        checked = {!checked} 
-                                        handleChange = {handleChange}
-                                    /> 
-                                </div>
-                                <div>
-                                    <Tooltip 
-                                        title={'Я подсказка'} 
-                                        placement="top"
-                                    >
-                                        <HelpOutlineIcon 
-                                            sx={{ fontSize: 18,  marginTop: 1.5, cursor: "help", backgroundColor: "#000000", borderRadius: 100}}
-                                        />
-                                    </Tooltip>
-                                </div>
-                            </div>
-                        </div> */}
                         <div className={cl.Tex}>
-                            <div className={cl.pointText1}> 
-                                Params2: 
+                            <div className={cl.pointText1}>
+                                Params2:
                             </div>
                             <div className={cl.pointText}>
                                 <div>
@@ -361,18 +327,18 @@ const ParamsWindow = ({setModal, props}) => {
                                     </label>
                                 </div>
                                 <div>
-                                    <Tooltip 
-                                        title={'Я подсказка'} 
+                                    <Tooltip
+                                        title={'Я подсказка'}
                                         placement="top"
                                     >
-                                        <HelpOutlineIcon 
+                                        <HelpOutlineIcon
                                             sx={{
                                                 fontSize: 18,
                                                 marginLeft: 1,
                                                 marginBottom: 0.5,
                                                 cursor: "help",
                                                 backgroundColor: "#000000",
-                                                borderRadius: 100
+                                                borderRadius: 100,
                                             }}
                                         />
                                     </Tooltip>
@@ -380,59 +346,52 @@ const ParamsWindow = ({setModal, props}) => {
                             </div>
                         </div>
                         <div className={cl.Tex}>
-                            <div className={cl.pointText1}> 
-                                Params3: 
+                            <div className={cl.pointText1}>
+                                Params3:
                             </div>
                             <div className={cl.pointText}>
-                                {/*<label className={cl.switch}>
-                                <input type="checkbox" />
-                                <span
-                                    className={cl.slider_round}
-                                >
-                                            </span>
-                            </label>*/}
                                 <div>
                                     <MaterialUISwitch sx={{ m: 1 }} defaultChecked />
                                 </div>
                                 <div>
-                                    <Tooltip 
-                                        title={'Я подсказка'} 
+                                    <Tooltip
+                                        title={'Я подсказка'}
                                         placement="top"
                                     >
-                                        <HelpOutlineIcon 
+                                        <HelpOutlineIcon
                                             sx={{
                                                 fontSize: 18,
                                                 marginLeft: 1,
                                                 marginTop: 2,
                                                 cursor: "help",
                                                 backgroundColor: "#000000",
-                                                borderRadius: 100
+                                                borderRadius: 100,
                                             }}
                                         />
                                     </Tooltip>
                                 </div>
                             </div>
-                        </div>   
+                        </div>
                         <div className={cl.Tex}>
-                            <div className={cl.pointText1}> 
-                                Params4: 
+                            <div className={cl.pointText1}>
+                                Params4:
                             </div>
                             <div className={cl.pointText}>
                                 <div className={cl.slider}>
                                     <MyNewInput id='slider' callback={consol}/>
                                 </div>
                                 <div>
-                                    <Tooltip 
-                                        title={'Я подсказка'} 
+                                    <Tooltip
+                                        title={'Я подсказка'}
                                         placement="top"
                                     >
-                                        <HelpOutlineIcon 
+                                        <HelpOutlineIcon
                                             sx={{
                                                 fontSize: 18,
                                                 marginLeft: 1.5,
                                                 cursor: "help",
                                                 backgroundColor: "#000000",
-                                                borderRadius: 100
+                                                borderRadius: 100,
                                             }}
                                         />
                                     </Tooltip>
@@ -448,10 +407,10 @@ const ParamsWindow = ({setModal, props}) => {
                         background: "#474747",
                         '&:hover': {
                             backgroundColor: '#ffffff',
-                            color: '#555DD3'
+                            color: '#555DD3',
                         },
                         color: "#ffffff",
-                        fontSize: 14
+                        fontSize: 14,
                     }}
                     onClick={()=>setModal(false)}
                 >
@@ -464,9 +423,9 @@ const ParamsWindow = ({setModal, props}) => {
                         background: "#474747",
                         '&:hover': {
                             backgroundColor: '#ffffff',
-                            color: '#555DD3'
+                            color: '#555DD3',
                         },
-                        fontSize: 14
+                        fontSize: 14,
                     }}
                     onClick={()=>End()}
                 >

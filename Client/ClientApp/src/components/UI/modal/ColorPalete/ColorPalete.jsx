@@ -21,12 +21,20 @@ const ColorPalete = ({active, activeBtn, getRes,}) => {
         <div
             style={{
                 width:50,
-                display:'inline'
+                display:'inline',
             }}
             onClick={()=>activeBtn('palete')}
         >
             <div className="cursor">
-                <img className="cursimg" alt="cursimg" style={{ width: "30px", height: "30px" }}></img>
+                <img
+                    className="cursimg"
+                    alt="cursimg"
+                    style={{
+                        width: "30px",
+                        height: "30px"
+                    }}
+                >
+                </img>
             </div>
             <Stack spacing={1} direction="row">
                 <div>
@@ -37,7 +45,7 @@ const ColorPalete = ({active, activeBtn, getRes,}) => {
                             maxWidth: 50,
                             maxHeight: 50,
                             minWidth: 50,
-                            minHeight: 50
+                            minHeight: 50,
                         }}
                         variant="contained"
                         title={'Выбор цвета'}
@@ -47,7 +55,7 @@ const ColorPalete = ({active, activeBtn, getRes,}) => {
                             alt={"palette"}
                             style={{
                                 width: 30,
-                                height: 30
+                                height: 30,
                             }}
                         />
                         <input

@@ -9,13 +9,11 @@ import Erar from "../../../../tools/Eraser"
 const Eraser = ({active, activeBtn, getRes,}) => {
     const [modal, setModal] = useState(false)
     const rootClass = [cl.myModal]
-    
     if(active==='eraser') {
         if(modal) {
             rootClass.push(cl.up_add_window)
         }
     }
-    
     const Eraser = () => {
         toolState.setTool(new Erar(canvasState.canvas))
         activeBtn('eraser')
@@ -29,7 +27,7 @@ const Eraser = ({active, activeBtn, getRes,}) => {
                     maxWidth: 50,
                     maxHeight: 50,
                     minWidth: 50,
-                    minHeight: 50
+                    minHeight: 50,
                 }}
                 visible={modal}
                 setVisible={setModal}
@@ -41,7 +39,7 @@ const Eraser = ({active, activeBtn, getRes,}) => {
                     alt={"eraser"}
                     style={{
                         width: 30,
-                        height: 30
+                        height: 30,
                     }}
                 />
             </Button>

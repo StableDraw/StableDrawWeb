@@ -4,10 +4,7 @@ import {Box} from '@mui/material';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 import Text from './Text';
-
-
 const Content = () => {
-
     return (
         <div className={cl.contentBox}>
             <Text/>

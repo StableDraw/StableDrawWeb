@@ -19,7 +19,14 @@ const Add = (props) => {
             ...canva,
             id: Date.now(),
             index: i,
-            style: {border: "4px solid rgb(154, 154, 154)", zIndex: i, position: "absolute", touchAction: "none",userSelect: "none", backgroundColor: "transparent"}
+            style: {
+                border: "4px solid rgb(154, 154, 154)",
+                zIndex: i,
+                position: "absolute",
+                touchAction: "none",
+                userSelect: "none",
+                backgroundColor: "transparent"
+            }
         }
         props.create(newLayer)
         NewLabel({})
@@ -30,8 +37,18 @@ const Add = (props) => {
     }
     // console.log(i)
     return (
-        <button onClick={AddNewlabels} className="layers_mini_button" id="add_layers" title="Добавить слой">
-            <img className="layers_mini_button_image" alt="swap.png" src="plus.png"></img>
+        <button
+            onClick={AddNewlabels}
+            className="layers_mini_button"
+            id="add_layers"
+            title="Добавить слой"
+        >
+            <img
+                className="layers_mini_button_image"
+                alt="swap.png"
+                src="plus.png"
+            >
+            </img>
         </button>
     );
 };

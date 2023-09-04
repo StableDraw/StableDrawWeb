@@ -49,7 +49,7 @@ const Canvas = ({width, height, labelData,canvasDate}) => {
                         zIndex: -1,
                         backgroundImage: "url(alpha_pattern.png)",
                         backgroundRepeat: "repeat",
-                        position: "absolute"
+                        position: "absolute",
                     }}
                 >
                 </div>

@@ -18,7 +18,7 @@ const Bucket = () => {
                         maxWidth: 50,
                         maxHeight: 50,
                         minWidth: 50,
-                        minHeight: 50
+                        minHeight: 50,
                     }}
                     variant="contained"
                     onClick={showBucketModal}
@@ -29,7 +29,7 @@ const Bucket = () => {
                         alt={"bucket"}
                         style={{
                             width: 30,
-                            height: 30
+                            height: 30,
                         }}
                     />
                 </Button>

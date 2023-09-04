@@ -7,22 +7,22 @@ import cl from "../PayBtn.module.css";
 import Text from './Text';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Btn from './Btn';
-
-
 const Content = () => {
 
     return (
-        <div className={cl.contentBox}> 
-
-                <header className={cl.headerText}> 
-                    <div> <AccountCircle color="primary" sx={{ fontSize: 40 }}/> </div>
-                    Персональный 
-                    <div></div>
-                </header>
-                <Text/>
-                <Btn/>
-
-    </div>
+        <div className={cl.contentBox}>
+            <header className={cl.headerText}>
+                <div>
+                    <AccountCircle
+                        color="primary"
+                        sx={{ fontSize: 40 }}
+                    />
+                </div>
+                Персональный
+            </header>
+            <Text/>
+            <Btn/>
+        </div>
     );
 };
 
