@@ -32,13 +32,13 @@ public class NeuralController : Controller
         _neuralBuilderSettings = neuralBuilderSettings;
     }
 
-    [HttpGet("info")]
+    [HttpGet]
     public async Task<string> GetNeuralInfo()
     {
         return await Task.FromResult(_neuralBuilderSettings.Properties);
     }
 
-    [HttpGet("img_gen")]
+    [HttpGet("img")]
     public async Task<IActionResult> GenerateImages(NeuralRequestModel requestModel)
     {
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);

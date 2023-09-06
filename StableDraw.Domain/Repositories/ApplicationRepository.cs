@@ -14,9 +14,15 @@ public class ApplicationRepository : IApplicationRepository
         _context = context;
     }
 
-    public Guid CreateImage(string imageName, string userId)
+    public Guid CreateImage(string imageName, string contentType, string userId)
     {
-        var img = new Image(){ImageName = imageName, UserId = userId, Oid = Guid.NewGuid()};
+        var img = new Image()
+        {
+            ImageName = imageName,
+            ContentType = contentType,
+            UserId = userId, 
+            Oid = Guid.NewGuid()
+        };
         _context.Images.Add(img);
         return img.Oid;
     }
@@ -36,9 +42,12 @@ public class ApplicationRepository : IApplicationRepository
     public IEnumerable<Image> GetImages(string userId) => 
         _context.Images.Where(x => x.UserId == userId);
 
-    public IEnumerable<Guid> CreateImages(IEnumerable<string> imageNames, string userId)
+    public IEnumerable<Guid> CreateImages(IEnumerable<(string, string)> imageNames, string userId)
     {
-        var imgs = imageNames.Select(x => new Image() { ImageName = x, UserId = userId, Oid = Guid.NewGuid() });
+        var imgs = imageNames.Select(x => new Image()
+        {
+            ImageName = x.Item1, ContentType = x.Item2, UserId = userId, Oid = Guid.NewGuid()
+        });
         _context.Images.AddRange(imgs);
         return imgs.Select(x => x.Oid);
     }

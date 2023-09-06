@@ -35,10 +35,10 @@ public class ImageController : Controller
     public async Task<IActionResult> GetObject(string imageName)
     {
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (string.IsNullOrEmpty(currentUserId))
+        if (!string.IsNullOrEmpty(currentUserId))
         {
             var user = await _userManager.FindByIdAsync(currentUserId);
-            if (user != null)
+            if (user == null)
                 return NotFound();
             var image = _repository.GetImage(imageName, currentUserId);
             if (image == null)
@@ -50,7 +50,8 @@ public class ImageController : Controller
             {
                 ObjectId = image.Oid, OrderId = Guid.NewGuid()
             });
-            return Ok(response.Message);
+            return File(response.Message.Data, image.ContentType, image.ImageName);
+            //return Ok(response.Message);
         }
         else
             return NotFound();
@@ -60,10 +61,10 @@ public class ImageController : Controller
     public async Task<IActionResult> DeleteObject(string imageName)
     {
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (string.IsNullOrEmpty(currentUserId))
+        if (!string.IsNullOrEmpty(currentUserId))
         {
             var user = await _userManager.FindByIdAsync(currentUserId);
-            if (user != null)
+            if (user == null)
                 return NotFound();
             var image = _repository.GetImage(imageName, currentUserId);
             if (image == null)
@@ -86,12 +87,12 @@ public class ImageController : Controller
     {
         Response<PutObjectMinIoReply> response;
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (string.IsNullOrEmpty(currentUserId))
+        if (!string.IsNullOrEmpty(currentUserId))
         {
             var user = await _userManager.FindByIdAsync(currentUserId);
-            if (user != null)
+            if (user == null)
                 return NotFound();
-            var imgId = _repository.CreateImage(file.FileName, currentUserId);
+            var imgId = _repository.CreateImage(file.FileName, currentUserId, file.ContentType);
             _repository.Save();
             using (var memoryStream = new MemoryStream())
             {
@@ -114,12 +115,12 @@ public class ImageController : Controller
     {
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         Response<PutObjectsMinIoReply> responce;
-        if (string.IsNullOrEmpty(currentUserId))
+        if (!string.IsNullOrEmpty(currentUserId))
         {
             var user = await _userManager.FindByIdAsync(currentUserId);
-            if (user != null)
+            if (user == null)
                 return NotFound();
-            var imagesId = _repository.CreateImages(files.Select(x => x.FileName), currentUserId);
+            var imagesId = _repository.CreateImages(files.Select(x => (x.FileName, x.ContentType)), currentUserId);
             _repository.Save();
             Response<PutObjectsMinIoReply> response;
             using (var memoryStream = new MemoryStream())
@@ -149,10 +150,10 @@ public class ImageController : Controller
     public async Task<IActionResult> DeleteObjects()
     {
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (string.IsNullOrEmpty(currentUserId))
+        if (!string.IsNullOrEmpty(currentUserId))
         {
             var user = await _userManager.FindByIdAsync(currentUserId);
-            if (user != null)
+            if (user == null)
                 return NotFound();
             var imgs = _repository.GetImages(currentUserId);
             if (!imgs.Any())
@@ -174,10 +175,10 @@ public class ImageController : Controller
     public async Task<IActionResult> GetObjects()
     {
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (string.IsNullOrEmpty(currentUserId))
+        if (!string.IsNullOrEmpty(currentUserId))
         {
             var user = await _userManager.FindByIdAsync(currentUserId);
-            if (user != null)
+            if (user == null)
                 return NotFound();
             var images = _repository.GetImages(currentUserId);
             if (!images.Any())
@@ -190,7 +191,14 @@ public class ImageController : Controller
                 OrderId = Guid.NewGuid(),
                 ObjectsId = images.Select(x => x.Oid)
             });
-            return Ok(response.Message);
+            return response.Message.DataDictionary
+                .Select(x =>
+                {
+                    var contentType = images
+                        .Where(y => y.Oid == x.Key)
+                        .FirstOrDefault()?.ImageName;
+                    return File(x.Value, contentType);
+                });
         }
         else
             return NotFound();

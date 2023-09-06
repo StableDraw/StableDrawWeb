@@ -20,6 +20,7 @@ const context = [
   "/ApplyDatabaseMigrations",
   "/_framework",
   "/api/image",
+  "/api/neural",
   "/api",
   "/image"
 ];

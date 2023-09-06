@@ -16,8 +16,8 @@ public sealed partial class SagaStateMachine
     public Request<SagaState, IPutObjectsRequest, IPutObjectsReply> PutObjects { get; set; }
     public Request<SagaState, IDeleteObjectRequest, IDeleteObjectReply> DeleteObject { get; set; }
     public Request<SagaState, IDeleteObjectsRequest, IDeleteObjectsReply> DeleteObjects { get; set; }
-    public Request<SagaState, INeuralRequest, INeuralImagesReply> GenerateNeuralImages { get; set; }
-    public Request<SagaState, INeuralRequest, INeuralInfoReply> GenerateNeuralInfo { get; set; }
+    // public Request<SagaState, INeuralRequest, INeuralImagesReply> GenerateNeuralImages { get; set; }
+    // public Request<SagaState, INeuralRequest, INeuralInfoReply> GenerateNeuralInfo { get; set; }
     #endregion
 
     #region events
@@ -82,7 +82,7 @@ public sealed partial class SagaStateMachine
         Request(() => GetObjects);
         Request(() => PutObjects);
         Request(() => DeleteObjects);
-        Request(() => GenerateNeuralImages);
-        Request(() => GenerateNeuralInfo);
+        // Request(() => GenerateNeuralImages);
+        // Request(() => GenerateNeuralInfo);
     }
 }
