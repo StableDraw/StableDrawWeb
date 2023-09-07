@@ -53,16 +53,3 @@ Client/ClientApp/README.MD
 
 /StableDraw.Contracts/obj
 /StableDraw.SagasService/obj
-/StableDraw.SagasService/bin
-/build/.idea
-/build/bin
-/build/obj
-/manifestos/rabbitmq
-/StableDraw.Contracts/bin
-/StableDraw.Contracts/obj
-/StableDraw.SagasService/logs
-/StableDraw.SagasService/.idea
-/StableDraw.SagasService/bin
-/StableDraw.MinIOService/logs
-/.nuke/temp
-/StableDraw.NeuralService/venv
