@@ -2,28 +2,14 @@ import axios from 'axios'
 import AuthorizeService from "../components/api-authorization/AuthorizeService";
 import ApiToken from "./ApiToken";
 
-function GetImageURL(imageBytes, contentType, fileName)
-{
-	try
-	{
-		var blob = new Blob([imageBytes], {type : contentType});
-		return URL.createObjectURL(blob);
-	}
-	catch (error)
-	{
-		console.log("ERROR: ", error);
-	}
-}
 
 export default class Textures {
-	
-	
-	
 	static async LoadTexture(file) {
 		if(await AuthorizeService.isAuthenticated())
 		{
-			return await axios.post("api/image/" + file.fileName, file, await ApiToken.GetConfigToken());
-			
+			const data = await axios.post("api/image/" + file.fileName, file, await ApiToken.GetConfigToken());
+			console.log('Post', data);
+			return data;
 		}			
 		else
 			return await axios.HttpStatusCode.NotFound();
@@ -48,7 +34,9 @@ export default class Textures {
 		if (!await AuthorizeService.isAuthenticated()) {
 			return await axios.HttpStatusCode.NotFound()
 		} else {
-			return await axios.get("api/image", await ApiToken.GetConfigToken());
+			const data = await axios.get("api/image", await ApiToken.GetConfigToken());
+			console.log(data);
+			return data;
 		}
 	}
 }

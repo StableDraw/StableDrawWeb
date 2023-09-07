@@ -86,6 +86,7 @@ public class ImageController : Controller
     public async Task<IActionResult> PostObject(IFormFile file)
     {
         Response<PutObjectMinIoReply> response;
+        byte[] image;
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (!string.IsNullOrEmpty(currentUserId))
         {
@@ -97,6 +98,7 @@ public class ImageController : Controller
             using (var memoryStream = new MemoryStream())
             {
                 await file.CopyToAsync(memoryStream);
+                image = memoryStream.ToArray();
                 response = await _bus
                     .Request<PutObjectMinIoRequest, PutObjectMinIoReply>(new PutObjectRequestModel()
                         { ObjectId = imgId, Data = memoryStream.ToArray(), OrderId = Guid.NewGuid() });
@@ -104,7 +106,10 @@ public class ImageController : Controller
 
             if (response.Message == null)
                 return BadRequest();
-            return Ok(response.ResponseAddress.ToString());
+            return Ok(new {
+                ImageName = file.FileName,
+                Bytes = image
+            });
         }
         else
             return NotFound();
