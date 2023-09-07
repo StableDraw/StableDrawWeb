@@ -1,21 +1,16 @@
-import React, {useEffect, useState, useCallback, useMemo, useRef} from 'react';
-import cl from './ParamsWindow.module.css';
-import './ParamsWindow.module.css';
-import Button from '@mui/material/Button';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import cl from "./ParamsWindow.module.css";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import MyNewInput from "./MyNewInput";
+import {styled} from "@mui/material/styles";
+import Switch from "@mui/material/Switch";
 import api from "../../../../../../api/api";
-import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import CancelIcon from '@mui/icons-material/Cancel';
-import { styled } from '@mui/material/styles';
-import Switch from '@mui/material/Switch';
-import MyNewInput from './MyNewInput';
-import toolState from "../../../../../../store/toolState";
+import Typography from "@mui/material/Typography";
 let resMemo1 = ''
-
-
-const ParamsWindow = ({setModal, setModal1, props}) => {
+const OneImageVariant = ({setModal, props}) => {
     const [res, setRes] = useState()
     const consol = (result) => {
         setRes(result)
@@ -128,7 +123,6 @@ const ParamsWindow = ({setModal, setModal1, props}) => {
         setModal(false)
         alert('Генерация в данный момент недоступна')
     }
-
     const MaterialUISwitch = styled(Switch)(({ theme }) => ({
         width: 62,
         height: 34,
@@ -217,15 +211,15 @@ const ParamsWindow = ({setModal, setModal1, props}) => {
                     </label>
                     {drago ?
                         <div className={cl.drag_loadImg}
-                                onDragLeave={e => dragLeaveHandler(e)}
-                                onDrop={e => onDropHandler(e)}
-                                onDragOver={e => dragStartHandler(e)}
+                             onDragLeave={e => dragLeaveHandler(e)}
+                             onDrop={e => onDropHandler(e)}
+                             onDragOver={e => dragStartHandler(e)}
                         >
                         </div> :
                         <div className={cl.drag_loadImg}
-                                onDragStart={e => dragStartHandler(e)}
-                                onDragLeave={e => dragLeaveHandler(e)}
-                                onDragOver={e => dragStartHandler(e)}>
+                             onDragStart={e => dragStartHandler(e)}
+                             onDragLeave={e => dragLeaveHandler(e)}
+                             onDragOver={e => dragStartHandler(e)}>
                         </div>
                     }
                 </div>
@@ -289,7 +283,6 @@ const ParamsWindow = ({setModal, setModal1, props}) => {
                                     required minLength="1"
                                     maxLength="100"
                                     size="100"
-                                    disabled
                                 />
                             </div>
                             <div className={cl.Tooltip}>
@@ -309,66 +302,63 @@ const ParamsWindow = ({setModal, setModal1, props}) => {
                             </div>
                         </div>
                         <div className={cl.Tex}>
-
-                                <div className={cl.pointText1}>
-                                    Params2:
-                                </div>
-                                <div className={cl.pointText}>
-                                    <div>
-                                        <label className={cl.agree1}>
-                                            <select
-                                                className={cl.liststyle}
-                                                value={roomId}
-                                                onChange={onChanging}
-                                                id={"dropdownn"}
-                                                onMouseLeave={()=>setRes1(roomId)}
-                                                disabled
-                                            >
-                                                <option
-                                                    value="sound"
-                                                >
-                                                    sound
-                                                </option>
-
-                                                <option
-                                                    value="smoothing"
-                                                >
-                                                    smoothing
-                                                </option>
-
-                                                <option
-                                                    value="brightness"
-                                                >
-                                                    brightness
-                                                </option>
-
-                                                <option
-                                                    value="usability"
-                                                >
-                                                    usability
-                                                </option>
-                                            </select>
-                                        </label>
-                                    </div>
-                                    <div>
-                                        <Tooltip
-                                            title={'Я подсказка'}
-                                            placement="top"
+                            <div className={cl.pointText1}>
+                                Params2:
+                            </div>
+                            <div className={cl.pointText}>
+                                <div>
+                                    <label className={cl.agree1}>
+                                        <select
+                                            className={cl.liststyle}
+                                            value={roomId}
+                                            onChange={onChanging}
+                                            id={"dropdownn"}
+                                            onMouseLeave={()=>setRes1(roomId)}
                                         >
-                                            <HelpOutlineIcon
-                                                sx={{
-                                                    fontSize: 18,
-                                                    marginLeft: 1,
-                                                    marginBottom: 0.5,
-                                                    cursor: "help",
-                                                    backgroundColor: "#000000",
-                                                    borderRadius: 100,
-                                                }}
-                                            />
-                                        </Tooltip>
-                                    </div>
-                                </div>
+                                            <option
+                                                value="sound"
+                                            >
+                                                sound
+                                            </option>
 
+                                            <option
+                                                value="smoothing"
+                                            >
+                                                smoothing
+                                            </option>
+
+                                            <option
+                                                value="brightness"
+                                            >
+                                                brightness
+                                            </option>
+
+                                            <option
+                                                value="usability"
+                                            >
+                                                usability
+                                            </option>
+                                        </select>
+                                    </label>
+                                </div>
+                                <div>
+                                    <Tooltip
+                                        title={'Я подсказка'}
+                                        placement="top"
+                                    >
+                                        <HelpOutlineIcon
+                                            sx={{
+                                                fontSize: 18,
+                                                marginLeft: 1,
+                                                marginBottom: 0.5,
+                                                cursor: "help",
+                                                backgroundColor: "#000000",
+                                                borderRadius: 100,
+                                            }}
+                                        />
+                                    </Tooltip>
+                                </div>
+                            </div>
                         </div>
                         <div className={cl.Tex}>
                             <div className={cl.pointText1}>
@@ -376,7 +366,7 @@ const ParamsWindow = ({setModal, setModal1, props}) => {
                             </div>
                             <div className={cl.switcher}>
                                 <div>
-                                    <MaterialUISwitch sx={{ m: 1 }}  disabled/>
+                                    <MaterialUISwitch sx={{ m: 1 }} defaultChecked />
                                 </div>
                                 <div>
                                     <Tooltip
@@ -403,7 +393,7 @@ const ParamsWindow = ({setModal, setModal1, props}) => {
                             </div>
                             <div className={cl.switcher}>
                                 <div className={cl.slider}>
-                                    <MyNewInput id='slider' callback={consol} disabled/>
+                                    <MyNewInput id='slider' callback={consol}/>
                                 </div>
                                 <div>
                                     <Tooltip
@@ -460,4 +450,5 @@ const ParamsWindow = ({setModal, setModal1, props}) => {
         </div>
     );
 };
-export default ParamsWindow;
+
+export default OneImageVariant;

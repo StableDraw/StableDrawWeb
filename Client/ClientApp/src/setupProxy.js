@@ -21,6 +21,7 @@ const context = [
   "/_framework",
   "/api/image",
   "/api",
+  "/api/neurons",
   "/image"
 ];
 

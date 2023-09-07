@@ -1,21 +1,16 @@
-import React, {useEffect, useState, useCallback, useMemo, useRef} from 'react';
-import cl from './ParamsWindow.module.css';
-import './ParamsWindow.module.css';
-import Button from '@mui/material/Button';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import cl from "./ParamsWindow.module.css";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import MyNewInput from "./MyNewInput";
+import {styled} from "@mui/material/styles";
+import Switch from "@mui/material/Switch";
 import api from "../../../../../../api/api";
-import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import CancelIcon from '@mui/icons-material/Cancel';
-import { styled } from '@mui/material/styles';
-import Switch from '@mui/material/Switch';
-import MyNewInput from './MyNewInput';
-import toolState from "../../../../../../store/toolState";
+import Typography from "@mui/material/Typography";
 let resMemo1 = ''
-
-
-const ParamsWindow = ({setModal, setModal1, props}) => {
+const ZeroImagesVariant = ({setModal, setModal4, props}) => {
     const [res, setRes] = useState()
     const consol = (result) => {
         setRes(result)
@@ -128,7 +123,6 @@ const ParamsWindow = ({setModal, setModal1, props}) => {
         setModal(false)
         alert('Генерация в данный момент недоступна')
     }
-
     const MaterialUISwitch = styled(Switch)(({ theme }) => ({
         width: 62,
         height: 34,
@@ -177,59 +171,6 @@ const ParamsWindow = ({setModal, setModal1, props}) => {
     }));
     return (
         <div className={cl.paramsWindow}>
-            <div className={cl.imageBlock}>
-                <div className={cl.addBlock}>
-                    <input
-                        type="file"
-                        accept="image/*"
-                        style={{ display: 'none' }}
-                        id="contained-button-file"
-                        ref={fileRef}
-                        onChange={handleChange1}
-                        multiple={false}
-                        hidden
-                    />
-                    <label htmlFor="contained-button-file">
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            component="span"
-                            style={{
-                                width: 210,
-                                height: 210,
-                                backgroundColor: "#474747"
-                            }}
-                            onClick={() => fileRef.current}
-                        >
-                            <img
-                                className={cl.adding}
-                                draggable="true"
-                                onDragStart={dragStartHandler}
-                                src={"adding.png"}
-                                alt={"adding"}
-                                style={{
-                                    width: 150,
-                                    height: 150,
-                                    borderRadius: 5
-                                }}
-                            />
-                        </Button>
-                    </label>
-                    {drago ?
-                        <div className={cl.drag_loadImg}
-                                onDragLeave={e => dragLeaveHandler(e)}
-                                onDrop={e => onDropHandler(e)}
-                                onDragOver={e => dragStartHandler(e)}
-                        >
-                        </div> :
-                        <div className={cl.drag_loadImg}
-                                onDragStart={e => dragStartHandler(e)}
-                                onDragLeave={e => dragLeaveHandler(e)}
-                                onDragOver={e => dragStartHandler(e)}>
-                        </div>
-                    }
-                </div>
-            </div>
             <div className={cl.parametrsWindow}>
                 <div className={cl.search_container}>
                     <input
@@ -278,7 +219,66 @@ const ParamsWindow = ({setModal, setModal1, props}) => {
                     <div className={cl.bordercont}>
                         <div className={cl.Tex}>
                             <div className={cl.pointText1}>
-                                Params:
+                                Params4:
+                            </div>
+                            <div className={cl.pointText}>
+                                <div>
+                                    <label className={cl.agree1}>
+                                        <select
+                                            className={cl.liststyle}
+                                            value={roomId}
+                                            onChange={onChanging}
+                                            id={"dropdownn"}
+                                            onMouseLeave={()=>setRes1(roomId)}
+                                        >
+                                            <option
+                                                value="sound"
+                                            >
+                                                sound
+                                            </option>
+
+                                            <option
+                                                value="smoothing"
+                                            >
+                                                smoothing
+                                            </option>
+
+                                            <option
+                                                value="brightness"
+                                            >
+                                                brightness
+                                            </option>
+
+                                            <option
+                                                value="usability"
+                                            >
+                                                usability
+                                            </option>
+                                        </select>
+                                    </label>
+                                </div>
+                                <div>
+                                    <Tooltip
+                                        title={'Я подсказка'}
+                                        placement="top"
+                                    >
+                                        <HelpOutlineIcon
+                                            sx={{
+                                                fontSize: 18,
+                                                marginLeft: 1,
+                                                marginBottom: 0.5,
+                                                cursor: "help",
+                                                backgroundColor: "#000000",
+                                                borderRadius: 100,
+                                            }}
+                                        />
+                                    </Tooltip>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={cl.Tex}>
+                            <div className={cl.pointText1}>
+                                Params5:
                             </div>
                             <div className={cl.pointText}>
                                 <input
@@ -289,7 +289,6 @@ const ParamsWindow = ({setModal, setModal1, props}) => {
                                     required minLength="1"
                                     maxLength="100"
                                     size="100"
-                                    disabled
                                 />
                             </div>
                             <div className={cl.Tooltip}>
@@ -309,74 +308,12 @@ const ParamsWindow = ({setModal, setModal1, props}) => {
                             </div>
                         </div>
                         <div className={cl.Tex}>
-
-                                <div className={cl.pointText1}>
-                                    Params2:
-                                </div>
-                                <div className={cl.pointText}>
-                                    <div>
-                                        <label className={cl.agree1}>
-                                            <select
-                                                className={cl.liststyle}
-                                                value={roomId}
-                                                onChange={onChanging}
-                                                id={"dropdownn"}
-                                                onMouseLeave={()=>setRes1(roomId)}
-                                                disabled
-                                            >
-                                                <option
-                                                    value="sound"
-                                                >
-                                                    sound
-                                                </option>
-
-                                                <option
-                                                    value="smoothing"
-                                                >
-                                                    smoothing
-                                                </option>
-
-                                                <option
-                                                    value="brightness"
-                                                >
-                                                    brightness
-                                                </option>
-
-                                                <option
-                                                    value="usability"
-                                                >
-                                                    usability
-                                                </option>
-                                            </select>
-                                        </label>
-                                    </div>
-                                    <div>
-                                        <Tooltip
-                                            title={'Я подсказка'}
-                                            placement="top"
-                                        >
-                                            <HelpOutlineIcon
-                                                sx={{
-                                                    fontSize: 18,
-                                                    marginLeft: 1,
-                                                    marginBottom: 0.5,
-                                                    cursor: "help",
-                                                    backgroundColor: "#000000",
-                                                    borderRadius: 100,
-                                                }}
-                                            />
-                                        </Tooltip>
-                                    </div>
-                                </div>
-
-                        </div>
-                        <div className={cl.Tex}>
                             <div className={cl.pointText1}>
-                                Params3:
+                                Params6:
                             </div>
                             <div className={cl.switcher}>
-                                <div>
-                                    <MaterialUISwitch sx={{ m: 1 }}  disabled/>
+                                <div className={cl.slider}>
+                                    <MyNewInput id='slider' callback={consol}/>
                                 </div>
                                 <div>
                                     <Tooltip
@@ -386,8 +323,7 @@ const ParamsWindow = ({setModal, setModal1, props}) => {
                                         <HelpOutlineIcon
                                             sx={{
                                                 fontSize: 18,
-                                                marginLeft: 1,
-                                                marginTop: 2,
+                                                marginLeft: 1.5,
                                                 cursor: "help",
                                                 backgroundColor: "#000000",
                                                 borderRadius: 100,
@@ -399,11 +335,11 @@ const ParamsWindow = ({setModal, setModal1, props}) => {
                         </div>
                         <div className={cl.Tex}>
                             <div className={cl.pointText1}>
-                                Params4:
+                                Params7:
                             </div>
                             <div className={cl.switcher}>
-                                <div className={cl.slider}>
-                                    <MyNewInput id='slider' callback={consol} disabled/>
+                                <div>
+                                    <MaterialUISwitch sx={{ m: 1 }} defaultChecked />
                                 </div>
                                 <div>
                                     <Tooltip
@@ -413,7 +349,8 @@ const ParamsWindow = ({setModal, setModal1, props}) => {
                                         <HelpOutlineIcon
                                             sx={{
                                                 fontSize: 18,
-                                                marginLeft: 1.5,
+                                                marginLeft: 1,
+                                                marginTop: 2,
                                                 cursor: "help",
                                                 backgroundColor: "#000000",
                                                 borderRadius: 100,
@@ -460,4 +397,5 @@ const ParamsWindow = ({setModal, setModal1, props}) => {
         </div>
     );
 };
-export default ParamsWindow;
+
+export default ZeroImagesVariant;

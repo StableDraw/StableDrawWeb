@@ -149,4 +149,5 @@ input[type=range].slider::-ms-fill-lower
     background-color: #666666;
     border-radius: 5px;
     border: 1px solid #000000;
+    color: #ffffff;
 }

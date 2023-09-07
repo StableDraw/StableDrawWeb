@@ -126,8 +126,5 @@ export const SelectTexMenu = ({
 				</div>
 			</div>
 		</>
-
-
-
 	)
 }

@@ -27,4 +27,8 @@ export default class Textures {
 	static async GetTextureStorage() {
 		return await axios.get("api/image");
 	}
+
+	static async GetNeuronsStorage() {
+		return await axios.get("api/neurons");
+	}
 }

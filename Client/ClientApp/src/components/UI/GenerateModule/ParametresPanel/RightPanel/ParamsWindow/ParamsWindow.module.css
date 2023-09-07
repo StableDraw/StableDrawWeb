@@ -32,6 +32,18 @@
     background-color: rgb(71, 71, 71);
     border-radius: 5px;
 }
+.addBlock1{
+    display: flex;
+    justify-content: center;
+    margin-left: auto;
+    margin-right:auto;
+    position: static;
+    align-items: center;
+    width: 210px;
+    height: 210px;
+    background-color: rgb(71, 71, 71);
+    border-radius: 5px;
+}
 
 .adding{
     margin-left: 30px;
@@ -135,6 +147,39 @@
     color: #ffffff;
     font-size: 14px;
     vertical-align: middle;
+}
+
+.Tex1{
+    display: flex;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: #333333;
+    border: 1px solid #000000;
+    width: 85%;
+    color: #ffffff;
+    font-size: 14px;
+    z-index: 0;
+    vertical-align: middle;
+}
+.shirm{
+    /*display: flex;*/
+    /*margin-left: auto;*/
+    /*margin-right: auto;*/
+    /*flex-direction: column;*/
+    /*justify-content: center;*/
+    /*border-radius: 10px;*/
+    background-color: rgba(255,255,51, 0.7);
+    z-index: 10;
+    position: relative;
+    /*border: 1px solid #000000;*/
+    /*width: 85%;*/
+    /*color: #ffffff;*/
+    /*font-size: 14px;*/
+    /*vertical-align: middle;*/
 }
 
 .pointText{
@@ -244,9 +289,48 @@
 }
 
 .slider{
-    width: 50%;
+    margin-left: 10px;
+    width: 100%;
 }
 
+.sceneModal{
+    position: absolute;
+    background-color: black;
+    color: white;
+    left: 20px;
+    top: 15px;
+    height: 20px;
+    width: 200px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 5px 15px 10px;
+    align-items: center;
+    flex-direction: row;
+    opacity: 40%;
+    z-index: 1000;
+}
 
+.txt{
+    color: white !important;
+    opacity: 100% !important;
+    size: 14px !important;
+}
+
+.switcher{
+    display: flex;
+    justify-content: left;
+    text-align:left;
+    color: #ffffff;
+    float: left;
+}
+
+.Tooltip{
+    margin-right: 5px;
+    justify-content: right;
+    text-align: right;
+    float: right;
+    vertical-align: middle;
+}
 
 

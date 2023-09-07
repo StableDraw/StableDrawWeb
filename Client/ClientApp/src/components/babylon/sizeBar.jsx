@@ -35,7 +35,7 @@ export const SizeBar = ({ changeModel, model, isLightTheme }) => {
 					<Button
 						theme={isLightTheme ? themeLight : themeDark}
 						className={barClasses.button_sizeBar}
-						disabled={model.big ? false : true}
+						disabled={!model.big}
 						onClick={changeBigButtonColor}
 						variant={isBigButtonClicked ? "contained" : 'outlined'}
 					>
@@ -46,7 +46,7 @@ export const SizeBar = ({ changeModel, model, isLightTheme }) => {
 					<Button
 						theme={isLightTheme ? themeLight : themeDark}
 						className={barClasses.button_sizeBar}
-						disabled={model.small ? false : true}
+						disabled={!model.small}
 						onClick={changeSmallButtonColor}
 						variant={isSmallButtonClicked ? "contained" : 'outlined'}
 					>

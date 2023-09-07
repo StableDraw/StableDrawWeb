@@ -1,3 +1,55 @@
+.contentBox
+{
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 1px solid #707070;
+    border-radius: 10px;
+    height: 779px;
+    width: 1302px;
+    background-color: rgb(0, 0, 0);
+    opacity: 1;
+    pointer-events: all;
+    transition: 0.5s;
+}
+
+.contented{
+    position: static;
+    border: 1px solid rgb(0, 0, 0);
+    width: 1300px;
+    height: 720px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: #333333;
+}
+
+.header
+{
+    display: block;
+    position: static;
+    height: 59px;
+    width: 1300px;
+    background-color: rgb(71, 71, 71);
+    border-left: 1px solid #000000;
+    border-right: 1px solid #000000;
+    border-top: 1px solid #000000;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.closebtn{
+    border: 1px solid #000000;
+    border-radius: 5px;
+    float: right;
+    top: 12px;
+    bottom: 12px;
+    right: 11px;
+    display: block;
+    position: fixed;
+}
+
+
 .agreeWindow
 {
     display: block;
@@ -31,7 +83,7 @@
 .agreeWindow::-webkit-scrollbar-track {
     background: var(--scrollbarBg);
     border-radius: 0;
-   
+
 
 }
 .agreeWindow::-webkit-scrollbar-thumb {
@@ -63,7 +115,7 @@
     width: 238px;
     height: 720px;
     border-bottom-left-radius: 10px;
-    
+
 }
 
 
@@ -170,7 +222,7 @@
 
 .neuronItem {
     max-width: 150px;
-    //background-color: #474747;
+//background-color: #474747;
     border-radius: 4px;
     box-shadow: 0 3px 0 rgba(0, 0, 0, 0.05);
     cursor: pointer;
@@ -179,49 +231,46 @@
     margin-left: auto;
     margin-right: auto;
     transition: all 0.15s ease-in-out;
-    h3 {
-        margin-top: 15px;
-        font-weight: 600;
-        font-size: 16px;
-        font-family: 'Inter', sans-serif;
-        text-align: center;
-        color: #000000;
-    }
-    h4 {
-        margin-top: 50px;
+h3 {
+    margin-top: 15px;
+    font-weight: 600;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+    color: #000000;
+}
+h4 {
+    margin-top: 50px;
 
-        font-size: 14px;
-        font-family: 'Inter', sans-serif;
-        text-align: center;
-        color: #000000;
-    }
-
-    &:hover {
-        box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
-        transform: translateY(-5px);
-    }
-
-    @media (max-width: 150px) {
-        width: 100%;
-    }
-
-    img {
-        object-fit: cover;
-    }
-
-    &__big {
-        height: 120px;
-        width: 120px;
-        border-radius: 4px;
-        align-items: center;
-        justify-content: center;
-        margin-top: 25px;
-        margin-bottom: 25px;
-    }
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+    color: #000000;
 }
 
+&:hover {
+     box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
+     transform: translateY(-5px);
+ }
 
+@media (max-width: 150px) {
+    width: 100%;
+}
 
+img {
+    object-fit: cover;
+}
+
+&__big {
+     height: 120px;
+     width: 120px;
+     border-radius: 4px;
+     align-items: center;
+     justify-content: center;
+     margin-top: 25px;
+     margin-bottom: 25px;
+ }
+}
 
 
 

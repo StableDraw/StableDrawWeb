@@ -53,15 +53,11 @@ export const Scene = ({
 		}
 	});
 	return (
-		<>
-			<canvas
-				id='canvas'
-				ref={babylonCanvas}
-				className={sceneClass.canvas}
-			>
-
-			</canvas>
-			
-		</>
+		<canvas
+			id='canvas'
+			ref={babylonCanvas}
+			className={sceneClass.canvas}
+		>
+		</canvas>
 	);
 };

@@ -93,7 +93,6 @@ export const MainBabylon = () => {
 	return (
 		<>
 			<Header setTheme={setTheme} isLightTheme={isLightTheme} />
-
 			<div style={{ position: 'relative',}}>
 				<div className={ isLightTheme ? mainClassLight.main : mainClass.main} >
 					<div className={mainClass.sceneBox}>

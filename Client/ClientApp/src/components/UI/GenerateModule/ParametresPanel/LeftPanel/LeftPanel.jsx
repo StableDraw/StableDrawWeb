@@ -29,19 +29,15 @@ import NativeSelect from '@mui/material/NativeSelect';
 import InputBase from '@mui/material/InputBase';
 import Close from "@mui/icons-material/Close";
 import {NeuronObject} from "./NeuronObject";
-const LeftPanel = ({props}) => {
+import api from "../../../../../api/api";
+const LeftPanel = ({setModal1, setModal2, setModal3, setModal4, modal, modal1, modal2, modal3}) => {
+    const [neuronStorage, setNeuronStorage] = useState([]);
     const [ros, setRos] = useState()
     const callback = (result) => {
         setRos(result)
     }
-    const [modal, setModal] = useState(false)
-    const [modal1, setModal1] = useState(false)
-    const [modal2, setModal2] = useState(false)
-    const [modal3, setModal3] = useState(false)
-    const [modal4, setModal4] = useState(false)
-    const [modal5, setModal5] = useState(false)
     const showAdding1Modal = () => {
-        setModal(!modal)
+        setModal4(!modal)
     }
     const showAdding2Modal = () => {
         setModal1(!modal1)
@@ -52,12 +48,7 @@ const LeftPanel = ({props}) => {
     const showAdding4Modal = () => {
         setModal3(!modal3)
     }
-    const showAdding5Modal = () => {
-        setModal4(!modal4)
-    }
-    const showAdding6Modal = () => {
-        setModal5(!modal5)
-    }
+
     const [searchValue, setSearchValue] = useState('')
     const [isLoading, setIsLoading] = useState(true)
     const [neurons, setNeurons] = useState([])
@@ -78,6 +69,29 @@ const LeftPanel = ({props}) => {
             .finally(() => setIsLoading(false));
     }, []);
 
+    useEffect(() => {
+        const getNeuronData = async () => {
+            setIsLoading(true)
+            await api.GetTextureStorage()
+                .then((res) => {
+                    res.json()
+                    if (res.data) {
+                        const neuronMap = res.data.map(id => "./api/neurons/" + id);
+                        setNeuronStorage(neuronMap);
+                        console.log(neuronMap)
+                }})
+                .then((json) => {
+                    setNeurons(json);
+                    console.log(json);
+                })
+                .catch((err) => {
+                    console.warn(err);
+                    alert("Sorry, you Internet connection isn`t working. Please, restart the page");
+                })
+                .finally(() => setIsLoading(false));
+        };
+        getNeuronData();
+    }, []);
     const onChanging = (e) => {
         setSearchValue(e.target.value)
         console.log(e)
@@ -164,7 +178,7 @@ const LeftPanel = ({props}) => {
                         required minLength="1"
                         maxLength="100"
                         size="100"
-                        placeholder="Поиск нейронок.."
+                        placeholder="Поиск нейросетей..."
                         value={searchValue}
                         onChange={onChanging}
                     />
@@ -205,103 +219,103 @@ const LeftPanel = ({props}) => {
                         <option className={cl.option} value={20} style={{backgroundColor: "#666666"}}>Сверточные нейронные сети</option>
                         <option className={cl.option} value={30} style={{backgroundColor: "#666666"}}>Генеративные нейронные сети</option>
                     </NativeSelect> */}
-                    <ThemeProvider
-                        theme={createTheme({
-                            components: {
-                                MuiListItemButton: {
-                                    defaultProps: {
-                                        disableTouchRipple: true,
-                                    },
-                                },
-                            },
-                            palette: {
-                                mode: 'dark',
-                            },
-                        })}
-                    >
-                        <ListItemButton
-                            className={cl.filter_btn}
-                            sx={{
-                                border: 1,
-                                maxHeight: 45,
-                                minHeight: 45,
-                                maxWidth: 36,
-                                minWidth: 36,
-                                color: '#1976d2',
-                                background: "#474747",
-                                padding: 0,
-                            }}
-                            onClick={getActive}
-                        >
-                            <svg
-                                className={cl.Icon_Set}
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="28"
-                                height="28"
-                                style={{marginLeft: 3}}
-                                viewBox="0 0 32 32"
-                            >
-                                <path d="M12,25l6.67,6.67a1,1,0,0,0,.7.29.91.91,0,0,0,.39-.08,1,1,0,0,0,.61-.92V13.08L31.71,1.71A1,1,0,0,0,31.92.62,1,1,0,0,0,31,0H1A1,1,0,0,0,.08.62,1,1,0,0,0,.29,1.71L11.67,13.08V24.33A1,1,0,0,0,12,25ZM3.41,2H28.59l-10,10a1,1,0,0,0-.3.71V28.59l-4.66-4.67V12.67a1,1,0,0,0-.3-.71Z"/>
-                            </svg>
-                        </ListItemButton>
-                        <Paper elevation={0} sx={{ maxWidth: 190}}>
-                            <FireNav
-                                component="nav"
-                                disablePadding
-                                sx={{
-                                    background: "#666666",
-                                    padding: 0,
-                                    right: 192,
-                                    top: 45,
-                                }}
-                            >
-                                <Box
-                                    sx={{
-                                        // background: activity ? '#000000' : null,
-                                        padding: 0,
-                                        opacity: 0.7,
-                                    }}
-                                >
-                                    {activity &&
-                                        data.map((item) => (
-                                            <ListItemButton
-                                                key={item.label}
-                                                sx={{
-                                                    minHeight: 32,
-                                                    width: 190,
-                                                    color: '#ffffff',
-                                                    backgroundColor: "#666666",
-                                                    '&:hover': {
-                                                        backgroundColor: '#888888',
-                                                    },
-                                                    border: 1,
-                                                    borderRadius: 1,
-                                                    padding: 0,
-                                                }}
-                                                onClick={getActive}
-                                            >
-                                                <ListItemIcon
-                                                    sx={{
-                                                        color: 'inherit',
-                                                        padding: 0,
-                                                    }}
-                                                >
-                                                    {item.icon}
-                                                </ListItemIcon>
-                                                <ListItemText
-                                                    primary={item.label}
-                                                    primaryTypographyProps={{
-                                                        fontSize: 16,
-                                                        fontWeight: 'medium',
-                                                        textAlign: 'center',
-                                                    }}
-                                                />
-                                            </ListItemButton>
-                                        ))}
-                                </Box>
-                            </FireNav>
-                        </Paper>
-                    </ThemeProvider>
+                    {/*<ThemeProvider*/}
+                    {/*    theme={createTheme({*/}
+                    {/*        components: {*/}
+                    {/*            MuiListItemButton: {*/}
+                    {/*                defaultProps: {*/}
+                    {/*                    disableTouchRipple: true,*/}
+                    {/*                },*/}
+                    {/*            },*/}
+                    {/*        },*/}
+                    {/*        palette: {*/}
+                    {/*            mode: 'dark',*/}
+                    {/*        },*/}
+                    {/*    })}*/}
+                    {/*>*/}
+                    {/*    <ListItemButton*/}
+                    {/*        className={cl.filter_btn}*/}
+                    {/*        sx={{*/}
+                    {/*            border: 1,*/}
+                    {/*            maxHeight: 45,*/}
+                    {/*            minHeight: 45,*/}
+                    {/*            maxWidth: 36,*/}
+                    {/*            minWidth: 36,*/}
+                    {/*            color: '#1976d2',*/}
+                    {/*            background: "#474747",*/}
+                    {/*            padding: 0,*/}
+                    {/*        }}*/}
+                    {/*        onClick={getActive}*/}
+                    {/*    >*/}
+                    {/*        <svg*/}
+                    {/*            className={cl.Icon_Set}*/}
+                    {/*            xmlns="http://www.w3.org/2000/svg"*/}
+                    {/*            width="28"*/}
+                    {/*            height="28"*/}
+                    {/*            style={{marginLeft: 3}}*/}
+                    {/*            viewBox="0 0 32 32"*/}
+                    {/*        >*/}
+                    {/*            <path d="M12,25l6.67,6.67a1,1,0,0,0,.7.29.91.91,0,0,0,.39-.08,1,1,0,0,0,.61-.92V13.08L31.71,1.71A1,1,0,0,0,31.92.62,1,1,0,0,0,31,0H1A1,1,0,0,0,.08.62,1,1,0,0,0,.29,1.71L11.67,13.08V24.33A1,1,0,0,0,12,25ZM3.41,2H28.59l-10,10a1,1,0,0,0-.3.71V28.59l-4.66-4.67V12.67a1,1,0,0,0-.3-.71Z"/>*/}
+                    {/*        </svg>*/}
+                    {/*    </ListItemButton>*/}
+                    {/*    <Paper elevation={0} sx={{ maxWidth: 190}}>*/}
+                    {/*        <FireNav*/}
+                    {/*            component="nav"*/}
+                    {/*            disablePadding*/}
+                    {/*            sx={{*/}
+                    {/*                background: "#666666",*/}
+                    {/*                padding: 0,*/}
+                    {/*                right: 192,*/}
+                    {/*                top: 45,*/}
+                    {/*            }}*/}
+                    {/*        >*/}
+                    {/*            <Box*/}
+                    {/*                sx={{*/}
+                    {/*                    // background: activity ? '#000000' : null,*/}
+                    {/*                    padding: 0,*/}
+                    {/*                    opacity: 0.7,*/}
+                    {/*                }}*/}
+                    {/*            >*/}
+                    {/*                {activity &&*/}
+                    {/*                    data.map((item) => (*/}
+                    {/*                        <ListItemButton*/}
+                    {/*                            key={item.label}*/}
+                    {/*                            sx={{*/}
+                    {/*                                minHeight: 32,*/}
+                    {/*                                width: 190,*/}
+                    {/*                                color: '#ffffff',*/}
+                    {/*                                backgroundColor: "#666666",*/}
+                    {/*                                '&:hover': {*/}
+                    {/*                                    backgroundColor: '#888888',*/}
+                    {/*                                },*/}
+                    {/*                                border: 1,*/}
+                    {/*                                borderRadius: 1,*/}
+                    {/*                                padding: 0,*/}
+                    {/*                            }}*/}
+                    {/*                            onClick={getActive}*/}
+                    {/*                        >*/}
+                    {/*                            <ListItemIcon*/}
+                    {/*                                sx={{*/}
+                    {/*                                    color: 'inherit',*/}
+                    {/*                                    padding: 0,*/}
+                    {/*                                }}*/}
+                    {/*                            >*/}
+                    {/*                                {item.icon}*/}
+                    {/*                            </ListItemIcon>*/}
+                    {/*                            <ListItemText*/}
+                    {/*                                primary={item.label}*/}
+                    {/*                                primaryTypographyProps={{*/}
+                    {/*                                    fontSize: 16,*/}
+                    {/*                                    fontWeight: 'medium',*/}
+                    {/*                                    textAlign: 'center',*/}
+                    {/*                                }}*/}
+                    {/*                            />*/}
+                    {/*                        </ListItemButton>*/}
+                    {/*                    ))}*/}
+                    {/*            </Box>*/}
+                    {/*        </FireNav>*/}
+                    {/*    </Paper>*/}
+                    {/*</ThemeProvider>*/}
                 </div>
                 {/*<hr className={cl.hrLine}/>*/}
                 {isLoading ? (
@@ -325,12 +339,13 @@ const LeftPanel = ({props}) => {
                         }}
                         variant="contained"
                         onClick={showAdding1Modal}
-                        title={'ChatGPT'}
+                        title={'frames_to_animation'}
+
                         disableRipple
                     >
                         <img
-                            src={"ChatGPT.jpg"}
-                            alt={"ChatGPT"}
+                            src={"frames_to_animation.png"}
+                            alt={"frames_to_animation"}
                             style={{
                                 width: 148,
                                 height: 148,
@@ -354,12 +369,13 @@ const LeftPanel = ({props}) => {
                         }}
                         variant="contained"
                         onClick={showAdding2Modal}
-                        title={'Midjourney'}
+                        title={'wtf'}
+
                         disableRipple
                     >
                         <img
-                            src={"Midjourney.png"}
-                            alt={"Midjourney"}
+                            src={".wtf.png"}
+                            alt={"wtf"}
                             style={{
                                 width: 148,
                                 height: 148,
@@ -383,12 +399,13 @@ const LeftPanel = ({props}) => {
                         }}
                         variant="contained"
                         onClick={showAdding3Modal}
-                        title={'Kandinsky'}
+                        title={'photo_to_image'}
+
                         disableRipple
                     >
                         <img
-                            src={"Kandinsky.webp"}
-                            alt={"Kandinsky"}
+                            src={"photo_to_image.png"}
+                            alt={"photo_to_image"}
                             style={{
                                 width: 148,
                                 height: 148,
@@ -412,69 +429,12 @@ const LeftPanel = ({props}) => {
                         }}
                         variant="contained"
                         onClick={showAdding4Modal}
-                        title={'YandexGPT'}
+                        title={'text_to_image'}
                         disableRipple
                     >
                         <img
-                            src={"yandexGPT.jpg"}
-                            alt={"yandexGPT"}
-                            style={{
-                                width: 148,
-                                height: 148,
-                                borderRadius: 5
-                            }}
-                        />
-                    </Button>
-                    <Button
-                        className={cl.adding5}
-                        sx={{background: modal4 ? "#ff0000" : "#ffffff",
-                            '&:hover': {
-                                backgroundColor: '#ff0000',
-                            },}}
-                        style={{
-                            maxWidth: 150,
-                            maxHeight: 150,
-                            minWidth: 150,
-                            minHeight: 150,
-                            marginBottom: 15,
-                            // position: "static",
-                        }}
-                        variant="contained"
-                        onClick={showAdding5Modal}
-                        title={'DALL-E'}
-                        disableRipple
-                    >
-                        <img
-                            src={"Dall-e.jpg"}
-                            alt={"Dall-e"}
-                            style={{
-                                width: 148,
-                                height: 148,
-                                borderRadius: 5
-                            }}
-                        />
-                    </Button>
-                    <Button
-                        className={cl.adding6}
-                        sx={{background: modal5 ? "#ff0000" : "#ffffff",
-                            '&:hover': {
-                                backgroundColor: '#ff0000',
-                            },}}
-                        style={{
-                            maxWidth: 150,
-                            maxHeight: 150,
-                            minWidth: 150,
-                            minHeight: 150,
-                            // position: "static",
-                        }}
-                        variant="contained"
-                        onClick={showAdding6Modal}
-                        title={'LoveGPT'}
-                        disableRipple
-                    >
-                        <img
-                            src={"LoveGPT.jpg"}
-                            alt={"LoveGPT"}
+                            src={"text_to_image.png"}
+                            alt={"text_to_image"}
                             style={{
                                 width: 148,
                                 height: 148,
