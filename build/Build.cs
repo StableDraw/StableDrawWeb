@@ -6,10 +6,12 @@ using Nuke.Common.Execution;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
+using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Utilities.Collections;
 using static Nuke.Common.EnvironmentInfo;
 using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.IO.PathConstruction;
+using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
 class Build : NukeBuild
 {
@@ -22,45 +24,72 @@ class Build : NukeBuild
     public static int Main () => Execute<Build>(x => x.Compile);
 
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
-    readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
+    readonly Configuration Configuration = Configuration.Debug;// : Configuration.Release;
 
-    [Parameter("Path")]
-    static readonly string Path;
-    
+    [Solution] readonly Solution SDSolution;
+    [Solution] readonly Solution CLISolution;
+    [Parameter] readonly bool IgnoreFailedSources;
+    AbsolutePath CLIDebugOutputDirectory => RootDirectory / "builds/Debug/CLI";
+    AbsolutePath CLIReleaseOutputDirectory => RootDirectory / "builds/Release/CLI";
+    AbsolutePath SDDebugOutputDirectory => RootDirectory / "builds/Debug/StableDraw";
+    AbsolutePath SDReleaseOutputDirectory => RootDirectory / "builds/Release/StableDraw";
+
     Target Clean => _ => _
         .Before(Restore)
         .Executes(() =>
         {
+            CLIDebugOutputDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
+            CLIReleaseOutputDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
+            SDDebugOutputDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
+            SDReleaseOutputDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
+
         });
 
     Target Restore => _ => _
         .Executes(() =>
         {
+
+            DotNetRestore(_ => _
+                                .SetProjectFile(CLISolution)
+                                .SetIgnoreFailedSources(IgnoreFailedSources));
+            DotNetRestore(_ => _
+                                .SetProjectFile(SDSolution)
+                                .SetIgnoreFailedSources(IgnoreFailedSources));
         });
 
     Target Compile => _ => _
         .DependsOn(Restore)
         .Executes(() =>
         {
+            DotNetPublish(_ => _
+                                .SetProject(CLISolution)
+                                .SetConfiguration(Configuration.Debug)
+                                .SetOutput(CLIDebugOutputDirectory));
+            DotNetPublish(_ => _
+                                .SetProject(SDSolution)
+                                .SetConfiguration(Configuration.Debug)
+                                .SetOutput(SDDebugOutputDirectory));
         });
+    Target Release => _ => _
+        .After(Restore)
+        .Executes(() =>
+        {
 
-    Target RunDocker => _ => _
-        .Executes(() =>
-        {
-        });
-    
-    Target Pull => _ => _
-        .Executes(() =>
-        {
-        });    
-    
-    
-    Target Deploy => _ => _
-        .Executes(() =>
-        {
-            // 1) компиляция
-            // 2) кидаем в папку dd_mm_yyyy_v - version
-            // 3) в папке dd_mm_yyyy_v будет 3 папки Beckend, SagaService, MinioService
+            DotNetRestore(_ => _
+                               .SetProjectFile(CLISolution)
+                               .SetIgnoreFailedSources(IgnoreFailedSources));
+            DotNetRestore(_ => _
+                                .SetProjectFile(SDSolution)
+                                .SetIgnoreFailedSources(IgnoreFailedSources));
+
+            DotNetPublish(_ => _
+                                .SetProject(CLISolution)
+                                .SetConfiguration(Configuration.Release)
+                                .SetOutput(CLIReleaseOutputDirectory));
+            DotNetPublish(_ => _
+                                .SetProject(SDSolution)
+                                .SetConfiguration(Configuration.Release)
+                                .SetOutput(SDReleaseOutputDirectory));
         });
 
 }
