@@ -50,8 +50,7 @@ public class ImageController : Controller
             {
                 ObjectId = image.Oid, OrderId = Guid.NewGuid()
             });
-            //return File(response.Message.Data, image.ContentType, image.ImageName);
-            return Ok(response.Message);
+            return Ok(new {image.ImageName, response.Message.Data});
         }
         else
             return NotFound();
@@ -93,14 +92,14 @@ public class ImageController : Controller
             var user = await _userManager.FindByIdAsync(currentUserId);
             if (user == null)
                 return NotFound();
-            var imgId = _repository.CreateImage(file.FileName, currentUserId, file.ContentType);
+            var imgId = _repository.CreateImage(file.FileName, file.ContentType, currentUserId);
             _repository.Save();
             using (var memoryStream = new MemoryStream())
             {
                 await file.CopyToAsync(memoryStream);
                 response = await _bus
                     .Request<PutObjectMinIoRequest, PutObjectMinIoReply>(new PutObjectRequestModel()
-                        { ObjectId = Guid.NewGuid(), Data = memoryStream.ToArray(), OrderId = Guid.NewGuid() });
+                        { ObjectId = imgId, Data = memoryStream.ToArray(), OrderId = Guid.NewGuid() });
             }
 
             if (response.Message == null)
@@ -197,9 +196,8 @@ public class ImageController : Controller
                 var img = images.FirstOrDefault(img => img.Oid == dict.Key);
                 return new
                 {
-                    Bytes = dict.Value,
                     ImageName = img.ImageName,
-                    ContentType = img.ContentType
+                    Bytes = dict.Value
                 };
             }));
         }
