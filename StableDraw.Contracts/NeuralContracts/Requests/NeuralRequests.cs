@@ -2,16 +2,6 @@
 
 namespace StableDraw.Contracts.NeuralContracts.Requests;
 
-public class NeuralRequestModel
-{
-    public Guid OrderId { get; set; }
-    public string? NeuralType { get; set; }
-    public string? Caption { get; set; }
-    public IEnumerable<string>? Prompts { get; set; }
-    public string? Parameters { get; set; }
-    public IEnumerable<IFormFile>? ImagesInput { get; set; }
-}
-
 public class NeuralRequest
 {
     public Guid OrderId { get; set; }

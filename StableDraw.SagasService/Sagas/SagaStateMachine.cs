@@ -9,12 +9,7 @@ namespace StableDraw.SagasService.Sagas;
 public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState>
 {
     private readonly ILogger<SagaStateMachine> _logger;
-    //private readonly List<string> _neuralImageTypes = new List<string>() { };
-    private readonly List<string> _neuralInfoTypes = new List<string>() {
-        "image_captioning",
-        "image_classification",
-        "translation"
-    };
+
     public SagaStateMachine(ILogger<SagaStateMachine> logger)
     {
         _logger = logger;
@@ -26,8 +21,8 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
             WhenDeleteObjectReceived(),
             WhenGetObjectsReceived(),
             WhenPutObjectsReceived(),
-            WhenDeleteObjectsReceived()
-            //WhenGenerateNeuralReceived()
+            WhenDeleteObjectsReceived(),
+            WhenGenerateNeuralReceived()
         );
 
         #region during
@@ -82,29 +77,17 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
                 })
                 .TransitionTo(Failed));
         
-        // During(GenerateNeuralImages.Pending, 
-        //     When(GenerateNeuralImages.Completed).ThenAsync(async context =>
-        //     {
-        //         await RespondFromSaga(context, string.Empty);
-        //     }).Finalize(),
-        //     When(GenerateNeuralImages.Faulted)
-        //         .ThenAsync(async context =>
-        //         {
-        //             await RespondFromSaga(context, "Faulted On Generate images " + string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
-        //         })
-        //         .TransitionTo(Failed));
-        
-        // During(GenerateNeuralInfo.Pending,
-        //     When(GenerateNeuralInfo.Completed).ThenAsync(async context =>
-        //     {
-        //         await RespondFromSaga(context, string.Empty);
-        //     }).Finalize(),
-        //     When(GenerateNeuralInfo.Faulted)
-        //         .ThenAsync(async context =>
-        //         {
-        //             await RespondFromSaga(context, "Faulted On Generate info " + string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
-        //         })
-        //         .TransitionTo(Failed));
+        During(GenerateNeural.Pending, 
+            When(GenerateNeural.Completed).ThenAsync(async context =>
+            {
+                await RespondFromSaga(context, string.Empty);
+            }).Finalize(),
+            When(GenerateNeural.Faulted)
+                .ThenAsync(async context =>
+                {
+                    await RespondFromSaga(context, "Faulted On Generate " + string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
+                })
+                .TransitionTo(Failed));
         #endregion
     }
 
@@ -207,52 +190,24 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
         })).TransitionTo(DeleteObjects.Pending);
     }
 
-    // private EventActivityBinder<SagaState, NeuralRequest> WhenGenerateNeuralReceived()
-    // {
-    //     return When(GenerateNeuralEvent).Then(x =>
-    //     {
-    //         if (!x.TryGetPayload(out SagaConsumeContext<SagaState, NeuralRequest> generateNeural))
-    //             throw new Exception("Unable to retrieve required generateNeural for callback data.");
-    //         x.Saga.RequestId = generateNeural.RequestId;
-    //         x.Saga.ResponseAddress = generateNeural.ResponseAddress;
-    //     }).IfElse(x => !_neuralInfoTypes.Contains(x.Message.NeuralType) , binder => 
-    //         binder.Request(GenerateNeuralImages, x =>
-    //                 x.Init<INeuralRequest>(x.Message))
-    //             .TransitionTo(GenerateNeuralImages.Pending), binder => 
-    //         binder.Request(GenerateNeuralInfo, x =>
-    //                 x.Init<INeuralRequest>(x.Message))
-    //             .TransitionTo(GenerateNeuralInfo.Pending));
-    // }
+    private EventActivityBinder<SagaState, NeuralRequest> WhenGenerateNeuralReceived()
+    {
+        return When(GenerateNeuralEvent).Then(x =>
+        {
+            if (!x.TryGetPayload(out SagaConsumeContext<SagaState, NeuralRequest> neuralGen))
+                throw new Exception("Unable to retrieve required neuralGen for callback data.");
+            x.Saga.RequestId = neuralGen.RequestId;
+            x.Saga.ResponseAddress = neuralGen.ResponseAddress;
+        }).Request(GenerateNeural, x => x.Init<INeuralRequest>(new
+        {
+            OrderId = x.Message.OrderId,
+            NeuralType = x.Message.NeuralType,
+            Prompts = x.Message.Prompts,
+            Parameters = x.Message.Parameters,
+            ImagesInput = x.Message.ImagesInput
+        })).TransitionTo(GenerateNeural.Pending);
+    }
     #endregion
-    
-
-    // private EventActivityBinder<SagaState, TInstance>[] WherePending<TRequest, TReply, TInstance>(Request<SagaState, TRequest, TReply> request) 
-    //     where TReply : class
-    //     where TRequest : class
-    //     where TInstance : class
-    // {
-    //     return new[]
-    //     {
-    //         When(request.Completed).ThenAsync(async context =>
-    //         {
-    //             await RespondFromSaga(context, string.Empty);
-    //         }).Finalize(),
-    //         //When(request.Faulted)
-    //         // When(request.Faulted)
-    //         //     .ThenAsync(async context =>
-    //         //     {
-    //         //         await RespondFromSaga(context, "Faulted On Delete Objects " + string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
-    //         //     })
-    //         //     .TransitionTo(Failed),
-    //         //
-    //         // When(request.TimeoutExpired)
-    //         //     .ThenAsync(async context =>
-    //         //     {
-    //         //         await RespondFromSaga(context, "Timeout Expired On Delete Objects");
-    //         //     })
-    //         //     .TransitionTo(Failed)
-    //     };
-    // }
 
     private static async Task RespondFromSaga<T>(BehaviorContext<SagaState, T> context, string error) where T : class
     {
@@ -307,20 +262,13 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
                         OrderId = context.Saga.CorrelationId
                     }, r => r.RequestId = context.Saga.RequestId);
                 break;
-            case INeuralImagesReply neuralImagesReply:
-                await endpoint.Send<NeuralImagesReply>(new NeuralImagesReply()
+            case INeuralReply neuralReply:
+                await endpoint.Send<NeuralReply>(new NeuralReply()
                 {
                     OrderId = context.Saga.CorrelationId,
-                    Images = neuralImagesReply.Images,
-                    NeuralType = neuralImagesReply.NeuralType
-                }, r => r.RequestId = context.Saga.RequestId);
-                break;
-            case INeuralInfoReply neuralInfoReply:
-                await endpoint.Send<NeuralInfoReply>(new NeuralInfoReply()
-                {
-                    OrderId = context.Saga.CorrelationId,
-                    NeuralType = neuralInfoReply.NeuralType,
-                    ResultStr = neuralInfoReply.ResultStr
+                    Images = neuralReply.Images,
+                    NeuralType = neuralReply.NeuralType,
+                    TextResult = neuralReply.TextResult
                 }, r => r.RequestId = context.Saga.RequestId);
                 break;
             default:

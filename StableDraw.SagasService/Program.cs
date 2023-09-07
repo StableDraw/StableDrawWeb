@@ -31,7 +31,6 @@ IHost host = Host.CreateDefaultBuilder(args)
                     r.ExistingDbContext<SagasDbContext>();
                     r.LockStatementProvider = new SqliteLockStatementProvider();
                     //r.LockStatementProvider = new PostgresLockStatementProvider();
-
                 });
             cfg.UsingRabbitMq((brc, rbfc) =>
             {
