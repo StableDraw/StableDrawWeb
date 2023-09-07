@@ -81,8 +81,7 @@ public class MinIoService : IMinIoService
     {
         GetObjectsResult result = new GetObjectsResult();
         result.DataDictionary = new Dictionary<Guid, byte[]>();
-        //var dict = new Dictionary<Guid, byte[]>();
-        // Check Exists object
+
         foreach (var item in request.ObjectsId)
         {
             var objstatreply= await _minio.StatObjectAsync(new StatObjectArgs()

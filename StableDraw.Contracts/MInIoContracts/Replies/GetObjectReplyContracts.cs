@@ -20,7 +20,7 @@ public record GetObjectsMinIoReply
 {
     public Guid OrderId { get; set; }
     public string? ErrorMsg { get; set; }
-    public IDictionary<Guid ,byte[]>? DataDictionary { get; set; } 
+    public IDictionary<Guid, byte[]>? DataDictionary { get; set; } 
 }
 
 public interface IGetObjectsReply

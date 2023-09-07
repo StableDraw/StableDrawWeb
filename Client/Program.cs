@@ -111,7 +111,9 @@ builder.Services.Configure<GoogleRecaptchaSettings>(builder.Configuration.GetSec
 builder.Services.AddTransient<GoogleRecaptchaService>();
 
 // neural settings
-builder.Services.Configure<NeuralBuilderSettings>(builder.Configuration.GetSection("NeuralBuilder"));
+//builder.Services.Configure<NeuralBuilderSettings>(builder.Configuration.GetSection("NeuralBuilder"));
+builder.Configuration.AddJsonFile("neuralSettings.json", optional: false, reloadOnChange: false);
+builder.Services.Configure<NeuralBuilderSettings>(builder.Configuration.GetSection(""));
 
 // rabbitMQ
 builder.Services.AddMassTransit(cfg =>

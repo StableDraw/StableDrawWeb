@@ -22,7 +22,7 @@ public class ImageController : Controller
     private readonly UserManager<ApplicationUser> _userManager;
 
     public ImageController(
-         ILogger<ImageController> logger, 
+        ILogger<ImageController> logger,
         IApplicationRepository repository, UserManager<ApplicationUser> userManager, IBus bus)
     {
         _logger = logger;
@@ -45,13 +45,13 @@ public class ImageController : Controller
             {
                 return NotFound();
             }
-    
+
             var response = await _bus.Request<GetObjectMinIoRequest, GetObjectMinIoReply>(new GetObjectRequestModel()
             {
                 ObjectId = image.Oid, OrderId = Guid.NewGuid()
             });
-            return File(response.Message.Data, image.ContentType, image.ImageName);
-            //return Ok(response.Message);
+            //return File(response.Message.Data, image.ContentType, image.ImageName);
+            return Ok(response.Message);
         }
         else
             return NotFound();
@@ -71,9 +71,10 @@ public class ImageController : Controller
             {
                 return NotFound();
             }
-            var response = 
+
+            var response =
                 await _bus.Request<DeleteObjectMinIoRequest, DeleteObjectMinIoReply>(new DeleteObjectRequestModel()
-                    { ObjectId = image.Oid, OrderId = Guid.NewGuid()});
+                    { ObjectId = image.Oid, OrderId = Guid.NewGuid() });
             _repository.DeleteImage(imageName, currentUserId);
             _repository.Save();
             return Ok(response.Message);
@@ -158,12 +159,12 @@ public class ImageController : Controller
             var imgs = _repository.GetImages(currentUserId);
             if (!imgs.Any())
                 return NotFound();
-            var response = await _bus.Request<DeleteObjectsMinIoRequest, DeleteObjectsMinIoReply>(new DeleteObjectsRequestModel()
-            {
-                OrderId = Guid.NewGuid(),
-                ObjectsId = imgs.Select(x => x.Oid),
-            
-            });
+            var response = await _bus.Request<DeleteObjectsMinIoRequest, DeleteObjectsMinIoReply>(
+                new DeleteObjectsRequestModel()
+                {
+                    OrderId = Guid.NewGuid(),
+                    ObjectsId = imgs.Select(x => x.Oid),
+                });
             _repository.DeleteImages(imgs.Select(x => x.ImageName), currentUserId);
             return Ok(response.Message);
         }
@@ -191,14 +192,16 @@ public class ImageController : Controller
                 OrderId = Guid.NewGuid(),
                 ObjectsId = images.Select(x => x.Oid)
             });
-            return response.Message.DataDictionary
-                .Select(x =>
+            return Ok(response.Message.DataDictionary.Select(dict =>
+            {
+                var img = images.FirstOrDefault(img => img.Oid == dict.Key);
+                return new
                 {
-                    var contentType = images
-                        .Where(y => y.Oid == x.Key)
-                        .FirstOrDefault()?.ImageName;
-                    return File(x.Value, contentType);
-                });
+                    Bytes = dict.Value,
+                    ImageName = img.ImageName,
+                    ContentType = img.ContentType
+                };
+            }));
         }
         else
             return NotFound();
