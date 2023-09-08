@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import api from '../../api/api'
 import loadClasses from './styles/loadTex.module.css';
 
+
+// Компонент не используется, оставляю для Вовы
 export const Loader = ({ call }) => {
 	const [drag, setDrag] = useState(false);
 

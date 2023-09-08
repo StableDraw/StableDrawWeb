@@ -1,5 +1,5 @@
 import React from 'react';
-import { useMemo, useState, useEffect, memo } from "react";
+import { useState, memo } from "react";
 import mainClass from './stylesDark/main.module.css'
 import mainClassLight from './stylesLight/main.module.css'
 import { Button, Typography, ButtonGroup, IconButton} from '@mui/material';
@@ -8,7 +8,13 @@ import { SceneBar } from "./SceneBar";
 import ViewSidebarRoundedIcon from '@mui/icons-material/ViewSidebarRounded';
 import { themeDark, themeLight } from './customThemes';
 
-export const ToggleBar = memo(({ changeModel, changeScene, isOpen, setIsOpen, setSceneModal, isLightTheme }) => {
+export const ToggleBar = memo(({ 
+	changeModel, 
+	changeScene, 
+	isOpen, 
+	setIsOpen, 
+	setSceneModal, 
+	isLightTheme }) => {
 	const [isModelsBar, setModelsBar] = useState(true);
 
 	const showModelsBar = () => {

@@ -1,15 +1,13 @@
 import React from "react";
-import { Button, Typography, Grid, ButtonGroup, Card, IconButton, Tooltip, Input, InputLabel } from '@mui/material';
+import { Button, IconButton, Tooltip, Input, InputLabel } from '@mui/material';
 import loadClasses from './stylesDark/loadTex.module.css';
 import loadClassesLight from './stylesLight/loadTex.module.css';
 import CancelIcon from '@mui/icons-material/Cancel';
-import { TexMenuBtn } from "./texMenuBtns";
-import { useMemo, useState, useEffect, useCallback } from "react";
+// import { TexMenuBtn } from "./texMenuBtns";
+import {  useState, } from "react";
 import api from '../../api/api'
-import DeleteIcon from '@mui/icons-material/Delete';
 import AddPhotoAlternateRoundedIcon from '@mui/icons-material/AddPhotoAlternateRounded';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import AddIcon from '@mui/icons-material/Add';
 
 export const SelectTexMenu = ({
 	setCurrenTexture,
@@ -18,7 +16,7 @@ export const SelectTexMenu = ({
 	textureStorage = [],
 	updateTexStorage,
 	isLightTheme,
-	send
+	send,
 }) => {
 	const [InputKey, setInputKey] = useState(0);
 
@@ -57,7 +55,7 @@ export const SelectTexMenu = ({
 		formData.append("Content-Type", 'multipart/form-data');
 		send(formData);
 
-		setInputKey(InputKey + 1);
+		setInputKey(InputKey + 1); // Позволяет загружать несколько одинаковых файлов подряд
 	};
 	return (
 		<>
@@ -94,20 +92,19 @@ export const SelectTexMenu = ({
 							{
 								textureStorage.length === 0 ?
 									<InputLabel htmlFor="file-input">
-										<div className={loadClasses.addIconContMain}>
+										<div className={isLightTheme ? loadClassesLight.addIconContMain : loadClasses.addIconContMain}>
 											<Tooltip title='Загрузить текстуру' placement="top">
-												<AddPhotoAlternateRoundedIcon className={loadClasses.addIconMain} />
+												<AddPhotoAlternateRoundedIcon className={isLightTheme ? loadClassesLight.addIconMain : loadClasses.addIconMain } />
 											</Tooltip>
 										</div>
 									</InputLabel> :
 									<InputLabel htmlFor="file-input">
-										<div className={loadClasses.addIconCont}>
-											<Tooltip title='Загрузить текстуру' placement="top">
-												<AddCircleOutlineIcon className={loadClasses.addIcon} />
+										<div className={ isLightTheme ? loadClassesLight.addIconCont : loadClasses.addIconCont}>
+											<Tooltip title='Загрузить текстуру' placement="right">
+												<AddCircleOutlineIcon className={ isLightTheme ? loadClassesLight.addIcon : loadClasses.addIcon} />
 											</Tooltip>
 										</div>
 									</InputLabel>
-
 							}
 							<Input
 								key={InputKey}

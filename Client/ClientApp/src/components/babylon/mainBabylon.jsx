@@ -1,17 +1,15 @@
 import React, { useCallback } from "react";
 import { Scene } from './Scene'
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, } from "react";
 import { Header } from "./header";
 import api from '../../api/api'
 import { Menu } from "./menu";
 import { ToggleBar } from "./toggleBar";
-import ViewSidebarRoundedIcon from '@mui/icons-material/ViewSidebarRounded';
-import { Button, Typography, ButtonGroup, IconButton } from '@mui/material';
+import { Typography, IconButton } from '@mui/material';
 import CancelIcon from '@mui/icons-material/Cancel';
 import mainClass from './stylesDark/main.module.css'
 import mainClassLight from './stylesLight/main.module.css'
 import sceneClass from './stylesDark/scene.module.css'
-import sceneClassLight from './stylesLight/scene.module.css'
 
 
 export const MainBabylon = () => {
@@ -44,8 +42,6 @@ export const MainBabylon = () => {
 			throw e;
 		}
 	}, [])
-
-	
 
 	const onDropHandler = (e) => {
 		e.preventDefault();

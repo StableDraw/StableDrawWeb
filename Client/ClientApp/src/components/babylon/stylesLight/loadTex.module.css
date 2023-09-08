@@ -64,7 +64,7 @@
 	flex-direction: row;
 	overflow-x: auto;
 	max-width: 1000px;
-	border: 1px solid gray;
+	/* border: 1px solid gray; */
 	border-radius: 10px;
 	background: #e3f2fd;
 	margin-top: 10px;
@@ -92,10 +92,43 @@
 	flex-direction: row;
 }
 .loadIcon{
-	display: none !important;
+	/* display: none !important; */
 }
 
 .crossIcon{
+}
+
+.addIcon{
+	width: 40px !important;
+	height: 40px !important;
+	color:gray !important;
+}
+
+.addIconContMain{
+	width: 80px;
+	height: 120px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	
+}
+
+.addIconMain{
+	width: 50px !important;
+	height: 50px !important;
+	color: gray !important;
+}
+
+.addIcon:hover{
+	color: rgb(102, 102, 102) !important;
+	transition: 150ms ease-in-out !important;
+	cursor: pointer;
+}
+
+.addIconMain:hover{
+	color: rgb(102, 102, 102) !important;
+	transition: 150ms ease-in-out !important;
+	cursor: pointer;
 }
 
 @media (max-width: 1350px){

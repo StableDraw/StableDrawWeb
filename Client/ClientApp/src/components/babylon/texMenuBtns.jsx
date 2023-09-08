@@ -6,6 +6,8 @@ import mainClassLight from './stylesLight/main.module.css'
 import loadClasses from "./stylesLight/loadTex.module.css";
 import AddPhotoAlternateRoundedIcon from "@mui/icons-material/AddPhotoAlternateRounded";
 
+// компонент временно не используется :|
+
 export const TexMenuBtn = memo(({ send, isLightTheme }) => {
 	const [InputKey, setInputKey] = useState(0);
 

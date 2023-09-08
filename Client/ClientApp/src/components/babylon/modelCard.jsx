@@ -1,7 +1,5 @@
 import React from 'react';
 import { Card, Typography } from '@mui/material';
-import Button from '@mui/material/Button';
-import { useState } from "react";
 import barClasses from './stylesDark/bar.module.css'
 import barClassesLight from './stylesLight/bar.module.css'
 import {SizeBar} from './sizeBar';

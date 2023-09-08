@@ -6,22 +6,45 @@ export class BabylonScene {
 	private scene: BABYLON.Scene;
 	private engine: BABYLON.Engine;
 	private camera: BABYLON.ArcRotateCamera;
+	private loadingProgress: number;
+	private assetsManager: BABYLON.AssetsManager;
 
 	constructor(canvas: HTMLCanvasElement,
 		modelFileName: string,
 		sceneFileName: string = '',
 		textureFileName: string = '',) {
-		this.engine = new BABYLON.Engine(canvas, true);
+		this.engine = new BABYLON.Engine(canvas,);
 
-		this.engine.displayLoadingUI();
 		this.scene = this.createScene();
 
-		this.camera = this.createCamera(canvas);
+		this.loadingProgress = 0;
+		this.assetsManager = new BABYLON.AssetsManager(this.scene);
+		this.assetsManager.onProgress = (remainingCount, totalCount, lastFinishedTask) => {
+			// console.log(totalCount);
+			this.loadingProgress = 100 - (remainingCount / totalCount) * 100;
+			console.log("Загружено: " + this.loadingProgress.toFixed(2) + "%");
+		};
 
+
+		this.assetsManager.onFinish = () => {
+			console.log("Все ресурсы успешно загружены!");
+
+			// Скройте загрузочный экран
+			this.engine.hideLoadingUI();
+		};
+
+		this.engine.displayLoadingUI();
+
+		this.camera = this.createCamera(canvas);
 		this.createOwnScene(sceneFileName, modelFileName, textureFileName);
+
+		let divFps = document.getElementById("fpsBabylon");
 
 		this.engine.runRenderLoop(() => {
 			this.scene.render();
+			if (divFps) {
+				divFps.innerHTML = this.engine.getFps().toFixed() + ' fps';
+			}
 		});
 	}
 
@@ -36,6 +59,10 @@ export class BabylonScene {
 		scene.environmentTexture = envTex;
 		scene.createDefaultSkybox(envTex, true, 1000, 0.25);
 		scene.environmentIntensity = 0.5;
+		scene.getAnimationRatio();
+		scene.autoClear = false;
+		// scene.freezeActiveMeshes();
+
 
 		return scene;
 	}
@@ -45,12 +72,13 @@ export class BabylonScene {
 	createCamera(canvas: HTMLCanvasElement): BABYLON.ArcRotateCamera {
 		const camera = new BABYLON.ArcRotateCamera(
 			"camera",
-			2*Math.PI , // Угол по оси Y (горизонтальное вращение)
+			2 * Math.PI, // Угол по оси Y (горизонтальное вращение)
 			Math.PI / 2, // Угол по оси X (вертикальное вращение)
 			5, // Радиус (расстояние от целевой точки)
 			BABYLON.Vector3.Zero(), // Целевая точка, вокруг которой будет вращаться камера
 			this.scene
 		);
+
 		camera.attachControl(canvas, true);
 		camera.speed = 0.1;
 		camera.wheelPrecision = 200;
@@ -59,33 +87,56 @@ export class BabylonScene {
 		return camera;
 	}
 
+	// createInstances(
+	// 	modelFileName: string,
+	// 	textureFileName: string,
+	// 	sceneFileName: string,): void{
+	// 		const model = BABYLON.SceneLoader.ImportMesh(
+	// 			"",
+	// 			"/babylon/3dModels/", // Путь до папки с моделями в папке public 
+	// 			`тип а  большая с крышкой.obj`, // Имя файла с моделью
+	// 			this.scene,
+	// 			async function (newMeshes) {	
+	// 				console.log(newMeshes[0]);
+	// 				let mesh = newMeshes[0]
+	// 				mesh.isVisible = false;
+	// 				for (let index = 0; index < 3; index++) {
+	// 					let newInstance =  await mesh.createInstance("i" + index);
+	// 					newInstance.position.x = 0;
+	// 					newInstance.position.y = index;
+	// 					newInstance.position.z = 0;
+	// 				}
+	// 			}
+	// 			)
+	// 		// this.applyMaterial(model, textureFileName);
+	// }
+
 	async createOwnModel(
 		modelFileName: string,
 		textureFileName: string,
 		sceneFileName: string,
 	): Promise<void> {
-		if (sceneFileName === 'Fridge') {
-			for(let i = 0; i < 3; i++) {
+		if (sceneFileName.includes('Fridge')) {
+			for (let i = 0; i < 3; i++) {
 				const model = await BABYLON.SceneLoader.ImportMeshAsync(
-				"",
-				"/babylon/3dModels/", // Путь до папки с моделями в папке public 
-				`${modelFileName}.glb`, // Имя файла с моделью
-				this.scene,
-				// async function (newMeshes) {
-				// 	console.log(newMeshes);
-				// 	let mesh = newMeshes[0]
-				// 	for (let index = 0; index < 3; index++) {
-				// 		let newInstance =  await mesh.createInstance("i" + index);
-				// 		newInstance.position.x = 0;
-				// 		newInstance.position.y = index;
-				// 		newInstance.position.z = 0;
-				// 	}
-				// }
-			)
-			await this.applyMaterial(model, textureFileName);
-			model.meshes.forEach((mesh => mesh.position = new BABYLON.Vector3(0, 0, i/2.5)));
+					"",
+					"/babylon/3dModels/", // Путь до папки с моделями в папке public 
+					`${modelFileName}.glb`, // Имя файла с моделью
+					this.scene,
+				)
+				await this.applyMaterial(model, textureFileName);
+
+				let positionIndex = 0;
+				if (sceneFileName === "FridgeSmall")
+					positionIndex = i / 2.8;
+				else
+					positionIndex = i / 2.5;
+
+				model.meshes.forEach((mesh) => {
+					mesh.position = new BABYLON.Vector3(0, 0, positionIndex);
+					mesh.material?.freeze();
+				});
 			}
-			
 			this.engine.hideLoadingUI();
 		}
 		else {
@@ -130,13 +181,27 @@ export class BabylonScene {
 		textureFileName: string,
 	): Promise<void> {
 		if (SceneFileName) {
-			await BABYLON.SceneLoader.ImportMeshAsync(
-				"",
-				"babylon/scenes/", // Путь до папки со сценами в папке public
-				`${SceneFileName}.glb`, // Имя файла с моделью
-				this.scene,
-			);
+
+			const modelTask = this.assetsManager.addMeshTask("modelTask", "", "babylon/scenes/", `${SceneFileName}.glb`);
+			// setInterval(()=>console.log(this.loadingProgress), 1000);
+			modelTask.onSuccess = (task) => {
+				console.log("Модель успешно загружена!");
+				task.loadedMeshes.forEach((mesh) => {
+					mesh.material?.freeze();
+				})
+			}
+			// const scene = await BABYLON.SceneLoader.ImportMeshAsync(
+			// 	"",
+			// 	"babylon/scenes/", // Путь до папки со сценами в папке public
+			// 	`${SceneFileName}.glb`, // Имя файла с моделью
+			// 	this.scene,
+			// );
+			// scene.meshes.forEach((mesh) => {
+			// 	mesh.material?.freeze();
+			// })
 		}
+		this.assetsManager.load();
 		this.createOwnModel(ModelFileName, textureFileName, SceneFileName);
+		// this.createInstances(ModelFileName, textureFileName, SceneFileName);
 	}
 }
