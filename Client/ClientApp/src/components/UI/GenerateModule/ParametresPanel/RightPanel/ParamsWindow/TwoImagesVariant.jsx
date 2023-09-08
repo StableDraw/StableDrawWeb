@@ -259,7 +259,6 @@ const TwoImagesVariant = ({setModal, props}) => {
                                 }}
                             />
                         </Button>
-
                     </label>
                 </div>
             </div>
@@ -317,7 +316,7 @@ const TwoImagesVariant = ({setModal, props}) => {
                                 <div className={cl.slider}>
                                     <MyNewInput id='slider' callback={consol}/>
                                 </div>
-                                <div>
+                                <div className={cl.someth}>
                                     <Tooltip
                                         title={'Я подсказка'}
                                         placement="top"
@@ -325,7 +324,6 @@ const TwoImagesVariant = ({setModal, props}) => {
                                         <HelpOutlineIcon
                                             sx={{
                                                 fontSize: 18,
-                                                marginLeft: 1.5,
                                                 cursor: "help",
                                                 backgroundColor: "#000000",
                                                 borderRadius: 100,
@@ -343,7 +341,7 @@ const TwoImagesVariant = ({setModal, props}) => {
                                 <div>
                                     <MaterialUISwitch sx={{ m: 1 }} defaultChecked />
                                 </div>
-                                <div>
+                                <div className={cl.someth}>
                                     <Tooltip
                                         title={'Я подсказка'}
                                         placement="top"
@@ -351,8 +349,6 @@ const TwoImagesVariant = ({setModal, props}) => {
                                         <HelpOutlineIcon
                                             sx={{
                                                 fontSize: 18,
-                                                marginLeft: 1,
-                                                marginTop: 2,
                                                 cursor: "help",
                                                 backgroundColor: "#000000",
                                                 borderRadius: 100,
@@ -402,7 +398,7 @@ const TwoImagesVariant = ({setModal, props}) => {
                                         </select>
                                     </label>
                                 </div>
-                                <div>
+                                <div className={cl.someth}>
                                     <Tooltip
                                         title={'Я подсказка'}
                                         placement="top"
@@ -410,8 +406,6 @@ const TwoImagesVariant = ({setModal, props}) => {
                                         <HelpOutlineIcon
                                             sx={{
                                                 fontSize: 18,
-                                                marginLeft: 1,
-                                                marginBottom: 0.5,
                                                 cursor: "help",
                                                 backgroundColor: "#000000",
                                                 borderRadius: 100,
@@ -436,7 +430,7 @@ const TwoImagesVariant = ({setModal, props}) => {
                                     size="100"
                                 />
                             </div>
-                            <div className={cl.Tooltip}>
+                            <div className={cl.someth}>
                                 <Tooltip
                                     title={'Я подсказка'}
                                     placement="top"

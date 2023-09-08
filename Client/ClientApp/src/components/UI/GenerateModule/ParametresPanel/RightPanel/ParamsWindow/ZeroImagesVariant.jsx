@@ -95,10 +95,8 @@ const ZeroImagesVariant = ({setModal, setModal4, props}) => {
         console.log("split:", filesName)
         let files = [...e.dataTransfer.files];
         let formData = new FormData();
-
         formData.append(`file`, files[0]);
         formData.append("Content-Type", 'multipart/form-data')
-
         Send(formData)
     }
 
@@ -117,7 +115,6 @@ const ZeroImagesVariant = ({setModal, setModal4, props}) => {
             </div>
             }
         </div>, [currenTexture]);
-
 
     const End = () => {
         setModal(false)
@@ -257,7 +254,7 @@ const ZeroImagesVariant = ({setModal, setModal4, props}) => {
                                         </select>
                                     </label>
                                 </div>
-                                <div>
+                                <div className={cl.someth}>
                                     <Tooltip
                                         title={'Я подсказка'}
                                         placement="top"
@@ -265,8 +262,6 @@ const ZeroImagesVariant = ({setModal, setModal4, props}) => {
                                         <HelpOutlineIcon
                                             sx={{
                                                 fontSize: 18,
-                                                marginLeft: 1,
-                                                marginBottom: 0.5,
                                                 cursor: "help",
                                                 backgroundColor: "#000000",
                                                 borderRadius: 100,
@@ -291,7 +286,7 @@ const ZeroImagesVariant = ({setModal, setModal4, props}) => {
                                     size="100"
                                 />
                             </div>
-                            <div className={cl.Tooltip}>
+                            <div className={cl.someth}>
                                 <Tooltip
                                     title={'Я подсказка'}
                                     placement="top"
@@ -315,7 +310,7 @@ const ZeroImagesVariant = ({setModal, setModal4, props}) => {
                                 <div className={cl.slider}>
                                     <MyNewInput id='slider' callback={consol}/>
                                 </div>
-                                <div>
+                                <div className={cl.someth}>
                                     <Tooltip
                                         title={'Я подсказка'}
                                         placement="top"
@@ -323,7 +318,6 @@ const ZeroImagesVariant = ({setModal, setModal4, props}) => {
                                         <HelpOutlineIcon
                                             sx={{
                                                 fontSize: 18,
-                                                marginLeft: 1.5,
                                                 cursor: "help",
                                                 backgroundColor: "#000000",
                                                 borderRadius: 100,
@@ -341,7 +335,7 @@ const ZeroImagesVariant = ({setModal, setModal4, props}) => {
                                 <div>
                                     <MaterialUISwitch sx={{ m: 1 }} defaultChecked />
                                 </div>
-                                <div>
+                                <div className={cl.someth}>
                                     <Tooltip
                                         title={'Я подсказка'}
                                         placement="top"
@@ -349,8 +343,6 @@ const ZeroImagesVariant = ({setModal, setModal4, props}) => {
                                         <HelpOutlineIcon
                                             sx={{
                                                 fontSize: 18,
-                                                marginLeft: 1,
-                                                marginTop: 2,
                                                 cursor: "help",
                                                 backgroundColor: "#000000",
                                                 borderRadius: 100,

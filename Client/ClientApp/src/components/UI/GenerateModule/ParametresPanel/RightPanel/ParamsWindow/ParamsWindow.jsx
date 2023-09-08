@@ -3,19 +3,50 @@ import cl from './ParamsWindow.module.css';
 import './ParamsWindow.module.css';
 import Button from '@mui/material/Button';
 import api from "../../../../../../api/api";
-import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import CancelIcon from '@mui/icons-material/Cancel';
+import { Link } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 import MyNewInput from './MyNewInput';
-import toolState from "../../../../../../store/toolState";
 let resMemo1 = ''
+const ParamsWindow = ({setModal}) => {
+    const BlueOnGreenTooltip = styled(({ className, ...props }) => (
+        <Tooltip
+            title={
+                <div>
+                    Эта функция доступна с Premium, и
+                    <Link to="/Pay">
+                        <Button className={cl.premium}>
+                            Premium
+                        </Button>
+                    </Link>
+                       не только она, но только после покупки
+                </div>
+            }
+            {...props}
+            classes={{ popper: className }}
+            placement="bottom"
+            arrow
+        />
+    ))(({ theme }) => ({
+        [`& .${tooltipClasses.tooltip}`]: {
+            backgroundColor: 'rgba(51,51,51, 1)',
+            color: 'rgba(255, 255, 255, 0.9)',
+            maxWidth: 220,
+            fontSize: theme.typography.pxToRem(12),
+            border: '1px solid #dadde9',
+        },
+        [`& .${tooltipClasses.arrow}`]: {
+            "&:before": {
+                border: "1px solid #E6E8ED"
+            },
+            color: "#ffffff",
+        },
+    }));
 
-
-const ParamsWindow = ({setModal, setModal1, props}) => {
     const [res, setRes] = useState()
     const consol = (result) => {
         setRes(result)
@@ -100,14 +131,10 @@ const ParamsWindow = ({setModal, setModal1, props}) => {
         console.log("split:", filesName)
         let files = [...e.dataTransfer.files];
         let formData = new FormData();
-
         formData.append(`file`, files[0]);
         formData.append("Content-Type", 'multipart/form-data')
-
         Send(formData)
     }
-
-
     const imageGetter = useMemo(() =>
         <div
             onDragLeave={e => dragLeaveHandler(e)}
@@ -122,8 +149,6 @@ const ParamsWindow = ({setModal, setModal1, props}) => {
             </div>
             }
         </div>, [currenTexture]);
-
-
     const End = () => {
         setModal(false)
         alert('Генерация в данный момент недоступна')
@@ -152,7 +177,7 @@ const ParamsWindow = ({setModal, setModal1, props}) => {
             },
         },
         '& .MuiSwitch-thumb': {
-            backgroundColor: theme.palette.mode === 'dark' ? '#1976d2' : '#1976d2',
+            backgroundColor: theme.palette.mode === 'dark' ? '#666666' : '#666666',
             width: 32,
             height: 32,
             '&:before': {
@@ -281,39 +306,41 @@ const ParamsWindow = ({setModal, setModal1, props}) => {
                                 Params:
                             </div>
                             <div className={cl.pointText}>
-                                <input
-                                    className={cl.searcher1}
-                                    type="text"
-                                    id="name"
-                                    name="name"
-                                    required minLength="1"
-                                    maxLength="100"
-                                    size="100"
-                                    disabled
-                                />
-                            </div>
-                            <div className={cl.Tooltip}>
-                                <Tooltip
-                                    title={'Я подсказка'}
-                                    placement="top"
-                                >
-                                    <HelpOutlineIcon
-                                        sx={{
-                                            fontSize: 18,
-                                            cursor: "help",
-                                            backgroundColor: "#000000",
-                                            borderRadius: 100,
-                                        }}
+                                <BlueOnGreenTooltip>
+                                    <input
+                                        className={cl.searcher1}
+                                        type="text"
+                                        id="name"
+                                        name="name"
+                                        required minLength="1"
+                                        maxLength="100"
+                                        size="100"
+                                        disabled
                                     />
-                                </Tooltip>
+                                </BlueOnGreenTooltip>
+                                <div className={cl.someth}>
+                                    <Tooltip
+                                        title={'Я подсказка'}
+                                        placement="top"
+                                    >
+                                        <HelpOutlineIcon
+                                            sx={{
+                                                fontSize: 18,
+                                                cursor: "help",
+                                                backgroundColor: "#000000",
+                                                borderRadius: 100,
+                                            }}
+                                        />
+                                    </Tooltip>
+                                </div>
                             </div>
                         </div>
                         <div className={cl.Tex}>
-
-                                <div className={cl.pointText1}>
-                                    Params2:
-                                </div>
-                                <div className={cl.pointText}>
+                            <div className={cl.pointText1}>
+                                Params2:
+                            </div>
+                            <div className={cl.pointText}>
+                                <BlueOnGreenTooltip>
                                     <div>
                                         <label className={cl.agree1}>
                                             <select
@@ -350,35 +377,8 @@ const ParamsWindow = ({setModal, setModal1, props}) => {
                                             </select>
                                         </label>
                                     </div>
-                                    <div>
-                                        <Tooltip
-                                            title={'Я подсказка'}
-                                            placement="top"
-                                        >
-                                            <HelpOutlineIcon
-                                                sx={{
-                                                    fontSize: 18,
-                                                    marginLeft: 1,
-                                                    marginBottom: 0.5,
-                                                    cursor: "help",
-                                                    backgroundColor: "#000000",
-                                                    borderRadius: 100,
-                                                }}
-                                            />
-                                        </Tooltip>
-                                    </div>
-                                </div>
-
-                        </div>
-                        <div className={cl.Tex}>
-                            <div className={cl.pointText1}>
-                                Params3:
-                            </div>
-                            <div className={cl.switcher}>
-                                <div>
-                                    <MaterialUISwitch sx={{ m: 1 }}  disabled/>
-                                </div>
-                                <div>
+                                </BlueOnGreenTooltip>
+                                <div className={cl.someth}>
                                     <Tooltip
                                         title={'Я подсказка'}
                                         placement="top"
@@ -386,8 +386,33 @@ const ParamsWindow = ({setModal, setModal1, props}) => {
                                         <HelpOutlineIcon
                                             sx={{
                                                 fontSize: 18,
-                                                marginLeft: 1,
-                                                marginTop: 2,
+                                                cursor: "help",
+                                                backgroundColor: "#000000",
+                                                borderRadius: 100,
+                                            }}
+                                        />
+                                    </Tooltip>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={cl.Tex}>
+                            <div className={cl.pointText1}>
+                                Params3:
+                            </div>
+                            <div className={cl.switcher}>
+                                <BlueOnGreenTooltip>
+                                    <div>
+                                        <MaterialUISwitch  sx={{ m: 1}}  disabled/>
+                                    </div>
+                                </BlueOnGreenTooltip>
+                                <div className={cl.someth}>
+                                    <Tooltip
+                                        title={'Я подсказка'}
+                                        placement="top"
+                                    >
+                                        <HelpOutlineIcon
+                                            sx={{
+                                                fontSize: 18,
                                                 cursor: "help",
                                                 backgroundColor: "#000000",
                                                 borderRadius: 100,
@@ -405,7 +430,7 @@ const ParamsWindow = ({setModal, setModal1, props}) => {
                                 <div className={cl.slider}>
                                     <MyNewInput id='slider' callback={consol} disabled/>
                                 </div>
-                                <div>
+                                <div className={cl.someth}>
                                     <Tooltip
                                         title={'Я подсказка'}
                                         placement="top"
@@ -413,7 +438,6 @@ const ParamsWindow = ({setModal, setModal1, props}) => {
                                         <HelpOutlineIcon
                                             sx={{
                                                 fontSize: 18,
-                                                marginLeft: 1.5,
                                                 cursor: "help",
                                                 backgroundColor: "#000000",
                                                 borderRadius: 100,

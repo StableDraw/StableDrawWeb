@@ -8,12 +8,10 @@ import OneImageVariant from "../ParametresPanel/RightPanel/ParamsWindow/OneImage
 import TwoImagesVariant from "../ParametresPanel/RightPanel/ParamsWindow/TwoImagesVariant";
 import Button from "@mui/material/Button";
 import Close from "@mui/icons-material/Close";
-import api from "../../../../api/api";
 import IconButton from "@mui/material/IconButton";
 import {NeuronObject} from "../ParametresPanel/LeftPanel/NeuronObject";
-import {ModelsBar} from "../../../babylon/modelsBar";
-import {SceneBar} from "../../../babylon/SceneBar";
-import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
+
+import Tooltip, {tooltipClasses } from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
 const HtmlTooltip = styled(({ className, ...props }) => (
@@ -28,20 +26,11 @@ const HtmlTooltip = styled(({ className, ...props }) => (
     },
 }));
 const GeneratedContent = ({setModal, props}) => {
-    const [neuronStorage, setNeuronStorage] = useState([]);
-    const [ros, setRos] = useState()
-    const callback = (result) => {
-        setRos(result)
-    }
     const [modal4, setModal4] = useState(false)
     const [modal1, setModal1] = useState(false)
     const [modal2, setModal2] = useState(false)
     const [modal3, setModal3] = useState(false)
-    const [activeBtn, setActiveBtn] = useState(false)
 
-    const doThis = () => {
-        setActiveBtn((prevState) => !prevState)
-    }
     const showAdding1Modal = () => {
         setModal4(!modal4)
     }
@@ -54,28 +43,6 @@ const GeneratedContent = ({setModal, props}) => {
     const showAdding4Modal = () => {
         setModal3(!modal3)
     }
-
-    // const activeState1 = () => {
-    //     setModal1(false)
-    //     setModal2(false)
-    //     setModal3(false)
-    // }
-    // const activeState2 = () => {
-    //     setModal2(false)
-    //     setModal3(false)
-    //     setModal4(false)
-    // }
-    // const activeState3 = () => {
-    //     setModal1(false)
-    //     setModal3(false)
-    //     setModal4(false)
-    // }
-    // const activeState4 = () => {
-    //     setModal1(false)
-    //     setModal2(false)
-    //     setModal4(false)
-    // }
-
     const [searchValue, setSearchValue] = useState('')
     const [isLoading, setIsLoading] = useState(true)
     const [neurons, setNeurons] = useState([])
@@ -96,29 +63,7 @@ const GeneratedContent = ({setModal, props}) => {
             .finally(() => setIsLoading(false));
     }, []);
 
-    useEffect(() => {
-        const getNeuronData = async () => {
-            setIsLoading(true)
-            await api.GetTextureStorage()
-                .then((res) => {
-                    res.json()
-                    if (res.data) {
-                        const neuronMap = res.data.map(id => "./api/neurons/" + id);
-                        setNeuronStorage(neuronMap);
-                        console.log(neuronMap)
-                    }})
-                .then((json) => {
-                    setNeurons(json);
-                    console.log(json);
-                })
-                .catch((err) => {
-                    console.warn(err);
-                    alert("Sorry, you Internet connection isn`t working. Please, restart the page");
-                })
-                .finally(() => setIsLoading(false));
-        };
-        getNeuronData();
-    }, []);
+
     const onChanging = (e) => {
         setSearchValue(e.target.value)
         console.log(e)
@@ -211,7 +156,8 @@ const GeneratedContent = ({setModal, props}) => {
                                         variant="contained"
                                         onClick={showAdding1Modal}
                                         title={'frames_to_animation'}
-                                        visible={modal4} setVisible={setModal4}
+                                        visible={modal4}
+                                        setVisible={setModal4}
                                         disableRipple
                                     >
                                         <img
@@ -292,7 +238,8 @@ const GeneratedContent = ({setModal, props}) => {
                                         variant="contained"
                                         onClick={showAdding3Modal}
                                         title={'photo_to_image'}
-                                        visible={modal2} setVisible={setModal2}
+                                        visible={modal2}
+                                        setVisible={setModal2}
                                         disableRipple
                                     >
                                         <img
@@ -333,7 +280,8 @@ const GeneratedContent = ({setModal, props}) => {
                                         onClick={showAdding4Modal}
                                         title={'text_to_image'}
                                         disableRipple
-                                        visible={modal3} setVisible={setModal3}
+                                        visible={modal3}
+                                        setVisible={setModal3}
                                     >
                                         <img
                                             src={"text_to_image.png"}
@@ -361,7 +309,11 @@ const GeneratedContent = ({setModal, props}) => {
                         )}
                     </div>
                 </div>
-                {modal4 ? <ZeroImagesVariant/>  : (modal1 ? <OneImageVariant/>  : (modal2 ? <TwoImagesVariant/>  : (modal3 ? <ParamsWindow/>  : '')))}
+                {modal4 ? <ZeroImagesVariant/>  :
+                    (modal1 ? <OneImageVariant/>  :
+                        (modal2 ? <TwoImagesVariant/>  :
+                            (modal3 ? <ParamsWindow/>  : '')))
+                }
             </div>
         </div>
     );
