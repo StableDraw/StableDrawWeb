@@ -10,7 +10,7 @@ export default class Textures {
 			const data = await axios.post("api/image/" + file.fileName, file, await ApiToken.GetConfigToken());
 			console.log('Post', data);
 			return data;
-		}			
+		}		
 		else
 			return await axios.HttpStatusCode.NotFound();
 	}
@@ -42,27 +42,19 @@ export default class Textures {
 }
 
 // export default class Neurals {
-// 	static async GetNeurals(){
-// 		if (!await AuthorizeService.isAuthenticated()) {
-// 			return await axios.HttpStatusCode.NotFound();
+// 	static async GetNeurals(neuralType){
+// 		if (await AuthorizeService.isAuthenticated()) {
+// 			return await axios.get("api/neural/" + neuralType, await ApiToken.GetConfigToken());
 // 		} else {
-// 			return await axios.get("api/neural", await ApiToken.GetConfigToken());
+// 			return await axios.HttpStatusCode.NotFound();
 // 		}
 // 	}
 //
-// 	static async RunImagesNeural(neuralImagesConfig) {
-// 		if (!await AuthorizeService.isAuthenticated()) {
-// 			return await axios.HttpStatusCode.NotFound();
+// 	static async RunNeural(neuralImagesConfig) {
+// 		if (await AuthorizeService.isAuthenticated()) {
+// 			return await axios.get("api/neural", await ApiToken.GetConfigToken(), neuralImagesConfig);
 // 		} else {
-// 			return await axios.post("api/neural/img", await ApiToken.GetConfigToken(), neuralImagesConfig);
-// 		}
-// 	}
-//
-// 	static async RunInfoNeural(neuralInfoConfig){
-// 		if (!await AuthorizeService.isAuthenticated()) {
 // 			return await axios.HttpStatusCode.NotFound();
-// 		} else {
-// 			return await axios.post("api/neural/info", await ApiToken.GetConfigToken(), neuralInfoConfig);
 // 		}
 // 	}
 // }

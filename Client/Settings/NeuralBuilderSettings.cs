@@ -2,5 +2,5 @@
 
 public class NeuralBuilderSettings
 {
-    public string Properties { get; set; }
+    public Dictionary<string, dynamic>? Neurals { get; set; }
 }

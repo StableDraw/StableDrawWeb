@@ -1,6 +1,6 @@
 ﻿{
-  "Neurals": [
-    {
+  "NeuralsInfo": {
+    "Neurals": {
       "colorizer": {
         "image_count_input": 1,
         "description": "",
@@ -52,9 +52,7 @@
             "type": "bool"
           }
         }
-      }
-    },
-    {
+      },
       "delete_background": {
         "image_count_input": 1,
         "description": "",
@@ -117,9 +115,7 @@
             "type": "int[]"
           }
         }
-      }
-    },
-    {
+      },
       "upscaler": {
         "image_count_input": 1,
         "description": "",
@@ -222,12 +218,8 @@
             "description": "(по умолчанию = None) может быть 0, 1, 2 для обработки на нескольких GPU",
             "type": "int"
           }
-
         }
-
-      }
-    },
-    {
+      },
       "image_to_image": {
         "image_count_input": 1,
         "description": "",
@@ -512,9 +504,7 @@
             "type": "int"
           }
         }
-      }
-    },
-    {
+      },
       "text_to_image": {
         "description": "",
         "caption": "",
@@ -762,9 +752,7 @@
             "type": "int"
           }
         }
-      }
-    },
-    {
+      },
       "image_captioning": {
         "image_count_input": 1,
         "description": "",
@@ -867,22 +855,16 @@
             "type": "int"
           }
         }
-      }
-    },
-    {
+      },
       "image_classification": {
         "image_count_input": 1,
         "description": ""
-      }
-    },
-    {
+      },
       "translation": {
         "input_text": "",
         "source_lang": "",
         "dest_lang": ""
-      }
-    },
-    {
+      },
       "inpainting": {
         "image_count_input": 2,
         "description": "",
@@ -987,9 +969,7 @@
             "type": "int"
           }
         }
-      }
-    },
-    {
+      },
       "stylization": {
         "image_count_input": 2,
         "description": "",
@@ -1056,9 +1036,7 @@
             "type": "string"
           }
         }
-      }
-    },
-    {
+      },
       "image_fusion": {
         "image_count_input": 2,
         "description": "",
@@ -1170,5 +1148,5 @@
         }
       }
     }
-  ]
+  }
 }

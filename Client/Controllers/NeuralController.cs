@@ -23,25 +23,37 @@ public class NeuralController : Controller
     private readonly IApplicationRepository _repository;
     private readonly NeuralBuilderSettings _neuralBuilderSettings;
 
-    public NeuralController(IBus bus, ILogger<NeuralController> logger, UserManager<ApplicationUser> userManager, IApplicationRepository repository, NeuralBuilderSettings neuralBuilderSettings)
+    public NeuralController(
+        IBus bus, ILogger<NeuralController> logger, 
+        UserManager<ApplicationUser> userManager, IApplicationRepository repository, 
+        IConfiguration configuration)
     {
         _bus = bus;
         _logger = logger;
         _userManager = userManager;
         _repository = repository;
-        _neuralBuilderSettings = neuralBuilderSettings;
+        _neuralBuilderSettings = new NeuralBuilderSettings()
+        {
+            Neurals = configuration.GetSection("Neurals").Get<Dictionary<string, dynamic>>()
+        };
     }
 
-    [HttpGet]
-    public async Task<string> GetNeuralInfo()
+    [HttpGet("neuralType")]
+    public IActionResult GetNeuralInfo(string neuralType)
     {
-        return await Task.FromResult(_neuralBuilderSettings.Properties);
+        if (_neuralBuilderSettings.Neurals != null && 
+            _neuralBuilderSettings.Neurals.TryGetValue(neuralType, out var param))
+        {
+            return Ok(param);
+        }
+        else
+            return NotFound();
     }
 
     public async Task<IActionResult> RunNeural(NeuralRequestModel requestModel)
     {
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (string.IsNullOrEmpty(currentUserId))
+        if (!string.IsNullOrEmpty(currentUserId))
         {
             var user = await _userManager.FindByIdAsync(currentUserId);
             if (user != null)
@@ -58,17 +70,18 @@ public class NeuralController : Controller
             
             using (var memoryStream = new MemoryStream())
             {
-                var dataBytes = requestModel.ImagesInput.Select(async x =>
+                if (requestModel.ImagesInput != null)
                 {
-                    await x.CopyToAsync(memoryStream);
-                    return memoryStream.ToArray();
-                }).Select(x => x.Result);
+                    var dataBytes = requestModel.ImagesInput.Select(async x =>
+                    {
+                        await x.CopyToAsync(memoryStream);
+                        return memoryStream.ToArray();
+                    }).Select(x => x.Result);
 
-                request.ImagesInput = dataBytes;
+                    request.ImagesInput = dataBytes;
+                }
             }
-
             var response = await _bus.Request<NeuralRequest, NeuralReply>(request);
-
             return Ok(response.Message);
         }
         else

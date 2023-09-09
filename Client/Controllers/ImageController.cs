@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using CLI.Settings;
 using Duende.IdentityServer.Extensions;
 using MassTransit;
 using Microsoft.AspNetCore.Authorization;
@@ -20,10 +21,11 @@ public class ImageController : Controller
     private readonly ILogger<ImageController> _logger;
     private readonly IApplicationRepository _repository;
     private readonly UserManager<ApplicationUser> _userManager;
-
+    
     public ImageController(
         ILogger<ImageController> logger,
-        IApplicationRepository repository, UserManager<ApplicationUser> userManager, IBus bus)
+        IApplicationRepository repository, UserManager<ApplicationUser> userManager, 
+        IBus bus)
     {
         _logger = logger;
         _repository = repository;
