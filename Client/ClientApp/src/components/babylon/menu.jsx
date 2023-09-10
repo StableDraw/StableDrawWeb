@@ -1,7 +1,6 @@
 import React from "react";
 import loadClasses from './stylesDark/loadTex.module.css';
 import loadClassesLight from './stylesLight/loadTex.module.css';
-// import { TexMenuBtn } from "./texMenuBtns";
 import { IconButton, Tooltip, InputLabel, Input } from '@mui/material';
 import mainClass from './stylesDark/main.module.css'
 import mainClassLight from './stylesLight/main.module.css'
@@ -12,7 +11,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddPhotoAlternateRoundedIcon from "@mui/icons-material/AddPhotoAlternateRounded";
 
 
-export const Menu = ({ setCurrenTexture, canvasTextures, isLightTheme }) => {
+export const Menu = ({ setCurrenTexture, canvasTextures, isLightTheme, }) => {
 	const [textureStorage, setTextureStore] = useState([]);
 	const [texCount, setTexCount] = useState(0);
 	const [InputKey, setInputKey] = useState(0);
@@ -24,55 +23,53 @@ export const Menu = ({ setCurrenTexture, canvasTextures, isLightTheme }) => {
 			await api.GetTextureStorage()
 				.then(res => {
 					if (res.data) {
-						const links = res.data.map(id => "./api/image/" + id);
-						setTextureStore(links);
-						// если это включить, то будет лишний перерендер, но за то текстуры будут сразу подрубаться в сцену.
-						// setCurrenTexture(links[0]);
+						setTextureStore(res.data);
 					}
 				})
-				.catch(err => console.log(err));
+				.catch(err => console.log('Ошибка подключения к хранилищу: ', err));
 		};
 		getTexStorage();
 	}, []);
 
-	useMemo(() => setTextureStore([...canvasTextures]), [canvasTextures])
+	useMemo(() => {
+		setTextureStore([...textureStorage, ...canvasTextures]); 
+		setTexCount(textureStorage.length) }, 
+		[canvasTextures]); 
 
-	// тут проблема, что LoadTexture возвращает весь массив id, когда нужно только добавленный(позволит грамотно отслеживать и подключать к сцене при загрузке: нужен контроллер)
 	const Send = useCallback(async (img) => {
 		try {
 			const data = await api.LoadTexture(img);
-			const texes = data.data.map((id) => "./api/image/" + id);
-			console.log('Loading tex: ', texes)
-			setTextureStore(texes);
-			setCurrenTexture(texes[0]);
+			console.log('Loading tex: ', data.data);
+			setTextureStore([...textureStorage, data.data]);
+			setCurrenTexture(data.data.bytes);
+			setTexCount(textureStorage.length);
 			return data;
 		} catch (e) {
 			console.log('error loading texture');
 			console.error(e);
 			throw e;
 		}
-	}, [])
+	}, [textureStorage])
 
-	const updateTexStorage = useCallback(async () => {
-		await api.GetTextureStorage()
-			.then(newTexStore => {
-				const links = newTexStore.data.map(id => "./api/image/" + id)
-				setTextureStore(links);
-			})
-			.catch(err => console.log("Ошибка подключения к хранилищу" + err))
-	}, [])
+	const updateTexStorage = async () => {
+		console.log('worked2')
+		 await api.GetTextureStorage()
+			.then(newTexes => {console.log("Хранилище текстур2: ", newTexes.data); setTextureStore(newTexes.data)})
+			.catch(err => {console.log("Ошибка подключения к хранилищу" + err); setTextureStore([]); setCurrenTexture('');});
+	}
 
 	async function cleanTexStorage() {
-		await api.GetTextureStorage()
-			.then(async (storage) => {
-				console.log(storage)
-				storage.data.map(async (store) => {
-					await api.DeleteTexture(store)
-				})
-				setCurrenTexture('');
-			})
-			.catch(err => console.log('Ошибка очистки хранилища'))
-		updateTexStorage();
+		// console.log('worked')
+		// await api.DeleteAllTextures()
+		// 	.then( () => {setTextureStore([]); setCurrenTexture('')})
+		// 	.catch(err => console.log('Ошибка очистки хранилища: ', err))
+
+		textureStorage.forEach(async (tex) => {
+			await api.DeleteTexture(tex.imageName)
+			.catch(err => console.log('Ошибка при очистке хранилища: ', err));
+		})
+		setTextureStore([])
+		setCurrenTexture('')
 	}
 
 	const handleFileChange = (event) => {
@@ -117,7 +114,7 @@ export const Menu = ({ setCurrenTexture, canvasTextures, isLightTheme }) => {
 								</div>
 								<div>
 									<Tooltip title='Удалить все текстуры' placement="top">
-										<IconButton onClick={cleanTexStorage}>
+										<IconButton onClick={()=>{cleanTexStorage()}}>
 											<DeleteIcon className={isLightTheme ? loadClassesLight.deleteIcon : loadClasses.deleteIcon} />
 										</IconButton>
 									</Tooltip>

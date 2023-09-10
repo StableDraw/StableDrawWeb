@@ -25,7 +25,7 @@ export const Scene = ({
 			canvas,
 			modelFileName,
 			sceneFileName,
-			texture).createScene();
+			texture,).createScene();
 
 		const resize = () => {
 			scene.getEngine().resize();
