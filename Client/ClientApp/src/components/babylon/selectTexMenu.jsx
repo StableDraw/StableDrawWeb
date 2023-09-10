@@ -8,7 +8,7 @@ import {  useState, } from "react";
 import api from '../../api/api'
 import AddPhotoAlternateRoundedIcon from '@mui/icons-material/AddPhotoAlternateRounded';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { base64ToLink } from "./base64ToLink.ts";
+import { base64ToLinkImg } from "./base64ToLink.ts";
 
 export const SelectTexMenu = ({
 	setCurrenTexture,
@@ -39,7 +39,7 @@ export const SelectTexMenu = ({
 			}
 			else {
 				if (!textureStorage.length) {
-					//тут бага: при пустом массиве(в теории), сюда всё равно не попадаем, меняю состояние в updateTexStorage.
+					//тут баг: при пустом массиве(в теории), сюда всё равно не попадаем, меняю состояние в updateTexStorage.
 					console.log("WORKED ", textureStorage.length)
 					setCurrenTexture('');
 					return;
@@ -85,7 +85,7 @@ export const SelectTexMenu = ({
 									</div>
 									<Button onClick={() => { setTexCount(index); setCurrenTexture(tex.bytes) }} key={tex + tex}>
 										<div key={tex + index}>
-											<img src={base64ToLink(tex.bytes)}
+											<img src={base64ToLinkImg(tex.bytes)}
 												alt="texture"
 												className={loadClasses.texImg_selectTexMenu}
 												style={{ border: index === texCount ? '3px solid #1976d2' : 'none' }}

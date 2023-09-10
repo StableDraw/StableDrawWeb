@@ -1,4 +1,4 @@
-﻿using System.Net.Mime;
+﻿﻿using System.Net.Mime;
 using System.Security.Cryptography;
 using StableDraw.Core.Models;
 using StableDraw.Domain.Data.Identity;
@@ -52,8 +52,8 @@ public class ApplicationRepository : IApplicationRepository
         return imgs.Select(x => x.Oid);
     }
 
-    public void DeleteImages(IEnumerable<string> imageNames, string userId) =>
-        _context.Images.RemoveRange(_context.Images.Where(x => imageNames.Contains(x.ImageName) && userId == x.UserId));
+    public void DeleteImages(IEnumerable<Guid> imagesId, string userId) =>
+        _context.Images.RemoveRange(_context.Images.Where(x => imagesId.Contains(x.Oid) && userId == x.UserId));
 
     public void Save()
     {

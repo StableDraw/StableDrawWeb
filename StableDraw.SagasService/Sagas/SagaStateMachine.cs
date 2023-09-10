@@ -1,4 +1,4 @@
-﻿using MassTransit;
+﻿﻿using MassTransit;
 using StableDraw.Contracts.MInIoContracts.Replies;
 using StableDraw.Contracts.MInIoContracts.Requests;
 using StableDraw.Contracts.NeuralContracts.Replies;
@@ -52,6 +52,19 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
                 .TransitionTo(Failed)
         );
         
+        During(PutObjects.Pending,
+            When(PutObjects.Completed).ThenAsync(async context =>
+            {
+                await RespondFromSaga(context, string.Empty);
+            }).Finalize(),
+            When(PutObjects.Faulted)
+                .ThenAsync(async context =>
+                {
+                    await RespondFromSaga(context, "Faulted On Put Objects " + string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
+                })
+                .TransitionTo(Failed)
+        );
+        
         During(DeleteObject.Pending, 
             When(DeleteObject.Completed).ThenAsync(async context =>
             {
@@ -64,6 +77,18 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
                 })
                 .TransitionTo(Failed)
         );
+        
+        During(DeleteObjects.Pending,
+            When(DeleteObjects.Completed).ThenAsync(async context =>
+            {
+                await RespondFromSaga(context, string.Empty);
+            }).Finalize(),
+            When(DeleteObjects.Faulted)
+                .ThenAsync(async context =>
+                {
+                    await RespondFromSaga(context, "Faulted On Delete Objects " + string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
+                })
+                .TransitionTo(Failed));
         
         During(GetObjects.Pending,
             When(GetObjects.Completed).ThenAsync(async context =>

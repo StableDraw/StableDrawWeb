@@ -59,17 +59,17 @@ export const Menu = ({ setCurrenTexture, canvasTextures, isLightTheme, }) => {
 	}
 
 	async function cleanTexStorage() {
-		// console.log('worked')
-		// await api.DeleteAllTextures()
-		// 	.then( () => {setTextureStore([]); setCurrenTexture('')})
-		// 	.catch(err => console.log('Ошибка очистки хранилища: ', err))
+		console.log('worked')
+		await api.DeleteAllTextures()
+			.then( () => {setTextureStore([]); setCurrenTexture('')})
+			.catch(err => console.log('Ошибка очистки хранилища: ', err))
 
-		textureStorage.forEach(async (tex) => {
-			await api.DeleteTexture(tex.imageName)
-			.catch(err => console.log('Ошибка при очистке хранилища: ', err));
-		})
-		setTextureStore([])
-		setCurrenTexture('')
+		// textureStorage.forEach(async (tex) => {
+		// 	await api.DeleteTexture(tex.imageName)
+		// 	.catch(err => console.log('Ошибка при очистке хранилища: ', err));
+		// })
+		// setTextureStore([])
+		// setCurrenTexture('')
 	}
 
 	const handleFileChange = (event) => {
@@ -84,6 +84,8 @@ export const Menu = ({ setCurrenTexture, canvasTextures, isLightTheme, }) => {
 
 		setInputKey(InputKey + 1);
 	};
+
+	
 
 	return (
 		<>

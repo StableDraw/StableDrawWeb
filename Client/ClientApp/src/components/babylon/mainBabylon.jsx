@@ -20,6 +20,7 @@ export const MainBabylon = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [sceneModal, setSceneModal] = useState('')
 	const [isLightTheme, setTheme] = useState(false);
+	const [isLoaded, setIsLoaded] = useState(true);
 	
 	const dragStartHandler = (e) => {
 		e.preventDefault();
@@ -73,6 +74,7 @@ export const MainBabylon = () => {
 			</div>
 			}
 			<Scene
+				setIsLoaded = {setIsLoaded}
 				modelFileName={modelType}
 				sceneFileName={currentScene}
 				texture={currenTexture}/>

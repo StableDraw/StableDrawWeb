@@ -12,7 +12,8 @@ export class BabylonScene {
 	constructor(canvas: HTMLCanvasElement,
 		modelFileName: string,
 		sceneFileName: string = '',
-		texBase64: string = '',) {
+		texBase64: string = '',
+		setIsLoaded: void,) {
 		this.engine = new BABYLON.Engine(canvas,);
 
 		this.scene = this.createScene();
@@ -27,6 +28,7 @@ export class BabylonScene {
 
 
 		this.assetsManager.onFinish = () => {
+			// setIsLoaded(true);
 			console.log("Все ресурсы успешно загружены!");
 
 			// Скройте загрузочный экран
@@ -178,6 +180,7 @@ export class BabylonScene {
 		SceneFileName: string,
 		ModelFileName: string,
 		texBase64: string,
+		setIsLoaded: void,
 	): Promise<void> {
 		if (SceneFileName) {
 

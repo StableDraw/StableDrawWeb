@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using CLI.Settings;
 using Duende.IdentityServer.Extensions;
 using MassTransit;
 using Microsoft.AspNetCore.Authorization;
@@ -20,10 +21,11 @@ public class ImageController : Controller
     private readonly ILogger<ImageController> _logger;
     private readonly IApplicationRepository _repository;
     private readonly UserManager<ApplicationUser> _userManager;
-
+    
     public ImageController(
         ILogger<ImageController> logger,
-        IApplicationRepository repository, UserManager<ApplicationUser> userManager, IBus bus)
+        IApplicationRepository repository, UserManager<ApplicationUser> userManager, 
+        IBus bus)
     {
         _logger = logger;
         _repository = repository;
@@ -169,7 +171,8 @@ public class ImageController : Controller
                     OrderId = Guid.NewGuid(),
                     ObjectsId = imgs.Select(x => x.Oid),
                 });
-            _repository.DeleteImages(imgs.Select(x => x.ImageName), currentUserId);
+            _repository.DeleteImages(imgs.Select(x => x.Oid), currentUserId);
+            _repository.Save();
             return Ok(response.Message);
         }
         else

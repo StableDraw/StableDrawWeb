@@ -9,6 +9,7 @@ export const Scene = ({
 	modelFileName,
 	sceneFileName,
 	texture,
+	setIsLoaded,
 }) => {
 	const babylonCanvas = useRef(null);
 
