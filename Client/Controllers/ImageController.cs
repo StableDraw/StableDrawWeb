@@ -171,7 +171,7 @@ public class ImageController : Controller
                     OrderId = Guid.NewGuid(),
                     ObjectsId = imgs.Select(x => x.Oid),
                 });
-            _repository.DeleteImages(imgs.Select(x => x.ImageName), currentUserId);
+            _repository.DeleteImages(imgs.Select(x => x.Oid), currentUserId);
             _repository.Save();
             return Ok(response.Message);
         }

@@ -5,27 +5,21 @@ import ApiToken from "./ApiToken";
 
 export default class Textures {
 	static async LoadTexture(file) {
-		if(await AuthorizeService.isAuthenticated())
-		{
+		if(await AuthorizeService.isAuthenticated()) {
 			const data = await axios.post("api/image/" + file.fileName, file, await ApiToken.GetConfigToken());
 			console.log('Post', data);
 			return data;
-		}		
-		else
-			return await axios.HttpStatusCode.NotFound();
+		}
 	}
 	
-	static async DeleteTexture(linkToTexture) {
+
+	static async DeleteTexture(imageName) {
 		if(await AuthorizeService.isAuthenticated())
-		{
-			if (linkToTexture.includes('/')) {
-				const id = linkToTexture.split("/");
-				// из полученного массива(пример: [., api, id]) берём id(последний el)
-				return await axios.delete("api/image/" + id[id.length - 1], await ApiToken.GetConfigToken());
-			}
-			// В этом случае передали id, а не ссылку
-			const id = linkToTexture;
-			return await axios.delete("api/image/" + id, await ApiToken.GetConfigToken());	
+		{			
+			console.log('texture to delete: ', imageName);
+			const message = await axios.delete("api/image/" + imageName, await ApiToken.GetConfigToken());
+			console.log('Delete one tex: ', message);
+			return message;
 		}
 		return await axios.HttpStatusCode.NotFound()
 	}
@@ -38,6 +32,15 @@ export default class Textures {
 			console.log(data);
 			return data;
 		}
+	}
+
+	static async DeleteAllTextures() {
+		if (!await AuthorizeService.isAuthenticated()) {
+			return await axios.HttpStatusCode.NotFound()
+		}
+			const message = await axios.delete("api/image", await ApiToken.GetConfigToken());
+			console.log('deleteAllTextures: ', message);
+			return message;
 	}
 }
 

@@ -50,6 +50,7 @@ public class NeuralController : Controller
             return NotFound();
     }
 
+    [HttpGet]
     public async Task<IActionResult> RunNeural(NeuralRequestModel requestModel)
     {
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);

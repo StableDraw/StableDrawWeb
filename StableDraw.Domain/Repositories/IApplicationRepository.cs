@@ -11,6 +11,6 @@ public interface IApplicationRepository : IDisposable
 
     IEnumerable<Image> GetImages(string userId);
     IEnumerable<Guid> CreateImages(IEnumerable<(string, string)> imageNames, string userId);
-    void DeleteImages(IEnumerable<string> imageNames, string userId);
+    void DeleteImages(IEnumerable<Guid> imagesId, string userId);
     void Save();
 }

@@ -12,7 +12,7 @@ export class BabylonScene {
 	constructor(canvas: HTMLCanvasElement,
 		modelFileName: string,
 		sceneFileName: string = '',
-		textureFileName: string = '',) {
+		texBase64: string = '',) {
 		this.engine = new BABYLON.Engine(canvas,);
 
 		this.scene = this.createScene();
@@ -36,7 +36,7 @@ export class BabylonScene {
 		this.engine.displayLoadingUI();
 
 		this.camera = this.createCamera(canvas);
-		this.createOwnScene(sceneFileName, modelFileName, textureFileName);
+		this.createOwnScene(sceneFileName, modelFileName, texBase64);
 
 		let divFps = document.getElementById("fpsBabylon");
 
@@ -66,7 +66,6 @@ export class BabylonScene {
 
 		return scene;
 	}
-
 
 
 	createCamera(canvas: HTMLCanvasElement): BABYLON.ArcRotateCamera {
@@ -113,8 +112,8 @@ export class BabylonScene {
 
 	async createOwnModel(
 		modelFileName: string,
-		textureFileName: string,
 		sceneFileName: string,
+		texBase64: string,
 	): Promise<void> {
 		if (sceneFileName.includes('Fridge')) {
 			for (let i = 0; i < 3; i++) {
@@ -124,7 +123,7 @@ export class BabylonScene {
 					`${modelFileName}.glb`, // Имя файла с моделью
 					this.scene,
 				)
-				await this.applyMaterial(model, textureFileName);
+				await this.applyMaterial(model, texBase64);
 
 				let positionIndex = 0;
 				if (sceneFileName === "FridgeSmall")
@@ -147,7 +146,7 @@ export class BabylonScene {
 				this.scene,
 			);
 
-			await this.applyMaterial(model, textureFileName);
+			await this.applyMaterial(model, texBase64);
 
 			// this.camera.target = model.meshes[1].position;
 
@@ -160,15 +159,15 @@ export class BabylonScene {
 
 	async applyMaterial(
 		model: BABYLON.ISceneLoaderAsyncResult,
-		textureFileName: string
+		texBase64: string,
 	) {
-		if (textureFileName) {
+		if (texBase64) {
 			const pbrMaterial = new BABYLON.PBRMaterial('pbr', this.scene);
 			pbrMaterial.roughness = 1;
 
-			const texture = new BABYLON.Texture(textureFileName, this.scene);
+			// console.log('Babylon tex64: ', texBase64);
+			const texture = BABYLON.Texture.CreateFromBase64String(`data:image;base64,${texBase64}`, '', this.scene); //тут остановился :)
 			texture.vScale = -1;
-
 			pbrMaterial._albedoTexture = texture;
 
 			model.meshes[1].material = pbrMaterial;
@@ -178,7 +177,7 @@ export class BabylonScene {
 	async createOwnScene(
 		SceneFileName: string,
 		ModelFileName: string,
-		textureFileName: string,
+		texBase64: string,
 	): Promise<void> {
 		if (SceneFileName) {
 
@@ -201,7 +200,7 @@ export class BabylonScene {
 			// })
 		}
 		this.assetsManager.load();
-		this.createOwnModel(ModelFileName, textureFileName, SceneFileName);
+		this.createOwnModel(ModelFileName, SceneFileName, texBase64);
 		// this.createInstances(ModelFileName, textureFileName, SceneFileName);
 	}
 }
