@@ -172,6 +172,7 @@ public class ImageController : Controller
                     ObjectsId = imgs.Select(x => x.Oid),
                 });
             _repository.DeleteImages(imgs.Select(x => x.ImageName), currentUserId);
+            _repository.Save();
             return Ok(response.Message);
         }
         else
