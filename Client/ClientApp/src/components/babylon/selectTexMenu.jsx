@@ -22,7 +22,6 @@ export const SelectTexMenu = ({
 	const [InputKey, setInputKey] = useState(0);
 
 	async function deleteTex(imageName, index) {
-		console.log("typeOfImg: ", typeof(imageName))
 		await api.DeleteTexture(imageName)
 		.then(()=>updateTexStorage())
 		.catch(err => console.log("Ошибка при удалении текстуры: ", err));
@@ -40,7 +39,6 @@ export const SelectTexMenu = ({
 			else {
 				if (!textureStorage.length) {
 					//тут баг: при пустом массиве(в теории), сюда всё равно не попадаем, меняю состояние в updateTexStorage.
-					console.log("WORKED ", textureStorage.length)
 					setCurrenTexture('');
 					return;
 				}
@@ -48,12 +46,9 @@ export const SelectTexMenu = ({
 			}
 		}
 	}
-	console.log('хранилище в selectMenu: ', textureStorage);
 
 	const handleFileChange = (event) => {
 		let files = [...event.target.files];
-
-		console.log("файлы c кнопки:", files[0].name);
 
 		let formData = new FormData();
 		formData.append(`file`, files[0]);

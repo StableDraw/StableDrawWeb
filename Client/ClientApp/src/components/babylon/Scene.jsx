@@ -9,13 +9,14 @@ export const Scene = ({
 	modelFileName,
 	sceneFileName,
 	texture,
-	setIsLoaded,
 }) => {
 	const babylonCanvas = useRef(null);
+	const babylonLoader = useRef(null);
 
 
 	useEffect(() => {
 		const canvas = babylonCanvas.current;
+		const loader = babylonLoader.current;
 
 		if (!canvas) {
 			alert("Your browser does not support Babylon.Js");
@@ -24,6 +25,7 @@ export const Scene = ({
 
 		const scene = new BabylonScene(
 			canvas,
+			// loader,
 			modelFileName,
 			sceneFileName,
 			texture,).createScene();
@@ -53,8 +55,14 @@ export const Scene = ({
 				window.removeEventListener("resize", resize);
 		}
 	});
+
+	// const elem = document.getElementById('loader')
+	// elem.innerText = '0'
+	// console.log(elem.innerText)
 	return (
 		<>
+		{/* <div id="loader"
+		ref={babylonLoader}></div> */}
 			<canvas
 				id='canvas'
 				ref={babylonCanvas}

@@ -20,7 +20,6 @@ export const MainBabylon = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [sceneModal, setSceneModal] = useState('')
 	const [isLightTheme, setTheme] = useState(false);
-	const [isLoaded, setIsLoaded] = useState(true);
 	
 	const dragStartHandler = (e) => {
 		e.preventDefault();
@@ -33,7 +32,6 @@ export const MainBabylon = () => {
 	const Send = useCallback(async (img) => {
 		try {
 			const data = await api.LoadTexture(img);
-			console.log('Loading tex: ', data.data);
 			setCanvasTextures([...canvasTextures, data.data]);
 			setCurrenTexture(data.data.bytes);
 			return data;
@@ -46,8 +44,6 @@ export const MainBabylon = () => {
 
 	const onDropHandler = (e) => {
 		e.preventDefault();
-		// let filesName = e.dataTransfer.files[0].name.split('.')
-		// console.log("split:", filesName)
 		let files = [...e.dataTransfer.files];
 		let formData = new FormData();
 
@@ -58,6 +54,7 @@ export const MainBabylon = () => {
 	}
 
 	const memoizedScene = useMemo(() =>
+	//Вынести в отдельный компонент нада
 		<div
 			onDragLeave={e => dragLeaveHandler(e)}
 			onDrop={e => onDropHandler(e)}
@@ -73,8 +70,15 @@ export const MainBabylon = () => {
 				</IconButton>
 			</div>
 			}
+			{/* <div className={sceneClass.loadBar}>
+				<LinearProgress 
+				color="secondary" 
+				variant='determinate'
+				value={50} 
+				style={{width:'400px', borderRadius:'2px', height:'5px'}}/>
+			</div> */}
+			
 			<Scene
-				setIsLoaded = {setIsLoaded}
 				modelFileName={modelType}
 				sceneFileName={currentScene}
 				texture={currenTexture}/>

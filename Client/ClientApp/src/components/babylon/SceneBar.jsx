@@ -5,10 +5,10 @@ import { memo } from "react";
 
 
 const scenes = [
-	{ id: 1, name: "Корзинка", img: '/babylon/imgPreviewScenes/box.png', scene: 'BoxFix2' },
+	{ id: 1, name: "Корзинка", img: '/babylon/imgPreviewScenes/box.png', scene: 'Box' },
 	{ id: 2, name: "Холодильник 1", img: '/babylon/imgPreviewScenes/Fridge.png', scene: 'Fridge' },
 	{ id: 3, name: "Холодильник 2", img: '/babylon/imgPreviewScenes/FridgeSmall.png', scene: 'FridgeSmall' },
-	{ id: 4, name: "Тележка", img: '/babylon/imgPreviewScenes/Cart.jpeg', scene: 'CartFix' },
+	{ id: 4, name: "Тележка", img: '/babylon/imgPreviewScenes/Cart.jpeg', scene: 'Cart' },
 ];
 
 export const SceneBar = memo(({
@@ -17,7 +17,6 @@ export const SceneBar = memo(({
 	setSceneModal,
 	isLightTheme,
 }) => {
-	console.log("sceneBar rerendered");
 	return (
 		<div className={barClasses.sceneCont}>
 		{scenes.map(scene => <SceneCard

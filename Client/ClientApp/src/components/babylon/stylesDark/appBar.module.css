@@ -12,6 +12,13 @@
 
 .txt{
 	font-size: 25px !important;
+	text-decoration: none !important;
+	color: white !important;
+	outline: none !important;
+
+}
+.txt:visited{
+	color: white !important;
 }
 
 .themeToggle{
@@ -20,6 +27,10 @@
 	margin-right: 10px;
 	gap:10px;
 	scale: 0.8;
+}
+
+.link{
+	text-decoration: none ;
 }
 
 @media (max-width: 1350px){
