@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react"
+import React, { useState, useMemo, useEffect } from "react"
 import cl from './MyInput.module.css'
 import toolState from "../../../store/toolState";
 const MyInput = ({imgPath, imgClass,}) => {
@@ -12,13 +12,28 @@ const MyInput = ({imgPath, imgClass,}) => {
         toolState.setBezieCurve(e.target.value)
         setValue(e.target.value)
     }
+
+    // new logic
+    const [range, setRange] = useState(0)
+    const Grad = (e) => {
+        toolState.setLineWidth(e.target.value)
+        setValue(e.target.value)
+        e.preventDefault()
+        setRange(e.target.value)
+
+    }
     
     return (
-        <div>
-            <img className={imgClass} alt={imgPath} src={imgPath}></img>
-            <input className={cl.up_add_window_slider} type="range" min='1' max='100' value={value} onChange={e => CallRange(e)} />
-            <input className={cl.up_add_window_field} type="number" min="1" max="100" value={value} onChange={e => CallNumber(e)} />
-        </div>
+        <label className={cl.opacity__block} style={{background: `linear-gradient(to right, #93BBE3 ${range}%, #ABABAB 0%)`}}>
+            <span className={cl.opacity__text}>Толщина: {range}px</span>
+            <input type="range" style={{opacity: 0}} value="1" min="1" max="100" onChange={(e) => Grad(e)}/>
+        </label>
+        // <div>
+        //    
+        //     {/*<img className={imgClass} alt={imgPath} src={imgPath}></img>*/}
+        //     {/*<input className={cl.up_add_window_slider} type="range" min='1' max='100' value={value} onChange={e => CallRange(e)} />*/}
+        //     {/*<input className={cl.up_add_window_field} type="number" min="1" max="100" value={value} onChange={e => CallNumber(e)} />*/}
+        // </div>
     )
 }
 export default MyInput

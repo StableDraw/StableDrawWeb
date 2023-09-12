@@ -10,15 +10,12 @@ import RightArrow from '../modal/Arrows/RightArrow';
 const ToolOptionsBar = () => {
     const [activeBtn, setActiveBtn] = useState(null)
     return (
-        <div>
             <div className={cl.navCanvas}>
-              
-                <LeftArrow/>
-                <RightArrow/>
-                <UploadButton/>
-                <SaveButton />
+              <div className={cl.flex}>
+                  <LeftArrow/>
+                  <RightArrow/>
+              </div>
             </div>
-        </div>
     );
 };
 

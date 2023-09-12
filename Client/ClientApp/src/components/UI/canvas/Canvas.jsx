@@ -5,7 +5,7 @@ import toolState from "../../../store/toolState";
 import Brush from "../../../tools/Brush";
 import CanvasItems from "./CanvasItems";
 import canvasState from "../../../store/canvasState";
-const Canvas = ({width, height, labelData,canvasDate}) => {
+const Canvas = ({width, height, labelData,canvasDate, mergeRes}) => {
     const [canva, setCanva] = useState([])
 
     const setRef = (ref) => {
@@ -21,9 +21,29 @@ const Canvas = ({width, height, labelData,canvasDate}) => {
     const mouseDownHandler = (e) => {
         CanvasState.pushToUndo(CanvasState.getCanvas().toDataURL())
         labelData(CanvasState.getUndo())
+
+        let image = new Image()
+        image.src = CanvasState.getCanvas().toDataURL()
+        image.onload = () => {
+            CanvasState.getSelectContextLabel().getContext("2d", { willReadFrequently: true }).clearRect(0,0, 50, 28)
+            CanvasState.getSelectContextLabel().getContext("2d", { willReadFrequently: true }).drawImage(image, 0, 0, 50, 28)
+        }
     }
+    
+    // if (mergeRes) {
+    //     let image = new Image()
+    //     image.src = mergeRes
+    //     console.log(mergeRes)
+    //     image.onload = () => {
+    //         CanvasState.getCanvas().getContext("2d", { willReadFrequently: true }).clearRect(0,0, 1080, 732)
+    //         CanvasState.getCanvas().getContext("2d", { willReadFrequently: true }).drawImage(image, 0, 0, 1080, 732)
+    //     }
+    // }
+    
     return (
-            <div className={cl.v_frame} onMouseDown={(e) => mouseDownHandler(e)}  style={{width: `calc(${width} + 4px)`, height: `calc(${height} + 4px)`,backgroundColor: "transparent"}}  id="v_frame" >
+            <div className={cl.v_frame} onMouseDown={(e) => mouseDownHandler(e)}  
+                 style={{width: `${width}`, height: `${height}`,backgroundColor: "transparent"}}  id="v_frame" >
+                
                 {canvasDate.map((item) =>
                     <CanvasItems
                      style={item.style}
@@ -34,7 +54,11 @@ const Canvas = ({width, height, labelData,canvasDate}) => {
                           key={item.id}
                             refs={setRef}/>
                 )}
-                <div style={{ border: "4px solid rgb(154, 154, 154)",width: `calc(${width} + 8px)`, height: `calc(${height} + 8px)`, zIndex: -1, backgroundImage: "url(alpha_pattern.png)", backgroundRepeat: "repeat", position: "absolute" }}></div>
+                
+                <div 
+                    style={{ width: `${width}`, height: `${height}`, zIndex: -1, backgroundImage: "url(alpha_pattern.png)", backgroundRepeat: "repeat", position: "absolute" }}>
+                    
+                </div>
             </div>
 
     );

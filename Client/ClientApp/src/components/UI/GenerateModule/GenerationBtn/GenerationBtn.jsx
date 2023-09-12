@@ -3,6 +3,8 @@ import cl from "../GenerationBtn/GenerationBtn.module.css";
 import Button from '@mui/material/Button';
 import { Modal } from '@mui/material';
 import GeneratedContent from "../GeneratedContent/GeneratedContent";
+import UploadButton from "../../modal/UploadButton/UploadButton";
+import SaveButton from "../../modal/SaveButton/SaveButton";
 
 const GenerationBtn = () => {
     const [modal, setModal] = useState(false)
@@ -11,30 +13,25 @@ const GenerationBtn = () => {
     }
     console.log(modal)
     return (
-        <div>
-            <div className={cl.btn}>
-                <Button
-                    sx={{background: "#474747", '&:hover': {backgroundColor: '#474747', color: '#555DD3'},}}
-                    variant="contained"
-                    onClick={showGenerationModal}
-                >
-                    <t>Отправить на генерацию
-                        <img
-                            src={'generate.png'}
-                            alt={"generate"}
-                            style={{ fontSize: 20, height: 25 }}
-                        />
-                    </t>
-                </Button>
+        <div className={cl.flex} style={{padding: "0 0 10px 0", flex: "0 0 50%", justifyContent: "space-between"}}>
+            <div className={cl.flex} style={{gap: "15px"}}>
+                <UploadButton/>
+                <SaveButton />
             </div>
-            <Modal
-                open={modal}
-                onClose={showGenerationModal}
-                className={cl.window}
+            <a
+                onClick={showGenerationModal}
+                className={[cl.button, cl.generate].join(" ")}
             >
-                <GeneratedContent setModal={setModal} />
-            </Modal>
-        </div>
+                <p> Генерация </p>
+                <Modal
+                    open={modal}
+                    onClose={showGenerationModal}
+                    className={cl.window}
+                >
+                    <GeneratedContent setModal={setModal} />
+                </Modal>
+            </a>
+        </div>         
     );
 };
 
