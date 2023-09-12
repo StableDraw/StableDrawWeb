@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using StableDraw.Contracts.MInIoContracts.Replies;
 using StableDraw.Contracts.MInIoContracts.Requests;
+using StableDraw.Contracts.NeuralContracts.Replies;
+using StableDraw.Contracts.NeuralContracts.Requests;
 using StableDraw.Core.Models;
 using StableDraw.Domain.Repositories;
 
@@ -21,10 +23,10 @@ public class ImageController : Controller
     private readonly ILogger<ImageController> _logger;
     private readonly IApplicationRepository _repository;
     private readonly UserManager<ApplicationUser> _userManager;
-    
+
     public ImageController(
         ILogger<ImageController> logger,
-        IApplicationRepository repository, UserManager<ApplicationUser> userManager, 
+        IApplicationRepository repository, UserManager<ApplicationUser> userManager,
         IBus bus)
     {
         _logger = logger;
@@ -50,9 +52,10 @@ public class ImageController : Controller
 
             var response = await _bus.Request<GetObjectMinIoRequest, GetObjectMinIoReply>(new GetObjectRequestModel()
             {
-                ObjectId = image.Oid, OrderId = Guid.NewGuid()
+                ObjectId = image.Oid,
+                OrderId = Guid.NewGuid()
             });
-            return Ok(new {image.ImageName, response.Message.Data});
+            return Ok(new { image.ImageName, response.Message.Data });
         }
         else
             return NotFound();
@@ -75,7 +78,7 @@ public class ImageController : Controller
 
             var response =
                 await _bus.Request<DeleteObjectMinIoRequest, DeleteObjectMinIoReply>(new DeleteObjectRequestModel()
-                    { ObjectId = image.Oid, OrderId = Guid.NewGuid() });
+                { ObjectId = image.Oid, OrderId = Guid.NewGuid() });
             _repository.DeleteImage(imageName, currentUserId);
             _repository.Save();
             return Ok(response.Message);
@@ -87,7 +90,8 @@ public class ImageController : Controller
     [HttpPost("{imageName}")]
     public async Task<IActionResult> PostObject(IFormFile file)
     {
-        Response<PutObjectMinIoReply> response;
+        //Response<PutObjectMinIoReply> response;
+        Response<NeuralReply> response; 
         byte[] image;
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (!string.IsNullOrEmpty(currentUserId))
@@ -95,20 +99,27 @@ public class ImageController : Controller
             var user = await _userManager.FindByIdAsync(currentUserId);
             if (user == null)
                 return NotFound();
-            var imgId = _repository.CreateImage(file.FileName, file.ContentType, currentUserId);
-            _repository.Save();
+            // var imgId = _repository.CreateImage(file.FileName, file.ContentType, currentUserId);
+            // _repository.Save();
             using (var memoryStream = new MemoryStream())
             {
                 await file.CopyToAsync(memoryStream);
                 image = memoryStream.ToArray();
-                response = await _bus
-                    .Request<PutObjectMinIoRequest, PutObjectMinIoReply>(new PutObjectRequestModel()
-                        { ObjectId = imgId, Data = memoryStream.ToArray(), OrderId = Guid.NewGuid() });
+                response = await _bus.Request<NeuralRequest, NeuralReply>(new NeuralRequest()
+                {
+                    OrderId = Guid.NewGuid(),
+                    ImagesInput = new []{image},
+                    NeuralType = "123"
+                });
+                // response = await _bus
+                //     .Request<PutObjectMinIoRequest, PutObjectMinIoReply>(new PutObjectRequestModel()
+                //         { ObjectId = imgId, Data = memoryStream.ToArray(), OrderId = Guid.NewGuid() });
             }
 
             if (response.Message == null)
                 return BadRequest();
-            return Ok(new {
+            return Ok(new
+            {
                 ImageName = file.FileName,
                 Bytes = image
             });
