@@ -5,11 +5,10 @@ import {Box} from '@mui/material';
 import Button from '@mui/material/Button';
 import {Link} from 'react-router-dom';
 import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble';
-
 import Agreement from '../../../../order/pay-sayte/content/Agreement';
 
 
-const Btn = () => {
+const Btn = (props) => {
 const [checked, setChecked] = React.useState(true);
 function handleChange() {
   setChecked(!checked);
@@ -17,8 +16,10 @@ function handleChange() {
 
     return (
         <div className={cl.buyBtn}> 
-        {/* <CurrencyRubleIcon color="primary" sx={{ fontSize: 30 }}/> */}
-        <Button disabled={checked} variant="contained" disableElevation  sx={{ fontSize: 20 }}> Приобрести сейчас </Button>
+          <Button disabled={checked} variant="contained" style={{maxWidth: '80%', minWidth: '80%'}} sx={{ fontSize: 20}}> 
+            Приобрести сейчас: 
+           <div>{props.sum} <CurrencyRubleIcon/></div> 
+          </Button>
         <Agreement checked = {!checked} handleChange = {handleChange}/>
         </div>
     );

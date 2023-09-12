@@ -13,12 +13,12 @@ const GenerationBtn = () => {
     }
     console.log(modal)
     return (
-        <div className={cl.flex} style={{padding: "0 0 10px 0", flex: "0 0 50%", justifyContent: "space-between"}}>
+        <div className={cl.flex} style={{ padding: "0 0 10px 0", flex: "0 0 50%", justifyContent: "flex-end"}}>
             <div className={cl.flex} style={{gap: "15px"}}>
                 <UploadButton/>
                 <SaveButton />
             </div>
-            <a
+            {/* <a
                 onClick={showGenerationModal}
                 className={[cl.button, cl.generate].join(" ")}
             >
@@ -30,7 +30,7 @@ const GenerationBtn = () => {
                 >
                     <GeneratedContent setModal={setModal} />
                 </Modal>
-            </a>
+            </a> */}
         </div>         
     );
 };

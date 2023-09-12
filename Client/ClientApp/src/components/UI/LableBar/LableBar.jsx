@@ -71,19 +71,19 @@ const LableBar = (props) => {
 
                         <Merge mergeCanvas={props.mergeCanvas}/>
 
-                        {/*Swap down*/}
-                        <button>
+                        {/* Swap down */}
+                        {/* <button>
                             <svg xmlns="http://www.w3.org/2000/svg" width="47" height="47" viewBox="0 0 47 47" fill="none">
                                 <path d="M33 18L23 30L13 18" stroke="#656565" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
-                        </button>
+                        </button> */}
 
                         {/*Swap up*/}
-                        <button>
+                        {/* <button>
                             <svg xmlns="http://www.w3.org/2000/svg" width="47" height="47" viewBox="0 0 47 47" fill="none">
                                 <path d="M33 30L23 18L13 30" stroke="#656565" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
-                        </button>
+                        </button> */}
                     </div>
                     {/*<button className={cl.left__button_group}>*/}
                     {/*    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="22" viewBox="0 0 20 22" fill="none">*/}

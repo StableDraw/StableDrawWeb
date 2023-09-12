@@ -2,20 +2,47 @@
     padding: 0;
     margin: 0;
 }
+.button {
+    width: 160px;
+    height: 40px;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #3701C3 0%, #D6037E 104.9%);
+    cursor: pointer;
+    border: none;
+    margin-bottom: 10px;
+}
+.button p {
+    color: #FFF;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    margin: 0;
+    line-height: 1px;
+}
 .modal {
     display: none;
 }
 .activeModal {
     display: block;
+    position: absolute;
+    z-index: 1000000;
     box-sizing: border-box;
     width: 1010px;
     height: 740px;
-    margin-left: auto;
-    margin-right: auto;
+    top: 10%;
+    left: 10%;
+    /* margin-left: auto;
+    margin-right: auto; */
 
     border-radius: 20px;
     background-color:#FFFFFF;
-    
 }
 .header {
     width: 100%;

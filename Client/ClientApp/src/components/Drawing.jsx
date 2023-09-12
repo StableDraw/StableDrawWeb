@@ -13,6 +13,7 @@ import GenerateModule from "./UI/GenerateModule/GenerationBtn/GenerationBtn.jsx"
 import canvasState from "../store/canvasState";
 import cl from "./Drawing.module.css"
 import CanvasState from "../store/canvasState";
+import GenerateWindow from '../components/UI/GenerateWindow/GenerateBtn/GenerateBtn.jsx'
 const Drawing = () => {
 
     const [label, setLabel] = useState()
@@ -94,6 +95,7 @@ const Drawing = () => {
                         <div className={[cl.row, cl.canvas__button].join(" ")}>
                             <ToolOptionsBar/>
                             <GenerateModule/>
+                            <GenerateWindow/>
                         </div>
                         <Canvas
                             mergeRes={mergeRes}  
