@@ -1,4 +1,4 @@
-﻿using MassTransit;
+﻿﻿using MassTransit;
 using StableDraw.Contracts.MInIoContracts.Replies;
 using StableDraw.Contracts.MInIoContracts.Requests;
 using StableDraw.Contracts.NeuralContracts.Replies;

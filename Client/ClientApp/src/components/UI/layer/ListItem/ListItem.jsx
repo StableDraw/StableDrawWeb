@@ -10,53 +10,66 @@ import canvasState from "../../../../store/canvasState";
 import ButtonGroup from '@mui/material/ButtonGroup';
 
 const ListItem = (props) => {
-    const [isHovering, setIsHovering] = useState(true);
     const CanvasRef = useRef(null)
+    const [select, setSelect] = useState(cl.not__selected)
 
+    useEffect(() => {
+        CanvasState.selectedContextLabel(CanvasRef.current)
+    }, [])
 
-    if (props.canva) {
-        let image = new Image()
-        image.src = props.canva
-        image.onload = () => {
-            CanvasRef.current.getContext("2d", { willReadFrequently: true }).clearRect(0,0, 95, 69)
-            CanvasRef.current.getContext("2d", { willReadFrequently: true }).drawImage(image, 0, 0, 95, 69)
-        }
-    }
-
+    /* Сделать для canvas наследование width & height: inherit, а в заливке отриосваного сдлеать ширину и высоту layer_display_icon
+    * определяя его через current.width & current.height
+    * обязательно обернуть в useMemo
+    * */
 
     const selectLabel = (e) => {
         e.preventDefault()
+        
+        props.defOpacity(
+            CanvasState.getCanvasList().find(
+                item => 
+                    item.attributes[1].value === CanvasRef.current.attributes[1].value
+            ).style.opacity
+        )
         CanvasState.setLabel(CanvasRef.current.attributes[1].value)
-        toolState.setTool(new Brush((CanvasState.getCanvasList().find(item => item.attributes[1].value === CanvasRef.current.attributes[1].value))))
-        CanvasState.setCanvas(CanvasState.getCanvasList().find(item => item.attributes[1].value === CanvasRef.current.attributes[1].value));
-    }
+        CanvasState.selectedContextLabel(CanvasRef.current)
+        
+        
+        toolState.setTool(new Brush(CanvasState.getCanvasList().find(
+            item => item.attributes[1].value === CanvasRef.current.attributes[1].value
+            )
+        ))
+        
+        CanvasState.setCanvas(CanvasState.getCanvasList().find(
+            item => item.attributes[1].value === CanvasRef.current.attributes[1].value
+        ));
+        props.merger(e)
+        props.mergeCanvas(e)
 
-    function someHandler() {setIsHovering(false);};
-    function handleMouseOut() {setIsHovering(true);};
+        
+    }
+    
     return (
-        <div className={cl.layer} id={props.item.id}
-             onMouseOver={someHandler}
-             onMouseOut={handleMouseOut}
-             onClick={selectLabel}>
-            <ButtonGroup orientation="vertical" sx={{display: 'flex'}}>
-                <Visability ids={props.item.id}/>
-                <Clear ids={props.item.id}/>
-            </ButtonGroup>
-            <div className={cl.layer_button} id={"layer_button_"+props.item.id}>
+        <div className={[cl.layer].join(" ")} id={props.item.id}
+             onClick={(e) => selectLabel(e)}
+             tabindex={props.index}>
+            <div className={cl.layer__block}>
+                <Visability ids={props.item.id} Visable={props.Visable} IndexVisable={props.index}/>
+                {/*<Clear ids={props.item.id} Clear={props.Clear} IndexClear={props.index}/>*/}
                 <div className={cl.layer_display_icon} id={"layer_display_icon_"+props.item.id}>
-                    <Destroy deleteCanva={props.deleteCanva} indexDelete={props.index} remove={props.remove} item={props.item}/>
-                    <div className={cl.layer_display_icon} id={"layer_display_icon_"+props.item.id}>
-                        <canvas
-                            ref={CanvasRef}
-                            // className={cl.layer_display_canvas}
-                            id={"layer_"+props.item.id+"_display_canvas"}
-                            index={props.index}
-                            style={{ zIndex: props.index }}>
-                        </canvas>
-                    </div>
-                    {/*<div className={cl.layer_display_canvas} id={"layer_alpha_img_"+props.item.id} style={{ zIndex: 0, backgroundImage: "url(mini_alpha_pattern.png)", backgroundRepeat: "repeat" }}></div>*/}
+                    <canvas
+                        ref={CanvasRef}
+                        id={"layer_"+props.item.id+"_display_canvas"}
+                        index={props.index}
+                        
+                        style={{ zIndex: props.index, width: "50px", height: "28px", background: "#FFFFFF" }}>
+                    </canvas>
                 </div>
+                <span className={cl.name}>
+                    Layer {props.index + 1}
+                </span>
             </div>
+            <Destroy deleteCanva={props.deleteCanva} indexDelete={props.index} remove={props.remove} item={props.item}/>
         </div>
     );
 

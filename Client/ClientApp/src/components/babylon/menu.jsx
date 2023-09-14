@@ -16,8 +16,6 @@ export const Menu = ({ setCurrenTexture, canvasTextures, isLightTheme, }) => {
 	const [texCount, setTexCount] = useState(0);
 	const [InputKey, setInputKey] = useState(0);
 
-	console.log("menu rerender")
-
 	useEffect(() => {
 		const getTexStorage = async () => {
 			await api.GetTextureStorage()
@@ -39,7 +37,6 @@ export const Menu = ({ setCurrenTexture, canvasTextures, isLightTheme, }) => {
 	const Send = useCallback(async (img) => {
 		try {
 			const data = await api.LoadTexture(img);
-			console.log('Loading tex: ', data.data);
 			setTextureStore([...textureStorage, data.data]);
 			setCurrenTexture(data.data.bytes);
 			setTexCount(textureStorage.length);
@@ -52,30 +49,19 @@ export const Menu = ({ setCurrenTexture, canvasTextures, isLightTheme, }) => {
 	}, [textureStorage])
 
 	const updateTexStorage = async () => {
-		console.log('worked2')
 		 await api.GetTextureStorage()
-			.then(newTexes => {console.log("Хранилище текстур2: ", newTexes.data); setTextureStore(newTexes.data)})
+			.then(newTexes => setTextureStore(newTexes.data))
 			.catch(err => {console.log("Ошибка подключения к хранилищу" + err); setTextureStore([]); setCurrenTexture('');});
 	}
 
 	async function cleanTexStorage() {
-		console.log('worked')
 		await api.DeleteAllTextures()
 			.then( () => {setTextureStore([]); setCurrenTexture('')})
 			.catch(err => console.log('Ошибка очистки хранилища: ', err))
-
-		// textureStorage.forEach(async (tex) => {
-		// 	await api.DeleteTexture(tex.imageName)
-		// 	.catch(err => console.log('Ошибка при очистке хранилища: ', err));
-		// })
-		// setTextureStore([])
-		// setCurrenTexture('')
 	}
 
 	const handleFileChange = (event) => {
 		let files = [...event.target.files];
-
-		console.log("файлы c кнопки:", files[0].name);
 
 		let formData = new FormData();
 		formData.append(`file`, files[0]);
@@ -85,9 +71,10 @@ export const Menu = ({ setCurrenTexture, canvasTextures, isLightTheme, }) => {
 		setInputKey(InputKey + 1);
 	};
 
+	
+
 	return (
 		<>
-			{/* <TexMenuBtn send={Send} isLightTheme={isLightTheme} /> */}
 			<div className={mainClass.tex_loadMenu}>
 				<div className={loadClasses.cont}>
 					<div className={loadClasses.arrowDelete_selectTexMenu}>

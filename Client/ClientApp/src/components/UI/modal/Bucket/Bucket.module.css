@@ -30,3 +30,15 @@
     height: 100%;
     width: 100%;
 }
+.el {
+    cursor: pointer;
+    padding: 15px;
+}
+.el:focus {
+    border-radius: 25px;
+    background-color: rgba(180,180,180,0.58);
+}
+.el:hover {
+    border-radius: 25px;
+    background-color: rgba(180,180,180,0.58);
+}

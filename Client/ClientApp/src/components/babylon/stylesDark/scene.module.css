@@ -50,6 +50,18 @@
 	opacity: 40%;
 	z-index: 1000;
 }
+.loadBar{
+	position: absolute;
+	top: 20px;
+	left: 350px;
+	width: 600px;
+	border-radius: 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: row;
+	z-index: 1000;
+}
 
 .cancelBtn{
 	width: 20px !important;

@@ -1,6 +1,5 @@
 import React from 'react';
-import { Button, AppBar, Box, Toolbar, Paper, Card } from '@mui/material';
-import { useState, memo } from "react";
+import { memo } from "react";
 import { ModelsCard } from './modelCard'
 import barClasses from'./stylesLight/bar.module.css'
 
@@ -12,8 +11,6 @@ const models = [
 	{ id: 4, type: "Mини с крышкой", model:{ big: 'MiniCap', small: ''}, img: '/babylon/imgPreviewModels/miniCap.jpeg' },
 ];
 export const ModelsBar = memo(({changeModel, isLightTheme}) => {
-
-	console.log("modelsBar rerendered");
 
 	return (
 		<div className={barClasses.modelsCont}>
