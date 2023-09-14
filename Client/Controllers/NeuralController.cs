@@ -20,18 +20,16 @@ public class NeuralController : Controller
     private readonly IBus _bus;
     private readonly ILogger<NeuralController> _logger;
     private readonly UserManager<ApplicationUser> _userManager;
-    private readonly IApplicationRepository _repository;
     private readonly NeuralBuilderSettings _neuralBuilderSettings;
 
     public NeuralController(
         IBus bus, ILogger<NeuralController> logger, 
-        UserManager<ApplicationUser> userManager, IApplicationRepository repository, 
+        UserManager<ApplicationUser> userManager, IRepositoryWrapper repository, 
         IConfiguration configuration)
     {
         _bus = bus;
         _logger = logger;
         _userManager = userManager;
-        _repository = repository;
         _neuralBuilderSettings = new NeuralBuilderSettings()
         {
             Neurals = configuration.GetSection("Neurals").Get<Dictionary<string, dynamic>>()

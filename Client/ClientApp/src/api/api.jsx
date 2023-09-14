@@ -5,27 +5,31 @@ import ApiToken from "./ApiToken";
 
 export default class Textures {
 	static async LoadTexture(file) {
-		return await axios.HttpStatusCode.NotFound();
+		if(!await AuthorizeService.isAuthenticated())
+			return await axios.HttpStatusCode.NotFound();
+
+		return await axios.post("api/image/" + file.fileName, file, await ApiToken.GetConfigToken());
 	}
-	
 
 	static async DeleteTexture(imageName) {
-		return await axios.HttpStatusCode.NotFound()
+		if(!await AuthorizeService.isAuthenticated())
+			return await axios.HttpStatusCode.NotFound();
+
+		return await axios.delete("api/image/" + imageName, await ApiToken.GetConfigToken());
 	}
 
 	static async GetTextureStorage() {
-		if (await AuthorizeService.isAuthenticated()) {	
+		if (!await AuthorizeService.isAuthenticated())
+			return await axios.HttpStatusCode.NotFound()
 
 		return await axios.get("api/image", await ApiToken.GetConfigToken());
 	}
 
-	static async DeleteAllTextures() {		
-		if (await AuthorizeService.isAuthenticated()) {
-			const message = await axios.delete("api/image", await ApiToken.GetConfigToken());
-			console.log('deleteAllTextures: ', message);
-			return message;			
-		}
-		return await axios.HttpStatusCode.NotFound()
+	static async DeleteAllTextures() {
+		if (!await AuthorizeService.isAuthenticated())
+			return await axios.HttpStatusCode.NotFound()
+
+		return await axios.delete("api/image", await ApiToken.GetConfigToken());
 	}
 }
 
