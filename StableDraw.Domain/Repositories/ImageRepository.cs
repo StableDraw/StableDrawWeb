@@ -1,4 +1,5 @@
 ﻿using System.Net.Mime;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using StableDraw.Core.Models;
 using StableDraw.Domain.Data.Identity;
@@ -19,7 +20,7 @@ public class ImageRepository : BaseRepository<Image>, IImageRepository
     {
         var imgs = imageNames.Select(x => new Image()
         {
-            ImageName = x.Item1, ContentType = x.Item2, UserId = userId, Oid = Guid.NewGuid()
+            ImageName = x.Item1, ContentType = x.Item2, UserId = userId, Oid = NewId.NextGuid()
         }).ToList();
         await CreateRangeAsync(imgs);
         return await FindByCondition(img => imgs.Contains(img)).Select(x => x.Oid).ToListAsync();

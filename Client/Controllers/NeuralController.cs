@@ -60,7 +60,7 @@ public class NeuralController : Controller
             
             var request = new NeuralRequest()
             {
-                OrderId = Guid.NewGuid(),
+                OrderId = NewId.NextGuid(),
                 NeuralType = requestModel.NeuralType,
                 Caption = requestModel.Caption,
                 Prompts = requestModel.Prompts,
