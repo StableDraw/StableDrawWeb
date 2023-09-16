@@ -2,11 +2,12 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using System.Net;
 using System.Security.Claims;
+using CLI.Broker.Abstractions;
+using CLI.Broker.Mediator;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using CLI.Services;
 using CLI.Extensions;
 using CLI.Settings;
-using GreenPipes;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OAuth;
@@ -112,27 +113,35 @@ builder.Services.Configure<GoogleRecaptchaSettings>(builder.Configuration.GetSec
 builder.Services.AddTransient<GoogleRecaptchaService>();
 
 // rabbitMQ
+builder.Services.AddTransient<IRequestBus, MassTransitRequestBus>();
 builder.Services.AddMassTransit(cfg =>
+{
+    cfg.SetKebabCaseEndpointNameFormatter();
+    cfg.AddDelayedMessageScheduler();
+    cfg.UsingRabbitMq((brc, rbfc) =>
     {
-        cfg.SetKebabCaseEndpointNameFormatter();
-        cfg.AddDelayedMessageScheduler();
-        cfg.UsingRabbitMq((brc, rbfc) =>
+        rbfc.UseInMemoryOutbox();
+        rbfc.UseMessageRetry(r =>
         {
-            rbfc.UseInMemoryOutbox();
-            rbfc.UseMessageRetry(r =>
-            {
-                r.Incremental(3, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
-            });
-            rbfc.UseDelayedMessageScheduler();
-            rbfc.Host("localhost", h =>
-            {
-                h.Username("rmuser");
-                h.Password("rmpassword");
-            });
-            rbfc.ConfigureEndpoints(brc);
+            r.Incremental(3, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
         });
-    })
-    .AddMassTransitHostedService();
+        rbfc.UseDelayedMessageScheduler();
+        rbfc.Host("localhost", h =>
+        {
+            h.Username("rmuser");
+            h.Password("rmpassword");
+        });
+        rbfc.ConfigureEndpoints(brc);
+    });
+
+    cfg.AddMediator(x =>
+    {
+        x.ConfigureMediator((ctx, mcfg) => { mcfg.UseSendFilter(typeof(AuthorizationFilter<>), ctx); });
+        x.AddConsumers(typeof(Program).Assembly);
+        
+    });
+});
+    //.AddMassTransitHostedService();
 
 // payment
 builder.Services.AddApplicationServices(builder.Configuration);
