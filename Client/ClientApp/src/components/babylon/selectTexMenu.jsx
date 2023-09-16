@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useMemo } from "react";
 import { Button, IconButton, Tooltip, Input, InputLabel } from '@mui/material';
 import loadClasses from './stylesDark/loadTex.module.css';
 import loadClassesLight from './stylesLight/loadTex.module.css';
@@ -18,32 +18,36 @@ export const SelectTexMenu = ({
 	updateTexStorage,
 	isLightTheme,
 	send,
+	setTextureStore,
 }) => {
 	const [InputKey, setInputKey] = useState(0);
 
-	async function deleteTex(imageName, index) {
-		await api.DeleteTexture(imageName)
-		.then(()=>updateTexStorage())
+	const updateStorage = (index) =>{
+		const copyTextureStorage = textureStorage;
+		copyTextureStorage.splice(index, 1);
+		setTextureStore([...copyTextureStorage]);
+	}
+
+	async function deleteTex(tex, index) {
+		console.log(tex.imageName);
+		await api.DeleteTexture(tex.imageName)
 		.catch(err => console.log("Ошибка при удалении текстуры: ", err));
-		
+
+		updateStorage(index);
+
 		//логика перестановки рамки выбора и смены текстуры в сцене после удаления:
 		if (index < texCount) {
 			setTexCount(texCount - 1);
 			return;
 		}
-		if (index === texCount) {
-			if (index) {
-				setCurrenTexture(textureStorage[index - 1].bytes);
-				setTexCount(index - 1);
+
+		if(index === texCount){
+			if(texCount === 0){
+				setCurrenTexture(textureStorage[index]?.bytes);
+				return;
 			}
-			else {
-				if (!textureStorage.length) {
-					//тут баг: при пустом массиве(в теории), сюда всё равно не попадаем, меняю состояние в updateTexStorage.
-					setCurrenTexture('');
-					return;
-				}
-				setCurrenTexture(textureStorage[index + 1]?.bytes);
-			}
+			setCurrenTexture(textureStorage[index - 1]?.bytes);
+			setTexCount(index - 1);
 		}
 	}
 
@@ -71,7 +75,7 @@ export const SelectTexMenu = ({
 										<IconButton
 											key={tex + index}
 											sx={{ width: '20px', height: '20px', }}
-											onClick={() => { deleteTex(tex.imageName, index); }} >
+											onClick={() => { deleteTex(tex, index); }} >
 											<CancelIcon
 												className={isLightTheme ? loadClassesLight.crossIcon : loadClasses.crossIcon}
 												key={index + tex + index + tex}

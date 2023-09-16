@@ -18,6 +18,7 @@ export const Menu = ({ setCurrenTexture, canvasTextures, isLightTheme, }) => {
 
 	useEffect(() => {
 		const getTexStorage = async () => {
+			console.log('сработала')
 			await api.GetTextureStorage()
 				.then(res => {
 					if (res.data) {
@@ -71,8 +72,6 @@ export const Menu = ({ setCurrenTexture, canvasTextures, isLightTheme, }) => {
 		setInputKey(InputKey + 1);
 	};
 
-	
-
 	return (
 		<>
 			<div className={mainClass.tex_loadMenu}>
@@ -112,6 +111,8 @@ export const Menu = ({ setCurrenTexture, canvasTextures, isLightTheme, }) => {
 					</div>
 					<div className={isLightTheme ? loadClassesLight.selectTexMenu_container : loadClasses.selectTexMenu_container}>
 						<SelectTexMenu
+							// updateStorage = {updateStorage}
+							setTextureStore = {setTextureStore}
 							send={Send}
 							updateTexStorage={updateTexStorage}
 							textureStorage={textureStorage}
