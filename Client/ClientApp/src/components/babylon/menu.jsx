@@ -18,7 +18,6 @@ export const Menu = ({ setCurrenTexture, canvasTextures, isLightTheme, }) => {
 
 	useEffect(() => {
 		const getTexStorage = async () => {
-			console.log('сработала')
 			await api.GetTextureStorage()
 				.then(res => {
 					if (res.data) {
@@ -31,9 +30,10 @@ export const Menu = ({ setCurrenTexture, canvasTextures, isLightTheme, }) => {
 	}, []);
 
 	useMemo(() => {
-		setTextureStore([...textureStorage, ...canvasTextures]); 
-		setTexCount(textureStorage.length) }, 
-		[canvasTextures]); 
+		setTextureStore([...textureStorage, ...canvasTextures]);
+		setTexCount(textureStorage.length)
+	},
+		[canvasTextures]);
 
 	const Send = useCallback(async (img) => {
 		try {
@@ -49,15 +49,9 @@ export const Menu = ({ setCurrenTexture, canvasTextures, isLightTheme, }) => {
 		}
 	}, [textureStorage])
 
-	const updateTexStorage = async () => {
-		 await api.GetTextureStorage()
-			.then(newTexes => setTextureStore(newTexes.data))
-			.catch(err => {console.log("Ошибка подключения к хранилищу" + err); setTextureStore([]); setCurrenTexture('');});
-	}
-
 	async function cleanTexStorage() {
 		await api.DeleteAllTextures()
-			.then( () => {setTextureStore([]); setCurrenTexture('')})
+			.then(() => { setTextureStore([]); setCurrenTexture('') })
 			.catch(err => console.log('Ошибка очистки хранилища: ', err))
 	}
 
@@ -82,7 +76,7 @@ export const Menu = ({ setCurrenTexture, canvasTextures, isLightTheme, }) => {
 								<div>
 									<Tooltip title='Загрузить текстуру'>
 										<InputLabel className={isLightTheme ? mainClassLight.inputLabel : mainClass.inputLabel} htmlFor="file-input">
-												<AddPhotoAlternateRoundedIcon className={isLightTheme ? loadClassesLight.loadIcon : loadClasses.loadIcon} />
+											<AddPhotoAlternateRoundedIcon className={isLightTheme ? loadClassesLight.loadIcon : loadClasses.loadIcon} />
 										</InputLabel>
 									</Tooltip>
 									<Input
@@ -100,7 +94,7 @@ export const Menu = ({ setCurrenTexture, canvasTextures, isLightTheme, }) => {
 								</div>
 								<div>
 									<Tooltip title='Удалить все текстуры' placement="top">
-										<IconButton onClick={()=>{cleanTexStorage()}}>
+										<IconButton onClick={() => { cleanTexStorage() }}>
 											<DeleteIcon className={isLightTheme ? loadClassesLight.deleteIcon : loadClasses.deleteIcon} />
 										</IconButton>
 									</Tooltip>
@@ -111,10 +105,8 @@ export const Menu = ({ setCurrenTexture, canvasTextures, isLightTheme, }) => {
 					</div>
 					<div className={isLightTheme ? loadClassesLight.selectTexMenu_container : loadClasses.selectTexMenu_container}>
 						<SelectTexMenu
-							// updateStorage = {updateStorage}
-							setTextureStore = {setTextureStore}
+							setTextureStore={setTextureStore}
 							send={Send}
-							updateTexStorage={updateTexStorage}
 							textureStorage={textureStorage}
 							texCount={texCount}
 							setTexCount={setTexCount}

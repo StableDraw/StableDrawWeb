@@ -50,6 +50,7 @@
 	opacity: 40%;
 	z-index: 1000;
 }
+
 .loadBar{
 	position: absolute;
 	top: 20px;
@@ -61,6 +62,13 @@
 	align-items: center;
 	flex-direction: row;
 	z-index: 1000;
+}
+
+.loadingCustom{
+	position: absolute;
+	padding: 5px;
+	color: white;
+	size: 20px;	
 }
 
 .cancelBtn{
