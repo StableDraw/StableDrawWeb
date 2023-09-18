@@ -11,7 +11,6 @@ const LeftPanel = ({openParam, setNeuralType}) => {
                 className={cl.inputFinder}
             >
             </input>
-            <img className={cl.magnifer} src='Magnifier.svg'/>
             <div className={cl.list}>
                 {neurals.map((neural, id)=><NeuralCard key={id} setNeuralType={setNeuralType} active={openParam} name={neural}/> )} 
             </div>      

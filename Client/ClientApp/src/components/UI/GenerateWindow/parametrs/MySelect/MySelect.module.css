@@ -27,7 +27,7 @@
     height: 25px;
     border-radius: 5px;
     background: #D9DBDC;
-
+    outline: none;
 }
 .option {
     color: #656565;
