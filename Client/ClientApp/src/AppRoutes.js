@@ -82,7 +82,7 @@ const AppRoutes = [
     },
     {
         path: '/babylon',
-        requireAuth: false,
+        requireAuth: true,
         element: <MainBabylon />
     },
     {
