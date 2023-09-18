@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 export const Header = () => {
 	return (
-		<header 
+		<header
 			className={mainStyles.headCon}>
-				<svg
+			<svg
 				xmlns='../../../../../public/Pay/logo.svg'
 				width="59"
 				height="44"
@@ -34,7 +34,7 @@ export const Header = () => {
 					Stable Draw
 				</div>
 			</Link>
-			
+
 		</header>
 	)
 };

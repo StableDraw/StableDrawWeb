@@ -130,3 +130,20 @@
 	font-weight: 500;
 	line-height: normal;
 }
+
+.attention {
+	display: flex;
+	margin-top: 5px;
+	justify-content: flex-start;
+	align-items: center;
+	padding-left: 20px;	
+}
+
+.attentionTxt {
+	color: #f70707;
+	font-family: Montserrat;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+}

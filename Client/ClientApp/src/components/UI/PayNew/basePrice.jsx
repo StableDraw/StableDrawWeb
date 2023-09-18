@@ -4,7 +4,7 @@ export const BasePrice = () => {
 	return (
 		<div className={modalStyles.basePrice}>
 			<span className={modalStyles.basePriceTxt}>
-			49 900 ₽
+				49 900 ₽
 			</span>
 			<div className={modalStyles.persons}>
 				<span className={modalStyles.basePriceTxt}>

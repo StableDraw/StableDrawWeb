@@ -1,8 +1,7 @@
-import mainStyles from './styles/main.module.css'
 import modalStyles from './styles/payModal.module.css'
 import { ModalTop } from './Top'
 import { Selector } from './selector';
-import {BuyBtn} from './buyBtn'
+import { BuyBtn } from './buyBtn'
 import { Agreement } from './agreement';
 import { useState } from 'react';
 
@@ -17,13 +16,13 @@ export const PayModal = () => {
 					Уникальная подписка для корпоративных клиентов!
 				</span>
 			</div>
-			<Selector setTotalPrice={setTotalPrice} totalPrice = {totalPrice}>
+			<Selector setTotalPrice={setTotalPrice} totalPrice={totalPrice}>
 				Дополнительный участник
 			</Selector>
-			<Selector setTotalPrice={setTotalPrice} totalPrice = {totalPrice}>
+			<Selector setTotalPrice={setTotalPrice} totalPrice={totalPrice}>
 				Дополнительные 3D модели
 			</Selector>
-			<Selector setTotalPrice={setTotalPrice} totalPrice = {totalPrice}>
+			<Selector setTotalPrice={setTotalPrice} totalPrice={totalPrice}>
 				Загрузка собственных 3D моделей
 			</Selector>
 			<div className={modalStyles.topic2}>
@@ -31,8 +30,8 @@ export const PayModal = () => {
 					При покупке 1 месяца + 3 бесплатных 3D модели
 				</span>
 			</div>
-			<BuyBtn isActive={isActive} totalPrice={totalPrice}/>
-			<Agreement isActive={isActive} setIsActive={setIsActive}/>
+			<BuyBtn isActive={isActive} totalPrice={totalPrice} />
+			<Agreement isActive={isActive} setIsActive={setIsActive} />
 		</div>
 	)
 };

@@ -70,3 +70,7 @@ StableDraw.SagasService/app.db
 StableDraw.MinIOService/appsettings.Development.json
 StableDraw.SagasService/app.db-shm
 StableDraw.SagasService/app.db-wal
+Client/app.db-shm
+Client/app.db-wal
+StableDraw.MinIOService/appsettings.Development.json
+StableDraw.MinIOService/appsettings.Development.json

@@ -1,7 +1,6 @@
-import { useState } from 'react'
 import SelectorSt from './styles/selector.module.css'
 
-export const CheckBox = ({setIsActive, isActive}) => {
+export const CheckBox = ({ setIsActive, isActive }) => {
 
 	return (
 		<button onClick={() => setIsActive(!isActive)} className={SelectorSt.checkBox}>
