@@ -4,7 +4,9 @@ import InputText from '../InputText/InputText'
 import MySelect from '../MySelect/MySelect'
 import MyCheckBox from '../MyCheckBox/MyCheckBox'
 import cl from './Parametrs.module.css'
+import api from '../../../../../api/apiNeurals'
 const Parametrs = ({closeWindow, closeParam, neuralType}) => {
+    
     const closeModal = () => {
         closeWindow(false)
         closeParam(false)
@@ -19,7 +21,17 @@ const Parametrs = ({closeWindow, closeParam, neuralType}) => {
     const call = (value, str) => {
         setRenderValue({...renderValue,[str]:value})
     }
-    
+
+    async function getParams(neuralType) {
+        try {
+            const data = await api.GetNeurals(neuralType)
+            console.log(data)
+        }
+        catch(e) {
+            console.error(e)
+            throw(e)
+        }
+    }
     const renderSwitch = (type) => {
         switch(type) {
             case 'Апскейл': 
@@ -67,7 +79,8 @@ const Parametrs = ({closeWindow, closeParam, neuralType}) => {
               
             </div>
         </div>
-        <button onClick={()=>closeModal()} className={cl.cancel}>Отмена</button>
+        {/* <button onClick={()=>closeModal()} className={cl.cancel}>Отмена</button> */}
+        <button onClick={()=>getParams('colorizer')} className={cl.cancel}>Отмена</button>
         <button className={cl.generate} onClick={()=>console.log(renderValue)}>Сгенерировать</button>
     </div>
   )
