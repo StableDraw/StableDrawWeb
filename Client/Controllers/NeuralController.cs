@@ -36,7 +36,7 @@ public class NeuralController : Controller
         };
     }
 
-    [HttpGet("neuralType")]
+    [HttpGet("{neuralType}")]
     public IActionResult GetNeuralInfo(string neuralType)
     {
         if (_neuralBuilderSettings.Neurals != null && 
