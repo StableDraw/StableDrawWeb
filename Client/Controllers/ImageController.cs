@@ -1,14 +1,10 @@
 using System.Security.Claims;
-using CLI.Settings;
-using Duende.IdentityServer.Extensions;
 using MassTransit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using StableDraw.Contracts.MInIoContracts.Replies;
 using StableDraw.Contracts.MInIoContracts.Requests;
-using StableDraw.Contracts.NeuralContracts.Replies;
-using StableDraw.Contracts.NeuralContracts.Requests;
 using StableDraw.Core.Models;
 using StableDraw.Domain.Repositories;
 
@@ -23,8 +19,10 @@ public class ImageController : Controller
     private readonly ILogger<ImageController> _logger;
 
     private readonly IRepositoryWrapper _repository;
+
     //private readonly IApplicationRepository _repository;
     private readonly UserManager<ApplicationUser> _userManager;
+
     public ImageController(
         ILogger<ImageController> logger,
         IRepositoryWrapper repository, UserManager<ApplicationUser> userManager, IBus bus)
@@ -46,15 +44,13 @@ public class ImageController : Controller
                 return NotFound();
             var image = await _repository.ImageRepository.GetImage(imageName, currentUserId);
             if (image == null)
-            {
                 return NotFound();
-            }
 
             var response = await _bus.Request<GetObjectMinIoRequest, GetObjectMinIoReply>(new GetObjectRequestModel()
-            {                
+            {
                 ObjectId = image.Oid,
-                OrderId = Guid.NewGuid()
-            });            
+                OrderId = NewId.NextGuid()
+            });
             return Ok(new { image.ImageName, response.Message.Data });
         }
         else
@@ -78,7 +74,9 @@ public class ImageController : Controller
 
             var response =
                 await _bus.Request<DeleteObjectMinIoRequest, DeleteObjectMinIoReply>(new DeleteObjectRequestModel()
-                    { ObjectId = image.Oid, OrderId = Guid.NewGuid() });                
+                {
+                    ObjectId = image.Oid, OrderId = NewId.NextGuid()
+                });
             await _repository.ImageRepository.DeleteImage(imageName, currentUserId);
             await _repository.SaveAsync();
             return Ok(response.Message);
@@ -90,8 +88,6 @@ public class ImageController : Controller
     [HttpPost("{imageName}")]
     public async Task<IActionResult> PostObject(IFormFile file)
     {
-        Response<PutObjectMinIoReply> response;        
-        byte[] image;
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (!string.IsNullOrEmpty(currentUserId))
         {
@@ -100,24 +96,31 @@ public class ImageController : Controller
                 return NotFound();
             var img = new Image()
             {
-                ImageName = file.FileName, 
-                ContentType = file.ContentType, 
+                ImageName = file.FileName,
+                ContentType = file.ContentType,
                 UserId = currentUserId
             };
             _repository.ImageRepository.CreateImage(img);
-            await _repository.SaveAsync();            
+            await _repository.SaveAsync();
+            Response<PutObjectMinIoReply> response;
+            byte[] image;
             using (var memoryStream = new MemoryStream())
             {
                 await file.CopyToAsync(memoryStream);
                 image = memoryStream.ToArray();
                 response = await _bus
                     .Request<PutObjectMinIoRequest, PutObjectMinIoReply>(new PutObjectRequestModel()
-                        { ObjectId = img.Oid, Data = memoryStream.ToArray(), OrderId = Guid.NewGuid() });            
+                    {
+                        ObjectId = img.Oid,
+                        Data = memoryStream.ToArray(),
+                        OrderId = NewId.NextGuid()
+                    }, timeout: RequestTimeout.After(60));
             }
 
             if (response.Message == null)
                 return BadRequest();
-            return Ok(new {           
+            return Ok(new
+            {
                 ImageName = file.FileName,
                 Bytes = image
             });
@@ -130,13 +133,14 @@ public class ImageController : Controller
     public async Task<IActionResult> PostObjects(IEnumerable<IFormFile> files)
     {
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        Response<PutObjectsMinIoReply> responce;
         if (!string.IsNullOrEmpty(currentUserId))
         {
             var user = await _userManager.FindByIdAsync(currentUserId);
             if (user == null)
                 return NotFound();
-            var imagesId = await _repository.ImageRepository.CreateImagesAsync(files.Select(x => (x.FileName, x.ContentType)), currentUserId);
+            var imagesId =
+                await _repository.ImageRepository.CreateImagesAsync(files.Select(x => (x.FileName, x.ContentType)),
+                    currentUserId);
             await _repository.SaveAsync();
             Response<PutObjectsMinIoReply> response;
             using (var memoryStream = new MemoryStream())
@@ -150,7 +154,7 @@ public class ImageController : Controller
                 response =
                     await _bus.Request<PutObjectsMinIoRequest, PutObjectsMinIoReply>(new PutObjectsRequestModel()
                     {
-                        OrderId = Guid.NewGuid(),
+                        OrderId = NewId.NextGuid(),
                         DataDictionary = imagesId.Zip(dataBytes, (k, v) => new { k, v })
                             .ToDictionary(x => x.k, x => x.v)
                     });
@@ -171,16 +175,16 @@ public class ImageController : Controller
             var user = await _userManager.FindByIdAsync(currentUserId);
             if (user == null)
                 return NotFound();
-            var imgs = await _repository.ImageRepository.GetImagesAsync(currentUserId);
-            if (!imgs.Any())
+            var images = await _repository.ImageRepository.GetImagesAsync(currentUserId);
+            if (!images.Any())
                 return NotFound();
             var response = await _bus.Request<DeleteObjectsMinIoRequest, DeleteObjectsMinIoReply>(
                 new DeleteObjectsRequestModel()
                 {
-                    OrderId = Guid.NewGuid(),
-                    ObjectsId = imgs.Select(x => x.Oid),
-                });            
-            await _repository.ImageRepository.DeleteImagesAsync(imgs.Select(x => x.ImageName), currentUserId);
+                    OrderId = NewId.NextGuid(),
+                    ObjectsId = images.Select(x => x.Oid),
+                });
+            await _repository.ImageRepository.DeleteImagesAsync(images.Select(x => x.ImageName), currentUserId);
             await _repository.SaveAsync();
             return Ok(response.Message);
         }
@@ -197,26 +201,27 @@ public class ImageController : Controller
             var user = await _userManager.FindByIdAsync(currentUserId);
             if (user == null)
                 return NotFound();
-            var imgs = await _repository.ImageRepository.GetImagesAsync(currentUserId);
-            if (!imgs.Any())
-            {
+            var images = await _repository.ImageRepository.GetImagesAsync(currentUserId);
+            if (!images.Any())
                 return NotFound();
-            }
 
             var response = await _bus.Request<GetObjectsMinIoRequest, GetObjectsMinIoReply>(new GetObjectsRequestModel()
             {
-                OrderId = Guid.NewGuid(),
-                ObjectsId = imgs.Select(x => x.Oid)
+                OrderId = NewId.NextGuid(),
+                ObjectsId = images.Select(x => x.Oid)
             });
-            return Ok(response.Message.DataDictionary.Select(dict =>
-            {
-                var img = imgs.FirstOrDefault(img => img.Oid == dict.Key);
-                return new
+            if (response.Message.DataDictionary != null)
+                return Ok(response.Message.DataDictionary.Select(dict =>
                 {
-                    ImageName = img.ImageName,
-                    Bytes = dict.Value
-                };
-            }));
+                    var img = images.FirstOrDefault(img => img.Oid == dict.Key);
+                    return new
+                    {
+                        ImageName = img?.ImageName,
+                        Bytes = dict.Value
+                    };
+                }));
+            else
+                return NotFound();
         }
         else
             return NotFound();

@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import cl from './InputText.module.css'
-const InputText = () => {
+const InputText = ({getValue}) => {
     const [value, setValue] = useState('')
     const call = (e) => {
         setValue(e.target.value)
     }
+    
   return (
     <article className={cl.param}>
         <div style={{marginTop:'16px'}}>
@@ -15,6 +16,8 @@ const InputText = () => {
                     className={cl.input}
                     value={value}
                     onChange={e => call(e)}
+                    // onMouseOut={()=>getValue(value,'text')}
+                    onBlur={()=>getValue(value,'text')}
                 />
             <img  className={cl.img} src='Question.svg'/>
         </div>

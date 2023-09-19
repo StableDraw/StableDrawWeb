@@ -33,7 +33,7 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
         switch (provider)
         {
             case "InMemory":
-                optionsBuilder.UseInMemoryDatabase(_configuration.GetConnectionString("InMemoryConnection"));
+                optionsBuilder.UseInMemoryDatabase(_configuration.GetConnectionString("InMemoryConnection") ?? throw new InvalidOperationException());
                 break;
             case "Sqlite":
                 optionsBuilder.UseSqlite(_configuration.GetConnectionString("SqliteConnection"),  o => o.MigrationsHistoryTable(

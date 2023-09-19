@@ -71,6 +71,7 @@ builder.Services.AddHttpClientServices();
 
 builder.Services.Configure<JwtBearerOptions>("IdentityServerJwtBearer", o => o.Authority = "https://localhost:44404");
 
+#region AppSettings
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -94,9 +95,10 @@ app.UseAuthorization();
 
 app.MapControllerRoute(name: "default", pattern: "{controller}/{action=Index}/{id?}");
 
-
 app.MapRazorPages();
 
 app.MapFallbackToFile("index.html");
 
 app.Run();
+#endregion
+//

@@ -7,7 +7,6 @@ const GenerateBtn = () => {
     const [modal, setModal] = useState(false)
     const [openParam, setOpenParam] = useState(false)
     const [neuralType, setNeuralType] = useState('')
-    console.log(openParam)
     let rootClasses = [cl.modal]
     if(modal) {
         rootClasses.push(cl.activeModal)

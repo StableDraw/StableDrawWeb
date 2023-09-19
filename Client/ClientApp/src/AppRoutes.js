@@ -26,7 +26,7 @@ const AppRoutes = [
     },
     {
         path: '/window',
-        requireAuth: false,
+        requireAuth: true,
         element: <GenerateBtn />
     },
     {
@@ -46,7 +46,7 @@ const AppRoutes = [
     },
     {
         path: '/test',
-        requireAuth: false,
+        requireAuth: true,
         element: <DrawingtoImg />
     },
     {
@@ -82,7 +82,7 @@ const AppRoutes = [
     },
     {
         path: '/babylon',
-        requireAuth: false,
+        requireAuth: true,
         element: <MainBabylon />
     },
     {
