@@ -6,6 +6,7 @@ using GreenPipes;
 using MassTransit;
 using StableDraw.Domain.Extensions;
 
+#region Builder
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -64,6 +65,7 @@ builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddHttpClientServices();
 
 //builder.Services.Configure<JwtBearerOptions>("IdentityServerJwtBearer", o => o.Authority = "https://localhost:44404");
+#endregion
 
 #region AppSettings
 var app = builder.Build();
