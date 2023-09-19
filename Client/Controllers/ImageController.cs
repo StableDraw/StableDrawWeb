@@ -101,7 +101,7 @@ public class ImageController : Controller
                 UserId = currentUserId
             };
             _repository.ImageRepository.CreateImage(img);
-            await _repository.SaveAsync();
+            
             Response<PutObjectMinIoReply> response;
             byte[] image;
             using (var memoryStream = new MemoryStream())
@@ -114,11 +114,12 @@ public class ImageController : Controller
                         ObjectId = img.Oid,
                         Data = memoryStream.ToArray(),
                         OrderId = NewId.NextGuid()
-                    }, timeout: RequestTimeout.After(60));
+                    });
             }
 
             if (response.Message == null)
                 return BadRequest();
+            await _repository.SaveAsync();
             return Ok(new
             {
                 ImageName = file.FileName,

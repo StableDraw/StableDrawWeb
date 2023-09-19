@@ -138,7 +138,16 @@ builder.Services.AddMassTransit(cfg =>
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddHttpClientServices();
 
-builder.Services.Configure<JwtBearerOptions>("IdentityServerJwtBearer", o => o.Authority = "https://localhost:44404");
+if(builder.Environment.IsDevelopment())
+{
+    builder.Services.Configure<JwtBearerOptions>("IdentityServerJwtBearer", o => o.Authority = "https://localhost:44404");
+}
+else
+{
+    builder.Services.Configure<JwtBearerOptions>("IdentityServerJwtBearer", o => o.Authority = "https://stabledraw.com");
+}
+
+
 
 var app = builder.Build();
 
