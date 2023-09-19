@@ -1,11 +1,9 @@
-using Microsoft.AspNetCore.Authentication;
 using System.Net;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using CLI.Services;
 using CLI.Extensions;
 using GreenPipes;
 using MassTransit;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using StableDraw.Domain.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,25 +12,21 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDatabases();
 
 builder.Services.AddApplicationUserIdentity();//extensions
-
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 
 builder.Services.AddGoogleAuthentication(builder.Configuration);//extension
 
-builder.Services.AddAuthentication().AddIdentityServerJwt();
+builder.Services.AddJwtAuthentication();//extension
 builder.Services.AddAuthorization();
+builder.Services.ConfigureIdentityOptions();//extension
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllers();
-
-builder.Services.AddRazorPages();
-
-builder.Services.ConfigureIdentityOptions();//extension
+builder.Services.AddRazorPages();//нужно ли это?
 
 //builder.Services.Configure<DataProtectionTokenProviderOptions>(options => options.TokenLifespan = TimeSpan.FromHours(5));
 
-builder.Services.AddConfiguredHSTS();
-
+builder.Services.AddConfiguredHSTS();//extension
 builder.Services.AddHttpsRedirection(options =>
 {
     options.RedirectStatusCode = (int)HttpStatusCode.TemporaryRedirect;
@@ -69,7 +63,7 @@ builder.Services.AddMassTransit(cfg =>
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddHttpClientServices();
 
-builder.Services.Configure<JwtBearerOptions>("IdentityServerJwtBearer", o => o.Authority = "https://localhost:44404");
+//builder.Services.Configure<JwtBearerOptions>("IdentityServerJwtBearer", o => o.Authority = "https://localhost:44404");
 
 #region AppSettings
 var app = builder.Build();

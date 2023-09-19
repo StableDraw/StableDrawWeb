@@ -2,6 +2,7 @@
 using CLI.Settings;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Identity;
 using StableDraw.Core.Models;
@@ -116,5 +117,11 @@ public static class ProgramExtensions
             options.ExcludedHosts.Add("stabledraw.com");
             options.ExcludedHosts.Add("www.stabledraw.com");
         });
+    }
+
+    public static void AddJwtAuthentication(this IServiceCollection services)
+    {
+        services.AddAuthentication().AddIdentityServerJwt();
+        services.Configure<JwtBearerOptions>("IdentityServerJwtBearer", o => o.Authority = "https://localhost:44404");
     }
 }
