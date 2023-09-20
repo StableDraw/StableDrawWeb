@@ -29,26 +29,29 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
     public DbSet<Image> Images { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        var provider = _configuration.GetValue("Provider", "");
-        switch (provider)
-        {
-            case "InMemory":
-                optionsBuilder.UseInMemoryDatabase(_configuration.GetConnectionString("InMemoryConnection") ?? throw new InvalidOperationException());
-                break;
-            case "Sqlite":
-                optionsBuilder.UseSqlite(_configuration.GetConnectionString("SqliteConnection"),  o => o.MigrationsHistoryTable(
-                    tableName: HistoryRepository.DefaultTableName,
-                    schema: "AppUser"));
-                break;
-            case "PostgreSQL":
-                optionsBuilder.UseNpgsql(_configuration.GetConnectionString("NpgsqlConnection"), o => o.MigrationsHistoryTable(
-                    
-                    tableName: HistoryRepository.DefaultTableName,
-                    schema: "AppUser"));
-                break;
-            default:
-                throw new Exception($"Unsupported provider: {provider}");
-        }
+        optionsBuilder.UseSqlite(_configuration.GetConnectionString("DefaultConnection"), o => o.MigrationsHistoryTable(
+            tableName: HistoryRepository.DefaultTableName,
+            schema: "AppUser"));
+        //var provider = _configuration.GetValue("Provider", "Sqlite");
+        //switch (provider)
+        //{
+        //    case "InMemory":
+        //        optionsBuilder.UseInMemoryDatabase(_configuration.GetConnectionString("InMemoryConnection") ?? throw new InvalidOperationException());
+        //        break;
+        //    case "Sqlite":
+        //        optionsBuilder.UseSqlite(_configuration.GetConnectionString("SqliteConnection"),  o => o.MigrationsHistoryTable(
+        //            tableName: HistoryRepository.DefaultTableName,
+        //            schema: "AppUser"));
+        //        break;
+        //    case "PostgreSQL":
+        //        optionsBuilder.UseNpgsql(_configuration.GetConnectionString("DefaultConnection"), o => o.MigrationsHistoryTable(
+
+        //            tableName: HistoryRepository.DefaultTableName,
+        //            schema: "AppUser"));
+        //        break;
+        //    default:
+        //        throw new Exception($"Unsupported provider: {provider}");
+        //}
     }
 
     protected override void OnModelCreating(ModelBuilder builder)
