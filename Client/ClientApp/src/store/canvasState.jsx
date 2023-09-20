@@ -1,16 +1,53 @@
-﻿import {Component} from "react";
+﻿import {makeAutoObservable, observable} from "mobx";
 
 class CanvasState {
     canvas = null
     undoList = []
     redoList = []
     labelSelected = 0
-
     canvaList = []
-
-    getTestCanvaList() {
-        return this.canvaList.find(item => item.attributes[1].value === this.labelSelected)
+    
+    selectContextLabel = null
+    
+    mergeList = []
+    
+    mergeCanvas = []
+    
+    mergeFinal = null 
+    constructor() {
+        observable(this)
     }
+    
+    setMergeList(data) {
+        this.mergeList = [...data]
+    }
+    setMergeCanvas(data) {
+        this.mergeCanvas = [...data]
+        // console.log("merge", this.mergeCanvas)
+    }
+    
+    mergeAllCanvas() {
+        if (this.mergeCanvas.length !== (0 || 1)) {
+            let res = this.mergeCanvas.at(-1)
+            let ImgMap = []
+            
+            this.mergeCanvas.map((item) => {
+                let img = new Image()
+                img.src = item.toDataURL()
+                ImgMap = [...ImgMap, item.toDataURL()]
+                img.onload = () => {
+                    res.getContext("2d", { willReadFrequently: true }).drawImage(img, 0, 0, 1080, 732)
+                }
+            })
+            
+            this.mergeFinal = ImgMap[ImgMap.length - 1]
+            console.log(this.mergeFinal)
+        }
+    }
+    getMergeCanvas() {
+        return this.mergeFinal
+    }
+    
 
     setCanvas(canvas) {
         this.canvas = null
@@ -26,9 +63,20 @@ class CanvasState {
     setCanvasList(canva) {
         this.canvaList = [...this.canvaList, canva]
     }
+    delCanvasList(index) {
+        this.canvaList = this.canvaList.filter(l => 
+            parseInt(l.attributes[1].value) !== parseInt(index)
+        )
+    }
     getCanvasList() {
         return this.canvaList
     }
+    selectedContextLabel(data) {
+        this.selectContextLabel = data
+    }
+    getSelectContextLabel(){
+        return this.selectContextLabel
+}
     setLabel(label) {
 
         this.labelSelected = label

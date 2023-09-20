@@ -18,14 +18,14 @@ const PayModule = () => {
 
     return (
         <div >
-            <div className={cl.btn}> 
-            <Link to='/pay'>
-                <Button variant="outlined" startIcon={"подписка"} onClick={showPayModal}/>
-            </Link>    
-            </div>
-            {/* <Modal open= {modal} onClose={showPayModal} className={cl.window}>
+            <Modal open= {modal} onClose={showPayModal} className={cl.window}>
                 <Content/>
-            </Modal> */}
+            </Modal>
+            <div className={cl.btn}> 
+            {/* <Link to='/pay'> */}
+            {/* </Link>     */}
+            <Button variant="outlined" startIcon={"подписка"} onClick={showPayModal}/>
+            </div>
         </div>
     );
 };

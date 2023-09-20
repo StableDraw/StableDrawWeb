@@ -19,6 +19,7 @@ export default class Tool {
     set bezieCurve(strong) {
         this.ctx.bezieCurve = strong
     }
+    
 
 
     // Переделать

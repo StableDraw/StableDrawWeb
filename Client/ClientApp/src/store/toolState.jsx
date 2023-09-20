@@ -1,8 +1,12 @@
 ﻿import {Component} from "react";
+import {makeAutoObservable, observable} from "mobx";
 
 class ToolState{
     tool = null
 
+    constructor() {
+        observable(this)
+    }
     setTool(tool) {
         this.tool = tool
     }
@@ -20,6 +24,7 @@ class ToolState{
         this.tool.bezieCurve = strong
         // console.log(strong)
     }
+    
     resTool() {
         return this.tool
     }

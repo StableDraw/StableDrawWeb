@@ -2,6 +2,7 @@
 using System.Text;
 using CLI.Infrastructure;
 using CLI.Settings;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using StableDraw.Core.Models;
@@ -18,7 +19,7 @@ public class YookassaService : IPaymentService
     {
         _client = httpClient;
         _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.ASCII.GetBytes("246780:test_FuroCtHsLvCabqYgPMg4htUZpk14WqA-OOdqu2B9Tik")));
-        _client.DefaultRequestHeaders.Add("Idempotence-Key", Guid.NewGuid().ToString());
+        _client.DefaultRequestHeaders.Add("Idempotence-Key", NewId.NextGuid().ToString());
         _yookassaUrl = settings.Value.YookassaUrl;
     }
 

@@ -1,4 +1,5 @@
-﻿﻿using MassTransit;
+﻿using MassTransit;
+using MassTransit.Contracts;
 using StableDraw.Contracts.MInIoContracts.Replies;
 using StableDraw.Contracts.MInIoContracts.Requests;
 using StableDraw.Contracts.NeuralContracts.Replies;
@@ -26,7 +27,8 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
         );
 
         #region during
-        During(GetObject.Pending, 
+
+        During(GetObject.Pending,
             When(GetObject.Completed).ThenAsync(async context =>
             {
                 await RespondFromSaga(context, string.Empty);
@@ -34,10 +36,11 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
             When(GetObject.Faulted)
                 .ThenAsync(async context =>
                 {
-                    await RespondFromSaga(context, "Faulted On Get Objects " + string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
+                    await RespondFromSaga(context,
+                        "Faulted On Get Objects " +
+                        string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
                 })
-                .TransitionTo(Failed)
-        );
+                .Finalize());
         
         During(PutObject.Pending,
             When(PutObject.Completed).ThenAsync(async context =>
@@ -49,8 +52,11 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
                 {
                     await RespondFromSaga(context, "Faulted On Put Objects " + string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
                 })
-                .TransitionTo(Failed)
-        );
+                .Finalize(),
+            When(PutObject.TimeoutExpired).ThenAsync(async context =>
+            {
+                await RespondFromSaga(context, "Timeout Expired On Put Object");
+            }).Finalize());
         
         During(PutObjects.Pending,
             When(PutObjects.Completed).ThenAsync(async context =>
@@ -62,8 +68,7 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
                 {
                     await RespondFromSaga(context, "Faulted On Put Objects " + string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
                 })
-                .TransitionTo(Failed)
-        );
+                .Finalize());
         
         During(DeleteObject.Pending, 
             When(DeleteObject.Completed).ThenAsync(async context =>
@@ -75,9 +80,8 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
                 {
                     await RespondFromSaga(context, "Faulted On Delete Objects " + string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
                 })
-                .TransitionTo(Failed)
-        );
-        
+                .Finalize());
+
         During(DeleteObjects.Pending,
             When(DeleteObjects.Completed).ThenAsync(async context =>
             {
@@ -86,10 +90,12 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
             When(DeleteObjects.Faulted)
                 .ThenAsync(async context =>
                 {
-                    await RespondFromSaga(context, "Faulted On Delete Objects " + string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
+                    await RespondFromSaga(context,
+                        "Faulted On Delete Objects " +
+                        string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
                 })
-                .TransitionTo(Failed));
-        
+                .Finalize());
+
         During(GetObjects.Pending,
             When(GetObjects.Completed).ThenAsync(async context =>
             {
@@ -98,22 +104,29 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
             When(GetObjects.Faulted)
                 .ThenAsync(async context =>
                 {
-                    await RespondFromSaga(context, "Faulted On Get Objects " + string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
+                    await RespondFromSaga(context,
+                        "Faulted On Get Objects " +
+                        string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
                 })
-                .TransitionTo(Failed));
-        
-        During(GenerateNeural.Pending, 
-            When(GenerateNeural.Completed).ThenAsync(async context =>
-            {
-                await RespondFromSaga(context, string.Empty);
-            }).Finalize(),
-            When(GenerateNeural.Faulted)
-                .ThenAsync(async context =>
+                .Finalize());
+
+                During(GenerateNeural.Pending,
+                    When(GenerateNeural.Completed).ThenAsync(async context =>
+                    {
+                        await RespondFromSaga(context, string.Empty);
+                    }).Finalize(),
+                    When(GenerateNeural.Faulted).ThenAsync(async context =>
+                        {
+                            await RespondFromSaga(context,
+                                "Faulted On Generate " +
+                                string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
+                        })
+                        .Finalize(),
+                When(GenerateNeural.TimeoutExpired).ThenAsync(async context =>
                 {
-                    await RespondFromSaga(context, "Faulted On Generate " + string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
-                })
-                .TransitionTo(Failed));
-        #endregion
+                    await RespondFromSaga(context, "Time Expired On Generate");
+                }).Finalize());
+                #endregion
     }
 
     #region event activites
@@ -240,22 +253,45 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
         switch (context.Message)
         {
             case IPutObjectReply putObjectReply:
-                await endpoint.Send<PutObjectMinIoReply>(
+                await endpoint.Send(
                     new PutObjectMinIoReply()
                     {
                         ObjectId = putObjectReply.ObjectId,
                         OrderId = context.Saga.CorrelationId
                     }, r => r.RequestId = context.Saga.RequestId);
                 break;
-            case IPutObjectsReply putObjectsReply:
-                await endpoint.Send<PutObjectsMinIoReply>(
+            case Fault<IPutObjectRequest>:
+                await endpoint.Send(
+                    new PutObjectMinIoReply()
+                    {
+                        OrderId = context.Saga.CorrelationId,
+                        ErrorMsg = error
+                    }, r => r.RequestId = context.Saga.RequestId);
+                break;
+            case RequestTimeoutExpired<IPutObjectRequest>:
+                await endpoint.Send(new PutObjectMinIoReply()
+                {
+                    OrderId = context.Saga.CorrelationId,
+                    ErrorMsg = error
+                }, r => r.RequestId = context.Saga.RequestId);
+                break;
+            case IPutObjectsReply:
+                await endpoint.Send(
                     new PutObjectsMinIoReply()
                     {
                         OrderId = context.Saga.CorrelationId
                     }, r => r.RequestId = context.Saga.RequestId);
                 break;
+            case Fault<IPutObjectsRequest>:
+                await endpoint.Send(
+                    new PutObjectsMinIoReply()
+                    {
+                        OrderId = context.Saga.CorrelationId,
+                        ErrorMsg = error
+                    }, r => r.RequestId = context.Saga.RequestId);
+                break;
             case IGetObjectReply getObjectReply:
-                await endpoint.Send<GetObjectMinIoReply>(
+                await endpoint.Send(
                     new GetObjectMinIoReply()
                     {
                         ObjectId = getObjectReply.ObjectId,
@@ -263,32 +299,63 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
                         OrderId = context.Saga.CorrelationId
                     }, r => r.RequestId = context.Saga.RequestId);
                 break;
+            case Fault<IGetObjectRequest>:
+                await endpoint.Send<IGetObjectReply>(new GetObjectMinIoReply()
+                {
+                    OrderId = context.Saga.CorrelationId,
+                    ErrorMsg = error
+                }, r => r.RequestId = context.Saga.RequestId);
+                break;
             case IGetObjectsReply getObjectsReply:
-                await endpoint.Send<GetObjectsMinIoReply>(
+                await endpoint.Send(
                     new GetObjectsMinIoReply()
                     {
                         DataDictionary = getObjectsReply.DataDictionary,
                         OrderId = context.Saga.CorrelationId
                     }, r => r.RequestId = context.Saga.RequestId);
                 break;
+            case Fault<IGetObjectsRequest>:
+                await endpoint.Send(
+                    new GetObjectsMinIoReply()
+                    {
+                        OrderId = context.Saga.CorrelationId,
+                        ErrorMsg = error
+                    }, r => r.RequestId = context.Saga.RequestId);
+                break;
             case IDeleteObjectReply deleteObjectReply:
-                await endpoint.Send<DeleteObjectMinIoReply>(
+                await endpoint.Send(
                     new DeleteObjectMinIoReply()
                     {
                         ObjectId = deleteObjectReply.ObjectId,
                         OrderId = context.Saga.CorrelationId
                     }, r => r.RequestId = context.Saga.RequestId);
                 break;
+            case Fault<IDeleteObjectRequest>:
+                await endpoint.Send(
+                    new DeleteObjectMinIoReply()
+                    {
+                        OrderId = context.Saga.CorrelationId,
+                        ErrorMsg = error
+                    }, r => r.RequestId = context.Saga.RequestId);
+                break;
             case IDeleteObjectsReply deleteObjectsReply:
-                await endpoint.Send<DeleteObjectsMinIoReply>(
+                await endpoint.Send(
                     new DeleteObjectsMinIoReply()
                     {
                         ObjectsId = deleteObjectsReply.ObjectsId,
                         OrderId = context.Saga.CorrelationId
                     }, r => r.RequestId = context.Saga.RequestId);
                 break;
+            case Fault<IDeleteObjectsRequest>:
+                await endpoint.Send(
+                    new DeleteObjectsMinIoReply()
+                    {
+                        OrderId = context.Saga.CorrelationId,
+                        ErrorMsg = error
+                    }, r => r.RequestId = context.Saga.RequestId);
+                break;
             case INeuralReply neuralReply:
-                await endpoint.Send<NeuralReply>(new NeuralReply()
+                await endpoint.Send(new NeuralReply()
                 {
                     OrderId = context.Saga.CorrelationId,
                     Images = neuralReply.Images,
@@ -296,9 +363,22 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
                     TextResult = neuralReply.TextResult
                 }, r => r.RequestId = context.Saga.RequestId);
                 break;
+            case Fault<INeuralRequest>:
+                await endpoint.Send(new NeuralReply()
+                {
+                    OrderId = context.Saga.CorrelationId,
+                    ErrorMsg = error
+                }, r => r.RequestId = context.Saga.RequestId);
+                break;
+            case RequestTimeoutExpired<INeuralRequest>:
+                await endpoint.Send(new NeuralReply()
+                {
+                    OrderId = context.Saga.CorrelationId,
+                    ErrorMsg = error
+                }, r => r.RequestId = context.Saga.RequestId);
+                break;
             default:
                 throw new Exception("Bad Response");
-                break;
         }
     }
 }

@@ -73,4 +73,4 @@ StableDraw.SagasService/app.db-wal
 Client/app.db-shm
 Client/app.db-wal
 StableDraw.MinIOService/appsettings.Development.json
-StableDraw.MinIOService/appsettings.Development.json
+/Client/.idea
