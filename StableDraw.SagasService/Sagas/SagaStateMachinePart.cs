@@ -30,6 +30,7 @@ public sealed partial class SagaStateMachine
     #endregion
     
     public State Failed { get; set; }
+    public State Complete { get; set; }
 
     private void BuildStateMachine()
     {

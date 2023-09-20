@@ -32,7 +32,7 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
             When(GetObject.Completed).ThenAsync(async context =>
             {
                 await RespondFromSaga(context, string.Empty);
-            }).Finalize(),
+            }).TransitionTo(Complete),
             When(GetObject.Faulted)
                 .ThenAsync(async context =>
                 {
@@ -40,53 +40,66 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
                         "Faulted On Get Objects " +
                         string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
                 })
-                .Finalize());
+                .TransitionTo(Failed),
+            When(GetObjects.TimeoutExpired)
+                .ThenAsync(async context =>
+                {
+                    await RespondFromSaga(context, "TimeOut Get Object ");
+                }).TransitionTo(Failed));
         
         During(PutObject.Pending,
             When(PutObject.Completed).ThenAsync(async context =>
             {
                 await RespondFromSaga(context, string.Empty);
-            }).Finalize(),
+            }).TransitionTo(Complete),
             When(PutObject.Faulted)
                 .ThenAsync(async context =>
                 {
                     await RespondFromSaga(context, "Faulted On Put Objects " + string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
                 })
-                .Finalize(),
+                .TransitionTo(Failed),
             When(PutObject.TimeoutExpired).ThenAsync(async context =>
             {
                 await RespondFromSaga(context, "Timeout Expired On Put Object");
-            }).Finalize());
+            }).TransitionTo(Failed));
         
         During(PutObjects.Pending,
             When(PutObjects.Completed).ThenAsync(async context =>
             {
                 await RespondFromSaga(context, string.Empty);
-            }).Finalize(),
+            }).TransitionTo(Complete),
             When(PutObjects.Faulted)
                 .ThenAsync(async context =>
                 {
                     await RespondFromSaga(context, "Faulted On Put Objects " + string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
                 })
-                .Finalize());
+                .TransitionTo(Failed),
+            When(PutObjects.TimeoutExpired).ThenAsync(async context =>
+            {
+                await RespondFromSaga(context, "TimeOut On Put Objects");
+            }).TransitionTo(Failed));
         
         During(DeleteObject.Pending, 
             When(DeleteObject.Completed).ThenAsync(async context =>
             {
                 await RespondFromSaga(context, string.Empty);
-            }).Finalize(),
+            }).TransitionTo(Complete),
             When(DeleteObject.Faulted)
                 .ThenAsync(async context =>
                 {
                     await RespondFromSaga(context, "Faulted On Delete Objects " + string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
                 })
-                .Finalize());
+                .TransitionTo(Failed),
+            When(DeleteObject.TimeoutExpired).ThenAsync(async context =>
+            {
+                await RespondFromSaga(context, "TimeOut On Delete Object");
+            }).TransitionTo(Failed));
 
         During(DeleteObjects.Pending,
             When(DeleteObjects.Completed).ThenAsync(async context =>
             {
                 await RespondFromSaga(context, string.Empty);
-            }).Finalize(),
+            }).TransitionTo(Complete),
             When(DeleteObjects.Faulted)
                 .ThenAsync(async context =>
                 {
@@ -94,13 +107,17 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
                         "Faulted On Delete Objects " +
                         string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
                 })
-                .Finalize());
+                .TransitionTo(Failed),
+            When(DeleteObjects.TimeoutExpired).ThenAsync(async context =>
+            {
+                await RespondFromSaga(context, "TimeOut On Delete Objects");
+            }).TransitionTo(Failed));
 
         During(GetObjects.Pending,
             When(GetObjects.Completed).ThenAsync(async context =>
             {
                 await RespondFromSaga(context, string.Empty);
-            }).Finalize(),
+            }).TransitionTo(Complete),
             When(GetObjects.Faulted)
                 .ThenAsync(async context =>
                 {
@@ -108,25 +125,29 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
                         "Faulted On Get Objects " +
                         string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
                 })
-                .Finalize());
+                .TransitionTo(Failed),
+            When(GetObjects.TimeoutExpired).ThenAsync(async context =>
+            {
+                await RespondFromSaga(context, "TimeOut On Get Objects");
+            }).TransitionTo(Failed));
 
-                During(GenerateNeural.Pending,
-                    When(GenerateNeural.Completed).ThenAsync(async context =>
-                    {
-                        await RespondFromSaga(context, string.Empty);
-                    }).Finalize(),
-                    When(GenerateNeural.Faulted).ThenAsync(async context =>
-                        {
-                            await RespondFromSaga(context,
-                                "Faulted On Generate " +
-                                string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
-                        })
-                        .Finalize(),
-                When(GenerateNeural.TimeoutExpired).ThenAsync(async context =>
+        During(GenerateNeural.Pending,
+            When(GenerateNeural.Completed).ThenAsync(async context =>
+            {
+                await RespondFromSaga(context, string.Empty);
+            }).TransitionTo(Complete),
+            When(GenerateNeural.Faulted).ThenAsync(async context =>
                 {
-                    await RespondFromSaga(context, "Time Expired On Generate");
-                }).Finalize());
-                #endregion
+                    await RespondFromSaga(context,
+                        "Faulted On Generate " +
+                        string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
+                })
+                .TransitionTo(Failed),
+        When(GenerateNeural.TimeoutExpired).ThenAsync(async context =>
+        {
+            await RespondFromSaga(context, "Time Expired On Generate");
+        }).TransitionTo(Failed));
+        #endregion
     }
 
     #region event activites
