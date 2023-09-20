@@ -48,6 +48,12 @@ public class NeuralController : Controller
             return NotFound();
     }
 
+    [HttpGet("neuralList")]
+    public IActionResult GetNeuralList()
+    {
+        return Ok(_neuralBuilderSettings.Neurals?.Keys);
+    }
+    
     [HttpGet]
     public async Task<IActionResult> RunNeural(NeuralRequestModel requestModel)
     {
