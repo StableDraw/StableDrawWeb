@@ -119,9 +119,16 @@ public static class ProgramExtensions
         });
     }
 
-    public static void AddJwtAuthentication(this IServiceCollection services)
+    public static void AddJwtAuthentication(this IServiceCollection services, bool isDevelopment)
     {
         services.AddAuthentication().AddIdentityServerJwt();
-        services.Configure<JwtBearerOptions>("IdentityServerJwtBearer", o => o.Authority = "https://localhost:44404");
+        if(isDevelopment)
+            services.Configure<JwtBearerOptions>(
+                "IdentityServerJwtBearer", 
+                o => o.Authority = "https://localhost:44404");
+        else
+            services.Configure<JwtBearerOptions>(
+                "IdentityServerJwtBearer", 
+                o => o.Authority = "https://stabledraw.com");
     }
 }

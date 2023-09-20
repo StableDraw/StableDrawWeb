@@ -4,6 +4,7 @@ using CLI.Services;
 using CLI.Extensions;
 using GreenPipes;
 using MassTransit;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using StableDraw.Domain.Extensions;
 
 #region Builder
@@ -17,13 +18,13 @@ builder.Services.AddTransient<IEmailSender, EmailSender>();
 
 builder.Services.AddGoogleAuthentication(builder.Configuration);//extension
 
-builder.Services.AddJwtAuthentication();//extension
+builder.Services.AddJwtAuthentication(builder.Environment.IsDevelopment());//extension
 builder.Services.AddAuthorization();
 builder.Services.ConfigureIdentityOptions();//extension
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllers();
-builder.Services.AddRazorPages();//нужно ли это?
+builder.Services.AddRazorPages();
 
 //builder.Services.Configure<DataProtectionTokenProviderOptions>(options => options.TokenLifespan = TimeSpan.FromHours(5));
 
@@ -63,15 +64,7 @@ builder.Services.AddMassTransit(cfg =>
 // payment
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddHttpClientServices();
-
-if(builder.Environment.IsDevelopment())
-{
-    builder.Services.Configure<JwtBearerOptions>("IdentityServerJwtBearer", o => o.Authority = "https://localhost:44404");
-}
-else
-{
-    builder.Services.Configure<JwtBearerOptions>("IdentityServerJwtBearer", o => o.Authority = "https://stabledraw.com");
-}
+#endregion
 
 #region AppSettings
 var app = builder.Build();
