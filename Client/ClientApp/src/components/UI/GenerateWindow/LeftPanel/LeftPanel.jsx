@@ -7,9 +7,12 @@ const LeftPanel = ({openParam, setNeuralType}) => {
     async function getParams(name) {
         try {
             const data = await api.GetNeurals(name)
+            console.log(data)
             console.log(data.data)
-            const result = JSON.parse(data.data)
-            console.log(result)
+            
+            console.log(data.data)
+            // const result = JSON.parse(data.data)
+            // console.log(result)
         }
         catch(e) {
             console.error(e)

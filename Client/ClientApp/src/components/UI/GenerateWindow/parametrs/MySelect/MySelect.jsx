@@ -1,18 +1,17 @@
 import React, { useState } from 'react'
 import cl from './MySelect.module.css'
-const MySelect = ({getValue}) => {
+const MySelect = ({getValue, name, description, options}) => {
   const [value, setValue] = useState('value1')
   const call = (e) => {
     setValue(e.target.value)
   }
+  const array = options.split(';')
   return (
     <article className={cl.param} >
       <div style={{marginTop:'16px'}}>
-          <span className={cl.paramText} style={{marginRight:40}}>Второй параметр</span>
+          <span className={cl.paramText} style={{marginRight:40}}>{name}</span>
           <select className={cl.select}  value={value} onChange={e => call(e)} onBlur={()=>getValue(value,'select')}>
-              <option className={cl.option} value="value1">Значение 1</option>
-              <option value="value2">Значение 2</option>
-              <option value="value3">Значение 3</option>
+              {array.map(item => <option value={item}>{item}</option>)}
           </select>
           <img  className={cl.paramImg} src='Question.svg'/>
       </div>

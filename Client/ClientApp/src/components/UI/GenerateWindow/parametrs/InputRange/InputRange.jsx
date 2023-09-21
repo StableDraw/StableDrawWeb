@@ -1,20 +1,20 @@
 import React, { useState } from 'react'
 import cl from './InputRange.module.css'
-const InputRange = ({getValue}) => {
+const InputRange = ({getValue,description,range,name}) => {
   const [value, setValue] = useState(1)
   const call = (res) => {
     setValue(res)
   }
- 
+
   return (
     <article className={cl.param}>
         <div style={{marginTop:'16px'}}>
-            <span className={cl.text}>Третий параметр</span>
+            <span className={cl.text}>{name}</span>
             <input
               className={cl.range}
               type="range" 
-              min='1' 
-              max='100' 
+              min={range.low} 
+              max={range.high}
               value={value} 
               onChange={(e)=>call(e.target.value)}
               onMouseUp={()=>getValue(value, 'range')}
