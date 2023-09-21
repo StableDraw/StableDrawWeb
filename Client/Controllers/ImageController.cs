@@ -101,7 +101,7 @@ public class ImageController : Controller
                 UserId = currentUserId
             };
             _repository.ImageRepository.CreateImage(img);
-            await _repository.SaveAsync();
+            
             Response<PutObjectMinIoReply> response;
             byte[] image;
             using (var memoryStream = new MemoryStream())
@@ -114,11 +114,12 @@ public class ImageController : Controller
                         ObjectId = img.Oid,
                         Data = memoryStream.ToArray(),
                         OrderId = NewId.NextGuid()
-                    }, timeout: RequestTimeout.After(60));
+                    });
             }
 
             if (response.Message == null)
                 return BadRequest();
+            await _repository.SaveAsync();
             return Ok(new
             {
                 ImageName = file.FileName,
@@ -205,23 +206,31 @@ public class ImageController : Controller
             if (!images.Any())
                 return NotFound();
 
-            var response = await _bus.Request<GetObjectsMinIoRequest, GetObjectsMinIoReply>(new GetObjectsRequestModel()
+            try
             {
-                OrderId = NewId.NextGuid(),
-                ObjectsId = images.Select(x => x.Oid)
-            });
-            if (response.Message.DataDictionary != null)
-                return Ok(response.Message.DataDictionary.Select(dict =>
+                var response = await _bus.Request<GetObjectsMinIoRequest, GetObjectsMinIoReply>(new GetObjectsRequestModel()
                 {
-                    var img = images.FirstOrDefault(img => img.Oid == dict.Key);
-                    return new
+                    OrderId = NewId.NextGuid(),
+                    ObjectsId = images.Select(x => x.Oid)
+                }, timeout: RequestTimeout.After(d: 1));
+                
+                if (response.Message.DataDictionary != null)
+                    return Ok(response.Message.DataDictionary.Select(dict =>
                     {
-                        ImageName = img?.ImageName,
-                        Bytes = dict.Value
-                    };
-                }));
-            else
-                return NotFound();
+                        var img = images.FirstOrDefault(img => img.Oid == dict.Key);
+                        return new
+                        {
+                            ImageName = img?.ImageName,
+                            Bytes = dict.Value
+                        };
+                    }));
+                else
+                    return NotFound(response.Message.ErrorMsg);
+            }
+            catch (RequestTimeoutException e)
+            {
+                return NotFound("TimeOut Request On Service");
+            }
         }
         else
             return NotFound();
