@@ -52,7 +52,12 @@ public class NeuralController : Controller
     [HttpGet("neuralList")]
     public IActionResult GetNeuralList()
     {
-        return Ok(_neuralBuilderSettings.Neurals?.Keys);
+        return Ok(_neuralBuilderSettings.Neurals.Select(x => new
+        {
+            NeuralName = x.Key,
+            Description = x.Value.FirstOrDefault(y => y.Key == "description").Value,
+            Icon = x.Value.FirstOrDefault(y => y.Key == "icon").Value
+        }));
     }
     
     [HttpGet]
