@@ -7,11 +7,11 @@ using StableDraw.Contracts.NeuralContracts.Requests;
 
 namespace StableDraw.SagasService.Sagas;
 
-public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState>
+public sealed partial class MinIoStateMachine : MassTransitStateMachine<MinIoState>
 {
-    private readonly ILogger<SagaStateMachine> _logger;
+    private readonly ILogger<MinIoStateMachine> _logger;
 
-    public SagaStateMachine(ILogger<SagaStateMachine> logger)
+    public MinIoStateMachine(ILogger<MinIoStateMachine> logger)
     {
         _logger = logger;
         BuildStateMachine();
@@ -22,8 +22,7 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
             WhenDeleteObjectReceived(),
             WhenGetObjectsReceived(),
             WhenPutObjectsReceived(),
-            WhenDeleteObjectsReceived(),
-            WhenGenerateNeuralReceived()
+            WhenDeleteObjectsReceived()
         );
 
         #region during
@@ -32,7 +31,7 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
             When(GetObject.Completed).ThenAsync(async context =>
             {
                 await RespondFromSaga(context, string.Empty);
-            }).Finalize(),
+            }).TransitionTo(Complete),
             When(GetObject.Faulted)
                 .ThenAsync(async context =>
                 {
@@ -40,53 +39,66 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
                         "Faulted On Get Objects " +
                         string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
                 })
-                .Finalize());
+                .TransitionTo(Failed),
+            When(GetObjects.TimeoutExpired)
+                .ThenAsync(async context =>
+                {
+                    await RespondFromSaga(context, "TimeOut Get Object ");
+                }).TransitionTo(Failed));
         
         During(PutObject.Pending,
             When(PutObject.Completed).ThenAsync(async context =>
             {
                 await RespondFromSaga(context, string.Empty);
-            }).Finalize(),
+            }).TransitionTo(Complete),
             When(PutObject.Faulted)
                 .ThenAsync(async context =>
                 {
                     await RespondFromSaga(context, "Faulted On Put Objects " + string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
                 })
-                .Finalize(),
+                .TransitionTo(Failed),
             When(PutObject.TimeoutExpired).ThenAsync(async context =>
             {
                 await RespondFromSaga(context, "Timeout Expired On Put Object");
-            }).Finalize());
+            }).TransitionTo(Failed));
         
         During(PutObjects.Pending,
             When(PutObjects.Completed).ThenAsync(async context =>
             {
                 await RespondFromSaga(context, string.Empty);
-            }).Finalize(),
+            }).TransitionTo(Complete),
             When(PutObjects.Faulted)
                 .ThenAsync(async context =>
                 {
                     await RespondFromSaga(context, "Faulted On Put Objects " + string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
                 })
-                .Finalize());
+                .TransitionTo(Failed),
+            When(PutObjects.TimeoutExpired).ThenAsync(async context =>
+            {
+                await RespondFromSaga(context, "TimeOut On Put Objects");
+            }).TransitionTo(Failed));
         
         During(DeleteObject.Pending, 
             When(DeleteObject.Completed).ThenAsync(async context =>
             {
                 await RespondFromSaga(context, string.Empty);
-            }).Finalize(),
+            }).TransitionTo(Complete),
             When(DeleteObject.Faulted)
                 .ThenAsync(async context =>
                 {
                     await RespondFromSaga(context, "Faulted On Delete Objects " + string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
                 })
-                .Finalize());
+                .TransitionTo(Failed),
+            When(DeleteObject.TimeoutExpired).ThenAsync(async context =>
+            {
+                await RespondFromSaga(context, "TimeOut On Delete Object");
+            }).TransitionTo(Failed));
 
         During(DeleteObjects.Pending,
             When(DeleteObjects.Completed).ThenAsync(async context =>
             {
                 await RespondFromSaga(context, string.Empty);
-            }).Finalize(),
+            }).TransitionTo(Complete),
             When(DeleteObjects.Faulted)
                 .ThenAsync(async context =>
                 {
@@ -94,13 +106,17 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
                         "Faulted On Delete Objects " +
                         string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
                 })
-                .Finalize());
+                .TransitionTo(Failed),
+            When(DeleteObjects.TimeoutExpired).ThenAsync(async context =>
+            {
+                await RespondFromSaga(context, "TimeOut On Delete Objects");
+            }).TransitionTo(Failed));
 
         During(GetObjects.Pending,
             When(GetObjects.Completed).ThenAsync(async context =>
             {
                 await RespondFromSaga(context, string.Empty);
-            }).Finalize(),
+            }).TransitionTo(Complete),
             When(GetObjects.Faulted)
                 .ThenAsync(async context =>
                 {
@@ -108,33 +124,22 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
                         "Faulted On Get Objects " +
                         string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
                 })
-                .Finalize());
+                .TransitionTo(Failed),
+            When(GetObjects.TimeoutExpired).ThenAsync(async context =>
+            {
+                await RespondFromSaga(context, "TimeOut On Get Objects");
+            }).TransitionTo(Failed));
 
-                During(GenerateNeural.Pending,
-                    When(GenerateNeural.Completed).ThenAsync(async context =>
-                    {
-                        await RespondFromSaga(context, string.Empty);
-                    }).Finalize(),
-                    When(GenerateNeural.Faulted).ThenAsync(async context =>
-                        {
-                            await RespondFromSaga(context,
-                                "Faulted On Generate " +
-                                string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
-                        })
-                        .Finalize(),
-                When(GenerateNeural.TimeoutExpired).ThenAsync(async context =>
-                {
-                    await RespondFromSaga(context, "Time Expired On Generate");
-                }).Finalize());
-                #endregion
+        
+        #endregion
     }
 
     #region event activites
-    private EventActivityBinder<SagaState, PutObjectMinIoRequest> WhenPutObjectReceived()
+    private EventActivityBinder<MinIoState, PutObjectMinIoRequest> WhenPutObjectReceived()
     {
         return When(PutObjectEvent).Then(x =>
         {
-            if (!x.TryGetPayload(out SagaConsumeContext<SagaState, PutObjectMinIoRequest> putImage))
+            if (!x.TryGetPayload(out SagaConsumeContext<MinIoState, PutObjectMinIoRequest> putImage))
                 throw new Exception("Unable to retrieve required getImage for callback data.");
             x.Saga.RequestId = putImage.RequestId;
             x.Saga.ResponseAddress = putImage.ResponseAddress;
@@ -147,11 +152,11 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
         })).TransitionTo(PutObject.Pending);
     }
     
-    private EventActivityBinder<SagaState, PutObjectsMinIoRequest> WhenPutObjectsReceived()
+    private EventActivityBinder<MinIoState, PutObjectsMinIoRequest> WhenPutObjectsReceived()
     {
         return When(PutObjectsEvent).Then(x =>
         {
-            if (!x.TryGetPayload(out SagaConsumeContext<SagaState, PutObjectsMinIoRequest> putImage))
+            if (!x.TryGetPayload(out SagaConsumeContext<MinIoState, PutObjectsMinIoRequest> putImage))
                 throw new Exception("Unable to retrieve required getImage for callback data.");
             x.Saga.RequestId = putImage.RequestId;
             x.Saga.ResponseAddress = putImage.ResponseAddress;
@@ -163,11 +168,11 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
         })).TransitionTo(PutObjects.Pending);
     }
     
-    private EventActivityBinder<SagaState, GetObjectMinIoRequest> WhenGetObjectReceived()
+    private EventActivityBinder<MinIoState, GetObjectMinIoRequest> WhenGetObjectReceived()
     {
         return When(GetObjectEvent).Then(x =>
         {
-            if (!x.TryGetPayload(out SagaConsumeContext<SagaState, GetObjectMinIoRequest> getImage))
+            if (!x.TryGetPayload(out SagaConsumeContext<MinIoState, GetObjectMinIoRequest> getImage))
                 throw new Exception("Unable to retrieve required getImage for callback data.");
             x.Saga.RequestId = getImage.RequestId;
             x.Saga.ResponseAddress = getImage.ResponseAddress;
@@ -179,11 +184,11 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
         })).TransitionTo(GetObject.Pending);
     }
     
-    private EventActivityBinder<SagaState, GetObjectsMinIoRequest> WhenGetObjectsReceived()
+    private EventActivityBinder<MinIoState, GetObjectsMinIoRequest> WhenGetObjectsReceived()
     {
         return When(GetObjectsEvent).Then(x =>
         {
-            if (!x.TryGetPayload(out SagaConsumeContext<SagaState, GetObjectsMinIoRequest> getImage))
+            if (!x.TryGetPayload(out SagaConsumeContext<MinIoState, GetObjectsMinIoRequest> getImage))
                 throw new Exception("Unable to retrieve required getImage for callback data.");
             x.Saga.RequestId = getImage.RequestId;
             x.Saga.ResponseAddress = getImage.ResponseAddress;
@@ -196,11 +201,11 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
         })).TransitionTo(GetObjects.Pending);
     }
     
-    private EventActivityBinder<SagaState, DeleteObjectMinIoRequest> WhenDeleteObjectReceived()
+    private EventActivityBinder<MinIoState, DeleteObjectMinIoRequest> WhenDeleteObjectReceived()
     {
         return When(DeleteObjectEvent).Then(x =>
         {
-            if (!x.TryGetPayload(out SagaConsumeContext<SagaState, DeleteObjectMinIoRequest> deleteImage))
+            if (!x.TryGetPayload(out SagaConsumeContext<MinIoState, DeleteObjectMinIoRequest> deleteImage))
                 throw new Exception("Unable to retrieve required getImage for callback data.");
             x.Saga.RequestId = deleteImage.RequestId;
             x.Saga.ResponseAddress = deleteImage.ResponseAddress;
@@ -212,11 +217,11 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
         })).TransitionTo(DeleteObject.Pending);
     }
     
-    private EventActivityBinder<SagaState, DeleteObjectsMinIoRequest> WhenDeleteObjectsReceived()
+    private EventActivityBinder<MinIoState, DeleteObjectsMinIoRequest> WhenDeleteObjectsReceived()
     {
         return When(DeleteObjectsEvent).Then(x =>
         {
-            if (!x.TryGetPayload(out SagaConsumeContext<SagaState, DeleteObjectsMinIoRequest> deleteImage))
+            if (!x.TryGetPayload(out SagaConsumeContext<MinIoState, DeleteObjectsMinIoRequest> deleteImage))
                 throw new Exception("Unable to retrieve required getImage for callback data.");
             x.Saga.RequestId = deleteImage.RequestId;
             x.Saga.ResponseAddress = deleteImage.ResponseAddress;
@@ -227,27 +232,9 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
             ObjectsId = x.Message.ObjectsId
         })).TransitionTo(DeleteObjects.Pending);
     }
-
-    private EventActivityBinder<SagaState, NeuralRequest> WhenGenerateNeuralReceived()
-    {
-        return When(GenerateNeuralEvent).Then(x =>
-        {
-            if (!x.TryGetPayload(out SagaConsumeContext<SagaState, NeuralRequest> neuralGen))
-                throw new Exception("Unable to retrieve required neuralGen for callback data.");
-            x.Saga.RequestId = neuralGen.RequestId;
-            x.Saga.ResponseAddress = neuralGen.ResponseAddress;
-        }).Request(GenerateNeural, x => x.Init<INeuralRequest>(new
-        {
-            OrderId = x.Message.OrderId,
-            NeuralType = x.Message.NeuralType,
-            Prompts = x.Message.Prompts,
-            Parameters = x.Message.Parameters,
-            ImagesInput = x.Message.ImagesInput
-        })).TransitionTo(GenerateNeural.Pending);
-    }
     #endregion
 
-    private static async Task RespondFromSaga<T>(BehaviorContext<SagaState, T> context, string error) where T : class
+    private static async Task RespondFromSaga<T>(BehaviorContext<MinIoState, T> context, string error) where T : class
     {
         var endpoint = await context.GetSendEndpoint(context.Saga.ResponseAddress);
         switch (context.Message)
@@ -322,6 +309,14 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
                         ErrorMsg = error
                     }, r => r.RequestId = context.Saga.RequestId);
                 break;
+            case RequestTimeoutExpired<IGetObjectsRequest>:
+                await endpoint.Send(
+                    new GetObjectsMinIoReply()
+                    {
+                        OrderId = context.Saga.CorrelationId,
+                        ErrorMsg = error
+                    }, r => r.RequestId = context.Saga.RequestId);
+                break;
             case IDeleteObjectReply deleteObjectReply:
                 await endpoint.Send(
                     new DeleteObjectMinIoReply()
@@ -353,29 +348,6 @@ public sealed partial class SagaStateMachine : MassTransitStateMachine<SagaState
                         OrderId = context.Saga.CorrelationId,
                         ErrorMsg = error
                     }, r => r.RequestId = context.Saga.RequestId);
-                break;
-            case INeuralReply neuralReply:
-                await endpoint.Send(new NeuralReply()
-                {
-                    OrderId = context.Saga.CorrelationId,
-                    Images = neuralReply.Images,
-                    NeuralType = neuralReply.NeuralType,
-                    TextResult = neuralReply.TextResult
-                }, r => r.RequestId = context.Saga.RequestId);
-                break;
-            case Fault<INeuralRequest>:
-                await endpoint.Send(new NeuralReply()
-                {
-                    OrderId = context.Saga.CorrelationId,
-                    ErrorMsg = error
-                }, r => r.RequestId = context.Saga.RequestId);
-                break;
-            case RequestTimeoutExpired<INeuralRequest>:
-                await endpoint.Send(new NeuralReply()
-                {
-                    OrderId = context.Saga.CorrelationId,
-                    ErrorMsg = error
-                }, r => r.RequestId = context.Saga.RequestId);
                 break;
             default:
                 throw new Exception("Bad Response");

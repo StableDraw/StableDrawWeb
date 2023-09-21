@@ -45,8 +45,8 @@ public class MinIoService : IMinIoService
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
-            throw;
+            Console.WriteLine(e.Message);
+            return await Task.FromResult(new PutObjectResult() { ErrorMsg = e.Message });
         }
     }
 
@@ -72,53 +72,69 @@ public class MinIoService : IMinIoService
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
-            throw;
+            Console.WriteLine(e.Message);
+            return await Task.FromResult(new PutObjectsResult() { ErrorMsg = e.Message });
         }
     }
 
     public async Task<GetObjectsResult> GetObjects(IGetObjectsRequest request)
     {
-        GetObjectsResult result = new GetObjectsResult();
-        result.DataDictionary = new Dictionary<Guid, byte[]>();
-
-        foreach (var item in request.ObjectsId)
+        try
         {
-            var objstatreply= await _minio.StatObjectAsync(new StatObjectArgs()
-                .WithBucket(_minIoSettings.BucketName)
-                .WithObject(item.ToString())
-            );
+            GetObjectsResult result = new GetObjectsResult();
+            result.DataDictionary = new Dictionary<Guid, byte[]>();
+
+            foreach (var item in request.ObjectsId)
+            {
+                var objstatreply= await _minio.StatObjectAsync(new StatObjectArgs()
+                    .WithBucket(_minIoSettings.BucketName)
+                    .WithObject(item.ToString())
+                );
         
-            if (objstatreply == null || objstatreply.DeleteMarker)
-                throw new Exception("object not found or Deleted");
+                if (objstatreply == null || objstatreply.DeleteMarker)
+                    throw new Exception("object not found or Deleted");
 
-            var img = await GetImage(item);
-            result.DataDictionary.Add(item, img);
+                var img = await GetImage(item);
+                result.DataDictionary.Add(item, img);
+            }
+
+            return await Task.FromResult(result);
         }
-
-        return await Task.FromResult(result);
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            return await Task.FromResult(new GetObjectsResult() { ErrorMsg = e.Message });
+        }
     }
 
     public async Task<DeleteObjectsResult> DeleteObjects(IDeleteObjectsRequest request)
     {
-        DeleteObjectsResult result = new DeleteObjectsResult();
-        var resultsId = new List<Guid>();
-
-        foreach (var item in request.ObjectsId)
+        try
         {
-            var objstatreply= await _minio.StatObjectAsync(new StatObjectArgs()
-                .WithBucket(_minIoSettings.BucketName)
-                .WithObject(item.ToString())
-            );
+            DeleteObjectsResult result = new DeleteObjectsResult();
+            var resultsId = new List<Guid>();
+
+            foreach (var item in request.ObjectsId)
+            {
+                var objstatreply= await _minio.StatObjectAsync(new StatObjectArgs()
+                    .WithBucket(_minIoSettings.BucketName)
+                    .WithObject(item.ToString())
+                );
         
-            if (objstatreply == null || objstatreply.DeleteMarker)
-                throw new Exception("object not found or Deleted");
+                if (objstatreply == null || objstatreply.DeleteMarker)
+                    throw new Exception("object not found or Deleted");
 
-            resultsId.Add(await DeleteImage(item)); 
+                resultsId.Add(await DeleteImage(item)); 
+            }
+
+            result.ObjectsId = resultsId;
+            return await Task.FromResult(result);
         }
-
-        result.ObjectsId = resultsId;
-        return await Task.FromResult(result);
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            return await Task.FromResult(new DeleteObjectsResult() { ErrorMsg = e.Message });
+        }
     }
 
     public async Task<GetObjectResult> GetObj(IGetObjectRequest request)
@@ -169,8 +185,7 @@ public class MinIoService : IMinIoService
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
-            throw;
+            throw new Exception(e.Message);
         }
     }
 

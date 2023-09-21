@@ -2,9 +2,7 @@ using System.Net;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using CLI.Services;
 using CLI.Extensions;
-using GreenPipes;
 using MassTransit;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using StableDraw.Domain.Extensions;
 
 #region Builder
@@ -40,26 +38,25 @@ builder.Services.AddGoogleRecaptcha(builder.Configuration);//extension
 
 // rabbitMQ
 builder.Services.AddMassTransit(cfg =>
+{
+    cfg.SetKebabCaseEndpointNameFormatter();
+    cfg.AddDelayedMessageScheduler();
+    cfg.UsingRabbitMq((brc, rbfc) =>
     {
-        cfg.SetKebabCaseEndpointNameFormatter();
-        cfg.AddDelayedMessageScheduler();
-        cfg.UsingRabbitMq((brc, rbfc) =>
+        rbfc.UseInMemoryOutbox();
+        rbfc.UseMessageRetry(r =>
         {
-            rbfc.UseInMemoryOutbox();
-            rbfc.UseMessageRetry(r =>
-            {
-                r.Incremental(3, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
-            });
-            rbfc.UseDelayedMessageScheduler();
-            rbfc.Host("localhost", h =>
-            {
-                h.Username("rmuser");
-                h.Password("rmpassword");
-            });
-            rbfc.ConfigureEndpoints(brc);
+            r.Incremental(3, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
         });
-    })
-    .AddMassTransitHostedService();
+        rbfc.UseDelayedMessageScheduler();
+        rbfc.Host("localhost", h =>
+        {
+            h.Username("rmuser");
+            h.Password("rmpassword");
+        });
+        rbfc.ConfigureEndpoints(brc);
+    });
+});
 
 // payment
 builder.Services.AddApplicationServices(builder.Configuration);
