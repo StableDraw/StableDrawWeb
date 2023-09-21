@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Collections;
+using System.Security.Claims;
 using CLI.Settings;
 using MassTransit;
 using Microsoft.AspNetCore.Authorization;
@@ -32,7 +33,7 @@ public class NeuralController : Controller
         _userManager = userManager;
         _neuralBuilderSettings = new NeuralBuilderSettings()
         {
-            Neurals = configuration.GetSection("Neurals").Get<Dictionary<string, dynamic>>()
+            Neurals = configuration.GetSection("Neurals").Get<Dictionary<string, IDictionary<string, string[]>>>()
         };
     }
 
