@@ -13,7 +13,8 @@ public sealed class SagasDbContext : SagaDbContext
 
     protected override IEnumerable<ISagaClassMap> Configurations => new ISagaClassMap[]
     {
-        new SagaStateMap()
+        new MinIoStateMap(),
+        new NeuralStateMap()
     };
     
     

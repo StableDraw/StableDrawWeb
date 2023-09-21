@@ -24,18 +24,23 @@ IHost host = Host.CreateDefaultBuilder(args)
         {
             cfg.SetKebabCaseEndpointNameFormatter();
             cfg.AddDelayedMessageScheduler();
-            cfg.AddSagaStateMachine<SagaStateMachine, SagaState>()
+            cfg.AddSagaStateMachine<MinIoStateMachine, MinIoState>()
                 .EntityFrameworkRepository(r =>
                 {
                     r.ConcurrencyMode = ConcurrencyMode.Pessimistic;
                     r.ExistingDbContext<SagasDbContext>();
                     r.LockStatementProvider = new SqliteLockStatementProvider();
-                    //r.LockStatementProvider = new PostgresLockStatementProvider();
                 });
+            cfg.AddSagaStateMachine<NeuralStateMachine, NeuralState>().EntityFrameworkRepository(r =>
+            {
+                r.ConcurrencyMode = ConcurrencyMode.Pessimistic;
+                r.ExistingDbContext<SagasDbContext>();
+                r.LockStatementProvider = new SqliteLockStatementProvider();
+            });
             cfg.UsingRabbitMq((brc, rbfc) =>
             {
                 rbfc.UseInMemoryOutbox();
-                rbfc.UseMessageRetry(r => { r.Incremental(3, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1)); });
+                //rbfc.UseMessageRetry(r => { r.Incremental(3, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1)); });
                 rbfc.UseDelayedMessageScheduler();
                 rbfc.Host("localhost", h =>
                 {

@@ -7,16 +7,16 @@ using StableDraw.Contracts.NeuralContracts.Requests;
 
 namespace StableDraw.SagasService.Sagas;
 
-public sealed partial class SagaStateMachine
+public sealed partial class MinIoStateMachine
 {
     #region requests
-    public Request<SagaState, IGetObjectRequest, IGetObjectReply> GetObject { get; set; }
-    public Request<SagaState, IGetObjectsRequest, IGetObjectsReply> GetObjects { get; set; }
-    public Request<SagaState, IPutObjectRequest, IPutObjectReply> PutObject { get; set; }
-    public Request<SagaState, IPutObjectsRequest, IPutObjectsReply> PutObjects { get; set; }
-    public Request<SagaState, IDeleteObjectRequest, IDeleteObjectReply> DeleteObject { get; set; }
-    public Request<SagaState, IDeleteObjectsRequest, IDeleteObjectsReply> DeleteObjects { get; set; }
-    public Request<SagaState, INeuralRequest, INeuralReply> GenerateNeural { get; set; }
+    public Request<MinIoState, IGetObjectRequest, IGetObjectReply> GetObject { get; set; }
+    public Request<MinIoState, IGetObjectsRequest, IGetObjectsReply> GetObjects { get; set; }
+    public Request<MinIoState, IPutObjectRequest, IPutObjectReply> PutObject { get; set; }
+    public Request<MinIoState, IPutObjectsRequest, IPutObjectsReply> PutObjects { get; set; }
+    public Request<MinIoState, IDeleteObjectRequest, IDeleteObjectReply> DeleteObject { get; set; }
+    public Request<MinIoState, IDeleteObjectsRequest, IDeleteObjectsReply> DeleteObjects { get; set; }
+    
     #endregion
 
     #region events
@@ -26,7 +26,6 @@ public sealed partial class SagaStateMachine
     public Event<PutObjectsMinIoRequest> PutObjectsEvent { get; set; }
     public Event<DeleteObjectMinIoRequest> DeleteObjectEvent { get; set; }
     public Event<DeleteObjectsMinIoRequest> DeleteObjectsEvent { get; set; }
-    public Event<NeuralRequest> GenerateNeuralEvent { get; set; }
     #endregion
     
     public State Failed { get; set; }
@@ -60,11 +59,6 @@ public sealed partial class SagaStateMachine
         Event(() =>
             DeleteObjectsEvent, x =>
             x.CorrelateById(y => y.Message.OrderId));
-
-        Event(() =>
-            GenerateNeuralEvent, x =>
-            x.CorrelateById(y => y.Message.OrderId));
-        
         #endregion
 
         Request(() => GetObject);
@@ -73,6 +67,6 @@ public sealed partial class SagaStateMachine
         Request(() => GetObjects);
         Request(() => PutObjects);
         Request(() => DeleteObjects);
-        Request(() => GenerateNeural);
+        
     }
 }
