@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using StableDraw.Contracts.MInIoContracts.Replies;
 using StableDraw.Contracts.MInIoContracts.Requests;
 using StableDraw.Core.Models;
-using StableDraw.Domain.Repositories;
 using StableDraw.Domain.UnitsOfWork;
 
 namespace CLI.Controllers;
@@ -19,22 +18,16 @@ public class ImageController : Controller
     private readonly IBus _bus;
     private readonly ILogger<ImageController> _logger;
 
-    private readonly IRepositoryWrapper _repository;
-
     private readonly IUnitOfWork _unitOfWork;
 
     //private readonly IApplicationRepository _repository;
     private readonly UserManager<ApplicationUser> _userManager;
 
     public ImageController(
-        ILogger<ImageController> logger,
-        IRepositoryWrapper repository, IUnitOfWork unitOfWork, UserManager<ApplicationUser> userManager, IBus bus)
+        ILogger<ImageController> logger, IUnitOfWork unitOfWork, UserManager<ApplicationUser> userManager, IBus bus)
     {
         _logger = logger;
-
-        _repository = repository;
         _unitOfWork = unitOfWork;
-
         _userManager = userManager;
         _bus = bus;
     }
@@ -48,7 +41,7 @@ public class ImageController : Controller
             var user = await _userManager.FindByIdAsync(currentUserId);
             if (user == null)
                 return NotFound();
-            var image = await _repository.ImageRepository.GetImage(imageName, currentUserId);
+            var image = await _unitOfWork.Images.GetImage(imageName, currentUserId);
             if (image == null)
                 return NotFound();
 
@@ -72,20 +65,39 @@ public class ImageController : Controller
             var user = await _userManager.FindByIdAsync(currentUserId);
             if (user == null)
                 return NotFound();
-            var image = await _repository.ImageRepository.GetImage(imageName, currentUserId);
+            var image = await _unitOfWork.Images.GetImage(imageName, currentUserId);
             if (image == null)
             {
                 return NotFound();
             }
 
-            var response =
-                await _bus.Request<DeleteObjectMinIoRequest, DeleteObjectMinIoReply>(new DeleteObjectRequestModel()
+            Response<DeleteObjectMinIoReply> response;
+            using (_unitOfWork)
+            {
+                await _unitOfWork.Images.DeleteImage(imageName, currentUserId);
+
+                try
                 {
-                    ObjectId = image.Oid,
-                    OrderId = NewId.NextGuid()
-                });
-            await _repository.ImageRepository.DeleteImage(imageName, currentUserId);
-            await _repository.SaveAsync();
+                    response =
+                        await _bus.Request<DeleteObjectMinIoRequest, DeleteObjectMinIoReply>(new DeleteObjectRequestModel()
+                        {
+                            ObjectId = image.Oid,
+                            OrderId = NewId.NextGuid()
+                        });
+
+                    if (response.Message is null)
+                        return BadRequest();
+                    else if (!string.IsNullOrEmpty(response.Message.ErrorMsg))
+                        return BadRequest(response.Message.ErrorMsg);
+
+                    await _unitOfWork.CommitAsync();
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
+
             return Ok(response.Message);
         }
         else
@@ -109,7 +121,6 @@ public class ImageController : Controller
             };
 
             byte[] image = Array.Empty<byte>();
-
             using (_unitOfWork)
             {
                 _unitOfWork.Images.Create(img);
@@ -129,12 +140,14 @@ public class ImageController : Controller
                             OrderId = NewId.NextGuid()
                         });
 
-                    if (response.Message == null)
+                    if (response.Message is null)
                         return BadRequest();
+                    else if (!string.IsNullOrEmpty(response.Message.ErrorMsg))
+                        return BadRequest(response.Message.ErrorMsg);
 
                     await _unitOfWork.CommitAsync();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     return BadRequest(ex.Message);
                 }
@@ -159,28 +172,43 @@ public class ImageController : Controller
             var user = await _userManager.FindByIdAsync(currentUserId);
             if (user == null)
                 return NotFound();
-            var imagesId =
-                await _repository.ImageRepository.CreateImagesAsync(files.Select(x => (x.FileName, x.ContentType)),
-                    currentUserId);
-            await _repository.SaveAsync();
+
             Response<PutObjectsMinIoReply> response;
-            using (var memoryStream = new MemoryStream())
+            using (_unitOfWork)
             {
-                var dataBytes = files.Select(async x =>
+                var imagesId = await _unitOfWork.Images.CreateImagesAsync(
+                    files.Select(x => (x.FileName, x.ContentType)), currentUserId);
+
+                try
                 {
-                    await x.CopyToAsync(memoryStream);
-                    return memoryStream.ToArray();
-                }).Select(x => x.Result);
-
-                response =
-                    await _bus.Request<PutObjectsMinIoRequest, PutObjectsMinIoReply>(new PutObjectsRequestModel()
+                    using var memoryStream = new MemoryStream();
+                    var dataBytes = files.Select(async x =>
                     {
-                        OrderId = NewId.NextGuid(),
-                        DataDictionary = imagesId.Zip(dataBytes, (k, v) => new { k, v })
-                            .ToDictionary(x => x.k, x => x.v)
-                    });
-            }
+                        await x.CopyToAsync(memoryStream);
+                        return memoryStream.ToArray();
+                    }).Select(x => x.Result);
 
+
+                    response =
+                        await _bus.Request<PutObjectsMinIoRequest, PutObjectsMinIoReply>(new PutObjectsRequestModel()
+                        {
+                            OrderId = NewId.NextGuid(),
+                            DataDictionary = imagesId.Zip(dataBytes, (k, v) => new { k, v })
+                                .ToDictionary(x => x.k, x => x.v)
+                        });
+
+                    if (response.Message is null)
+                        return BadRequest();
+                    else if (!string.IsNullOrEmpty(response.Message.ErrorMsg))
+                        return BadRequest(response.Message.ErrorMsg);
+
+                    await _unitOfWork.CommitAsync();
+                }
+                catch(Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
             return Ok(response.Message);
         }
         else
@@ -196,17 +224,38 @@ public class ImageController : Controller
             var user = await _userManager.FindByIdAsync(currentUserId);
             if (user == null)
                 return NotFound();
-            var images = await _repository.ImageRepository.GetImagesAsync(currentUserId);
+            var images = await _unitOfWork.Images.GetImagesAsync(currentUserId);
             if (!images.Any())
                 return NotFound();
-            var response = await _bus.Request<DeleteObjectsMinIoRequest, DeleteObjectsMinIoReply>(
-                new DeleteObjectsRequestModel()
+
+            Response<DeleteObjectsMinIoReply> response;
+
+            using (_unitOfWork)
+            {
+                await _unitOfWork.Images.DeleteImagesAsync(images.Select(x => x.ImageName), currentUserId);
+
+                try
                 {
-                    OrderId = NewId.NextGuid(),
-                    ObjectsId = images.Select(x => x.Oid),
-                });
-            await _repository.ImageRepository.DeleteImagesAsync(images.Select(x => x.ImageName), currentUserId);
-            await _repository.SaveAsync();
+                    response = await _bus.Request<DeleteObjectsMinIoRequest, DeleteObjectsMinIoReply>(
+                        new DeleteObjectsRequestModel()
+                        {
+                            OrderId = NewId.NextGuid(),
+                            ObjectsId = images.Select(x => x.Oid),
+                        });
+
+                    if (response.Message is null)
+                        return BadRequest();
+                    else if (!string.IsNullOrEmpty(response.Message.ErrorMsg))
+                        return BadRequest(response.Message.ErrorMsg);
+
+                    await _unitOfWork.CommitAsync();
+                }
+                catch(Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
+
             return Ok(response.Message);
         }
         else
@@ -222,7 +271,7 @@ public class ImageController : Controller
             var user = await _userManager.FindByIdAsync(currentUserId);
             if (user == null)
                 return NotFound();
-            var images = await _repository.ImageRepository.GetImagesAsync(currentUserId);
+            var images = await _unitOfWork.Images.GetImagesAsync(currentUserId);
             if (!images.Any())
                 return NotFound();
 
@@ -231,6 +280,7 @@ public class ImageController : Controller
                 OrderId = NewId.NextGuid(),
                 ObjectsId = images.Select(x => x.Oid)
             });
+
             if (response.Message.DataDictionary != null)
                 return Ok(response.Message.DataDictionary.Select(dict =>
                 {
