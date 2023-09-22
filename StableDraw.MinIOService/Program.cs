@@ -38,7 +38,7 @@ IHost host = Host.CreateDefaultBuilder(args)
                     r.Incremental(3, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
                 });
                 rbfc.UseDelayedMessageScheduler();
-                rbfc.Host("localhost", h =>
+                rbfc.Host("localhost", "/",h =>
                 {
                     h.Username("rmuser");
                     h.Password("rmpassword");
