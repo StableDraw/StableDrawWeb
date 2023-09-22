@@ -90,10 +90,12 @@ export class Home extends Component {
                                                         className='faulty-letter'>ТИ</span>РОВАТЬ</span>
                                                 </button>
                                             </NavLink>
-                                            <button className="start-button-text2">
-                                                    <span className='glowing-txt'>ТЕС<span
-                                                        className='faulty-letter'>ТИ</span>РОВАТЬ1</span>
-                                            </button>
+                                            <NavLink tag={Link} to="/AboutUs" className="bootstrap-btn primary-outline-blue--hover">
+                                                <button className="start-button-text1">
+                                                    <span className='glowing-txt'>О <span
+                                                        className='faulty-letter'>Н</span>АС</span>
+                                                </button>
+                                            </NavLink>
                                         </div>
                                     </div>
                                 </div>
@@ -160,6 +162,12 @@ export class Home extends Component {
                                                     <span className='glowing-txt'>БЕТА <span 
                                                     style={{paddingRight:'5'}}
                                                         className='faulty-letter'>ВЕР</span>СИЯ</span>
+                                                </button>
+                                            </NavLink>
+                                            <NavLink tag={Link} to="/AboutUs" className="bootstrap-btn primary-outline-blue--hover">
+                                                <button className="start-button-text1">
+                                                    <span className='glowing-txt'>О <span
+                                                        className='faulty-letter'>Н</span>АС</span>
                                                 </button>
                                             </NavLink>
                                             {/* <button className="start-button-text2">

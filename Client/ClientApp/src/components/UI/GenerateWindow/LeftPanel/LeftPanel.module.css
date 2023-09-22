@@ -16,7 +16,7 @@
     border-radius: 10px;
     border: 1px solid #656565;
     padding-left: 50px;
-    background-image: url('../../../../../public/Magnifier.svg');   
+    /*background-image: url('../../../../../public/Magnifier.svg');   */
     background-repeat: no-repeat;
     background-position: 20px;
     outline: none; 

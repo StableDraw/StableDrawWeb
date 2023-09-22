@@ -1,0 +1,143 @@
+.background{
+    background-image: url("background_about_us.png");
+    background-color: #000000;
+    width: 100%;
+    height: 200vh;
+    position: absolute;
+    background-size: 100% auto;
+    overflow-y: scroll;
+}
+
+.header{
+    width: 100%;
+    height: 70px;
+    flex-shrink: 0;
+    background-color: #000000;
+    position: fixed;
+    vertical-align: middle;
+    align-items: center;
+    display: flex;
+}
+
+.logo{
+    width: 248px;
+    height: 44px;
+
+}
+
+.navka{
+    margin-left: 15%;
+    top: 50%;
+}
+
+.burger_menu{
+    margin-right: 15%;
+    margin-left: auto;
+    width: 60px;
+    height: 30px;
+}
+
+.mainpart{
+    display: flex;
+    position: relative;
+    background-color: rgba(0,0,0,0.4);
+    width: 70%;
+    height: 100vh;
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-top: 70px;
+}
+
+.photocontainer{
+    width: 100%;
+    height: 550px;
+    background-color: #6A6A6A;
+    margin-top: 30px;
+}
+
+.textcontainer{
+    top: 517px;
+    width: auto;
+    height: 260px;
+    left: 18.9%;
+    right: 18.9%;
+    position: absolute;
+    z-index: 1;
+}
+
+.maintex{
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 6em;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    width: 100%;
+    text-align: center;
+}
+
+.contexttex{
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 2em;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    width: 100%;
+    text-align: left;
+    margin-left: 5%;
+}
+
+.contexttex span{
+    font-weight: 700;
+}
+
+@media(max-width: 1920px) {
+    .maintex {
+        font-size: 6em; /*Точная настройка элементов */
+    }
+    .contexttex{
+        font-size: 2em;
+    }
+    .logo{
+        width: 248px;
+        height: 44px;
+    }
+}
+@media(max-width: 1680px) {
+    .maintex {
+        font-size: 5em; /*Точная настройка элементов */
+    }
+    .contexttex{
+        font-size: 1.8em;
+    }
+    .logo{
+        width: 220px;
+        height: 36px;
+    }
+}
+@media(max-width: 1440px) {
+    .maintex {
+        font-size: 3.1em; /*Точная настройка элементов */
+    }
+    .contexttex{
+        font-size: 1.5em;
+    }
+    .logo{
+        width: 192px;
+        height: 28px;
+    }
+}
+@media(max-width: 1280px) {
+    .maintex {
+        font-size: 2.5em; /*Точная настройка элементов */
+    }
+    .contexttex{
+        font-size: 1em;
+    }
+    .logo{
+        width: 168px;
+        height: 24px;
+    }
+}
+
