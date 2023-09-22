@@ -7,6 +7,7 @@ using StableDraw.Contracts.MInIoContracts.Replies;
 using StableDraw.Contracts.MInIoContracts.Requests;
 using StableDraw.Core.Models;
 using StableDraw.Domain.Repositories;
+using StableDraw.Domain.UnitsOfWork;
 
 namespace CLI.Controllers;
 
@@ -20,15 +21,20 @@ public class ImageController : Controller
 
     private readonly IRepositoryWrapper _repository;
 
+    private readonly IUnitOfWork _unitOfWork;
+
     //private readonly IApplicationRepository _repository;
     private readonly UserManager<ApplicationUser> _userManager;
 
     public ImageController(
         ILogger<ImageController> logger,
-        IRepositoryWrapper repository, UserManager<ApplicationUser> userManager, IBus bus)
+        IRepositoryWrapper repository, IUnitOfWork unitOfWork, UserManager<ApplicationUser> userManager, IBus bus)
     {
         _logger = logger;
+
         _repository = repository;
+        _unitOfWork = unitOfWork;
+
         _userManager = userManager;
         _bus = bus;
     }
@@ -75,7 +81,8 @@ public class ImageController : Controller
             var response =
                 await _bus.Request<DeleteObjectMinIoRequest, DeleteObjectMinIoReply>(new DeleteObjectRequestModel()
                 {
-                    ObjectId = image.Oid, OrderId = NewId.NextGuid()
+                    ObjectId = image.Oid,
+                    OrderId = NewId.NextGuid()
                 });
             await _repository.ImageRepository.DeleteImage(imageName, currentUserId);
             await _repository.SaveAsync();
@@ -92,34 +99,47 @@ public class ImageController : Controller
         if (!string.IsNullOrEmpty(currentUserId))
         {
             var user = await _userManager.FindByIdAsync(currentUserId);
-            if (user == null)
-                return NotFound();
+            if (user == null) return NotFound();
+
             var img = new Image()
             {
                 ImageName = file.FileName,
                 ContentType = file.ContentType,
                 UserId = currentUserId
             };
-            _repository.ImageRepository.CreateImage(img);
-            
-            Response<PutObjectMinIoReply> response;
-            byte[] image;
-            using (var memoryStream = new MemoryStream())
+
+            byte[] image = Array.Empty<byte>();
+
+            using (_unitOfWork)
             {
-                await file.CopyToAsync(memoryStream);
-                image = memoryStream.ToArray();
-                response = await _bus
-                    .Request<PutObjectMinIoRequest, PutObjectMinIoReply>(new PutObjectRequestModel()
-                    {
-                        ObjectId = img.Oid,
-                        Data = memoryStream.ToArray(),
-                        OrderId = NewId.NextGuid()
-                    });
+                _unitOfWork.Images.Create(img);
+
+                try
+                {
+                    Response<PutObjectMinIoReply> response;
+
+                    using var memoryStream = new MemoryStream();
+                    await file.CopyToAsync(memoryStream);
+                    image = memoryStream.ToArray();
+                    response = await _bus
+                        .Request<PutObjectMinIoRequest, PutObjectMinIoReply>(new PutObjectRequestModel()
+                        {
+                            ObjectId = img.Oid,
+                            Data = memoryStream.ToArray(),
+                            OrderId = NewId.NextGuid()
+                        });
+
+                    if (response.Message == null)
+                        return BadRequest();
+
+                    await _unitOfWork.CommitAsync();
+                }
+                catch(Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
             }
 
-            if (response.Message == null)
-                return BadRequest();
-            await _repository.SaveAsync();
             return Ok(new
             {
                 ImageName = file.FileName,
@@ -226,5 +246,11 @@ public class ImageController : Controller
         }
         else
             return NotFound();
+    }
+
+    protected override void Dispose(bool disposing)//освобождаем ресурсы
+    {
+        _unitOfWork.Dispose();
+        base.Dispose(disposing);
     }
 }

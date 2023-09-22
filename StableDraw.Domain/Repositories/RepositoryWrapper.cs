@@ -13,6 +13,7 @@ public class RepositoryWrapper : IRepositoryWrapper
     }
 
     public IImageRepository ImageRepository { get; }
+
     public async Task SaveAsync()
     {
         await _context.SaveChangesAsync();
