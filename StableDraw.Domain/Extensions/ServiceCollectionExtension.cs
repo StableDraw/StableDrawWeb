@@ -15,14 +15,8 @@ public static class ServiceCollectionExtension
     public static IServiceCollection AddDatabases(this IServiceCollection services)
     {
         services.AddDbContext<ApplicationDbContext>();
-        //services.AddScoped<IBaseRepository<Image>>(sp => sp.GetRequiredService<BaseRepository<Image>>());
         services.AddScoped<IImageRepository, ImageRepository>();
-        services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
-
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-
-        //services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
-        //services.AddScoped<IApplicationRepository, ApplicationRepository>();
         services.AddDatabaseDeveloperPageExceptionFilter();
         
         return services;

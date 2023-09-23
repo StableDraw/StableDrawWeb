@@ -17,10 +17,7 @@ public class ImageController : Controller
 {
     private readonly IBus _bus;
     private readonly ILogger<ImageController> _logger;
-
     private readonly IUnitOfWork _unitOfWork;
-
-    //private readonly IApplicationRepository _repository;
     private readonly UserManager<ApplicationUser> _userManager;
 
     public ImageController(
@@ -38,9 +35,6 @@ public class ImageController : Controller
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (!string.IsNullOrEmpty(currentUserId))
         {
-            var user = await _userManager.FindByIdAsync(currentUserId);
-            if (user == null)
-                return NotFound();
             var image = await _unitOfWork.Images.GetImage(imageName, currentUserId);
             if (image == null)
                 return NotFound();
@@ -62,18 +56,14 @@ public class ImageController : Controller
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (!string.IsNullOrEmpty(currentUserId))
         {
-            var user = await _userManager.FindByIdAsync(currentUserId);
-            if (user == null)
-                return NotFound();
-            var image = await _unitOfWork.Images.GetImage(imageName, currentUserId);
-            if (image == null)
-            {
-                return NotFound();
-            }
-
             Response<DeleteObjectMinIoReply> response;
             using (_unitOfWork)
             {
+                var image = await _unitOfWork.Images.GetImage(imageName, currentUserId);
+                if (image == null)
+                {
+                    return NotFound();
+                }
                 await _unitOfWork.Images.DeleteImage(imageName, currentUserId);
 
                 try
@@ -85,11 +75,10 @@ public class ImageController : Controller
                             OrderId = NewId.NextGuid()
                         });
 
-                    if (response.Message is null)
+                    if (response?.Message is null)
                         return BadRequest();
                     else if (!string.IsNullOrEmpty(response.Message.ErrorMsg))
                         return BadRequest(response.Message.ErrorMsg);
-
                     await _unitOfWork.CommitAsync();
                 }
                 catch (Exception ex)
@@ -110,9 +99,6 @@ public class ImageController : Controller
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (!string.IsNullOrEmpty(currentUserId))
         {
-            var user = await _userManager.FindByIdAsync(currentUserId);
-            if (user == null) return NotFound();
-
             var img = new Image()
             {
                 ImageName = file.FileName,
@@ -120,19 +106,19 @@ public class ImageController : Controller
                 UserId = currentUserId
             };
 
-            byte[] image = Array.Empty<byte>();
+            byte[] image;
             using (_unitOfWork)
             {
                 _unitOfWork.Images.Create(img);
 
                 try
                 {
-                    Response<PutObjectMinIoReply> response;
+                    
 
                     using var memoryStream = new MemoryStream();
                     await file.CopyToAsync(memoryStream);
                     image = memoryStream.ToArray();
-                    response = await _bus
+                    var response = await _bus
                         .Request<PutObjectMinIoRequest, PutObjectMinIoReply>(new PutObjectRequestModel()
                         {
                             ObjectId = img.Oid,
@@ -140,7 +126,7 @@ public class ImageController : Controller
                             OrderId = NewId.NextGuid()
                         });
 
-                    if (response.Message is null)
+                    if (response?.Message is null)
                         return BadRequest();
                     else if (!string.IsNullOrEmpty(response.Message.ErrorMsg))
                         return BadRequest(response.Message.ErrorMsg);
@@ -167,12 +153,8 @@ public class ImageController : Controller
     public async Task<IActionResult> PostObjects(IEnumerable<IFormFile> files)
     {
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (!string.IsNullOrEmpty(currentUserId))
+        if (!string.IsNullOrEmpty(currentUserId) || !files.Any())
         {
-            var user = await _userManager.FindByIdAsync(currentUserId);
-            if (user == null)
-                return NotFound();
-
             Response<PutObjectsMinIoReply> response;
             using (_unitOfWork)
             {
@@ -181,14 +163,16 @@ public class ImageController : Controller
 
                 try
                 {
-                    using var memoryStream = new MemoryStream();
-                    var dataBytes = files.Select(async x =>
+                    IEnumerable<byte[]> dataBytes; 
+                    using (var memoryStream = new MemoryStream())
                     {
-                        await x.CopyToAsync(memoryStream);
-                        return memoryStream.ToArray();
-                    }).Select(x => x.Result);
-
-
+                        dataBytes = files.Select(async x =>
+                        {
+                            await x.CopyToAsync(memoryStream);
+                            return memoryStream.ToArray();
+                        }).Select(x => x.Result);    
+                    }
+                    
                     response =
                         await _bus.Request<PutObjectsMinIoRequest, PutObjectsMinIoReply>(new PutObjectsRequestModel()
                         {
@@ -197,7 +181,7 @@ public class ImageController : Controller
                                 .ToDictionary(x => x.k, x => x.v)
                         });
 
-                    if (response.Message is null)
+                    if (response?.Message is null)
                         return BadRequest();
                     else if (!string.IsNullOrEmpty(response.Message.ErrorMsg))
                         return BadRequest(response.Message.ErrorMsg);
@@ -222,9 +206,6 @@ public class ImageController : Controller
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (!string.IsNullOrEmpty(currentUserId))
         {
-            var user = await _userManager.FindByIdAsync(currentUserId);
-            if (user == null)
-                return NotFound();
             var images = await _unitOfWork.Images.GetImagesAsync(currentUserId);
             if (!images.Any())
                 return NotFound();
@@ -244,7 +225,7 @@ public class ImageController : Controller
                             ObjectsId = images.Select(x => x.Oid),
                         });
 
-                    if (response.Message is null)
+                    if (response?.Message is null)
                         return BadRequest();
                     else if (!string.IsNullOrEmpty(response.Message.ErrorMsg))
                         return BadRequest(response.Message.ErrorMsg);
@@ -299,7 +280,7 @@ public class ImageController : Controller
             return NotFound();
     }
 
-    protected override void Dispose(bool disposing)//����������� �������
+    protected override void Dispose(bool disposing)
     {
         _unitOfWork.Dispose();
         base.Dispose(disposing);
