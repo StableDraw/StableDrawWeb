@@ -25,9 +25,23 @@ namespace StableDraw.Domain.UnitsOfWork
             await _context.SaveChangesAsync();
 
 
+        private bool _disposed = false;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if(disposing)
+                    _context.Dispose();
+            }
+
+            _disposed = true;
+        }
+        
         public void Dispose()
         {
-            _context.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

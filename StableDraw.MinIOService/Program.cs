@@ -12,8 +12,7 @@ IHost host = Host.CreateDefaultBuilder(args)
         config.AddJsonFile("appsettings.json", optional: true);
         config.AddEnvironmentVariables();
 
-        if (args != null)
-            config.AddCommandLine(args);
+        config.AddCommandLine(args);
     })
     .ConfigureServices((hostContext ,services) =>
     {
