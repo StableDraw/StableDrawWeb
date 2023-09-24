@@ -10,13 +10,21 @@ IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureAppConfiguration((hostingContext, config) =>
     {
         config.AddJsonFile("appsettings.json", optional: true);
+        config.AddJsonFile("credentals.json");
         config.AddEnvironmentVariables();
 
         if (args != null)
             config.AddCommandLine(args);
     })
-    .ConfigureServices((hostContext ,services) =>
+    .ConfigureServices((hostContext, services) =>
     {
+        services.AddOptions<MinIOSettings>().Configure(o =>
+        {
+            o.AccessKey = hostContext.Configuration.GetSection("accessKey").Value ?? throw new ArgumentNullException();
+            o.Address = hostContext.Configuration.GetSection("MinIOSettings:Address").Value!;
+            o.BucketName = hostContext.Configuration.GetSection("MinIOSettings:BucketName").Value!;
+            o.SecretKey = hostContext.Configuration.GetSection("secretKey").Value ?? throw new ArgumentNullException();
+        });
         services.Configure<MinIOSettings>(hostContext.Configuration.GetSection("MinIOSettings"));
         services.Configure<AppConfig>(hostContext.Configuration.GetSection("AppConfig"));
         services.Configure<EndpointConfig>(hostContext.Configuration.GetSection("EndpointConfig"));
@@ -46,7 +54,7 @@ IHost host = Host.CreateDefaultBuilder(args)
                 rbfc.ConfigureEndpoints(brc);
             });
         }).AddMassTransitHostedService();
-        
+
         services.AddTransient<IMinIoService, MinIoService>();
     })
     .UseSerilog((context, configuration) =>
