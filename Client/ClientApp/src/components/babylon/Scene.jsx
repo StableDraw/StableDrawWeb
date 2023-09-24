@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useRef,} from "react";
 import { BabylonScene } from "./babylonSceneLogic.ts";
 import sceneClass from './stylesLight/scene.module.css'
+import mainClass from './stylesLight/main.module.css'
 
 export const Scene = ({
 	modelFileName,
@@ -58,8 +59,8 @@ export const Scene = ({
 	// elem.innerText = '0'
 	// console.log(elem.innerText)
 	return (
-		<>
-		{/* <div 
+		<div className={mainClass.sceneBox}>
+			{/* <div 
 			style={{position:'absolute', color:'white', fontSize:'20px', zIndex:'100'}}
 			// className={sceneClass.loadingCustom} 
 			id="loader"
@@ -71,9 +72,7 @@ export const Scene = ({
 				ref={babylonCanvas}
 				className={sceneClass.canvas}
 			>
-
 			</canvas>
-			
-		</>
+		</div>
 	);
 };
