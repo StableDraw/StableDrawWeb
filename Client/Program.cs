@@ -142,6 +142,8 @@ builder.Services.AddMassTransit(cfg =>
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddHttpClientServices();
 
+builder.Configuration.AddJsonFile("neural.json");
+
 builder.Services.Configure<JwtBearerOptions>("IdentityServerJwtBearer", o => o.Authority = "https://localhost:44404");
 
 var app = builder.Build();
