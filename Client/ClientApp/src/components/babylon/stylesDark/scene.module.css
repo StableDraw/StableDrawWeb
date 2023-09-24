@@ -2,8 +2,6 @@
 	display: flex;
 	justify-content: center;
 	padding: 10px;
-	height: auto;
-	width: auto;
 }
 
 .canvas{
@@ -11,12 +9,9 @@
 	position: relative;
 	justify-content: center;
 	align-items: center;
-	max-height: 700px;
-	max-width: 1400px;
-	height: 100%;
-	width: 100%;
-	border-radius: 30px;
-	grid-row: 1;
+	width: 1200px;
+	height: 651px;
+	border-radius: 20px;
 }
 
 .loadTexModal{
@@ -31,6 +26,10 @@
 	align-items: center;
 	opacity: 40%;
 	z-index: 1000;
+}
+
+.canvasOut{
+	position: relative;
 }
 
 .sceneModal{
@@ -51,31 +50,9 @@
 	z-index: 1000;
 }
 
-.loadBar{
-	position: absolute;
-	top: 20px;
-	left: 350px;
-	width: 600px;
-	border-radius: 10px;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	flex-direction: row;
-	z-index: 1000;
-}
-
-.loadingCustom{
-	position: absolute;
-	padding: 5px;
-	color: white;
-	size: 20px;	
-}
-
 .cancelBtn{
-	width: 20px !important;
-	height: 20px !important;
-	color: white !important;
-	opacity: 100%;
+	background-color: black;
+	border: none;
 }
 
 .txt{

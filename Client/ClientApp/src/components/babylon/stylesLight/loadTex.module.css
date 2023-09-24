@@ -4,8 +4,6 @@
 	display: flex;
 	justify-content: center;
 	flex-direction: row;
-	/* max-width: 1000px;
-	overflow-x: auto; */
 }
 
 .previewTexes_selectTexMenu{
@@ -18,8 +16,6 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	/* overflow-x:auto; */
-	/* max-width: 100%; */
 }
 
 .closeButton_selectTexMenu{
@@ -59,20 +55,34 @@
 	justify-content: center;
 }
 
-.selectTexMenu_container{
+.selectTexMenu{
 	display: flex;
 	flex-direction: row;
-	overflow-x: auto;
 	max-width: 1000px;
-	/* border: 1px solid gray; */
-	border-radius: 10px;
-	background: #e3f2fd;
-	margin-top: 10px;
-}
-
-.arrow_selectTexMenu{
-	display: flex;
+	min-width: 100px;
+	min-height: 100px;
+	border: 2px solid #D9D9D9;
+	background: #FFF;
+	border-radius: 20px;
 	align-items: center;
+	justify-content: center;
+	overflow-x: auto;
+	gap: 10px;
+}
+.selectTexMenu_fill{
+	display: flex;
+	flex-direction: row;
+	max-width: 1000px;
+	min-width: 100px;
+	min-height: 100px;
+	padding: 10px 5px 10px 5px;
+	border: 2px solid #D9D9D9;
+	background: #FFF;
+	border-radius: 20px;
+	align-items: center;
+	justify-content: center;
+	overflow-x: auto;
+	gap: 10px;
 }
 
 .arrowDelete_selectTexMenu{
@@ -90,45 +100,65 @@
 .cont{
 	display: flex;
 	flex-direction: row;
-}
-.loadIcon{
-	/* display: none !important; */
-}
-
-.crossIcon{
+	justify-content: center;
+	align-items: center;
 }
 
-.addIcon{
-	width: 40px !important;
-	height: 40px !important;
-	color:gray !important;
-}
-
-.addIconContMain{
-	width: 80px;
-	height: 120px;
+.addTex1{
+	border-radius: 20px;
+	width: 100px;
+	height: 100px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	
 }
 
-.addIconMain{
-	width: 50px !important;
-	height: 50px !important;
-	color: gray !important;
-}
-
-.addIcon:hover{
-	color: rgb(102, 102, 102) !important;
-	transition: 150ms ease-in-out !important;
+.addTex1:hover{
 	cursor: pointer;
+	background: #e6e5e5;
 }
 
-.addIconMain:hover{
-	color: rgb(102, 102, 102) !important;
-	transition: 150ms ease-in-out !important;
+.addTexSmall{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #FFF;
+	border-radius: 10px;
+	width: 50px;
+	height: 50px;
+}
+
+.addTex2:hover{
 	cursor: pointer;
+	background: #e6e5e5;
+}
+
+.addTex2{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.sideMenu{
+	display: flex;
+	flex-direction: column;
+	gap:10px;
+	justify-content: center;
+	align-items: center;
+}
+
+.cancelBtn{
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #D9D9D9;
+	border: none;
+	border-radius: 20px;
+	width: 25px;
+	height: 25px;
+	right: -7px;
+	top: -7px;
 }
 
 @media (max-width: 1350px){

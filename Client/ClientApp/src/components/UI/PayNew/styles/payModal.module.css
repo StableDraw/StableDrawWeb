@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat+Subrayada:wght@400;700&family=Montserrat:wght@500&display=swap");
 .modal {
 	border-radius: 20px;
 	background: #FFF;
@@ -94,6 +95,10 @@
 	border: none;
 	margin-top: 38px;
 	padding: 18px 71px 18px 77px;
+}
+
+.buyBtn:hover {
+	background: #125292;
 }
 
 .buyBtnTxt {
