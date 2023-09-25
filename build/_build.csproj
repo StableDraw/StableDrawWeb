@@ -11,8 +11,9 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
+
   <ItemGroup>
-    <PackageReference Include="Nuke.Common" Version="7.0.3" />
+    <PackageReference Include="Nuke.Common" Version="7.0.5" />
   </ItemGroup>
 
 </Project>

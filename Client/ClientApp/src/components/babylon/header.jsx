@@ -15,11 +15,15 @@ export const Header = ({ setTheme, isLightTheme }) => {
 	return (
 		<AppBar sx={{ borderBottom: '1px solid rgba(128, 128, 128, 0.514)' }} theme={isLightTheme ? themeLight : themeDarkHeader}
 			position="static">
-			<Toolbar theme={isLightTheme ? themeLight : themeDark}>
-					<Typography className={headerClasses.txt}>
+			<Toolbar  theme={isLightTheme ? themeLight : themeDark}>
+				<Link className={headerClasses.link} to={'/'}>
+				<Typography className={headerClasses.txt}>
 						StableDraw
 					</Typography>
-				<Box sx={{ flexGrow: 1 }}></Box>
+				</Link>
+					
+
+		<Box sx={{ flexGrow: 1 }}></Box>
 				<div id="fpsBabylon" ></div>
 				<div className={headerClasses.themeToggle}>
 					{isLightTheme ? <Brightness2OutlinedIcon sx={{ height: '50px', width: '30px' }} /> : <Brightness2RoundedIcon sx={{ height: '50px', width: '30px' }} />}

@@ -17,7 +17,6 @@ export const SceneBar = memo(({
 	setSceneModal,
 	isLightTheme,
 }) => {
-	console.log("sceneBar rerendered");
 	return (
 		<div className={barClasses.sceneCont}>
 		{scenes.map(scene => <SceneCard

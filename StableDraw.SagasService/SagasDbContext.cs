@@ -4,14 +4,18 @@ using StableDraw.SagasService.Sagas;
 
 namespace StableDraw.SagasService;
 
-public class SagasDbContext : SagaDbContext
+public sealed class SagasDbContext : SagaDbContext
 {
     public SagasDbContext(DbContextOptions options) : base(options)
     {
+        Database.Migrate();
     }
 
     protected override IEnumerable<ISagaClassMap> Configurations => new ISagaClassMap[]
     {
-        new SagaStateMap()
+        new MinIoStateMap(),
+        new NeuralStateMap()
     };
+    
+    
 }

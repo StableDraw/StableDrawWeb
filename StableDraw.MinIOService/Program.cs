@@ -13,8 +13,7 @@ IHost host = Host.CreateDefaultBuilder(args)
         config.AddJsonFile("credentals.json");
         config.AddEnvironmentVariables();
 
-        if (args != null)
-            config.AddCommandLine(args);
+        config.AddCommandLine(args);
     })
     .ConfigureServices((hostContext, services) =>
     {

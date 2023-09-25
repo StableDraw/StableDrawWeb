@@ -1,10 +1,9 @@
 .layer_box
 {
-    position: relative;
-    display: block;
-    top: 1.5%;
-    left: 5%;
-    width: 80%;
-    height: 100%;
     outline: 0 solid rgb(85, 85, 85);
+    margin: 0 12px 0 12px;
+    padding: 3px;
+    height: 210px;
+    overflow-y: auto;
 }
+

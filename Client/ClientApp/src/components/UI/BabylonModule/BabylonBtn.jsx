@@ -16,12 +16,14 @@ const BabylonModule = () => {
     }
 
     return (
-        <div>
-            <div className={cl.btn}> <Button variant="contained" startIcon={"3d модуль"} onClick={showBabylonModal}/> </div>
+        
+        <a className={cl.button} onClick={showBabylonModal}>
+            <p>3D модуль</p>
             <Modal open= {modal} onClose={showBabylonModal} className={cl.window}>
                 <Content1/>
             </Modal>
-        </div>
+        </a>
+            
     );
 };
 

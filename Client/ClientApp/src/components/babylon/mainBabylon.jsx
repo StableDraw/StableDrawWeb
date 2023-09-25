@@ -31,13 +31,12 @@ export const MainBabylon = () => {
 
 	const Send = useCallback(async (img) => {
 		try {
-			const data = await api.LoadTexture(img)
-			const texes = data.data.map((id) => "./api/image/" + id)
-			setCanvasTextures([...texes])
-			setCurrenTexture(texes[0])
-			return data
+			const data = await api.LoadTexture(img);
+			setCanvasTextures([...canvasTextures, data.data]);
+			setCurrenTexture(data.data.bytes);
+			return data;
 		} catch (e) {
-			console.log('error loading texture')
+			console.log('error loading texture');
 			console.error(e);
 			throw e;
 		}
@@ -45,8 +44,6 @@ export const MainBabylon = () => {
 
 	const onDropHandler = (e) => {
 		e.preventDefault();
-		let filesName = e.dataTransfer.files[0].name.split('.')
-		console.log("split:", filesName)
 		let files = [...e.dataTransfer.files];
 		let formData = new FormData();
 
@@ -57,6 +54,7 @@ export const MainBabylon = () => {
 	}
 
 	const memoizedScene = useMemo(() =>
+	//Вынести в отдельный компонент нада
 		<div
 			onDragLeave={e => dragLeaveHandler(e)}
 			onDrop={e => onDropHandler(e)}
@@ -72,10 +70,18 @@ export const MainBabylon = () => {
 				</IconButton>
 			</div>
 			}
+			{/* <div className={sceneClass.loadBar}>
+				<LinearProgress 
+				color="secondary" 
+				variant='determinate'
+				value={50} 
+				style={{width:'400px', borderRadius:'2px', height:'5px'}}/>
+			</div> */}
+			
 			<Scene
 				modelFileName={modelType}
 				sceneFileName={currentScene}
-				texture={currenTexture} />
+				texture={currenTexture}/>
 		</div>, [currentScene, modelType, currenTexture, isOpen]);
 
 	const changeModel = useCallback((model) => {

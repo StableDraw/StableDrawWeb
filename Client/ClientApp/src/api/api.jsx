@@ -5,56 +5,31 @@ import ApiToken from "./ApiToken";
 
 export default class Textures {
 	static async LoadTexture(file) {
-		if(await AuthorizeService.isAuthenticated())
-		{
-			const data = await axios.post("api/image/" + file.fileName, file, await ApiToken.GetConfigToken());
-			console.log('Post', data);
-			return data;
-		}		
-		else
-			return await axios.HttpStatusCode.NotFound();
+		if(!await AuthorizeService.isAuthenticated())
+			return axios.HttpStatusCode.NotFound;
+
+		return await axios.post("api/image/" + file.fileName, file, await ApiToken.GetConfigToken());
 	}
-	
-	static async DeleteTexture(linkToTexture) {
-		if(await AuthorizeService.isAuthenticated())
-		{
-			if (linkToTexture.includes('/')) {
-				const id = linkToTexture.split("/");
-				// из полученного массива(пример: [., api, id]) берём id(последний el)
-				return await axios.delete("api/image/" + id[id.length - 1], await ApiToken.GetConfigToken());
-			}
-			// В этом случае передали id, а не ссылку
-			const id = linkToTexture;
-			return await axios.delete("api/image/" + id, await ApiToken.GetConfigToken());	
-		}
-		return await axios.HttpStatusCode.NotFound()
+
+	static async DeleteTexture(imageName) {
+		if(!await AuthorizeService.isAuthenticated())
+			return axios.HttpStatusCode.NotFound;
+
+		return await axios.delete("api/image/" + imageName, await ApiToken.GetConfigToken());
 	}
 
 	static async GetTextureStorage() {
-		if (!await AuthorizeService.isAuthenticated()) {
-			return await axios.HttpStatusCode.NotFound()
-		} else {
-			const data = await axios.get("api/image", await ApiToken.GetConfigToken());
-			console.log(data);
-			return data;
-		}
+		if (!await AuthorizeService.isAuthenticated())
+			return axios.HttpStatusCode.NotFound;
+
+		return await axios.get("api/image", await ApiToken.GetConfigToken());
+	}
+
+	static async DeleteAllTextures() {
+		if (!await AuthorizeService.isAuthenticated())
+			return axios.HttpStatusCode.NotFound;
+
+		return await axios.delete("api/image", await ApiToken.GetConfigToken());
 	}
 }
 
-// export default class Neurals {
-// 	static async GetNeurals(neuralType){
-// 		if (await AuthorizeService.isAuthenticated()) {
-// 			return await axios.get("api/neural/" + neuralType, await ApiToken.GetConfigToken());
-// 		} else {
-// 			return await axios.HttpStatusCode.NotFound();
-// 		}
-// 	}
-//
-// 	static async RunNeural(neuralImagesConfig) {
-// 		if (await AuthorizeService.isAuthenticated()) {
-// 			return await axios.get("api/neural", await ApiToken.GetConfigToken(), neuralImagesConfig);
-// 		} else {
-// 			return await axios.HttpStatusCode.NotFound();
-// 		}
-// 	}
-// }

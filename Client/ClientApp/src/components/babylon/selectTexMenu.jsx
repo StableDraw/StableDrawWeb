@@ -8,6 +8,7 @@ import {  useState, } from "react";
 import api from '../../api/api'
 import AddPhotoAlternateRoundedIcon from '@mui/icons-material/AddPhotoAlternateRounded';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { base64ToLinkImg } from "./base64ToLink.ts";
 
 export const SelectTexMenu = ({
 	setCurrenTexture,
@@ -20,11 +21,11 @@ export const SelectTexMenu = ({
 }) => {
 	const [InputKey, setInputKey] = useState(0);
 
-	async function deleteTex(link, index) {
-		console.log('link: ' + link);
-		await api.DeleteTexture(link.toString())
-		updateTexStorage();
-
+	async function deleteTex(imageName, index) {
+		await api.DeleteTexture(imageName)
+		.then(()=>updateTexStorage())
+		.catch(err => console.log("Ошибка при удалении текстуры: ", err));
+		
 		//логика перестановки рамки выбора и смены текстуры в сцене после удаления:
 		if (index < texCount) {
 			setTexCount(texCount - 1);
@@ -32,23 +33,22 @@ export const SelectTexMenu = ({
 		}
 		if (index === texCount) {
 			if (index) {
-				setCurrenTexture(textureStorage[index - 1]);
+				setCurrenTexture(textureStorage[index - 1].bytes);
 				setTexCount(index - 1);
 			}
 			else {
 				if (!textureStorage.length) {
+					//тут баг: при пустом массиве(в теории), сюда всё равно не попадаем, меняю состояние в updateTexStorage.
 					setCurrenTexture('');
 					return;
 				}
-				setCurrenTexture(textureStorage[index + 1]);
+				setCurrenTexture(textureStorage[index + 1]?.bytes);
 			}
 		}
 	}
 
 	const handleFileChange = (event) => {
 		let files = [...event.target.files];
-
-		console.log("файлы c кнопки:", files[0].name);
 
 		let formData = new FormData();
 		formData.append(`file`, files[0]);
@@ -71,16 +71,16 @@ export const SelectTexMenu = ({
 										<IconButton
 											key={tex + index}
 											sx={{ width: '20px', height: '20px', }}
-											onClick={() => { deleteTex(tex, index); console.log(tex) }} >
+											onClick={() => { deleteTex(tex.imageName, index); }} >
 											<CancelIcon
 												className={isLightTheme ? loadClassesLight.crossIcon : loadClasses.crossIcon}
 												key={index + tex + index + tex}
 												sx={{ width: '20px', height: '20px' }} />
 										</IconButton>
 									</div>
-									<Button onClick={() => { setTexCount(index); setCurrenTexture(tex) }} key={tex + tex}>
+									<Button onClick={() => { setTexCount(index); setCurrenTexture(tex.bytes) }} key={tex + tex}>
 										<div key={tex + index}>
-											<img src={tex}
+											<img src={base64ToLinkImg(tex.bytes)}
 												alt="texture"
 												className={loadClasses.texImg_selectTexMenu}
 												style={{ border: index === texCount ? '3px solid #1976d2' : 'none' }}

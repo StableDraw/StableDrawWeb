@@ -25,3 +25,10 @@
     height: 100%;
     width: 100%;
 }
+.left__btn {
+    width: 78px;
+    height: 50px;
+    border: none;
+    background-color: #FFFFFF;
+    border-top-left-radius: 20px;
+}

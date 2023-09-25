@@ -1,0 +1,79 @@
+.params {
+    width: 550px;
+    height: 250px;
+    margin-top: 20px;
+}
+.findParam {
+    width: 390px;
+    height: 30px;
+
+    border-radius: 6px;
+    border: 1px solid #656565;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px; 
+    outline: none;
+
+    margin-right: 20px;
+    padding-left: 20px;
+    padding-left: 40px;
+
+    background-image: url('../../../../../../public/Magnifier.svg');   
+    background-repeat: no-repeat;
+    background-position: 15px;
+    background-size: 18px;
+}
+.saveParam {
+    width: 150px;
+    height: 30px;
+    border: 2px solid #06F;
+    border-radius: 8px;
+    color: #06F;
+    background: white;
+}
+.saveParam:hover{
+    color: white;
+    background-color: #06F;
+    transition: background-color 0.1s linear;
+
+}
+.saveParamText {
+    padding: 7px;
+    font-size: 11px;
+    line-height: normal;
+}
+.paramsList {
+    width: 550px;
+    height: 250px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.cancel {
+    width: 120px;
+    height: 50px;
+
+    margin-top: 50px;
+    
+    border-radius: 10px;
+    border: 2px solid #06F;
+    color: #06F;
+    background-color: #FFFFFF;
+    margin-right: 230px;
+}
+.cancel:hover {
+    color: white;
+    background: #06F;
+    transition: background-color 0.1s linear;
+}
+.generate {
+    width: 200px;
+    height: 50px;
+    border: none;
+    color: white;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #4101BF 0%, #C40386 100%);
+}
+.generate:hover {
+    border-radius: 10px;
+    background: linear-gradient(90deg, #8201BF 0%, #C40386 53.65%);   
+}
