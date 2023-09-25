@@ -14,12 +14,12 @@ namespace StableDraw.MinIOService.Services;
 public class MinIoService : IMinIoService
 {
     private readonly MinioClient _minio;
-    private readonly Logger<MinIoService> _logger;
+    //private readonly Logger<MinIoService> _logger;
     private readonly MinIOSettings _minIoSettings;
     
-    public MinIoService(IOptions<MinIOSettings> minIoSettings, Logger<MinIoService> logger)
+    public MinIoService(IOptions<MinIOSettings> minIoSettings)
     {
-        _logger = logger;
+        //_logger = logger;
         _minIoSettings = minIoSettings.Value;
         _minio = new MinioClient()
             .WithEndpoint(_minIoSettings.Address, 9000)
@@ -94,7 +94,7 @@ public class MinIoService : IMinIoService
         }
         catch (Exception e)
         {
-            _logger.LogError(e.Message);
+            //_logger.LogError(e.Message);
             return await Task.FromResult(new DeleteObjectsResult() { ErrorMsg = e.Message });
         }
     }
@@ -117,7 +117,7 @@ public class MinIoService : IMinIoService
         }
         catch (Exception e)
         {
-            _logger.LogError(e.Message);
+            //_logger.LogError(e.Message);
             return await Task.FromResult(new PutObjectResult() { ErrorMsg = e.Message });
         }
     }
@@ -136,7 +136,7 @@ public class MinIoService : IMinIoService
         }
         catch (Exception e)
         {
-            _logger.LogError(e.Message);
+            //_logger.LogError(e.Message);
             return await Task.FromResult(new GetObjectResult() { ErrorMsg = e.Message });
         }
     }
@@ -150,7 +150,7 @@ public class MinIoService : IMinIoService
         }
         catch (Exception e)
         {
-            _logger.LogError(e.Message);
+            //_logger.LogError(e.Message);
             return await Task.FromResult(new DeleteObjectResult() { ErrorMsg = e.Message });
         }
     }

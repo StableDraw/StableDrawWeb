@@ -2,7 +2,6 @@ using System.Net;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using CLI.Services;
 using CLI.Extensions;
-using GreenPipes;
 using MassTransit;
 using StableDraw.Domain.Extensions;
 
@@ -36,7 +35,7 @@ builder.Services.AddHttpsRedirection(options =>
 
 // recaptcha
 builder.Services.AddGoogleRecaptcha(builder.Configuration);//extension
-
+builder.Configuration.AddJsonFile("neural.json");
 // rabbitMQ
 builder.Services.AddMassTransit(cfg =>
 {

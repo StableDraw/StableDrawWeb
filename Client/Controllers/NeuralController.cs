@@ -25,7 +25,7 @@ public class NeuralController : Controller
 
     public NeuralController(
         IBus bus, ILogger<NeuralController> logger, 
-        UserManager<ApplicationUser> userManager, IRepositoryWrapper repository, 
+        UserManager<ApplicationUser> userManager, 
         IConfiguration configuration)
     {
         _bus = bus;
@@ -58,7 +58,7 @@ public class NeuralController : Controller
         return NotFound();
     }
     
-    [HttpGet]
+    [HttpPost]
     public async Task<IActionResult> RunNeural(NeuralRequestModel requestModel)
     {
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);

@@ -10,7 +10,7 @@ IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureAppConfiguration((hostingContext, config) =>
     {
         config.AddJsonFile("appsettings.json", optional: true);
-        config.AddJsonFile("credentals.json");
+        config.AddJsonFile("credentials.json");
         config.AddEnvironmentVariables();
 
         config.AddCommandLine(args);
@@ -24,7 +24,7 @@ IHost host = Host.CreateDefaultBuilder(args)
             o.BucketName = hostContext.Configuration.GetSection("MinIOSettings:BucketName").Value!;
             o.SecretKey = hostContext.Configuration.GetSection("secretKey").Value ?? throw new ArgumentNullException();
         });
-        services.Configure<MinIOSettings>(hostContext.Configuration.GetSection("MinIOSettings"));
+        //services.Configure<MinIOSettings>(hostContext.Configuration.GetSection("MinIOSettings"));
         services.Configure<AppConfig>(hostContext.Configuration.GetSection("AppConfig"));
         services.Configure<EndpointConfig>(hostContext.Configuration.GetSection("EndpointConfig"));
 
