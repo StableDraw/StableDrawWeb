@@ -1,6 +1,7 @@
 import barClasses from './stylesDark/bar.module.css'
 import barClassesLight from './stylesLight/bar.module.css'
-import sizeBarStyles from './stylesLight/sizeBar.module.css'
+import sizeBarLight from './stylesLight/sizeBar.module.css'
+import sizeBar from './stylesDark/sizeBar.module.css'
 
 
 export const SceneCard = ({
@@ -17,8 +18,8 @@ export const SceneCard = ({
 	};
 	return (
 		<div >
-			<div className={ isLightTheme ? sizeBarStyles.modelCard : barClasses.modelCard}>
-				<div className={ isLightTheme ? sizeBarStyles.dark : barClasses.dark}></div>
+			<div className={ isLightTheme ? sizeBarLight.modelCard : sizeBar.modelCard}>
+				<div className={ isLightTheme ? sizeBarLight.dark : sizeBar.dark}></div>
 				<div className={barClassesLight.imgCard}>
 					<img
 						className={barClassesLight.imgInside}
@@ -27,11 +28,11 @@ export const SceneCard = ({
 					/>
 						<span className={isLightTheme ? barClassesLight.text : barClasses.text}>{name}</span>
 				</div>
-				<div className={isLightTheme ? sizeBarStyles.sceneLoad : barClasses.sizeBar}>
+				<div className={isLightTheme ? sizeBarLight.sceneLoad : sizeBar.sceneLoad}>
 					<button
 						onClick={SetScene}
-						className={sizeBarStyles.loadButton_sizeBar}>
-						<span className={sizeBarStyles.text}>Загрузить</span>
+						className={isLightTheme ? sizeBarLight.loadButton_sizeBar : sizeBar.loadButton_sizeBar}>
+						<span className={isLightTheme ? sizeBarLight.text : sizeBar.text}>Загрузить</span>
 					</button>
 				</div>
 			</div>
