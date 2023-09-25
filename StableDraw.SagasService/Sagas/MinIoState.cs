@@ -1,6 +1,6 @@
 ﻿namespace StableDraw.SagasService.Sagas;
 
-public sealed class SagaState : MassTransit.SagaStateMachineInstance
+public sealed class MinIoState : MassTransit.SagaStateMachineInstance
 {
     public Guid CorrelationId { get; set; }
     public string? CurrentState { get; set; }

@@ -9,7 +9,7 @@ import ToolBar from "./UI/Toolbar/ToolBar.jsx";
 import PayModule from "./UI/payModule/PayBtn.jsx";
 import BabylonModule from "./UI/BabylonModule/BabylonBtn.jsx";
 import ToolOptionsBar from './UI/ToolOptionsBar/ToolOptionsBar.jsx';
-import GenerateModule from "./UI/GenerateModule/GenerationBtn/GenerationBtn.jsx";
+import GenerateModule from "./UI/DELETETHISSHI/GenerationBtn/GenerationBtn.jsx";
 import canvasState from "../store/canvasState";
 import cl from "./Drawing.module.css"
 import CanvasState from "../store/canvasState";

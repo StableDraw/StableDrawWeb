@@ -1,15 +1,9 @@
-using System;
-using System.Linq;
 using Nuke.Common;
-using Nuke.Common.CI;
-using Nuke.Common.Execution;
-using Nuke.Common.IO;
-using Nuke.Common.ProjectModel;
+using Nuke.Common.Git;
 using Nuke.Common.Tooling;
-using Nuke.Common.Utilities.Collections;
-using static Nuke.Common.EnvironmentInfo;
-using static Nuke.Common.IO.FileSystemTasks;
-using static Nuke.Common.IO.PathConstruction;
+using Nuke.Common.Tools.DotNet;
+using Nuke.Common.Tools.GitVersion;
+using Nuke.Common.Tools.Npm;
 
 class Build : NukeBuild
 {
@@ -24,43 +18,77 @@ class Build : NukeBuild
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
-    [Parameter("Path")]
-    static readonly string Path;
-    
-    Target Clean => _ => _
-        .Before(Restore)
-        .Executes(() =>
-        {
-        });
+    [Parameter("Solution to build - Default is 'Client'")] 
+    readonly Solution Solution = Solution.Client;
 
+    [Parameter("Path to ClientApp directory")] 
+    readonly string FrontendProjectDirectory;
+
+    [Parameter("Path to publish project")]
+    readonly string ProjectPublishDirectory;
+
+    [GitVersion]
+    readonly GitVersion GitVersion;
+
+    [GitRepository]
+    readonly GitRepository GitRepository;
+    
+   Target Clean => _ => _
+      .Description($"Cleaning Project.")
+      .Before(Restore)
+      .Executes(() =>
+      {
+          DotNetTasks.DotNetClean(c => c.SetProject(Solution));
+      });
     Target Restore => _ => _
+        .Description($"Restoring Project Dependencies.")
+        .DependsOn(Clean)
         .Executes(() =>
         {
+            DotNetTasks.DotNetRestore(
+                r => r.SetProjectFile(Solution));
         });
 
     Target Compile => _ => _
+        .Description($"Building Project with the version.")
         .DependsOn(Restore)
         .Executes(() =>
         {
+            DotNetTasks.DotNetBuild(b => b
+                .SetProjectFile(Solution)
+                .SetConfiguration(Configuration)
+                //.SetVersion(GitVersion.NuGetVersionV2)
+                //.SetAssemblyVersion(GitVersion.AssemblySemVer)
+                //.SetInformationalVersion(GitVersion.InformationalVersion)
+                //.SetFileVersion(GitVersion.AssemblySemFileVer)
+                .EnableNoRestore());
         });
 
-    Target RunDocker => _ => _
+    Target Publish => _ => _
+        .Description("Publish Project")
+        .DependsOn(Compile)
         .Executes(() =>
         {
-        });
-    
-    Target Pull => _ => _
-        .Executes(() =>
-        {
-        });    
-    
-    
-    Target Deploy => _ => _
-        .Executes(() =>
-        {
-            // 1) компиляция
-            // 2) кидаем в папку dd_mm_yyyy_v - version
-            // 3) в папке dd_mm_yyyy_v будет 3 папки Beckend, SagaService, MinioService
+            DotNetTasks.DotNetPublish(settings => 
+                settings.SetProcessWorkingDirectory(ProjectPublishDirectory));
         });
 
+    // Does an npm install on the specified directory
+    Target NpmInstall => _ => _
+        .Executes(() =>
+        {
+            NpmTasks.NpmInstall(settings =>
+                settings
+                    .EnableProcessLogOutput()
+                    .SetProcessWorkingDirectory(FrontendProjectDirectory));
+        });
+    // Does an npm run build on the specified directory
+    Target BuildFrontend => _ => _
+        .DependsOn(NpmInstall)
+        .Executes(() =>
+        {
+            NpmTasks.NpmRun(s => s
+                .SetProcessWorkingDirectory(FrontendProjectDirectory)
+                .SetCommand("build"));
+        });
 }

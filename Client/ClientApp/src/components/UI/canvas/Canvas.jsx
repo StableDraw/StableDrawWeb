@@ -30,16 +30,7 @@ const Canvas = ({width, height, labelData,canvasDate, mergeRes}) => {
         }
     }
     
-    // if (mergeRes) {
-    //     let image = new Image()
-    //     image.src = mergeRes
-    //     console.log(mergeRes)
-    //     image.onload = () => {
-    //         CanvasState.getCanvas().getContext("2d", { willReadFrequently: true }).clearRect(0,0, 1080, 732)
-    //         CanvasState.getCanvas().getContext("2d", { willReadFrequently: true }).drawImage(image, 0, 0, 1080, 732)
-    //     }
-    // }
-    
+   
     return (
             <div className={cl.v_frame} onMouseDown={(e) => mouseDownHandler(e)}  
                  style={{width: `${width}`, height: `${height}`,backgroundColor: "transparent"}}  id="v_frame" >
