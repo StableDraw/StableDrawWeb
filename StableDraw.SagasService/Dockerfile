@@ -15,4 +15,5 @@ FROM build AS publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
+COPY --from=build /src/StableDraw.SagasService/app.db /app
 ENTRYPOINT ["dotnet", "StableDraw.SagasService.dll"]
