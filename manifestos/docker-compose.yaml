@@ -32,21 +32,21 @@ services:
       timeout: 20s
       retries: 3
   
-  sagas:
-    image: sagasbackend
-    build: 
-      context: ..
-      dockerfile: StableDraw.SagasService/Dockerfile
-    ports:
-      - "5100:80"
+  # sagas:
+  #   image: sagasbackend
+  #   build: 
+  #     context: ..
+  #     dockerfile: StableDraw.SagasService/Dockerfile
+  #   ports:
+  #     - "5100:80"
 
-  minioService:
-    image: miniobackend
-    build:
-      context: ..
-      dockerfile: StableDraw.MinIOService/Dockerfile
-    ports:
-      - "5101:80"
+  # minioService:
+  #   image: miniobackend
+  #   build:
+  #     context: ..
+  #     dockerfile: StableDraw.MinIOService/Dockerfile
+  #   ports:
+  #     - "5101:80"
 
 
   # db:
