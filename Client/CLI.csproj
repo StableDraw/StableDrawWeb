@@ -36,10 +36,6 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
     <PackageReference Include="System.Reactive" Version="5.0.0" />
   </ItemGroup>
-
-  <ItemGroup>
-    <None Update="app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
-  </ItemGroup>
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
     <Content Remove="$(SpaRoot)**" />
@@ -49,9 +45,6 @@
   <ItemGroup>
     <ProjectReference Include="..\StableDraw.Contracts\StableDraw.Contracts.csproj" />
     <ProjectReference Include="..\StableDraw.Domain\StableDraw.Domain.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Broker\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
