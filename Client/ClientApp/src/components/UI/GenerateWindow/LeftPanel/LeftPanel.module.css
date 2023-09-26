@@ -1,8 +1,7 @@
 .finder {
     width: 310px;
     background-color:#EEF1F5;
-    overflow-y: scroll;
-    overflow-x: hidden;
+   
     border-bottom-left-radius: 20px;
 }
 .finderBlock {
@@ -12,20 +11,27 @@
     /* background-color: aqua; */
 }
 .inputFinder {
-    width: 220px;
+    width: 250px;
     height: 50px;
     border-radius: 10px;
     border: 1px solid #656565;
-    text-align: center;
+    padding-left: 50px;
+    background-image: url('../../../../../public/Magnifier.svg');   
+    background-repeat: no-repeat;
+    background-position: 20px;
+    outline: none; 
+    -moz-border-radius: 10px; 
+    -webkit-border-radius: 10px; 
 }
 .magnifer {
     width: 20px;
     height: 20px;
 }
 .list {
-    /* height: 100%; */
-    margin-top: 40px;
-    
+    height: 570px;
+    margin-top: 30px;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .outline {

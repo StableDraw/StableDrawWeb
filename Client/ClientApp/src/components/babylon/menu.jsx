@@ -30,9 +30,9 @@ export const Menu = ({ setCurrenTexture, canvasTextures, isLightTheme, }) => {
 	}, []);
 
 	useMemo(() => {
-		setTextureStore([...textureStorage, ...canvasTextures]); 
-		setTexCount(textureStorage.length) }, 
-		[canvasTextures]); 
+			setTextureStore([...textureStorage, ...canvasTextures]);
+			setTexCount(textureStorage.length) },
+		[canvasTextures]);
 
 	const Send = useCallback(async (img) => {
 		try {
@@ -49,7 +49,7 @@ export const Menu = ({ setCurrenTexture, canvasTextures, isLightTheme, }) => {
 	}, [textureStorage])
 
 	const updateTexStorage = async () => {
-		 await api.GetTextureStorage()
+		await api.GetTextureStorage()
 			.then(newTexes => setTextureStore(newTexes.data))
 			.catch(err => {console.log("Ошибка подключения к хранилищу" + err); setTextureStore([]); setCurrenTexture('');});
 	}
@@ -71,7 +71,7 @@ export const Menu = ({ setCurrenTexture, canvasTextures, isLightTheme, }) => {
 		setInputKey(InputKey + 1);
 	};
 
-	
+
 
 	return (
 		<>
@@ -83,7 +83,7 @@ export const Menu = ({ setCurrenTexture, canvasTextures, isLightTheme, }) => {
 								<div>
 									<Tooltip title='Загрузить текстуру'>
 										<InputLabel className={isLightTheme ? mainClassLight.inputLabel : mainClass.inputLabel} htmlFor="file-input">
-												<AddPhotoAlternateRoundedIcon className={isLightTheme ? loadClassesLight.loadIcon : loadClasses.loadIcon} />
+											<AddPhotoAlternateRoundedIcon className={isLightTheme ? loadClassesLight.loadIcon : loadClasses.loadIcon} />
 										</InputLabel>
 									</Tooltip>
 									<Input
@@ -129,4 +129,3 @@ export const Menu = ({ setCurrenTexture, canvasTextures, isLightTheme, }) => {
 		</>
 	);
 }
-

@@ -1,0 +1,9 @@
+{
+    "Neurals": {
+        "colorizer": {
+            "image_count_input": ["1"],
+            "description": [""],
+            "params": ["{\"skpt\": {\"default\":\"lalala\",\"type\":\"range\"}}"]
+        }
+    }
+}

@@ -16,6 +16,7 @@
 }
 .number {
     border: 1px solid #656565;
+    outline: none;
 }
 .paramImg {
     width: 20px;
