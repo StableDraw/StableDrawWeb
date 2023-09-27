@@ -1,14 +1,14 @@
 .finder {
     width: 310px;
     background-color:#EEF1F5;
-   
     border-bottom-left-radius: 20px;
+    background-image: url('../../../../../public/backgroundModal.svg');
 }
 .finderBlock {
     margin: 35px 20px 25px 40px;
     width: 250px;
     height: 640px;
-    /* background-color: aqua; */
+
 }
 .inputFinder {
     width: 250px;

@@ -52,13 +52,13 @@ public class NeuralController : Controller
             return Ok(_neuralBuilderSettings.Neurals.Select(x => new
             {
                 NeuralName = x.Key,
-                Description = x.Value.FirstOrDefault(y => y.Key == "description").Value,
-                Icon = x.Value.FirstOrDefault(y => y.Key == "icon").Value
+                // Description = x.Value.FirstOrDefault(y => y.Key == "description").Value,
+                // Icon = x.Value.FirstOrDefault(y => y.Key == "icon").Value
             }));
         return NotFound();
     }
     
-    [HttpPost]
+    [HttpGet]
     public async Task<IActionResult> RunNeural(NeuralRequestModel requestModel)
     {
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -66,10 +66,11 @@ public class NeuralController : Controller
         var request = new NeuralRequest()
         {
             OrderId = NewId.NextGuid(),
-            NeuralType = requestModel.NeuralType,
-            Caption = requestModel.Caption,
-            Prompts = requestModel.Prompts,
-            Parameters = requestModel.Parameters,
+
+            NeuralType = requestModel.NeuralType,// имя нейронки
+            Caption = requestModel.Caption,// описание для ген им2им
+            Prompts = requestModel.Prompts,// хуй знает
+            Parameters = requestModel.Parameters,//параметры
         };
 
         try
