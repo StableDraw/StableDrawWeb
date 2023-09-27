@@ -96,7 +96,8 @@ public class NeuralController : Controller
         catch (Exception e)
         {
             _logger.LogError(e.Message);
-            return BadRequest(e.Message);
+            throw new RequestFaultException();
+            //return BadRequest("Internal server error");
         }
     }
 }
