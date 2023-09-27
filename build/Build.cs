@@ -3,10 +3,9 @@ using Nuke.Common.Git;
 using Nuke.Common.IO;
 using Nuke.Common.Tooling;
 using Nuke.Common.Tools.DotNet;
-using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Tools.Npm;
 using Nuke.Common.Tools.PowerShell;
-using System;
+using System.IO;
 
 class Build : NukeBuild
 {
@@ -26,7 +25,7 @@ class Build : NukeBuild
 
     [Parameter("Path to ClientApp directory")]
     readonly string FrontendProjectDirectory;
-
+    
     [Parameter("Path to Client directory")]
     readonly string ClientDirectory;
 
@@ -36,10 +35,7 @@ class Build : NukeBuild
     [Parameter("Path to publish project")]
     readonly string ProjectPublishDirectory;
 
-    AbsolutePath FD => RootDirectory / FrontendProjectDirectory;
-
-    [GitVersion]
-    readonly GitVersion GitVersion;
+    AbsolutePath SolutionDirectory => RootDirectory / Solution;
 
     [GitRepository]
     readonly GitRepository GitRepository;
@@ -49,7 +45,7 @@ class Build : NukeBuild
        .Before(Restore)
        .Executes(() =>
        {
-           DotNetTasks.DotNetClean(c => c.SetProject(Solution));
+           DotNetTasks.DotNetClean(c => c.SetProject(SolutionDirectory));
        });
     Target Restore => _ => _
         .Description($"Restoring Project Dependencies.")
@@ -57,57 +53,64 @@ class Build : NukeBuild
         .Executes(() =>
         {
             DotNetTasks.DotNetRestore(
-                r => r.SetProjectFile(Solution));
+                r => r.SetProjectFile(SolutionDirectory));
         });
 
     Target Compile => _ => _
         .Description($"Building Project with the version.")
         .DependsOn(Restore)
-        .Triggers(DatabaseUpdate, NpmInstall)
         .Executes(() =>
         {
             DotNetTasks.DotNetBuild(b => b
-                .SetProjectFile(Solution)
+                .SetProjectFile(SolutionDirectory)
                 .SetConfiguration(Configuration)
-                //.SetVersion(GitVersion.NuGetVersionV2)
-                //.SetAssemblyVersion(GitVersion.AssemblySemVer)
-                //.SetInformationalVersion(GitVersion.InformationalVersion)
-                //.SetFileVersion(GitVersion.AssemblySemFileVer)
                 .EnableNoRestore());
         });
 
     Target DatabaseUpdate => _ => _
-        .Description("Client database update command")
+        .Description("Database update command")
         .Executes(() =>
         {
-            PowerShellTasks.PowerShell(setting => setting
-            .SetProcessWorkingDirectory(@$"{RootDirectory}\Client")
-            .SetCommand("dotnet ef database update"));
+            if (Configuration == Configuration.Release)
+            {
+                PowerShellTasks.PowerShell(setting => setting
+                    .SetProcessWorkingDirectory(@$"{RootDirectory}{Directory.GetParent(Solution)}")
+                    .SetCommand("dotnet ef migrations script"));
+            }
+            else
+            {
+                PowerShellTasks.PowerShell(setting => setting
+                    .SetProcessWorkingDirectory(@$"{RootDirectory}{ClientDirectory}")
+                    .SetCommand("dotnet ef database update"));
+            }
         });
 
-    Target DockerCompose => _ => _
-        .Description("RabbitMq and MinIO compose up")
+    Target DockerBuild => _ => _
+        .Description("Build rabbitMQ plugin")
         .Executes(() =>
         {
             PowerShellTasks.PowerShell(setting => setting
-                .SetProcessWorkingDirectory(@$"{RootDirectory}\manifestos")
+                .SetProcessWorkingDirectory(@$"{RootDirectory}{DockerFileDirectory}")
                 .SetCommand(@"docker build ."));
-
+        });
+    
+    Target DockerCompose => _ => _
+        .Description("Docker compose up")
+        .Executes(() =>
+        {
             PowerShellTasks.PowerShell(setting => setting
-                .SetProcessWorkingDirectory(@$"{RootDirectory}\manifestos")
+                .SetProcessWorkingDirectory(@$"{RootDirectory}{DockerFileDirectory}")
                 .SetCommand("docker compose up"));
         });
 
     // Does an npm install on the specified directory
     Target NpmInstall => _ => _
-        //.Triggers(BuildFrontend)
         .Executes(() =>
         {
-            //Console.WriteLine(FD.ToString());
             NpmTasks.NpmInstall(settings =>
                 settings
                     .EnableProcessLogOutput()
-                    .SetProcessWorkingDirectory(@$"{RootDirectory}\Client\ClientApp"));//@$"{RootDirectory}\Client\ClientApp"
+                    .SetProcessWorkingDirectory(@$"{RootDirectory}{FrontendProjectDirectory}"));
         });
 
     // Does an npm run build on the specified directory
@@ -116,7 +119,7 @@ class Build : NukeBuild
         .Executes(() =>
         {
             NpmTasks.NpmRun(s => s
-                .SetProcessWorkingDirectory(@$"{RootDirectory}\Client\ClientApp")
+                .SetProcessWorkingDirectory(@$"{RootDirectory}{FrontendProjectDirectory}")
                 .SetCommand("build"));
         });
 

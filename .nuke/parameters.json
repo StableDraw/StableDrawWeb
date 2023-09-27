@@ -1,7 +1,7 @@
 {
   "$schema": "./build.schema.json",
-  //"Path": ".\\StableDraw.sln",
   "ClientDirectory": "\\Client",
-  "FrontendBuildDirectory": "\\Client\\ClientApp",
-  "DockerFileDirectory": "\\manifestos"
+  "FrontendProjectDirectory": "\\Client\\ClientApp",
+  "DockerFileDirectory": "\\manifestos",
+  "ProjectPublishDirectory": "\\bin\\publish"
 }
