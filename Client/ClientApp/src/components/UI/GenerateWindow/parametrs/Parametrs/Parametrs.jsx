@@ -50,7 +50,10 @@ const Parametrs = ({closeWindow, closeParam,json,neuralName}) => {
     }
     const response = {
         NeuralType: neuralName,
-        Parametrs: renderValue,
+        Parametrs: null,
+        Caption: null,
+        Prompts: null,
+        ImagesInput: null
     }
     const goOnServer = async () => {
         console.log(response)
