@@ -1,9 +1,9 @@
 import React from 'react'
 import cl from './NeuralCard.module.css'
-const NeuralCard = ({name, active, setNeuralType,getParams}) => {
+const NeuralCard = ({name, active,getParams,setNeuralName}) => {
   const test = () => {
     active(true)
-    setNeuralType(name)
+    setNeuralName(name)
     getParams(name)
   }
   return (

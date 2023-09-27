@@ -5,15 +5,22 @@ import AuthorizeService from '../components/api-authorization/AuthorizeService';
 export default class Neurals {
 	static async GetNeurals(neuralType){
 		if (await AuthorizeService.isAuthenticated()) {
-			return await axios.get(`api/neural/colorizer`, await ApiToken.GetConfigToken());
+			return await axios.get(`api/neural/${neuralType}`, await ApiToken.GetConfigToken())
 		} else {
 			return await axios.HttpStatusCode.NotFound();
 		}
 	}
-
-	static async RunNeural(neuralImagesConfig) {
+	static async GetNeuralsList() {
 		if (await AuthorizeService.isAuthenticated()) {
-			return await axios.get("api/neural", await ApiToken.GetConfigToken(), neuralImagesConfig);
+			return await axios.get('api/neural/neuralList', await ApiToken.GetConfigToken())
+		} else {
+			return await axios.HttpStatusCode.NotFound()
+		}
+	}
+	
+	static async RunNeural(neuralConfig) {
+		if (await AuthorizeService.isAuthenticated()) {
+			return await axios.get("api/neural", await ApiToken.GetConfigToken(), neuralConfig)
 		} else {
 			return await axios.HttpStatusCode.NotFound();
 		}

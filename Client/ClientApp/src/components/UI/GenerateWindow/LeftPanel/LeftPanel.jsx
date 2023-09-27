@@ -1,35 +1,46 @@
 import cl from './LeftPanel.module.css'
 import NeuralCard from '../NeuralCard/NeuralCard'
 import api from '../../../../api/apiNeurals'
+import { useState, useEffect } from 'react'
 
-const LeftPanel = ({openParam, setNeuralType}) => {
-    const neurals = ['Апскейл', 'Генерация по тексту', 'Генерация по описанию', 'Апскейл', 'Генерация по тексту', 'Генерация по описанию']
+const filterNeurals = (searchText, listOfNeurals) => {
+    if (!searchText) {
+        return listOfNeurals
+    }
+    return listOfNeurals.filter(neural =>
+        neural.toLowerCase().includes(searchText.toLowerCase()) 
+    )
+}
+
+const LeftPanel = ({openParam, setParametrs,setNeuralName, neuralsList}) => {
+    const [searchTerm, setSearchTerm] = useState('')
     async function getParams(name) {
         try {
-            const data = await api.GetNeurals(name)
-            console.log(data)
-            console.log(data.data)
-            
-            console.log(data.data)
-            // const result = JSON.parse(data.data)
-            // console.log(result)
+            const data = await api.GetNeurals(name)  
+            setParametrs(data.data)
         }
         catch(e) {
             console.error(e)
             throw(e)
         }
     }
+    // useEffect(()=> {
+    //     const newNeurals = filterNeurals(searchTerm, neuralsList)
+    //     // neuralsList = newNeurals
+    // },[searchTerm])
   return (
     <section className={cl.finder}>
         <div className={cl.finderBlock}>
-            <input 
+            <input
+                value={searchTerm}
                 type='text'
                 placeholder="Поиск режима"
                 className={cl.inputFinder}
+                onChange={e=>setSearchTerm(e.target.value)}
             >
             </input>
             <div className={cl.list}>
-                {neurals.map((neural, id)=><NeuralCard key={id} getParams={getParams} setNeuralType={setNeuralType} active={openParam} name={neural}/> )} 
+                {neuralsList ? neuralsList.map((neural, id)=><NeuralCard key={id} getParams={getParams} setNeuralName={setNeuralName} active={openParam} name={neural}/>) : <div>Ошибка в запросе</div> } 
             </div>      
         </div>
     </section>
