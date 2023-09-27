@@ -20,7 +20,7 @@ class Build : NukeBuild
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
-    [Parameter("Solution to build - Default is 'Client'")]
+    [Parameter("Solution to build - Default is 'Client' or 'SagaService', 'MinIoService'")]
     readonly Solution Solution = Solution.Client;
 
     [Parameter("Path to ClientApp directory")]
@@ -105,6 +105,7 @@ class Build : NukeBuild
 
     // Does an npm install on the specified directory
     Target NpmInstall => _ => _
+        .Description("install npm command")
         .Executes(() =>
         {
             NpmTasks.NpmInstall(settings =>
@@ -129,8 +130,9 @@ class Build : NukeBuild
         .DependsOn(Compile)
         .Executes(() =>
         {
-            DotNetTasks.DotNetPublish(settings =>
-                settings.SetProcessWorkingDirectory(ProjectPublishDirectory));
+            if(Configuration == Configuration.Release)
+                DotNetTasks.DotNetPublish(settings =>
+                    settings.SetProcessWorkingDirectory(ProjectPublishDirectory));
         });
 
 }
