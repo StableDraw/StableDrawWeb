@@ -4,7 +4,16 @@ import InputText from '../InputText/InputText'
 import MySelect from '../MySelect/MySelect'
 import MyCheckBox from '../MyCheckBox/MyCheckBox'
 import cl from './Parametrs.module.css'
+import api from '../../../../../api/apiNeurals'
 const Parametrs = ({closeWindow, closeParam,json,neuralName}) => {
+    
+    const [file, setFile] = useState()
+    if (file) {
+      const fd = new FormData()
+      fd.append('file', file)
+      console.log(file)
+    }
+
     const closeModal = () => {
         closeWindow(false)
         closeParam(false)
@@ -23,6 +32,7 @@ const Parametrs = ({closeWindow, closeParam,json,neuralName}) => {
                return <MyCheckBox key={id} keyValue={key} name={value[key].name} description={value[key].description} getValue={sendValuesForRender}/>
         }
     }
+    
     const paramsToRender = []
     let defaultValue= {}
     if(json) {
@@ -35,17 +45,31 @@ const Parametrs = ({closeWindow, closeParam,json,neuralName}) => {
     }
 
     const [renderValue, setRenderValue] = useState()
-    // console.log(defaultValue)
     const sendValuesForRender = (value, str) => {
         setRenderValue({...renderValue,[str]:value})
     }
-    const response = {[neuralName]:{renderValue}}
-    const goOnServer = () => {
+    const response = {
+        NeuralType: neuralName,
+        Parametrs: renderValue,
+    }
+    const goOnServer = async () => {
+        console.log(response)
         console.log(JSON.stringify(response))
-        setRenderValue({})
+        try {
+            const res = await api.RunNeural(response)
+            console.log(res)
+            setRenderValue()
+        } catch(e) {
+            console.error(e)
+            throw(e)
+        }
     }
   return (
     <div>
+            <div className={cl.image}>
+                <img src='kitty.png'/>
+                <input type='file' onChange={e=>setFile(e.target.files[0])}/>
+            </div>
         <div className={cl.params}>
             <div style={{display:'flex'}}>
                 <input

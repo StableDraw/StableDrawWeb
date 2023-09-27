@@ -1,3 +1,4 @@
+credentals.json
 .vscode/
 node_modules/
 package-lock.json
@@ -70,5 +71,6 @@ StableDraw.SagasService/app.db
 StableDraw.MinIOService/appsettings.Development.json
 StableDraw.SagasService/app.db-shm
 StableDraw.SagasService/app.db-wal
-/Client/ClientApp/public
 /Client/.idea
+/Client/ClientApp/public/babylon UI
+/Client/ClientApp/public/babylon

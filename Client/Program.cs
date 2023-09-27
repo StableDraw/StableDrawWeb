@@ -35,7 +35,7 @@ builder.Services.AddHttpsRedirection(options =>
 
 // recaptcha
 builder.Services.AddGoogleRecaptcha(builder.Configuration);//extension
-
+builder.Configuration.AddJsonFile("neural.json");
 // rabbitMQ
 builder.Services.AddMassTransit(cfg =>
 {
@@ -93,4 +93,3 @@ app.MapFallbackToFile("index.html");
 
 app.Run();
 #endregion
-//

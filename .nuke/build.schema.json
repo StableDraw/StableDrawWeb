@@ -6,6 +6,10 @@
     "build": {
       "type": "object",
       "properties": {
+        "ClientDirectory": {
+          "type": "string",
+          "description": "Path to Client directory"
+        },
         "Configuration": {
           "type": "string",
           "description": "Configuration to build - Default is 'Debug' (local) or 'Release' (server)",
@@ -17,6 +21,14 @@
         "Continue": {
           "type": "boolean",
           "description": "Indicates to continue a previously failed build attempt"
+        },
+        "DockerFileDirectory": {
+          "type": "string",
+          "description": "Path to Docker files"
+        },
+        "FrontendProjectDirectory": {
+          "type": "string",
+          "description": "Path to ClientApp directory"
         },
         "Help": {
           "type": "boolean",
@@ -62,6 +74,10 @@
             "type": "string"
           }
         },
+        "ProjectPublishDirectory": {
+          "type": "string",
+          "description": "Path to publish project"
+        },
         "Root": {
           "type": "string",
           "description": "Root directory during build execution"
@@ -72,14 +88,26 @@
           "items": {
             "type": "string",
             "enum": [
+              "BuildFrontend",
               "Clean",
               "Compile",
-              "Deploy",
-              "Pull",
-              "Restore",
-              "RunDocker"
+              "DatabaseUpdate",
+              "DockerBuild",
+              "DockerCompose",
+              "NpmInstall",
+              "Publish",
+              "Restore"
             ]
           }
+        },
+        "Solution": {
+          "type": "string",
+          "description": "Solution to build - Default is 'Client'",
+          "enum": [
+            "Client",
+            "MinIoService",
+            "SagaService"
+          ]
         },
         "Target": {
           "type": "array",
@@ -87,12 +115,15 @@
           "items": {
             "type": "string",
             "enum": [
+              "BuildFrontend",
               "Clean",
               "Compile",
-              "Deploy",
-              "Pull",
-              "Restore",
-              "RunDocker"
+              "DatabaseUpdate",
+              "DockerBuild",
+              "DockerCompose",
+              "NpmInstall",
+              "Publish",
+              "Restore"
             ]
           }
         },

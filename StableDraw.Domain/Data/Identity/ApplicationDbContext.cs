@@ -22,8 +22,6 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
     {
         _configuration = configuration;
         _operationalStoreOptions = operationalStoreOptions;
-        // Database.EnsureDeleted();
-        // Database.EnsureCreated();                
     }
     
     public DbSet<Image> Images { get; set; }
@@ -58,8 +56,5 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
     {
         base.OnModelCreating(builder);
         builder.ConfigurePersistedGrantContext(_operationalStoreOptions.Value);
-
-        //builder.Entity<Image>().ToTable("Images");
-        //builder.Entity<Image>()
     }
 }
