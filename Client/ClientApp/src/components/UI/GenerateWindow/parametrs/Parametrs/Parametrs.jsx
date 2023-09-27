@@ -51,12 +51,14 @@ const Parametrs = ({closeWindow, closeParam,json,neuralName}) => {
     const response = {
         NeuralType: neuralName,
         Parametrs: renderValue,
+        Caption: null,
+        Promts: null
     }
     const goOnServer = async () => {
         console.log(response)
         console.log(JSON.stringify(response))
         try {
-            const res = await api.RunNeural(response)
+            const res = await api.RunNeural()
             console.log(res)
             setRenderValue()
         } catch(e) {

@@ -1,0 +1,59 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat+Subrayada:wght@400;700&display=swap");
+
+.main {
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	top: 70px;
+	right: 50px;
+	padding: 15px 25px 15px 25px;
+	width: 184px;
+	height: 272px;
+	border: 2px solid #656565;
+	background: #FFF;
+}
+
+.closeBtn {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	border: none;
+	margin-bottom: 18px;
+	background: #FFF;
+}
+
+.account {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 50px;
+	background: #FFF;
+	border-bottom: 2px solid #BDBABA;
+}
+.help{
+	margin-top: 23px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 40px;
+	background: #FFF;
+}
+.aboutUs{
+	margin-top: 23px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 40px;
+	border-bottom: 2px solid #BDBABA;
+	background: #FFF;
+}
+
+.txt {
+	color: #656565;
+	font-family: Montserrat;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
+
+}

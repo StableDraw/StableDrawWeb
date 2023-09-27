@@ -18,7 +18,7 @@ const Drawing = () => {
 
     const [label, setLabel] = useState()
     const [width, setWidth] = useState(1024)
-    const [height, setHeight] = useState(768)
+    const [height, setHeight] = useState(640)
 
     const resLabel = (res) => {
         setLabel(res)

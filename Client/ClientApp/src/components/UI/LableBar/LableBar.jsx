@@ -57,7 +57,7 @@ const LableBar = (props) => {
             <div>
                 <div className={cl.scale__block}>
                     <input className={cl.input__scale} onChange={(e) => props.height(e.target.value)} 
-                           defaultValue="768" placeholder="Высота" type="number"/>
+                           defaultValue="640" placeholder="Высота" type="number"/>
                     
                     <input className={cl.input__scale} onChange={(e) => props.width(e.target.value)} 
                            defaultValue="1024" placeholder="Ширина" type="number"/>

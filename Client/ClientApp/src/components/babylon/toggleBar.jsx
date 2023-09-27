@@ -1,19 +1,18 @@
 import React from 'react';
 import { useState, memo } from "react";
-import mainClass from './stylesDark/main.module.css'
+import mainClass from './stylesLight/main.module.css'
 import mainClassLight from './stylesLight/main.module.css'
-import { Button, Typography, ButtonGroup, IconButton} from '@mui/material';
 import { ModelsBar } from "./modelsBar";
 import { SceneBar } from "./SceneBar";
-import ViewSidebarRoundedIcon from '@mui/icons-material/ViewSidebarRounded';
-import { themeDark, themeLight } from './customThemes';
+import toggleStylesLight from './stylesLight/toggleBtn.module.css'
+import toggleStylesDark from './stylesDark/toggleBtn.module.css'
 
-export const ToggleBar = memo(({ 
-	changeModel, 
-	changeScene, 
-	isOpen, 
-	setIsOpen, 
-	setSceneModal, 
+export const ToggleBar = memo(({
+	changeModel,
+	changeScene,
+	isOpen,
+	setIsOpen,
+	setSceneModal,
 	isLightTheme }) => {
 	const [isModelsBar, setModelsBar] = useState(true);
 
@@ -22,33 +21,37 @@ export const ToggleBar = memo(({
 	}
 	return (
 		<div className={mainClass.bar}>
-			<div className={mainClass.barButton}>
+			{/* <div className={mainClass.barButton}>
 				<IconButton onClick={() => setIsOpen(!isOpen)}>
 					<ViewSidebarRoundedIcon className={isLightTheme ? mainClassLight.barBtn : mainClass.barBtn} />
 				</IconButton>
+			</div> */}
+			<div className={toggleStylesLight.selectButtons}>
+				<button
+					onClick={showModelsBar}
+					className={isModelsBar ? (isLightTheme ? toggleStylesLight.selectButton1_select : toggleStylesDark.selectButton1_select)
+						: (isLightTheme ? toggleStylesLight.selectButton1 : toggleStylesDark.selectButton1)}>
+
+					<span className={isModelsBar ? (isLightTheme ? toggleStylesLight.selectTxt_select : toggleStylesDark.selectTxt_select)
+						: (isLightTheme ? toggleStylesLight.selectTxt : toggleStylesDark.selectTxt)}>
+						Модель
+					</span>
+
+				</button>
+				<button
+					onClick={showModelsBar}
+					className={isModelsBar ? (isLightTheme ? toggleStylesLight.selectButton2 : toggleStylesDark.selectButton2)
+						: (isLightTheme ? toggleStylesLight.selectButton2_select : toggleStylesDark.selectButton2_select)}>
+
+					<span className={isModelsBar ? (isLightTheme ? toggleStylesLight.selectTxt : toggleStylesDark.selectTxt)
+						: (isLightTheme ? toggleStylesLight.selectTxt_select : toggleStylesDark.selectTxt_select)}>
+						Сцена
+					</span>
+
+				</button>
 			</div>
-			<div className={isOpen ? mainClass.selectButtons.open : mainClass.selectButtons}>
-				<ButtonGroup >
-					<Button theme = { isLightTheme ? themeLight : themeDark}
-						className={isLightTheme ? mainClassLight.buttonGroup : mainClass.buttonGroup}
-						variant={isModelsBar ? 'contained' : 'outlined'} onClick={showModelsBar}>
-						<Typography className={mainClass.text}>
-							Выбрать модель
-						</Typography>
-					</Button>
-					<Button theme = { isLightTheme ? themeLight : themeDark}
-						className={isLightTheme ? mainClassLight.buttonGroup : mainClass.buttonGroup}
-						variant={isModelsBar ? 'outlined' : 'contained'} onClick={showModelsBar}>
-						<Typography className={mainClass.text}>
-							Выбрать сцену
-						</Typography>
-					</Button>
-				</ButtonGroup>
-			</div>
-			<div className={isOpen ? mainClass.modelsBox.open : mainClass.modelsBox}>
-				{isModelsBar ? <ModelsBar changeModel={changeModel} isLightTheme={isLightTheme} /> :
-					<SceneBar changeScene={changeScene} setSceneModal={setSceneModal} isLightTheme={isLightTheme} />}
-			</div>
+			{isModelsBar ? <ModelsBar changeModel={changeModel} isLightTheme={isLightTheme} /> :
+				<SceneBar changeScene={changeScene} setSceneModal={setSceneModal} isLightTheme={isLightTheme} />}
 		</div>
 	);
 })

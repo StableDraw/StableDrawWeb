@@ -1,9 +1,8 @@
 import React from "react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef,} from "react";
 import { BabylonScene } from "./babylonSceneLogic.ts";
-import { Card } from "@mui/material";
 import sceneClass from './stylesLight/scene.module.css'
-import api from '../../api/api'
+import mainClass from './stylesLight/main.module.css'
 
 export const Scene = ({
 	modelFileName,
@@ -25,7 +24,7 @@ export const Scene = ({
 
 		const scene = new BabylonScene(
 			canvas,
-			// loader,
+			loader,
 			modelFileName,
 			sceneFileName,
 			texture,).createScene();
@@ -60,17 +59,20 @@ export const Scene = ({
 	// elem.innerText = '0'
 	// console.log(elem.innerText)
 	return (
-		<>
-		{/* <div id="loader"
-		ref={babylonLoader}></div> */}
+		<div className={mainClass.sceneBox}>
+			{/* <div 
+			style={{position:'absolute', color:'white', fontSize:'20px', zIndex:'100'}}
+			// className={sceneClass.loadingCustom} 
+			id="loader"
+			ref={babylonLoader}>
+			25%
+		</div> */}
 			<canvas
 				id='canvas'
 				ref={babylonCanvas}
 				className={sceneClass.canvas}
 			>
-
 			</canvas>
-			
-		</>
+		</div>
 	);
 };
