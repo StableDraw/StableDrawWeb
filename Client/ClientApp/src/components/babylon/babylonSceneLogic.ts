@@ -202,8 +202,7 @@ export class BabylonScene {
 			const pbrMaterial = new BABYLON.PBRMaterial('pbr', this.scene);
 			pbrMaterial.roughness = 1;
 
-			// console.log('Babylon tex64: ', texBase64);
-			const texture = BABYLON.Texture.CreateFromBase64String(`data:image;base64,${texBase64}`, '', this.scene); //тут остановился :)
+			const texture = BABYLON.Texture.CreateFromBase64String(`data:image;base64,${texBase64}`, '', this.scene);
 			texture.vScale = -1;
 			pbrMaterial._albedoTexture = texture;
 

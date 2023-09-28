@@ -1,11 +1,11 @@
 import React from "react";
 import loadClasses from './stylesDark/loadTex.module.css';
 import loadClassesLight from './stylesLight/loadTex.module.css';
-import mainClass from './stylesDark/main.module.css'
-import mainClassLight from './stylesLight/main.module.css'
+import mainClass from './stylesDark/main.module.css';
+import mainClassLight from './stylesLight/main.module.css';
 import { SelectTexMenu } from "./selectTexMenu";
 import { useState, useEffect, useMemo } from "react";
-import api from '../../api/api'
+import api from '../../api/api';
 
 
 export const Menu = ({ setCurrenTexture, canvasTextures, isLightTheme, }) => {
