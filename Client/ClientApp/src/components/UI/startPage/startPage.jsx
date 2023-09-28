@@ -12,15 +12,31 @@ export const StartPage = () => {
 					<span className={main.name}>
 						STABLE DRAW
 					</span>
-						<div className={main.aboutUs}>
+				</div>
+				<div className={main.preview1}>
+					<div className={main.aboutUs}>
 							<span className={main.aboutUsTxt}>
 								Веб-платформа для рисования,
 								обработки изображений и создания
 								анимаций с применением
 								искусственных нейронных сетей
 							</span>
-						</div>
 				</div>
+				</div>
+				
+				<div className={main.btns}>
+						<button className={main.btnFill}>
+							<span className={main.txtBlack}>
+								Начать
+							</span>
+						</button>
+						<button className={main.btn}>
+							<span className={main.txtWhite}>
+								Бета-версия
+							</span>
+						</button>
+					</div>
+
 			</div>
 			<Footer />
 		</div>
