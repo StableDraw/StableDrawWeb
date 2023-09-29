@@ -29,7 +29,7 @@
 	display: flex;
 	gap: 30px;
 	align-items: flex-start;
-	padding-left: 890px;
+	padding-left: 860px;
 }
 
 .name {
@@ -44,12 +44,15 @@
 .aboutUsTxt {
 	position: absolute;
 	z-index: 1;
+	width: 476px;
+	height: 120px;
 	color: #FFF;
 	font-family: Montserrat;
 	font-size: 24px;
 	font-style: normal;
-	font-weight: 400;
+	font-weight: 500;
 	line-height: normal;
+	background: rgba(0, 0, 0, 0.10);
 }
 
 .aboutUs {
@@ -62,9 +65,9 @@
 	width: 560px;
 	height: 192px;
 	border-radius: 30px;
-	background: rgba(0, 0, 0, 0.10);
+	/* background: rgba(0, 0, 0, 0.10); */
 	/* filter: blur(50px); */
-	backdrop-filter: blur(5.5px);
+	/* backdrop-filter: blur(2.5px); */
 }
 
 .btns {
@@ -100,6 +103,11 @@
 	height: 100px;
 	border-radius: 20px;
 	background: #FFF;
+	text-decoration: none;
+}
+
+.btnFill:hover {
+	background: #e4e3e3;
 }
 
 .btn {
@@ -113,4 +121,10 @@
 	height: 100px;
 	border-radius: 20px;
 	border: 3px solid #D4E6FF;
+	text-decoration: none;
+
+}
+
+.btn:hover{
+	background: #8685854b;
 }

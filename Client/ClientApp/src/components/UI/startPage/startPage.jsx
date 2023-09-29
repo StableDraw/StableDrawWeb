@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Footer } from './footer';
 import { Header } from './header';
 import main from './styles/main.module.css';
@@ -25,16 +26,16 @@ export const StartPage = () => {
 				</div>
 				
 				<div className={main.btns}>
-						<button className={main.btnFill}>
+						< Link to='/test' className={main.btnFill}>
 							<span className={main.txtBlack}>
 								Начать
 							</span>
-						</button>
-						<button className={main.btn}>
+						</Link>
+						<Link to='/drawing-to-img' className={main.btn}>
 							<span className={main.txtWhite}>
 								Бета-версия
 							</span>
-						</button>
+						</Link>
 					</div>
 
 			</div>
