@@ -67,37 +67,28 @@ public class NeuralController : Controller
         {
             OrderId = NewId.NextGuid(),
 
-            NeuralType = requestModel.NeuralType,// имя нейронки
-            Caption = requestModel.Caption,// описание для ген им2им
-            Prompts = requestModel.Prompts,// хуй знает
-            Parameters = requestModel.Parameters,//параметры
+            NeuralType = requestModel.NeuralType,
+            Caption = requestModel.Caption,
+            Prompts = requestModel.Prompts,
+            Parameters = requestModel.Parameters,
         };
-
-        try
+        
+        using (var memoryStream = new MemoryStream())
         {
-            using (var memoryStream = new MemoryStream())
+            if (requestModel.ImagesInput != null)
             {
-                if (requestModel.ImagesInput != null)
+                var dataBytes = requestModel.ImagesInput.Select(async x =>
                 {
-                    var dataBytes = requestModel.ImagesInput.Select(async x =>
-                    {
-                        await x.CopyToAsync(memoryStream);
-                        return memoryStream.ToArray();
-                    }).Select(x => x.Result);
+                    await x.CopyToAsync(memoryStream);
+                    return memoryStream.ToArray();
+                }).Select(x => x.Result);
 
-                    request.ImagesInput = dataBytes;
-                }
+                request.ImagesInput = dataBytes; 
             }
-            var response = await _bus.Request<NeuralRequest, NeuralReply>(request);
-            if (!response.Message.ErrorMsg.IsNullOrEmpty())
+        }
+        var response = await _bus.Request<NeuralRequest, NeuralReply>(request);
+        if (!response.Message.ErrorMsg.IsNullOrEmpty()) 
                 throw new Exception(response.Message.ErrorMsg);
-            return Ok(response.Message);
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e.Message);
-            throw new RequestFaultException();
-            //return BadRequest("Internal server error");
-        }
+        return Ok(response.Message);
     }
 }
