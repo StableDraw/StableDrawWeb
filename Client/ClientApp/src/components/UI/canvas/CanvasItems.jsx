@@ -1,6 +1,6 @@
 ﻿import React, {useEffect, useRef} from 'react';
 
-const CanvasItems = ({width, height, style, index, id ,labelData, refs}) => {
+const CanvasItems = ({width, height, styles, index, id ,labelData, refs}) => {
     const canvasRef = useRef(null)
     
     useEffect(() => {
@@ -13,9 +13,9 @@ const CanvasItems = ({width, height, style, index, id ,labelData, refs}) => {
             ref={canvasRef}
             id={id}
             index={index}
-            width={width}
-            height={height}
-            style={style}>
+            width={`${width}px`}
+            height={`${height}px`}
+            style={styles}>
         </canvas>
     );
 };

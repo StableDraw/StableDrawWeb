@@ -12,7 +12,7 @@ import { Home } from "./components/Home";
 import { MainBabylon } from "./components/babylon/mainBabylon";
 import {App1} from "./components/testUI/App1";
 import Pay from './components/Pay';
-import GenerateBtn from './components/UI/GenerateWindow/GenerateBtn/GenerateBtn'; 
+// import GenerateBtn from './components/UI/GenerateWindow/GenerateBtn/GenerateBtn'; 
 
 const AppRoutes = [
     {
@@ -24,11 +24,11 @@ const AppRoutes = [
         requireAuth: true,
         element: <Design />
     },
-    {
-        path: '/window',
-        requireAuth: true,
-        element: <GenerateBtn />
-    },
+    // {
+    //     path: '/window',
+    //     requireAuth: true,
+    //     element: <GenerateBtn />
+    // },
     {
         path: '/text-to-img',
         requireAuth: true,
@@ -36,7 +36,7 @@ const AppRoutes = [
     },
     {
         path: '/drawing-to-img',
-        requireAuth: true,
+        requireAuth: false,
         element: <Drawing/>
     },
     {
@@ -46,7 +46,7 @@ const AppRoutes = [
     },
     {
         path: '/test',
-        requireAuth: true,
+        requireAuth: false,
         element: <DrawingtoImg />
     },
     {
