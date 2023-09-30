@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import InputRange from '../InputRange/InputRange'
 import InputText from '../InputText/InputText'
 import MySelect from '../MySelect/MySelect'
@@ -29,36 +29,53 @@ const Parametrs = ({closeWindow, closeParam,json,neuralName}) => {
             case 'range': 
                 return <InputRange key={id} keyValue={key} name={value[key].name} range={value[key].range} description={value[key].description} getValue={sendValuesForRender}/>
             case 'boolean': 
-               return <MyCheckBox key={id} keyValue={key} name={value[key].name} description={value[key].description} getValue={sendValuesForRender}/>
+                return <MyCheckBox key={id} keyValue={key} name={value[key].name} description={value[key].description} getValue={sendValuesForRender}/>
         }
     }
     
     const paramsToRender = []
-    let defaultValue= {}
+    // let defaultValue= {}
     if(json) {
         for (let item of json.params) {
             const param = JSON.parse(item)
             paramsToRender.push(param)
             const key = Object.keys(param)
-            defaultValue = ({...defaultValue, [key]:param[key].default})
+            // defaultValue = ({...defaultValue, [key]:param[key].default})
         }
     }
+    const defaultValue = {}
 
-    const [renderValue, setRenderValue] = useState()
+    const doDefaultValues = () => {
+        console.log(`this is JSON: ${json}`)
+        if(json) {
+            for(let item of json.params) {
+                const param = JSON.parse(item)
+                const key = Object.keys(param)
+                defaultValue = ({...defaultValue, [key]:param[key].default})
+            }
+        }
+        return defaultValue
+    }
+    // console.log(defaultValue)
+
+    const [renderValue, setRenderValue] = useState(doDefaultValues)
+    console.log(renderValue)
     const sendValuesForRender = (value, str) => {
         setRenderValue({...renderValue,[str]:value})
     }
+
+
     const response = {
         NeuralType: neuralName,
-        Parametrs: renderValue,
+        Parametrs: renderValue ?? null,
         Caption: null,
         Promts: null
     }
     const goOnServer = async () => {
-        console.log(response)
+        // console.log(response)
         console.log(JSON.stringify(response))
         try {
-            const res = await api.RunNeural()
+            const res = await api.RunNeural(response)
             console.log(res)
             setRenderValue()
         } catch(e) {

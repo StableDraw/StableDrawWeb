@@ -57,9 +57,9 @@ public class NeuralController : Controller
             }));
         return NotFound();
     }
-    
-    [HttpGet]
-    public async Task<IActionResult> RunNeural(NeuralRequestModel requestModel)
+
+    [HttpPost]
+    public async Task<IActionResult> RunNeural([FromBody] NeuralRequestModel requestModel)
     {
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (string.IsNullOrEmpty(currentUserId)) return NotFound();

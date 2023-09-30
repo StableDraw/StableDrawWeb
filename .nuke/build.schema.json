@@ -102,7 +102,7 @@
         },
         "Solution": {
           "type": "string",
-          "description": "Solution to build - Default is 'Client'",
+          "description": "Solution to build - Default is 'Client' or 'SagaService', 'MinIoService'",
           "enum": [
             "Client",
             "MinIoService",
