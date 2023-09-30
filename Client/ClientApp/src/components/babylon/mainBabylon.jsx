@@ -12,7 +12,7 @@ import sceneClass from './stylesLight/scene.module.css'
 
 export const MainBabylon = () => {
 	const [currentScene, setCurrentScene] = useState('');
-	const [modelType, setModelType] = useState('TypeABig1');
+	const [modelType, setModelType] = useState('TypeABig');
 	const [currenTexture, setCurrenTexture] = useState('');
 	const [canvasTextures, setCanvasTextures] = useState([]);
 	const [isOpen, setIsOpen] = useState(false);

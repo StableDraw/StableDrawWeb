@@ -75,3 +75,4 @@ Client/app.db-shm
 Client/app.db-wal
 StableDraw.MinIOService/appsettings.Development.json
 /Client/.idea
+StableDraw.MinIOService/credentials.json

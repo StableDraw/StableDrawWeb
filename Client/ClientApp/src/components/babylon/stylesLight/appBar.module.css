@@ -59,6 +59,7 @@
 	border-radius: 40px;
 	border: 2px solid #06F;
 	padding: 5px 5px 5px 0;
+	scale: 0.8;
 }
 
 .toggleInside{
