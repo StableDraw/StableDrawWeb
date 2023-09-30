@@ -9,8 +9,8 @@ export const HeaderMenu = ({ setIsVisible, isLightTheme }) => {
 				<button onClick={() => setIsVisible(false)} className={isLightTheme ? menuLight.closeBtn : menu.closeBtn}>
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 						<g clip-path="url(#clip0_422_365)">
-							<path d="M22 2L2 22" stroke={isLightTheme ? "#656565" : '#FFFF'} stroke-width="4" stroke-linecap="round" />
-							<path d="M22 22L2 2" stroke={isLightTheme ? "#656565" : '#FFFF'} stroke-width="4" stroke-linecap="round" />
+							<path d="M22 2L2 22" stroke={isLightTheme ? "#656565" : '#FFFF'} strokeWidth="4" strokeLinecap="round" />
+							<path d="M22 22L2 2" stroke={isLightTheme ? "#656565" : '#FFFF'} strokeWidth="4" strokeLinecap="round" />
 						</g>
 						<defs>
 							<clipPath id="clip0_422_365">

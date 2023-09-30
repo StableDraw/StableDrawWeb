@@ -4,7 +4,7 @@ import "@babylonjs/loaders/OBJ";
 // import { CustomLoading } from "./customLoading";
 import { ILoadingScreen } from "@babylonjs/core";
 
-
+// import { fileToBase64 } from "./base64ToLink";
 
 class CustomLoading implements ILoadingScreen {
 
@@ -29,8 +29,6 @@ class CustomLoading implements ILoadingScreen {
 		this.percentLoaded.innerText = `${status}%`;
 	}
 
-
-
 }
 export class BabylonScene {
 	private scene: BABYLON.Scene;
@@ -51,8 +49,6 @@ export class BabylonScene {
 		this.engine = new BABYLON.Engine(canvas,);
 
 		this.scene = this.createScene();
-		// this.loadingScreen = new CustomLoading(percentLoaded);
-		// this.engine.loadingScreen = this.loadingScreen;
 
 
 		this.loadingProgress = 0;
@@ -62,13 +58,6 @@ export class BabylonScene {
 			this.loadingProgress = 100 - (remainingCount / totalCount) * 100;
 			console.log("Загружено: " + this.loadingProgress.toFixed(2) + "%");
 		};
-
-
-		// this.assetsManager.onFinish = () => {
-		// 	// setIsLoaded(true);
-		// 	console.log("Все ресурсы успешно загружены!");
-
-		// };
 
 		this.engine.displayLoadingUI();
 

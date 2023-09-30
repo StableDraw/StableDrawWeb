@@ -7,9 +7,9 @@ export const HeaderMenu = ({ setIsVisible }) => {
 			<div className={menu.main}>
 				<button onClick={() => setIsVisible(false)} className={menu.closeBtn}>
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-						<g clip-path="url(#clip0_422_365)">
-							<path d="M22 2L2 22" stroke={'#FFFF'} stroke-width="4" stroke-linecap="round" />
-							<path d="M22 22L2 2" stroke={ '#FFFF'} stroke-width="4" stroke-linecap="round" />
+						<g clipPath="url(#clip0_422_365)">
+							<path d="M22 2L2 22" stroke={'#FFFF'} strokeWidth="4" strokeLinecap="round" />
+							<path d="M22 22L2 2" stroke={ '#FFFF'} strokeWidth="4" strokeLinecap="round" />
 						</g>
 						<defs>
 							<clipPath id="clip0_422_365">

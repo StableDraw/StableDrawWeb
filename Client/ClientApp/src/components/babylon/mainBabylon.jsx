@@ -9,7 +9,6 @@ import mainClass from './stylesDark/main.module.css'
 import mainClassLight from './stylesLight/main.module.css'
 import sceneClass from './stylesLight/scene.module.css'
 
-
 export const MainBabylon = () => {
 	const [currentScene, setCurrentScene] = useState('');
 	const [modelType, setModelType] = useState('TypeABig');

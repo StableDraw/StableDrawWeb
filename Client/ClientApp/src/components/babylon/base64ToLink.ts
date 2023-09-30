@@ -27,3 +27,25 @@ export const base64ToLingGlb = (base64: string): string =>{
 
 	return URL.createObjectURL(blob);
 }
+
+export const fileToBase64 = (filePath, callback) => {
+	const xhr = new XMLHttpRequest();
+  xhr.responseType = 'blob';
+
+	xhr.onload = function () {
+    if (xhr.status === 200) {
+      const reader = new FileReader();
+      reader.onload = function () {
+        // Вызываем callback с данными base64 после успешной конвертации.
+        callback(reader.result);
+      };
+      reader.readAsDataURL(xhr.response);
+    } else {
+      console.error('Не удалось загрузить файл:', xhr.status, xhr.statusText);
+      // Вызываем callback с null в случае ошибки.
+      callback(null);
+    }
+  };
+	xhr.open('GET', filePath);
+  xhr.send();
+}

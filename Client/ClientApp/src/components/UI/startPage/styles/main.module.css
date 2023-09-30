@@ -128,3 +128,22 @@
 .btn:hover{
 	background: #8685854b;
 }
+
+@media(max-width: 1450px){
+	.content {
+	 zoom: 0.8 !important;
+	}
+ }
+
+
+@media(max-width: 1250px){
+	.content {
+	 zoom: 0.7 !important;
+	}
+ }
+
+@media(max-width: 1530px){
+	.content {
+	 zoom: 0.9;
+	}
+ }
