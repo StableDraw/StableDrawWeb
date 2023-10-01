@@ -224,25 +224,17 @@ public class ImageController : Controller
         if (string.IsNullOrEmpty(currentUserId)) return NotFound();
         Response<GetObjectsMinIoReply> response;
         IEnumerable<Image> images;
-        try
-        {
-            images = await _unitOfWork.Images.GetImagesAsync(currentUserId);
-            if (!images.Any())
-                return NotFound();
+        var cts = new CancellationTokenSource();
+        
+        images = await _unitOfWork.Images.GetImagesAsync(currentUserId).WaitAsync(cts.Token);
+        if (!images.Any())
+            return NotFound();
 
-            response = await _bus.Request<GetObjectsMinIoRequest, GetObjectsMinIoReply>(new GetObjectsRequestModel()
-            {
-                OrderId = NewId.NextGuid(),
-                ObjectsId = images.Select(x => x.Oid)
-            });
-
-            
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e.Message);
-            return BadRequest(e.Message);
-        }
+        response = await _bus.Request<GetObjectsMinIoRequest, GetObjectsMinIoReply>(new GetObjectsRequestModel() 
+        { 
+            OrderId = NewId.NextGuid(),
+            ObjectsId = images.Select(x => x.Oid) 
+        }, cts.Token);
         
         if (response.Message.DataDictionary != null)
             return Ok(response.Message.DataDictionary.Select(dict =>

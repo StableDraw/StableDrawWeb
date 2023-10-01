@@ -40,7 +40,7 @@ const LeftPanel = ({openParam, setParametrs,setNeuralName, neuralsList}) => {
             >
             </input>
             <div className={cl.list}>
-                {neuralsList ? neuralsList.map((neural, id)=><NeuralCard key={id} getParams={getParams} setNeuralName={setNeuralName} active={openParam} name={neural}/>) : <div>Ошибка в запросе</div> } 
+                {neuralsList ? neuralsList.map((neural, id)=><NeuralCard key={id} getParams={getParams} setNeuralName={setNeuralName} active={openParam} serverName={neural.serverName} clientName={neural.clientName} description={neural.description}/>) : <div>Ошибка в запросе</div> } 
             </div>      
         </div>
     </section>

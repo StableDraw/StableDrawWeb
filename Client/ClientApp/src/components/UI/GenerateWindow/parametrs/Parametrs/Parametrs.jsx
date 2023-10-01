@@ -8,11 +8,10 @@ import api from '../../../../../api/apiNeurals'
 const Parametrs = ({closeWindow, closeParam,json,neuralName}) => {
     
     const [file, setFile] = useState()
-    if (file) {
-      const fd = new FormData()
-      fd.append('file', file)
-      console.log(file)
-    }
+    const fd = new FormData()
+    // if (file) {
+    //     fd.append('file', file)
+    // }
 
     const closeModal = () => {
         closeWindow(false)
@@ -56,15 +55,16 @@ const Parametrs = ({closeWindow, closeParam,json,neuralName}) => {
         }
         return defaultValue
     }
-    // console.log(defaultValue)
 
     const [renderValue, setRenderValue] = useState(doDefaultValues)
-    console.log(renderValue)
     const sendValuesForRender = (value, str) => {
         setRenderValue({...renderValue,[str]:value})
     }
 
-
+    fd.append('file', file)
+    fd.append('NeuralType', neuralName)
+    fd.append('Parametrs', renderValue)
+    console.log(fd)
     const response = {
         NeuralType: neuralName,
         Parametrs: renderValue ?? null,
@@ -73,10 +73,10 @@ const Parametrs = ({closeWindow, closeParam,json,neuralName}) => {
     }
     const goOnServer = async () => {
         // console.log(response)
-        console.log(JSON.stringify(response))
+        // console.log(JSON.stringify(response))
         try {
-            const res = await api.RunNeural(response)
-            console.log(res)
+            const res = await api.RunNeural(fd)
+            // console.log(res)
             setRenderValue()
         } catch(e) {
             console.error(e)

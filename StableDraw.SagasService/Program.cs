@@ -25,15 +25,21 @@ IHost host = Host.CreateDefaultBuilder(args)
             cfg.SetKebabCaseEndpointNameFormatter();
             cfg.AddDelayedMessageScheduler();
             cfg.AddSagaStateMachine<MinIoStateMachine, MinIoState>()
-                .EntityFrameworkRepository(r =>
+                .EntityFrameworkRepository<MinIoState>(r =>
                 {
-                    r.ConcurrencyMode = ConcurrencyMode.Pessimistic;
                     r.ExistingDbContext<SagasDbContext>();
                     r.LockStatementProvider = new SqliteLockStatementProvider();
                 });
+            // cfg.AddSagaStateMachine<MinIoStateMachine, MinIoState>()
+            //     .EntityFrameworkRepository(r =>
+            //     {
+            //         r.ConcurrencyMode = ConcurrencyMode.Pessimistic;
+            //         r.ExistingDbContext<SagasDbContext>();
+            //         r.LockStatementProvider = new SqliteLockStatementProvider();
+            //     });
             cfg.AddSagaStateMachine<NeuralStateMachine, NeuralState>().EntityFrameworkRepository(r =>
             {
-                r.ConcurrencyMode = ConcurrencyMode.Pessimistic;
+                //r.ConcurrencyMode = ConcurrencyMode.Pessimistic;
                 r.ExistingDbContext<SagasDbContext>();
                 r.LockStatementProvider = new SqliteLockStatementProvider();
             });
