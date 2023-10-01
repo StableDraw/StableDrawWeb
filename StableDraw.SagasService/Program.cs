@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Serilog;
 using StableDraw.SagasService;
 using StableDraw.SagasService.Sagas;
+using StableDraw.SagasService.Sagas.Render;
 using IHost = Microsoft.Extensions.Hosting.IHost;
 
 IHost host = Host.CreateDefaultBuilder(args)
@@ -25,7 +26,14 @@ IHost host = Host.CreateDefaultBuilder(args)
             cfg.SetKebabCaseEndpointNameFormatter();
             cfg.AddDelayedMessageScheduler();
             cfg.AddSagaStateMachine<MinIoStateMachine, MinIoState>()
-                .EntityFrameworkRepository<MinIoState>(r =>
+                .EntityFrameworkRepository(r =>
+                {
+                    r.ExistingDbContext<SagasDbContext>();
+                    r.LockStatementProvider = new SqliteLockStatementProvider();
+                });
+
+            cfg.AddSagaStateMachine<RenderStateMachine, RenderState>()
+                .EntityFrameworkRepository(r =>
                 {
                     r.ExistingDbContext<SagasDbContext>();
                     r.LockStatementProvider = new SqliteLockStatementProvider();
