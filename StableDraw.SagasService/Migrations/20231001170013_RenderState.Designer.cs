@@ -11,8 +11,8 @@ using StableDraw.SagasService;
 namespace StableDraw.SagasService.Migrations
 {
     [DbContext(typeof(SagasDbContext))]
-    [Migration("20231001161815_RenderService")]
-    partial class RenderService
+    [Migration("20231001170013_RenderState")]
+    partial class RenderState
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -58,6 +58,26 @@ namespace StableDraw.SagasService.Migrations
                     b.HasKey("CorrelationId");
 
                     b.ToTable("NeuralState");
+                });
+
+            modelBuilder.Entity("StableDraw.SagasService.Sagas.Render.RenderState", b =>
+                {
+                    b.Property<Guid>("CorrelationId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CurrentState")
+                        .HasMaxLength(255)
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("RequestId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ResponseAddress")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("CorrelationId");
+
+                    b.ToTable("RenderState");
                 });
 #pragma warning restore 612, 618
         }

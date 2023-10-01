@@ -1,6 +1,7 @@
 ﻿using MassTransit.EntityFrameworkCoreIntegration;
 using Microsoft.EntityFrameworkCore;
 using StableDraw.SagasService.Sagas;
+using StableDraw.SagasService.Sagas.Render;
 
 namespace StableDraw.SagasService;
 
@@ -14,7 +15,8 @@ public sealed class SagasDbContext : SagaDbContext
     protected override IEnumerable<ISagaClassMap> Configurations => new ISagaClassMap[]
     {
         new MinIoStateMap(),
-        new NeuralStateMap()
+        new NeuralStateMap(),
+        new RenderStateMap()
     };
     
     
