@@ -73,19 +73,17 @@ public class NeuralController : Controller
             Prompts = requestModel.Prompts,
             Parameters = requestModel.Parameters,
         };
-        
-        using (var memoryStream = new MemoryStream())
+
+        if (requestModel.ImagesInput != null)
         {
-            if (requestModel.ImagesInput != null)
+            var dataBytes = requestModel.ImagesInput.Select(async x =>
             {
-                var dataBytes = requestModel.ImagesInput.Select(async x =>
-                {
-                    await x.CopyToAsync(memoryStream);
-                    return memoryStream.ToArray();
-                }).Select(x => x.Result);
+                await using var memoryStream = new MemoryStream();
+                await x.CopyToAsync(memoryStream);
+                return memoryStream.ToArray();
+            }).Select(x => x.Result);
         
-                request.ImagesInput = dataBytes; 
-            }
+            request.ImagesInput = dataBytes;
         }
         var response = await _bus.Request<NeuralRequest, NeuralReply>(request);
         if (!response.Message.ErrorMsg.IsNullOrEmpty()) 

@@ -63,7 +63,7 @@ const Parametrs = ({closeWindow, closeParam, json, neuralName}) => {
         try {
             const formData = new FormData()
             formData.append('NeuralType', neuralName)
-            formData.append('Parametrs', renderValue)
+            formData.append('Parameters', renderValue)
             formData.append('Caption', "ldlflflf")
             formData.append('Prompts', ["lalala", "kfkf"])
             formData.append('ImagesInput', file)

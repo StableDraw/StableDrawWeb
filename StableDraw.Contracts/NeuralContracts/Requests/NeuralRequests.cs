@@ -19,5 +19,5 @@ public interface INeuralRequest
     public string? Caption { get; set; }
     public IEnumerable<string>? Prompts { get; set; }
     public Dictionary<string, string>? Parameters { get; set; }
-    public IEnumerable<IFormFile>? ImagesInput { get; set; }
+    public IEnumerable<byte[]>? ImagesInput { get; set; }
 }

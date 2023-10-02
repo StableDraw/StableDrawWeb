@@ -53,7 +53,12 @@ IHost host = Host.CreateDefaultBuilder(args)
                     h.Username("rmuser");
                     h.Password("rmpassword");
                 });
+                
                 rbfc.ConfigureEndpoints(brc);
+                rbfc.ReceiveEndpoint(ec =>
+                {
+                    ec.DiscardSkippedMessages();
+                });
             });
         });
 

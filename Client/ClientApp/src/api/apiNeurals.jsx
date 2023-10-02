@@ -20,7 +20,7 @@ export default class Neurals {
 	
 	static async RunNeural(requestModel) {
 		if (await AuthorizeService.isAuthenticated()) {
-			//console.log(requestModel.data)
+			console.log(requestModel)
 			return await axios.post('api/neural', requestModel, await ApiToken.GetConfigToken())
 				.then(response=>{
 					console.log(response);
