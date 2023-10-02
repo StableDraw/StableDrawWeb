@@ -13,6 +13,7 @@ const filterNeurals = (searchText, listOfNeurals) => {
 }
 
 const LeftPanel = ({openParam, setParametrs,setNeuralName, neuralsList}) => {
+
     const [searchTerm, setSearchTerm] = useState('')
     async function getParams(name) {
         try {

@@ -7,7 +7,7 @@ public class NeuralRequestModel
     public string? NeuralType { get; set; }
     public string? Caption { get; set; }
     public IEnumerable<string>? Prompts { get; set; }
-    public string? Parameters { get; set; }
+    public Dictionary<string, string>? Parameters { get; set; }
     public IEnumerable<IFormFile>? ImagesInput { get; set; }
 }
 

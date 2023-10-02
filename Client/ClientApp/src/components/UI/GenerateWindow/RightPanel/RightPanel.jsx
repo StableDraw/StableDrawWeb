@@ -4,8 +4,7 @@ import Zaglushka from '../parametrs/Zaglushka/Zaglushka'
 import Parametrs from '../parametrs/Parametrs/Parametrs'
 import { useState } from 'react'
 const RightPanel = ({closeWindow, showParam, closeParam, parametrs, neuralName}) => {
-  console.log(parametrs)
-  
+
   return (
     <section className={cl.mainContent}>
         <div className={cl.mainContent2}>

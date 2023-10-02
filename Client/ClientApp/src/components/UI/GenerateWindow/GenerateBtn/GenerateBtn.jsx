@@ -18,9 +18,7 @@ const GenerateBtn = () => {
         setModal(!modal)
         try {
             const list = await api.GetNeuralsList()
-            console.log(list.data)
-            // const array = list.data.map(name => name.neuralName)
-            // console.log(array)
+            // console.log(list.data)
             setNeuralList(list.data)
         } catch(e) {
             console.error(e)
