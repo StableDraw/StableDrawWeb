@@ -230,11 +230,19 @@ public class ImageController : Controller
         if (!images.Any())
             return NotFound();
 
-        response = await _bus.Request<GetObjectsMinIoRequest, GetObjectsMinIoReply>(new GetObjectsRequestModel() 
-        { 
-            OrderId = NewId.NextGuid(),
-            ObjectsId = images.Select(x => x.Oid) 
-        }, cts.Token);
+        try
+        {
+            response = await _bus.Request<GetObjectsMinIoRequest, GetObjectsMinIoReply>(new GetObjectsRequestModel() 
+            { 
+                OrderId = NewId.NextGuid(),
+                ObjectsId = images.Select(x => x.Oid) 
+            }, cts.Token);
+        }
+        catch (RequestTimeoutException e)
+        {
+            Console.WriteLine(e);
+            throw new Exception(e.Message);
+        }
         
         if (response.Message.DataDictionary != null)
             return Ok(response.Message.DataDictionary.Select(dict =>

@@ -4,8 +4,6 @@ import ApiToken from "./ApiToken";
 
 export default class Textures {
 	
-	
-	
 	static async LoadTexture(file) {
 		if(!await AuthorizeService.isAuthenticated())
 			return axios.HttpStatusCode.NotFound;
@@ -23,18 +21,12 @@ export default class Textures {
 	static async GetTextureStorage() {
 		if (!await AuthorizeService.isAuthenticated())
 			return axios.HttpStatusCode.NotFound;
-		try {
-			let response = await axios.get("api/image", await ApiToken.GetConfigToken());
-			console.log("resresrereerer");
-			return response;
-		}
-		catch (ex)
+		
+		let token = await AuthorizeService.getAccessToken()
+		return await axios.get("api/image", { timeout: 10000, headers: !token ? {} : { 'Authorization': `Bearer ${token}` }}).catch((error) =>
 		{
-			console.log(ex.toString())
-		}
-		
-		
-		
+			console.log(error);
+		});
 	}
 
 	static async DeleteAllTextures() {

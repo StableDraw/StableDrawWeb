@@ -74,9 +74,9 @@ var app = builder.Build();
 //app.UseExceptionHandler();
 // Configure the HTTP request pipeline.
 
-app.UseExceptionHandler(builder =>
+app.UseExceptionHandler(applicationBuilder =>
 {
-    builder.Run(async context =>
+    applicationBuilder.Run(async context =>
     {
         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
         context.Response.ContentType = "application/json";
@@ -90,7 +90,6 @@ app.UseExceptionHandler(builder =>
                 Message = exception.Error.Message
             };
             var errObj = JsonConvert.SerializeObject(error);
-
             await context.Response.WriteAsync(errObj).ConfigureAwait(false);
         }
     });
