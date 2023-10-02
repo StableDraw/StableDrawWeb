@@ -62,12 +62,13 @@ const Parametrs = ({closeWindow, closeParam, json, neuralName}) => {
         try {
             const formData = new FormData()
             formData.append('NeuralType', neuralName)
-            formData.append('Parameters', renderValue)
-            formData.append('Caption', "ldlflflf")
+            formData.append('Parameters', JSON.stringify(renderValue))
+            formData.append('Caption', "")
             formData.append('Prompts', ["lalala", "kfkf"])
             formData.append('ImagesInput', file)
             //formData.append("Content-Type", "multipart/form-data")
             const res = await api.RunNeural(formData)
+            console.log(res)
             //setRenderValue()
         } catch(e) {
             console.error(e)
