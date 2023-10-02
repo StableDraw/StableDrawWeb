@@ -24,7 +24,7 @@ namespace CLI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetRenderedImage(double[] coords, string sceneName)
         {
-            Response<GetRenderedImageReply> response = await _bus.Request<GetRenderedImageRequest, GetRenderedImageReply>
+            var response = await _bus.Request<GetRenderedImageRequest, GetRenderedImageReply>
                 (new GetRenderedImageRequestModel()
                 {
                     OrderId = NewId.NextGuid(),
