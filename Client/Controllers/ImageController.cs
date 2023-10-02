@@ -192,7 +192,7 @@ public class ImageController : Controller
         response = await _bus.Request<GetObjectsMinIoRequest, GetObjectsMinIoReply>(new GetObjectsRequestModel() 
         { 
             OrderId = NewId.NextGuid(),
-            ObjectsId = images.Select(x => x.Oid) 
+            ObjectsId = (IEnumerable<dynamic>?)images.Select(x => x.Oid) 
         }, cts.Token);
         
         if (response.Message.DataDictionary != null)
@@ -208,6 +208,22 @@ public class ImageController : Controller
         return NotFound();
     }
 
+    [HttpGet("scenes")]
+    public async Task<IActionResult> GetObjectsScenes(string[] scenesNames)
+    {
+        Response<GetObjectsMinIoReply> response;
+        
+        response = await _bus.Request<GetObjectsMinIoRequest, GetObjectsMinIoReply>(new GetObjectsRequestModel() 
+        { 
+            OrderId = NewId.NextGuid(),
+            ObjectsId = scenesNames
+        });
+        
+        if (response.Message.DataDictionary != null)
+            return Ok(response.Message.DataDictionary);
+        return NotFound();
+    }
+    
     protected override void Dispose(bool disposing)
     {
         _unitOfWork.Dispose();

@@ -33,12 +33,17 @@ export default class  Textures {
 			console.log(ex.toString())
 		}
 	}
-
 	static async DeleteAllTextures() {
 		if (!await AuthorizeService.isAuthenticated())
 			return axios.HttpStatusCode.NotFound;
 
 		return await axios.delete("api/image", await ApiToken.GetConfigToken());
+	}
+	
+	static async GetAllScenes(scenesArray){
+		if (!await AuthorizeService.isAuthenticated())
+			return axios.HttpStatusCode.NotFound;
+		return await axios.get("api/image/scenes", { headers: !token ? {} : { 'Authorization': `Bearer ${token}` }, params: scenesArray});
 	}
 }
 
