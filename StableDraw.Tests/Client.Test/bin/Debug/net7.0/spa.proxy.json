@@ -1,0 +1,8 @@
+{
+"SpaProxyServer": {
+"ServerUrl": "https://localhost:44404",
+"LaunchCommand": "npm start",
+"WorkingDirectory": "C:\\Users\\1392680\\Desktop\\StableDraw\\Branch Dev\\StableDrawWeb\\Client\\ClientApp\\",
+"MaxTimeoutInSeconds": "120"
+}
+}

@@ -9,11 +9,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StableDraw.Domain", "Stable
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StableDraw.Core", "StableDraw.Core\StableDraw.Core.csproj", "{9B7BDBC8-8731-4781-BA42-EA2D3915AF0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StableDraw.Contracts", "StableDraw.Contracts\StableDraw.Contracts.csproj", "{09E56497-8439-4D6F-AE0B-B8AC7544D147}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StableDraw.Contracts", "StableDraw.Contracts\StableDraw.Contracts.csproj", "{09E56497-8439-4D6F-AE0B-B8AC7544D147}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StableDraw.MinIOService", "StableDraw.MinIOService\StableDraw.MinIOService.csproj", "{EBCC643A-0CF6-419B-A352-B9525A493EED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StableDraw.MinIOService", "StableDraw.MinIOService\StableDraw.MinIOService.csproj", "{EBCC643A-0CF6-419B-A352-B9525A493EED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StableDraw.SagasService", "StableDraw.SagasService\StableDraw.SagasService.csproj", "{2B3C5211-187A-43C2-A70D-D699ED1E298B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StableDraw.SagasService", "StableDraw.SagasService\StableDraw.SagasService.csproj", "{2B3C5211-187A-43C2-A70D-D699ED1E298B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StableDraw.Tests", "StableDraw.Tests\StableDraw.Tests.csproj", "{6E454E66-C181-423D-8DB2-EFB170832D14}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client.Test", "StableDraw.Tests\Client.Test\Client.Test.csproj", "{53FB8BD4-F980-4538-815E-766C75EB2D0E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Test", "StableDraw.Tests\Domain.Test\Domain.Test.csproj", "{14D4A6B7-C7B3-4322-B637-DBF2A2E4F7F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinIOService.Test", "StableDraw.Tests\MinIOService.Test\MinIOService.Test.csproj", "{5CFA187C-C071-411C-BCF8-8EF5171F181E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SagaService.Test", "StableDraw.Tests\SagaService.Test\SagaService.Test.csproj", "{B97FEA3B-9F5F-46FC-AAD7-FB82F4A9AFCA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +55,26 @@ Global
 		{2B3C5211-187A-43C2-A70D-D699ED1E298B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B3C5211-187A-43C2-A70D-D699ED1E298B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B3C5211-187A-43C2-A70D-D699ED1E298B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E454E66-C181-423D-8DB2-EFB170832D14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E454E66-C181-423D-8DB2-EFB170832D14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E454E66-C181-423D-8DB2-EFB170832D14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E454E66-C181-423D-8DB2-EFB170832D14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53FB8BD4-F980-4538-815E-766C75EB2D0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53FB8BD4-F980-4538-815E-766C75EB2D0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53FB8BD4-F980-4538-815E-766C75EB2D0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53FB8BD4-F980-4538-815E-766C75EB2D0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14D4A6B7-C7B3-4322-B637-DBF2A2E4F7F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14D4A6B7-C7B3-4322-B637-DBF2A2E4F7F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14D4A6B7-C7B3-4322-B637-DBF2A2E4F7F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14D4A6B7-C7B3-4322-B637-DBF2A2E4F7F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CFA187C-C071-411C-BCF8-8EF5171F181E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CFA187C-C071-411C-BCF8-8EF5171F181E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CFA187C-C071-411C-BCF8-8EF5171F181E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CFA187C-C071-411C-BCF8-8EF5171F181E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B97FEA3B-9F5F-46FC-AAD7-FB82F4A9AFCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B97FEA3B-9F5F-46FC-AAD7-FB82F4A9AFCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B97FEA3B-9F5F-46FC-AAD7-FB82F4A9AFCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B97FEA3B-9F5F-46FC-AAD7-FB82F4A9AFCA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

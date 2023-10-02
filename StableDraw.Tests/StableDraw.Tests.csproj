@@ -7,4 +7,11 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="Client.Test\Client.Test.csproj" />
+    <ProjectReference Include="Domain.Test\Domain.Test.csproj" />
+    <ProjectReference Include="MinIOService.Test\MinIOService.Test.csproj" />
+    <ProjectReference Include="SagaService.Test\SagaService.Test.csproj" />
+  </ItemGroup>
+
 </Project>

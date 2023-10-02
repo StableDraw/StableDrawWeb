@@ -1,0 +1,12 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "strict": true,
+    "target": "es2021",
+    "outDir": "ClientApp/public",
+    "moduleResolution": "node"
+  },
+  "include": [
+    "main.ts"
+  ]
+}
