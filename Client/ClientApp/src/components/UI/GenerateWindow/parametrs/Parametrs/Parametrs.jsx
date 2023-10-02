@@ -28,7 +28,7 @@ const Parametrs = ({closeWindow, closeParam, json, neuralName}) => {
     const [file, setFile] = useState()
     const doDefaultValues = () => {
         console.log(`this is JSON: ${json}`)
-        const defaultValue = {}
+        let defaultValue = {}
         if(json) {
             for(let item of json.params) {
                 const param = JSON.parse(item)
@@ -64,11 +64,12 @@ const Parametrs = ({closeWindow, closeParam, json, neuralName}) => {
             const formData = new FormData()
             formData.append('NeuralType', neuralName)
             formData.append('Parametrs', renderValue)
-            formData.append('Caption', file)
-            formData.append('Promts', null)
-            formData.append("Content-Type", "multipart/form-data")
+            formData.append('Caption', "ldlflflf")
+            formData.append('Prompts', ["lalala", "kfkf"])
+            formData.append('ImagesInput', file)
+            //formData.append("Content-Type", "multipart/form-data")
             const res = await api.RunNeural(formData)
-            setRenderValue()
+            //setRenderValue()
         } catch(e) {
             console.error(e)
             throw(e)
@@ -78,7 +79,7 @@ const Parametrs = ({closeWindow, closeParam, json, neuralName}) => {
     <div>
             <div className={cl.image}>
                 <img src='kitty.png'/>
-                <input type='file' onChange={e=>setFile(e.target.files[0])}/>
+                <input type='file' multiple={true} onChange={e=>setFile(e.target.files[0])}/>
             </div>
         <div className={cl.params}>
             <div style={{display:'flex'}}>

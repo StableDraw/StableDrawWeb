@@ -60,7 +60,7 @@ public class NeuralController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> RunNeural([FromBody] NeuralRequestModel requestModel)
+    public async Task<IActionResult> RunNeural([FromForm] NeuralRequestModel requestModel)
     {
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (string.IsNullOrEmpty(currentUserId)) return NotFound();
@@ -83,7 +83,7 @@ public class NeuralController : Controller
                     await x.CopyToAsync(memoryStream);
                     return memoryStream.ToArray();
                 }).Select(x => x.Result);
-
+        
                 request.ImagesInput = dataBytes; 
             }
         }
