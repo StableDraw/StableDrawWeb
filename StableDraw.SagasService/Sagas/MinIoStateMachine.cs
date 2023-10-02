@@ -2,8 +2,6 @@
 using MassTransit.Contracts;
 using StableDraw.Contracts.MInIoContracts.Replies;
 using StableDraw.Contracts.MInIoContracts.Requests;
-using StableDraw.Contracts.NeuralContracts.Replies;
-using StableDraw.Contracts.NeuralContracts.Requests;
 
 namespace StableDraw.SagasService.Sagas;
 
@@ -40,7 +38,7 @@ public sealed partial class MinIoStateMachine : MassTransitStateMachine<MinIoSta
                         string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
                 })
                 .TransitionTo(Failed),
-            When(GetObjects.TimeoutExpired)
+            When(GetObject.TimeoutExpired)
                 .ThenAsync(async context =>
                 {
                     await RespondFromSaga(context, "TimeOut Get Object ");
