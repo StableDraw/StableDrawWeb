@@ -12,7 +12,7 @@ export default class Neurals {
 	}
 	static async GetNeuralsList() {
 		if (await AuthorizeService.isAuthenticated()) {
-			return await axios.get('api/neural/neuralList', await ApiToken.GetConfigToken())
+			return await axios.get('api/neural/neuralList', await ApiToken.GetConfigToken(), {timeout: 14400})
 		} else {
 			return await axios.HttpStatusCode.NotFound()
 		}

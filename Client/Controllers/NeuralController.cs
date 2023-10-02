@@ -85,7 +85,7 @@ public class NeuralController : Controller
         
             request.ImagesInput = dataBytes;
         }
-        var response = await _bus.Request<NeuralRequest, NeuralReply>(request);
+        var response = await _bus.Request<NeuralRequest, NeuralReply>(request, timeout: RequestTimeout.After(h: 4));
         if (!response.Message.ErrorMsg.IsNullOrEmpty()) 
                 throw new Exception(response.Message.ErrorMsg);
         return Ok(response.Message);
