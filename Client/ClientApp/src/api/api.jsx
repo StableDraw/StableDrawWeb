@@ -2,7 +2,7 @@ import axios from 'axios'
 import AuthorizeService from "../components/api-authorization/AuthorizeService";
 import ApiToken from "./ApiToken";
 
-export default class Textures {
+export default class  Textures {
 	
 	
 	
@@ -32,9 +32,6 @@ export default class Textures {
 		{
 			console.log(ex.toString())
 		}
-		
-		
-		
 	}
 
 	static async DeleteAllTextures() {

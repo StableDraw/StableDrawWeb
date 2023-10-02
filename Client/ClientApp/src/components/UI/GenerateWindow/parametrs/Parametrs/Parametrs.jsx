@@ -5,47 +5,30 @@ import MySelect from '../MySelect/MySelect'
 import MyCheckBox from '../MyCheckBox/MyCheckBox'
 import cl from './Parametrs.module.css'
 import api from '../../../../../api/apiNeurals'
-const Parametrs = ({closeWindow, closeParam,json,neuralName}) => {
+
+
+const renderSwitch = (value, id, func) => {
+    const key = Object.keys(value)
+    const type = value[key].type
+    switch(type) {
+        case 'select':
+            return <MySelect key={id} keyValue={key} name={value[key].name}  options={value[key].values} description={value[key].description} getValue={func}/>
+        case 'text':
+            return <InputText key={id} keyValue={key} name={value[key].name} description={value[key].description} getValue={func}/>
+        case 'range': 
+            return <InputRange key={id} keyValue={key} name={value[key].name} range={value[key].range} description={value[key].description} getValue={func}/>
+        case 'boolean': 
+            return <MyCheckBox key={id} keyValue={key} name={value[key].name} description={value[key].description} getValue={func}/>
+    }
+}
+
+
+const Parametrs = ({closeWindow, closeParam, json, neuralName}) => {
     
     const [file, setFile] = useState()
-    const fd = new FormData()
-    // if (file) {
-    //     fd.append('file', file)
-    // }
-
-    const closeModal = () => {
-        closeWindow(false)
-        closeParam(false)
-    }
-    const renderSwitch2 = (value, id) => {
-        const key = Object.keys(value)
-        const type = value[key].type
-        switch(type) {
-            case 'select':
-                return <MySelect key={id} keyValue={key} name={value[key].name}  options={value[key].values} description={value[key].description} getValue={sendValuesForRender}/>
-            case 'text':
-                return <InputText key={id} keyValue={key} name={value[key].name} description={value[key].description} getValue={sendValuesForRender}/>
-            case 'range': 
-                return <InputRange key={id} keyValue={key} name={value[key].name} range={value[key].range} description={value[key].description} getValue={sendValuesForRender}/>
-            case 'boolean': 
-                return <MyCheckBox key={id} keyValue={key} name={value[key].name} description={value[key].description} getValue={sendValuesForRender}/>
-        }
-    }
-    
-    const paramsToRender = []
-    // let defaultValue= {}
-    if(json) {
-        for (let item of json.params) {
-            const param = JSON.parse(item)
-            paramsToRender.push(param)
-            const key = Object.keys(param)
-            // defaultValue = ({...defaultValue, [key]:param[key].default})
-        }
-    }
-    const defaultValue = {}
-
     const doDefaultValues = () => {
         console.log(`this is JSON: ${json}`)
+        const defaultValue = {}
         if(json) {
             for(let item of json.params) {
                 const param = JSON.parse(item)
@@ -55,28 +38,36 @@ const Parametrs = ({closeWindow, closeParam,json,neuralName}) => {
         }
         return defaultValue
     }
+    const [renderValue, setRenderValue] = useState()
+    console.log(renderValue)
+    const closeModal = () => {
+        closeWindow(false)
+        closeParam(false)
+    }
+   
+    const paramsToRender = []
+    if(json) {
+        for (let item of json.params) {
+            const param = JSON.parse(item)
+            paramsToRender.push(param)
+        }
+    }
 
-    const [renderValue, setRenderValue] = useState(doDefaultValues)
+
     const sendValuesForRender = (value, str) => {
         setRenderValue({...renderValue,[str]:value})
-    }
-
-    fd.append('file', file)
-    fd.append('NeuralType', neuralName)
-    fd.append('Parametrs', renderValue)
-    console.log(fd)
-    const response = {
-        NeuralType: neuralName,
-        Parametrs: renderValue ?? null,
-        Caption: null,
-        Promts: null
-    }
+    }   
+    // Display the key/value pairs
+    
     const goOnServer = async () => {
-        // console.log(response)
-        // console.log(JSON.stringify(response))
         try {
-            const res = await api.RunNeural(fd)
-            // console.log(res)
+            const formData = new FormData()
+            formData.append('NeuralType', neuralName)
+            formData.append('Parametrs', renderValue)
+            formData.append('Caption', file)
+            formData.append('Promts', null)
+            formData.append("Content-Type", "multipart/form-data")
+            const res = await api.RunNeural(formData)
             setRenderValue()
         } catch(e) {
             console.error(e)
@@ -101,7 +92,7 @@ const Parametrs = ({closeWindow, closeParam,json,neuralName}) => {
                 </button>
             </div>
             <div className={cl.paramsList}>
-                {paramsToRender.map((param, id) => renderSwitch2(param,id))}
+                {paramsToRender.map((param, id) => renderSwitch(param,id,sendValuesForRender))}
             </div>
         </div>
         <button onClick={()=>closeModal()} className={cl.cancel}>Отмена</button>
