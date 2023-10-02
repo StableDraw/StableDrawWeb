@@ -22,12 +22,7 @@ export default class Neurals {
 		if (await AuthorizeService.isAuthenticated()) {
 			
 			return await axios.post(`api/neural`, requestModel, await ApiToken.GetConfigToken())
-				.then(response=>{
-					console.log(response);
-				})
-				.catch(error=>{
-					console.log(error);
-				  })
+				
 		} else {
 			return await axios.HttpStatusCode.NotFound();
 		}

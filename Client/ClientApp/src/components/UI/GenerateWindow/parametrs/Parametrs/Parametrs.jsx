@@ -28,7 +28,7 @@ const Parametrs = ({closeWindow, closeParam, json, neuralName}) => {
     const [file, setFile] = useState()
     const doDefaultValues = () => {
         console.log(`this is JSON: ${json}`)
-        const defaultValue = {}
+        let defaultValue = {}
         if(json) {
             for(let item of json.params) {
                 const param = JSON.parse(item)
@@ -39,7 +39,6 @@ const Parametrs = ({closeWindow, closeParam, json, neuralName}) => {
         return defaultValue
     }
     const [renderValue, setRenderValue] = useState()
-    console.log(renderValue)
     const closeModal = () => {
         closeWindow(false)
         closeParam(false)
@@ -62,12 +61,14 @@ const Parametrs = ({closeWindow, closeParam, json, neuralName}) => {
     const goOnServer = async () => {
         try {
             const formData = new FormData()
+            console.log(renderValue)
             formData.append('NeuralType', neuralName)
             formData.append('Parametrs', renderValue)
             formData.append('Caption', file)
             formData.append('Promts', null)
             formData.append("Content-Type", "multipart/form-data")
-            const res = await api.RunNeural(formData)
+            console.log('тут')
+            const res = await api.RunNeural({})
             setRenderValue()
         } catch(e) {
             console.error(e)
