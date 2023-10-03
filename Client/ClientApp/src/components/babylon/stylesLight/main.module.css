@@ -135,49 +135,8 @@
 
 .text {}
 
-@media (max-width: 1350px) {
-	.main {
-		grid-template-columns: 7.8fr 0.2fr;
-	}
-
-	.selectButtons {
-		right: -100%;
-		position: absolute;
-	}
-
-	.modelsBox {
-		position: absolute;
-		right: -100%;
-		grid-row: none;
-		grid-column: none;
-	}
-
-	.selectButtons.open {
-		right: 0;
-	}
-
-	.modelsBox.open {
-		right: 0;
-	}
-
-	.barButton {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-
-	.text {
-		font-size: 12px !important;
-	}
-
-	.tex_loadMenu {
-		justify-content: flex-start;
-	}
-
-	/* .bar{
-		position: absolute;
-		right: -80%;
-		background-color: aliceblue;
-	} */
-
-}
+@media(max-width: 1450px){
+  .main {
+   zoom: 0.8 !important;
+  }
+ }

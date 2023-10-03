@@ -1,12 +1,12 @@
-import headerClassesLight from './stylesLight/appBar.module.css';
-import headerClasses from './stylesDark/appBar.module.css';
 import { Link } from "react-router-dom";
-import { memo } from 'react';
+import header from './styles/header.module.css'
+import { memo } from "react";
 
 
-export const Logo = memo(({isLightTheme}) => {
+
+export const Logo = memo(() => {
 	return(
-		<div className={headerClassesLight.logo}>
+		<div className={header.logo}>
 		<svg
 				xmlns='../../../../../public/Pay/logo.svg'
 				width="59"
@@ -31,8 +31,8 @@ export const Logo = memo(({isLightTheme}) => {
 					</linearGradient>
 				</defs>
 			</svg>
-			<Link to='/' className={headerClasses.link}>
-				<div className={isLightTheme ? headerClassesLight.logoTxt : headerClasses.logoTxt}>
+			<Link to='/' className={header.link}>
+				<div className={header.logoTxt}>
 					Stable Draw
 				</div>
 			</Link>

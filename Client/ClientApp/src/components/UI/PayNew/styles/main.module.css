@@ -44,3 +44,10 @@
 .link{
 	text-decoration: none ;
 }
+
+
+@media(max-width: 1450px){
+	.back {
+	 zoom: 0.8 !important;
+	}
+ }

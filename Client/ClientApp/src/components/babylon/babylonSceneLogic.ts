@@ -4,7 +4,7 @@ import "@babylonjs/loaders/OBJ";
 // import { CustomLoading } from "./customLoading";
 import { ILoadingScreen } from "@babylonjs/core";
 
-
+// import { fileToBase64 } from "./base64ToLink";
 
 class CustomLoading implements ILoadingScreen {
 
@@ -29,8 +29,6 @@ class CustomLoading implements ILoadingScreen {
 		this.percentLoaded.innerText = `${status}%`;
 	}
 
-
-
 }
 export class BabylonScene {
 	private scene: BABYLON.Scene;
@@ -51,8 +49,6 @@ export class BabylonScene {
 		this.engine = new BABYLON.Engine(canvas,);
 
 		this.scene = this.createScene();
-		// this.loadingScreen = new CustomLoading(percentLoaded);
-		// this.engine.loadingScreen = this.loadingScreen;
 
 
 		this.loadingProgress = 0;
@@ -62,13 +58,6 @@ export class BabylonScene {
 			this.loadingProgress = 100 - (remainingCount / totalCount) * 100;
 			console.log("Загружено: " + this.loadingProgress.toFixed(2) + "%");
 		};
-
-
-		// this.assetsManager.onFinish = () => {
-		// 	// setIsLoaded(true);
-		// 	console.log("Все ресурсы успешно загружены!");
-
-		// };
 
 		this.engine.displayLoadingUI();
 
@@ -108,7 +97,7 @@ export class BabylonScene {
 	createCamera(canvas: HTMLCanvasElement): BABYLON.ArcRotateCamera {
 		const camera = new BABYLON.ArcRotateCamera(
 			"camera",
-			2 * Math.PI, // Угол по оси Y (горизонтальное вращение)
+			2 * Math.PI, // Угол по оси Y (горизонтальное вращение)	
 			Math.PI / 2, // Угол по оси X (вертикальное вращение)
 			5, // Радиус (расстояние от целевой точки)
 			BABYLON.Vector3.Zero(), // Целевая точка, вокруг которой будет вращаться камера
@@ -202,8 +191,7 @@ export class BabylonScene {
 			const pbrMaterial = new BABYLON.PBRMaterial('pbr', this.scene);
 			pbrMaterial.roughness = 1;
 
-			// console.log('Babylon tex64: ', texBase64);
-			const texture = BABYLON.Texture.CreateFromBase64String(`data:image;base64,${texBase64}`, '', this.scene); //тут остановился :)
+			const texture = BABYLON.Texture.CreateFromBase64String(`data:image;base64,${texBase64}`, '', this.scene);
 			texture.vScale = -1;
 			pbrMaterial._albedoTexture = texture;
 

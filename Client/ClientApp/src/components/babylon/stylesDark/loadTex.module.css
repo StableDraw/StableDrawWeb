@@ -158,6 +158,7 @@
 
 .texBtn{
 	border: none;
+	border-radius: 10px;
 }
 
 @media (max-width: 1350px){

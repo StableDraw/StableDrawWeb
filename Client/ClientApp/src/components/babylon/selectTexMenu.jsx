@@ -69,7 +69,7 @@ export const SelectTexMenu = ({
 						</svg>
 					</button>
 					<button className={loadClasses.texBtn} onClick={() => { setTexCount(index); setCurrenTexture(tex.bytes) }} key={tex + tex}>
-						<div key={tex + index}>
+						<div key={tex + index} >
 							<img src={ base64ToLinkImg(tex.bytes)}
 								alt="texture"
 								className={loadClasses.texImg_selectTexMenu}

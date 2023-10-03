@@ -1,0 +1,104 @@
+.main {
+	display: flex;
+	flex-direction: row;
+	/* align-items: center; */
+	justify-content: space-around;
+	width: 100%;
+	height: 240px;
+	background: #000;
+}
+
+.infoLeft {
+	display: flex;
+	flex-direction: column;
+	margin-top: 50px;
+	gap: 44px;
+}
+
+.addressTxt {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 15px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+}
+
+.supportTxt {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 13px 15px 13px 14px;
+	border-radius: 10px;
+	border: 1px solid #FFF;
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 15px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+}
+
+.support {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	gap: 41px;
+}
+
+.infoRight {
+	display: flex;
+	flex-direction: column;
+	margin-top: 70px;
+	gap: 20px;
+}
+
+.txtRight {
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+}
+
+.media{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	gap: 5px;
+}
+
+.iconBorder{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 30px;
+	width: 44px;
+	height: 44px;
+	border: 2px solid white;
+}
+
+.iconBorder:hover{
+	background-color: #222222;
+}
+.iconBorderTg{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 30px;
+	width: 44px;
+	height: 44px;
+	border: 2px solid white;
+	padding: 0 4px 4px 0;
+}
+
+.iconBorderTg:hover{
+	background-color: #222222;
+}
+
