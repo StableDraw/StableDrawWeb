@@ -22,6 +22,11 @@ const AppRoutes = [
         element: <StartPage />
     },
     {
+        path:'/startPage',
+        requireAuth:true,
+        element:<StartPage/>
+    },
+    {
         path: '/design',
         requireAuth: true,
         element: <Design />

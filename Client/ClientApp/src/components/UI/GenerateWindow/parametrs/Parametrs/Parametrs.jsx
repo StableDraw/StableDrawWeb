@@ -1,86 +1,87 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import InputRange from '../InputRange/InputRange'
 import InputText from '../InputText/InputText'
 import MySelect from '../MySelect/MySelect'
 import MyCheckBox from '../MyCheckBox/MyCheckBox'
 import cl from './Parametrs.module.css'
 import api from '../../../../../api/apiNeurals'
-const Parametrs = ({closeWindow, closeParam, neuralType}) => {
-      const closeModal = () => {
+
+
+const renderSwitch = (value, id, func) => {
+    const key = Object.keys(value)
+    const type = value[key].type
+    switch(type) {
+        case 'select':
+            return <MySelect key={id} keyValue={key} name={value[key].name}  options={value[key].values} description={value[key].description} getValue={func}/>
+        case 'text':
+            return <InputText key={id} keyValue={key} name={value[key].name} description={value[key].description} getValue={func}/>
+        case 'range': 
+            return <InputRange key={id} keyValue={key} name={value[key].name} range={value[key].range} description={value[key].description} getValue={func}/>
+        case 'boolean': 
+            return <MyCheckBox key={id} keyValue={key} name={value[key].name} description={value[key].description} getValue={func}/>
+    }
+}
+
+
+const Parametrs = ({closeWindow, closeParam, json, neuralName}) => {
+    
+    const [file, setFile] = useState()
+    const doDefaultValues = () => {
+        console.log(`this is JSON: ${json}`)
+        let defaultValue = {}
+        if(json) {
+            for(let item of json.params) {
+                const param = JSON.parse(item)
+                const key = Object.keys(param)
+                defaultValue = ({...defaultValue, [key]:param[key].default})
+            }
+        }
+        return defaultValue
+    }
+    const [renderValue, setRenderValue] = useState()
+    console.log(renderValue)
+    const closeModal = () => {
         closeWindow(false)
         closeParam(false)
     }
+   
     const paramsToRender = []
-
-    const renderSwitch2 = (name, value) => {
-        const type = value.type
-        console.log(value)
-        paramsToRender.push(value)
-        console.log(paramsToRender)
-
-        switch(type) {
-            case 'select':
-                console.log('тут будет селект')
-                break
-            case 'int': 
-                console.log('тут будет инпут')
-                break
-            case 'range': 
-                console.log('тут будет range')
-                break
-            case 'check': 
-                console.log('тут будет check')
-                break
+    if(json) {
+        for (let item of json.params) {
+            const param = JSON.parse(item)
+            paramsToRender.push(param)
         }
     }
-    const json = '{"image_count_input": 1,"description": "","params": {"ckpt": {"default": "ColorizeArtistic_gen","values": "ColorizeArtistic_gen;ColorizeArtistic_gen_GrayScale;ColorizeArtistic_gen_Sketch;ColorizeArtistic_gen_Sketch2Gray","description": "","type": "select"},"steps":{"default": 1,"description": "","type": "int"}}}'
-    const newObj = JSON.parse(json)
-    const parametrs = newObj.params
-    
-    for(const [key,value] of Object.entries(parametrs)) {
-        renderSwitch2(key,value)
-    }
-    const [renderValue, setRenderValue] = useState({
-        text: 'default',
-        select: 'default',
-        range: '1',  
-        checkBox: false,
-    })
-    const call = (value, str) => {
+
+
+    const sendValuesForRender = (value, str) => {
         setRenderValue({...renderValue,[str]:value})
-    }
+    }   
+    // Display the key/value pairs
     
-    const renderSwitch = (type) => {
-        switch(type) {
-            case 'Апскейл': 
-                return (
-                    <div>
-                        <InputText getValue={call}/>
-                        <MySelect getValue={call}/>
-                        <InputRange getValue={call}/>
-                        <MyCheckBox getValue={call}/>
-                    </div>
-                )
-            case 'Генерация по тексту':
-                return (
-                    <div>
-                        <MySelect/>
-                        <MySelect/>
-                        <MySelect/>
-                    </div>
-                )
-            case 'Генерация по описанию':
-                return (
-                    <div>
-                        <InputRange/>
-                        <InputRange/>
-                        <InputRange/>
-                    </div>
-                )
+    const goOnServer = async () => {
+        try {
+            const formData = new FormData()
+            formData.append('NeuralType', neuralName)
+            formData.append('Parameters', JSON.stringify(renderValue))
+            formData.append('Caption', "")
+            formData.append('Prompts', ["lalala", "kfkf"])
+            formData.append('ImagesInput', file)
+            //formData.append("Content-Type", "multipart/form-data")
+            const res = await api.RunNeural(formData)
+            console.log(res)
+            //setRenderValue()
+        } catch(e) {
+            console.error(e)
+            throw(e)
         }
     }
   return (
     <div>
+            <div className={cl.image}>
+                <img src='kitty.png'/>
+                <input type='file' multiple={true} onChange={e=>setFile(e.target.files[0])}/>
+            </div>
         <div className={cl.params}>
             <div style={{display:'flex'}}>
                 <input
@@ -93,14 +94,11 @@ const Parametrs = ({closeWindow, closeParam, neuralType}) => {
                 </button>
             </div>
             <div className={cl.paramsList}>
-                {renderSwitch(neuralType)}
-                {paramsToRender.map(params => {
-                    console.log(params.type)
-                })}
+                {paramsToRender.map((param, id) => renderSwitch(param,id,sendValuesForRender))}
             </div>
         </div>
         <button onClick={()=>closeModal()} className={cl.cancel}>Отмена</button>
-        <button className={cl.generate} onClick={()=>console.log(renderValue)}>Сгенерировать</button>
+        <button className={cl.generate} onClick={()=>goOnServer()}>Сгенерировать</button>
     </div>
   )
 }

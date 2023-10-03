@@ -12,6 +12,8 @@ public class NeuralStateMachine : MassTransitStateMachine<NeuralState>
     public NeuralStateMachine(ILogger<NeuralStateMachine> logger)
     {
         _logger = logger;
+        InstanceState(x => x.CurrentState);
+        
         Event(() =>
             GenerateNeuralEvent, x =>
             x.CorrelateById(y => y.Message.OrderId));
@@ -72,7 +74,8 @@ public class NeuralStateMachine : MassTransitStateMachine<NeuralState>
                     OrderId = context.Saga.CorrelationId,
                     Images = neuralReply.Images,
                     NeuralType = neuralReply.NeuralType,
-                    TextResult = neuralReply.TextResult
+                    TextResult = neuralReply.TextResult,
+                    ErrorMsg = neuralReply.ErrorMsg
                 }, r => r.RequestId = context.Saga.RequestId);
                 break;
             case Fault<INeuralRequest>:

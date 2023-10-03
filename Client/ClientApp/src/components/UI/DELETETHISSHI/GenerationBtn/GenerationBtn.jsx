@@ -18,19 +18,7 @@ const GenerationBtn = () => {
                 <UploadButton/>
                 <SaveButton />
             </div>
-            {/* <a
-                onClick={showGenerationModal}
-                className={[cl.button, cl.generate].join(" ")}
-            >
-                <p> Генерация </p>
-                <Modal
-                    open={modal}
-                    onClose={showGenerationModal}
-                    className={cl.window}
-                >
-                    <GeneratedContent setModal={setModal} />
-                </Modal>
-            </a> */}
+      
         </div>         
     );
 };

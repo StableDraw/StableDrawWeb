@@ -1,4 +1,7 @@
 {
   "$schema": "./build.schema.json",
-  "Path" : "/C"
+  "ClientDirectory": "\\Client",
+  "FrontendProjectDirectory": "\\Client\\ClientApp",
+  "DockerFileDirectory": "\\manifestos",
+  "ProjectPublishDirectory": "\\bin\\publish"
 }
