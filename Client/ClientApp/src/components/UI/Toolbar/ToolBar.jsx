@@ -22,7 +22,7 @@ const ToolBar = () => {
   };
   return (
     <div className={cl.nav}>
-      <NavLink tag={Link} to="../" className={cl.logo}>
+      {/* <NavLink tag={Link} to="../" className={cl.logo}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="59"
@@ -50,7 +50,7 @@ const ToolBar = () => {
             </linearGradient>
           </defs>
         </svg>
-      </NavLink>
+      </NavLink> */}
 
       <Pencil activeBtn={setActiveBtn} active={activeBtn} />
 
