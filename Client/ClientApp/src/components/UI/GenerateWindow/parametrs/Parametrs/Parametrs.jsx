@@ -22,7 +22,6 @@ const renderSwitch = (value, id, func) => {
     }
 }
 
-
 const Parametrs = ({closeWindow, closeParam, json, neuralName}) => {
 
     const [file, setFile] = useState()
@@ -52,12 +51,11 @@ const Parametrs = ({closeWindow, closeParam, json, neuralName}) => {
         }
     }
 
-
     const sendValuesForRender = (value, str) => {
         setRenderValue({...renderValue,[str]:value})
-    }   
-    // Display the key/value pairs
-    
+    }
+
+    let image
     const goOnServer = async () => {
         try {
             const formData = new FormData()
@@ -68,8 +66,9 @@ const Parametrs = ({closeWindow, closeParam, json, neuralName}) => {
             formData.append('ImagesInput', file)
             //formData.append("Content-Type", "multipart/form-data")
             const res = await api.RunNeural(formData)
-            console.log(res)
-            //setRenderValue()
+            console.log(res.data[0])
+            image = `data:image/png;base64${res.data[0]}`
+            setRenderValue()
         } catch(e) {
             console.error(e)
             throw(e)
@@ -77,10 +76,11 @@ const Parametrs = ({closeWindow, closeParam, json, neuralName}) => {
     }
   return (
     <div>
-            <div className={cl.image}>
-                <img src='kitty.png'/>
-                <input type='file' multiple={true} onChange={e=>setFile(e.target.files[0])}/>
-            </div>
+        <div className={cl.image}>
+            <img src='kitty.png'/>
+            <input type='file' multiple={true} onChange={e=>setFile(e.target.files[0])}/>
+            <img src={image}/>
+        </div>
         <div className={cl.params}>
             <div style={{display:'flex'}}>
                 <input
@@ -89,14 +89,14 @@ const Parametrs = ({closeWindow, closeParam, json, neuralName}) => {
                     className={cl.findParam}
                 />
                 <button className={cl.saveParam}>
-                    <p className={cl.saveParamText}>Сохранить параметры</p> 
+                    <p className={cl.saveParamText}>Сохранить параметры</p>
                 </button>
             </div>
             <div className={cl.paramsList}>
                 {paramsToRender.map((param, id) => renderSwitch(param,id,sendValuesForRender))}
             </div>
         </div>
-        <button onClick={()=>closeModal()} className={cl.cancel}>Отмена</button>
+        <button className={cl.cancel} onClick={()=>closeModal()} >Отмена</button>
         <button className={cl.generate} onClick={()=>goOnServer()}>Сгенерировать</button>
     </div>
   )
