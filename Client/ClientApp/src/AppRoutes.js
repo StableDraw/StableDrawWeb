@@ -22,7 +22,7 @@ const AppRoutes = [
         element: <StartPage />
     },
     {
-        path:'/startPage',
+        path:'/',
         requireAuth:true,
         element:<StartPage/>
     },
