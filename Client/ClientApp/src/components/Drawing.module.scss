@@ -5,6 +5,7 @@
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    gap: 32px;
   }
 
   &__navbar {
@@ -41,27 +42,6 @@
     display: flex;
     align-items: center;
     gap: 16px;
-  }
-  &__module {
-    padding-right: 32px;
-    color: #1975d2;
-    // font-family: Montserrat;
-    font-size: 15px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-  }
-  &__sub {
-    padding-right: 32px;
-    background: linear-gradient(90deg, #4401bd 0%, #c70384 106.87%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    // font-family: Montserrat;
-    font-size: 15px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
   }
 
   &__menu {

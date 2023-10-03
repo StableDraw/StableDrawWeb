@@ -123,15 +123,22 @@ const Drawing = () => {
             </svg>
             <span className={cl.header__title}>STABLEDRAW</span>
           </NavLink>
-          <BabylonModule />
-          <PayModule />
-
           <div className={cl.header__container}>
-            <input className={cl.header__input} type="checkbox" name="" id="" />
-            <div className={cl.header__lines}>
-              <span className={[cl.header__line, cl.line1].join(" ")}></span>
-              <span className={[cl.header__line, cl.line2].join(" ")}></span>
-              <span className={[cl.header__line, cl.line3].join(" ")}></span>
+            <PayModule />
+            <BabylonModule />
+
+            <div className={cl.header__menu}>
+              <input
+                className={cl.header__input}
+                type="checkbox"
+                name=""
+                id=""
+              />
+              <div className={cl.header__lines}>
+                <span className={[cl.header__line, cl.line1].join(" ")}></span>
+                <span className={[cl.header__line, cl.line2].join(" ")}></span>
+                <span className={[cl.header__line, cl.line3].join(" ")}></span>
+              </div>
             </div>
           </div>
         </div>
