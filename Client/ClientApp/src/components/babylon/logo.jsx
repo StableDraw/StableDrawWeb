@@ -1,9 +1,10 @@
 import headerClassesLight from './stylesLight/appBar.module.css';
 import headerClasses from './stylesDark/appBar.module.css';
 import { Link } from "react-router-dom";
+import { memo } from 'react';
 
 
-export const Logo = ({isLightTheme}) => {
+export const Logo = memo(({isLightTheme}) => {
 	return(
 		<div className={headerClassesLight.logo}>
 		<svg
@@ -37,4 +38,4 @@ export const Logo = ({isLightTheme}) => {
 			</Link>
 		</div>
 	);
-};
+});

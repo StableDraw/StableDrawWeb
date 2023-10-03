@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { HeaderMenu } from './headerMenu';
 import { Logo } from './logo';
 import header from './styles/header.module.css'
+import { memo } from "react";
+
 
 export const Header = () => {
 	const [isVisible, setIsVisible] = useState(false);
@@ -19,4 +21,4 @@ export const Header = () => {
 			{isVisible && <HeaderMenu setIsVisible={setIsVisible} />}
 		</header>
 	)
-};
+}

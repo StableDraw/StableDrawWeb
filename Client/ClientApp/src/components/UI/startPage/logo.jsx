@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import header from './styles/header.module.css'
+import { memo } from "react";
 
 
 
-export const Logo = () => {
+export const Logo = memo(() => {
 	return(
 		<div className={header.logo}>
 		<svg
@@ -37,4 +38,4 @@ export const Logo = () => {
 			</Link>
 		</div>
 	);
-};
+});
