@@ -147,31 +147,33 @@ const Drawing = () => {
         <ToolBar />
 
         <div className={cl.main__content}>
-          <div className={cl.main__canvas}>
-            <div className={cl.main__panel}>
-              <ToolOptionsBar />
-              <GenerateModule />
-              <GenerateWindow />
+          <div className={cl.main__container}>
+            <div className={cl.main__canvas}>
+              <div className={cl.main__panel}>
+                <ToolOptionsBar />
+                <GenerateModule />
+                <GenerateWindow />
+              </div>
+              <Canvas
+                mergeRes={mergeRes}
+                canvasDate={canvasList}
+                labelData={resLabel}
+                width={`${width}px`}
+                height={`${height}px`}
+              />
             </div>
-            <Canvas
-              mergeRes={mergeRes}
-              canvasDate={canvasList}
-              labelData={resLabel}
-              width={`${width}px`}
-              height={`${height}px`}
-            />
-          </div>
-          <div className={cl.main__lablebar}>
-            <LableBar
-              width={Width}
-              height={Height}
-              mergeCanvas={Merge}
-              deleteCanva={DeleteCanva}
-              Clear={Clear}
-              Visable={Visable}
-              canva={label}
-              newCanva={AddNewcanva}
-            />
+            <div className={cl.main__lablebar}>
+              <LableBar
+                width={Width}
+                height={Height}
+                mergeCanvas={Merge}
+                deleteCanva={DeleteCanva}
+                Clear={Clear}
+                Visable={Visable}
+                canva={label}
+                newCanva={AddNewcanva}
+              />
+            </div>
           </div>
 
           {/*<ScaleField />*/}

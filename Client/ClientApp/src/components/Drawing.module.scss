@@ -97,8 +97,13 @@
   &__canvas {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+
     padding: 10px;
+  }
+  &__container {
+    align-self: start;
+    justify-content: center;
+    display: flex;
   }
   &__panel {
     display: flex;
@@ -155,5 +160,10 @@
   transform-origin: 10% 100%;
 }
 
-@media screen and (max-width: 1480px) {
+@media (max-width: 1280px) {
+  .main {
+    &__container {
+      align-self: center;
+    }
+  }
 }
