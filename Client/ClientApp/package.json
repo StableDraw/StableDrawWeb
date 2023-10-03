@@ -13,6 +13,7 @@
     "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
     "cli": "^0.1.0",
+    "css-loader": "^6.8.1",
     "http-proxy-middleware": "^2.0.6",
     "jquery": "^3.6.3",
     "merge": "^2.1.1",

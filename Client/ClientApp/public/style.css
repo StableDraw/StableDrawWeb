@@ -887,7 +887,6 @@ input[type=range].up_add_window_slider::-ms-fill-lower
 
 #babylonjsLoadingDiv{
     border-radius: 30px;
-<<<<<<< HEAD
     /* z-index: 1; */
 }
 
@@ -895,7 +894,4 @@ input[type=range].up_add_window_slider::-ms-fill-lower
 	#babylonjsLoadingDiv{
 		zoom: 0.8;
 	}
-=======
-    z-index: 1;
->>>>>>> origin/CanvasLogic2
 }
