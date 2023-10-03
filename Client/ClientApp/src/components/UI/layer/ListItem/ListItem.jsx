@@ -61,7 +61,8 @@ const ListItem = (props) => {
                         ref={CanvasRef}
                         id={"layer_"+props.item.id+"_display_canvas"}
                         index={props.index}
-                        
+                        width="50px"
+                        height="28px"
                         style={{ zIndex: props.index, width: "50px", height: "28px", background: "#FFFFFF" }}>
                     </canvas>
                 </div>

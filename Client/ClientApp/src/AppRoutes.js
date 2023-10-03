@@ -31,11 +31,11 @@ const AppRoutes = [
         requireAuth: true,
         element: <Design />
     },
-    {
-        path: '/window',
-        requireAuth: true,
-        element: <GenerateBtn />
-    },
+    // {
+    //     path: '/window',
+    //     requireAuth: true,
+    //     element: <GenerateBtn />
+    // },
     {
         path: '/text-to-img',
         requireAuth: true,
@@ -43,7 +43,7 @@ const AppRoutes = [
     },
     {
         path: '/drawing-to-img',
-        requireAuth: true,
+        requireAuth: false,
         element: <Drawing/>
     },
     {
@@ -53,7 +53,7 @@ const AppRoutes = [
     },
     {
         path: '/test',
-        requireAuth: true,
+        requireAuth: false,
         element: <DrawingtoImg />
     },
     {

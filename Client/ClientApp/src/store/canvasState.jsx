@@ -1,4 +1,5 @@
-﻿import {makeAutoObservable, observable} from "mobx";
+﻿import {observer} from "mobx-react";
+import {makeAutoObservable} from "mobx";
 
 class CanvasState {
     canvas = null
@@ -15,7 +16,7 @@ class CanvasState {
     
     mergeFinal = null 
     constructor() {
-        observable(this)
+        makeAutoObservable(this)
     }
     
     setMergeList(data) {
@@ -25,6 +26,8 @@ class CanvasState {
         this.mergeCanvas = [...data]
         // console.log("merge", this.mergeCanvas)
     }
+    
+    
     
     mergeAllCanvas() {
         if (this.mergeCanvas.length !== (0 || 1)) {

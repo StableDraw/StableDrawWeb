@@ -1,10 +1,7 @@
 import React, {useState} from 'react';
-import cl from "../GenerationBtn/GenerationBtn.module.css";
-import Button from '@mui/material/Button';
-import { Modal } from '@mui/material';
-import GeneratedContent from "../GeneratedContent/GeneratedContent";
-import UploadButton from "../../modal/UploadButton/UploadButton";
-import SaveButton from "../../modal/SaveButton/SaveButton";
+import cl from "./GenerationBtn.module.css";
+import UploadButton from "../modal/UploadButton/UploadButton";
+import SaveButton from "../modal/SaveButton/SaveButton";
 
 const GenerationBtn = () => {
     const [modal, setModal] = useState(false)

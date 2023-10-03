@@ -1,7 +1,5 @@
 ﻿import {React, useState} from 'react';
-import SideBar from "./UI/SideBar/SideBar.jsx";
 import LableBar from "./UI/LableBar/LableBar.jsx";
-import ScaleField from "./UI/ScaleField/ScaleField.jsx";
 import GenBlock from "./UI/modal/GenBlock.jsx";
 import Canvas from "./UI/canvas/Canvas.jsx";
 import GraphicTable from "./UI/modal/GraphicTable.jsx";
@@ -9,10 +7,9 @@ import ToolBar from "./UI/Toolbar/ToolBar.jsx";
 import PayModule from "./UI/payModule/PayBtn.jsx";
 import BabylonModule from "./UI/BabylonModule/BabylonBtn.jsx";
 import ToolOptionsBar from './UI/ToolOptionsBar/ToolOptionsBar.jsx';
-import GenerateModule from "./UI/DELETETHISSHI/GenerationBtn/GenerationBtn.jsx";
+import GenerateModule from './UI/GenerateBtn/GenerationBtn.jsx'
 import canvasState from "../store/canvasState";
 import cl from "./Drawing.module.css"
-import CanvasState from "../store/canvasState";
 import GenerateWindow from '../components/UI/GenerateWindow/GenerateBtn/GenerateBtn.jsx'
 const Drawing = () => {
 
@@ -101,8 +98,8 @@ const Drawing = () => {
                             mergeRes={mergeRes}  
                             canvasDate={canvasList} 
                             labelData={resLabel} 
-                            width={`${width}px`} 
-                            height={`${height}px`}
+                            width={width} 
+                            height={height}
                         />
                     </div>
                     <div className={[cl.col, cl.block].join(" ")} style={{padding: "0 0 0 5px"}}>
