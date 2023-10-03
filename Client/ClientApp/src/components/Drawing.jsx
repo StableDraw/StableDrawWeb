@@ -93,7 +93,7 @@ const Drawing = () => {
     <div>
       <div className={cl.header}>
         <div className={cl.header__navbar}>
-          <NavLink tag={Link} to="../" className={cl.logo}>
+          <NavLink tag={Link} to="../" className={cl.header__logo}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="59"
@@ -121,6 +121,7 @@ const Drawing = () => {
                 </linearGradient>
               </defs>
             </svg>
+            <span className={cl.header__title}>STABLEDRAW</span>
           </NavLink>
           <BabylonModule />
           <PayModule />
@@ -136,18 +137,11 @@ const Drawing = () => {
         </div>
       </div>
       <div className={cl.main}>
-        {/*<SideBar light={{item: '1', bla: 2}}/>*/}
-
         <ToolBar />
-        {/*<h1>
-                        <span style={{textDecoration: 'underline', margin: 80, color: 'rgba(204,32,32,0.8)'}}>
-                            <span style={{color: 'rgba(83,107,234,0.9)', fontWeight: "bold" }}>S
-                            </span>table Drawing
-                        </span>
-                    </h1>*/}
+
         <div className={cl.main__content}>
-          <div className={cl.col}>
-            <div className={[cl.row, cl.canvas__button].join(" ")}>
+          <div className={cl.main__canvas}>
+            <div className={cl.main__panel}>
               <ToolOptionsBar />
               <GenerateModule />
               <GenerateWindow />
@@ -160,10 +154,7 @@ const Drawing = () => {
               height={`${height}px`}
             />
           </div>
-          <div
-            className={[cl.col, cl.block].join(" ")}
-            style={{ padding: "0 0 0 5px" }}
-          >
+          <div className={cl.main__lablebar}>
             <LableBar
               width={Width}
               height={Height}

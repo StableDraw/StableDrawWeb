@@ -1,9 +1,23 @@
 .btn {
-  color: red;
-  position: relative;
-  width: 100%;
-  /* bottom: 95%;
-  left: 93%; */
+  & &__sub {
+    // font-family: Montserrat;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    background: linear-gradient(90deg, #4401bd 0%, #c70384 106.87%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border: none;
+    padding: 0;
+
+    text-transform: none;
+    cursor: pointer;
+  }
+  span {
+    margin: 0;
+  }
 }
 
 .window {
