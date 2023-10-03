@@ -1,10 +1,5 @@
 .btn {
   & &__sub {
-    .MuiButton-root {
-      &:hover {
-        outline: none;
-      }
-    }
     // font-family: Montserrat;
     font-size: 15px;
     font-style: normal;
@@ -14,15 +9,9 @@
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    border: none;
     padding: 0;
-    outline: none;
-    text-transform: none;
-  }
-  span {
     margin: 0;
-    border: none;
-    padding: 0;
+    cursor: pointer;
   }
 }
 

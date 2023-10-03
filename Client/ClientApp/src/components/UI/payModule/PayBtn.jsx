@@ -18,12 +18,15 @@ const PayModule = () => {
         <Content />
       </Modal>
 
-      <Button
+      {/* <Button
         className={cl.btn__sub}
         variant="outlined"
         startIcon={"Подписка"}
         onClick={showPayModal}
-      />
+      /> */}
+      <span className={cl.btn__sub} onClick={showPayModal}>
+        Подписка
+      </span>
     </div>
   );
 };
