@@ -21,11 +21,11 @@ const AppRoutes = [
         index: true,
         element: <StartPage />
     },
-    {
-        path:'/',
-        requireAuth:true,
-        element:<StartPage/>
-    },
+    // {
+    //     path:'/',
+    //     requireAuth:true,
+    //     element:<StartPage/>
+    // },
     {
         path: '/design',
         requireAuth: true,
@@ -43,7 +43,7 @@ const AppRoutes = [
     },
     {
         path: '/drawing-to-img',
-        requireAuth: false,
+        requireAuth: true,
         element: <Drawing/>
     },
     {
