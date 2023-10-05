@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace StableDraw.Domain.Repositories;
+namespace StableDraw.Data.Repositories;
 
 public interface IBaseRepository<T>
 {

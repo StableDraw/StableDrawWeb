@@ -11,4 +11,5 @@
     <ProjectReference Include="..\StableDraw.Domain\StableDraw.Domain.csproj" />
   </ItemGroup>
 
+
 </Project>

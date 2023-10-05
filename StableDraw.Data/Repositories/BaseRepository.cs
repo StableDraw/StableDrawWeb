@@ -2,51 +2,60 @@
 using Microsoft.EntityFrameworkCore;
 using StableDraw.Core.Models;
 using StableDraw.Domain.Data.Identity;
+using StableDraw.Domain.Repositories;
 
-namespace StableDraw.Domain.Repositories;
+namespace StableDraw.Data.Repositories;
+
+public interface IDbContext
+{
+    DbSet<TEntity> Set<TEntity>() where TEntity : class;
+    int SaveChanges();
+    void Dispose();
+}
+
 
 public abstract class BaseRepository<T> : IBaseRepository<T> where T : BaseObject
 {
-    protected ApplicationDbContext Context;
+    private readonly IDbContext _context;
 
-    protected BaseRepository(ApplicationDbContext context)
+    protected BaseRepository(IDbContext context)
     {
-        Context = context;
+        _context = context;
     }
 
     public IQueryable<T> FindAll()
     {
-        return Context.Set<T>().AsNoTracking();
+        return _context.Set<T>().AsNoTracking();
     }
 
     public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
     {
-        return Context.Set<T>()
+        return _context.Set<T>()
             .Where(expression).AsNoTracking();
     }
 
     public void Create(T entity)
     {
-        Context.Set<T>().Add(entity);
+        _context.Set<T>().Add(entity);
     }
 
     public void Update(T entity)
     {
-        Context.Set<T>().Update(entity);
+        _context.Set<T>().Update(entity);
     }
     
     public void Delete(T entity)
     {
-        Context.Set<T>().Remove(entity);
+        _context.Set<T>().Remove(entity);
     }
 
     public async Task CreateRangeAsync(IEnumerable<T> entities)
     {
-        await Context.Set<T>().AddRangeAsync(entities);
+        await _context.Set<T>().AddRangeAsync(entities);
     }
 
     public void RemoveRangeAsync(IEnumerable<T> entities)
     {
-        Context.Set<T>().RemoveRange(entities);
+        _context.Set<T>().RemoveRange(entities);
     }
 }
