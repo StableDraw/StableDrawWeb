@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Serilog;
 using StableDraw.SagasService;
 using StableDraw.SagasService.Sagas;
+using StableDraw.SagasService.Sagas.Render;
 using IHost = Microsoft.Extensions.Hosting.IHost;
 
 IHost host = Host.CreateDefaultBuilder(args)
@@ -27,13 +28,26 @@ IHost host = Host.CreateDefaultBuilder(args)
             cfg.AddSagaStateMachine<MinIoStateMachine, MinIoState>()
                 .EntityFrameworkRepository(r =>
                 {
-                    r.ConcurrencyMode = ConcurrencyMode.Pessimistic;
                     r.ExistingDbContext<SagasDbContext>();
                     r.LockStatementProvider = new SqliteLockStatementProvider();
                 });
+
+            cfg.AddSagaStateMachine<RenderStateMachine, RenderState>()
+                .EntityFrameworkRepository(r =>
+                {
+                    r.ExistingDbContext<SagasDbContext>();
+                    r.LockStatementProvider = new SqliteLockStatementProvider();
+                });
+            // cfg.AddSagaStateMachine<MinIoStateMachine, MinIoState>()
+            //     .EntityFrameworkRepository(r =>
+            //     {
+            //         r.ConcurrencyMode = ConcurrencyMode.Pessimistic;
+            //         r.ExistingDbContext<SagasDbContext>();
+            //         r.LockStatementProvider = new SqliteLockStatementProvider();
+            //     });
             cfg.AddSagaStateMachine<NeuralStateMachine, NeuralState>().EntityFrameworkRepository(r =>
             {
-                r.ConcurrencyMode = ConcurrencyMode.Pessimistic;
+                //r.ConcurrencyMode = ConcurrencyMode.Pessimistic;
                 r.ExistingDbContext<SagasDbContext>();
                 r.LockStatementProvider = new SqliteLockStatementProvider();
             });
@@ -47,7 +61,12 @@ IHost host = Host.CreateDefaultBuilder(args)
                     h.Username("rmuser");
                     h.Password("rmpassword");
                 });
+                
                 rbfc.ConfigureEndpoints(brc);
+                rbfc.ReceiveEndpoint(ec =>
+                {
+                    ec.DiscardSkippedMessages();
+                });
             });
         });
 

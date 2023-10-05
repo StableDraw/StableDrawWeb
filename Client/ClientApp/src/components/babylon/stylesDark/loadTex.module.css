@@ -4,28 +4,14 @@
 	display: flex;
 	justify-content: center;
 	flex-direction: row;
-	/* max-width: 1000px;
-	overflow-x: auto; */
-}
-
-.previewTexes_selectTexMenu{
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
+	gap:10px;
 }
 
 .buttons_selectTexMenu{
+  position: relative;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	/* overflow-x:auto; */
-	/* max-width: 100%; */
-}
-
-.closeButton_selectTexMenu{
-	padding-left: 40px;
-	height: 20px;
 }
 
 .texImg_selectTexMenu{
@@ -59,90 +45,119 @@
 	justify-content: center;
 }
 
-.selectTexMenu_container{
+.selectTexMenu{
 	display: flex;
 	flex-direction: row;
-	overflow-x: auto;
 	max-width: 1000px;
-	box-shadow: 5px;
-	border-radius: 10px;
-	background: #1D1D1D;
-	/* margin-top: 20px; */
+	min-width: 100px;
+	min-height: 100px;
+	border: 2px solid #656565;
+	background: #404249;
+	border-radius: 20px;
+	align-items: center;
+	justify-content: center;
+	overflow-x: auto;
+	gap: 10px;
 }
 
-.arrow_selectTexMenu{
+.selectTexMenu_fill{
 	display: flex;
+	flex-direction: row;
+	max-width: 1000px;
+	min-width: 100px;
+	min-height: 100px;
+	border: 2px solid #656565;
+	padding: 10px 5px 10px 5px;
+	background: #404249;
+	border-radius: 20px;
 	align-items: center;
+	justify-content: center;
+	overflow-x: auto;
+	gap: 10px;
 }
 
 .arrowDelete_selectTexMenu{
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: flex-end;
 	flex-direction: column;
 	gap: 1px;
-}
-
-.text{
-	font-size: 15px !important;
 }
 
 .cont{
 	display: flex;
 	flex-direction: row;
-}
-.loadIcon{
-	/* display: none !important; */
-	color: white !important;
-
-}
-
-.deleteIcon{
-	color: white !important;
+	justify-content: center;
+	align-items: center;
+	margin-top: 15px;
+	gap: 20px;
 }
 
-.crossIcon{
-	color: white !important;
-}
-
-.addIconCont{
-	width: 40px;
+.addTex1{
+	border-radius: 20px;
+	width: 100px;
 	height: 100px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
 
-.addIcon{
-	width: 40px !important;
-	height: 40px !important;
-	color: rgba(255, 255, 255, 0.582) !important;
+.addTex1:hover{
+	cursor: pointer;
+	background: #34363b;
 }
 
-.addIconContMain{
-	width: 80px;
-	height: 120px;
+.addTexSmall{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #404249;
+	border-radius: 10px;
+	width: 50px;
+	height: 50px;
+	border: 2px solid #656565;
+	cursor: pointer;
+}
+.addTexSmall:hover{
+	background: #34363b;
+}
+
+.addTex2:hover{
+	cursor: pointer;
+	background: #34363b;
+}
+
+.addTex2{
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	border-radius: 10px;
 }
 
-.addIconMain{
-	width: 50px !important;
-	height: 50px !important;
-	color: rgba(255, 255, 255, 0.582) !important;
+.sideMenu{
+	display: flex;
+	flex-direction: column;
+	gap:10px;
+	justify-content: center;
+	align-items: center;
 }
 
-.addIcon:hover{
-	color: rgba(255, 255, 255, 0.863) !important;
-	transition: 150ms ease-in-out !important;
-	cursor: pointer;
+.cancelBtn{
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #2B2D31;
+	border: none;
+	border-radius: 20px;
+	width: 25px;
+	height: 25px;
+	right: -7px;
+	top: -7px;
 }
 
-.addIconMain:hover{
-	color: rgba(255, 255, 255, 0.863) !important;
-	transition: 150ms ease-in-out !important;
-	cursor: pointer;
+.texBtn{
+	border: none;
 }
 
 @media (max-width: 1350px){
@@ -150,9 +165,9 @@
 		display: none !important;
 	}
 
-	/* .loadIcon{
+	.loadIcon{
 		display: flex !important;
-	} */
+	}
 
 	.selectTexMenu_container{
 		max-width: 100px;

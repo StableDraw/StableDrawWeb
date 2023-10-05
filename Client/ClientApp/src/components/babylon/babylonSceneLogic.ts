@@ -2,20 +2,47 @@ import * as BABYLON from "@babylonjs/core"
 import "@babylonjs/loaders/glTF";
 import "@babylonjs/loaders/OBJ";
 // import { CustomLoading } from "./customLoading";
+import { ILoadingScreen } from "@babylonjs/core";
 
-// даже не пытайтесь разобраться, код не чистил(не бейте) :))))
 
+
+class CustomLoading implements ILoadingScreen {
+
+	loadingUIBackgroundColor: string;
+	loadingUIText: string;
+
+	constructor(
+		private percentLoaded: HTMLElement,
+		//  private loader: HTMLElement,
+		// private loadingBar: JSX.Element,
+	){
+
+	}
+	displayLoadingUI(): void {
+		this.percentLoaded.innerText = '0%';
+	}
+	hideLoadingUI(): void {
+		this.percentLoaded.style.display = 'none';
+	}
+
+	updateLoadingStatus(status: string): void {
+		this.percentLoaded.innerText = `${status}%`;
+	}
+
+
+
+}
 export class BabylonScene {
 	private scene: BABYLON.Scene;
 	private engine: BABYLON.Engine;
 	private camera: BABYLON.ArcRotateCamera;
 	private loadingProgress: number;
 	private assetsManager: BABYLON.AssetsManager;
-	// private loadingScreen: CustomLoading;
+	private loadingScreen: CustomLoading;
 
 	constructor(
 		canvas: HTMLCanvasElement,
-		// percentLoaded: HTMLElement,
+		percentLoaded: HTMLElement,
 		// loader: HTMLElement,
 		modelFileName: string,
 		sceneFileName: string = '',
@@ -30,11 +57,11 @@ export class BabylonScene {
 
 		this.loadingProgress = 0;
 		this.assetsManager = new BABYLON.AssetsManager(this.scene);
-		// this.assetsManager.onProgress = (remainingCount, totalCount, lastFinishedTask) => {
-		// 	// console.log(totalCount);
-		// 	this.loadingProgress = 100 - (remainingCount / totalCount) * 100;
-		// 	console.log("Загружено: " + this.loadingProgress.toFixed(2) + "%");
-		// };
+		this.assetsManager.onProgress = (remainingCount, totalCount, lastFinishedTask) => {
+			console.log(totalCount);
+			this.loadingProgress = 100 - (remainingCount / totalCount) * 100;
+			console.log("Загружено: " + this.loadingProgress.toFixed(2) + "%");
+		};
 
 
 		// this.assetsManager.onFinish = () => {
@@ -205,6 +232,12 @@ export class BabylonScene {
 				"babylon/scenes/", // Путь до папки со сценами в папке public
 				`${SceneFileName}.glb`, // Имя файла с моделью
 				this.scene,
+				// (mesh)=>{
+				// 	console.log(mesh);
+				// 	const loadedStatus = ((mesh.loaded*100)/mesh.total).toFixed();
+				// 	console.log(loadedStatus);
+				// 	this.loadingScreen.updateLoadingStatus(loadedStatus);
+				// }
 			);
 			scene.meshes.forEach((mesh) => {
 				mesh.material?.freeze();

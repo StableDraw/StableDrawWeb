@@ -12,7 +12,7 @@ export default class Neurals {
 	}
 	static async GetNeuralsList() {
 		if (await AuthorizeService.isAuthenticated()) {
-			return await axios.get('api/neural/neuralList', await ApiToken.GetConfigToken())
+			return await axios.get('api/neural/neuralList', await ApiToken.GetConfigToken(), {timeout: 14400})
 		} else {
 			return await axios.HttpStatusCode.NotFound()
 		}
@@ -20,11 +20,14 @@ export default class Neurals {
 	
 	static async RunNeural(requestModel) {
 		if (await AuthorizeService.isAuthenticated()) {
-			
-			return await axios.post(`api/neural`, requestModel, await ApiToken.GetConfigToken())
-				.catch(() => {
-				console.log("exeption")
-			});
+			console.log(requestModel.Paramters)
+			return await axios.post('api/neural', requestModel, await ApiToken.GetConfigToken())
+				.then(response=>{
+					console.log(response);
+				})
+				.catch(error=>{
+					console.log(error);
+				  })
 		} else {
 			return await axios.HttpStatusCode.NotFound();
 		}

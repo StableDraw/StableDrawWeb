@@ -11,13 +11,20 @@ import { FetchData } from "./components/FetchData";
 import { Home } from "./components/Home";
 import { MainBabylon } from "./components/babylon/mainBabylon";
 import {App1} from "./components/testUI/App1";
-import Pay from './components/Pay';
+// import Pay from './components/Pay'; 
+import {Pay} from './components/UI/PayNew/PayNew'
 import GenerateBtn from './components/UI/GenerateWindow/GenerateBtn/GenerateBtn'; 
+import StartPage from './components/UI/StartPage/StartPage';
 
 const AppRoutes = [
     {
         index: true,
         element: <Home />
+    },
+    {
+        path:'/startPage',
+        requireAuth:true,
+        element:<StartPage/>
     },
     {
         path: '/design',

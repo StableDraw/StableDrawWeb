@@ -2,7 +2,10 @@ using System.Net;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using CLI.Services;
 using CLI.Extensions;
+using Duende.IdentityServer.Models;
 using MassTransit;
+using Microsoft.AspNetCore.Diagnostics;
+using Newtonsoft.Json;
 using StableDraw.Domain.Extensions;
 
 #region Builder
@@ -61,15 +64,44 @@ builder.Services.AddMassTransit(cfg =>
 // payment
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddHttpClientServices();
+
+builder.Services.AddProblemDetails();
+
 #endregion
 
 #region AppSettings
 var app = builder.Build();
-
+//app.UseExceptionHandler();
 // Configure the HTTP request pipeline.
+
+app.UseExceptionHandler(applicationBuilder =>
+{
+    applicationBuilder.Run(async context =>
+    {
+        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+        context.Response.ContentType = "application/json";
+
+        var exception = context.Features.Get<IExceptionHandlerFeature>();
+        if (exception != null)
+        {
+            var error = new
+            {
+                Stacktrace = exception.Error.StackTrace,
+                Message = exception.Error.Message
+            };
+            var errObj = JsonConvert.SerializeObject(error);
+            await context.Response.WriteAsync(errObj).ConfigureAwait(false);
+        }
+    });
+});
+
+
+
 if (app.Environment.IsDevelopment())
 {
+    //app.UseDeveloperExceptionPage();
     app.UseMigrationsEndPoint();
+    
 }
 else
 {
@@ -80,6 +112,8 @@ else
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+
+//app.UseMiddleware<GlobalExceptionMiddleware>();
 
 app.UseAuthentication();
 app.UseIdentityServer();
