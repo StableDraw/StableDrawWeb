@@ -74,3 +74,4 @@ StableDraw.SagasService/app.db-wal
 /Client/.idea
 /Client/ClientApp/public/babylon UI
 /Client/ClientApp/public/babylon
+/StableDraw.MinIOService/credentials.json
