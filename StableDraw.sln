@@ -9,11 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StableDraw.Domain", "Stable
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StableDraw.Core", "StableDraw.Core\StableDraw.Core.csproj", "{9B7BDBC8-8731-4781-BA42-EA2D3915AF0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StableDraw.Contracts", "StableDraw.Contracts\StableDraw.Contracts.csproj", "{09E56497-8439-4D6F-AE0B-B8AC7544D147}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StableDraw.Contracts", "StableDraw.Contracts\StableDraw.Contracts.csproj", "{09E56497-8439-4D6F-AE0B-B8AC7544D147}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StableDraw.MinIOService", "StableDraw.MinIOService\StableDraw.MinIOService.csproj", "{EBCC643A-0CF6-419B-A352-B9525A493EED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StableDraw.MinIOService", "StableDraw.MinIOService\StableDraw.MinIOService.csproj", "{EBCC643A-0CF6-419B-A352-B9525A493EED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StableDraw.SagasService", "StableDraw.SagasService\StableDraw.SagasService.csproj", "{2B3C5211-187A-43C2-A70D-D699ED1E298B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StableDraw.SagasService", "StableDraw.SagasService\StableDraw.SagasService.csproj", "{2B3C5211-187A-43C2-A70D-D699ED1E298B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StableDraw.Data", "StableDraw.Data\StableDraw.Data.csproj", "{FD6C3A18-283F-42FB-ADF3-322DE3B504DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{2B3C5211-187A-43C2-A70D-D699ED1E298B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B3C5211-187A-43C2-A70D-D699ED1E298B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B3C5211-187A-43C2-A70D-D699ED1E298B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD6C3A18-283F-42FB-ADF3-322DE3B504DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD6C3A18-283F-42FB-ADF3-322DE3B504DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD6C3A18-283F-42FB-ADF3-322DE3B504DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD6C3A18-283F-42FB-ADF3-322DE3B504DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
