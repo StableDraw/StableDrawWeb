@@ -1,5 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using StableDraw.Application.Commands.Auth;
+using StableDraw.Application.Commands.User;
 using StableDraw.Infrastructure.DTOs;
 
 namespace StableDraw.WebApi.Controllers;
@@ -22,4 +24,11 @@ public class AuthController : ControllerBase
     {
         return Ok(await _mediator.Send(command));
     }
+
+    [HttpPost("Registry")]
+    public async Task<IActionResult> Registry([FromBody] CreateUserCommand command)
+    {
+        return Ok(await _mediator.Send(command));
+    }
+    
 }
