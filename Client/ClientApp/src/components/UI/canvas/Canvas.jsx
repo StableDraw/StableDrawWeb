@@ -8,7 +8,7 @@ import canvasState from "../../../store/canvasState";
 import {observer} from "mobx-react";
 const Canvas = observer(({width, height, labelData,canvasDate, mergeRes}) => {
     const [canva, setCanva] = useState([])
-
+    console.log('render')
     const setRef = (ref) => {
         setCanva( [...canva, ref])
         CanvasState.setCanvasList(ref.current)

@@ -5,72 +5,54 @@ import MySelect from '../MySelect/MySelect'
 import MyCheckBox from '../MyCheckBox/MyCheckBox'
 import cl from './Parametrs.module.css'
 import api from '../../../../../api/apiNeurals'
-
-
+import testMob from '../../../../../store/neuralWindow.tsx'
+import {observer} from 'mobx-react-lite'
 const renderSwitch = (value, id, func) => {
     const key = Object.keys(value)
     const type = value[key].type
     switch(type) {
         case 'select':
-            return <MySelect key={id} keyValue={key} name={value[key].name}  options={value[key].values} description={value[key].description} getValue={func}/>
+            return <MySelect key={id} keyValue={key} name={value[key].name} defaultV={value[key].default} options={value[key].values} description={value[key].description} getValue={func}/>
         case 'text':
+            console.log(JSON.parse(JSON.stringify(value)))
             return <InputText key={id} keyValue={key} name={value[key].name} description={value[key].description} getValue={func}/>
-        case 'range': 
-            return <InputRange key={id} keyValue={key} name={value[key].name} range={value[key].range} description={value[key].description} getValue={func}/>
-        case 'boolean': 
-            return <MyCheckBox key={id} keyValue={key} name={value[key].name} description={value[key].description} getValue={func}/>
+        case 'range':
+            return <InputRange key={id} keyValue={key} name={value[key].name} defaultV={value[key].default} range={value[key].range} description={value[key].description} getValue={func}/>
+        case 'boolean':
+            return <MyCheckBox key={id} keyValue={key} name={value[key].name} defaultV={value[key].default === 'True' ?  true :  false} description={value[key].description} getValue={func}/>
     }
 }
 
 
-const Parametrs = ({closeWindow, closeParam, json, neuralName}) => {
+const Parametrs = observer(({closeWindow, closeParam,}) => {
     
     const [file, setFile] = useState()
-    const doDefaultValues = () => {
-        // console.log(`this is JSON: ${json}`)
-        let defaultValue = {}
-        if(json) {
-            for(let item of json.params) {
-                const param = JSON.parse(item)
-                const key = Object.keys(param)
-                defaultValue = ({...defaultValue, [key]:param[key].default})
-            }
-        }
-        return defaultValue
-    }
-    const [renderValue, setRenderValue] = useState()
-    // console.log(renderValue)
+
+    const paramsToRender = testMob.parametrs
+    let renderValue = testMob.defaultValue
+    const neuralName = testMob.activeNeuralName
+
+    console.log(JSON.parse(JSON.stringify(renderValue)))
     const closeModal = () => {
         closeWindow(false)
         closeParam(false)
     }
-   
-    const paramsToRender = []
-    if(json) {
-        for (let item of json.params) {
-            const param = JSON.parse(item)
-            paramsToRender.push(param)
-        }
-    }
-
-
     const sendValuesForRender = (value, str) => {
-        setRenderValue({...renderValue,[str]:value})
-    }   
-    // Display the key/value pairs
+        renderValue = ({...renderValue,[str]:value})
+        console.log(renderValue)
+    }
     
     const goOnServer = async () => {
+        const formData = new FormData()
+        formData.append('NeuralType', neuralName)
+        formData.append('Parameters', JSON.stringify(renderValue))
+        formData.append('Caption', "")
+        formData.append('Prompts', ["lalala", "kfkf"])
+        formData.append('ImagesInput', file)
         try {
-            const formData = new FormData()
-            formData.append('NeuralType', neuralName)
-            formData.append('Parameters', JSON.stringify(renderValue))
-            formData.append('Caption', "")
-            formData.append('Prompts', ["lalala", "kfkf"])
-            formData.append('ImagesInput', file)
-            //formData.append("Content-Type", "multipart/form-data")
-            const res = await api.RunNeural(formData)
-            // console.log(res)
-            //setRenderValue()
+            const response = await api.RunNeural(formData)
+            const image = response.data[0]
+            setFile(image)
         } catch(e) {
             console.error(e)
             throw(e)
@@ -81,7 +63,7 @@ const Parametrs = ({closeWindow, closeParam, json, neuralName}) => {
         <div className={cl.image}>
             <img src='kitty.png'/>
             <input type='file' multiple={true} onChange={e=>setFile(e.target.files[0])}/>
-            <img src={file}/>
+            <img src={"data:image/png;base64," + file} />
         </div>
         <div className={cl.params}>
             <div style={{display:'flex'}}>
@@ -102,6 +84,6 @@ const Parametrs = ({closeWindow, closeParam, json, neuralName}) => {
         <button className={cl.generate} onClick={()=>goOnServer()}>Сгенерировать</button>
     </div>
   )
-}
+})
 
 export default Parametrs

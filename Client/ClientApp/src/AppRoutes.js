@@ -15,11 +15,17 @@ import {App1} from "./components/testUI/App1";
 import {Pay} from './components/UI/PayNew/PayNew'
 import GenerateBtn from './components/UI/GenerateWindow/GenerateBtn/GenerateBtn'; 
 import { StartPage } from './components/UI/startPage/startPage';
+import GenerateWindowMobx from './components/UI/GenerateWindiwMobx/GenerateBtn/GenerateBtn'
 
 const AppRoutes = [
     {
         index: true,
         element: <StartPage />
+    },
+    {
+        path:'/mobx',
+        requireAuth:true,
+        element: <GenerateWindowMobx/>
     },
     {
         path:'/',
@@ -31,11 +37,11 @@ const AppRoutes = [
         requireAuth: true,
         element: <Design />
     },
-    // {
-    //     path: '/window',
-    //     requireAuth: true,
-    //     element: <GenerateBtn />
-    // },
+    {
+        path: '/window',
+        requireAuth: true,
+        element: <GenerateBtn />
+    },
     {
         path: '/text-to-img',
         requireAuth: true,
@@ -66,12 +72,11 @@ const AppRoutes = [
         requireAuth: true,
         element: <FramestoAnimation />
     },
-    /*
-    {
-        path: '/authentication/refresh-authorization',
-        requireAuth: true,
-        element: <RefreshAuthorization />
-    },*/
+    // {
+    //     path: '/authentication/refresh-authorization',
+    //     requireAuth: true,
+    //     element: <RefreshAuthorization />
+    // },
     {
         path: '/counter',
         requireAuth: true,
