@@ -18,6 +18,7 @@
 	height: 100px;
 	width: auto;
 	border-radius: 10px;
+	pointer-events: none;
 }
 
 .loadImg{

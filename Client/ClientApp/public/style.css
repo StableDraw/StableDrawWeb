@@ -895,3 +895,10 @@ input[type=range].up_add_window_slider::-ms-fill-lower
 		zoom: 0.8;
 	}
 }
+
+
+.container{
+    margin: 0;
+    padding: 0 !important;
+    max-width: 100% !important;
+}
