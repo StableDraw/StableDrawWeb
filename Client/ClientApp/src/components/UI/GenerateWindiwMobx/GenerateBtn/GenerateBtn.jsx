@@ -16,23 +16,23 @@ const GenerateBtn = () => {
         rootClasses.push(cl.activeModal)
     }
     testMob.getNeurals()
-    const hundleOpen = async () => {
-        setModal(!modal)
-        try {
-            const list = await api.GetNeuralsList()
-            setNeuralList(list.data)
-        } catch(e) {
-            console.error(e)
-            throw(e)
-        }
-    }
+    // const hundleOpen = async () => {
+    //     setModal(!modal)
+    //     try {
+    //         const list = await api.GetNeuralsList()
+    //         setNeuralList(list.data)
+    //     } catch(e) {
+    //         console.error(e)
+    //         throw(e)
+    //     }
+    // }
     const closeBtn = () => {
         setModal(!modal)
         setOpenParam(false)
     }
   return (
     <div>
-        <button className={cl.button} onClick={()=>hundleOpen()}><p>Генерация</p></button>
+        <button className={cl.button} onClick={()=>setModal(!modal)}><p>Генерация</p></button>
         <Modal open={modal}>
             <div className={rootClasses.join(' ')}>
                 <header className={cl.header}>
@@ -41,7 +41,7 @@ const GenerateBtn = () => {
                     </button>
                 </header>
                 <div className={cl.content}> 
-                    <LeftPanel neuralsList={neuralList} setNeuralName={setNeuralName} setParametrs={setParametrs} openParam={setOpenParam}/>
+                    <LeftPanel  openParam={setOpenParam}/>
                     <RightPanel neuralName={neuralName} parametrs={parametrs}  showParam={openParam} closeWindow={setModal} closeParam={setOpenParam}/>
                 </div>
             </div>

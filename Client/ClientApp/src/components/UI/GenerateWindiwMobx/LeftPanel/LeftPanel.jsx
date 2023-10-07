@@ -3,6 +3,7 @@ import NeuralCard from '../NeuralCard/NeuralCard'
 import api from '../../../../api/apiNeurals'
 import { useState, useEffect } from 'react'
 import {observer} from 'mobx-react-lite'
+import testMob from '../../../../store/neuralWindow.tsx'
 const filterNeurals = (searchText, listOfNeurals) => {
     if (!searchText) {
         return listOfNeurals
@@ -12,18 +13,19 @@ const filterNeurals = (searchText, listOfNeurals) => {
     )
 }
 
-const LeftPanel = observer(({openParam, setParametrs,setNeuralName, neuralsList}) => {
+const LeftPanel = observer(({openParam,}) => {
     const [searchTerm, setSearchTerm] = useState('')
-    async function getParams(name) {
-        try {
-            const data = await api.GetNeurals(name)  
-            setParametrs(data.data)
-        }
-        catch(e) {
-            console.error(e)
-            throw(e)
-        }
-    }
+    const neuralList = testMob.neurals
+    // async function getParams(name) {
+    //     try {
+    //         const data = await api.GetNeurals(name)  
+    //         setParametrs(data.data)
+    //     }
+    //     catch(e) {
+    //         console.error(e)
+    //         throw(e)
+    //     }
+    // }
     // useEffect(()=> {
     //     const newNeurals = filterNeurals(searchTerm, neuralsList)
     //     // neuralsList = newNeurals
@@ -40,11 +42,9 @@ const LeftPanel = observer(({openParam, setParametrs,setNeuralName, neuralsList}
             >
             </input>
             <div className={cl.list}>
-                {neuralsList ? neuralsList.map((neural, id)=>
+                {neuralList ? neuralList.map((neural, id)=>
                     <NeuralCard 
                         key={id} 
-                        getParams={getParams}
-                        setNeuralName={setNeuralName} 
                         active={openParam}
                         serverName={neural.serverName} 
                         clientName={neural.clientName}
