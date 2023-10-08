@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -83,19 +84,21 @@ public class IdentityService : IIdentityService
             }
             
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            byte[] tokenGeneratedBytes = Encoding.UTF8.GetBytes(code);
+            var codeEncoded = WebEncoders.Base64UrlEncode(tokenGeneratedBytes);
             var urlHelper = _urlHelperFactory.GetUrlHelper(_actionContextAccessor.ActionContext);
             var scheme = urlHelper.ActionContext.HttpContext.Request.Scheme;
             var callbackUrl = urlHelper.Action( new UrlActionContext()
             {
                 Action = "ConfirmEmail",
                 Controller = "Auth",
-                Values = new { userId = user.Id, code = code },
+                Values = new { userId = user.Id, code = codeEncoded },
                 Protocol = scheme,
                 //Host = urlHelper.ActionContext.HttpContext.Request.Host.Host
             });
             
             await _emailSender.SendEmailAsync(user.Email, "Confirm your account",
-                $"Подтвердите регистрацию, перейдя по ссылке: <a href='{callbackUrl}'>link</a>");
+                $"Подтвердите регистрацию, перейдя по ссылке: <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>link</a>");
             
             return (result.Succeeded, user.Id);
         }

@@ -48,7 +48,7 @@ public static class ExtensionDi
                 .GetRequiredService<IUrlHelperFactory>()
                 .GetUrlHelper(x.GetRequiredService<IActionContextAccessor>().ActionContext));
         services.AddTransient<IEmailSender, EmailSender>();
-        services.Configure<AuthMessageSenderOptions>(configuration);
+        //services.Configure<AuthMessageSenderOptions>(configuration);
         services.AddScoped<IIdentityService, IdentityService>();
         
         return services;

@@ -42,7 +42,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpGet("ConfirmEmail")]
-    public async Task<IActionResult> ConfirmEmail([FromBody] ConfirmEmailCommand command)
+    public async Task<IActionResult> ConfirmEmail([FromQuery] ConfirmEmailCommand command)
     {
         return Ok(await _mediator.Send(command));
     }
