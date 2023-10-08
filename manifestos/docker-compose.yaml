@@ -1,8 +1,7 @@
 version: "3.7"
 services:
   rabbitmq:
-    image: rabbitmq:3-management-delayed_message_exchange
-    hostname: rabbitmq
+    image: rabbitmq:3-management
     restart: always
     environment:
       - RABBITMQ_DEFAULT_USER=rmuser
@@ -13,6 +12,8 @@ services:
     ports:
       - 15672:15672
       - 5672:5672
+    networks:
+      - network1
 
   minio:
     image: minio/minio:latest
@@ -32,22 +33,25 @@ services:
       timeout: 20s
       retries: 3
   
-  # sagas:
-  #   image: sagasbackend
-  #   build: 
-  #     context: ..
-  #     dockerfile: StableDraw.SagasService/Dockerfile
-  #   ports:
-  #     - "5100:80"
+  sagas:
+    image: sagasbackend
+    build: 
+      context: ..
+      dockerfile: StableDraw.SagasService/Dockerfile
+    ports:
+      - "5100:80"
+    networks:
+      - network1
 
-  # minioService:
-  #   image: miniobackend
-  #   build:
-  #     context: ..
-  #     dockerfile: StableDraw.MinIOService/Dockerfile
-  #   ports:
-  #     - "5101:80"
-
+  minioService:
+    image: miniobackend
+    build:
+      context: ..
+      dockerfile: StableDraw.MinIOService/Dockerfile
+    ports:
+      - "5101:80"
+    networks:
+      - network1
 
   # db:
   #   image: postgres
@@ -76,3 +80,7 @@ volumes:
   minio-storage:
   # local_pgdata:
   # pgadmin-data: 
+
+networks:
+  network1:
+    driver: bridge

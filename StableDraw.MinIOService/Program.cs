@@ -7,26 +7,26 @@ using StableDraw.MinIOService.Settings;
 using IHost = Microsoft.Extensions.Hosting.IHost;
 
 IHost host = Host.CreateDefaultBuilder(args)
-    .ConfigureAppConfiguration((hostingContext, config) =>
+    .ConfigureAppConfiguration((context, configuration) =>
     {
-        config.AddJsonFile("appsettings.json", optional: true);
-        config.AddJsonFile("credentials.json");
-        config.AddEnvironmentVariables();
+        configuration.AddJsonFile("appsettings.json", optional: true);
+        configuration.AddJsonFile("credentals.json");
+        configuration.AddEnvironmentVariables();
 
-        config.AddCommandLine(args);
+        configuration.AddCommandLine(args);
     })
-    .ConfigureServices((hostContext, services) =>
+    .ConfigureServices((context, services) =>
     {
         services.AddOptions<MinIOSettings>().Configure(o =>
         {
-            o.AccessKey = hostContext.Configuration.GetSection("accessKey").Value ?? throw new ArgumentNullException();
-            o.Address = hostContext.Configuration.GetSection("MinIOSettings:Address").Value!;
-            o.BucketName = hostContext.Configuration.GetSection("MinIOSettings:BucketName").Value!;
-            o.SecretKey = hostContext.Configuration.GetSection("secretKey").Value ?? throw new ArgumentNullException();
+            o.AccessKey = context.Configuration.GetSection("accessKey").Value ?? throw new ArgumentNullException();
+            o.Address = context.Configuration.GetSection("MinIOSettings:Address").Value!;
+            o.BucketName = context.Configuration.GetSection("MinIOSettings:BucketName").Value!;
+            o.SecretKey = context.Configuration.GetSection("secretKey").Value ?? throw new ArgumentNullException();
         });
         //services.Configure<MinIOSettings>(hostContext.Configuration.GetSection("MinIOSettings"));
-        services.Configure<AppConfig>(hostContext.Configuration.GetSection("AppConfig"));
-        services.Configure<EndpointConfig>(hostContext.Configuration.GetSection("EndpointConfig"));
+        services.Configure<AppConfig>(context.Configuration.GetSection("AppConfig"));
+        services.Configure<EndpointConfig>(context.Configuration.GetSection("EndpointConfig"));
 
         services.AddMassTransit(cfg =>
         {
@@ -45,7 +45,7 @@ IHost host = Host.CreateDefaultBuilder(args)
                     r.Incremental(3, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
                 });
                 rbfc.UseDelayedMessageScheduler();
-                rbfc.Host("localhost", "/",h =>
+                rbfc.Host("rabbitmq", h =>
                 {
                     h.Username("rmuser");
                     h.Password("rmpassword");

@@ -52,7 +52,7 @@ builder.Services.AddMassTransit(cfg =>
             r.Incremental(3, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
         });
         rbfc.UseDelayedMessageScheduler();
-        rbfc.Host("localhost", h =>
+        rbfc.Host("localhost", 5672, "/", h =>
         {
             h.Username("rmuser");
             h.Password("rmpassword");
