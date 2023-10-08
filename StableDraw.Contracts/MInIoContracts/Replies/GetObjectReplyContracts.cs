@@ -2,8 +2,8 @@
 
 public interface IGetObjectReply
 {
-    public Guid ObjectId { get; set; }
     public byte[] Data { get; set; }
+    public string ImageName { get; set; }
     public Guid OrderId { get; set; }
     public string ErrorMsg { get; set; }
 }
@@ -11,21 +11,23 @@ public interface IGetObjectReply
 public record GetObjectMinIoReply
 {
     public Guid OrderId { get; set; }
+    public string? ImageName { get; set; }
     public string? ErrorMsg { get; set; }
-    public Guid ObjectId { get; set; }
     public byte[]? Data { get; set; }
 }
 
 public record GetObjectsMinIoReply
 {
     public Guid OrderId { get; set; }
+    public Guid UserId { get; set; }
     public string? ErrorMsg { get; set; }
-    public IDictionary<Guid, byte[]>? DataDictionary { get; set; } 
+    public IDictionary<string, byte[]>? DataDictionary { get; set; } 
 }
 
 public interface IGetObjectsReply
 {
     public Guid OrderId { get; set; }
+    public Guid UserId { get; set; }
     public string? ErrorMsg { get; set; }
-    public IDictionary<Guid ,byte[]>? DataDictionary { get; set; }
+    public IDictionary<string, byte[]>? DataDictionary { get; set; }
 }

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "QJXOk+P7T62wkCklKE9vz6Pb3+awca7ZenBtLNf/WZ1M80mgs+wwRqqvasECBpjqxw0yiNI8hISenB31nDUSIA==",
+  "dgSpecHash": "rQNn1D4MKCuQrqXGkXimS4kP8NnNwJa4iO4UoGQ3WGP9pCj50b04QX1nwbcGenLZJaV3ugaSqzUezzShfuHixA==",
   "success": true,
   "projectFilePath": "C:\\Users\\maksg\\Desktop\\CODING\\hhh\\StableDrawWeb\\StableDraw.Data\\StableDraw.Data.csproj",
   "expectedPackageFiles": [
@@ -76,7 +76,10 @@
     "C:\\Users\\maksg\\.nuget\\packages\\system.text.encodings.web\\7.0.0\\system.text.encodings.web.7.0.0.nupkg.sha512",
     "C:\\Users\\maksg\\.nuget\\packages\\system.text.json\\7.0.0\\system.text.json.7.0.0.nupkg.sha512",
     "C:\\Users\\maksg\\.nuget\\packages\\system.threading.channels\\4.7.1\\system.threading.channels.4.7.1.nupkg.sha512",
-    "C:\\Users\\maksg\\.nuget\\packages\\system.valuetuple\\4.5.0\\system.valuetuple.4.5.0.nupkg.sha512"
+    "C:\\Users\\maksg\\.nuget\\packages\\system.valuetuple\\4.5.0\\system.valuetuple.4.5.0.nupkg.sha512",
+    "C:\\Users\\maksg\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.5\\microsoft.netcore.app.ref.7.0.5.nupkg.sha512",
+    "C:\\Users\\maksg\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.5\\microsoft.windowsdesktop.app.ref.7.0.5.nupkg.sha512",
+    "C:\\Users\\maksg\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.5\\microsoft.aspnetcore.app.ref.7.0.5.nupkg.sha512"
   ],
   "logs": []
 }

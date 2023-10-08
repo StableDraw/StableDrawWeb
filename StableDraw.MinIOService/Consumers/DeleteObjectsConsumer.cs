@@ -17,6 +17,6 @@ public class DeleteObjectsConsumer : IConsumer<IDeleteObjectsRequest>
     public async Task Consume(ConsumeContext<IDeleteObjectsRequest> context)
     {
         var result = await _minIoService.DeleteObjects(context.Message);
-        await context.RespondAsync<IDeleteObjectsReply>(new { context.Message.OrderId, result.ObjectsId });
+        await context.RespondAsync<IDeleteObjectsReply>(new { context.Message.OrderId, result.ImagesNames });
     }
 }

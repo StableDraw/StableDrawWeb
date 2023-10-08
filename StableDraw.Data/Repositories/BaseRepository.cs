@@ -1,15 +1,14 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using StableDraw.Core.Models;
-using StableDraw.Domain.Data.Identity;
 
 namespace StableDraw.Domain.Repositories;
 
 public abstract class BaseRepository<T> : IBaseRepository<T> where T : BaseObject
 {
-    protected ApplicationDbContext Context;
+    protected DbContext Context;
 
-    protected BaseRepository(ApplicationDbContext context)
+    protected BaseRepository(DbContext context)
     {
         Context = context;
     }

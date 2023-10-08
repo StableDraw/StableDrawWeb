@@ -1,14 +1,13 @@
-﻿using System.Net.Mime;
-using MassTransit;
+﻿using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using StableDraw.Core.Models;
-using StableDraw.Domain.Data.Identity;
+using StableDraw.MinIOService.Data;
 
 namespace StableDraw.Domain.Repositories;
 
 public class ImageRepository : BaseRepository<Image>, IImageRepository
 {
-    public ImageRepository(ApplicationDbContext context) : base(context)
+    public ImageRepository(MinIODbContext context) : base(context)
     {
     }
 

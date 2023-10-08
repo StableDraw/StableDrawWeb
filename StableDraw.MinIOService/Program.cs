@@ -2,6 +2,7 @@ using GreenPipes;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using StableDraw.Domain.UnitsOfWork;
 using StableDraw.MinIOService.Consumers;
 using StableDraw.MinIOService.Data;
 using StableDraw.MinIOService.Services;
@@ -59,6 +60,7 @@ IHost host = Host.CreateDefaultBuilder(args)
         }).AddMassTransitHostedService();
 
         services.AddTransient<IMinIoService, MinIoService>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
     })
     .UseSerilog((context, configuration) =>
     {
