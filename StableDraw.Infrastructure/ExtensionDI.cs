@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using StableDraw.Application.Common.Interfaces;
 using StableDraw.Infrastructure.Common;
 using StableDraw.Infrastructure.Data;
 using StableDraw.Infrastructure.Identity;
@@ -37,16 +41,16 @@ public static class ExtensionDi
             options.SignIn.RequireConfirmedPhoneNumber = false;
             options.User.RequireUniqueEmail = true;
         });
-
-
+        
+        services
+            .AddSingleton<IActionContextAccessor, ActionContextAccessor>()
+            .AddScoped<IUrlHelper>(x => x
+                .GetRequiredService<IUrlHelperFactory>()
+                .GetUrlHelper(x.GetRequiredService<IActionContextAccessor>().ActionContext));
+        services.AddTransient<IEmailSender, EmailSender>();
+        services.Configure<AuthMessageSenderOptions>(configuration);
         services.AddScoped<IIdentityService, IdentityService>();
         
-        //services.AddScoped(typeof(IQueryRepository<>), typeof(QueryRepository<>));
-        //services.AddTransient<ICustomerQueryRepository, CustomerQueryRepository>();
-        //services.AddScoped(typeof(ICommandRepository<>), typeof(CommandRepository<>));
-        //services.AddTransient<ICustomerCommandRepository, CustomerCommandRepository>();
-
-
         return services;
     }
 }

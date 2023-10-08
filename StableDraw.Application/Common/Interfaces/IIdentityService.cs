@@ -1,4 +1,4 @@
-﻿namespace StableDraw.Infrastructure.Common;
+﻿namespace StableDraw.Application.Common.Interfaces;
 
 public interface IIdentityService
 {
@@ -15,6 +15,7 @@ public interface IIdentityService
     Task<List<(string id, string userName, string email, IList<string> roles)>> GetAllUsersDetailsAsync();
     Task<bool> UpdateUserProfile(string id, string fullName, string email, IList<string> roles);
 
+    Task<bool> EmailConfirmed(string userId, string code);
     // Role Section
     Task<bool> CreateRoleAsync(string roleName);
     Task<bool> DeleteRoleAsync(string roleId);

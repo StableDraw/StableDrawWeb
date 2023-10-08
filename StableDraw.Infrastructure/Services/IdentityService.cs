@@ -1,8 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Text;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
-using StableDraw.Infrastructure.Common;
+using StableDraw.Application.Common.Exceptions;
+using StableDraw.Application.Common.Interfaces;
 using StableDraw.Infrastructure.Identity;
+using ValidationException = System.ComponentModel.DataAnnotations.ValidationException;
 
 namespace StableDraw.Infrastructure.Services;
 
@@ -11,13 +18,20 @@ public class IdentityService : IIdentityService
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly RoleManager<IdentityRole> _roleManager;
+    private readonly IEmailSender _emailSender;
+    private readonly IUrlHelperFactory _urlHelperFactory;
+    private readonly IActionContextAccessor _actionContextAccessor;
 
-        public IdentityService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
+        public IdentityService(UserManager<ApplicationUser> userManager, 
+            SignInManager<ApplicationUser> signInManager, 
+            RoleManager<IdentityRole> roleManager, IEmailSender emailSender, IActionContextAccessor actionContextAccessor, IUrlHelperFactory urlHelperFactory)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
-            _roleManager = roleManager;
+            _emailSender = emailSender;
+            _actionContextAccessor = actionContextAccessor;
+            _urlHelperFactory = urlHelperFactory;
         }
 
         public async Task<bool> AssignUserToRole(string userName, IList<string> roles)
@@ -25,12 +39,13 @@ public class IdentityService : IIdentityService
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == userName);
             if (user == null)
             {
-                throw new Exception("User not found");
+                throw new NotFoundException("User not found");
             }
 
             var result = await _userManager.AddToRolesAsync(user, roles);
             return result.Succeeded;
         }
+    
 
         public async Task<bool> CreateRoleAsync(string roleName)
         {
@@ -57,6 +72,7 @@ public class IdentityService : IIdentityService
 
             if (!result.Succeeded)
             {
+                var delUserResult = await DeleteUserAsync(user.Id);
                 throw new ValidationException(result.Errors.ToString());
             }
 
@@ -65,20 +81,55 @@ public class IdentityService : IIdentityService
             {
                 throw new ValidationException(addUserRole.Errors.ToString());
             }
+            
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var urlHelper = _urlHelperFactory.GetUrlHelper(_actionContextAccessor.ActionContext);
+            var scheme = urlHelper.ActionContext.HttpContext.Request.Scheme;
+            var callbackUrl = urlHelper.Action( new UrlActionContext()
+            {
+                Action = "ConfirmEmail",
+                Controller = "Auth",
+                Values = new { userId = user.Id, code = code },
+                Protocol = scheme,
+                //Host = urlHelper.ActionContext.HttpContext.Request.Host.Host
+            });
+            
+            await _emailSender.SendEmailAsync(user.Email, "Confirm your account",
+                $"Подтвердите регистрацию, перейдя по ссылке: <a href='{callbackUrl}'>link</a>");
+            
             return (result.Succeeded, user.Id);
         }
 
+        public async Task<bool> EmailConfirmed(string userId, string code)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                throw new NotFoundException("User not found");
+            }
+
+            code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
+            var result = await _userManager.ConfirmEmailAsync(user, code);
+            if (!result.Succeeded)
+            {
+                throw new ValidationException(result.Errors.ToString());
+            }
+
+            await _signInManager.SignInAsync(user, false);
+            return result.Succeeded;
+        }
+        
         public async Task<bool> DeleteRoleAsync(string roleId)
         {
             var roleDetails = await _roleManager.FindByIdAsync(roleId);
             if (roleDetails == null)
             {
-                throw new Exception("Role not found");
+                throw new NotFoundException("Role not found");
             }
 
             if (roleDetails.Name == "Administrator")
             {
-                throw new Exception("You can not delete Administrator Role");
+                throw new BadRequestException("You can not delete Administrator Role");
             }
             var result = await _roleManager.DeleteAsync(roleDetails);
             if (!result.Succeeded)
@@ -93,12 +144,12 @@ public class IdentityService : IIdentityService
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == userId);
             if (user == null)
             {
-                throw new Exception("User not found");
+                throw new NotFoundException("User not found");
             }
 
             if (user.UserName == "system" || user.UserName == "admin")
             {
-                throw new Exception("You can not delete system or admin user");
+                throw new BadRequestException("You can not delete system or admin user");
                 //throw new BadRequestException("You can not delete system or admin user");
             }
             var result = await _userManager.DeleteAsync(user);
@@ -144,7 +195,7 @@ public class IdentityService : IIdentityService
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == userId);
             if (user == null)
             {
-                throw new Exception("User not found");             
+                throw new NotFoundException("User not found");             
             }
             var roles = await _userManager.GetRolesAsync(user);
             return (user.Id, user.FullName, user.UserName, user.Email, roles);
@@ -155,7 +206,7 @@ public class IdentityService : IIdentityService
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == userName);
             if (user == null)
             {
-                throw new Exception("User not found");
+                throw new NotFoundException("User not found");
             }
             var roles = await _userManager.GetRolesAsync(user);
             return (user.Id, user.FullName, user.UserName, user.Email, roles);
@@ -166,7 +217,7 @@ public class IdentityService : IIdentityService
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == userName);
             if (user == null)
             {
-                throw new Exception("User not found");
+                throw new NotFoundException("User not found");
             }
             return await _userManager.GetUserIdAsync(user);
         }
@@ -176,7 +227,7 @@ public class IdentityService : IIdentityService
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == userId);
             if (user == null)
             {
-                throw new Exception("User not found");
+                throw new NotFoundException("User not found");
             }
             return await _userManager.GetUserNameAsync(user);
         }
@@ -186,7 +237,7 @@ public class IdentityService : IIdentityService
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == userId);
             if (user == null)
             {
-                throw new Exception("User not found");
+                throw new NotFoundException("User not found");
             }
             var roles = await _userManager.GetRolesAsync(user);
             return roles.ToList();
@@ -198,7 +249,7 @@ public class IdentityService : IIdentityService
 
             if(user == null)
             {
-                throw new Exception("User not found");
+                throw new NotFoundException("User not found");
             }
             return await _userManager.IsInRoleAsync(user, role);
         }

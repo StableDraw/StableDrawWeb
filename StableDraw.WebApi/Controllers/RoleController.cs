@@ -10,6 +10,7 @@ namespace StableDraw.WebApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+//[AllowAnonymous]
 [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 [Authorize(Roles = "Admin, Management")]
 public class RoleController : ControllerBase

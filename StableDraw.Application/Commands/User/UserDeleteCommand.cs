@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using StableDraw.Application.Common.Interfaces;
 using StableDraw.Infrastructure.Common;
 
 namespace StableDraw.Application.Commands.User;

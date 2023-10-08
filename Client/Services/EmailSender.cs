@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using MimeKit;
 using MailKit.Net.Smtp;
-using static Duende.IdentityServer.Models.IdentityResources;
 
 namespace CLI.Services
 {
