@@ -4,7 +4,7 @@ import { Logo } from './logo';
 import footer from './styles/footer.module.css';
 
 export const Footer = () => {
-	console.log('header')
+	
 	return (
 		<footer className={footer.main}>
 			<div className={footer.infoLeft}>
