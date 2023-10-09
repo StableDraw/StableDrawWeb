@@ -2,8 +2,7 @@ import cl from './RightPanel.module.css'
 
 import Zaglushka from '../parametrs/Zaglushka/Zaglushka'
 import Parametrs from '../parametrs/Parametrs/Parametrs'
-import { useState } from 'react'
-const RightPanel = ({closeWindow, showParam, closeParam, parametrs, neuralName}) => {
+const RightPanel = ({closeWindow, showParam, closeParam,}) => {
   
   return (
     <section className={cl.mainContent}>

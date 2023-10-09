@@ -16,7 +16,7 @@ import {Pay} from './components/UI/PayNew/PayNew'
 import GenerateBtn from './components/UI/GenerateWindow/GenerateBtn/GenerateBtn'; 
 import { StartPage } from './components/UI/startPage/startPage';
 import GenerateWindowMobx from './components/UI/GenerateWindiwMobx/GenerateBtn/GenerateBtn'
-
+import AboutUs from './components/UI/AboutUs/AboutUs'
 const AppRoutes = [
     {
         index: true,
@@ -26,6 +26,11 @@ const AppRoutes = [
         path:'/mobx',
         requireAuth:true,
         element: <GenerateWindowMobx/>
+    },
+    {
+        path:'/aboutus',
+        requireAuth:true,
+        element: <AboutUs/>
     },
     {
         path:'/',

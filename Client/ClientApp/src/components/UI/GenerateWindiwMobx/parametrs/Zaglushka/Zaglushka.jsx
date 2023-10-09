@@ -3,6 +3,7 @@ import cl from './Zaglushka.module.css'
 const Zaglushka = () => {
     return (
         <div className={cl.container}>
+        
             <ol className={cl.list}>
                 <li className={cl.item}>
                     <img

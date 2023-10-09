@@ -1,9 +1,18 @@
 .item {
     display: flex;
-    
     width: 225px;
     height: 120px;
     padding: 25px 0 25px 15px;
+    margin-left: auto;
+    margin-right: auto;
+    border-bottom: 1px #656565 solid ;
+}
+.itemActive {
+    display: flex;
+    width: 225px;
+    height: 120px;
+    padding: 25px 0 25px 15px;
+    background-color: #ACACAC;
     margin-left: auto;
     margin-right: auto;
     border-bottom: 1px #656565 solid ;
