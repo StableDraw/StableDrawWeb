@@ -1,35 +1,32 @@
 import cl from './LeftPanel.module.css'
 import NeuralCard from '../NeuralCard/NeuralCard'
-import api from '../../../../api/apiNeurals'
 import { useState, useEffect } from 'react'
 import {observer} from 'mobx-react-lite'
 import testMob from '../../../../store/neuralWindow.tsx'
+
 const filterNeurals = (searchText, listOfNeurals) => {
     if (!searchText) {
         return listOfNeurals
     }
-    return listOfNeurals.filter(neural =>
-        neural.toLowerCase().includes(searchText.toLowerCase()) 
+
+    return listOfNeurals.filter(({clientName}) => 
+         clientName[0].toLowerCase().includes(searchText.toLowerCase())
     )
 }
 
 const LeftPanel = observer(({openParam,}) => {
+    const [neuralList, setNeuralList] = useState(testMob.neurals)
     const [searchTerm, setSearchTerm] = useState('')
-    const neuralList = testMob.neurals
-    // async function getParams(name) {
-    //     try {
-    //         const data = await api.GetNeurals(name)  
-    //         setParametrs(data.data)
-    //     }
-    //     catch(e) {
-    //         console.error(e)
-    //         throw(e)
-    //     }
-    // }
-    // useEffect(()=> {
-    //     const newNeurals = filterNeurals(searchTerm, neuralsList)
-    //     // neuralsList = newNeurals
-    // },[searchTerm])
+
+    useEffect(()=> {
+        const Debounce = setTimeout(()=>{
+            const filteredNeurals = filterNeurals(searchTerm, testMob.neurals)
+            setNeuralList(filteredNeurals)
+        }, 200)
+        return () => clearTimeout(Debounce)
+    },[searchTerm])
+
+ 
   return (
     <section className={cl.finder}>
         <div className={cl.finderBlock}>

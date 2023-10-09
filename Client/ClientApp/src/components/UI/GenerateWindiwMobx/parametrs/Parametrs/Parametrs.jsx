@@ -14,7 +14,6 @@ const renderSwitch = (value, id, func) => {
         case 'select':
             return <MySelect key={id} keyValue={key} name={value[key].name} defaultV={value[key].default} options={value[key].values} description={value[key].description} getValue={func}/>
         case 'text':
-            console.log(JSON.parse(JSON.stringify(value)))
             return <InputText key={id} keyValue={key} name={value[key].name} description={value[key].description} getValue={func}/>
         case 'range':
             return <InputRange key={id} keyValue={key} name={value[key].name} defaultV={value[key].default} range={value[key].range} description={value[key].description} getValue={func}/>
@@ -27,12 +26,12 @@ const renderSwitch = (value, id, func) => {
 const Parametrs = observer(({closeWindow, closeParam,}) => {
     
     const [file, setFile] = useState()
+    const [showParam, setShowParam] = useState(false)
 
     const paramsToRender = testMob.parametrs
     let renderValue = testMob.defaultValue
     const neuralName = testMob.activeNeuralName
 
-    console.log(JSON.parse(JSON.stringify(renderValue)))
     const closeModal = () => {
         closeWindow(false)
         closeParam(false)
@@ -60,10 +59,26 @@ const Parametrs = observer(({closeWindow, closeParam,}) => {
     }
   return (
     <div>
-        <div className={cl.image}>
-            <img src='kitty.png'/>
-            <input type='file' multiple={true} onChange={e=>setFile(e.target.files[0])}/>
-            <img src={"data:image/png;base64," + file} />
+        <div 
+            className={cl.image}
+            onMouseOver={()=>setShowParam(true)}
+            onMouseOut={()=>setShowParam(false)}
+        >
+            <img className={showParam ? cl.backgroundImage : cl.img} src={file ? URL.createObjectURL(file) : 'StableDrawLogo.png'}/>
+            {/* <input type='file' multiple={true} onChange={e=>setFile(e.target.files[0])}/> */}
+            {/* <img src={"data:image/png;base64," + file} /> */}
+            <div className={showParam ? cl.downloadActive : cl.download}>
+                <button className={cl.imgBtn} onClick={()=>closeModal()}>
+                    <img src='goToCanvas.png'/>
+                </button>
+                <label className={cl.imgBtn}>
+                    <img src='addImage.png'/>
+                    <input style={{display:'none'}}  type='file' multiple={true} onChange={e=>setFile(e.target.files[0])}/>
+                </label>
+                <button className={cl.imgBtn} onClick={()=> setFile()}>
+                    <img src='deleteImg.png'/>
+                </button>
+            </div>
         </div>
         <div className={cl.params}>
             <div style={{display:'flex'}}>
@@ -87,3 +102,7 @@ const Parametrs = observer(({closeWindow, closeParam,}) => {
 })
 
 export default Parametrs
+
+
+
+

@@ -10,7 +10,7 @@ import ToolOptionsBar from './UI/ToolOptionsBar/ToolOptionsBar.jsx';
 import GenerateModule from './UI/GenerateBtn/GenerationBtn.jsx'
 import canvasState from "../store/canvasState";
 import cl from "./Drawing.module.css"
-import GenerateWindow from '../components/UI/GenerateWindow/GenerateBtn/GenerateBtn.jsx'
+import GenerateWindow from '../components/UI/GenerateWindiwMobx/GenerateBtn/GenerateBtn.jsx'
 import { Link } from 'react-router-dom';
 const Drawing = () => {
 

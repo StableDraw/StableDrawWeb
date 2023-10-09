@@ -1,0 +1,2815 @@
+.background{
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 970px;
+    display: flex;
+    overflow-y: scroll;
+}
+
+.background_image{
+    background-image: url("background_about_us.png");
+    background-size: 110%;
+    background-color: #000000;
+}
+
+.header{
+    width: 100%;
+    height: 70px;
+    background-color: #000000;
+    position: fixed;
+    z-index:  100;
+    vertical-align: middle;
+    align-items: center;
+    display: flex;
+}
+
+.navka{
+    margin-left: 15%;
+}
+
+.logo{
+    width: 248px;
+    height: 44px;
+}
+
+.dropdown{
+    overflow: hidden;
+    margin-right: 15%;
+    margin-left: auto;
+}
+
+.burger_menu{
+    margin-right: 15%;
+    margin-left: auto;
+    width: 65px;
+    height: 65px;
+    cursor: pointer;
+    background-color: #000000;
+    border: none;
+    outline: none;
+}
+
+.line{
+    stroke: #ffffff;
+    transition: all .8s ease;
+}
+
+.line:hover{
+    stroke: #7278cc;
+}
+
+.dropdown_content {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 184px;
+    min-height: 272px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+    border: 2px solid #656565;
+}
+
+.dropdown_content a {
+    float: none;
+    color: rgba(101,101,101,1);
+    padding: 22px 20px;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 1.25em;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.dropdown_content a:hover {
+    background-color: #c1bebe;
+}
+
+.dropdown:hover .dropdown_content {
+    display: block;
+}
+
+.cross{
+    width: auto;
+    height: 50px;
+}
+
+.crossBtn{
+    width: 32px;
+    height: 32px;
+    margin-top: 5px;
+    margin-right: 5px;
+    float: right;
+    background: url("Cross.svg") no-repeat center;
+    border: 0;
+}
+
+.crossBtn:hover {
+    background-color: #c1bebe;
+}
+
+.acc{
+    width: 24px;
+    height: 24px;
+    margin-left: 20px;
+}
+
+.brLine{
+    width: 134px;
+    padding: 0;
+    height: 0;
+    border: none;
+    border-top: 3px solid rgba(101, 101, 101, 1);
+    margin: 1px auto;
+}
+
+.link{
+    float: none;
+    color: rgba(101,101,101,1);
+    padding: 22px 20px;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 1.25em;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.link:hover{
+    color: rgba(101,101,101,1);
+}
+
+.mainpart{
+    display: flex;
+    background-color: rgba(0,0,0,0.4);
+    width: 70%;
+    height: 370vh;
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-top: 70px;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.photocontainer{
+    width: 100%;
+    height: 550px;
+    background-color: #6A6A6A;
+    margin-top: 30px;
+}
+
+.textcontainer{
+    top: 517px;
+    width: 62.2%;
+    height: 260px;
+    left: 18.9%;
+    right: 18.9%;
+    z-index: 1;
+    margin-top: -80px;
+}
+
+.maintex{
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 6em;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    width: 100%;
+    text-align: center;
+}
+
+.contexttex{
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 2em;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    width: 100%;
+    text-align: left;
+    margin-left: 5%;
+}
+
+.contexttex span{
+    font-weight: 700;
+}
+
+.hrLine{
+    margin-top: 35px;
+    padding: 0;
+    width: 90%;
+    height: 2px;
+    background-color: #ACACAC;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.photoGroup{
+    top: 746px;
+    width: 100%;
+    height: 452px;
+    margin-top: 100px;
+    display: flex;
+}
+
+.cat{
+    height:100%;
+    width: 37.6%;
+    float: left;
+}
+
+.neuroninfo{
+    margin-left: 20px;
+    width: 60%;
+    float: right;
+    flex-wrap: nowrap;
+    display: flex;
+    flex-direction: column;
+}
+
+.block{
+    width: 100%;
+    flex-wrap: nowrap;
+    display: flex;
+}
+
+.gen{
+    width: 55.91%;
+    height: 95%;
+    border-radius: 5px;
+}
+
+.water{
+    margin-left: 20px;
+    height: 90%;
+    width:40.37%;
+    float: right;
+}
+
+.neurontex{
+    margin-top: 23px;
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 1.625em;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    width: 100%;
+    text-align: left;
+}
+
+.threeDtext{
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 4em;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    text-align: center;
+    width: 100%;
+    margin-top: 80px;
+}
+
+.paginationBlock{
+    width: 100%;
+    height: 250px;
+    margin-top: 40px;
+    position: relative;
+}
+
+.hrLine1{
+    padding: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #ACACAC;
+    margin-bottom: 20px;
+}
+
+.slider{
+    display: flex;
+    gap: 2px;
+    max-height: 250px;
+}
+
+.slide{
+    flex: 1;
+    flex-grow: 1;
+    overflow: hidden;
+    height: 22vw;
+    border-radius: 10px;
+    max-height: 250px;
+    max-width: 250px;
+    border: 0px solid white;
+    box-shadow: 0 0 0 rgba(0 0 0 / 40%);
+    transition: .3s;
+    position: relative;
+}
+
+.slide_active{
+    flex: 1.25;
+    flex-grow: 1.1;
+    overflow: hidden;
+    height: 22vw;
+    max-height: 250px;
+    max-width: 250px;
+    border: 2px solid white;
+    box-shadow: 2px 4px 8px rgba(0 0 0 / 50%);
+    transition: .3s;
+    border-radius: 10px;
+    position: relative;
+}
+
+.slide img{
+    width: 111%;
+    height: 101%;
+    object-fit: cover;
+    object-position: center -1px;
+}
+
+.slide_active img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center -20px;
+}
+
+.left{
+    background: url('./assets/icons/LeftArrow.svg');
+    display: flex;
+    height: auto;
+    width: 50px;
+    cursor: pointer;
+}
+
+.right{
+    display: flex;
+    height: auto;
+    width: 50px;
+    background: url('./assets/icons/RightArrow.svg');
+    cursor: pointer;
+}
+
+.left_disabled{
+    pointer-events: none;
+    display: flex;
+    height: auto;
+    width: 50px;
+    background: url('./assets/icons/LeftArrow.svg');
+}
+
+.right_disabled{
+    pointer-events: none;
+    display: flex;
+    height: auto;
+    width: 50px;
+    background: url('./assets/icons/RightArrow.svg');
+}
+
+.left:hover{
+    background: url('./assets/icons/LeftArrow_activity1.svg');
+}
+
+.right:hover{
+    background: url('./assets/icons/RightArrow_activity1.svg');
+}
+
+.hrLine2{
+    padding: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #ACACAC;
+    margin-top: 20px;
+}
+
+.newtex{
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 1.5em;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-align: left;
+    width: 50%;
+    margin-top: 80px;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+.section{
+    width: 100%;
+    height: 516px;
+    margin-top: 100px;
+    position: static;
+}
+
+.show{
+    height:85%;
+    width: 37%;
+    float: left;
+}
+
+.showtex{
+    margin-left: 38.65%;
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 1.5em;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-align: left;
+    width: 44.4%;
+}
+
+.contr{
+    display: flex;
+    width: 63%;
+    height: 100%;
+}
+
+.showtex1{
+    margin-left: 7%;
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 1.5em;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-align: left;
+    width: 60%;
+    margin-top: 197px;
+}
+
+.busket {
+    margin-top: 60px;
+    height: 339px;
+    width: 67%;
+}
+
+.teamtext{
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 3em;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    text-align: center;
+    width: 100%;
+    margin-top: 100px;
+}
+
+.ourTeam{
+    display: flex;
+    align-items: start;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 30px;
+    height: 666px;
+    position: static;
+    margin-bottom: 40px;
+}
+
+.object{
+    display: flex;
+    flex-direction: row;
+    margin: 30px auto;
+    width: 32.23%;
+    height: 161px;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #000000;
+    border: 1px solid #6A6A6A;
+}
+
+.imge{
+    height: 140px;
+    width: 140px;
+    float: left;
+    margin: 10px;
+}
+
+.texte{
+    text-align: left;
+    align-items: start;
+    justify-content: start;
+    width: 50.06%;
+    display: flex;
+    flex-direction: column;
+    height: 80%;
+}
+
+.name{
+    text-align: left;
+    width: 180px;
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 1.25em;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.description{
+    text-align: left;
+    width: 180px;
+    margin-top: 20px;
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 1em;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.footer{
+    height: 240px;
+    background-color: #000000;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.section1{
+    flex-direction: column;
+    display: flex;
+    width: 32%;
+    justify-content: space-around;
+}
+
+.footer_section1{
+    height:20%;
+    display: flex;
+    width: 100%;
+}
+
+.email{
+    display: flex;
+    width: 45%;
+    height: 44px;
+    border-radius: 10px;
+    border: 1px solid #FFFFFF;
+    align-items: center;
+    vertical-align: middle;
+    justify-content: center;
+}
+
+.email a{
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 1.1em;
+    font-style: normal;
+    font-weight: 500;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.footer_section1_text{
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 0.95em;
+    font-style: normal;
+    font-weight: 400;
+    width: 100%;
+    margin-left: 0;
+    height: 20%;
+}
+
+.socialBlock{
+    display: flex;
+    margin-top: 30px;
+    height: 50px;
+    width: auto;
+    text-align: center;
+    vertical-align: middle;
+    justify-content: center;
+}
+
+.img_link{
+    width: 50px;
+    height: 50px;
+    margin-left: 25px;
+}
+
+.img{
+    width: 50px;
+    height: 50px;
+}
+
+.footer_section2{
+    height: 50%;
+    width: 16.88%;
+    margin-left: 92px;
+    margin-top: 70px;
+}
+
+.toptex{
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 1.15em;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.downtex{
+    margin-top: 20px;
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 1.15em;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+@media(max-width: 1920px) {
+    .header {
+        height: 70px;
+        width: 100%;
+    }
+
+    .logo {
+        width: 248px;
+        height: 44px;
+    }
+
+    .dropdown{
+        margin-right: 15%;
+        margin-left: auto;
+    }
+
+    .burger_menu{
+        margin-right: 15%;
+        margin-left: auto;
+        width: 65px;
+        height: 65px;
+    }
+
+    .dropdown_content {
+        min-width: 184px;
+        min-height: 272px;
+    }
+
+    .dropdown_content a {
+        padding: 22px 20px;
+        font-size: 1.25em;
+    }
+
+    .cross{
+        width: auto;
+        height: 50px;
+    }
+
+    .crossBtn{
+        width: 32px;
+        height: 32px;
+        margin-top: 5px;
+        margin-right: 5px;
+    }
+
+    .acc{
+        width: 24px;
+        height: 24px;
+        margin-left: 20px;
+    }
+
+    .brLine{
+        width: 134px;
+    }
+
+    .link{
+        padding: 22px 20px;
+        font-size: 1.25em;
+    }
+
+    .mainpart{
+        width: 70%;
+        height: 370vh;
+        margin-left: 15%;
+        margin-right: 15%;
+        margin-top: 70px;
+    }
+
+    .photocontainer {
+        height: 550px;
+        margin-top: 30px;
+        width: 100%;
+    }
+
+    .textcontainer{
+        top: 517px;
+        height: 260px;
+        margin-top: -90px;
+        width: 62.2%;
+    }
+
+    .maintex {
+        font-size: 5em;
+        width: 100%;
+    }
+
+    .contexttex {
+        font-size: 2em;
+        width: 100%;
+        margin-left: 5%;
+    }
+
+    .photoGroup{
+        top: 746px;
+        height: 452px;
+        margin-top: 100px;
+        width: 100%;
+    }
+
+    .hrLine{
+        margin-top: 35px;
+        padding: 0;
+        width: 90%;
+        height: 2px;
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+
+    .cat{
+        height:100%;
+        width: 37.6%;
+    }
+
+    .neuroninfo{
+        margin-left: 20px;
+        width: 60%;
+    }
+
+    .gen{
+        width: 55.91%;
+        height: 95%;
+        border-radius: 5px;
+    }
+
+    .water{
+        margin-left: 20px;
+        height: 90%;
+        width:40.37%;
+    }
+
+    .neurontex {
+        margin-top: 23px;
+        font-size: 1.625em;
+        width: 100%;
+    }
+
+    .threeDtext {
+        font-size: 4em;
+        margin-top: 80px;
+        width: 100%;
+    }
+
+    .paginationBlock{
+        width: 100%;
+        height: 250px;
+        margin-top: 40px;
+    }
+
+    .hrLine1{
+        padding: 0;
+        width: 100%;
+        height: 2px;
+        margin-bottom: 20px;
+    }
+
+    .slider{
+        gap: 2px;
+        max-height: 250px;
+    }
+
+    .slide{
+        flex: 1;
+        flex-grow: 1;
+        height: 22vw;
+        max-height: 250px;
+        max-width: 250px;
+        box-shadow: 0 0 0 rgba(0 0 0 / 40%);
+    }
+
+    .slide_active{
+        flex: 1.25;
+        flex-grow: 1.1;
+        height: 22vw;
+        max-height: 250px;
+        max-width: 250px;
+        border: 2px solid white;
+        box-shadow: 2px 4px 8px rgba(0 0 0 / 50%);
+    }
+
+    .slide img{
+        width: 111%;
+        height: 101%;
+        object-position: center -1px;
+    }
+
+    .slide_active img{
+        width: 100%;
+        height: 100%;
+        object-position: center -20px;
+    }
+
+    .left{
+        height: auto;
+        width: 50px;
+    }
+
+    .right{
+        height: auto;
+        width: 50px;
+    }
+
+    .left_disabled{
+        height: auto;
+        width: 50px;
+    }
+
+    .right_disabled{
+        height: auto;
+        width: 50px;
+    }
+
+    .hrLine2{
+        padding: 0;
+        width: 100%;
+        height: 2px;
+        margin-top: 20px;
+    }
+
+    .newtex {
+        font-size: 1.5em;
+        width: 50%;
+        margin-top: 80px;
+        margin-left: 25%;
+        margin-right: 25%;
+    }
+
+    .section{
+        height: 516px;
+        margin-top: 100px;
+        width: 100%;
+    }
+
+    .show{
+        height:85%;
+        width: 37%;
+    }
+
+    .showtex {
+        font-size: 1.5em;
+        width: 44.4%;
+        margin-left: 38.65%;
+    }
+
+    .contr{
+        width: 63%;
+        height: 100%;
+    }
+
+    .showtex1 {
+        font-size: 1.5em;
+        width: 60%;
+        margin-top: 197px;
+        margin-left: 7%;
+    }
+
+    .busket {
+        margin-top: 60px;
+        height: 339px;
+        width: 67%;
+    }
+
+    .teamtext {
+        font-size: 3em;
+        width: 100%;
+        margin-top: 100px;
+    }
+
+    .ourTeam{
+        width: 100%;
+        margin-top: 30px;
+        height: 666px;
+        margin-bottom: 40px;
+    }
+
+    .object{
+        margin: 30px auto;
+        width: 32.23%;
+        height: 161px;
+    }
+
+    .imge{
+        height: 140px;
+        width: 140px;
+        margin: 10px;
+    }
+
+    .texte{
+        width: 50.06%;
+        height: 80%;
+    }
+
+    .name {
+        width: 180px;
+        font-size: 1.25em;
+    }
+
+    .description {
+        width: 180px;
+        margin-top: 20px;
+        font-size: 1em;
+    }
+
+    .footer{
+        height: 240px;
+    }
+
+    .section1{
+        width: 32%;
+    }
+
+    .footer_section1{
+        height:20%;
+        width: 100%;
+    }
+
+    .email{
+        height: 44px;
+        margin-left: 41px;
+        width: 45%;
+    }
+
+    .email a{
+        font-size: 1.1em;
+    }
+
+    .footer_section1_text {
+        font-size: 0.95em;
+        width: 100%;
+        margin-left: 0;
+        height: 20%;
+    }
+
+    .socialBlock{
+        margin-top: 30px;
+        height: 50px;
+    }
+
+    .img_link{
+        width: 50px;
+        height: 50px;
+        margin-left: 25px;
+    }
+
+    .img{
+        width: 50px;
+        height: 50px;
+    }
+
+    .footer_section2{
+        height: 50%;
+        width: 16.88%;
+        margin-left: 92px;
+        margin-top: 70px;
+    }
+
+    .toptex {
+        font-size: 1.15em;
+    }
+
+    .downtex {
+        margin-top: 20px;
+        font-size: 1.15em;
+    }
+
+    @media (max-width: 1680px) {
+        .header {
+            height: 70px;
+            width: 100%;
+        }
+
+        .logo {
+            width: 248px;
+            height: 44px;
+        }
+
+        .burger_menu{
+            margin-right: 15%;
+            margin-left: auto;
+            width: 55px;
+            height: 55px;
+        }
+
+        .dropdown_content {
+            min-width: 174px;
+            min-height: 244px;
+        }
+
+        .dropdown_content a {
+            padding: 20px 18px;
+            font-size: 1.1em;
+        }
+
+        .cross{
+            width: auto;
+            height: 45px;
+        }
+
+        .crossBtn{
+            width: 32px;
+            height: 32px;
+            margin-top: 5px;
+            margin-right: 5px;
+        }
+
+        .acc{
+            width: 22px;
+            height: 22px;
+            margin-left: 18px;
+        }
+
+        .brLine{
+            width: 127px;
+        }
+
+        .link{
+            padding: 20px 18px;
+            font-size: 1.1em;
+        }
+
+        .mainpart{
+            width: 70%;
+            height: 370vh;
+            margin-left: 15%;
+            margin-right: 15%;
+            margin-top: 70px;
+        }
+
+        .photocontainer {
+            height: 550px;
+            margin-top: 30px;
+            width: 100%;
+        }
+
+        .textcontainer{
+            top: 517px;
+            height: 260px;
+            margin-top: -90px;
+            width: 62.2%;
+        }
+
+        .maintex {
+            font-size: 4.5em;
+            width: 100%;
+        }
+
+        .contexttex {
+            font-size: 2em;
+            width: 100%;
+            margin-left: 5%;
+        }
+
+        .photoGroup{
+            top: 746px;
+            height: 452px;
+            margin-top: 100px;
+            width: 100%;
+        }
+
+        .hrLine{
+            margin-top: 35px;
+            padding: 0;
+            width: 90%;
+            height: 2px;
+            margin-left: 5%;
+            margin-right: 5%;
+        }
+
+        .cat{
+            height:95%;
+            width: 37.6%;
+        }
+
+        .neuroninfo{
+            margin-left: 20px;
+            width: 60%;
+        }
+
+        .gen{
+            width: 55.91%;
+            height: 95%;
+            border-radius: 5px;
+        }
+
+        .water{
+            margin-left: 20px;
+            height: 90%;
+            width:40.37%;
+        }
+
+        .neurontex {
+            margin-top: 23px;
+            font-size: 1.625em;
+            width: 100%;
+        }
+
+        .threeDtext {
+            font-size: 4em;
+            margin-top: 80px;
+            width: 100%;
+        }
+
+        .paginationBlock{
+            width: 100%;
+            height: 231px;
+            margin-top: 40px;
+        }
+
+        hrLine1{
+            padding: 0;
+            width: 100%;
+            height: 2px;
+            margin-bottom: 18px;
+        }
+
+        .slider{
+            gap: 2px;
+            max-height: 231px;
+        }
+
+        .slide{
+            flex: 1;
+            flex-grow: 1;
+            height: 22vw;
+            max-height: 231px;
+            max-width: 250px;
+            box-shadow: 0 0 0 rgba(0 0 0 / 40%);
+        }
+
+        .slide_active{
+            flex: 1.25;
+            flex-grow: 1.1;
+            height: 22vw;
+            max-height: 231px;
+            max-width: 250px;
+            border: 2px solid white;
+            box-shadow: 2px 4px 8px rgba(0 0 0 / 50%);
+        }
+
+        .slide img{
+            width: 111%;
+            height: 101%;
+            object-position: center -1px;
+        }
+
+        .slide_active img{
+            width: 110%;
+            height: 110%;
+            object-position: center -20px;
+        }
+
+        .left{
+            height: auto;
+            width: 50px;
+        }
+
+        .right{
+            height: auto;
+            width: 50px;
+        }
+
+        .left_disabled{
+            height: auto;
+            width: 50px;
+        }
+
+        .right_disabled{
+            height: auto;
+            width: 50px;
+        }
+
+        .hrLine2{
+            padding: 0;
+            width: 100%;
+            height: 2px;
+            margin-top: 18px;
+        }
+
+        .newtex {
+            font-size: 1.4em;
+            width: 50%;
+            margin-top: 80px;
+            margin-left: 25%;
+            margin-right: 25%;
+        }
+
+        .section{
+            height: 545px;
+            margin-top: 100px;
+            width: 100%;
+        }
+
+        .show{
+            height:83%;
+            width: 37%;
+        }
+
+        .showtex {
+            font-size: 1.4em;
+            width: 44.4%;
+            margin-left: 38.65%;
+        }
+
+        .contr{
+            width: 63%;
+            height: auto;
+        }
+
+        .showtex1 {
+            font-size: 1.4em;
+            width: 60%;
+            margin-top: 140px;
+            margin-left: 6%;
+            height: auto;
+        }
+
+        .busket {
+            margin-top: 60px;
+            height: 339px;
+            width: 67%;
+        }
+
+        .teamtext {
+            font-size: 3em;
+            width: 100%;
+            margin-top: 100px;
+        }
+
+        .ourTeam{
+            width: 100%;
+            margin-top: 30px;
+            height: 666px;
+            margin-bottom: 40px;
+        }
+
+        .object{
+            margin: 30px auto;
+            width: 32.23%;
+            height: 161px;
+        }
+
+        .imge{
+            height: 140px;
+            width: 140px;
+            margin: 10px;
+        }
+
+        .texte{
+            width: 50.06%;
+            height: 80%;
+        }
+
+        .name {
+            width: auto;
+            font-size: 1.25em;
+        }
+
+        .description {
+            width: auto;
+            margin-top: 20px;
+            font-size: 1em;
+        }
+
+        .footer{
+            height: 270px;
+        }
+
+        .section1{
+            width: 32%;
+        }
+
+        .footer_section1{
+            height:auto;
+            width: 100%;
+        }
+
+        .email{
+            height: 44px;
+            margin-left: auto;
+            width: 45%;
+        }
+
+        .email a{
+            font-size: 0.9em;
+        }
+
+        .footer_section1_text {
+            font-size: 0.8em;
+            width: 100%;
+            margin-left: 0;
+            height: 40%;
+        }
+
+        .socialBlock{
+            margin-top: 30px;
+            height: 45px;
+            width: auto;
+        }
+
+        .img_link{
+            width: 45px;
+            height: 45px;
+            margin-left: 20px;
+        }
+
+        .img{
+            width: 45px;
+            height: 45px;
+        }
+
+        .footer_section2{
+            height: 50%;
+            width: 16.88%;
+            margin-left: 90px;
+            margin-top: 60px;
+        }
+
+        .toptex {
+            font-size: 0.9em;
+        }
+
+        .downtex {
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+    }
+    @media (max-width: 1440px) {
+        .header {
+            height: 60px;
+            width: 100%;
+        }
+
+        .logo {
+            width: 182px;
+            height: 32px;
+        }
+
+        .burger_menu{
+            margin-right: 15%;
+            margin-left: auto;
+            width: 50px;
+            height: 50px;
+        }
+
+        .dropdown_content {
+            min-width: 174px;
+            min-height: 244px;
+        }
+
+        .dropdown_content a {
+            padding: 20px 18px;
+            font-size: 1.1em;
+        }
+
+        .cross{
+            width: auto;
+            height: 45px;
+        }
+
+        .crossBtn{
+            width: 32px;
+            height: 32px;
+            margin-top: 5px;
+            margin-right: 5px;
+        }
+
+        .acc{
+            width: 22px;
+            height: 22px;
+            margin-left: 18px;
+        }
+
+        .brLine{
+            width: 127px;
+        }
+
+        .link{
+            padding: 20px 18px;
+            font-size: 1.1em;
+        }
+
+        .mainpart{
+            width: 70%;
+            height: 330vh;
+            margin-left: 15%;
+            margin-right: 15%;
+            margin-top: 70px;
+        }
+
+        .photocontainer {
+            height: 490px;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .textcontainer{
+            top: 457px;
+            height: 200px;
+            margin-top: -60px;
+            width: 62.2%;
+        }
+
+        .maintex {
+            font-size: 3.1em;
+            width: 100%;
+        }
+
+        .contexttex {
+            font-size: 1.5em;
+            width: 100%;
+            margin-left: 5%;
+        }
+
+        .photoGroup{
+            top: 686px;
+            height: 392px;
+            margin-top: 70px;
+            width: 100%;
+        }
+
+        .hrLine{
+            margin-top: 25px;
+            padding: 0;
+            width: 90%;
+            height: 2px;
+            margin-left: 5%;
+            margin-right: 5%;
+        }
+
+        .cat{
+            height:87%;
+            width: 37.6%;
+        }
+
+        .neuroninfo{
+            margin-left: 15px;
+            width: 60%;
+        }
+
+        .gen{
+            width: 55.91%;
+            height: 95%;
+        }
+
+        .water{
+            margin-left: 15px;
+            height: 90%;
+            width:40.37%;
+        }
+
+        .neurontex {
+            margin-top: 20px;
+            font-size: 1em;
+            width: 100%;
+        }
+
+        .threeDtext {
+            font-size: 3em;
+            margin-top: 65px;
+            width: 100%;
+        }
+
+        .paginationBlock{
+            width: 100%;
+            height: 215px;
+            margin-top: 30px;
+        }
+
+        hrLine1{
+            padding: 0;
+            width: 100%;
+            height: 2px;
+            margin-bottom: 16px;
+        }
+
+        .slider{
+            gap: 2px;
+            max-height: 215px;
+        }
+
+        .slide{
+            flex: 1;
+            flex-grow: 1;
+            height: 22vw;
+            max-height: 215px;
+            max-width: 250px;
+            box-shadow: 0 0 0 rgba(0 0 0 / 40%);
+        }
+
+        .slide_active{
+            flex: 1.25;
+            flex-grow: 1.1;
+            height: 22vw;
+            max-height: 215px;
+            max-width: 250px;
+            border: 2px solid white;
+            box-shadow: 2px 4px 8px rgba(0 0 0 / 50%);
+        }
+
+        .slide img{
+            width: 111%;
+            height: 101%;
+            object-position: center -1px;
+        }
+
+        .slide_active img{
+            width: 110%;
+            height: 110%;
+            object-position: center -20px;
+        }
+
+        .left{
+            height: auto;
+            width: 50px;
+        }
+
+        .right{
+            height: auto;
+            width: 50px;
+        }
+
+        .left_disabled{
+            height: auto;
+            width: 50px;
+        }
+
+        .right_disabled{
+            height: auto;
+            width: 50px;
+        }
+
+        .hrLine2{
+            padding: 0;
+            width: 100%;
+            height: 2px;
+            margin-top: 16px;
+        }
+
+        .newtex {
+            font-size: 1em;
+            width: 50%;
+            margin-top: 70px;
+            margin-left: 25%;
+            margin-right: 25%;
+        }
+
+        .section{
+            height: auto;
+            margin-top: 80px;
+            width: 100%;
+        }
+
+        .show{
+            height:80%;
+            width: 37%;
+        }
+
+        .showtex {
+            font-size: 1em;
+            width: 44.4%;
+            margin-left: 38.65%;
+        }
+
+        .contr{
+            width: 63%;
+            height: auto;
+        }
+
+        .busket {
+            margin-top: 50px;
+            height: 279px;
+            width: 67%;
+        }
+
+        .showtex1 {
+            font-size: 1em;
+            width: 60%;
+            margin-top: 120px;
+            margin-left: 4%;
+            height: auto;
+        }
+
+        .teamtext {
+            font-size: 2.1em;
+            width: 100%;
+            margin-top: 80px;
+        }
+
+        .ourTeam{
+            width: 100%;
+            margin-top: 20px;
+            height: 606px;
+            margin-bottom: 30px;
+        }
+
+        .object{
+            margin: 20px auto;
+            height: 131px;
+            width: 32.23%;
+        }
+
+        .imge{
+            height: 110px;
+            width: 110px;
+            margin: 10px;
+        }
+
+        .texte{
+            width: 50.06%;
+            height: 80%;
+        }
+
+        .name {
+            width: auto;
+            font-size: 1em;
+        }
+
+        .description {
+            font-size: 0.76em;
+            width: auto;
+            margin-top: 14px;
+        }
+
+        .footer{
+            height: 270px;
+        }
+
+        .section1{
+            width: 32%;
+        }
+
+        .footer_section1{
+            height:auto;
+            width: 100%;
+        }
+
+        .email{
+            height: 36px;
+            margin-left: auto;
+            width: 45%;
+        }
+
+        .email a{
+            font-size: 0.7em;
+        }
+
+        .footer_section1_text {
+            font-size: 0.7em;
+            width: 100%;
+            margin-left: 0;
+            height: 40%;
+        }
+
+        .socialBlock{
+            margin-top: 30px;
+            height: 35px;
+            width: auto;
+            margin-left: 5%;
+        }
+
+        .img_link{
+            width: 35px;
+            height: 35px;
+            margin-left: 15px;
+        }
+
+        .img{
+            width: 35px;
+            height: 35px;
+        }
+
+        .footer_section2{
+            height: 50%;
+            width: 16.88%;
+            margin-left: 80px;
+            margin-top: 55px;
+        }
+
+        .toptex {
+            font-size: 0.8em;
+        }
+
+        .downtex {
+            margin-top: 15px;
+            font-size: 0.8em;
+        }
+    }
+    @media (max-width: 1280px) {
+        .background_image{
+            width: 100%;
+        }
+
+        .header {
+            height: 50px;
+            width: 100%;
+        }
+
+        .logo {
+            width: 150px;
+            height: 28px;
+        }
+
+        .burger_menu{
+            margin-right: 15%;
+            margin-left: auto;
+            width: 45px;
+            height: 45px;
+        }
+
+        .dropdown_content {
+            min-width: 160px;
+            min-height: 220px;
+        }
+
+        .dropdown_content a {
+            padding: 18px 16px;
+            font-size: 1em;
+        }
+
+        .cross{
+            width: auto;
+            height: 40px;
+        }
+
+        .crossBtn{
+            width: 28px;
+            height: 28px;
+            margin-top: 5px;
+            margin-right: 5px;
+        }
+
+        .acc{
+            width: 20px;
+            height: 20px;
+            margin-left: 16px;
+        }
+
+        .brLine{
+            width: 120px;
+        }
+
+        .link{
+            padding: 20px 18px;
+            font-size: 1em;
+        }
+
+        .mainpart{
+            width: 70%;
+            height: 280vh;
+            margin-left: 15%;
+            margin-right: 15%;
+            margin-top: 70px;
+        }
+
+        .photocontainer{
+            height: 460px;
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        .textcontainer{
+            top: 407px;
+            height: 170px;
+            margin-top: -45px;
+            width: 62.2%;
+        }
+
+        .maintex {
+            font-size: 2.5em;
+            width: 100%;
+        }
+
+        .contexttex {
+            font-size: 1em;
+            width: 100%;
+            margin-left: 5%;
+        }
+
+        .photoGroup{
+            top: 656px;
+            height: 362px;
+            margin-top: 55px;
+            width: 100%;
+        }
+
+        .hrLine{
+            margin-top: 20px;
+            padding: 0;
+            width: 90%;
+            height: 2px;
+            margin-left: 5%;
+            margin-right: 5%;
+        }
+
+        .cat{
+            height:83%;
+            width: 37.6%;
+        }
+
+        .neuroninfo{
+            margin-left: 13px;
+            width: 60%;
+        }
+
+        .gen{
+            width: 55.91%;
+            height: 95%;
+        }
+
+        .water{
+            margin-left: 15px;
+            height: 90%;
+            width:40.37%;
+        }
+
+        .neurontex {
+            margin-top: 17px;
+            font-size: 1em;
+            width: 100%;
+        }
+
+        .threeDtext {
+            font-size: 2.5em;
+            margin-top: 55px;
+            width: 100%;
+        }
+
+        .paginationBlock{
+            width: 100%;
+            height: 200px;
+            margin-top: 25px;
+        }
+
+        hrLine1{
+            padding: 0;
+            width: 100%;
+            height: 2px;
+            margin-bottom: 14px;
+        }
+
+        .slider{
+            gap: 2px;
+            max-height: 200px;
+        }
+
+        .slide{
+            flex: 1;
+            flex-grow: 1;
+            height: 22vw;
+            max-height: 200px;
+            max-width: 250px;
+            box-shadow: 0 0 0 rgba(0 0 0 / 40%);
+        }
+
+        .slide_active{
+            flex: 1.25;
+            flex-grow: 1.1;
+            height: 22vw;
+            max-height: 200px;
+            max-width: 250px;
+            border: 2px solid white;
+            box-shadow: 2px 4px 8px rgba(0 0 0 / 50%);
+        }
+
+        .slide img{
+            width: 111%;
+            height: 101%;
+            object-position: center -1px;
+        }
+
+        .slide_active img{
+            width: 110%;
+            height: 110%;
+            object-position: center -20px;
+        }
+
+        .left{
+            height: auto;
+            width: 50px;
+        }
+
+        .right{
+            height: auto;
+            width: 50px;
+        }
+
+        .left_disabled{
+            height: auto;
+            width: 50px;
+        }
+
+        .right_disabled{
+            height: auto;
+            width: 50px;
+        }
+
+        .hrLine2{
+            padding: 0;
+            width: 100%;
+            height: 2px;
+            margin-top: 14px;
+        }
+
+        .newtex {
+            font-size: 0.9em;
+            width: 50%;
+            margin-top: 60px;
+            margin-left: 25%;
+            margin-right: 25%;
+        }
+
+        .section{
+            height: auto;
+            margin-top: 70px;
+            width: 100%;
+        }
+
+        .show{
+            height:75%;
+            width: 37%;
+        }
+
+        .showtex {
+            font-size: 0.9em;
+            width: 44.4%;
+            margin-left: 38.65%;
+        }
+
+        .contr{
+            width: 63%;
+            height: auto;
+        }
+
+        .busket {
+            margin-top: 45px;
+            height: 249px;
+            width: 67%;
+        }
+
+        .showtex1 {
+            font-size: 0.9em;
+            width: 60%;
+            margin-top: 110px;
+            margin-left: 4%;
+            height: auto;
+        }
+
+        .teamtext {
+            font-size: 1.9em;
+            width: 100%;
+            margin-top: 70px;
+        }
+
+        .ourTeam{
+            width: 100%;
+            margin-top: 15px;
+            height: 576px;
+            margin-bottom: 24px;
+        }
+
+        .object{
+            margin: 15px auto;
+            height: 121px;
+            width: 32.23%;
+        }
+
+        .imge{
+            height: 100px;
+            width: 100px;
+            margin: 10px;
+        }
+
+        .texte{
+            width: 50.06%;
+            height: 80%;
+        }
+
+        .name {
+            font-size: 0.88em;
+            width: auto;
+        }
+
+        .description {
+            font-size: 0.6em;
+            width: auto;
+            margin-top: 12px;
+        }
+
+        .footer{
+            height: 250px;
+        }
+
+        .section1{
+            width: 32%;
+        }
+
+        .footer_section1{
+            height:auto;
+            width: 100%;
+        }
+
+        .email{
+            height: 32px;
+            margin-left: auto;
+            width: 45%;
+        }
+
+        .email a{
+            font-size: 0.6em;
+        }
+
+        .footer_section1_text {
+            font-size: 0.6em;
+            width: 100%;
+            margin-left: 0;
+            height: 40%;
+        }
+
+        .socialBlock{
+            margin-top: 25px;
+            height: 30px;
+            width: auto;
+            margin-left: 5%;
+        }
+
+        .img_link{
+            width: 30px;
+            height: 30px;
+            margin-left: 13px;
+        }
+
+        .img{
+            width: 30px;
+            height: 30px;
+        }
+
+        .footer_section2{
+            height: 50%;
+            width: 16.88%;
+            margin-left: 70px;
+            margin-top: 50px;
+        }
+
+        .toptex {
+            font-size: 0.7em;
+        }
+
+        .downtex {
+            font-size: 0.7em;
+            margin-top: 13px;
+        }
+    }
+    @media (max-width: 1024px) {
+        .background_image{
+            width: 100%;
+        }
+
+        .header {
+            height: 45px;
+            width: 100%;
+        }
+
+        .logo {
+            width: 135px;
+            height: 25px;
+        }
+
+        .burger_menu{
+            margin-right: 15%;
+            margin-left: auto;
+            width: 40px;
+            height: 40px;
+        }
+
+        .dropdown_content {
+            min-width: 145px;
+            min-height: 200px;
+        }
+
+        .dropdown_content a {
+            padding: 16px 14px;
+            font-size: 0.9em;
+        }
+
+        .cross{
+            width: auto;
+            height: 28px;
+        }
+
+        .crossBtn{
+            width: 23px;
+            height: 23px;
+            margin-top: 3px;
+            margin-right: 3px;
+        }
+
+        .acc{
+            width: 18px;
+            height: 18px;
+            margin-left: 14px;
+        }
+
+        .brLine{
+            width: 110px;
+        }
+
+        .link{
+            padding: 18px 16px;
+            font-size: 0.9em;
+        }
+
+        .mainpart{
+            width: 70%;
+            height: 270vh;
+            margin-left: 15%;
+            margin-right: 15%;
+            margin-top: 70px;
+        }
+
+        .photocontainer{
+            height: 300px;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .textcontainer{
+            top: 357px;
+            height: 140px;
+            margin-top: -50px;
+            width: 62.2%;
+        }
+
+        .maintex {
+            font-size: 2.0em;
+            width: 100%;
+        }
+
+        .contexttex {
+            font-size: 0.7em;
+            width: 100%;
+            margin-left: 5%;
+        }
+
+        .photoGroup{
+            top: 626px;
+            height: 332px;
+            margin-top: 45px;
+            width: 100%;
+        }
+
+        .hrLine{
+            margin-top: 16px;
+            padding: 0;
+            width: 90%;
+            height: 2px;
+            margin-left: 5%;
+            margin-right: 5%;
+        }
+
+        .cat{
+            height:70%;
+            width: 37.6%;
+        }
+
+        .neuroninfo{
+            margin-left: 11px;
+            width: 60%;
+        }
+
+        .gen{
+            width: 55.91%;
+            height: 95%;
+        }
+
+        .water{
+            margin-left: 13px;
+            height: 90%;
+            width:40.37%;
+        }
+
+        .neurontex {
+            margin-top: 14px;
+            font-size: 0.9em;
+            width: 100%;
+        }
+
+        .threeDtext {
+            font-size: 2.0em;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .paginationBlock{
+            width: 100%;
+            height: 180px;
+            margin-top: 22px;
+        }
+
+        hrLine1{
+            padding: 0;
+            width: 100%;
+            height: 2px;
+            margin-bottom: 14px;
+        }
+
+        .slider{
+            gap: 2px;
+            max-height: 180px;
+        }
+
+        .slide{
+            flex: 1;
+            flex-grow: 1;
+            height: 22vw;
+            max-height: 180px;
+            max-width: 250px;
+            box-shadow: 0 0 0 rgba(0 0 0 / 40%);
+        }
+
+        .slide_active{
+            flex: 1.25;
+            flex-grow: 1.1;
+            height: 22vw;
+            max-height: 180px;
+            max-width: 250px;
+            border: 2px solid white;
+            box-shadow: 2px 4px 8px rgba(0 0 0 / 50%);
+        }
+
+        .slide img{
+            width: 111%;
+            height: 101%;
+            object-position: center -1px;
+        }
+
+        .slide_active img{
+            width: 110%;
+            height: 110%;
+            object-position: center -20px;
+        }
+
+        .left{
+            height: auto;
+            width: 50px;
+        }
+
+        .right{
+            height: auto;
+            width: 50px;
+        }
+
+        .left_disabled{
+            height: auto;
+            width: 50px;
+        }
+
+        .right_disabled{
+            height: auto;
+            width: 50px;
+        }
+
+        .hrLine2{
+            padding: 0;
+            width: 100%;
+            height: 2px;
+            margin-top: 14px;
+        }
+
+        .newtex {
+            font-size: 0.7em;
+            width: 50%;
+            margin-top: 55px;
+            margin-left: 25%;
+            margin-right: 25%;
+        }
+
+        .section{
+            height: auto;
+            margin-top: 60px;
+            width: 100%;
+        }
+
+        .show{
+            height:72%;
+            width: 37%;
+        }
+
+        .showtex {
+            font-size: 0.7em;
+            width: 44.4%;
+            margin-left: 38.65%;
+        }
+
+        .contr{
+            width: 63%;
+            height: auto;
+        }
+
+        .busket {
+            margin-top: 40px;
+            height: 219px;
+            width: 67%;
+        }
+
+        .showtex1 {
+            font-size: 0.78em;
+            width: 60%;
+            margin-top: 80px;
+            margin-left: 4%;
+            height: auto;
+        }
+
+        .teamtext {
+            font-size: 1.5em;
+            width: 100%;
+            margin-top: 60px;
+        }
+
+        .ourTeam{
+            width: 100%;
+            margin-top: 10px;
+            height: 546px;
+            margin-bottom: 20px;
+        }
+
+        .object{
+            margin: 10px auto;
+            height: 111px;
+            width: 32.23%;
+        }
+
+        .imge{
+            height: 90px;
+            width: 90px;
+            margin: 10px;
+        }
+
+        .texte{
+            width: 50.06%;
+            height: 80%;
+        }
+
+        .name {
+            font-size: 0.65em;
+            width: auto;
+        }
+
+        .description {
+            font-size: 0.48em;
+            width: auto;
+            margin-top: 11px;
+        }
+
+        .footer{
+            height: 240px;
+        }
+
+        .section1{
+            width: 32%;
+        }
+
+        .footer_section1{
+            height:auto;
+            width: 100%;
+        }
+
+        .email{
+            height: 28px;
+            margin-left: auto;
+            width: 45%;
+        }
+
+        .email a{
+            font-size: 0.5em;
+        }
+
+        .footer_section1_text {
+            font-size: 0.5em;
+            width: 100%;
+            margin-left: 0;
+            height: 40%;
+        }
+
+        .socialBlock{
+            margin-top: 25px;
+            height: 25px;
+            width: auto;
+            margin-left: 5%;
+        }
+
+        .img_link{
+            width: 25px;
+            height: 25px;
+            margin-left: 11px;
+        }
+
+        .img{
+            width: 25px;
+            height: 25px;
+        }
+
+        .footer_section2{
+            height: 50%;
+            width: 15.88%;
+            margin-left: 60px;
+            margin-top: 55px;
+        }
+
+        .toptex {
+            font-size: 0.6em;
+        }
+
+        .downtex {
+            font-size: 0.6em;
+            margin-top: 11px;
+        }
+    }
+    @media (max-width: 800px) {
+        .background_image{
+            width: 100%;
+        }
+
+        .header {
+            height: 40px;
+            width: 100%;
+        }
+
+        .logo {
+            width: 125px;
+            height: 20px;
+        }
+
+        .burger_menu{
+            margin-right: 15%;
+            margin-left: auto;
+            width: 50px;
+            height: 50px;
+        }
+
+        .dropdown_content {
+            min-width: 120px;
+            min-height: 175px;
+        }
+
+        .dropdown_content a {
+            padding: 14px 12px;
+            font-size: 0.8em;
+        }
+
+        .cross{
+            width: auto;
+            height: 26px;
+        }
+
+        .crossBtn{
+            width: 19px;
+            height: 19px;
+            margin-top: 3px;
+            margin-right: 3px;
+        }
+
+        .acc{
+            width: 16px;
+            height: 16px;
+            margin-left: 12px;
+        }
+
+        .brLine{
+            width: 100px;
+        }
+
+        .link{
+            padding: 14px 12px;
+            font-size: 0.8em;
+        }
+
+        .mainpart{
+            width: 70%;
+            height: 250vh;
+            margin-left: 15%;
+            margin-right: 15%;
+            margin-top: 60px;
+        }
+
+        .photocontainer{
+            height: 270px;
+            margin-top: 8px;
+            width: 100%;
+        }
+
+        .textcontainer{
+            top: 337px;
+            height: 140px;
+            margin-top: -60px;
+            width: 62.2%;
+        }
+
+        .maintex {
+            font-size: 1.8em;
+            width: 100%;
+        }
+
+        .contexttex {
+            font-size: 0.65em;
+            width: 100%;
+            margin-left: 5%;
+        }
+
+        .photoGroup{
+            top: 596px;
+            height: 318px;
+            margin-top: 40px;
+            width: 100%;
+        }
+
+        .hrLine{
+            margin-top: 14px;
+            padding: 0;
+            width: 90%;
+            height: 2px;
+            margin-left: 5%;
+            margin-right: 5%;
+        }
+
+        .cat{
+            height:70%;
+            width: 37.6%;
+        }
+
+        .neuroninfo{
+            margin-left: 9px;
+            width: 60%;
+        }
+
+        .gen{
+            width: 55.91%;
+            height: 95%;
+        }
+
+        .water{
+            margin-left: 13px;
+            height: 90%;
+            width:40.37%;
+        }
+
+        .neurontex {
+            margin-top: 12px;
+            font-size: 0.85em;
+            width: 100%;
+        }
+
+        .threeDtext {
+            font-size: 1.5em;
+            margin-top: 17px;
+            width: 100%;
+        }
+
+        .paginationBlock{
+            width: 100%;
+            height: 160px;
+            margin-top: 18px;
+        }
+
+        hrLine1{
+            padding: 0;
+            width: 100%;
+            height: 2px;
+            margin-bottom: 12px;
+        }
+
+        .slider{
+            gap: 2px;
+            max-height: 160px;
+        }
+
+        .slide{
+            flex: 1;
+            flex-grow: 1;
+            height: 22vw;
+            max-height: 160px;
+            max-width: 250px;
+            box-shadow: 0 0 0 rgba(0 0 0 / 40%);
+        }
+
+        .slide_active{
+            flex: 1.25;
+            flex-grow: 1.1;
+            height: 22vw;
+            max-height: 160px;
+            max-width: 250px;
+            border: 2px solid white;
+            box-shadow: 2px 4px 8px rgba(0 0 0 / 50%);
+        }
+
+        .slide img{
+            width: 111%;
+            height: 101%;
+            object-position: center -1px;
+        }
+
+        .slide_active img{
+            width: 110%;
+            height: 110%;
+            object-position: center -20px;
+        }
+
+        .left{
+            height: auto;
+            width: 50px;
+        }
+
+        .right{
+            height: auto;
+            width: 50px;
+        }
+
+        .left_disabled{
+            height: auto;
+            width: 50px;
+        }
+
+        .right_disabled{
+            height: auto;
+            width: 50px;
+        }
+
+        .hrLine2{
+            padding: 0;
+            width: 100%;
+            height: 2px;
+            margin-top: 12px;
+        }
+
+        .newtex {
+            font-size: 0.65em;
+            width: 50%;
+            margin-top: 50px;
+            margin-left: 25%;
+            margin-right: 25%;
+        }
+
+        .section{
+            height: auto;
+            margin-top: 50px;
+            width: 100%;
+        }
+
+        .show{
+            height:70%;
+            width: 37%;
+        }
+
+        .showtex {
+            font-size: 0.6em;
+            width: 44.4%;
+            margin-left: 38.65%;
+        }
+
+        .contr{
+            width: 63%;
+            height: auto;
+        }
+
+        .busket {
+            margin-top: 30px;
+            height: 189px;
+            width: 65%;
+        }
+
+        .showtex1 {
+            font-size: 0.6em;
+            width: 60%;
+            margin-top: 65px;
+            margin-left: 4%;
+            height: auto;
+        }
+
+        .teamtext {
+            font-size: 1.35em;
+            width: 100%;
+            margin-top: 50px;
+
+        }
+
+        .ourTeam{
+            width: 100%;
+            margin-top: 8px;
+            height: 516px;
+            margin-bottom: 17px;
+        }
+
+        .object{
+            margin: 8px auto;
+            height: 91px;
+        }
+
+        .imge{
+            height: 70px;
+            width: 70px;
+            margin: 10px;
+        }
+
+        .texte{
+            width: 50.06%;
+            height: 80%;
+        }
+
+        .name {
+            font-size: 0.58em;
+            width: auto;
+        }
+
+        .description {
+            font-size: 0.45em;
+            width: auto;
+            margin-top: 11px
+        }
+
+        .footer{
+            height: 230px;
+        }
+
+        .section1{
+            width: 32%;
+        }
+
+        .footer_section1{
+            height:auto;
+            width: 100%;
+        }
+
+        .email{
+            height: 26px;
+            margin-left: 22px;
+        }
+
+        .email a{
+            font-size: 0.45em;
+        }
+
+        .footer_section1_text {
+            font-size: 0.45em;
+            width: 100%;
+            margin-left: 0;
+            height: 41%;
+        }
+
+        .socialBlock{
+            margin-top: 25px;
+            height: 20px;
+            width: auto;
+            margin-left: 5%;
+        }
+
+        .img_link{
+            width: 20px;
+            height: 20px;
+            margin-left: 9px;
+        }
+
+        .img{
+            width: 20px;
+            height: 20px;
+        }
+
+        .footer_section2{
+            height: 50%;
+            width: 15.88%;
+            margin-left: 50px;
+            margin-top: 45px;
+        }
+
+        .toptex {
+            font-size: 0.45em;
+        }
+
+        .downtex {
+            font-size: 0.45em;
+        }
+    }
+}
+
+
+
+

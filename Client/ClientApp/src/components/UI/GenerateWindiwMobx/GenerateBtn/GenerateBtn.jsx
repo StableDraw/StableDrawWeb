@@ -8,24 +8,12 @@ import testMob from '../../../../store/neuralWindow.tsx'
 const GenerateBtn = () => {
     const [modal, setModal] = useState(false)
     const [openParam, setOpenParam] = useState(false)
-    const [neuralName, setNeuralName] = useState()
-    const [parametrs, setParametrs] = useState()
-    const [neuralList, setNeuralList] = useState()
     let rootClasses = [cl.modal]
     if(modal) {
         rootClasses.push(cl.activeModal)
     }
     testMob.getNeurals()
-    // const hundleOpen = async () => {
-    //     setModal(!modal)
-    //     try {
-    //         const list = await api.GetNeuralsList()
-    //         setNeuralList(list.data)
-    //     } catch(e) {
-    //         console.error(e)
-    //         throw(e)
-    //     }
-    // }
+ 
     const closeBtn = () => {
         setModal(!modal)
         setOpenParam(false)
@@ -42,7 +30,7 @@ const GenerateBtn = () => {
                 </header>
                 <div className={cl.content}> 
                     <LeftPanel  openParam={setOpenParam}/>
-                    <RightPanel neuralName={neuralName} parametrs={parametrs}  showParam={openParam} closeWindow={setModal} closeParam={setOpenParam}/>
+                    <RightPanel showParam={openParam} closeWindow={setModal} closeParam={setOpenParam}/>
                 </div>
             </div>
         </Modal>
