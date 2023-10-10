@@ -19,6 +19,6 @@ public class PutObjectConsumer : IConsumer<IPutObjectRequest>
     public async Task Consume(ConsumeContext<IPutObjectRequest> context)
     {
         var result = await _minIoService.PutObj(context.Message);
-        await context.RespondAsync<IPutObjectReply>(new { result.ObjectId, context.Message.OrderId });
+        await context.RespondAsync<IPutObjectReply>(new { result.ImageName, context.Message.OrderId });
     }
 }

@@ -2,7 +2,7 @@
 
 public class GetObjectResult
 {
-    public Guid ObjectId { get; set; }
+    public string? ImageName { get; set; }
     public byte[] Data { get; set; }
     public string ErrorMsg { get; set; }
 }
@@ -10,5 +10,5 @@ public class GetObjectResult
 public class GetObjectsResult
 {
     public string? ErrorMsg { get; set; }
-    public IDictionary<dynamic ,byte[]>? DataDictionary { get; set; }
+    public IDictionary<string ,byte[]>? DataDictionary { get; set; }
 }

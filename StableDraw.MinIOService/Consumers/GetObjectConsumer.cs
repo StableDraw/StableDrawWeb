@@ -18,6 +18,6 @@ public class GetObjectConsumer : IConsumer<IGetObjectRequest>
     public async Task Consume(ConsumeContext<IGetObjectRequest> context)
     {
         var result = await _minIoService.GetObj(context.Message);
-        await context.RespondAsync<IGetObjectReply>(new {result.ObjectId, result.Data, context.Message.OrderId});
+        await context.RespondAsync<IGetObjectReply>(new {result.ImageName, result.Data, context.Message.OrderId});
     }
 }

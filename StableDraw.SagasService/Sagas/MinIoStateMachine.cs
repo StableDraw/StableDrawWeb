@@ -144,9 +144,10 @@ public sealed partial class MinIoStateMachine : MassTransitStateMachine<MinIoSta
 
         }).Request(PutObject, x => x.Init<IPutObjectRequest>(new
         {
-            OrderId = x.Message.OrderId,
-            ObjectId = x.Message.ObjectId,
-            Data = x.Message.Data
+            x.Message.OrderId,
+            x.Message.ImageName,
+            x.Message.Data,
+            x.Message.UserId
         })).TransitionTo(PutObject.Pending);
     }
     
@@ -178,7 +179,7 @@ public sealed partial class MinIoStateMachine : MassTransitStateMachine<MinIoSta
         }).Request(GetObject, x => x.Init<IGetObjectRequest>(new
         {
             OrderId = x.Message.OrderId,
-            ObjectId = x.Message.ObjectId
+            ImageName = x.Message.ImageName
         })).TransitionTo(GetObject.Pending);
     }
     
@@ -193,8 +194,8 @@ public sealed partial class MinIoStateMachine : MassTransitStateMachine<MinIoSta
 
         }).Request(GetObjects, x => x.Init<IGetObjectsRequest>(new
         {
-            OrderId = x.Message.OrderId,
-            ObjectsId = x.Message.ObjectsId
+            x.Message.OrderId,
+            x.Message.UserId
             
         })).TransitionTo(GetObjects.Pending);
     }
@@ -210,8 +211,9 @@ public sealed partial class MinIoStateMachine : MassTransitStateMachine<MinIoSta
             
         }).Request(DeleteObject, x => x.Init<IDeleteObjectRequest>(new
         {
-            OrderId = x.Message.OrderId,
-            ObjectId = x.Message.ObjectId
+            x.Message.OrderId,
+            x.Message.ImageName,
+            x.Message.UserId
         })).TransitionTo(DeleteObject.Pending);
     }
     
@@ -226,8 +228,8 @@ public sealed partial class MinIoStateMachine : MassTransitStateMachine<MinIoSta
             
         }).Request(DeleteObjects, x => x.Init<IDeleteObjectsRequest>(new
         {
-            OrderId = x.Message.OrderId,
-            ObjectsId = x.Message.ObjectsId
+            x.Message.OrderId,
+            x.Message.UserId
         })).TransitionTo(DeleteObjects.Pending);
     }
     #endregion
@@ -241,7 +243,8 @@ public sealed partial class MinIoStateMachine : MassTransitStateMachine<MinIoSta
                 await endpoint.Send(
                     new PutObjectMinIoReply()
                     {
-                        ObjectId = putObjectReply.ObjectId,
+                        UserId = putObjectReply.UserId,
+                        ImageName = putObjectReply.ImageName,
                         OrderId = context.Saga.CorrelationId
                     }, r => r.RequestId = context.Saga.RequestId);
                 break;
@@ -279,7 +282,7 @@ public sealed partial class MinIoStateMachine : MassTransitStateMachine<MinIoSta
                 await endpoint.Send(
                     new GetObjectMinIoReply()
                     {
-                        ObjectId = getObjectReply.ObjectId,
+                        ImageName = getObjectReply.ImageName,
                         Data = getObjectReply.Data,
                         OrderId = context.Saga.CorrelationId
                     }, r => r.RequestId = context.Saga.RequestId);
@@ -319,8 +322,9 @@ public sealed partial class MinIoStateMachine : MassTransitStateMachine<MinIoSta
                 await endpoint.Send(
                     new DeleteObjectMinIoReply()
                     {
-                        ObjectId = deleteObjectReply.ObjectId,
-                        OrderId = context.Saga.CorrelationId
+                        UserId = deleteObjectReply.UserId,
+                        OrderId = context.Saga.CorrelationId,
+                        ImageName = deleteObjectReply.ImageName
                     }, r => r.RequestId = context.Saga.RequestId);
                 break;
             case Fault<IDeleteObjectRequest>:
@@ -335,7 +339,7 @@ public sealed partial class MinIoStateMachine : MassTransitStateMachine<MinIoSta
                 await endpoint.Send(
                     new DeleteObjectsMinIoReply()
                     {
-                        ObjectsId = deleteObjectsReply.ObjectsId,
+                        UserId = deleteObjectsReply.UserId,
                         OrderId = context.Saga.CorrelationId
                     }, r => r.RequestId = context.Saga.RequestId);
                 break;

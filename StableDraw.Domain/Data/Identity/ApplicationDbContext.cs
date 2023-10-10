@@ -24,7 +24,6 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
         _operationalStoreOptions = operationalStoreOptions;
     }
     
-    public DbSet<Image> Images { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlite(_configuration.GetConnectionString("DefaultConnection"), o => o.MigrationsHistoryTable(

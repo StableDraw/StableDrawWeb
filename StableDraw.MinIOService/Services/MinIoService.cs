@@ -5,6 +5,8 @@ using Minio.DataModel;
 using StableDraw.Contracts;
 using StableDraw.Contracts.MInIoContracts.Replies;
 using StableDraw.Contracts.MInIoContracts.Requests;
+using StableDraw.Core.Models;
+using StableDraw.Domain.UnitsOfWork;
 using StableDraw.MinIOService.Models;
 using StableDraw.MinIOService.Settings;
 using DeleteObjectsResult = StableDraw.MinIOService.Models.DeleteObjectsResult;
@@ -16,10 +18,12 @@ public class MinIoService : IMinIoService
     private readonly MinioClient _minio;
     //private readonly Logger<MinIoService> _logger;
     private readonly MinIOSettings _minIoSettings;
-    
-    public MinIoService(IOptions<MinIOSettings> minIoSettings)
+    private readonly IUnitOfWork _unitOfWork;
+
+    public MinIoService(IOptions<MinIOSettings> minIoSettings, UnitOfWork unitOfWork)
     {
         //_logger = logger;
+        _unitOfWork = unitOfWork;
         _minIoSettings = minIoSettings.Value;
         _minio = new MinioClient()
             .WithEndpoint(_minIoSettings.Address, 9000)
@@ -27,14 +31,14 @@ public class MinIoService : IMinIoService
                 _minIoSettings.SecretKey)
             .Build();
     }
-    
+
     public async Task<PutObjectsResult> PutObjects(IPutObjectsRequest request)
     {
         try
         {
             // Check Exists bucket
             bool found = await _minio.BucketExistsAsync(new BucketExistsArgs().WithBucket(_minIoSettings.BucketName));
-        
+
             if (!found)
             {
                 // if bucket not Exists,make bucket
@@ -43,7 +47,26 @@ public class MinIoService : IMinIoService
 
             foreach (var item in request.DataDictionary)
             {
-                await PutImage(item.Key, item.Value);
+                try
+                {
+                    Image image = new()
+                    {
+                        Oid = Guid.NewGuid(),
+                        ImageName = item.Key,
+                        ContentType = item.Key[(item.Key.LastIndexOf('.') + 1)..],
+                        UserId = request.UserId.ToString()
+                    };
+
+                    _unitOfWork.Images.CreateImage(image);
+
+                    await PutImage(image.Oid, item.Value);
+
+                    await _unitOfWork.CommitAsync();
+                }
+                catch
+                {
+                    _unitOfWork.Dispose();
+                }
             }
 
             return await Task.FromResult<PutObjectsResult>(new PutObjectsResult());
@@ -59,17 +82,17 @@ public class MinIoService : IMinIoService
     {
         try
         {
-            
-            
             GetObjectsResult result = new GetObjectsResult
             {
-                DataDictionary = new Dictionary<dynamic, byte[]>()
+                DataDictionary = new Dictionary<string, byte[]>()
             };
 
-            foreach (var item in request.ObjectsId)
+            var images = (await _unitOfWork.Images.GetImagesAsync(request.UserId.ToString()));
+
+            foreach (var item in images)
             {
-                var img = await GetImage(item);
-                result.DataDictionary.Add(item, img);
+                var img = await GetImage(item.Oid);
+                result.DataDictionary.Add(item.ImageName, img);
             }
 
             return await Task.FromResult(result);
@@ -86,12 +109,26 @@ public class MinIoService : IMinIoService
         try
         {
             var result = new DeleteObjectsResult();
-            var resultsId = new List<Guid>();
+            var resultNames = new List<string>();
 
-            foreach (var item in request.ObjectsId)
-                resultsId.Add(await DeleteImage(item)); 
-            
-            result.ObjectsId = resultsId;
+            var images = await _unitOfWork.Images.GetImagesAsync(request.UserId.ToString());
+
+            foreach (var item in images)
+            {
+                try
+                {
+                    _unitOfWork.Images.Delete(item);
+                    await DeleteImage(item.Oid);
+                    await _unitOfWork.CommitAsync();
+                    resultNames.Add(item.ImageName);
+                }
+                catch
+                {
+                    _unitOfWork.Dispose();
+                }
+            }
+
+            result.ImagesNames = resultNames;
             return await Task.FromResult(result);
         }
         catch (Exception e)
@@ -100,22 +137,42 @@ public class MinIoService : IMinIoService
             return await Task.FromResult(new DeleteObjectsResult() { ErrorMsg = e.Message });
         }
     }
-    
+
     public async Task<PutObjectResult> PutObj(IPutObjectRequest request)
     {
         try
         {
             // Check Exists bucket
             bool found = await _minio.BucketExistsAsync(new BucketExistsArgs().WithBucket(_minIoSettings.BucketName));
-        
+
             if (!found)
             {
                 // if bucket not Exists,make bucket
                 await _minio.MakeBucketAsync(new MakeBucketArgs().WithBucket(_minIoSettings.BucketName));
             }
 
-            var result = await PutImage(request.ObjectId, request.Data);
-            return await Task.FromResult(new PutObjectResult(){ObjectId = result});
+            try
+            {
+                Image image = new()
+                {
+                    Oid = Guid.NewGuid(),
+                    ImageName = request.ImageName,
+                    ContentType = request.ImageName[(request.ImageName.LastIndexOf('.') + 1)..],
+                    UserId = request.UserId.ToString()
+                };
+                _unitOfWork.Images.CreateImage(image);
+
+                await PutImage(image.Oid, request.Data);
+                await _unitOfWork.CommitAsync();
+
+
+                return await Task.FromResult(new PutObjectResult() { ImageName = image.ImageName });
+            }
+            catch(Exception e)
+            {
+                _unitOfWork.Dispose();
+                return await Task.FromResult(new PutObjectResult() { ErrorMsg = e.Message });
+            }
         }
         catch (Exception e)
         {
@@ -128,11 +185,13 @@ public class MinIoService : IMinIoService
     {
         try
         {
-            // Get object
-            var result = await GetImage(request.ObjectId);
+            var image = await _unitOfWork.Images.GetImage(request.ImageName, request.UserId.ToString());
+
+
+            var result = await GetImage(image.Oid);
             return await Task.FromResult(new GetObjectResult()
             {
-                ObjectId = request.ObjectId,
+                ImageName = request.ImageName,
                 Data = result.ToArray()
             });
         }
@@ -142,16 +201,21 @@ public class MinIoService : IMinIoService
             return await Task.FromResult(new GetObjectResult() { ErrorMsg = e.Message });
         }
     }
-    
+
     public async Task<DeleteObjectResult> DelObj(IDeleteObjectRequest request)
     {
         try
         {
-            var result = await DeleteImage(request.ObjectId);
-            return await Task.FromResult(new DeleteObjectResult() {ObjectId = request.ObjectId});
+            var image = await _unitOfWork.Images.GetImage(request.ImageName, request.UserId.ToString());
+            _unitOfWork.Images.Delete(image);
+            var result = await DeleteImage(image.Oid);
+            await _unitOfWork.CommitAsync();
+
+            return await Task.FromResult(new DeleteObjectResult() { ImageName = request.ImageName });
         }
         catch (Exception e)
         {
+            _unitOfWork.Dispose();
             //_logger.LogError(e.Message);
             return await Task.FromResult(new DeleteObjectResult() { ErrorMsg = e.Message });
         }
@@ -172,35 +236,27 @@ public class MinIoService : IMinIoService
         return await Task.FromResult(imageId);
     }
 
-    private async Task<byte[]> GetImage(dynamic imageId)
+    private async Task<byte[]> GetImage(Guid imageId)
     {
         using MemoryStream memoryStream = new MemoryStream();
         // Check Exists object
-        var objstatreply= await _minio.StatObjectAsync(new StatObjectArgs()
+        var objstatreply = await _minio.StatObjectAsync(new StatObjectArgs()
             .WithBucket(_minIoSettings.BucketName)
             .WithObject(imageId.ToString())
         );
-        
+
         if (objstatreply == null || objstatreply.DeleteMarker)
             throw new Exception("object not found or Deleted");
-        
+
         // Get object
-        if(imageId is Guid id)
-            await _minio.GetObjectAsync(new GetObjectArgs()
-                .WithBucket(_minIoSettings.BucketName)
-                .WithObject(id.ToString())
-                .WithCallbackStream((stream) =>
-                {
-                    stream.CopyTo(memoryStream);
-                }));
-        if(imageId is string str)
-            await _minio.GetObjectAsync(new GetObjectArgs()
-                .WithBucket(_minIoSettings.BucketName)
-                .WithObject(str)
-                .WithCallbackStream((stream) =>
-                {
-                    stream.CopyTo(memoryStream);
-                }));
+        await _minio.GetObjectAsync(new GetObjectArgs()
+            .WithBucket(_minIoSettings.BucketName)
+            .WithObject(imageId.ToString())
+            .WithCallbackStream((stream) =>
+            {
+                stream.CopyTo(memoryStream);
+            }));
+
         return await Task.FromResult(memoryStream.ToArray());
     }
 
@@ -210,7 +266,7 @@ public class MinIoService : IMinIoService
             .WithBucket(_minIoSettings.BucketName)
             .WithObject(imageId.ToString())
         );
-        if (objstatreply == null || objstatreply.DeleteMarker) 
+        if (objstatreply == null || objstatreply.DeleteMarker)
             throw new Exception("object not found or Deleted");
 
         RemoveObjectArgs rmArgs = new RemoveObjectArgs()

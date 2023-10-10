@@ -34,5 +34,6 @@
     <ItemGroup>
       <ProjectReference Include="..\StableDraw.Contracts\StableDraw.Contracts.csproj" />
       <ProjectReference Include="..\StableDraw.Core\StableDraw.Core.csproj" />
+      <ProjectReference Include="..\StableDraw.Data\StableDraw.Data.csproj" />
     </ItemGroup>
 </Project>

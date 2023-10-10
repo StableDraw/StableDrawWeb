@@ -1,14 +1,14 @@
-﻿using StableDraw.Domain.Data.Identity;
-using StableDraw.Domain.Repositories;
+﻿using StableDraw.Domain.Repositories;
+using StableDraw.MinIOService.Data;
 
 namespace StableDraw.Domain.UnitsOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly ApplicationDbContext _context;
+        private readonly MinIODbContext _context;
         private readonly IImageRepository _imageRepository;
 
-        public UnitOfWork(ApplicationDbContext context, IImageRepository imageRepository)
+        public UnitOfWork(MinIODbContext context, IImageRepository imageRepository)
         {
             _context = context;
             _imageRepository = imageRepository;
