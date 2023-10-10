@@ -1,4 +1,5 @@
 ﻿using StableDraw.Domain.Repositories;
+using StableDraw.MinIOService.Data.Repositories;
 
 namespace StableDraw.Domain.UnitsOfWork
 {

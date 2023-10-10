@@ -35,29 +35,50 @@ public class IdentityService : IIdentityService
             _urlHelperFactory = urlHelperFactory;
         }
 
-        public async Task<bool> AssignUserToRole(string userName, IList<string> roles)
+        #region User section
+
+        public async Task<bool> ForgotUserPassword(string email)
         {
-            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == userName);
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+            {
+                throw new ValidationException("Email not confirmed");
+            }
+            var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+            byte[] tokenGeneratedBytes = Encoding.UTF8.GetBytes(code);
+            var codeEncoded = WebEncoders.Base64UrlEncode(tokenGeneratedBytes);
+            var urlHelper = _urlHelperFactory.GetUrlHelper(_actionContextAccessor.ActionContext);
+            var scheme = urlHelper.ActionContext.HttpContext.Request.Scheme;
+            var callbackUrl = urlHelper.RouteUrl(new UrlRouteContext()
+            {
+                RouteName = "ResetPassword",
+                Values = new { email = user.Email, code = codeEncoded },
+                Protocol = scheme
+            });
+            
+            await _emailSender.SendEmailAsync(user.Email, "Confirm your account",
+                $"Подтвердите регистрацию, перейдя по ссылке: <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>link</a>");
+            
+            return true;
+        }
+
+        public async Task<bool> ResetUserPassword(string email, string password, string code)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
             {
                 throw new NotFoundException("User not found");
             }
 
-            var result = await _userManager.AddToRolesAsync(user, roles);
-            return result.Succeeded;
-        }
-    
+            var result = await _userManager.ResetPasswordAsync(user, code, password);
 
-        public async Task<bool> CreateRoleAsync(string roleName)
-        {
-            var result = await _roleManager.CreateAsync(new IdentityRole(roleName));
-            if(!result.Succeeded)
+            if (!result.Succeeded)
             {
                 throw new ValidationException(result.Errors.ToString());
             }
+
             return result.Succeeded;
         }
-
 
         // Return multiple value
         public async Task<(bool isSucceed, string userId)> CreateUserAsync(string userName, string password, string email, string fullName, List<string> roles)
@@ -121,26 +142,6 @@ public class IdentityService : IIdentityService
             await _signInManager.SignInAsync(user, false);
             return result.Succeeded;
         }
-        
-        public async Task<bool> DeleteRoleAsync(string roleId)
-        {
-            var roleDetails = await _roleManager.FindByIdAsync(roleId);
-            if (roleDetails == null)
-            {
-                throw new NotFoundException("Role not found");
-            }
-
-            if (roleDetails.Name == "Administrator")
-            {
-                throw new BadRequestException("You can not delete Administrator Role");
-            }
-            var result = await _roleManager.DeleteAsync(roleDetails);
-            if (!result.Succeeded)
-            {
-                throw new ValidationException(result.Errors.ToString());
-            }
-            return result.Succeeded;
-        }
 
         public async Task<bool> DeleteUserAsync(string userId)
         {
@@ -181,17 +182,7 @@ public class IdentityService : IIdentityService
 
             //var users = _userManager.Users.ToListAsync();
         }
-
-        public async Task<List<(string id, string roleName)>> GetRolesAsync()
-        {
-            var roles = await _roleManager.Roles.Select(x => new
-            {
-                x.Id,
-                x.Name
-            }).ToListAsync();
-
-            return roles.Select(role => (role.Id, role.Name)).ToList();
-        }
+        
 
         public async Task<(string userId, string fullName, string UserName, string email, IList<string> roles)> GetUserDetailsAsync(string userId)
         {
@@ -235,28 +226,6 @@ public class IdentityService : IIdentityService
             return await _userManager.GetUserNameAsync(user);
         }
 
-        public async Task<List<string>> GetUserRolesAsync(string userId)
-        {
-            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == userId);
-            if (user == null)
-            {
-                throw new NotFoundException("User not found");
-            }
-            var roles = await _userManager.GetRolesAsync(user);
-            return roles.ToList();
-        }
-
-        public async Task<bool> IsInRoleAsync(string userId, string role)
-        {
-            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == userId);
-
-            if(user == null)
-            {
-                throw new NotFoundException("User not found");
-            }
-            return await _userManager.IsInRoleAsync(user, role);
-        }
-
         public async Task<bool> IsUniqueUserName(string userName)
         {
             return await _userManager.FindByNameAsync(userName) == null;
@@ -278,12 +247,51 @@ public class IdentityService : IIdentityService
             return result.Succeeded;
         }
 
-        public async Task<(string id, string roleName)> GetRoleByIdAsync(string id)
-        {
-            var role = await _roleManager.FindByIdAsync(id);
-            return (role.Id, role.Name);
-        }
+        #endregion
+        
+        #region Role Section
 
+        public async Task<List<(string id, string roleName)>> GetRolesAsync()
+        {
+            var roles = await _roleManager.Roles.Select(x => new
+            {
+                x.Id,
+                x.Name
+            }).ToListAsync();
+
+            return roles.Select(role => (role.Id, role.Name)).ToList();
+        }
+        
+        public async Task<bool> CreateRoleAsync(string roleName)
+        {
+            var result = await _roleManager.CreateAsync(new IdentityRole(roleName));
+            if(!result.Succeeded)
+            {
+                throw new ValidationException(result.Errors.ToString());
+            }
+            return result.Succeeded;
+        }
+        
+        public async Task<bool> DeleteRoleAsync(string roleId)
+        {
+            var roleDetails = await _roleManager.FindByIdAsync(roleId);
+            if (roleDetails == null)
+            {
+                throw new NotFoundException("Role not found");
+            }
+
+            if (roleDetails.Name == "Administrator")
+            {
+                throw new BadRequestException("You can not delete Administrator Role");
+            }
+            var result = await _roleManager.DeleteAsync(roleDetails);
+            if (!result.Succeeded)
+            {
+                throw new ValidationException(result.Errors.ToString());
+            }
+            return result.Succeeded;
+        }
+        
         public async Task<bool> UpdateRole(string id, string roleName)
         {
             if (roleName != null)
@@ -296,6 +304,50 @@ public class IdentityService : IIdentityService
             return false;
         }
 
+        public async Task<(string id, string roleName)> GetRoleByIdAsync(string id)
+        {
+            var role = await _roleManager.FindByIdAsync(id);
+            return (role.Id, role.Name);
+        }
+        
+        #endregion
+        
+        #region User's Role section
+        
+        public async Task<bool> AssignUserToRole(string userName, IList<string> roles)
+        {
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == userName);
+            if (user == null)
+            {
+                throw new NotFoundException("User not found");
+            }
+
+            var result = await _userManager.AddToRolesAsync(user, roles);
+            return result.Succeeded;
+        }
+        
+        public async Task<List<string>> GetUserRolesAsync(string userId)
+        {
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == userId);
+            if (user == null)
+            {
+                throw new NotFoundException("User not found");
+            }
+            var roles = await _userManager.GetRolesAsync(user);
+            return roles.ToList();
+        }
+        
+        public async Task<bool> IsInRoleAsync(string userId, string role)
+        {
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == userId);
+
+            if(user == null)
+            {
+                throw new NotFoundException("User not found");
+            }
+            return await _userManager.IsInRoleAsync(user, role);
+        }
+        
         public async Task<bool> UpdateUsersRole(string userName, IList<string> usersRole)
         {
             var user =  await _userManager.FindByNameAsync(userName);
@@ -305,4 +357,6 @@ public class IdentityService : IIdentityService
 
             return result.Succeeded;
         }
+        
+        #endregion
 }
