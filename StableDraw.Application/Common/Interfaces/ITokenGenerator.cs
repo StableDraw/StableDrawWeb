@@ -1,4 +1,4 @@
-﻿namespace StableDraw.Infrastructure.Common;
+﻿namespace StableDraw.Application.Common.Interfaces;
 
 public interface ITokenGenerator
 {

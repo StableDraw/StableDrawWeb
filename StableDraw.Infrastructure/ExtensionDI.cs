@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StableDraw.Application.Common.Interfaces;
-using StableDraw.Infrastructure.Common;
 using StableDraw.Infrastructure.Data;
 using StableDraw.Infrastructure.Identity;
 using StableDraw.Infrastructure.Services;

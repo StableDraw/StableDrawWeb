@@ -2,7 +2,7 @@
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
-using StableDraw.Infrastructure.Common;
+using StableDraw.Application.Common.Interfaces;
 
 namespace StableDraw.Infrastructure.Services;
 

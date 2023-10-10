@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using StableDraw.Core.Models;
 
-namespace StableDraw.Domain.Repositories;
+namespace StableDraw.Data.Repositories;
 
 public abstract class BaseRepository<T> : IBaseRepository<T> where T : BaseObject
 {

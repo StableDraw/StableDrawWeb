@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using StableDraw.Application.Commands.User;
+using StableDraw.Application.Common.Interfaces;
 using StableDraw.Infrastructure;
-using StableDraw.Infrastructure.Common;
 using StableDraw.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,7 +1,7 @@
-﻿using System.Net.Mime;
-using StableDraw.Core.Models;
+﻿using StableDraw.Core.Models;
+using StableDraw.Data.Repositories;
 
-namespace StableDraw.Domain.Repositories;
+namespace StableDraw.MinIOService.Data.Repositories;
 
 public interface IImageRepository : IBaseRepository<Image>
 {

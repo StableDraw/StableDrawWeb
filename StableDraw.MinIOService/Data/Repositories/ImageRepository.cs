@@ -1,7 +1,9 @@
 ﻿using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using StableDraw.Core.Models;
+using StableDraw.Data.Repositories;
 using StableDraw.MinIOService.Data;
+using StableDraw.MinIOService.Data.Repositories;
 
 namespace StableDraw.Domain.Repositories;
 

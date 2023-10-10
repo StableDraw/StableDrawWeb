@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using StableDraw.Application.Common.Exceptions;
 using StableDraw.Application.Common.Interfaces;
-using StableDraw.Infrastructure.Common;
 using StableDraw.Infrastructure.DTOs;
 
 namespace StableDraw.Application.Commands.Auth;
@@ -16,7 +15,7 @@ public class AuthCommandHandler : IRequestHandler<AuthCommand, AuthResponseDto>
 {
     private readonly ITokenGenerator _tokenGenerator;
     private readonly IIdentityService _identityService;
-
+    
     public AuthCommandHandler(IIdentityService identityService, ITokenGenerator tokenGenerator)
     {
         _identityService = identityService;

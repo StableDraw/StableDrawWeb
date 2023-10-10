@@ -11,7 +11,6 @@ namespace StableDraw.WebApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-
 [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 [Authorize(Roles = "Admin, Management")]
 public class UserController : ControllerBase
@@ -63,7 +62,6 @@ public class UserController : ControllerBase
 
     [HttpPost("AssignRoles")]
     [ProducesDefaultResponseType(typeof(int))]
-
     public async Task<ActionResult> AssignRoles(AssignUsersRoleCommand command)
     {
         var result = await _mediator.Send(command);

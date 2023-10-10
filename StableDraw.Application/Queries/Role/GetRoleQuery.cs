@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using StableDraw.Application.Common.Interfaces;
-using StableDraw.Infrastructure.Common;
 using StableDraw.Infrastructure.DTOs;
 
 namespace StableDraw.Application.Queries.Role;
