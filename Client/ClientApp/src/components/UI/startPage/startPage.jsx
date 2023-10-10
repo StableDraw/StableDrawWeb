@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { Footer } from './footer';
 import { Header } from './header';
 import main from './styles/main.module.css';
@@ -27,18 +27,17 @@ export const StartPage = () => {
 					</div>
 
 					<div className={main.btns}>
-						< Link to='/test' className={main.btnFill}>
+						< NavLink tag={Link} to='/test' className={main.btnFill}>
 							<span className={main.txtBlack}>
 								Начать
 							</span>
-						</Link>
+						</NavLink>
 						<Link to='/drawing-to-img' className={main.btn}>
 							<span className={main.txtWhite}>
 								Бета-версия
 							</span>
 						</Link>
 					</div>
-
 				</div>
 				<Footer />
 			</div>
