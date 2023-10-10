@@ -39,6 +39,7 @@ export class App1 extends Component {
 
     render()
     {
+        
         const { userName } = this.state;
         const profilePath = `${ApplicationPaths.Profile}`;
         const logoutPath = `${ApplicationPaths.LogOut}`;
@@ -100,8 +101,6 @@ export class App1 extends Component {
                     </div>
 
                 </footer>
-
-
 
             </div>
 

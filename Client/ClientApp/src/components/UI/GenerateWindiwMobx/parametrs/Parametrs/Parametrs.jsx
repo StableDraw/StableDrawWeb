@@ -24,7 +24,7 @@ const renderSwitch = (value, id, func) => {
 
 
 const Parametrs = observer(({closeWindow, closeParam,}) => {
-    
+
     const [file, setFile] = useState()
     const [showParam, setShowParam] = useState(false)
 
@@ -36,6 +36,7 @@ const Parametrs = observer(({closeWindow, closeParam,}) => {
         closeWindow(false)
         closeParam(false)
     }
+
     const sendValuesForRender = (value, str) => {
         renderValue = ({...renderValue,[str]:value})
         console.log(renderValue)
