@@ -19,4 +19,10 @@
       <Folder Include="Queries\Neurals\" />
     </ItemGroup>
 
+
+
+    <ItemGroup>
+      <ProjectReference Include="..\StableDraw.Contracts\StableDraw.Contracts.csproj" />
+    </ItemGroup>
+
 </Project>

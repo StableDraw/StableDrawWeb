@@ -1,4 +1,8 @@
-﻿namespace StableDraw.Contracts.MInIoContracts.Requests;
+﻿using MassTransit;
+using MassTransit.Mediator;
+using StableDraw.Contracts.MInIoContracts.Replies;
+
+namespace StableDraw.Contracts.MInIoContracts.Requests;
 
 public record DeleteObjectMinIoRequest
 {
