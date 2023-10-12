@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\StableDraw.Core\StableDraw.Core.csproj" />
     <ProjectReference Include="..\StableDraw.Infrastructure\StableDraw.Infrastructure.csproj" />
   </ItemGroup>
 

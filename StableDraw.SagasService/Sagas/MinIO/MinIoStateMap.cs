@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace StableDraw.SagasService.Sagas;
+namespace StableDraw.SagasService.Sagas.MinIO;
 
 public sealed class MinIoStateMap : SagaClassMap<MinIoState>
 {

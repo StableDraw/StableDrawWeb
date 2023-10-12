@@ -1,6 +1,7 @@
 ﻿using MassTransit.EntityFrameworkCoreIntegration;
 using Microsoft.EntityFrameworkCore;
-using StableDraw.SagasService.Sagas;
+using StableDraw.SagasService.Sagas.MinIO;
+using StableDraw.SagasService.Sagas.Neural;
 using StableDraw.SagasService.Sagas.Render;
 
 namespace StableDraw.SagasService;

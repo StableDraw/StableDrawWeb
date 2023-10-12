@@ -1,13 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using StableDraw.Application.Commands.Auth;
 using StableDraw.Application.Commands.User;
 using StableDraw.Infrastructure.DTOs;
-using StableDraw.Infrastructure.Identity;
 using StableDraw.WebApi.Services;
 
 namespace StableDraw.WebApi.Controllers;

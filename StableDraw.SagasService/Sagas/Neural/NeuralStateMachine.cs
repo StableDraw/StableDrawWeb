@@ -3,7 +3,7 @@ using MassTransit.Contracts;
 using StableDraw.Contracts.NeuralContracts.Replies;
 using StableDraw.Contracts.NeuralContracts.Requests;
 
-namespace StableDraw.SagasService.Sagas;
+namespace StableDraw.SagasService.Sagas.Neural;
 
 public class NeuralStateMachine : MassTransitStateMachine<NeuralState>
 {

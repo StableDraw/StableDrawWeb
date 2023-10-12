@@ -1,6 +1,6 @@
 ﻿namespace StableDraw.Application.DTOs;
 
-public class UserDetailsResponseDto
+public record UserDetailsResponseDto
 {
     public string Id { get; set; }
     public string FullName { get; set; }

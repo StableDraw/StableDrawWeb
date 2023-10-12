@@ -1,13 +1,16 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using MassTransit;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using StableDraw.Application.Common.Abstractions;
 using StableDraw.Application.Common.Interfaces;
 using StableDraw.Infrastructure.Data;
 using StableDraw.Infrastructure.Identity;
+using StableDraw.Infrastructure.Mediator;
 using StableDraw.Infrastructure.Services;
 
 namespace StableDraw.Infrastructure;
@@ -41,14 +44,45 @@ public static class ExtensionDi
             options.User.RequireUniqueEmail = true;
         });
         
+        services.AddMassTransit(cfg =>
+        {
+            cfg.SetKebabCaseEndpointNameFormatter();
+            cfg.AddDelayedMessageScheduler();
+            cfg.UsingRabbitMq((brc, rbfc) =>
+            {
+                rbfc.UseInMemoryOutbox();
+                rbfc.UseMessageRetry(r =>
+                {
+                    r.Incremental(3, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
+                });
+                rbfc.UseDelayedMessageScheduler();
+                rbfc.Host("localhost", h =>
+                {
+                    h.Username("rmuser");
+                    h.Password("rmpassword");
+                });
+                rbfc.ConfigureEndpoints(brc);
+            });
+            
+            cfg.AddMediator(x =>
+            {
+                x.ConfigureMediator((ctx, mcfg) =>
+                {
+                    mcfg.UseSendFilter(typeof(AuthorizationFilter<>), ctx);
+                });
+            });
+        });
+        
         services
             .AddSingleton<IActionContextAccessor, ActionContextAccessor>()
             .AddScoped<IUrlHelper>(x => x
                 .GetRequiredService<IUrlHelperFactory>()
                 .GetUrlHelper(x.GetRequiredService<IActionContextAccessor>().ActionContext));
         services.AddTransient<IEmailSender, EmailSender>();
-        //services.Configure<AuthMessageSenderOptions>(configuration);
         services.AddScoped<IIdentityService, IdentityService>();
+        services.AddTransient<IRequestBus, MassTransitRequestBus>();
+        services.AddScoped<IObjectStorageService, ObjectStorageService>();
+        services.AddScoped<INeuralService, NeuralService>();
         
         return services;
     }

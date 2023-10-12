@@ -1,6 +1,6 @@
 ﻿namespace StableDraw.Infrastructure.DTOs;
 
-public class RoleResponseDto
+public record RoleResponseDto
 {
     public string Id { get; set; }
     public string RoleName { get; set; }

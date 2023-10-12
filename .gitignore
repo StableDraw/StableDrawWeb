@@ -83,3 +83,4 @@ StableDraw.SagasService/app.db-wal
 /StableDraw.WebApi/bin
 /StableDraw.Data/bin
 /StableDraw.Data/obj
+/StableDraw.Infrastructure/bin

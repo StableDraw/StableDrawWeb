@@ -1,4 +1,4 @@
-﻿namespace StableDraw.Application.Common.Abstractions;
+﻿namespace StableDraw.Application.Common.Interfaces;
 
 public record ValidationErrors(IReadOnlyCollection<string> Errors)
 {

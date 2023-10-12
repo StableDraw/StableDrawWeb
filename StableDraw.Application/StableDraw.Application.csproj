@@ -16,7 +16,6 @@
 
     <ItemGroup>
       <Folder Include="Commands\Neurals\" />
-      <Folder Include="Queries\Neurals\" />
     </ItemGroup>
 
 

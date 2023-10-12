@@ -1,4 +1,4 @@
-﻿namespace StableDraw.SagasService.Sagas;
+﻿namespace StableDraw.SagasService.Sagas.MinIO;
 
 public sealed class MinIoState : MassTransit.SagaStateMachineInstance
 {

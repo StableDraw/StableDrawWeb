@@ -16,13 +16,11 @@ namespace StableDraw.MinIOService.Services;
 public class MinIoService : IMinIoService
 {
     private readonly MinioClient _minio;
-    //private readonly Logger<MinIoService> _logger;
     private readonly MinIOSettings _minIoSettings;
     private readonly IUnitOfWork _unitOfWork;
 
     public MinIoService(IOptions<MinIOSettings> minIoSettings, UnitOfWork unitOfWork)
     {
-        //_logger = logger;
         _unitOfWork = unitOfWork;
         _minIoSettings = minIoSettings.Value;
         _minio = new MinioClient()
@@ -135,89 +133,6 @@ public class MinIoService : IMinIoService
         {
             //_logger.LogError(e.Message);
             return await Task.FromResult(new DeleteObjectsResult() { ErrorMsg = e.Message });
-        }
-    }
-
-    public async Task<PutObjectResult> PutObj(IPutObjectRequest request)
-    {
-        try
-        {
-            // Check Exists bucket
-            bool found = await _minio.BucketExistsAsync(new BucketExistsArgs().WithBucket(_minIoSettings.BucketName));
-
-            if (!found)
-            {
-                // if bucket not Exists,make bucket
-                await _minio.MakeBucketAsync(new MakeBucketArgs().WithBucket(_minIoSettings.BucketName));
-            }
-
-            try
-            {
-                Image image = new()
-                {
-                    Oid = Guid.NewGuid(),
-                    ImageName = request.ImageName,
-                    ContentType = request.ImageName[(request.ImageName.LastIndexOf('.') + 1)..],
-                    UserId = request.UserId.ToString()
-                };
-                _unitOfWork.Images.CreateImage(image);
-
-                await PutImage(image.Oid, request.Data);
-                await _unitOfWork.CommitAsync();
-
-
-                return await Task.FromResult(new PutObjectResult() { ImageName = image.ImageName });
-            }
-            catch(Exception e)
-            {
-                _unitOfWork.Dispose();
-                return await Task.FromResult(new PutObjectResult() { ErrorMsg = e.Message });
-            }
-        }
-        catch (Exception e)
-        {
-            //_logger.LogError(e.Message);
-            return await Task.FromResult(new PutObjectResult() { ErrorMsg = e.Message });
-        }
-    }
-
-    public async Task<GetObjectResult> GetObj(IGetObjectRequest request)
-    {
-        try
-        {
-            var image = await _unitOfWork.Images.GetImage(request.ImageName, request.UserId.ToString());
-
-
-            var result = await GetImage(image.Oid);
-            return await Task.FromResult(new GetObjectResult()
-            {
-                ImageName = request.ImageName,
-                Data = result.ToArray()
-            });
-        }
-        catch (Exception e)
-        {
-            //_logger.LogError(e.Message);
-            return await Task.FromResult(new GetObjectResult() { ErrorMsg = e.Message });
-        }
-    }
-
-    public async Task<DeleteObjectResult> DelObj(IDeleteObjectRequest request)
-    {
-        try
-        {
-            var image = await _unitOfWork.Images.GetImage(request.ImageName, request.UserId.ToString());
-            _unitOfWork.Images.Delete(image);
-            var result = await DeleteImage(image.Oid);
-            await _unitOfWork.CommitAsync();
-
-            return await Task.FromResult(new DeleteObjectResult() { ImageName = request.ImageName });
-        }
-        catch (Exception e)
-        {
-            _unitOfWork.Dispose();
-            //_logger.LogError(e.Message);
-            return await Task.FromResult(new DeleteObjectResult() { ErrorMsg = e.Message });
         }
     }
 

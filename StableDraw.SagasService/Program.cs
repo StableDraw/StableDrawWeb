@@ -3,9 +3,11 @@ using MassTransit.EntityFrameworkCoreIntegration;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using StableDraw.SagasService;
-using StableDraw.SagasService.Sagas;
+using StableDraw.SagasService.Sagas.MinIO;
+using StableDraw.SagasService.Sagas.Neural;
 using StableDraw.SagasService.Sagas.Render;
 using IHost = Microsoft.Extensions.Hosting.IHost;
+using MinIoStateMachine = StableDraw.SagasService.Sagas.MinIO.MinIoStateMachine;
 
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureAppConfiguration((hostingContext, config) =>
@@ -38,23 +40,14 @@ IHost host = Host.CreateDefaultBuilder(args)
                     r.ExistingDbContext<SagasDbContext>();
                     r.LockStatementProvider = new SqliteLockStatementProvider();
                 });
-            // cfg.AddSagaStateMachine<MinIoStateMachine, MinIoState>()
-            //     .EntityFrameworkRepository(r =>
-            //     {
-            //         r.ConcurrencyMode = ConcurrencyMode.Pessimistic;
-            //         r.ExistingDbContext<SagasDbContext>();
-            //         r.LockStatementProvider = new SqliteLockStatementProvider();
-            //     });
             cfg.AddSagaStateMachine<NeuralStateMachine, NeuralState>().EntityFrameworkRepository(r =>
             {
-                //r.ConcurrencyMode = ConcurrencyMode.Pessimistic;
                 r.ExistingDbContext<SagasDbContext>();
                 r.LockStatementProvider = new SqliteLockStatementProvider();
             });
             cfg.UsingRabbitMq((brc, rbfc) =>
             {
                 rbfc.UseInMemoryOutbox();
-                //rbfc.UseMessageRetry(r => { r.Incremental(3, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1)); });
                 rbfc.UseDelayedMessageScheduler();
                 rbfc.Host("localhost", "/",h =>
                 {

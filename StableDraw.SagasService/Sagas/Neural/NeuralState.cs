@@ -1,4 +1,4 @@
-﻿namespace StableDraw.SagasService.Sagas;
+﻿namespace StableDraw.SagasService.Sagas.Neural;
 
 public class NeuralState : MassTransit.SagaStateMachineInstance
 {

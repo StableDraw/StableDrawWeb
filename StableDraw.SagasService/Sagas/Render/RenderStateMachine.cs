@@ -7,7 +7,7 @@ namespace StableDraw.SagasService.Sagas.Render
 {
     internal class RenderStateMachine : MassTransitStateMachine<RenderState>
     {
-        private readonly ILogger<MinIoStateMachine> _logger;
+        private readonly ILogger<MinIO.MinIoStateMachine> _logger;
 
         public Request<RenderState, IGetRenderedImageRequest, IGetRenderedImageReply> GetRenderedImage { get; set; }
         public Event<GetRenderedImageRequest> GetRenderedImageEvent { get; set; }
@@ -15,7 +15,7 @@ namespace StableDraw.SagasService.Sagas.Render
         public State Failed { get; set; }
         public State Complete { get; set; }
 
-        public RenderStateMachine(ILogger<MinIoStateMachine> logger)
+        public RenderStateMachine(ILogger<MinIO.MinIoStateMachine> logger)
         {
             _logger = logger;
             BuildStateMachine();

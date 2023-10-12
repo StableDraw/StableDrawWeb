@@ -37,11 +37,8 @@ IHost host = Host.CreateDefaultBuilder(args)
         {
             cfg.SetKebabCaseEndpointNameFormatter();
             cfg.AddDelayedMessageScheduler();
-            cfg.AddConsumer<DeleteObjectConsumer>();
             cfg.AddConsumer<DeleteObjectsConsumer>();
-            cfg.AddConsumer<PutObjectConsumer>();
             cfg.AddConsumer<PutObjectsConsumer>();
-            cfg.AddConsumer<GetObjectConsumer>();
             cfg.AddConsumer<GetObjectsConsumer>();
             cfg.UsingRabbitMq((brc, rbfc) =>
             {

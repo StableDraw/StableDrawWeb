@@ -29,7 +29,6 @@ public class ImageController : Controller
     {
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (string.IsNullOrEmpty(currentUserId)) return NotFound();
-
         Response<GetObjectMinIoReply> response =
             await _bus.Request<GetObjectMinIoRequest, GetObjectMinIoReply>(new GetObjectRequestModel()
             {
