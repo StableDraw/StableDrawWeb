@@ -45,7 +45,7 @@ IHost host = Host.CreateDefaultBuilder(args)
                     r.Incremental(3, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
                 });
                 rbfc.UseDelayedMessageScheduler();
-                rbfc.Host("rabbitmq", h =>
+                rbfc.Host("rabbitmq", 5672, "/", h =>
                 {
                     h.Username("rmuser");
                     h.Password("rmpassword");
