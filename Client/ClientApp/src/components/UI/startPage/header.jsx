@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Logo } from './logo';
 import header from './styles/header.module.css'
-import { Link,} from 'react-router-dom';
+import { Link, } from 'react-router-dom';
 import api from '../../../api/ApiToken'
 import { ApplicationPaths } from '../../api-authorization/ApiAuthorizationConstants'
 import { NavLink } from 'reactstrap';
@@ -19,7 +19,7 @@ export const Header = () => {
 
 		const setUserName = async () => {
 			const user = await api.getUserName();
-			if(user)
+			if (user)
 				setUser(user);
 		}
 
@@ -46,7 +46,7 @@ export const Header = () => {
 								{user}
 							</span>
 						</Link>
-						<NavLink tag={Link} state={{local: true}} className={header.link} to={`${ApplicationPaths.LogOut}`}>
+						<NavLink tag={Link} state={{ local: true }} className={header.link} to={`${ApplicationPaths.LogOut}`}>
 							<span className={header.txt}> Выход </span>
 						</NavLink>
 					</div>
