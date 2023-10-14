@@ -1,9 +1,7 @@
-import React from "react";
-import { Button, Card, Typography } from '@mui/material';
 import barClasses from './stylesDark/bar.module.css'
 import barClassesLight from './stylesLight/bar.module.css'
-import FileUploadIcon from '@mui/icons-material/FileUpload';
-import { themeDark, themeLight } from './customThemes';
+import sizeBarLight from './stylesLight/sizeBar.module.css'
+import sizeBar from './stylesDark/sizeBar.module.css'
 
 
 export const SceneCard = ({
@@ -20,29 +18,24 @@ export const SceneCard = ({
 	};
 	return (
 		<div >
-			<Card className={ isLightTheme ? barClassesLight.modelCard : barClasses.modelCard}>
-				<Card className={ isLightTheme ? barClassesLight.dark :  barClasses.dark}></Card>
-				<div className={barClasses.imgCard}>
+			<div className={ isLightTheme ? sizeBarLight.modelCard : sizeBar.modelCard}>
+				<div className={ isLightTheme ? sizeBarLight.dark : sizeBar.dark}></div>
+				<div className={barClassesLight.imgCard}>
 					<img
-						className={barClasses.imgInside}
+						className={barClassesLight.imgInside}
 						src={img}
 						alt={name}
 					/>
-					<div className={isLightTheme ? barClassesLight.textCard : barClasses.textCard}>
-						<Typography className={isLightTheme ? barClassesLight.text : barClasses.text}>{name}</Typography>
-					</div>
+						<span className={isLightTheme ? barClassesLight.text : barClasses.text}>{name}</span>
 				</div>
-				<div className={isLightTheme ? barClassesLight.sizeBar : barClasses.sizeBar}>
-					<Button
-						theme={isLightTheme ? themeLight : themeDark}
+				<div className={isLightTheme ? sizeBarLight.sceneLoad : sizeBar.sceneLoad}>
+					<button
 						onClick={SetScene}
-						variant='contained'
-						className={barClasses.loadButton_sizeBar}
-						endIcon={<FileUploadIcon />}>
-						<Typography>Загрузить</Typography>
-					</Button>
+						className={isLightTheme ? sizeBarLight.loadButton_sizeBar : sizeBar.loadButton_sizeBar}>
+						<span className={isLightTheme ? sizeBarLight.text : sizeBar.text}>Загрузить</span>
+					</button>
 				</div>
-			</Card>
+			</div>
 		</div>
 	);
 };

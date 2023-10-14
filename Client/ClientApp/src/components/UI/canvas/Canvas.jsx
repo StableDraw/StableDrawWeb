@@ -5,9 +5,10 @@ import toolState from "../../../store/toolState";
 import Brush from "../../../tools/Brush";
 import CanvasItems from "./CanvasItems";
 import canvasState from "../../../store/canvasState";
-const Canvas = ({width, height, labelData,canvasDate, mergeRes}) => {
+import {observer} from "mobx-react";
+const Canvas = observer(({width, height, labelData,canvasDate, mergeRes}) => {
     const [canva, setCanva] = useState([])
-
+    console.log('render')
     const setRef = (ref) => {
         setCanva( [...canva, ref])
         CanvasState.setCanvasList(ref.current)
@@ -25,19 +26,21 @@ const Canvas = ({width, height, labelData,canvasDate, mergeRes}) => {
         let image = new Image()
         image.src = CanvasState.getCanvas().toDataURL()
         image.onload = () => {
-            CanvasState.getSelectContextLabel().getContext("2d", { willReadFrequently: true }).clearRect(0,0, 50, 28)
-            CanvasState.getSelectContextLabel().getContext("2d", { willReadFrequently: true }).drawImage(image, 0, 0, 50, 28)
+            const ctx = CanvasState.getSelectContextLabel().getContext("2d", { willReadFrequently: true })
+            // console.log(ctx.canvas.offsetWidth)
+            ctx.clearRect(0,0, ctx.canvas.offsetWidth, ctx.canvas.offsetHeight)
+            ctx.drawImage(image, 0, 0, ctx.canvas.offsetWidth, ctx.canvas.offsetHeight)
         }
     }
     
    
     return (
             <div className={cl.v_frame} onMouseDown={(e) => mouseDownHandler(e)}  
-                 style={{width: `${width}`, height: `${height}`,backgroundColor: "transparent"}}  id="v_frame" >
+                 style={{width: `${width}px`, height: `${height}px`,backgroundColor: "transparent"}}  id="v_frame" >
                 
                 {canvasDate.map((item) =>
                     <CanvasItems
-                     style={item.style}
+                     styles={item.style}
                       id={item.id}
                        height={height}
                         width={width}
@@ -47,12 +50,13 @@ const Canvas = ({width, height, labelData,canvasDate, mergeRes}) => {
                 )}
                 
                 <div 
-                    style={{ width: `${width}`, height: `${height}`, zIndex: -1, backgroundImage: "url(alpha_pattern.png)", backgroundRepeat: "repeat", position: "absolute" }}>
+                    style={{ width: `${width}px`, height: `${height}px`, zIndex: -1, backgroundImage: "url(alpha_pattern.png)", backgroundRepeat: "repeat", position: "absolute" }}>
                     
                 </div>
+                
             </div>
 
     );
-};
+});
 
 export default Canvas;

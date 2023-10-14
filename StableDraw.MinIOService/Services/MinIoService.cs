@@ -59,9 +59,11 @@ public class MinIoService : IMinIoService
     {
         try
         {
+            
+            
             GetObjectsResult result = new GetObjectsResult
             {
-                DataDictionary = new Dictionary<Guid, byte[]>()
+                DataDictionary = new Dictionary<dynamic, byte[]>()
             };
 
             foreach (var item in request.ObjectsId)
@@ -170,7 +172,7 @@ public class MinIoService : IMinIoService
         return await Task.FromResult(imageId);
     }
 
-    private async Task<byte[]> GetImage(Guid imageId)
+    private async Task<byte[]> GetImage(dynamic imageId)
     {
         using MemoryStream memoryStream = new MemoryStream();
         // Check Exists object
@@ -183,14 +185,22 @@ public class MinIoService : IMinIoService
             throw new Exception("object not found or Deleted");
         
         // Get object
-        await _minio.GetObjectAsync(new GetObjectArgs()
-            .WithBucket(_minIoSettings.BucketName)
-            .WithObject(imageId.ToString())
-            .WithCallbackStream((stream) =>
-            {
-                stream.CopyTo(memoryStream);
-            }));
-            
+        if(imageId is Guid id)
+            await _minio.GetObjectAsync(new GetObjectArgs()
+                .WithBucket(_minIoSettings.BucketName)
+                .WithObject(id.ToString())
+                .WithCallbackStream((stream) =>
+                {
+                    stream.CopyTo(memoryStream);
+                }));
+        if(imageId is string str)
+            await _minio.GetObjectAsync(new GetObjectArgs()
+                .WithBucket(_minIoSettings.BucketName)
+                .WithObject(str)
+                .WithCallbackStream((stream) =>
+                {
+                    stream.CopyTo(memoryStream);
+                }));
         return await Task.FromResult(memoryStream.ToArray());
     }
 

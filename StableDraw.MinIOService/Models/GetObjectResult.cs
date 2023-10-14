@@ -10,5 +10,5 @@ public class GetObjectResult
 public class GetObjectsResult
 {
     public string? ErrorMsg { get; set; }
-    public IDictionary<Guid ,byte[]>? DataDictionary { get; set; }
+    public IDictionary<dynamic ,byte[]>? DataDictionary { get; set; }
 }

@@ -11,12 +11,11 @@
 	position: relative;
 	justify-content: center;
 	align-items: center;
-	max-height: 700px;
-	max-width: 1400px;
-	height: 100%;
 	width: 100%;
+	max-width: 1000px;
+	min-width: 500px;
+	height: 651px;
 	border-radius: 20px;
-	grid-row: 1;
 }
 
 .loadTexModal{
@@ -31,6 +30,10 @@
 	align-items: center;
 	opacity: 40%;
 	z-index: 1000;
+}
+
+.canvasOut{
+	position: relative;
 }
 
 .sceneModal{
@@ -52,10 +55,8 @@
 }
 
 .cancelBtn{
-	width: 20px !important;
-	height: 20px !important;
-	color: white !important;
-	opacity: 100%;
+	background-color: black;
+	border: none;
 }
 
 .txt{
@@ -65,9 +66,9 @@
 }
 
 
-@media (max-width: 1350px) and (min-height: 800px) {
+/* @media (max-width: 1350px) and (min-height: 800px) {
 	.canvas{
 		max-height: 600px;
 	}
 	
-}
+} */

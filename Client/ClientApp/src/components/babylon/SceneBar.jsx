@@ -3,7 +3,6 @@ import { SceneCard } from './SceneCard';
 import barClasses from'./stylesLight/bar.module.css'
 import { memo } from "react";
 
-
 const scenes = [
 	{ id: 1, name: "Корзинка", img: '/babylon/imgPreviewScenes/box.png', scene: 'Box' },
 	{ id: 2, name: "Холодильник 1", img: '/babylon/imgPreviewScenes/Fridge.png', scene: 'Fridge' },

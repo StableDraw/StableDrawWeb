@@ -1,6 +1,12 @@
 ﻿import Tool from "./Tool";
+import canvasState from "../store/canvasState";
+import ToolState from "../store/toolState";
 
 export default class Bezie extends Tool {
+
+    i = 0
+    bezie = []
+
     constructor(canvas) {
         super(canvas);
         this.listen()
@@ -10,73 +16,54 @@ export default class Bezie extends Tool {
         this.canvas.onmousemove = this.mouseMoveHandler.bind(this)
         this.canvas.onmousedown = this.mouseDownHandler.bind(this)
         this.canvas.onmouseup = this.mouseUpHandler.bind(this)
-        // this.canvas.bezieCurve = this.bezie.bind(this)
     }
 
     mouseUpHandler(e) {
         this.mouseDown = false
+        this.bezie = []
     }
-
-
-
     mouseDownHandler(e) {
+        this.ctx = canvasState.getCanvaRef().getContext("2d", { willReadFrequently: true })
         this.mouseDown = true
         this.ctx.beginPath()
-        this.startX = e.pageX - e.target.offsetLeft;
-        this.startY = e.pageY - e.target.offsetTop;
+        this.ctx.imageSmoothingEnabled= true
+        this.ctx.imageSmoothingQuality = "high"
+        this.ctx.lineJoin = "round"
+        this.ctx.lineCap = "round"
         this.ctx.moveTo(e.pageX - e.target.offsetLeft, e.pageY - e.target.offsetTop)
+
     }
+
     mouseMoveHandler(e) {
         if (this.mouseDown) {
-            let currentX = e.pageX - e.target.offsetLeft;
-            let currentY = e.pageY - e.target.offsetTop;
-            this.width = currentX - this.startX;
-            this.height = currentY - this.startY;
             this.draw(e.pageX - e.target.offsetLeft, e.pageY - e.target.offsetTop)
         }
     }
 
     draw(x, y) {
-
-        // i - номер вершины, n - количество вершин, t - положение кривой (от 0 до 1)
-        function getBezierBasis(i, n, t = 1) {
-            // Факториал
-            function f(n) {
-                return (n <= 1) ? 1 : n * f(n - 1);
-            }
-            // считаем i-й элемент полинома Берштейна
-            return (f(n) / (f(i) * f(n - i))) * Math.pow(t, i) * Math.pow(1 - t, n - i);
+        this.ctx.beginPath()
+        if (x) {
+            this.i++
         }
-        // arr - массив опорных точек. Точка - двухэлементный массив, (x = arr[0], y = arr[1]), step - шаг при расчете кривой (0 < step < 1), по умолчанию 0.01
-        function getBezierCurve(arr, step) {
-            step = 1.0 / step;
-            let res = [];
-            for (let t = 0; t < 1 + step; t += step) {
-                t = Math.min(1, t);
-                let ind = res.length;
-                res[ind] = [0, 0, 0];
-                for (let i = 0; i < arr.length; i++) {
-                    let b = getBezierBasis(i, arr.length - 1, t);
-                    res[ind][0] += arr[i][0] * b;
-                    res[ind][1] += arr[i][1] * b;
-                    res[ind][2] += arr[i][2] * b;
-                }
-            }
-            return res;
+        if (this.i === 1) {
+            this.bezie = [...this.bezie, {x: x, y: y}]
+            if(this.bezie.length >= 6) this.bezie.shift();
+            this.i = 0
         }
-        let cur = [x, y]
-        let cur_smooth_prim = []
-        cur_smooth_prim = cur_smooth_prim.slice(0, 1).concat(getBezierCurve(cur.slice(0), 1));
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.strokeStyle = ToolState.color
+        this.ctx.lineWidth = 1
 
-        this.ctx.beginPath();
-        for (let i = 0; i < cur_smooth_prim.length - 1; i++) {
-            this.ctx.lineWidth = cur_smooth_prim[i][2];
-            this.ctx.moveTo(cur_smooth_prim[i][0], cur_smooth_prim[i][1]);
-            this.ctx.lineTo(cur_smooth_prim[i + 1][0], cur_smooth_prim[i + 1][1]);
-            console.log(1)
-            this.ctx.stroke();
+        for( let i = 0; i < this.bezie.length - 4; i++ ) {
+            this.ctx.bezierCurveTo(this.bezie[i + 1].x, this.bezie[i + 1].y, this.bezie[i + 2].x, this.bezie[i + 2].y, this.bezie[i + 3].x, this.bezie[i + 3].y)
+            this.ctx.arc(this.bezie[i].x, this.bezie[i].y, this.ctx.lineWidth / 2, 0, Math.PI * 2, !0)
+            this.ctx.fill();
+            this.ctx.closePath()
+            this.ctx.arc(this.bezie[i + 1].x, this.bezie[i + 1].y, this.ctx.lineWidth / 2, 0, Math.PI * 2, !0)
+            this.ctx.fill();
         }
-
+        // this.ctx.bezierCurveTo(this.bezie[this.i].x, this.bezie[this.i].y, this.bezie[this.i + 1 ].x, this.bezie[this.i + 1].y, this.bezie[this.i + 2 ].x, this.bezie[this.i + 2].y)
+        this.ctx.stroke()
+        // this.ctx.closePath()
+        // this.ctx.arc(this.bezie[this.bezie.length - 1].x, this.bezie[this.bezie.length - 1].y, this.ctx.lineWidth / 2, 0, Math.PI * 2, !0)
     }
 }

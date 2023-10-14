@@ -1,9 +1,5 @@
 ﻿import {React, useState} from 'react';
 import cl from './Eraser.module.css'
-import ToolButton from '../../Toolbar/ToolButton';
-import Button from '@mui/material/Button';
-import { Modal } from '@mui/material';
-import Stack from '@mui/material/Stack';
 import MyInput from '../../MyInput/MyInput';
 import toolState from "../../../../store/toolState";
 import canvasState from "../../../../store/canvasState";
@@ -42,7 +38,7 @@ const Eraser = ({active, activeBtn, getRes,}) => {
                     </defs>
                 </svg>
                 <div className={rootClass.join(' ')} id="eraser_window">
-                    <MyInput id='eraser'  imgPath={"thickness.png"} type={'thickness'} imgClass={cl.thicknessimg}/>
+                    <MyInput width={toolState.width} id='eraser'  imgPath={"thickness.png"} type={'thickness'} imgClass={cl.thicknessimg}/>
                 </div>
             </a>
     );

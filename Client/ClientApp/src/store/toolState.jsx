@@ -3,21 +3,24 @@ import {makeAutoObservable, observable} from "mobx";
 
 class ToolState{
     tool = null
-
+    color = null
+    width = 1
     constructor() {
-        observable(this)
+        makeAutoObservable(this)
     }
     setTool(tool) {
         this.tool = tool
     }
     setFillColor(color) {
         this.tool.fillColor = color
+        this.color = color
     }
     setStrokeColor(color) {
         this.tool.strokeColor = color
     }
     setLineWidth(width) {
         this.tool.lineWidth = width
+        this.width = width
     }
     
     setBezieCurve(strong) {
@@ -25,9 +28,6 @@ class ToolState{
         // console.log(strong)
     }
     
-    resTool() {
-        return this.tool
-    }
     
 }
 export default new ToolState()

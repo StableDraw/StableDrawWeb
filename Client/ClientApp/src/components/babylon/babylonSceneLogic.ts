@@ -2,20 +2,45 @@ import * as BABYLON from "@babylonjs/core"
 import "@babylonjs/loaders/glTF";
 import "@babylonjs/loaders/OBJ";
 // import { CustomLoading } from "./customLoading";
+import { ILoadingScreen } from "@babylonjs/core";
 
-// даже не пытайтесь разобраться, код не чистил(не бейте) :))))
+// import { fileToBase64 } from "./base64ToLink";
 
+class CustomLoading implements ILoadingScreen {
+
+	loadingUIBackgroundColor: string;
+	loadingUIText: string;
+
+	constructor(
+		private percentLoaded: HTMLElement,
+		//  private loader: HTMLElement,
+		// private loadingBar: JSX.Element,
+	){
+
+	}
+	displayLoadingUI(): void {
+		this.percentLoaded.innerText = '0%';
+	}
+	hideLoadingUI(): void {
+		this.percentLoaded.style.display = 'none';
+	}
+
+	updateLoadingStatus(status: string): void {
+		this.percentLoaded.innerText = `${status}%`;
+	}
+
+}
 export class BabylonScene {
 	private scene: BABYLON.Scene;
 	private engine: BABYLON.Engine;
 	private camera: BABYLON.ArcRotateCamera;
 	private loadingProgress: number;
 	private assetsManager: BABYLON.AssetsManager;
-	// private loadingScreen: CustomLoading;
+	private loadingScreen: CustomLoading;
 
 	constructor(
 		canvas: HTMLCanvasElement,
-		// percentLoaded: HTMLElement,
+		percentLoaded: HTMLElement,
 		// loader: HTMLElement,
 		modelFileName: string,
 		sceneFileName: string = '',
@@ -24,24 +49,15 @@ export class BabylonScene {
 		this.engine = new BABYLON.Engine(canvas,);
 
 		this.scene = this.createScene();
-		// this.loadingScreen = new CustomLoading(percentLoaded);
-		// this.engine.loadingScreen = this.loadingScreen;
 
 
 		this.loadingProgress = 0;
 		this.assetsManager = new BABYLON.AssetsManager(this.scene);
-		// this.assetsManager.onProgress = (remainingCount, totalCount, lastFinishedTask) => {
-		// 	// console.log(totalCount);
-		// 	this.loadingProgress = 100 - (remainingCount / totalCount) * 100;
-		// 	console.log("Загружено: " + this.loadingProgress.toFixed(2) + "%");
-		// };
-
-
-		// this.assetsManager.onFinish = () => {
-		// 	// setIsLoaded(true);
-		// 	console.log("Все ресурсы успешно загружены!");
-
-		// };
+		this.assetsManager.onProgress = (remainingCount, totalCount, lastFinishedTask) => {
+			console.log(totalCount);
+			this.loadingProgress = 100 - (remainingCount / totalCount) * 100;
+			console.log("Загружено: " + this.loadingProgress.toFixed(2) + "%");
+		};
 
 		this.engine.displayLoadingUI();
 
@@ -81,7 +97,7 @@ export class BabylonScene {
 	createCamera(canvas: HTMLCanvasElement): BABYLON.ArcRotateCamera {
 		const camera = new BABYLON.ArcRotateCamera(
 			"camera",
-			2 * Math.PI, // Угол по оси Y (горизонтальное вращение)
+			2 * Math.PI, // Угол по оси Y (горизонтальное вращение)	
 			Math.PI / 2, // Угол по оси X (вертикальное вращение)
 			5, // Радиус (расстояние от целевой точки)
 			BABYLON.Vector3.Zero(), // Целевая точка, вокруг которой будет вращаться камера
@@ -175,8 +191,7 @@ export class BabylonScene {
 			const pbrMaterial = new BABYLON.PBRMaterial('pbr', this.scene);
 			pbrMaterial.roughness = 1;
 
-			// console.log('Babylon tex64: ', texBase64);
-			const texture = BABYLON.Texture.CreateFromBase64String(`data:image;base64,${texBase64}`, '', this.scene); //тут остановился :)
+			const texture = BABYLON.Texture.CreateFromBase64String(`data:image;base64,${texBase64}`, '', this.scene);
 			texture.vScale = -1;
 			pbrMaterial._albedoTexture = texture;
 
@@ -205,6 +220,12 @@ export class BabylonScene {
 				"babylon/scenes/", // Путь до папки со сценами в папке public
 				`${SceneFileName}.glb`, // Имя файла с моделью
 				this.scene,
+				// (mesh)=>{
+				// 	console.log(mesh);
+				// 	const loadedStatus = ((mesh.loaded*100)/mesh.total).toFixed();
+				// 	console.log(loadedStatus);
+				// 	this.loadingScreen.updateLoadingStatus(loadedStatus);
+				// }
 			);
 			scene.meshes.forEach((mesh) => {
 				mesh.material?.freeze();

@@ -52,14 +52,15 @@ public class NeuralController : Controller
             return Ok(_neuralBuilderSettings.Neurals.Select(x => new
             {
                 NeuralName = x.Key,
-                // Description = x.Value.FirstOrDefault(y => y.Key == "description").Value,
-                // Icon = x.Value.FirstOrDefault(y => y.Key == "icon").Value
+                Description = x.Value.FirstOrDefault(y => y.Key == "description").Value,
+                ClientName = x.Value.FirstOrDefault(y => y.Key == "clientName").Value,
+                ServerName = x.Value.FirstOrDefault(y => y.Key == "serverName").Value
             }));
         return NotFound();
     }
 
     [HttpPost]
-    public async Task<IActionResult> RunNeural([FromBody] NeuralRequestModel requestModel)
+    public async Task<IActionResult> RunNeural([FromForm] NeuralRequestModel requestModel)
     {
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (string.IsNullOrEmpty(currentUserId)) return NotFound();
@@ -72,23 +73,21 @@ public class NeuralController : Controller
             Prompts = requestModel.Prompts,
             Parameters = requestModel.Parameters,
         };
-        
-        using (var memoryStream = new MemoryStream())
-        {
-            if (requestModel.ImagesInput != null)
-            {
-                var dataBytes = requestModel.ImagesInput.Select(async x =>
-                {
-                    await x.CopyToAsync(memoryStream);
-                    return memoryStream.ToArray();
-                }).Select(x => x.Result);
 
-                request.ImagesInput = dataBytes; 
-            }
+        if (requestModel.ImagesInput != null)
+        {
+            var dataBytes = requestModel.ImagesInput.Select(async x =>
+            {
+                await using var memoryStream = new MemoryStream();
+                await x.CopyToAsync(memoryStream);
+                return memoryStream.ToArray();
+            }).Select(x => x.Result);
+        
+            request.ImagesInput = dataBytes;
         }
         var response = await _bus.Request<NeuralRequest, NeuralReply>(request, timeout: RequestTimeout.After(h: 4));
         if (!response.Message.ErrorMsg.IsNullOrEmpty()) 
                 throw new Exception(response.Message.ErrorMsg);
-        return Ok(response.Message);
+        return Ok(response.Message.Images);
     }
 }

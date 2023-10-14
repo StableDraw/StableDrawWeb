@@ -1,4 +1,3 @@
-"use strict";
 const body = document.querySelector("body");
 const cursor = document.querySelector(".cursor");
 const cursor_image = document.querySelector(".cursimg");

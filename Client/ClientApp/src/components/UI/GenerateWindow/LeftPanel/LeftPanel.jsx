@@ -2,7 +2,7 @@ import cl from './LeftPanel.module.css'
 import NeuralCard from '../NeuralCard/NeuralCard'
 import api from '../../../../api/apiNeurals'
 import { useState, useEffect } from 'react'
-
+import {observer} from 'mobx-react-lite'
 const filterNeurals = (searchText, listOfNeurals) => {
     if (!searchText) {
         return listOfNeurals
@@ -12,7 +12,7 @@ const filterNeurals = (searchText, listOfNeurals) => {
     )
 }
 
-const LeftPanel = ({openParam, setParametrs,setNeuralName, neuralsList}) => {
+const LeftPanel = observer(({openParam, setParametrs,setNeuralName, neuralsList}) => {
     const [searchTerm, setSearchTerm] = useState('')
     async function getParams(name) {
         try {
@@ -40,11 +40,21 @@ const LeftPanel = ({openParam, setParametrs,setNeuralName, neuralsList}) => {
             >
             </input>
             <div className={cl.list}>
-                {neuralsList ? neuralsList.map((neural, id)=><NeuralCard key={id} getParams={getParams} setNeuralName={setNeuralName} active={openParam} name={neural}/>) : <div>Ошибка в запросе</div> } 
+                {neuralsList ? neuralsList.map((neural, id)=>
+                    <NeuralCard 
+                        key={id} 
+                        getParams={getParams}
+                        setNeuralName={setNeuralName} 
+                        active={openParam}
+                        serverName={neural.serverName} 
+                        clientName={neural.clientName}
+                        description={neural.description}
+                    />) :
+                    <div>Ошибка в запросе</div> } 
             </div>      
         </div>
     </section>
   )
-}
+})
 
 export default LeftPanel

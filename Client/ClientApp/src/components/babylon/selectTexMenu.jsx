@@ -1,49 +1,47 @@
-import React from "react";
-import { Button, IconButton, Tooltip, Input, InputLabel } from '@mui/material';
 import loadClasses from './stylesDark/loadTex.module.css';
 import loadClassesLight from './stylesLight/loadTex.module.css';
-import CancelIcon from '@mui/icons-material/Cancel';
-// import { TexMenuBtn } from "./texMenuBtns";
-import {  useState, } from "react";
+import { useState, } from "react";
 import api from '../../api/api'
-import AddPhotoAlternateRoundedIcon from '@mui/icons-material/AddPhotoAlternateRounded';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { base64ToLinkImg } from "./base64ToLink.ts";
+
+
 
 export const SelectTexMenu = ({
 	setCurrenTexture,
 	texCount,
 	setTexCount,
 	textureStorage = [],
-	updateTexStorage,
 	isLightTheme,
 	send,
+	setTextureStore,
 }) => {
 	const [InputKey, setInputKey] = useState(0);
 
-	async function deleteTex(imageName, index) {
-		await api.DeleteTexture(imageName)
-		.then(()=>updateTexStorage())
-		.catch(err => console.log("Ошибка при удалении текстуры: ", err));
-		
+	const updateStorage = (index) => {
+		const copyTextureStorage = textureStorage;
+		copyTextureStorage.splice(index, 1);
+		setTextureStore([...copyTextureStorage]);
+	}
+
+	async function deleteTex(tex, index) {
+		await api.DeleteTexture(tex.imageName)
+			.catch(err => console.log("Ошибка при удалении текстуры: ", err));
+
+		updateStorage(index);
+
 		//логика перестановки рамки выбора и смены текстуры в сцене после удаления:
 		if (index < texCount) {
 			setTexCount(texCount - 1);
 			return;
 		}
+
 		if (index === texCount) {
-			if (index) {
-				setCurrenTexture(textureStorage[index - 1].bytes);
-				setTexCount(index - 1);
+			if (texCount === 0) {
+				setCurrenTexture(textureStorage[index]?.bytes);
+				return;
 			}
-			else {
-				if (!textureStorage.length) {
-					//тут баг: при пустом массиве(в теории), сюда всё равно не попадаем, меняю состояние в updateTexStorage.
-					setCurrenTexture('');
-					return;
-				}
-				setCurrenTexture(textureStorage[index + 1]?.bytes);
-			}
+			setCurrenTexture(textureStorage[index - 1]?.bytes);
+			setTexCount(index - 1);
 		}
 	}
 
@@ -58,73 +56,55 @@ export const SelectTexMenu = ({
 		setInputKey(InputKey + 1); // Позволяет загружать несколько одинаковых файлов подряд
 	};
 	return (
-		<>
-			<div>
-			</div>
-			<div className={loadClasses.selectTexMenu}>
-				<div className={loadClasses.buttons_selectTexMenu}>
-					<div className={loadClasses.selectTexMenu}>
-						<div className={loadClasses.previewTexes_selectTexMenu}>
-							{textureStorage.map((tex, index) =>
-								<div className={loadClasses.buttons_selectTexMenu} key={tex + index + index}>
-									<div className={loadClasses.closeButton_selectTexMenu} key={tex + index + tex}>
-										<IconButton
-											key={tex + index}
-											sx={{ width: '20px', height: '20px', }}
-											onClick={() => { deleteTex(tex.imageName, index); }} >
-											<CancelIcon
-												className={isLightTheme ? loadClassesLight.crossIcon : loadClasses.crossIcon}
-												key={index + tex + index + tex}
-												sx={{ width: '20px', height: '20px' }} />
-										</IconButton>
-									</div>
-									<Button onClick={() => { setTexCount(index); setCurrenTexture(tex.bytes) }} key={tex + tex}>
-										<div key={tex + index}>
-											<img src={base64ToLinkImg(tex.bytes)}
-												alt="texture"
-												className={loadClasses.texImg_selectTexMenu}
-												style={{ border: index === texCount ? '3px solid #1976d2' : 'none' }}
-												key={tex} />
-										</div>
-									</Button>
-								</div>
-							)}
-							{
-								textureStorage.length === 0 ?
-									<InputLabel htmlFor="file-input">
-										<div className={isLightTheme ? loadClassesLight.addIconContMain : loadClasses.addIconContMain}>
-											<Tooltip title='Загрузить текстуру' placement="top">
-												<AddPhotoAlternateRoundedIcon className={isLightTheme ? loadClassesLight.addIconMain : loadClasses.addIconMain } />
-											</Tooltip>
-										</div>
-									</InputLabel> :
-									<InputLabel htmlFor="file-input">
-										<div className={ isLightTheme ? loadClassesLight.addIconCont : loadClasses.addIconCont}>
-											<Tooltip title='Загрузить текстуру' placement="right">
-												<AddCircleOutlineIcon className={ isLightTheme ? loadClassesLight.addIcon : loadClasses.addIcon} />
-											</Tooltip>
-										</div>
-									</InputLabel>
-							}
-							<Input
-								key={InputKey}
-								id="file-input"
-								type="file"
-								hidden
-								multiple={true}
-								inputProps={{
-									accept: 'image/*',
-									multiple: true,
-								}}
-								onChange={handleFileChange}
-							/>
+		<div className={isLightTheme ? (textureStorage.length === 0 ? loadClassesLight.selectTexMenu : loadClassesLight.selectTexMenu_fill) 
+			: (textureStorage.length === 0 ? loadClasses.selectTexMenu : loadClasses.selectTexMenu_fill)}>
+			{textureStorage.map((tex, index) =>
+				<div className={loadClasses.buttons_selectTexMenu} key={tex + index + index}>
+					<button
+						className={isLightTheme ? loadClassesLight.cancelBtn : loadClasses.cancelBtn}
+						key={tex + index}
+						onClick={() => { deleteTex(tex, index); }} >
+						<svg key={index + tex + index + tex} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+							<path d="M10.6456 9.49931L15.7612 4.39184C15.9141 4.23894 16 4.03156 16 3.81532C16 3.59908 15.9141 3.3917 15.7612 3.2388C15.6083 3.0859 15.4009 3 15.1847 3C14.9684 3 14.7611 3.0859 14.6082 3.2388L9.50069 8.35439L4.39323 3.2388C4.24032 3.0859 4.03294 3 3.81671 3C3.60047 3 3.39309 3.0859 3.24019 3.2388C3.08729 3.3917 3.00139 3.59908 3.00139 3.81532C3.00139 4.03156 3.08729 4.23894 3.24019 4.39184L8.35578 9.49931L3.24019 14.6068C3.16408 14.6823 3.10367 14.7721 3.06245 14.871C3.02122 14.97 3 15.0761 3 15.1833C3 15.2905 3.02122 15.3966 3.06245 15.4956C3.10367 15.5945 3.16408 15.6843 3.24019 15.7598C3.31567 15.8359 3.40548 15.8963 3.50443 15.9376C3.60338 15.9788 3.70951 16 3.81671 16C3.9239 16 4.03003 15.9788 4.12898 15.9376C4.22793 15.8963 4.31774 15.8359 4.39323 15.7598L9.50069 10.6442L14.6082 15.7598C14.6836 15.8359 14.7735 15.8963 14.8724 15.9376C14.9714 15.9788 15.0775 16 15.1847 16C15.2919 16 15.398 15.9788 15.497 15.9376C15.5959 15.8963 15.6857 15.8359 15.7612 15.7598C15.8373 15.6843 15.8977 15.5945 15.9389 15.4956C15.9802 15.3966 16.0014 15.2905 16.0014 15.1833C16.0014 15.0761 15.9802 14.97 15.9389 14.871C15.8977 14.7721 15.8373 14.6823 15.7612 14.6068L10.6456 9.49931Z" fill={isLightTheme ? '#656565' : "#BDBABA"} />
+						</svg>
+					</button>
+					<button className={loadClasses.texBtn} onClick={() => { setTexCount(index); setCurrenTexture(tex.bytes) }} key={tex + tex}>
+						<div key={tex + index} >
+							<img src={ base64ToLinkImg(tex.bytes)}
+								alt="texture"
+								className={loadClasses.texImg_selectTexMenu}
+								style={{ border: index === texCount ? '3px solid #1976d2' : 'none' }}
+								key={tex} />
 						</div>
-					</div>
+					</button>
 				</div>
-			</div>
-		</>
-
-
+			)}
+			{
+				textureStorage.length === 0 ?
+					<label htmlFor="file-input">
+						<div className={isLightTheme ? loadClassesLight.addTex1 : loadClasses.addTex1}>
+							<svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 75 75" fill="none">
+								<path d="M59.55 31.2C58.7146 31.2 57.9134 31.5319 57.3226 32.1226C56.7319 32.7134 56.4 33.5146 56.4 34.35V44.997L51.738 40.335C50.0919 38.7019 47.8671 37.7855 45.5483 37.7855C43.2295 37.7855 41.0046 38.7019 39.3585 40.335L37.1535 42.5715L29.3415 34.728C27.6954 33.0949 25.4705 32.1785 23.1518 32.1785C20.833 32.1785 18.6081 33.0949 16.962 34.728L12.3 39.4215V21.75C12.3 20.9146 12.6319 20.1134 13.2226 19.5226C13.8134 18.9319 14.6146 18.6 15.45 18.6H40.65C41.4854 18.6 42.2866 18.2681 42.8774 17.6774C43.4681 17.0866 43.8 16.2854 43.8 15.45C43.8 14.6146 43.4681 13.8134 42.8774 13.2226C42.2866 12.6319 41.4854 12.3 40.65 12.3H15.45C12.9437 12.3 10.5401 13.2956 8.76784 15.0678C6.99562 16.8401 6 19.2437 6 21.75V60.243C6.0083 62.5629 6.93358 64.7855 8.57404 66.426C10.2145 68.0664 12.4371 68.9917 14.757 69H53.943C54.7966 68.9932 55.645 68.8659 56.463 68.622C58.2819 68.1118 59.8832 67.019 61.0213 65.5111C62.1593 64.0032 62.7711 62.1636 62.763 60.2745V34.35C62.7631 33.931 62.6796 33.5162 62.5173 33.1298C62.3551 32.7435 62.1174 32.3934 61.8182 32.1C61.519 31.8067 61.1643 31.576 60.7748 31.4215C60.3853 31.2669 59.9689 31.1916 59.55 31.2ZM15.45 62.7C14.6146 62.7 13.8134 62.3681 13.2226 61.7774C12.6319 61.1866 12.3 60.3854 12.3 59.55V48.3045L21.4035 39.201C21.8639 38.7432 22.4867 38.4862 23.136 38.4862C23.7853 38.4862 24.4081 38.7432 24.8685 39.201L48.399 62.7H15.45ZM56.4 59.55C56.3798 60.16 56.1828 60.7509 55.833 61.251L41.595 46.95L43.8315 44.745C44.0573 44.5145 44.3269 44.3314 44.6244 44.2064C44.9219 44.0814 45.2413 44.017 45.564 44.017C45.8867 44.017 46.2061 44.0814 46.5036 44.2064C46.8011 44.3314 47.0707 44.5145 47.2965 44.745L56.4 53.9115V59.55ZM65.85 12.3H62.7V9.15C62.7 8.31457 62.3681 7.51335 61.7774 6.92261C61.1866 6.33187 60.3854 6 59.55 6C58.7146 6 57.9134 6.33187 57.3226 6.92261C56.7319 7.51335 56.4 8.31457 56.4 9.15V12.3H53.25C52.4146 12.3 51.6134 12.6319 51.0226 13.2226C50.4319 13.8134 50.1 14.6146 50.1 15.45C50.1 16.2854 50.4319 17.0866 51.0226 17.6774C51.6134 18.2681 52.4146 18.6 53.25 18.6H56.4V21.75C56.4 22.5854 56.7319 23.3866 57.3226 23.9774C57.9134 24.5681 58.7146 24.9 59.55 24.9C60.3854 24.9 61.1866 24.5681 61.7774 23.9774C62.3681 23.3866 62.7 22.5854 62.7 21.75V18.6H65.85C66.6854 18.6 67.4867 18.2681 68.0774 17.6774C68.6681 17.0866 69 16.2854 69 15.45C69 14.6146 68.6681 13.8134 68.0774 13.2226C67.4867 12.6319 66.6854 12.3 65.85 12.3Z" fill={isLightTheme ? "#656565" : '#BDBABA'} />
+							</svg>
+						</div>
+					</label> :
+					<label htmlFor="file-input">
+						<div className={isLightTheme ? loadClassesLight.addTex2 : loadClasses.addTex2}>
+							<svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
+								<path d="M10.5 0C8.4233 0 6.39323 0.615814 4.66652 1.76957C2.9398 2.92332 1.59399 4.5632 0.799269 6.48182C0.00454948 8.40044 -0.203385 10.5116 0.201759 12.5484C0.606904 14.5852 1.60693 16.4562 3.07538 17.9246C4.54383 19.3931 6.41475 20.3931 8.45155 20.7982C10.4884 21.2034 12.5996 20.9955 14.5182 20.2007C16.4368 19.406 18.0767 18.0602 19.2304 16.3335C20.3842 14.6068 21 12.5767 21 10.5C21 9.12112 20.7284 7.75574 20.2007 6.48182C19.6731 5.2079 18.8996 4.05039 17.9246 3.07538C16.9496 2.10036 15.7921 1.32694 14.5182 0.799265C13.2443 0.271591 11.8789 0 10.5 0ZM10.5 18.9C8.83864 18.9 7.21459 18.4073 5.83321 17.4843C4.45184 16.5613 3.37519 15.2494 2.73942 13.7145C2.10364 12.1796 1.93729 10.4907 2.26141 8.86124C2.58552 7.2318 3.38555 5.73506 4.56031 4.5603C5.73507 3.38554 7.2318 2.58552 8.86124 2.2614C10.4907 1.93729 12.1796 2.10364 13.7145 2.73941C15.2494 3.37519 16.5613 4.45184 17.4843 5.83321C18.4073 7.21458 18.9 8.83863 18.9 10.5C18.9 12.7278 18.015 14.8644 16.4397 16.4397C14.8644 18.015 12.7278 18.9 10.5 18.9ZM14.7 9.45H11.55V6.3C11.55 6.02152 11.4394 5.75445 11.2425 5.55754C11.0456 5.36062 10.7785 5.25 10.5 5.25C10.2215 5.25 9.95445 5.36062 9.75754 5.55754C9.56063 5.75445 9.45 6.02152 9.45 6.3V9.45H6.3C6.02153 9.45 5.75445 9.56062 5.55754 9.75753C5.36063 9.95445 5.25 10.2215 5.25 10.5C5.25 10.7785 5.36063 11.0455 5.55754 11.2425C5.75445 11.4394 6.02153 11.55 6.3 11.55H9.45V14.7C9.45 14.9785 9.56063 15.2455 9.75754 15.4425C9.95445 15.6394 10.2215 15.75 10.5 15.75C10.7785 15.75 11.0456 15.6394 11.2425 15.4425C11.4394 15.2455 11.55 14.9785 11.55 14.7V11.55H14.7C14.9785 11.55 15.2456 11.4394 15.4425 11.2425C15.6394 11.0455 15.75 10.7785 15.75 10.5C15.75 10.2215 15.6394 9.95445 15.4425 9.75753C15.2456 9.56062 14.9785 9.45 14.7 9.45Z" fill={isLightTheme ? "#656565" : '#BDBABA'} />
+							</svg>
+						</div>
+					</label>
+			}
+			<input
+				key={InputKey}
+				id="file-input"
+				type="file"
+				hidden
+				multiple={true}
+				onChange={handleFileChange}
+			/>
+		</div>
 
 	)
 }

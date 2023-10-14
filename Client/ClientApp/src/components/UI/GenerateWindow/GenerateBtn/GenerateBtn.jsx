@@ -4,6 +4,7 @@ import LeftPanel from '../LeftPanel/LeftPanel'
 import RightPanel from '../RightPanel/RightPanel'
 import { Modal } from '@mui/material';
 import api from '../../../../api/apiNeurals'
+import testMob from '../../../../store/neuralWindow.tsx'
 const GenerateBtn = () => {
     const [modal, setModal] = useState(false)
     const [openParam, setOpenParam] = useState(false)
@@ -14,12 +15,12 @@ const GenerateBtn = () => {
     if(modal) {
         rootClasses.push(cl.activeModal)
     }
+    testMob.getNeurals()
     const hundleOpen = async () => {
         setModal(!modal)
         try {
             const list = await api.GetNeuralsList()
-            const array = list.data.map(name => name.neuralName)
-            setNeuralList(array)
+            setNeuralList(list.data)
         } catch(e) {
             console.error(e)
             throw(e)

@@ -56,6 +56,26 @@ namespace StableDraw.SagasService.Migrations
 
                     b.ToTable("NeuralState");
                 });
+
+            modelBuilder.Entity("StableDraw.SagasService.Sagas.Render.RenderState", b =>
+                {
+                    b.Property<Guid>("CorrelationId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CurrentState")
+                        .HasMaxLength(255)
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("RequestId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ResponseAddress")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("CorrelationId");
+
+                    b.ToTable("RenderState");
+                });
 #pragma warning restore 612, 618
         }
     }

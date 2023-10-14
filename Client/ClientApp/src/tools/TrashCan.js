@@ -8,7 +8,8 @@ export default class TrashCan extends Tool {
         this.deleteAll()
     }
     deleteAll() {
-        this.ctx.clearRect(0, 0, 1080, 732);
+        this.ctx.clearRect(0, 0, this.ctx.canvas.offsetWidth, this.ctx.canvas.offsetHeight);
+        console.log(this.ctx)
      
     }
 }

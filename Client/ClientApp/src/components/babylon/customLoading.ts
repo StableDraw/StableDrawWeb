@@ -15,10 +15,14 @@ export class CustomLoading implements ILoadingScreen {
 
 	}
 	displayLoadingUI(): void {
-		this.percentLoaded.innerText = '0';
+		this.percentLoaded.innerText = '0%';
 	}
 	hideLoadingUI(): void {
+		this.percentLoaded.style.display = 'none';
+	}
 
+	updateLoadingStatus(status: string): void {
+		this.percentLoaded.innerText = `${status}%`;
 	}
 
 
