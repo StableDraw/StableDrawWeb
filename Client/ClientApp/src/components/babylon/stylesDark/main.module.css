@@ -138,9 +138,8 @@
 
 
 @media(max-width: 1450px){
-	.main {
+	.content {
 	 zoom: 0.8 !important;
-	 height: 1210px;
 	}
  }
 

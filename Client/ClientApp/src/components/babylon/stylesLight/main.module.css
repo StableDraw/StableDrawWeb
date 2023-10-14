@@ -136,8 +136,8 @@
 
 .text {}
 
-@media(max-width: 1450px){
-  .main {
-   zoom: 0.8 !important;
-  }
+ @media(max-width: 1450px){
+	.content {
+	 zoom: 0.8 !important;
+	}
  }

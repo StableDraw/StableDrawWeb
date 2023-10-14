@@ -5,9 +5,14 @@ import { PayModal } from "./payWindow";
 
 export const Pay = () => {
 	return (
-		<div className={mainStyles.back}>
-			<Header />
-			<PayModal />
+		<div className={mainStyles.main}>
+			<div className={mainStyles.back}>
+				<Header />
+				<PayModal />
+			</div>
+			<div className={mainStyles.footer}>
+			</div>
 		</div>
+
 	)
 }
