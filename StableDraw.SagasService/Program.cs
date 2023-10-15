@@ -86,10 +86,4 @@ IHost host = Host.CreateDefaultBuilder(args)
                 flushToDiskInterval: TimeSpan.FromSeconds(1));
     }).Build();
 
-using (var scope = host.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<SagasDbContext>();
-    db.Database.Migrate();
-}
-
 host.Run();
