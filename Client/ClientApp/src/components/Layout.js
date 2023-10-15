@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-import { Container } from 'reactstrap';
+import React, { Component } from "react";
+import { Container } from "reactstrap";
+import cl from "./Layout.module.scss";
 //import { NavMenu } from './NavMenu';
 
 export class Layout extends Component {
@@ -7,9 +8,9 @@ export class Layout extends Component {
 
   render() {
     return (
-      <div>
+      <div className={cl.wrap}>
         {/*<NavMenu />*/}
-        <Container tag="main">
+        <Container tag="main" className={cl.wrap}>
           {this.props.children}
         </Container>
       </div>
