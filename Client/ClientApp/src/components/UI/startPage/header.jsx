@@ -32,20 +32,20 @@ export const Header = () => {
 			<Logo />
 			{
 				!token ? <div className={header.registration}>
-					<Link className={header.link} to={`${ApplicationPaths.Register}`}>
+					<NavLink tag={Link} className={header.link} to={`${ApplicationPaths.Register}`}>
 						<span className={header.txt}> Регистрация </span>
-					</Link>
-					<Link className={header.link} to={`${ApplicationPaths.Login}`}>
+					</NavLink>
+					<NavLink tag={Link} className={header.link} to={`${ApplicationPaths.Login}`}>
 						<span className={header.txt}> Вход </span>
-					</Link>
+					</NavLink>
 
 				</div> :
 					<div className={header.registration}>
-						<Link className={header.link} to={`${ApplicationPaths.Profile}`}>
+						<NavLink tag={Link} className={header.link} to={`${ApplicationPaths.Profile}`}>
 							<span className={header.txt}>
 								{user}
 							</span>
-						</Link>
+						</NavLink>
 						<NavLink tag={Link} state={{ local: true }} className={header.link} to={`${ApplicationPaths.LogOut}`}>
 							<span className={header.txt}> Выход </span>
 						</NavLink>
