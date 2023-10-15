@@ -19,7 +19,7 @@ IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((hostContext, services) =>
     {
         services.AddDbContext<SagasDbContext>(options =>
-            options.UseSqlite(hostContext.Configuration.GetConnectionString("default")));
+            options.UseNpgsql(hostContext.Configuration.GetConnectionString("Identity")));
 
         services.AddMassTransit(cfg =>
         {
@@ -61,7 +61,7 @@ IHost host = Host.CreateDefaultBuilder(args)
                     h.Username("rmuser");
                     h.Password("rmpassword");
                 });
-                
+
                 rbfc.ConfigureEndpoints(brc);
                 rbfc.ReceiveEndpoint(ec =>
                 {

@@ -28,14 +28,20 @@ services:
     volumes:
       - minio-storage:/data
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      test:
+        [
+          "CMD",
+          "curl",
+          "-f",
+          "http://localhost:9000/minio/health/live"
+        ]
       interval: 30s
       timeout: 20s
       retries: 3
-  
+
   sagas:
     image: sagasbackend
-    build: 
+    build:
       context: ..
       dockerfile: StableDraw.SagasService/Dockerfile
     ports:
@@ -53,33 +59,34 @@ services:
     networks:
       - network1
 
-  # db:
-  #   image: postgres
-  #   container_name: sagas_pgdb
-  #   restart: always
-  #   ports:
-  #     - "54320:5432"
-  #   environment:
-  #     POSTGRES_USER: postgres
-  #     POSTGRES_PASSWORD: 1234
-  #   volumes:
-  #     - local_pgdata:/var/lib/postgresql/data
-  # pgadmin:
-  #   image: dpage/pgadmin4
-  #   container_name: pgadmin4_container
-  #   restart: always
-  #   ports:
-  #     - "5050:80"
-  #   environment:
-  #     PGADMIN_DEFAULT_EMAIL: admin@email.com
-  #     PGADMIN_DEFAULT_PASSWORD: admin
-  #   volumes:
-  #     - pgadmin-data:/var/lib/pgadmin
+  postgres:
+    image: postgres:16.0
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=0000
+    volumes:
+      - local_pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4_container
+    restart: always
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@email.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
 
 volumes:
   minio-storage:
-  # local_pgdata:
-  # pgadmin-data: 
+    local_pgdata:
+    pgadmin-data:
+
 
 networks:
   network1:
