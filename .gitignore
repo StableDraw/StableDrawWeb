@@ -84,3 +84,4 @@ StableDraw.SagasService/app.db-wal
 /StableDraw.Data/bin
 /StableDraw.Data/obj
 /StableDraw.Infrastructure/bin
+/StableDraw.ReactApp/obj

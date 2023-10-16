@@ -5,7 +5,7 @@ namespace StableDraw.MinIOService.Data.Repositories;
 
 public interface IImageRepository : IBaseRepository<Image>
 {
-    Task<IEnumerable<Image>> GetImagesAsync(string userId);
+    Task<IEnumerable<Image>> GetImagesAsync(string userId, IEnumerable<string>? imageNames = null);
     Task<IEnumerable<Guid>> CreateImagesAsync(IEnumerable<(string, string)> imageNames, string userId);
     Task DeleteImagesAsync(IEnumerable<string> imageNames, string userId);
     void CreateImage(Image image);

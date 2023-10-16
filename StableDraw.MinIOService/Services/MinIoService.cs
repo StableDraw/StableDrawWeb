@@ -1,12 +1,8 @@
-using System.Net;
 using Microsoft.Extensions.Options;
 using Minio;
-using Minio.DataModel;
-using StableDraw.Contracts;
-using StableDraw.Contracts.MInIoContracts.Replies;
 using StableDraw.Contracts.MInIoContracts.Requests;
 using StableDraw.Core.Models;
-using StableDraw.Domain.UnitsOfWork;
+using StableDraw.MinIOService.Data.UnitsOfWork;
 using StableDraw.MinIOService.Models;
 using StableDraw.MinIOService.Settings;
 using DeleteObjectsResult = StableDraw.MinIOService.Models.DeleteObjectsResult;
@@ -17,7 +13,7 @@ public class MinIoService : IMinIoService
 {
     private readonly MinioClient _minio;
     private readonly MinIOSettings _minIoSettings;
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly UnitOfWork _unitOfWork;
 
     public MinIoService(IOptions<MinIOSettings> minIoSettings, UnitOfWork unitOfWork)
     {
@@ -67,7 +63,7 @@ public class MinIoService : IMinIoService
                 }
             }
 
-            return await Task.FromResult<PutObjectsResult>(new PutObjectsResult());
+            return await Task.FromResult(new PutObjectsResult());
         }
         catch (Exception e)
         {
@@ -84,8 +80,8 @@ public class MinIoService : IMinIoService
             {
                 DataDictionary = new Dictionary<string, byte[]>()
             };
-
-            var images = (await _unitOfWork.Images.GetImagesAsync(request.UserId.ToString()));
+            
+            var images = await _unitOfWork.Images.GetImagesAsync(request.UserId, request.ObjectNames);
 
             foreach (var item in images)
             {
@@ -109,7 +105,7 @@ public class MinIoService : IMinIoService
             var result = new DeleteObjectsResult();
             var resultNames = new List<string>();
 
-            var images = await _unitOfWork.Images.GetImagesAsync(request.UserId.ToString());
+            var images = await _unitOfWork.Images.GetImagesAsync(request.UserId, request.ObjectNames);
 
             foreach (var item in images)
             {

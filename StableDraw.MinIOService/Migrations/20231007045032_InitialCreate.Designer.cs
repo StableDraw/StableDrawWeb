@@ -10,7 +10,7 @@ using StableDraw.MinIOService.Data;
 
 namespace StableDraw.MinIOService.Migrations
 {
-    [DbContext(typeof(MinIODbContext))]
+    [DbContext(typeof(MinIoDbContext))]
     [Migration("20231007045032_InitialCreate")]
     partial class InitialCreate
     {

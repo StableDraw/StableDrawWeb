@@ -9,7 +9,7 @@ using StableDraw.MinIOService.Data;
 
 namespace StableDraw.MinIOService.Migrations
 {
-    [DbContext(typeof(MinIODbContext))]
+    [DbContext(typeof(MinIoDbContext))]
     partial class MinIODbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

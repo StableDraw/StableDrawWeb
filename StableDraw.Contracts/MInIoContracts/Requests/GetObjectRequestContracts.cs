@@ -11,5 +11,5 @@ public interface IGetObjectsRequest
 {
     public Guid OrderId { get; set; }
     public string UserId { get; set; }
-    public IEnumerable<string>? ImageNames { get; set; }
+    public IEnumerable<string>? ObjectNames { get; set; }
 }

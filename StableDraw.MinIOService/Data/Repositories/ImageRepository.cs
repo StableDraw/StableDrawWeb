@@ -2,20 +2,19 @@
 using Microsoft.EntityFrameworkCore;
 using StableDraw.Core.Models;
 using StableDraw.Data.Repositories;
-using StableDraw.MinIOService.Data;
-using StableDraw.MinIOService.Data.Repositories;
 
-namespace StableDraw.Domain.Repositories;
+namespace StableDraw.MinIOService.Data.Repositories;
 
 public class ImageRepository : BaseRepository<Image>, IImageRepository
 {
-    public ImageRepository(MinIODbContext context) : base(context)
+    public ImageRepository(DbContext context) : base(context)
     {
     }
-
-    public async Task<IEnumerable<Image>> GetImagesAsync(string userId) => 
-        await FindByCondition(image => image.UserId.Equals(userId)).ToListAsync();
     
+    public async Task<IEnumerable<Image>> GetImagesAsync(string userId, IEnumerable<string>? imageNames = null) => 
+        imageNames == null || !imageNames.Any()?
+            await FindByCondition(image => image.UserId.Equals(userId)).ToListAsync() :
+            await FindByCondition(image => image.UserId.Equals(userId) && imageNames.Contains(image.ImageName)).ToListAsync();
 
     public async Task<IEnumerable<Guid>> CreateImagesAsync(IEnumerable<(string, string)> imageNames, string userId)
     {

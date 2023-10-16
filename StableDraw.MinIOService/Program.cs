@@ -1,10 +1,9 @@
 using GreenPipes;
 using MassTransit;
-using Microsoft.EntityFrameworkCore;
 using Serilog;
-using StableDraw.Domain.UnitsOfWork;
 using StableDraw.MinIOService.Consumers;
 using StableDraw.MinIOService.Data;
+using StableDraw.MinIOService.Data.UnitsOfWork;
 using StableDraw.MinIOService.Services;
 using StableDraw.MinIOService.Settings;
 using IHost = Microsoft.Extensions.Hosting.IHost;
@@ -31,7 +30,8 @@ IHost host = Host.CreateDefaultBuilder(args)
         services.Configure<AppConfig>(hostContext.Configuration.GetSection("AppConfig"));
         services.Configure<EndpointConfig>(hostContext.Configuration.GetSection("EndpointConfig"));
 
-        services.AddDbContext<MinIODbContext>(options => options.UseSqlite(hostContext.Configuration.GetConnectionString("DefaultConnection")));
+        //services.AddDbContext<MinIODbContext>(options => options.UseSqlite(hostContext.Configuration.GetConnectionString("DefaultConnection")));
+        services.AddDbContext<MinIoDbContext>();
 
         services.AddMassTransit(cfg =>
         {
@@ -57,7 +57,7 @@ IHost host = Host.CreateDefaultBuilder(args)
         }).AddMassTransitHostedService();
 
         services.AddTransient<IMinIoService, MinIoService>();
-        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<UnitOfWork>();
     })
     .UseSerilog((context, configuration) =>
     {

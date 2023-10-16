@@ -1,21 +1,18 @@
-﻿using StableDraw.Domain.Repositories;
-using StableDraw.MinIOService.Data;
-using StableDraw.MinIOService.Data.Repositories;
+﻿using StableDraw.MinIOService.Data.Repositories;
 
-namespace StableDraw.Domain.UnitsOfWork
+namespace StableDraw.MinIOService.Data.UnitsOfWork
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IDisposable
     {
-        private readonly MinIODbContext _context;
-        private readonly IImageRepository _imageRepository;
-
-        public UnitOfWork(MinIODbContext context, IImageRepository imageRepository)
+        private readonly MinIoDbContext _context;
+        private IImageRepository Images;
+        public UnitOfWork(MinIoDbContext context, IImageRepository imageRepository)
         {
             _context = context;
-            _imageRepository = imageRepository;
+            Images = imageRepository;
         }
 
-        public IImageRepository Images => _imageRepository;
+        
 
         public void Commit()
         {

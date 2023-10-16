@@ -1,31 +1,42 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.EntityFrameworkCore.Migrations;
 using StableDraw.Core.Models;
 
 namespace StableDraw.MinIOService.Data
 {
-    public class MinIODbContext : DbContext
+    public class MinIoDbContext : DbContext
     {
+        
         public DbSet<Image> Images { get; set; }
-        public MinIODbContext(DbContextOptions<MinIODbContext> options) : base(options) 
-        {}
-    }
-
-    public class YourDbContextFactory : IDesignTimeDbContextFactory<MinIODbContext>
-    {
-        public MinIODbContext CreateDbContext(string[] args)
+        private readonly IConfiguration _configuration;
+        public MinIoDbContext(DbContextOptions<MinIoDbContext> options, IConfiguration configuration) : base(options)
         {
-            string projectPath = AppDomain.CurrentDomain.BaseDirectory;
-            IConfigurationRoot configuration = new ConfigurationBuilder()
-                .SetBasePath(projectPath)
-                .AddJsonFile("appsettings.json")
-                .Build();
-            string connectionString = configuration.GetConnectionString("DefaultConnection");
+            _configuration = configuration;
+        }
 
-            var optionsBuilder = new DbContextOptionsBuilder<MinIODbContext>();
-            optionsBuilder.UseSqlite(connectionString);
-
-            return new MinIODbContext(optionsBuilder.Options);
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlite(_configuration.GetConnectionString("DefaultConnection"), o => o.MigrationsHistoryTable(
+                tableName: HistoryRepository.DefaultTableName,
+                schema: "AppUser"));
         }
     }
+
+    // public class YourDbContextFactory : IDesignTimeDbContextFactory<MinIODbContext>
+    // {
+    //     public MinIODbContext CreateDbContext(string[] args)
+    //     {
+    //         string projectPath = AppDomain.CurrentDomain.BaseDirectory;
+    //         IConfigurationRoot configuration = new ConfigurationBuilder()
+    //             .SetBasePath(projectPath)
+    //             .AddJsonFile("appsettings.json")
+    //             .Build();
+    //         string connectionString = configuration.GetConnectionString("DefaultConnection");
+    //
+    //         var optionsBuilder = new DbContextOptionsBuilder<MinIODbContext>();
+    //         optionsBuilder.UseSqlite(connectionString);
+    //
+    //         return new MinIODbContext(optionsBuilder.Options);
+    //     }
+    // }
 }

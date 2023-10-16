@@ -6,7 +6,7 @@ namespace StableDraw.Data.Repositories;
 
 public abstract class BaseRepository<T> : IBaseRepository<T> where T : BaseObject
 {
-    protected DbContext Context;
+    private DbContext Context;
 
     protected BaseRepository(DbContext context)
     {
