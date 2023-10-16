@@ -22,7 +22,7 @@ const AppRoutes = [
         element: <GenerateWindowMobx/>
     },
     {
-        path:'/aboutus',
+        path:'/aboutUs',
         requireAuth:true,
         element: <AboutUs/>
     },

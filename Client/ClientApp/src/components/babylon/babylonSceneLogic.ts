@@ -1,6 +1,5 @@
 import * as BABYLON from "@babylonjs/core"
 import "@babylonjs/loaders/glTF";
-import "@babylonjs/loaders/OBJ";
 // import { CustomLoading } from "./customLoading";
 import { ILoadingScreen } from "@babylonjs/core";
 
@@ -15,7 +14,7 @@ class CustomLoading implements ILoadingScreen {
 		private percentLoaded: HTMLElement,
 		//  private loader: HTMLElement,
 		// private loadingBar: JSX.Element,
-	){
+	) {
 
 	}
 	displayLoadingUI(): void {
