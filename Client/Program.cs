@@ -38,7 +38,11 @@ builder.Services.AddHttpsRedirection(options =>
 
 // recaptcha
 builder.Services.AddGoogleRecaptcha(builder.Configuration);//extension
+
 builder.Configuration.AddJsonFile("neural.json");
+
+builder.Configuration.AddJsonFile("image.json");
+
 // rabbitMQ
 builder.Services.AddMassTransit(cfg =>
 {

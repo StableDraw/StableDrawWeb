@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using CLI.Settings;
 using MassTransit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,12 +20,27 @@ public class ImageController : Controller
     private readonly ILogger<ImageController> _logger;
     private readonly IUnitOfWork _unitOfWork;
 
+    private ImageBuilderSettings _imageBuilderSettings;
+
     public ImageController(
-        ILogger<ImageController> logger, IUnitOfWork unitOfWork, IBus bus)
+        ILogger<ImageController> logger, IUnitOfWork unitOfWork, IBus bus, IConfiguration configuration)
     {
         _logger = logger;
         _unitOfWork = unitOfWork;
         _bus = bus;
+
+        _imageBuilderSettings = new()
+        {
+            ImageParameters = configuration.GetSection("ImageParameters").Get<List<ImageParameter>>()
+        };
+    }
+
+    [HttpGet("imageParameters")]
+    public IActionResult GetParameters()
+    {
+        if (_imageBuilderSettings.ImageParameters != null)
+            return Ok(_imageBuilderSettings.ImageParameters);
+        return NotFound();
     }
 
     [HttpGet("{imageName}")]
@@ -32,21 +48,21 @@ public class ImageController : Controller
     {
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (string.IsNullOrEmpty(currentUserId)) return NotFound();
-        
+
         Response<GetObjectMinIoReply> response;
         Image? image;
-        
+
         image = await _unitOfWork.Images.GetImage(imageName, currentUserId);
         if (image == null)
             return NotFound();
-            
+
         response = await _bus.Request<GetObjectMinIoRequest, GetObjectMinIoReply>(new GetObjectRequestModel()
         {
             ObjectId = image.Oid,
             OrderId = NewId.NextGuid()
         });
-            
-        if(string.IsNullOrEmpty(response.Message.ErrorMsg))
+
+        if (string.IsNullOrEmpty(response.Message.ErrorMsg))
             throw new Exception(response.Message.ErrorMsg);
         return Ok(new { image.ImageName, response.Message.Data });
     }
@@ -57,20 +73,20 @@ public class ImageController : Controller
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (string.IsNullOrEmpty(currentUserId)) return NotFound();
         Response<DeleteObjectMinIoReply> response;
-        
+
         var image = await _unitOfWork.Images.GetImage(imageName, currentUserId);
         if (image == null)
             return NotFound();
-                
+
         await _unitOfWork.Images.DeleteImage(imageName, currentUserId);
-                
+
         response =
             await _bus.Request<DeleteObjectMinIoRequest, DeleteObjectMinIoReply>(new DeleteObjectRequestModel()
             {
                 ObjectId = image.Oid,
                 OrderId = NewId.NextGuid()
             });
-            
+
         if (!string.IsNullOrEmpty(response.Message.ErrorMsg))
             throw new Exception(response.Message.ErrorMsg);
         await _unitOfWork.CommitAsync();
@@ -90,10 +106,10 @@ public class ImageController : Controller
         };
 
         byte[] image;
-        
+
         _unitOfWork.Images.Create(img);
-        using var memoryStream = new MemoryStream(); 
-        await file.CopyToAsync(memoryStream); 
+        using var memoryStream = new MemoryStream();
+        await file.CopyToAsync(memoryStream);
         image = memoryStream.ToArray();
         var response = await _bus
             .Request<PutObjectMinIoRequest, PutObjectMinIoReply>(new PutObjectRequestModel()
@@ -102,7 +118,7 @@ public class ImageController : Controller
                 Data = memoryStream.ToArray(),
                 OrderId = NewId.NextGuid()
             });
-            
+
         if (!string.IsNullOrEmpty(response.Message.ErrorMsg))
             throw new Exception(response.Message.ErrorMsg);
 
@@ -120,10 +136,10 @@ public class ImageController : Controller
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (string.IsNullOrEmpty(currentUserId) && files.Any()) return NotFound();
         Response<PutObjectsMinIoReply> response;
-        
+
         var imagesId = await _unitOfWork.Images.CreateImagesAsync(
             files.Select(x => (x.FileName, x.ContentType)), currentUserId);
-                
+
         IEnumerable<byte[]> dataBytes;
         using (var memoryStream = new MemoryStream())
         {
@@ -131,9 +147,9 @@ public class ImageController : Controller
             {
                 await x.CopyToAsync(memoryStream);
                 return memoryStream.ToArray();
-            }).Select(x => x.Result);    
+            }).Select(x => x.Result);
         }
-                    
+
         response =
             await _bus.Request<PutObjectsMinIoRequest, PutObjectsMinIoReply>(new PutObjectsRequestModel()
             {
@@ -141,7 +157,7 @@ public class ImageController : Controller
                 DataDictionary = imagesId.Zip(dataBytes, (k, v) => new { k, v })
                     .ToDictionary(x => x.k, x => x.v)
             });
-            
+
         if (!string.IsNullOrEmpty(response.Message.ErrorMsg))
             throw new Exception(response.Message.ErrorMsg);
 
@@ -160,10 +176,10 @@ public class ImageController : Controller
             return NotFound();
 
         Response<DeleteObjectsMinIoReply> response;
-        
+
         await _unitOfWork.Images.DeleteImagesAsync(images.Select(x => x.ImageName), currentUserId);
         response = await _bus.Request<DeleteObjectsMinIoRequest, DeleteObjectsMinIoReply>(
-            new DeleteObjectsRequestModel() 
+            new DeleteObjectsRequestModel()
             {
                 OrderId = NewId.NextGuid(),
                 ObjectsId = images.Select(x => x.Oid),
@@ -184,17 +200,17 @@ public class ImageController : Controller
         Response<GetObjectsMinIoReply> response;
         IEnumerable<Image> images;
         var cts = new CancellationTokenSource();
-        
+
         images = await _unitOfWork.Images.GetImagesAsync(currentUserId).WaitAsync(cts.Token);
         if (!images.Any())
             return NotFound();
-        
-        response = await _bus.Request<GetObjectsMinIoRequest, GetObjectsMinIoReply>(new GetObjectsRequestModel() 
-        { 
+
+        response = await _bus.Request<GetObjectsMinIoRequest, GetObjectsMinIoReply>(new GetObjectsRequestModel()
+        {
             OrderId = NewId.NextGuid(),
-            ObjectsId = (IEnumerable<dynamic>?)images.Select(x => x.Oid) 
+            ObjectsId = (IEnumerable<dynamic>?)images.Select(x => x.Oid)
         }, cts.Token);
-        
+
         if (response.Message.DataDictionary != null)
             return Ok(response.Message.DataDictionary.Select(dict =>
             {
@@ -212,18 +228,18 @@ public class ImageController : Controller
     public async Task<IActionResult> GetObjectsScenes(string[] scenesNames)
     {
         Response<GetObjectsMinIoReply> response;
-        
-        response = await _bus.Request<GetObjectsMinIoRequest, GetObjectsMinIoReply>(new GetObjectsRequestModel() 
-        { 
+
+        response = await _bus.Request<GetObjectsMinIoRequest, GetObjectsMinIoReply>(new GetObjectsRequestModel()
+        {
             OrderId = NewId.NextGuid(),
             ObjectsId = scenesNames
         });
-        
+
         if (response.Message.DataDictionary != null)
             return Ok(response.Message.DataDictionary);
         return NotFound();
     }
-    
+
     protected override void Dispose(bool disposing)
     {
         _unitOfWork.Dispose();

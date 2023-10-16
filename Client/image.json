@@ -1,0 +1,19 @@
+{
+    "ImageParameters": 
+    [
+        {
+            "Id": 1, 
+            "Type": "model", 
+            "Name": "Тип А", 
+            "Model": { "big": "byteArray", "small": "byteArray"}, 
+            "Preview": "img/byteArray"
+        },
+        {
+            "Id": 2, 
+            "Type": "model", 
+            "Name": "Мини", 
+            "Model": { "big": "byteArray", "small": ""}, 
+            "Preview": "img/byteArray" 
+        }    
+    ]
+}
