@@ -80,6 +80,56 @@ public class IdentityService : IIdentityService
             return result.Succeeded;
         }
 
+        public async Task<bool> RegistrationUserAsync(string userName, string password, string email, string fullName)
+        {
+            var user = new ApplicationUser()
+            {
+                FullName = fullName,
+                UserName = userName,
+                Email = email
+            };
+
+            var result = await _userManager.CreateAsync(user, password);
+
+            if (!result.Succeeded)
+            {
+                var delUserResult = await DeleteUserAsync(user.Id);
+                throw new ValidationException(result.Errors.ToString());
+            }
+
+            var defaultRole = await _roleManager.FindByNameAsync("Default");
+            if (defaultRole == null)
+            {
+                defaultRole = new IdentityRole("Default"); 
+                await _roleManager.CreateAsync(defaultRole);
+            }
+            
+            var addUserRole = await _userManager.AddToRoleAsync(user, defaultRole.Name);
+            if (!addUserRole.Succeeded)
+            {
+                throw new ValidationException(addUserRole.Errors.ToString());
+            }
+            
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            byte[] tokenGeneratedBytes = Encoding.UTF8.GetBytes(code);
+            var codeEncoded = WebEncoders.Base64UrlEncode(tokenGeneratedBytes);
+            var urlHelper = _urlHelperFactory.GetUrlHelper(_actionContextAccessor.ActionContext);
+            var scheme = urlHelper.ActionContext.HttpContext.Request.Scheme;
+            var callbackUrl = urlHelper.Action( new UrlActionContext()
+            {
+                Action = "ConfirmEmail",
+                Controller = "Auth",
+                Values = new { userId = user.Id, code = codeEncoded },
+                Protocol = scheme,
+                //Host = urlHelper.ActionContext.HttpContext.Request.Host.Host
+            });
+            
+            await _emailSender.SendEmailAsync(user.Email, "Confirm your account",
+                $"Подтвердите регистрацию, перейдя по ссылке: <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>link</a>");
+            
+            return result.Succeeded;
+        }
+
         // Return multiple value
         public async Task<(bool isSucceed, string userId)> CreateUserAsync(string userName, string password, string email, string fullName, List<string> roles)
         {

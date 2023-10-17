@@ -7,7 +7,7 @@ namespace StableDraw.Application.Queries.ObjectStorage;
 public class GetObjectsQuery : IRequest<GetImagesResponseDto>
 {
     public string UserId { get; set; }
-    public IEnumerable<string> ObjectNames { get; set; }
+    public IEnumerable<string>? ObjectNames { get; set; }
 }
 
 class GetObjectsQueryHandler : IRequestHandler<GetObjectsQuery, GetImagesResponseDto>

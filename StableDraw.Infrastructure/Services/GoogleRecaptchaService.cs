@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using StableDraw.Application.Common.Interfaces;
 using StableDraw.Application.DTOs;
@@ -22,6 +23,11 @@ public class GoogleRecaptchaService : IGoogleRecaptchaService
             Response = token,
             SecretKey = _settings.RecaptchaSecretKey
         };
+
+        if (string.IsNullOrEmpty(token))
+        {
+            return new GoogleRecaptchaResponseDto() { success = true };
+        }
 
         var client = new HttpClient();
 

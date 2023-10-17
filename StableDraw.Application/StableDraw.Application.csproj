@@ -15,12 +15,6 @@
 
 
     <ItemGroup>
-      <Folder Include="Commands\Neurals\" />
-    </ItemGroup>
-
-
-
-    <ItemGroup>
       <ProjectReference Include="..\StableDraw.Contracts\StableDraw.Contracts.csproj" />
     </ItemGroup>
 

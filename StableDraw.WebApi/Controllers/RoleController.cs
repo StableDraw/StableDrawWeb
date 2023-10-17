@@ -15,7 +15,7 @@ namespace StableDraw.WebApi.Controllers;
 [Authorize(Roles = "Admin, Management")]
 public class RoleController : ControllerBase
 {
-    public readonly IMediator _mediator;
+    private readonly IMediator _mediator;
 
     public RoleController(IMediator mediator)
     {

@@ -17,8 +17,10 @@ public interface IIdentityService
     Task<bool> EmailConfirmed(string userId, string code);
     Task<bool> ForgotUserPassword(string email);
     Task<bool> ResetUserPassword(string email, string password, string code);
+
+    Task<bool> RegistrationUserAsync(string userName, string password, string email, string fullName);
     
-    // Role Section
+        // Role Section
     Task<bool> CreateRoleAsync(string roleName);
     Task<bool> DeleteRoleAsync(string roleId);
     Task<List<(string id, string roleName)>> GetRolesAsync();
