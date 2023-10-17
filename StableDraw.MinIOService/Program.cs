@@ -3,6 +3,7 @@ using MassTransit;
 using Serilog;
 using StableDraw.MinIOService.Consumers;
 using StableDraw.MinIOService.Data;
+using StableDraw.MinIOService.Data.Repositories;
 using StableDraw.MinIOService.Data.UnitsOfWork;
 using StableDraw.MinIOService.Services;
 using StableDraw.MinIOService.Settings;
@@ -56,8 +57,9 @@ IHost host = Host.CreateDefaultBuilder(args)
             });
         }).AddMassTransitHostedService();
 
+        
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddTransient<IMinIoService, MinIoService>();
-        services.AddScoped<UnitOfWork>();
     })
     .UseSerilog((context, configuration) =>
     {

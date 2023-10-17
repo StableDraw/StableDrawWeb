@@ -51,7 +51,7 @@ Client/ClientApp/README.MD
 /StableDraw.Domain/obj
 /StableDraw.Core/obj
 /StableDraw.Domain/bin
-
+/StableDraw.Infrastructure/obj
 /StableDraw.Contracts/obj
 /StableDraw.SagasService/obj
 /StableDraw.SagasService/bin

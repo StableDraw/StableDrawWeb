@@ -12,6 +12,7 @@ using StableDraw.Infrastructure.Data;
 using StableDraw.Infrastructure.Identity;
 using StableDraw.Infrastructure.Mediator;
 using StableDraw.Infrastructure.Services;
+using StableDraw.Infrastructure.Settings;
 
 namespace StableDraw.Infrastructure;
 
@@ -83,6 +84,10 @@ public static class ExtensionDi
         services.AddTransient<IRequestBus, MassTransitRequestBus>();
         services.AddScoped<IObjectStorageService, ObjectStorageService>();
         services.AddScoped<INeuralService, NeuralService>();
+        
+        // Add ReCaptchaService
+        services.Configure<GoogleRecaptchaSettings>(configuration.GetSection("GoogleRecaptcha"));
+        services.AddScoped<IGoogleRecaptchaService, GoogleRecaptchaService>();
         
         return services;
     }

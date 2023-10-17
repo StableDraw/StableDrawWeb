@@ -13,9 +13,9 @@ public class MinIoService : IMinIoService
 {
     private readonly MinioClient _minio;
     private readonly MinIOSettings _minIoSettings;
-    private readonly UnitOfWork _unitOfWork;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public MinIoService(IOptions<MinIOSettings> minIoSettings, UnitOfWork unitOfWork)
+    public MinIoService(IOptions<MinIOSettings> minIoSettings, IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
         _minIoSettings = minIoSettings.Value;

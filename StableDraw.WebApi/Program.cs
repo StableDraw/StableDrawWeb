@@ -7,17 +7,12 @@ using StableDraw.Application.Commands.User;
 using StableDraw.Application.Common.Interfaces;
 using StableDraw.Infrastructure;
 using StableDraw.Infrastructure.Services;
-using StableDraw.WebApi.Services;
-using StableDraw.WebApi.Settings;
+using StableDraw.Infrastructure.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
-
-// Add ReCaptchaService
-builder.Services.Configure<GoogleRecaptchaSettings>(builder.Configuration.GetSection("GoogleRecaptcha"));
-builder.Services.AddTransient<GoogleRecaptchaService>();
 
 // add neural config
 builder.Configuration.AddJsonFile("neural.json");

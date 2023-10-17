@@ -1,4 +1,4 @@
-﻿namespace StableDraw.WebApi.Settings;
+﻿namespace StableDraw.Infrastructure.Settings;
 
 public class GoogleRecaptchaSettings
 {

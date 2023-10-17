@@ -1,10 +1,12 @@
 ﻿using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using StableDraw.WebApi.Settings;
+using StableDraw.Application.Common.Interfaces;
+using StableDraw.Application.DTOs;
+using StableDraw.Infrastructure.Settings;
 
-namespace StableDraw.WebApi.Services;
+namespace StableDraw.Infrastructure.Services;
 
-public class GoogleRecaptchaService
+public class GoogleRecaptchaService : IGoogleRecaptchaService
 {
     private readonly GoogleRecaptchaSettings _settings;
 
@@ -13,7 +15,7 @@ public class GoogleRecaptchaService
         _settings = settings.Value;
     }
 
-    public async Task<GoogleRecaptchaResponse> Verefication(string token)
+    public async Task<GoogleRecaptchaResponseDto> Verefication(string token)
     {
         GoogleRecaptchaData data = new GoogleRecaptchaData()
         {
@@ -25,7 +27,7 @@ public class GoogleRecaptchaService
 
         var response = await client.GetStringAsync($"https://www.google.com/recaptcha/api/siteverify?secret={data.SecretKey}&response={data.Response}");
 
-        var captchaResponse = JsonConvert.DeserializeObject<GoogleRecaptchaResponse>(response);
+        var captchaResponse = JsonConvert.DeserializeObject<GoogleRecaptchaResponseDto>(response);
 
         return captchaResponse;
     }
@@ -37,11 +39,3 @@ public class GoogleRecaptchaData
     public string SecretKey { get; set; }
 }
 
-public class GoogleRecaptchaResponse
-{
-    public bool success { get; set; }
-    public double score { get; set; }
-    public string action { get; set; }
-    public DateTime chellenge_ts { get; set; }
-    public string hostname { get; set; }
-}

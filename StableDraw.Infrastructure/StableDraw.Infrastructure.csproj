@@ -38,10 +38,25 @@
       <Reference Include="MimeKit">
         <HintPath>..\..\..\.nuget\packages\mimekit\4.0.0\lib\net6.0\MimeKit.dll</HintPath>
       </Reference>
+      <Reference Include="Newtonsoft.Json">
+        <HintPath>..\..\..\.nuget\packages\newtonsoft.json\13.0.1\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 
 
+
+
+
+    <ItemGroup>
+      <Compile Remove="Migrations\ApplicationContextModelSnapshot.cs" />
+    </ItemGroup>
+
+
+
+    <ItemGroup>
+      <Folder Include="obj\Debug\net7.0\" />
+    </ItemGroup>
 
 
 </Project>
