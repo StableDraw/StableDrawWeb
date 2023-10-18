@@ -1,5 +1,4 @@
-﻿import {Component} from "react";
-import {makeAutoObservable, observable} from "mobx";
+﻿import {makeAutoObservable} from "mobx";
 
 class ToolState{
     tool = null

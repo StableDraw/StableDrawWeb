@@ -27,7 +27,7 @@ const Parametrs = observer(({closeWindow, closeParam,}) => {
 
     const [file, setFile] = useState()
     const [showParam, setShowParam] = useState(false)
-
+    const [result, setResult] = useState('')
     const paramsToRender = testMob.parametrs
     let renderValue = testMob.defaultValue
     const neuralName = testMob.activeNeuralName
@@ -51,8 +51,11 @@ const Parametrs = observer(({closeWindow, closeParam,}) => {
         formData.append('ImagesInput', file)
         try {
             const response = await api.RunNeural(formData)
-            const image = response.data[0]
-            setFile(image)
+            const image = response.data.images[0]
+            // setFile(image)
+            // console.log(response.data.images[0])
+            setResult(`data:image/png;base64, ${image}`)
+            console.log('done')
         } catch(e) {
             console.error(e)
             throw(e)
@@ -65,7 +68,8 @@ const Parametrs = observer(({closeWindow, closeParam,}) => {
             onMouseOver={()=>setShowParam(true)}
             onMouseOut={()=>setShowParam(false)}
         >
-            <img className={showParam ? cl.backgroundImage : cl.img} src={file ? URL.createObjectURL(file) : 'StableDrawLogo.png'}/>
+            <img src={result}/>
+            {/* <img className={showParam ? cl.backgroundImage : cl.img} src={file ? URL.createObjectURL(file) : 'StableDrawLogo.png'}/> */}
             {/* <input type='file' multiple={true} onChange={e=>setFile(e.target.files[0])}/> */}
             {/* <img src={"data:image/png;base64," + file} /> */}
             <div className={showParam ? cl.downloadActive : cl.download}>

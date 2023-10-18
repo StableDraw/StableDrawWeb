@@ -1,5 +1,5 @@
 ﻿import { React, useState } from 'react';
-import LableBar from "./UI/LableBar/LableBar.jsx";
+import LableBar from "./UI/LableBarMobx/LableBar.jsx";
 import GenBlock from "./UI/modal/GenBlock.jsx";
 import Canvas from "./UI/canvas/Canvas.jsx";
 import GraphicTable from "./UI/modal/GraphicTable.jsx";
@@ -64,7 +64,6 @@ const Drawing = () => {
 
     const Width = (e) => {
         setWidth(e)
-        console.log(width)
     }
     const Height = (e) => {
         setHeight(e)
@@ -73,19 +72,8 @@ const Drawing = () => {
 
     return (
         <div>
-
             <div className={cl.main}>
-
-                {/*<SideBar light={{item: '1', bla: 2}}/>*/}
-
-
                 <ToolBar />
-                {/*<h1>
-                        <span style={{textDecoration: 'underline', margin: 80, color: 'rgba(204,32,32,0.8)'}}>
-                            <span style={{color: 'rgba(83,107,234,0.9)', fontWeight: "bold" }}>S
-                            </span>table Drawing
-                        </span>
-                    </h1>*/}
                 <div className={cl.main__content}>
 
                     <div className={cl.col}>
@@ -123,17 +111,11 @@ const Drawing = () => {
                         />
                     </div>
 
-
                     {/*<ScaleField />*/}
                     <GenBlock />
                 </div>
 
-
-
                 <GraphicTable />
-
-
-
             </div>
         </div>
     );

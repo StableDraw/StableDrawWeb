@@ -1,79 +1,114 @@
 ﻿import React, {useEffect, useMemo, useRef, useState} from 'react';
+import { observer } from 'mobx-react-lite';
+
 import Visability from "./ListItem.utils/Visability";
-import Clear from "./ListItem.utils/Clear";
 import Destroy from "../../LableBar/LableBar.utils/Destroy";
+
 import  cl from './ListItem.module.css'
-import CanvasState from "../../../../store/canvasState";
-import toolState from "../../../../store/toolState";
-import Brush from "../../../../tools/Brush";
-import canvasState from "../../../../store/canvasState";
-import ButtonGroup from '@mui/material/ButtonGroup';
 
-const ListItem = (props) => {
-    const CanvasRef = useRef(null)
-    const [select, setSelect] = useState(cl.not__selected)
+import canvasList from '../../../../store/canvasList.tsx';
+import canvasState from '../../../../store/canvasState.tsx';
 
-    useEffect(() => {
-        CanvasState.selectedContextLabel(CanvasRef.current)
-    }, [])
+const ListItem = observer(({item}) => {
+
+    const canvasRef = useRef(null)
+    
+    if (item.active === true) {
+        canvasList.activeCanvas = canvasRef.current
+    }
+    // if(item.id === 1) {
+    //     canvasList.setActiveCanvas(canvasRef.current, item.id)
+    // }
+    // const [select, setSelect] = useState(cl.not__selected)
+
+    // useEffect(() => {
+    //     CanvasState.selectedContextLabel(CanvasRef.current)
+    // }, [])
 
     /* Сделать для canvas наследование width & height: inherit, а в заливке отриосваного сдлеать ширину и высоту layer_display_icon
     * определяя его через current.width & current.height
     * обязательно обернуть в useMemo
     * */
 
-    const selectLabel = (e) => {
-        e.preventDefault()
+    // const selectLabel = (e) => {
+    //     e.preventDefault()
         
-        props.defOpacity(
-            CanvasState.getCanvasList().find(
-                item => 
-                    item.attributes[1].value === CanvasRef.current.attributes[1].value
-            ).style.opacity
-        )
-        CanvasState.setLabel(CanvasRef.current.attributes[1].value)
-        CanvasState.selectedContextLabel(CanvasRef.current)
+    //     props.defOpacity(
+    //         CanvasState.getCanvasList().find(
+    //             item => 
+    //                 item.attributes[1].value === CanvasRef.current.attributes[1].value
+    //         ).style.opacity
+    //     )
+    //     CanvasState.setLabel(CanvasRef.current.attributes[1].value)
+    //     CanvasState.selectedContextLabel(CanvasRef.current)
         
         
-        toolState.setTool(new Brush(CanvasState.getCanvasList().find(
-            item => item.attributes[1].value === CanvasRef.current.attributes[1].value
-            )
-        ))
+    //     toolState.setTool(new Brush(CanvasState.getCanvasList().find(
+    //         item => item.attributes[1].value === CanvasRef.current.attributes[1].value
+    //         )
+    //     ))
         
-        CanvasState.setCanvas(CanvasState.getCanvasList().find(
-            item => item.attributes[1].value === CanvasRef.current.attributes[1].value
-        ));
-        props.merger(e)
-        props.mergeCanvas(e)
+    //     CanvasState.setCanvas(CanvasState.getCanvasList().find(
+    //         item => item.attributes[1].value === CanvasRef.current.attributes[1].value
+    //     ));
+    //     props.merger(e)
+    //     props.mergeCanvas(e)
 
         
+    // }
+    const setActiveCanvas = () => {
+        // console.log('it works')
+        if (item.active === true ) {
+            return
+        }
+        canvasList.setActiveCanvas(canvasRef.current, item.id)
+        let image = new Image()
+        image.src = canvasList.activeCanvas.toDataURL()
+        image.onload = () => {
+            const ctxActive =  canvasList.activeCanvas.getContext("2d")
+            const ctxMain = canvasState.canvas.getContext("2d")
+           
+            ctxMain.clearRect(0,0, ctxMain.canvas.offsetWidth, ctxMain.canvas.offsetHeight)
+            ctxMain.drawImage(image, 0, 0, ctxMain.canvas.offsetWidth, ctxMain.canvas.offsetHeight)
+            // double change item wiil reDraw the mainCanvas. bug
+            // ctxActive.clearRect(0, 0 , ctxActive.canvas.offsetWidth, ctxActive.canvas.offsetHeight)
+            // ctxActive.drawImage(image, 0, 0, ctxActive.canvas.offsetWidth, ctxActive.canvas.offsetHeight)
+            
+        }
+        // console.log(JSON.parse(JSON.stringify(item)))
+        // console.log(canvasRef.current)
+        // console.log(canvasRef)
+        canvasState.setCanvas(canvasRef.current)
     }
     
     return (
-        <div className={[cl.layer].join(" ")} id={props.item.id}
-             onClick={(e) => selectLabel(e)}
-             tabindex={props.index}>
+        <div className={[item.id === canvasList.activeCanvasValue ? cl.layerActive : cl.layer]}
+            onClick={()=>setActiveCanvas()}
+            //  onClick={(e) => selectLabel(e)}
+            //  tabindex={props.index}
+             >
             <div className={cl.layer__block}>
-                <Visability ids={props.item.id} Visable={props.Visable} IndexVisable={props.index}/>
+                {/* <Visability ids={props.item.id} Visable={props.Visable} IndexVisable={props.index}/> */}
                 {/*<Clear ids={props.item.id} Clear={props.Clear} IndexClear={props.index}/>*/}
-                <div className={cl.layer_display_icon} id={"layer_display_icon_"+props.item.id}>
+                <div className={cl.layer_display_icon} 
+                    // id={"layer_display_icon_"+props.item.id}
+                >
                     <canvas
-                        ref={CanvasRef}
-                        id={"layer_"+props.item.id+"_display_canvas"}
-                        index={props.index}
-                        width="50px"
-                        height="28px"
-                        style={{ zIndex: props.index, width: "50px", height: "28px", background: "#FFFFFF" }}>
+                        ref={canvasRef}
+                        id={item.id}
+                        className={cl.canvas}
+                        >
+                  
                     </canvas>
                 </div>
                 <span className={cl.name}>
-                    Layer {props.index + 1}
+                    {/* Layer {props.index + 1} */}
                 </span>
             </div>
-            <Destroy deleteCanva={props.deleteCanva} indexDelete={props.index} remove={props.remove} item={props.item}/>
+            <Destroy item={item}/>
         </div>
     );
 
-};
+})
 
 export default ListItem;

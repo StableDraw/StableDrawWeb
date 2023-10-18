@@ -1,5 +1,4 @@
-﻿import {observer} from "mobx-react";
-import {makeAutoObservable} from "mobx";
+﻿import {makeAutoObservable} from "mobx";
 
 class CanvasState {
     canvas = null
