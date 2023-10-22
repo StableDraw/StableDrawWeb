@@ -1,8 +1,6 @@
-﻿import React, {useState} from 'react';
+﻿import React from 'react';
 import CloseIcon from '@mui/icons-material/Close';
-import CanvasState from "../../../../store/canvasState";
-import Brush from "../../../../tools/Brush";
-import toolState from "../../../../store/toolState";
+
 const Destroy = ({ids,deleteCanva,indexDelete, ...props}) => {
     const Destroy = () => {
         // const list = CanvasState.getCanvasList()

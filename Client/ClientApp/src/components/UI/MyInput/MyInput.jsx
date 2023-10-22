@@ -1,6 +1,7 @@
-import React, { useState, useMemo, useEffect } from "react"
+import React, { useState } from "react"
 import cl from './MyInput.module.css'
 import toolState from "../../../store/toolState";
+
 const MyInput = (props) => {
     const [value, setValue] = useState(1)
     

@@ -4,8 +4,6 @@ import Button from '@mui/material/Button';
 import { Modal } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import GenerateContent from "./GenerateContent";
-import ToolButton from '../../Toolbar/ToolButton';
-import MyInput from '../../MyInput/MyInput';
 const GenerateButton = () => {
     const [modal, setModal] = useState(false)
     // const rootClass = [cl.myModal]

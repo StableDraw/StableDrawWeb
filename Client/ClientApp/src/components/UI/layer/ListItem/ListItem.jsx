@@ -1,13 +1,10 @@
-﻿import React, {useEffect, useMemo, useRef, useState} from 'react';
+﻿import React, {useEffect, useRef, useState} from 'react';
 import Visability from "./ListItem.utils/Visability";
-import Clear from "./ListItem.utils/Clear";
 import Destroy from "../../LableBar/LableBar.utils/Destroy";
-import  cl from './ListItem.module.css'
+import cl from './ListItem.module.css'
 import CanvasState from "../../../../store/canvasState";
 import toolState from "../../../../store/toolState";
 import Brush from "../../../../tools/Brush";
-import canvasState from "../../../../store/canvasState";
-import ButtonGroup from '@mui/material/ButtonGroup';
 
 const ListItem = (props) => {
     const CanvasRef = useRef(null)

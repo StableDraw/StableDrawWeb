@@ -1,6 +1,4 @@
 ﻿import React, {useState} from 'react';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import  cl from '.././ListItem.module.css'
 const Visability = ({ids,Visable,IndexVisable, ...props}) => {
     const [item, setId] = useState(ids)

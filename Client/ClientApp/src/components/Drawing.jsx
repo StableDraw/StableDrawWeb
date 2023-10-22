@@ -1,10 +1,7 @@
 ﻿import { React, useState } from 'react';
 import LableBar from "./UI/LableBar/LableBar.jsx";
-import GenBlock from "./UI/modal/GenBlock.jsx";
 import Canvas from "./UI/canvas/Canvas.jsx";
-import GraphicTable from "./UI/modal/GraphicTable.jsx";
 import ToolBar from "./UI/Toolbar/ToolBar.jsx";
-import PayModule from "./UI/payModule/PayBtn.jsx";
 import BabylonModule from "./UI/BabylonModule/BabylonBtn.jsx";
 import ToolOptionsBar from './UI/ToolOptionsBar/ToolOptionsBar.jsx';
 import GenerateModule from './UI/GenerateBtn/GenerationBtn.jsx'
@@ -106,7 +103,6 @@ const Drawing = () => {
                     <div className={[cl.col, cl.block].join(" ")} style={{ padding: "0 0 0 5px" }}>
                         <div className={[cl.row, cl.canvas__button].join(" ")} style={{ gap: "9px", paddingTop: "10vh" }}>
                             <BabylonModule />
-                            {/* <PayModule/> */}
                             <Link className={cl.link} to='/Pay'>
                                 <span className={cl.subscribe__txt}> Подписка</span>
                             </Link>
@@ -122,18 +118,7 @@ const Drawing = () => {
                             newCanva={AddNewcanva}
                         />
                     </div>
-
-
-                    {/*<ScaleField />*/}
-                    <GenBlock />
                 </div>
-
-
-
-                <GraphicTable />
-
-
-
             </div>
         </div>
     );
