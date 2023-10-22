@@ -162,6 +162,15 @@ export class Home extends Component {
                                                         className='faulty-letter'>ВЕР</span>СИЯ</span>
                                                 </button>
                                             </NavLink>
+                                            
+                                            <NavLink tag={Link} to="/video-editor" className="bootstrap-btn primary-outline-blue--hover">
+                                                <button className="start-button-text1">
+                                                    <span className='glowing-txt'>
+                                                        Видео-редактор
+                                                    </span>
+                                                </button>
+                                            </NavLink>
+                                            
                                             {/* <button className="start-button-text2">
                                                     <span className='glowing-txt'>ТЕС<span
                                                         className='faulty-letter'>ТИ</span>РОВАТЬ1</span>
