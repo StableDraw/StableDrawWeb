@@ -16,9 +16,11 @@ public class MinIoService : IMinIoService
     private readonly MinioClient _minio;
     //private readonly Logger<MinIoService> _logger;
     private readonly MinIOSettings _minIoSettings;
+    private readonly IConfiguration _configuration;
     
-    public MinIoService(IOptions<MinIOSettings> minIoSettings)
+    public MinIoService(IOptions<MinIOSettings> minIoSettings, IConfiguration configuration)
     {
+        _configuration = configuration;
         //_logger = logger;
         _minIoSettings = minIoSettings.Value;
         _minio = new MinioClient()
@@ -100,7 +102,67 @@ public class MinIoService : IMinIoService
             return await Task.FromResult(new DeleteObjectsResult() { ErrorMsg = e.Message });
         }
     }
-    
+
+    public async Task<IGetBabylonDataReply> GetBabylonData(IGetBabylonDataRequest request)
+    {
+        try
+        {
+            // Check Exists bucket
+            bool found = await _minio.BucketExistsAsync(new BucketExistsArgs().WithBucket(_minIoSettings.BucketName));
+        
+            if (!found)
+            {
+                // if bucket not Exists,make bucket
+                await _minio.MakeBucketAsync(new MakeBucketArgs().WithBucket(_minIoSettings.BucketName));
+            }
+
+            var result = new IGetBabylonDataReply
+            {
+                OrderId = request.OrderId,
+                Scenes = _configuration.GetSection("Babylon:Scenes").Get<IEnumerable<SceneDto>>(),
+                Models = _configuration.GetSection("Babylon:Models").Get<IEnumerable<ModelDto>>(),
+                EnvMaps = _configuration.GetSection("Babylon:EnvMaps").Get<IEnumerable<EnvMapDto>>()
+            };
+
+            PresignedGetObjectArgs args = new PresignedGetObjectArgs()
+                .WithBucket(_minIoSettings.BucketName)
+                .WithExpiry(60 * 60 * 24);
+            
+            foreach (var scene in result.Scenes)
+            {
+                args.WithObject(scene.Scene);
+                scene.Scene = await _minio.PresignedGetObjectAsync(args);
+
+                args.WithObject(scene.Preview);
+                scene.Preview = await _minio.PresignedGetObjectAsync(args);
+            }
+
+            foreach (var model in result.Models)
+            {
+                foreach (var keyVal in model.ModelsDict)
+                {
+                    args.WithObject(keyVal.Value);
+                    model.ModelsDict[keyVal.Key] = await _minio.PresignedGetObjectAsync(args);    
+                }
+
+                args.WithObject(model.Preview);
+                model.Preview = await _minio.PresignedGetObjectAsync(args);
+            }
+
+            foreach (var env in result.EnvMaps)
+            {
+                args.WithObject(env.Data);
+                env.Data = await _minio.PresignedGetObjectAsync(args);
+            }
+
+            return result;
+        }
+        catch (Exception e)
+        {
+            return await Task.FromResult(new IGetBabylonDataReply() { ErrorMsg = e.Message });
+        }
+    }
+
     public async Task<PutObjectResult> PutObj(IPutObjectRequest request)
     {
         try

@@ -16,6 +16,11 @@ public record GetObjectMinIoReply
     public byte[]? Data { get; set; }
 }
 
+public record GetBabylon
+{
+    
+}
+
 public record GetObjectsMinIoReply
 {
     public Guid OrderId { get; set; }

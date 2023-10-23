@@ -21,7 +21,8 @@ export default class  Textures {
 		if (!await AuthorizeService.isAuthenticated())
 			return axios.HttpStatusCode.NotFound;
 			
-			return await axios.get("api/image", await ApiToken.GetConfigToken());
+		return await axios.get("api/image", await ApiToken.GetConfigToken());
+		//return await axios.get("api/image/models", await ApiToken.GetConfigToken());
 	}
 	static async DeleteAllTextures() {
 		if (!await AuthorizeService.isAuthenticated())
@@ -30,10 +31,10 @@ export default class  Textures {
 		return await axios.delete("api/image", await ApiToken.GetConfigToken());
 	}
 	
-	static async GetAllScenes(scenesArray){
-		if (!await AuthorizeService.isAuthenticated())
-			return axios.HttpStatusCode.NotFound;
-		return await axios.get("api/image/scenes", await ApiToken.GetConfigToken(), {params: scenesArray});
-	}
+	// static async GetAllScenes(scenesArray){
+	// 	if (!await AuthorizeService.isAuthenticated())
+	// 		return axios.HttpStatusCode.NotFound;
+	// 	return await axios.get("api/image/scenes", await ApiToken.GetConfigToken(), {params: scenesArray});
+	// }
 }
 

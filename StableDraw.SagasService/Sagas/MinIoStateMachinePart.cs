@@ -13,7 +13,7 @@ public sealed partial class MinIoStateMachine
     public Request<MinIoState, IPutObjectsRequest, IPutObjectsReply> PutObjects { get; set; }
     public Request<MinIoState, IDeleteObjectRequest, IDeleteObjectReply> DeleteObject { get; set; }
     public Request<MinIoState, IDeleteObjectsRequest, IDeleteObjectsReply> DeleteObjects { get; set; }
-    
+    public Request<MinIoState, IGetBabylonDataRequest, IGetBabylonDataReply> GetBabylonData { get; set; }
     #endregion
 
     #region events
@@ -23,6 +23,7 @@ public sealed partial class MinIoStateMachine
     public Event<PutObjectsMinIoRequest> PutObjectsEvent { get; set; }
     public Event<DeleteObjectMinIoRequest> DeleteObjectEvent { get; set; }
     public Event<DeleteObjectsMinIoRequest> DeleteObjectsEvent { get; set; }
+    public Event<GetBabylonDataRequest> GetBabylonDataEvent { get; set; }
     #endregion
     
     public State Failed { get; set; }
@@ -56,6 +57,10 @@ public sealed partial class MinIoStateMachine
         Event(() =>
             DeleteObjectsEvent, x =>
             x.CorrelateById(y => y.Message.OrderId));
+
+        Event(() =>
+            GetBabylonDataEvent, x =>
+            x.CorrelateById(y => y.Message.OrderId));
         #endregion
 
         Request(() => GetObject);
@@ -64,6 +69,6 @@ public sealed partial class MinIoStateMachine
         Request(() => GetObjects);
         Request(() => PutObjects);
         Request(() => DeleteObjects);
-        
+        Request(() => GetBabylonData);
     }
 }

@@ -22,7 +22,6 @@
       <Content Include="..\.dockerignore">
         <Link>.dockerignore</Link>
       </Content>
-      <Content Remove="credentials.json" />
     </ItemGroup>
 
     <ItemGroup>

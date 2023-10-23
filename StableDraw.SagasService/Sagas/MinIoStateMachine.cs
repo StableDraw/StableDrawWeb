@@ -20,7 +20,8 @@ public sealed partial class MinIoStateMachine : MassTransitStateMachine<MinIoSta
             WhenDeleteObjectReceived(),
             WhenGetObjectsReceived(),
             WhenPutObjectsReceived(),
-            WhenDeleteObjectsReceived()
+            WhenDeleteObjectsReceived(),
+            WhenGetBabylonDataReceived()
         );
 
         #region during
@@ -128,6 +129,24 @@ public sealed partial class MinIoStateMachine : MassTransitStateMachine<MinIoSta
                 await RespondFromSaga(context, "TimeOut On Get Objects");
             }).TransitionTo(Failed));
 
+        During(GetBabylonData.Pending,
+            When(GetBabylonData.Completed).ThenAsync(async context =>
+            {
+                await RespondFromSaga(context, string.Empty);
+            }).TransitionTo(Complete),
+            When(GetBabylonData.Faulted)
+                .ThenAsync(async context =>
+                {
+                    await RespondFromSaga(context,
+                        "Faulted On Get Babylon Data " +
+                        string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
+                })
+                .TransitionTo(Failed),
+            When(GetBabylonData.TimeoutExpired)
+                .ThenAsync(async context =>
+                {
+                    await RespondFromSaga(context, "TimeOut Get Babylon Data ");
+                }).TransitionTo(Failed));
         
         #endregion
     }
@@ -148,6 +167,21 @@ public sealed partial class MinIoStateMachine : MassTransitStateMachine<MinIoSta
             ObjectId = x.Message.ObjectId,
             Data = x.Message.Data
         })).TransitionTo(PutObject.Pending);
+    }
+    
+    private EventActivityBinder<MinIoState, GetBabylonDataRequest> WhenGetBabylonDataReceived()
+    {
+        return When(GetBabylonDataEvent).Then(x =>
+        {
+            if (!x.TryGetPayload(out SagaConsumeContext<MinIoState, GetBabylonDataRequest> putImage))
+                throw new Exception("Unable to retrieve required getImage for callback data.");
+            x.Saga.RequestId = putImage.RequestId;
+            x.Saga.ResponseAddress = putImage.ResponseAddress;
+
+        }).Request(GetBabylonData, x => x.Init<IGetBabylonDataRequest>(new
+        {
+            OrderId = x.Message.OrderId,
+        })).TransitionTo(GetBabylonData.Pending);
     }
     
     private EventActivityBinder<MinIoState, PutObjectsMinIoRequest> WhenPutObjectsReceived()
@@ -237,6 +271,31 @@ public sealed partial class MinIoStateMachine : MassTransitStateMachine<MinIoSta
         var endpoint = await context.GetSendEndpoint(context.Saga.ResponseAddress);
         switch (context.Message)
         {
+            case IGetBabylonDataReply getBabylonDataReply:
+                await endpoint.Send(
+                    new GetBabylonDataReply()
+                    {
+                        OrderId = context.Saga.CorrelationId,
+                        EnvMaps = getBabylonDataReply.EnvMaps,
+                        Models = getBabylonDataReply.Models,
+                        Scenes = getBabylonDataReply.Scenes
+                    }, r => r.RequestId = context.Saga.RequestId);
+                break;
+            case Fault<IGetBabylonDataRequest>:
+                await endpoint.Send(
+                    new GetBabylonDataReply()
+                    {
+                        OrderId = context.Saga.CorrelationId,
+                        ErrorMsg = error
+                    }, r => r.RequestId = context.Saga.RequestId);
+                break;
+            case RequestTimeoutExpired<IGetBabylonDataRequest>:
+                await endpoint.Send(new GetBabylonDataReply()
+                {
+                    OrderId = context.Saga.CorrelationId,
+                    ErrorMsg = error
+                }, r => r.RequestId = context.Saga.RequestId);
+                break;
             case IPutObjectReply putObjectReply:
                 await endpoint.Send(
                     new PutObjectMinIoReply()
