@@ -18,13 +18,15 @@ public class ImageController : Controller
     private readonly IBus _bus;
     private readonly ILogger<ImageController> _logger;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IConfiguration _configuration;
 
     public ImageController(
-        ILogger<ImageController> logger, IUnitOfWork unitOfWork, IBus bus)
+        ILogger<ImageController> logger, IUnitOfWork unitOfWork, IBus bus, IConfiguration configuration)
     {
         _logger = logger;
         _unitOfWork = unitOfWork;
         _bus = bus;
+        _configuration = configuration;
     }
 
     [HttpGet("{imageName}")]
@@ -208,20 +210,16 @@ public class ImageController : Controller
         return NotFound();
     }
 
-    [HttpGet("scenes")]
-    public async Task<IActionResult> GetObjectsScenes(string[] scenesNames)
+    [HttpGet("models")]
+    public async Task<IActionResult> GetObjectsModels()
     {
-        Response<GetObjectsMinIoReply> response;
+        var message = new GetBabylonDataRequest()
+        {
+            OrderId = NewId.NextGuid()
+        };
         
-        response = await _bus.Request<GetObjectsMinIoRequest, GetObjectsMinIoReply>(new GetObjectsRequestModel() 
-        { 
-            OrderId = NewId.NextGuid(),
-            ObjectsId = scenesNames
-        });
-        
-        if (response.Message.DataDictionary != null)
-            return Ok(response.Message.DataDictionary);
-        return NotFound();
+        var response = await _bus.Request<GetBabylonDataRequest, GetBabylonDataReply>(message);
+        return Ok(response.Message);
     }
     
     protected override void Dispose(bool disposing)

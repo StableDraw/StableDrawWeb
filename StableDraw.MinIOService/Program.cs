@@ -38,6 +38,7 @@ IHost host = Host.CreateDefaultBuilder(args)
             cfg.AddConsumer<PutObjectsConsumer>();
             cfg.AddConsumer<GetObjectConsumer>();
             cfg.AddConsumer<GetObjectsConsumer>();
+            cfg.AddConsumer<GetBabylonDataConsumer>();
             cfg.UsingRabbitMq((brc, rbfc) =>
             {
                 rbfc.UseMessageRetry(r =>

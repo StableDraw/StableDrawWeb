@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using StableDraw.Contracts;
+using StableDraw.Contracts.MInIoContracts.Replies;
 using StableDraw.Contracts.MInIoContracts.Requests;
 using StableDraw.MinIOService.Models;
 
@@ -13,4 +14,5 @@ public interface IMinIoService
     Task<PutObjectsResult> PutObjects(IPutObjectsRequest request);
     Task<GetObjectsResult> GetObjects(IGetObjectsRequest request);
     Task<DeleteObjectsResult> DeleteObjects(IDeleteObjectsRequest request);
+    Task<IGetBabylonDataReply> GetBabylonData(IGetBabylonDataRequest request);
 }
