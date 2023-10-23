@@ -1,31 +1,36 @@
 import React from 'react';
-import { useState, memo } from "react";
+import { useState, memo, useEffect } from "react";
 import mainClass from './stylesLight/main.module.css'
-import mainClassLight from './stylesLight/main.module.css'
 import { ModelsBar } from "./modelsBar";
 import { SceneBar } from "./SceneBar";
+import api from '../../api/api';
 import toggleStylesLight from './stylesLight/toggleBtn.module.css'
 import toggleStylesDark from './stylesDark/toggleBtn.module.css'
 
 export const ToggleBar = memo(({
 	changeModel,
 	changeScene,
-	isOpen,
-	setIsOpen,
 	setSceneModal,
 	isLightTheme }) => {
 	const [isModelsBar, setModelsBar] = useState(true);
+	const [modelStaff, setModelStaff] = useState();
+
+
+	useEffect(() => {
+		const getLinksToAllStatics = async () => {
+			const staticMesh = await api.GetLinksToDownload()
+				.catch((err) => { console.log(err) });
+			setModelStaff(staticMesh);
+		}
+		getLinksToAllStatics();
+	}, []);
 
 	const showModelsBar = () => {
 		setModelsBar(!isModelsBar)
 	}
+
 	return (
 		<div className={mainClass.bar}>
-			{/* <div className={mainClass.barButton}>
-				<IconButton onClick={() => setIsOpen(!isOpen)}>
-					<ViewSidebarRoundedIcon className={isLightTheme ? mainClassLight.barBtn : mainClass.barBtn} />
-				</IconButton>
-			</div> */}
 			<div className={toggleStylesLight.selectButtons}>
 				<button
 					onClick={showModelsBar}
@@ -50,8 +55,8 @@ export const ToggleBar = memo(({
 
 				</button>
 			</div>
-			{isModelsBar ? <ModelsBar changeModel={changeModel} isLightTheme={isLightTheme} /> :
-				<SceneBar changeScene={changeScene} setSceneModal={setSceneModal} isLightTheme={isLightTheme} />}
+			{isModelsBar ? <ModelsBar modelStaff={modelStaff} changeModel={changeModel} isLightTheme={isLightTheme} /> :
+				<SceneBar modelStaff={modelStaff} changeScene={changeScene} setSceneModal={setSceneModal} isLightTheme={isLightTheme} />}
 		</div>
 	);
 })

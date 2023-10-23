@@ -38,10 +38,11 @@ export default class Textures {
 		return await axios.get("api/models", await ApiToken.GetConfigToken());
 	}
 
-	// static async GetAllScenes(scenesArray){
-	// 	if (!await AuthorizeService.isAuthenticated())
-	// 		return axios.HttpStatusCode.NotFound;
-	// 	return await axios.get("api/image/scenes", await ApiToken.GetConfigToken(), {params: scenesArray});
-	// }
+	static async GetLinksToDownload(){
+		if (!await AuthorizeService.isAuthenticated())
+			return axios.HttpStatusCode.NotFound;
+
+		return await axios.get("api/image/models", await ApiToken.GetConfigToken());
+	}
 }
 

@@ -52,7 +52,6 @@ export const SizeBar = ({ changeModel, model, isLightTheme }) => {
 						<path d="M4 12.2353H10V6.58824H14L7 0L0 6.58824H4V12.2353ZM0 14.1176H14V16H0V14.1176Z" fill={isLightTheme ? '#0066FF' : "white"} />
 					</svg>
 				</div>
-
 			</button>
 		</div>
 	);

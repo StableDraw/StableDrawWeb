@@ -6,7 +6,7 @@ import sizeBar from './stylesDark/sizeBar.module.css'
 
 export const SceneCard = ({
 	name,
-	img,
+	preview,
 	scene,
 	changeScene,
 	setSceneModal,
@@ -16,6 +16,7 @@ export const SceneCard = ({
 		changeScene(scene);
 		setSceneModal(name);
 	};
+	// console.log(scene);
 	return (
 		<div >
 			<div className={ isLightTheme ? sizeBarLight.modelCard : sizeBar.modelCard}>
@@ -23,7 +24,7 @@ export const SceneCard = ({
 				<div className={barClassesLight.imgCard}>
 					<img
 						className={barClassesLight.imgInside}
-						src={img}
+						src={preview}
 						alt={name}
 					/>
 						<span className={isLightTheme ? barClassesLight.text : barClasses.text}>{name}</span>
