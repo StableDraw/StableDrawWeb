@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import cl from './UploadButton.module.css'
-import canvasState from '../../../../store/canvasState';
+import canvasState from '../../../../store/canvasState.tsx';
 
 import { createTheme } from '@mui/material/styles';
 import {  Typography, Input, InputLabel, } from '@mui/material';
@@ -11,12 +11,14 @@ const UploadButton = () => {
 		var reader = new FileReader();
         reader.onload = function(event){
             var img = new Image();
-            
-            img.onload = function(){
-                canvasState.getCanvasList().at(-1).getContext("2d", { willReadFrequently: true }).clearRect(0,0, 1080, 732)
-                canvasState.getCanvasList().at(-1).getContext("2d", { willReadFrequently: true }).drawImage(img, 0, 0, 1080, 732)
-            }
+            const ctx = canvasState.canvas.getContext("2d")
             img.src = event.target.result;
+
+            img.onload = function(){
+ 
+                ctx.clearRect(0,0, ctx.canvas.offsetWidth, ctx.canvas.offsetHeight)
+                ctx.drawImage(img, 0, 0, ctx.canvas.offsetWidth, ctx.canvas.offsetHeight)
+            }
         }
         reader.readAsDataURL(event.target.files[0]);
 	};

@@ -15,7 +15,7 @@
 	border-radius: 20px 0px 0px 20px;
 	background: #06F;
 	padding: 10px 30px 20px 31px;
-	border: 2px solid #06F;
+	border: none;
 }
 
 .selectButton1_select:hover{
@@ -28,7 +28,7 @@
 	border-radius: 0px 20px 20px 0px;
 	background: #06F;
 	padding: 10px 30px 20px 31px;
-	border: 2px solid #06F;
+	border: none;
 }
 
 .selectButton2_select:hover{

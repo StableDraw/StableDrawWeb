@@ -1,13 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import cl from './ClearPane.module.css';
-import ToolButton from '../../Toolbar/ToolButton';
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import Content1 from "../../BabylonModule/Content1";
-import MyInput from '../../MyInput/MyInput';
-import canvasState from '../../../../store/canvasState';
-import toolState from '../../../../store/toolState';
-import TrashCan from '../../../../tools/TrashCan';
+
+import canvasState from '../../../../store/canvasState.tsx';
+import toolState from '../../../../store/toolState.tsx';
+import TrashCan from '../../../../toolsMobx/ClearCanvas.ts';
 
 const ClearPane = ({actived, ...props}) => {
     

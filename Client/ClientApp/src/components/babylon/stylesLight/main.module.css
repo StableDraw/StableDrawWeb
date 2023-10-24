@@ -3,9 +3,10 @@
 
 .main {
 	display: flex;
-	justify-content: center;
+	justify-content: flex-start;
 	flex-direction: column;
 	background-color: #EFEFEF;
+	height: 100vh;
 }
 
 .content {
@@ -135,8 +136,8 @@
 
 .text {}
 
-@media(max-width: 1450px){
-  .main {
-   zoom: 0.8 !important;
-  }
+ @media(max-width: 1450px){
+	.content {
+	 zoom: 0.8 !important;
+	}
  }

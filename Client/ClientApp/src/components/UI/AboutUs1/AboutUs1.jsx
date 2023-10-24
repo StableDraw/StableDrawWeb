@@ -3,7 +3,7 @@ import cl from "./AboutUs1.module.css";
 import { Link } from 'react-router-dom';
 import {TeamObject1} from "./TeamObject1";
 import {ImgLinkObject1} from "./ImgLinkObject1";
-import PhotoSlider from "../AboutUs/PhotoSlider";
+import PhotoSlider from "./PhotoSlider";
 
 const sliderData = [
     {img: "./assets/images/Paccage1.png"},

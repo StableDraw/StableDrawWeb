@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import cl from './InputText.module.css'
 import Tooltip from '@mui/material/Tooltip';
 
-const InputText = ({getValue, name, description, keyValue}) => {
-    const [value, setValue] = useState('')
+const InputText = ({getValue, name, description,defaultV, keyValue}) => {
+    const [value, setValue] = useState(defaultV)
     const call = (e) => {
         setValue(e.target.value)
     }

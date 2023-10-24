@@ -1,11 +1,12 @@
 ﻿import {React, useState} from 'react';
 import cl from './Eraser.module.css'
 import MyInput from '../../MyInput/MyInput';
-import toolState from "../../../../store/toolState";
-import canvasState from "../../../../store/canvasState";
-import Erar from "../../../../tools/Eraser"
+import toolState from "../../../../store/toolState.tsx";
+import canvasState from "../../../../store/canvasState.tsx";
+import Erar from "../../../../toolsMobx/Eraser"
+import { observer } from 'mobx-react-lite';
 
-const Eraser = ({active, activeBtn, getRes,}) => {
+const Eraser = observer(({active, activeBtn, getRes,}) => {
     const [modal, setModal] = useState(false)
     const rootClass = [cl.myModal]
     
@@ -16,9 +17,9 @@ const Eraser = ({active, activeBtn, getRes,}) => {
     }
     
     const Eraser = () => {
+        setModal(!modal)
         toolState.setTool(new Erar(canvasState.canvas))
         activeBtn('eraser')
-        setModal(!modal)
     }
     return (
             <a className={cl.el}
@@ -41,7 +42,7 @@ const Eraser = ({active, activeBtn, getRes,}) => {
                     <MyInput width={toolState.width} id='eraser'  imgPath={"thickness.png"} type={'thickness'} imgClass={cl.thicknessimg}/>
                 </div>
             </a>
-    );
-};
+    )
+})
 
 export default Eraser;

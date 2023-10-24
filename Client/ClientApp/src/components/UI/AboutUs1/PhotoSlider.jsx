@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import cl from "./AboutUs.module.css";
-import "./AboutUs.module.css";
+import cl from "./AboutUs1.module.css";
+import "./AboutUs1.module.css";
 const PhotoSlider = ({data}) => {
     const [activeId, setActive] = useState(0)
 

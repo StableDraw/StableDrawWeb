@@ -1,40 +1,54 @@
 import { useEffect, useState } from 'react';
-// import { HeaderMenu } from './headerMenu';
 import { Logo } from './logo';
 import header from './styles/header.module.css'
-import { Link } from 'react-router-dom';
+import { Link, } from 'react-router-dom';
 import api from '../../../api/ApiToken'
-import {ApplicationPaths} from '../../api-authorization/ApiAuthorizationConstants'
+import { ApplicationPaths } from '../../api-authorization/ApiAuthorizationConstants'
+import { NavLink } from 'reactstrap';
 
 
 export const Header = () => {
-	// const [isVisible, setIsVisible] = useState(false);
 	const [token, setToken] = useState(false);
+	const [user, setUser] = useState('');
 
 	useEffect(() => {
-		const getToken = async () => {
+		const setTokenId = async () => {
 			const userToken = await api.token();
 			setToken(userToken);
 		}
-		getToken();
-	}, [])
+
+		const setUserName = async () => {
+			const user = await api.getUserName();
+			if (user)
+				setUser(user);
+		}
+
+		setUserName();
+		setTokenId();
+	}, []);
+
 	return (
 		<header className={header.main}>
 			<Logo />
 			{
 				!token ? <div className={header.registration}>
-					<Link className={header.link} to={`${ApplicationPaths.Register}`}>
+					<NavLink tag={Link} className={header.link} to={`${ApplicationPaths.Register}`}>
 						<span className={header.txt}> Регистрация </span>
-					</Link>
-					<Link className={header.link} to={`${ApplicationPaths.Login}`}>
+					</NavLink>
+					<NavLink tag={Link} className={header.link} to={`${ApplicationPaths.Login}`}>
 						<span className={header.txt}> Вход </span>
-					</Link>
+					</NavLink>
 
 				</div> :
 					<div className={header.registration}>
-						<Link className={header.link} to={`${ApplicationPaths.Register}`}>
+						<NavLink tag={Link} className={header.link} to={`${ApplicationPaths.Profile}`}>
+							<span className={header.txt}>
+								{user}
+							</span>
+						</NavLink>
+						<NavLink tag={Link} state={{ local: true }} className={header.link} to={`${ApplicationPaths.LogOut}`}>
 							<span className={header.txt}> Выход </span>
-						</Link>
+						</NavLink>
 					</div>
 			}
 			{/* <button onClick={() => { setIsVisible(!isVisible) }} className={header.menuBtn}>

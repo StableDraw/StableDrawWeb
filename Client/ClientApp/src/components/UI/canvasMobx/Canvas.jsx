@@ -33,12 +33,12 @@ const Canvas = observer(() => {
     }, [canvasState.canvas])
     const mouseMoveHandler = (e) => {
         let image = new Image()
-        image.src = canvasState.canvas.toDataURL()
+        image.src = canvasState.canvas.toDataURL("image/png",0.5)
         // { willReadFrequently: true }
         image.onload = () => {
             const ctx = canvasState.canvas.getContext("2d")
             const ctx2 = canvasList.activeCanvas.getContext("2d")
-
+            
             ctx.clearRect(0,0, ctx.canvas.offsetWidth, ctx.canvas.offsetHeight)
             ctx.drawImage(image, 0, 0, ctx.canvas.offsetWidth, ctx.canvas.offsetHeight)
             ctx2.clearRect(0,0, ctx.canvas.width, ctx.canvas.height)
@@ -47,8 +47,16 @@ const Canvas = observer(() => {
     }
     const mouseDownHandler = () => {
         canvasState.pushToUndo(canvasState.canvas.toDataURL())
+        let image = new Image()
+        image.src = canvasState.canvas.toDataURL("image/png",0.5)
+         // { willReadFrequently: true }
+         image.onload = () => {
+            const ctx = canvasState.canvas.getContext("2d")
+
+            ctx.clearRect(0,0, ctx.canvas.offsetWidth, ctx.canvas.offsetHeight)
+            ctx.drawImage(image, 0, 0, ctx.canvas.offsetWidth, ctx.canvas.offsetHeight)
+        }
     }
-    
    
     return (
             <div 

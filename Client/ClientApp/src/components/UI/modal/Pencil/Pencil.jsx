@@ -3,12 +3,13 @@ import cl from './Pencil.module.css'
 import ToolButton from '../../Toolbar/ToolButton';
 import MyInput from '../../MyInput/MyInput';
 import Button from '@mui/material/Button';
-import { Modal } from '@mui/material';
 import Stack from '@mui/material/Stack';
-import toolState from "../../../../store/toolState";
-import Brush from "../../../../tools/Brush";
-import canvasState from "../../../../store/canvasState";
-const Pencil = ({active, activeBtn}) => {
+import toolState from "../../../../store/toolState.tsx";
+import Brush from "../../../../toolsMobx/Brush";
+// import canvasState from "../../../../store/canvasState";
+import canvasState from '../../../../store/canvasState.tsx';
+import { observer } from 'mobx-react-lite';
+const Pencil = observer(({active, activeBtn}) => {
     const [modal, setModal] = useState(false)
     const rootClass = [cl.myModal]
     if(active==='pencil') {
@@ -25,7 +26,7 @@ const Pencil = ({active, activeBtn}) => {
     const CallPencil = (e) => {
         e.preventDefault()
         showPencilModal()
-        toolState.setTool(new Brush(canvasState.getCanvas()))
+        toolState.setTool(new Brush(canvasState.canvas))
         activeBtn('pencil')
     }
  
@@ -45,6 +46,6 @@ const Pencil = ({active, activeBtn}) => {
             </a>
     )
 
-};
+})
 
 export default Pencil;

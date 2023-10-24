@@ -20,15 +20,8 @@ export default class  Textures {
 	static async GetTextureStorage() {
 		if (!await AuthorizeService.isAuthenticated())
 			return axios.HttpStatusCode.NotFound;
-		try {
-			let response = await axios.get("api/image", await ApiToken.GetConfigToken());
-			console.log("resresrereerer");
-			return response;
-		}
-		catch (ex)
-		{
-			console.log(ex.toString())
-		}
+			
+			return await axios.get("api/image", await ApiToken.GetConfigToken());
 	}
 	static async DeleteAllTextures() {
 		if (!await AuthorizeService.isAuthenticated())

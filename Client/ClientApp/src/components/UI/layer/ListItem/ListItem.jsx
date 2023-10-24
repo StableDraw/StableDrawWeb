@@ -65,7 +65,7 @@ const ListItem = observer(({item}) => {
         let image = new Image()
         image.src = canvasList.activeCanvas.toDataURL()
         image.onload = () => {
-            const ctxActive =  canvasList.activeCanvas.getContext("2d")
+            // const ctxActive =  canvasList.activeCanvas.getContext("2d")
             const ctxMain = canvasState.canvas.getContext("2d")
            
             ctxMain.clearRect(0,0, ctxMain.canvas.offsetWidth, ctxMain.canvas.offsetHeight)
@@ -88,7 +88,8 @@ const ListItem = observer(({item}) => {
             //  tabindex={props.index}
              >
             <div className={cl.layer__block}>
-                {/* <Visability ids={props.item.id} Visable={props.Visable} IndexVisable={props.index}/> */}
+                <Visability ids={item.id} />
+                {/* Visable={props.Visable} IndexVisable={props.index} */}
                 {/*<Clear ids={props.item.id} Clear={props.Clear} IndexClear={props.index}/>*/}
                 <div className={cl.layer_display_icon} 
                     // id={"layer_display_icon_"+props.item.id}

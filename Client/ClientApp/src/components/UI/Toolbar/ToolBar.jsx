@@ -6,10 +6,11 @@ import ColorPalete from '../modal/ColorPalete/ColorPalete';
 import ClearPane from '../modal/ClearPane/ClearPane';
 import {NavLink} from "reactstrap";
 import {Link} from "react-router-dom";
-import toolState from "../../../store/toolState";
+import toolState from "../../../store/toolState.tsx";
 import Bucket from "../../../tools/Bucket";
-import canvasState from "../../../store/canvasState";
-import Bezie from "../../../tools/Bezie";
+import Filling from '../../../toolsMobx/test'
+import canvasState from "../../../store/canvasState.tsx";
+import Bezie from "../../../toolsMobx/Bezie";
 
 
 
@@ -18,14 +19,14 @@ const ToolBar = () => {
     
     const [color, setColor] = useState('#000000')
     const ResColor = (e) => {
-        e.preventDefault()
+        // e.preventDefault()
         setColor(e.target.value)
         toolState.setStrokeColor(e.target.value)
         toolState.setFillColor(e.target.value)
     }
     const Fill = (e) => {
         e.preventDefault()
-        toolState.setTool(new Bucket(canvasState.canvas))
+        toolState.setTool(new Filling(canvasState.canvas))
     }
     
     const Bezies = (e) => {

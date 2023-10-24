@@ -162,20 +162,12 @@
 	border-radius: 10px;
 }
 
-@media (max-width: 1350px){
-	.text{
-		display: none !important;
-	}
 
-	.loadIcon{
-		display: flex !important;
+@media(max-width: 1450px){
+	.cont {
+	 zoom: 0.8 !important;
 	}
-
-	.selectTexMenu_container{
-		max-width: 100px;
-	}
-
-}
+ }
 
 /* Настройки сколлбаров */
 

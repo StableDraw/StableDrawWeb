@@ -6,7 +6,7 @@
 	justify-content: flex-start;
 	flex-direction: column;
 	background-color: #2B2D31;
-	height: 1080px;
+	height: 100vh;
 }
 
 .content {
@@ -138,9 +138,8 @@
 
 
 @media(max-width: 1450px){
-	.main {
+	.content {
 	 zoom: 0.8 !important;
-	 height: 1210px;
 	}
  }
 

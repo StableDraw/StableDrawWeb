@@ -1,5 +1,5 @@
 import Tool from "./Tool";
-
+import toolState from "../store/toolState.tsx";
 
 export default class Brush extends Tool {
     constructor(canvas) {
@@ -34,9 +34,8 @@ export default class Brush extends Tool {
     }
     
     draw(x, y) {
-        // this.ctx.strokeStyle = ToolState.color
-        // this.ctx.lineWidth = ToolState.width
-        
+        this.ctx.strokeStyle = toolState.color
+        this.ctx.lineWidth = toolState.width
         this.ctx.lineTo(x, y)
 
         this.ctx.stroke()
