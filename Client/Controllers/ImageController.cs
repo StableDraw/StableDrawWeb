@@ -194,13 +194,13 @@ public class ImageController : Controller
         response = await _bus.Request<GetObjectsMinIoRequest, GetObjectsMinIoReply>(new GetObjectsRequestModel() 
         { 
             OrderId = NewId.NextGuid(),
-            ObjectsId = (IEnumerable<dynamic>?)images.Select(x => x.Oid) 
+            ObjectsId = images.Select(x => x.Oid)
         }, cts.Token);
         
         if (response.Message.DataDictionary != null)
             return Ok(response.Message.DataDictionary.Select(dict =>
             {
-                var img = images.FirstOrDefault(img => img.Oid == dict.Key);
+                var img = images.FirstOrDefault(img => img.Oid.ToString() == dict.Key);
                 return new
                 {
                     ImageName = img?.ImageName,
