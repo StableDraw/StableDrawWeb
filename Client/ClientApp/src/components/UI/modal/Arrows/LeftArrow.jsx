@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import cl from './LeftArrow.module.css';
 import ArrowButton from '../../ArrowsBar/ArrowButton';
 import MyInput from '../../MyInput/MyInput';

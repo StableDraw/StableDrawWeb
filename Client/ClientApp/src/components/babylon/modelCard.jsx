@@ -5,7 +5,7 @@ import modelCardLight from './stylesLight/sizeBar.module.css'
 import modelCard from './stylesDark/sizeBar.module.css'
 import { SizeBar } from './sizeBar';
 
-export const ModelsCard = ({ type, model, img, changeModel, isLightTheme }) => {
+export const ModelsCard = ({ name, model, img, changeModel, isLightTheme }) => {
 
 	return (
 		<div className={isLightTheme ? modelCardLight.modelCard : modelCard.modelCard}>
@@ -15,11 +15,11 @@ export const ModelsCard = ({ type, model, img, changeModel, isLightTheme }) => {
 				<img
 					className={barClassesLight.imgInside}
 					src={img}
-					alt={type}
+					alt={name}
 				/>
 				<div className={barClassesLight.textCard}>
 					<span className={isLightTheme ? barClassesLight.text : barClasses.text}>
-						{type}
+						{name}
 					</span>
 				</div>
 			</div>

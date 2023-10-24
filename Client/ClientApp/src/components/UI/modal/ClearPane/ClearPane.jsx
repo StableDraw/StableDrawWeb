@@ -14,10 +14,8 @@ const ClearPane = ({actived, ...props}) => {
    
    
     return (
-                <a className={cl.el} 
-                   style={{margin: "70px 0 0 0"}}
+                <div className={cl.el} 
                    onClick={deleteAll}
-                   variant="contained"
                    title={'Очистка рабочей области'}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="43" viewBox="0 0 40 43" fill="none">
                         <g clipPath="url(#clip0_42_459)">
@@ -29,7 +27,7 @@ const ClearPane = ({actived, ...props}) => {
                             </clipPath>
                         </defs>
                     </svg>
-                </a>
+                </div>
     )
 };
 

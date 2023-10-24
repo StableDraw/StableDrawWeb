@@ -1,4 +1,4 @@
-﻿import {React, useState} from 'react';
+﻿import { React, useState } from 'react';
 import cl from './Eraser.module.css'
 import MyInput from '../../MyInput/MyInput';
 import toolState from "../../../../store/toolState.tsx";
@@ -9,13 +9,13 @@ import { observer } from 'mobx-react-lite';
 const Eraser = observer(({active, activeBtn, getRes,}) => {
     const [modal, setModal] = useState(false)
     const rootClass = [cl.myModal]
-    
-    if(active==='eraser') {
-        if(modal) {
+
+    if (active === 'eraser') {
+        if (modal) {
             rootClass.push(cl.up_add_window)
         }
     }
-    
+
     const Eraser = () => {
         setModal(!modal)
         toolState.setTool(new Erar(canvasState.canvas))

@@ -29,7 +29,7 @@ const AppRoutes = [
         element: <AbtoutUs1/>
     },
     {
-        path:'/drawing-to-img-mobx',
+        path:'/drawing-to-img',
         requireAuth:true,
         element: <DrawingMobx/>
     },
@@ -44,9 +44,9 @@ const AppRoutes = [
         element: <AbtoutUs1/>
     },
     {
-        path:'/drawing-to-img-mobx',
+        path:'/drawing-to-img-oldv',
         requireAuth:true,
-        element: <DrawingMobx/>
+        element: <Drawing/>
     },
     {
         path:'/lablebar',

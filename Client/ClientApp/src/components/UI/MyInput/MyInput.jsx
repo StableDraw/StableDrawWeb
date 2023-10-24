@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react"
+import React, { useState } from "react"
 import cl from './MyInput.module.css'
 import toolState from "../../../store/toolState.tsx";
 const MyInput = (props) => {

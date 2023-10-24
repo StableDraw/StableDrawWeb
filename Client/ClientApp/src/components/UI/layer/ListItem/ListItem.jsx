@@ -1,4 +1,4 @@
-﻿import React, {useEffect, useMemo, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import { observer } from 'mobx-react-lite';
 
 import Visability from "./ListItem.utils/Visability";

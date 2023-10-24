@@ -5,8 +5,8 @@ import sceneClass from './stylesLight/scene.module.css'
 import mainClass from './stylesLight/main.module.css'
 
 export const Scene = ({
-	modelFileName,
-	sceneFileName,
+	modelUrl,
+	sceneUrl,
 	texture,
 }) => {
 	const babylonCanvas = useRef(null);
@@ -25,9 +25,9 @@ export const Scene = ({
 		const scene = new BabylonScene(
 			canvas,
 			loader,
-			modelFileName,
-			sceneFileName,
-			texture,).createScene();
+			modelUrl,
+			sceneUrl,
+			texture).createScene();
 
 		const resize = () => {
 			scene.getEngine().resize();

@@ -1,10 +1,9 @@
-﻿import React, {useEffect, useRef, useState} from 'react';
+﻿import React, {useEffect, useState} from 'react';
 import cl from './Canvas.module.css'
 import CanvasState from "../../../store/canvasState";
 import toolState from "../../../store/toolState";
 import Brush from "../../../tools/Brush";
 import CanvasItems from "./CanvasItems";
-import canvasState from "../../../store/canvasState";
 import {observer} from "mobx-react";
 const Canvas = observer(({width, height, labelData,canvasDate, mergeRes}) => {
     const [canva, setCanva] = useState([])

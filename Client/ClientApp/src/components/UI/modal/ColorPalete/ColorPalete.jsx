@@ -1,9 +1,10 @@
-﻿import React, {createElement, useState} from 'react';
+﻿import React, {useState} from 'react';
 import cl from './ColorPalete.module.css'
 import Stack from '@mui/material/Stack';
 import toolState from "../../../../store/toolState";
 import Label from "@mui/material/InputLabel";
-import Button from '@mui/material/Button';
+
+
 const ColorPalete = ({active, activeBtn, getRes,}) => {
     const [modal, setModal] = useState(false)
 

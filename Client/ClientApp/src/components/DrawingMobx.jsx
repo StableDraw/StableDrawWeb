@@ -1,6 +1,6 @@
 import { React, useState } from 'react';
-import GenBlock from "./UI/modal/GenBlock.jsx";
-import GraphicTable from "./UI/modal/GraphicTable.jsx";
+// import GenBlock from "./UI/modal/GenBlock.jsx";
+// import GraphicTable from "./UI/modal/GraphicTable.jsx";
 import ToolBar from "./UI/Toolbar/ToolBar.jsx";
 import BabylonModule from "./UI/BabylonModule/BabylonBtn.jsx";
 import ToolOptionsBar from './UI/ToolOptionsBarMobx/ToolOptionsBar.jsx';
