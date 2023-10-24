@@ -3,7 +3,6 @@ import cl from './GenerateBtn.module.css'
 import LeftPanel from '../LeftPanel/LeftPanel'
 import RightPanel from '../RightPanel/RightPanel'
 import { Modal } from '@mui/material';
-import api from '../../../../api/apiNeurals'
 import testMob from '../../../../store/neuralWindow.tsx'
 const GenerateBtn = () => {
     const [modal, setModal] = useState(false)
@@ -15,7 +14,7 @@ const GenerateBtn = () => {
     testMob.getNeurals()
  
     const closeBtn = () => {
-        setModal(!modal)
+        setModal(false)
         setOpenParam(false)
     }
   return (

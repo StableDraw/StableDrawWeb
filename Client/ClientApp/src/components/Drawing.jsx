@@ -1,10 +1,8 @@
 ﻿import { React, useState } from 'react';
-import LableBar from "./UI/LableBar/LableBar.jsx";
-import GenBlock from "./UI/modal/GenBlock.jsx";
+import LableBar from "./UI/LableBarMobx/LableBar.jsx";
+// import GenBlock from "./UI/modal/GenBlock.jsx";
 import Canvas from "./UI/canvas/Canvas.jsx";
-import GraphicTable from "./UI/modal/GraphicTable.jsx";
 import ToolBar from "./UI/Toolbar/ToolBar.jsx";
-import PayModule from "./UI/payModule/PayBtn.jsx";
 import BabylonModule from "./UI/BabylonModule/BabylonBtn.jsx";
 import ToolOptionsBar from './UI/ToolOptionsBar/ToolOptionsBar.jsx';
 import GenerateModule from './UI/GenerateBtn/GenerationBtn.jsx'
@@ -64,7 +62,6 @@ const Drawing = () => {
 
     const Width = (e) => {
         setWidth(e)
-        console.log(width)
     }
     const Height = (e) => {
         setHeight(e)
@@ -73,19 +70,8 @@ const Drawing = () => {
 
     return (
         <div>
-
             <div className={cl.main}>
-
-                {/*<SideBar light={{item: '1', bla: 2}}/>*/}
-
-
                 <ToolBar />
-                {/*<h1>
-                        <span style={{textDecoration: 'underline', margin: 80, color: 'rgba(204,32,32,0.8)'}}>
-                            <span style={{color: 'rgba(83,107,234,0.9)', fontWeight: "bold" }}>S
-                            </span>table Drawing
-                        </span>
-                    </h1>*/}
                 <div className={cl.main__content}>
 
                     <div className={cl.col}>
@@ -106,7 +92,6 @@ const Drawing = () => {
                     <div className={[cl.col, cl.block].join(" ")} style={{ padding: "0 0 0 5px" }}>
                         <div className={[cl.row, cl.canvas__button].join(" ")} style={{ gap: "9px", paddingTop: "10vh" }}>
                             <BabylonModule />
-                            {/* <PayModule/> */}
                             <Link className={cl.link} to='/Pay'>
                                 <span className={cl.subscribe__txt}> Подписка</span>
                             </Link>
@@ -125,12 +110,12 @@ const Drawing = () => {
 
 
                     {/*<ScaleField />*/}
-                    <GenBlock />
+                    {/* <GenBlock /> */}
                 </div>
 
 
 
-                <GraphicTable />
+                {/* <GraphicTable /> */}
 
 
 

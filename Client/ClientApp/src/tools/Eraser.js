@@ -10,7 +10,7 @@ export default class Eraser extends Brush {
         this.ctx.lineCap = "round"
         this.ctx.clearRect(x - 12,y - 12,this.ctx.lineWidth,this.ctx.lineWidth)
         // this.ctx.lineTo(x, y)
-        console.log(1)
+        // console.log(1)
         this.ctx.stroke()
     }
 }

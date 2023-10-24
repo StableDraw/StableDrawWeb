@@ -1,6 +1,6 @@
-import React, { useState, useMemo, useEffect } from "react"
+import React, { useState } from "react"
 import cl from './MyInput.module.css'
-import toolState from "../../../store/toolState";
+import toolState from "../../../store/toolState.tsx";
 const MyInput = (props) => {
     const [value, setValue] = useState(1)
     
@@ -18,7 +18,7 @@ const MyInput = (props) => {
     return (
         <label className={cl.opacity__block} style={{background: `linear-gradient(to right, #93BBE3 ${toolState.width}%, #ABABAB 0%)`}}>
             <span className={cl.opacity__text}>Толщина: {toolState.width}px</span>
-            <input type="range" style={{opacity: 0}} value={range} min="1" max="100" onChange={(e) => Grad(e)}/>
+            <input type="range" style={{opacity: 0}} value={1} min="1" max="100" onChange={(e) => Grad(e)}/>
         </label>
         // <div>
         //    

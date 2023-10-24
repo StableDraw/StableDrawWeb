@@ -17,7 +17,7 @@ const InputRange = ({getValue, description,defaultV, range, name, keyValue}) => 
               min={range[0]} 
               max={range[1]}
               value={value} 
-              onChange={(e)=>call(e.target.value)}
+              onChange={(e)=>call(+e.target.value)}
               onMouseUp={()=>getValue(value, keyValue)}
             />
             <input

@@ -7,6 +7,7 @@ import cl from './Parametrs.module.css'
 import api from '../../../../../api/apiNeurals'
 import testMob from '../../../../../store/neuralWindow.tsx'
 import {observer} from 'mobx-react-lite'
+import DownloadImg from './DownloadImg'
 const renderSwitch = (value, id, func) => {
     const key = Object.keys(value)
     const type = value[key].type
@@ -14,7 +15,7 @@ const renderSwitch = (value, id, func) => {
         case 'select':
             return <MySelect key={id} keyValue={key} name={value[key].name} defaultV={value[key].default} options={value[key].values} description={value[key].description} getValue={func}/>
         case 'text':
-            return <InputText key={id} keyValue={key} name={value[key].name} description={value[key].description} getValue={func}/>
+            return <InputText key={id} keyValue={key} name={value[key].name} defaultV={value[key].default} description={value[key].description} getValue={func}/>
         case 'range':
             return <InputRange key={id} keyValue={key} name={value[key].name} defaultV={value[key].default} range={value[key].range} description={value[key].description} getValue={func}/>
         case 'boolean':
@@ -26,12 +27,13 @@ const renderSwitch = (value, id, func) => {
 const Parametrs = observer(({closeWindow, closeParam,}) => {
 
     const [file, setFile] = useState()
-    const [showParam, setShowParam] = useState(false)
+    const [result, setResult] = useState('')
 
     const paramsToRender = testMob.parametrs
+    
     let renderValue = testMob.defaultValue
     const neuralName = testMob.activeNeuralName
-
+    
     const closeModal = () => {
         closeWindow(false)
         closeParam(false)
@@ -39,9 +41,7 @@ const Parametrs = observer(({closeWindow, closeParam,}) => {
 
     const sendValuesForRender = (value, str) => {
         renderValue = ({...renderValue,[str]:value})
-        console.log(renderValue)
     }
-    
     const goOnServer = async () => {
         const formData = new FormData()
         formData.append('NeuralType', neuralName)
@@ -51,8 +51,12 @@ const Parametrs = observer(({closeWindow, closeParam,}) => {
         formData.append('ImagesInput', file)
         try {
             const response = await api.RunNeural(formData)
-            const image = response.data[0]
-            setFile(image)
+            const image = response.data.images[0]
+            console.log(JSON.parse(JSON.stringify(renderValue)))
+            // setFile(image)
+            // console.log(response.data.images[0])
+            setResult(`data:image/png;base64, ${image}`)
+            console.log('done')
         } catch(e) {
             console.error(e)
             throw(e)
@@ -60,27 +64,7 @@ const Parametrs = observer(({closeWindow, closeParam,}) => {
     }
   return (
     <div>
-        <div 
-            className={cl.image}
-            onMouseOver={()=>setShowParam(true)}
-            onMouseOut={()=>setShowParam(false)}
-        >
-            <img className={showParam ? cl.backgroundImage : cl.img} src={file ? URL.createObjectURL(file) : 'StableDrawLogo.png'}/>
-            {/* <input type='file' multiple={true} onChange={e=>setFile(e.target.files[0])}/> */}
-            {/* <img src={"data:image/png;base64," + file} /> */}
-            <div className={showParam ? cl.downloadActive : cl.download}>
-                <button className={cl.imgBtn} onClick={()=>closeModal()}>
-                    <img src='goToCanvas.png'/>
-                </button>
-                <label className={cl.imgBtn}>
-                    <img src='addImage.png'/>
-                    <input style={{display:'none'}}  type='file' multiple={true} onChange={e=>setFile(e.target.files[0])}/>
-                </label>
-                <button className={cl.imgBtn} onClick={()=> setFile()}>
-                    <img src='deleteImg.png'/>
-                </button>
-            </div>
-        </div>
+        <DownloadImg closeWindow={closeWindow} closeParam={closeParam} setRenderValue={setFile}/>
         <div className={cl.params}>
             <div style={{display:'flex'}}>
                 <input
