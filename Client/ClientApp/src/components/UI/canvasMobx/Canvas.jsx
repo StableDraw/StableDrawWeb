@@ -28,6 +28,8 @@ const Canvas = observer(() => {
     //     console.log(canvasRef.current.id)
     // }
     useEffect(()=>{
+        // canvasState.setCanvas(canvasList.activeCanvas)
+        // toolState.setTool(new Brush(canvasList.activeCanvas))
         canvasState.setCanvas(canvasRef.current)
         toolState.setTool(new Brush(canvasRef.current))
     }, [canvasState.canvas])
@@ -45,10 +47,11 @@ const Canvas = observer(() => {
             ctx2.drawImage(image, 0, 0, ctx2.canvas.width, ctx2.canvas.height)
         }
     }
+    let image = new Image()
+
     const mouseDownHandler = () => {
         canvasState.pushToUndo(canvasState.canvas.toDataURL())
-        let image = new Image()
-        image.src = canvasState.canvas.toDataURL("image/png",0.5)
+        image.src = canvasState.canvas.toDataURL()
          // { willReadFrequently: true }
          image.onload = () => {
             const ctx = canvasState.canvas.getContext("2d")
@@ -56,8 +59,9 @@ const Canvas = observer(() => {
             ctx.clearRect(0,0, ctx.canvas.offsetWidth, ctx.canvas.offsetHeight)
             ctx.drawImage(image, 0, 0, ctx.canvas.offsetWidth, ctx.canvas.offsetHeight)
         }
+        // console.log(image)
+        canvasState.setImgSrc(canvasState.canvas.toDataURL())
     }
-   
     return (
             <div 
                 className={cl.v_frame} 
@@ -79,5 +83,4 @@ const Canvas = observer(() => {
             </div>
     )
 })
-
 export default Canvas;

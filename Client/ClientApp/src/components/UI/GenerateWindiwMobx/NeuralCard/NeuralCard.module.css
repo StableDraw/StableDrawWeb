@@ -6,6 +6,8 @@
     margin-left: auto;
     margin-right: auto;
     border-bottom: 1px #656565 solid ;
+    cursor: pointer;
+
 }
 .itemActive {
     display: flex;
@@ -16,6 +18,8 @@
     margin-left: auto;
     margin-right: auto;
     border-bottom: 1px #656565 solid ;
+    cursor: pointer;
+
 }
 .item:hover {
     color:white;

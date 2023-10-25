@@ -1,22 +1,19 @@
 import React from 'react';
 import cl from './SaveButton.module.css'
-import Button from '@mui/material/Button';
-import { Modal } from '@mui/material';
-import Stack from '@mui/material/Stack';
+
 import {  Typography, Input, InputLabel, } from '@mui/material';
 import newbackPng from './newback.png'
 import canvasList from '../../../../store/canvasList.tsx';
 import canvasState from '../../../../store/canvasState.tsx';
 import { observer } from 'mobx-react-lite';
 const SaveButton = observer(() => {
-// console.log(canvasState.canvas)
-    // const url =  canvasState.canvas ? canvasState.canvas.toDataURL() : newbackPng
-     const url =  canvasList.activeCanvas ? canvasList.activeCanvas.toDataURL(): newbackPng
+    const img = new Image()
+    img.src = canvasState.getImgSrc()
     return (
         <div >
             <InputLabel className={cl.upload}>
                 <a 
-                    href={url}
+                    href={img.src}
                     download="StableDrawImg"
                     target="_blank"
                     rel="noreferrer"

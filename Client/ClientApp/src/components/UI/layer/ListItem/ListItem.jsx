@@ -12,7 +12,12 @@ import canvasState from '../../../../store/canvasState.tsx';
 const ListItem = observer(({item}) => {
 
     const canvasRef = useRef(null)
-    
+    useEffect(() => {
+        if (item.active === true) {
+            canvasState.canvas = canvasRef.current
+            canvasList.setActiveCanvas(canvasRef.current, item.id)
+        }
+    },[])
     if (item.active === true) {
         canvasList.activeCanvas = canvasRef.current
     }
@@ -70,14 +75,8 @@ const ListItem = observer(({item}) => {
            
             ctxMain.clearRect(0,0, ctxMain.canvas.offsetWidth, ctxMain.canvas.offsetHeight)
             ctxMain.drawImage(image, 0, 0, ctxMain.canvas.offsetWidth, ctxMain.canvas.offsetHeight)
-            // double change item wiil reDraw the mainCanvas. bug
-            // ctxActive.clearRect(0, 0 , ctxActive.canvas.offsetWidth, ctxActive.canvas.offsetHeight)
-            // ctxActive.drawImage(image, 0, 0, ctxActive.canvas.offsetWidth, ctxActive.canvas.offsetHeight)
-            
+      
         }
-        // console.log(JSON.parse(JSON.stringify(item)))
-        // console.log(canvasRef.current)
-        // console.log(canvasRef)
         canvasState.setCanvas(canvasRef.current)
     }
     

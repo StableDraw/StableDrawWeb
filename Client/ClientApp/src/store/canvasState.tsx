@@ -5,6 +5,7 @@ class Canvas {
     undoList:any= []
     redoList:any = []
     canvas:any
+    imageSrc:ImageData
     
     constructor() {
         makeAutoObservable(this)
@@ -24,6 +25,12 @@ class Canvas {
     }
     pushToRedo(data) {
         this.redoList.push(data)
+    }
+    setImgSrc(img:ImageData) {
+        this.imageSrc = img
+    }
+    getImgSrc(){
+        return this.imageSrc
     }
     undo() {
         let ctx = this.canvas.getContext('2d', { willReadFrequently: true })

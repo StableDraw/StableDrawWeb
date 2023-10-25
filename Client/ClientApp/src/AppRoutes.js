@@ -19,25 +19,11 @@ const AppRoutes = [
         element: <StartPage />
     },
     {
-        path:'/mobx',
-        requireAuth:true,
-        element: <GenerateWindowMobx/>
-    },
-    {
-        path:'/aboutus1',
-        requireAuth:true,
-        element: <AbtoutUs1/>
-    },
-    {
         path:'/drawing-to-img',
         requireAuth:true,
         element: <DrawingMobx/>
     },
-    {
-        path:'/lablebar',
-        requireAuth:true,
-        element: <LableBar/>
-    },
+
     {
         path:'/aboutus',
         requireAuth:true,
@@ -48,36 +34,6 @@ const AppRoutes = [
         requireAuth:true,
         element: <Drawing/>
     },
-    {
-        path:'/lablebar',
-        requireAuth:true,
-        element: <LableBar/>
-    },
-    {
-        path: '/window',
-        requireAuth: true,
-        element: <GenerateBtn />
-    },
-    {
-        path: '/drawing-to-img',
-        requireAuth: true,
-        element: <Drawing/>
-    },
-    {
-        path: '/notdrawing-to-img',
-        requireAuth: false,
-        element: <App1 />
-    },
-    {
-        path: '/test',
-        requireAuth: false,
-        element: <DrawingtoImg />
-    },
-    // {
-    //     path: '/authentication/refresh-authorization',
-    //     requireAuth: true,
-    //     element: <RefreshAuthorization />
-    // },
     {
         path: '/Pay',
         requireAuth: false,
