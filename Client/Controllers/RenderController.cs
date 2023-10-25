@@ -21,21 +21,21 @@ namespace CLI.Controllers
             _bus = bus;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetRenderedImage(double[] coords, string sceneName)
-        {
-            var response = await _bus.Request<GetRenderedImageRequest, GetRenderedImageReply>
-                (new GetRenderedImageRequestModel()
-                {
-                    OrderId = NewId.NextGuid(),
-                    SceneName = sceneName,
-                    Coords = coords
-                });
+        //[HttpGet]
+        //public async Task<IActionResult> GetRenderedImage(double[] coords, string sceneName)
+        //{
+        //    var response = await _bus.Request<GetRenderedImageRequest, GetRenderedImageReply>
+        //        (new GetRenderedImageRequestModel()
+        //        {
+        //            OrderId = NewId.NextGuid(),
+        //            SceneName = sceneName,
+        //            Coords = coords
+        //        });
 
-            if (string.IsNullOrEmpty(response.Message.ErrorMsg))
-                throw new Exception(response.Message.ErrorMsg);
+        //    if (string.IsNullOrEmpty(response.Message.ErrorMsg))
+        //        throw new Exception(response.Message.ErrorMsg);
 
-            return Ok(new { response.Message.Data, response.Message.SceneName });
-        }
+        //    return Ok(new { response.Message.Data, response.Message.SceneName });
+        //}
     }
 }
