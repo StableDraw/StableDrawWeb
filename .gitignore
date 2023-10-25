@@ -65,6 +65,7 @@ Client/ClientApp/README.MD
 /StableDraw.SagasService/.idea
 /StableDraw.SagasService/bin
 /StableDraw.MinIOService/logs
+/StableDraw.MinIOService/credentials.json
 /.nuke/temp
 /StableDraw.NeuralService/venv
 StableDraw.SagasService/app.db
