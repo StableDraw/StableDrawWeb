@@ -8,6 +8,7 @@ export const Scene = ({
 	modelUrl,
 	sceneUrl,
 	texture,
+	envUrl
 }) => {
 	const babylonCanvas = useRef(null);
 	const babylonLoader = useRef(null);
@@ -27,7 +28,8 @@ export const Scene = ({
 			loader,
 			modelUrl,
 			sceneUrl,
-			texture).createScene();
+			texture,
+			envUrl).createScene();
 
 		const resize = () => {
 			scene.getEngine().resize();
