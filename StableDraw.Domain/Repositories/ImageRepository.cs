@@ -39,15 +39,16 @@ public class ImageRepository : BaseRepository<Image>, IImageRepository
 
     public async Task<Image?> GetImage(string imageName, string userId)
     {
-        return await FindByCondition(x => 
-            x.UserId.Equals(userId) && x.ImageName.Equals(userId))
+        var result = await FindByCondition(x => 
+                x.UserId.Equals(userId) && x.ImageName.Equals(imageName))
             .FirstOrDefaultAsync();
+        return result;
     }
 
     public async Task DeleteImage(string imageName, string userId)
     {
         var img = await FindByCondition(x =>
-                x.UserId.Equals(userId) && x.ImageName.Equals(userId))
+                x.UserId.Equals(userId) && x.ImageName.Equals(imageName))
             .FirstOrDefaultAsync();
         if (img != null) Delete(img);
     }

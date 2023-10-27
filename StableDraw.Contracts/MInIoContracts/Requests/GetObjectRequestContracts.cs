@@ -17,13 +17,13 @@ public interface IGetObjectRequest
 public class GetObjectsMinIoRequest
 {
     public Guid OrderId { get; set; }
-    public IEnumerable<dynamic>? ObjectsId { get; set; }
+    public IEnumerable<Guid>? ObjectsId { get; set; }
     public string? ErrorMsg { get; set; }
 }
 
 public interface IGetObjectsRequest
 {
     public Guid OrderId { get; set; }
-    public IEnumerable<dynamic>? ObjectsId { get; set; }
+    public IEnumerable<Guid>? ObjectsId { get; set; }
     public string? ErrorMsg { get; set; }
 }

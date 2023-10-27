@@ -65,7 +65,7 @@ public class MinIoService : IMinIoService
             
             GetObjectsResult result = new GetObjectsResult
             {
-                DataDictionary = new Dictionary<dynamic, byte[]>()
+                DataDictionary = new Dictionary<Guid, byte[]>()
             };
 
             foreach (var item in request.ObjectsId)
@@ -210,7 +210,7 @@ public class MinIoService : IMinIoService
         try
         {
             var result = await DeleteImage(request.ObjectId);
-            return await Task.FromResult(new DeleteObjectResult() {ObjectId = request.ObjectId});
+            return await Task.FromResult(new DeleteObjectResult() {ObjectId = result});
         }
         catch (Exception e)
         {

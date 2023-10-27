@@ -1,20 +1,51 @@
-.sceneCont{
+.sceneCont {
 	display: flex;
 	justify-content: center;
 	padding: 10px;
 }
 
-.canvas{
+.canvas {
 	display: flex;
 	position: relative;
 	justify-content: center;
 	align-items: center;
-	width: 1200px;
+	width: 100%;
+	max-width: 1000px;
+	min-width: 500px;
 	height: 651px;
 	border-radius: 20px;
 }
 
-.loadTexModal{
+@keyframes placeHolderShimmer {
+	0% {
+		background-position: -800px 0
+	}
+
+	100% {
+		background-position: 800px 0
+	}
+}
+
+.canvasSkeleton {
+	display: flex;
+	position: relative;
+	justify-content: center;
+	align-items: center;
+	animation-duration: 3s;
+	animation-fill-mode: forwards;
+	animation-iteration-count: infinite;
+	animation-name: placeHolderShimmer;
+	animation-timing-function: 1000ms ease-in-out;
+	background: linear-gradient(to right, #404249 8%, #4b4c50 18%, #404249 45%);
+	width: 100%;
+	max-width: 1000px;
+	min-width: 1000px;
+	height: 651px;
+	border-radius: 20px;
+	background-color: #404249;
+}
+
+.loadTexModal {
 	position: absolute;
 	background-color: black;
 	color: white;
@@ -28,11 +59,11 @@
 	z-index: 1000;
 }
 
-.canvasOut{
+.canvasOut {
 	position: relative;
 }
 
-.sceneModal{
+.sceneModal {
 	position: absolute;
 	background-color: black;
 	color: white;
@@ -50,12 +81,12 @@
 	z-index: 1000;
 }
 
-.cancelBtn{
+.cancelBtn {
 	background-color: black;
 	border: none;
 }
 
-.txt{
+.txt {
 	color: white !important;
 	opacity: 100% !important;
 	size: 14px !important;
@@ -69,8 +100,8 @@
 	
 } */
 
-@media(max-width: 1450px){
-	#babylonjsLoadingDiv{
+@media(max-width: 1450px) {
+	#babylonjsLoadingDiv {
 		zoom: 0.8;
 	}
 }

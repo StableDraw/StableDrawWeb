@@ -40,10 +40,11 @@ export class BabylonScene {
 		// loader: HTMLElement,
 		modelUrl: string,
 		sceneUrl: string = '',
-		texBase64: string = '',) {
+		texBase64: string = '',
+		envUrl: string) {
 		this.engine = new BABYLON.Engine(canvas,);
 
-		this.scene = this.createScene();
+		this.scene = this.createScene(envUrl);
 
 		this.engine.displayLoadingUI();
 
@@ -60,12 +61,12 @@ export class BabylonScene {
 		});
 	}
 
-	 async createEnv(scene) {
+	 async createEnv(scene, envUrl) {
 		try{
-			const staticMesh = await api.GetLinksToDownload()
-			if (staticMesh.data.envMaps[0].data) {
+			// const staticMesh = await api.GetLinksToDownload()
+			if (envUrl) {
 				const envTex = BABYLON.CubeTexture.CreateFromPrefilteredData(
-					staticMesh.data.envMaps[0].data, // Важно передавать в формате .env
+					envUrl, // Важно передавать в формате .env
 					scene,);
 				scene.environmentTexture = envTex;
 				scene.createDefaultSkybox(envTex, true, 1000, 0.25);
@@ -78,9 +79,9 @@ export class BabylonScene {
 		}
 	}
 
-		createScene() {
+		createScene(envUrl) {
 		const scene = new BABYLON.Scene(this.engine);
-		this.createEnv(scene);
+		this.createEnv(scene, envUrl);
 
 		return scene;
 	}
@@ -112,7 +113,8 @@ export class BabylonScene {
 		if (sceneFileName.includes('Fridge')) {
 			for (let i = 0; i < 3; i++) {
 				if (modelUrl)
-					BABYLON.SceneLoader.Append('', modelUrl, this.scene, (model) => {
+				{
+					await BABYLON.SceneLoader.Append('', modelUrl, this.scene, (model) => {
 						let positionIndex = sceneFileName === "FridgeSmall" ? i / 2.8 : i / 2.5;
 
 						model.meshes.forEach((mesh) => {
@@ -121,6 +123,7 @@ export class BabylonScene {
 							this.applyMaterial(model, texBase64);
 						});
 					});
+				}
 			}
 			this.engine.hideLoadingUI();
 		}
@@ -147,7 +150,7 @@ export class BabylonScene {
 			texture.vScale = -1;
 			pbrMaterial._albedoTexture = texture;
 
-			model.meshes[1].material = pbrMaterial;
+			model.meshes[2].material = pbrMaterial;
 		}
 	}
 
