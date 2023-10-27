@@ -39,6 +39,7 @@
                   "serverName":["upscaler"],
                   "clientName":["Апскейлер"],
                   "description":["Увеличивает разрешение цифровых изображений"],
+                  "caption":[""],
                   "params": [
                         "{\"model\":{\"default\": \"StableDiffusionx4Upscaler\",\"values\": [{\"value\": \"StableDiffusionx4Upscaler\",\"description\": \"Четырёхкратный апскейлер от StableDiffusuin\",\"name\": \"StableDiffusionx4Upscaler\"},{\"value\": \"StableDiffusionxLatentx2Upscaler\",\"description\": \"Двукратный сторонний апскейлер, основанный на StableDiffusuin\",\"name\": \"StableDiffusionxLatentx2Upscaler\"},{\"value\": \"RealESRGAN_x4plus\",\"description\": \"Основная модель RealESRGAN для четырёхкратного апскейла изображений\",\"name\": \"RealESRGAN_x4plus\"},{\"value\": \"RealESRNet_x4plus\",\"description\": \"Облегчённая, быстрая модель RealESRGAN для четырёхкратного апскейла изображений\",\"name\": \"RealESRNet_x4plus\"},{\"value\": \"RealESRGAN_x4plus_anime_6B\",\"description\": \"Облегчённая, быстрая модель RealESRGAN для четырёхкратного апскейла изображений с 6 дополнительными блоками для обработки, обученная на мультипликационной стилистике\",\"name\": \"RealESRGAN_x4plus_anime_6B\"},{\"value\": \"RealESRGAN_x2plus\",\"description\": \"Основная модель RealESRGAN для двукратного апскейла изображений\",\"name\": \"RealESRGAN_x2plus\"},{\"value\": \"realesr-animevideov3\",\"description\": \"Облегчённая модель RealESRGAN для быстрого двукратного апскейла изображений, обученная на мультипликационном стиле\",\"name\": \"realesr-animevideov3\"},{\"value\": \"realesr-general-x4v3\",\"description\": \"Новая, облегчённая, быстрая модель RealESRGAN для четырёхкратного апскейла изображений с дополнительной возможностью коррекции шума\",\"name\": \"realesr-general-x4v3\"}],\"description\": \"Различные модели нейронных сетей по-разному применяют обработку. Для моделей, основанных на StableDiffusion обязательно необходимо описание и их качество генерации, как правило, выше. ESRGAN модели способны обрабатывать только для основе изображения\",\"type\": \"select\",\"name\": \"Выбор модели\"}}",
                         "{\"steps\":{\"type\":\"range\",\"default\":50,\"description\":\"Шаги DDIM, от 2 до 250\",\"range\":[2,250],\"name\":\"Выбор шага DDIM\"}}",
@@ -66,6 +67,7 @@
                   "serverName":["image_to_image"],
                   "clientName":["Генерация по тексту и изображению"],
                   "description":["Генерирует изображение по тексту и описанию"],
+                  "caption":[""],
                   "params": [
                         "{\"add_watermark\":{\"type\":\"boolean\",\"default\":\"False\",\"system\": \"True\",\"description\":\"При выборе параметра вы сможете добавить вотермарку на изображение\",\"name\":\"Добавлять невидимую вотермарку\"}}",
                         "{\"low_vram_mode\":{\"type\":\"boolean\",\"default\":\"False\",\"system\":\"True\",\"description\":\"При выборе параметра вы сможете работать при малом количестве видеопамяти\",\"name\":\"Режим для работы на малом количестве видеопамяти\"}}",
@@ -127,6 +129,7 @@
                   "serverName":["text_to_image"],
                   "clientName":["Генерация по тексту"],
                   "description":["Генерация изображения по текстовому описанию"],
+                  "caption":[""],
                   "params": [
                         "{\"add_watermark\":{\"type\":\"boolean\",\"default\":\"False\",\"system\": \"True\",\"description\":\"При выборе параметра вы сможете добавлять вотермарку на изображение\",\"name\":\"Добавлять невидимую вотермарку\"}}",
                         "{\"low_vram_mode\":{\"type\":\"boolean\",\"default\":\"False\",\"system\": \"True\",\"description\":\"При выборе параметра вы сможете применить режим для работы на малом количестве видеопамяти\",\"name\":\"Режим для работы на малом количестве видеопамяти\"}}",
@@ -182,6 +185,7 @@
                   "serverName":["image_captioning"],
                   "clientName":["Генерация описания для изображения"],
                   "description":["Генерация случайного описания для изображения"],
+                  "caption":[""],
                   "params": [
                         "{\"ckpt\":{\"default\": \"caption_base_best.pt\",\"values\": [{\"value\": \"caption_huge_best.pt\",\"description\": \"\",\"name\": \"caption_huge_best\"},{\"value\": \"caption_base_best.pt\",\"description\": \"\",\"name\": \"caption_base_best\"}],\"description\": \"\",\"type\": \"select\",\"name\": \"Используемые чекпоинты\"}}",
                         "{\"eval_cider\":{\"type\":\"boolean\",\"default\":\"True\",\"description\":\"При выборе параметра вы сможете оценивать изображение с помощью баллов CIDEr\",\"name\":\"Оценка с помощью баллов CIDEr\"}}",
@@ -209,6 +213,7 @@
                   "serverName":["inpainting"],
                   "clientName":["Перерисовка области изображения"],
                   "description":["Перерисовывает изображение в новой форме"],
+                  "caption":[""],
                   "params": [
                         "{\"version\":{\"default\": \"Kandinsky2.2\",\"values\": [{\"value\": \"Kandinsky2.2\",\"description\": \"\",\"name\": \"Kandinsky2.2\"},{\"value\": \"Kandinsky2.1\",\"description\": \"\",\"name\": \"Kandinsky2.1\"},{\"value\": \"SD-2.0\",\"description\": \"\",\"name\": \"SD-2.0\"},{\"value\": \"Kandinsky2.0\",\"description\": \"\",\"name\": \"Kandinsky2.0\"}],\"description\": \"\",\"type\": \"select\",\"name\": \"Выбор версии\"}}",
                         "{\"progress\":{\"type\":\"boolean\",\"default\":\"True\",\"system\":\"True\",\"description\":\"При выборе параметра вы сможете видеть прогресс\",\"name\":\"Текущий прогресс\"}}",
