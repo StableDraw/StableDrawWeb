@@ -7,8 +7,11 @@ const MyCheckBox = ({getValue, name, defaultV, description, keyValue}) => {
   const [value, setValue] = useState(defaultV)
   return (
     <article className={cl.param}>
-        <div style={{marginTop:'16px'}}>
+        <div className={cl.container}>
+          <section className={cl.block}>
             <span className={cl.text}>{name}</span>
+          </section>
+          <section className={cl.block2}>
             <label className={cl.switch}>
                 <input checked={value} type="checkbox" onChange={()=> setValue(!value)} onBlur={()=>getValue(value, keyValue)}/>
                 <span className={cl.slider_round}/>
@@ -16,6 +19,7 @@ const MyCheckBox = ({getValue, name, defaultV, description, keyValue}) => {
             <Tooltip title={description}>
               <img  className={cl.paramImg} src='Question.svg'/>
             </Tooltip>
+          </section>
         </div>
     </article>
 

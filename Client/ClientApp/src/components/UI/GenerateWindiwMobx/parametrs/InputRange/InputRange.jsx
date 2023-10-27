@@ -9,7 +9,7 @@ const InputRange = ({getValue, description,defaultV, range, name, keyValue}) => 
   }
   return (
     <article className={cl.param}>
-        <div>
+        <div className={cl.container}>
             <span className={cl.text}>{name}</span>
             <input
               className={cl.range}

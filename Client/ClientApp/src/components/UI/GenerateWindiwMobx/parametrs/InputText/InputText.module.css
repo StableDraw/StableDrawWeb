@@ -1,18 +1,24 @@
 .param {
     margin-top: 10px;
     width: 520px;
-    height: 60px;
+    /* height: 60px; */
     border-top: 1px solid #404249;
 }
+.container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
 .text {
-    padding: 0 0px 20px 30px;
+    display: inline-block;
+    width: 200px;
+    padding: 10px 0px 10px 30px;
     margin-right: 35px;
-    margin-top: 20px;
-    
 }
 .input {
-    width: 270px;
-    height: 25px;
+    width: 250px;
+    height: 30px;
     border: none;
     border-radius: 5px;
     background: #D9DBDC;

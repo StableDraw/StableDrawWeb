@@ -52,10 +52,10 @@ const Parametrs = observer(({closeWindow, closeParam,}) => {
         try {
             const response = await api.RunNeural(formData)
             const image = response.data.images[0]
-            console.log(JSON.parse(JSON.stringify(renderValue)))
+            // console.log(JSON.parse(JSON.stringify(renderValue)))
             // setFile(image)
             // console.log(response.data.images[0])
-            setResult(`data:image/png;base64, ${image}`)
+            setResult(`data:image/png;base64, ${image}`)//никуда не выводится результат
             console.log('done')
         } catch(e) {
             console.error(e)

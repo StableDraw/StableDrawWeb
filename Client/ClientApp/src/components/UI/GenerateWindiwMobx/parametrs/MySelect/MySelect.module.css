@@ -1,29 +1,32 @@
 .param {
     margin-top: 10px;
-    width: 520px;
-    height: 60px;
+    max-width: 520px;
     border-top: 1px solid #404249;
 }
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin: 10px 10px 10px 0;
+    padding: 5px 0;
+}
+
 .paramText {
-    padding: 0 0px 20px 30px;
-    margin-right: 35px;
-    margin-top: 20px;
+    max-width: 290px;
+    padding: 0 0px 0px 30px;
 }
-.paramInput {
-    width: 270px;
-    height: 25px;
-    border: none;
-    border-radius: 5px;
-    background: #D9DBDC;
-    padding: 5px 0 5px 20px;
+.block2{
+    justify-content: space-between;
 }
+
 .paramImg {
     width: 20px;
     height: 20px;
     margin-left: 10px;
 }
 .select {
-    width: 270px;
+    max-width: 235px;
     height: 25px;
     border-radius: 5px;
     background: #D9DBDC;

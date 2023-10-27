@@ -10,7 +10,7 @@ const InputText = ({getValue, name, description,defaultV, keyValue}) => {
     
   return (
     <article className={cl.param}>
-        <div style={{marginTop:'16px'}}>
+        <div className={cl.container}>
             <span className={cl.text}>{name}</span>
             <input
                     type='text'
