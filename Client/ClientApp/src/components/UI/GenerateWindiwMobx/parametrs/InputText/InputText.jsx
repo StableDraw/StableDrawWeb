@@ -10,7 +10,7 @@ const InputText = ({getValue, name, description,defaultV, keyValue}) => {
     
   return (
     <article className={cl.param}>
-        <div style={{marginTop:'16px'}}>
+        <div className={cl.container}>
             <span className={cl.text}>{name}</span>
             <input
                     type='text'
@@ -18,7 +18,6 @@ const InputText = ({getValue, name, description,defaultV, keyValue}) => {
                     className={cl.input}
                     value={value}
                     onChange={e => call(e)}
-                    // onMouseOut={()=>getValue(value,'text')}
                     onBlur={()=>getValue(value, keyValue)}
                 />
             <Tooltip title={description}>

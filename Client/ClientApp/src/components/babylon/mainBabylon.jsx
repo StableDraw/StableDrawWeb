@@ -26,8 +26,8 @@ export const MainBabylon = () => {
 				.catch((err) => {
 					console.log('Ошибка при загрузке стартовых данных сцены: ', err);
 				});
-			const envMap = staticMesh.data.envMaps[0].data;
-			const model = staticMesh.data.models[0].modelsDict.big;
+			const envMap = staticMesh?.data?.envMaps[0].data;
+			const model = staticMesh.data?.models[0]?.modelsDict.big;
 			if (envMap && model) {
 				setEnvUrl(envMap);
 				setCurrentModelUrl(model)

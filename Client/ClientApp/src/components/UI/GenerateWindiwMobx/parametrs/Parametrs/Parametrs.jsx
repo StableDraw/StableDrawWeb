@@ -8,6 +8,7 @@ import api from '../../../../../api/apiNeurals'
 import testMob from '../../../../../store/neuralWindow.tsx'
 import {observer} from 'mobx-react-lite'
 import DownloadImg from './DownloadImg'
+import Caption from '../Caption/Caption.tsx'
 const renderSwitch = (value, id, func) => {
     const key = Object.keys(value)
     const type = value[key].type
@@ -30,7 +31,7 @@ const Parametrs = observer(({closeWindow, closeParam,}) => {
     const [result, setResult] = useState('')
 
     const paramsToRender = testMob.parametrs
-    
+    const isCaption = testMob.caption
     let renderValue = testMob.defaultValue
     const neuralName = testMob.activeNeuralName
     
@@ -38,7 +39,10 @@ const Parametrs = observer(({closeWindow, closeParam,}) => {
         closeWindow(false)
         closeParam(false)
     }
-
+    let caption = ''
+    const setCaption = (value) => {
+        caption = value
+    }
     const sendValuesForRender = (value, str) => {
         renderValue = ({...renderValue,[str]:value})
     }
@@ -46,16 +50,16 @@ const Parametrs = observer(({closeWindow, closeParam,}) => {
         const formData = new FormData()
         formData.append('NeuralType', neuralName)
         formData.append('Parameters', JSON.stringify(renderValue))
-        formData.append('Caption', "")
+        formData.append('Caption', caption)
         formData.append('Prompts', ["lalala", "kfkf"])
         formData.append('ImagesInput', file)
         try {
             const response = await api.RunNeural(formData)
             const image = response.data.images[0]
-            console.log(JSON.parse(JSON.stringify(renderValue)))
+            // console.log(JSON.parse(JSON.stringify(renderValue)))
             // setFile(image)
             // console.log(response.data.images[0])
-            setResult(`data:image/png;base64, ${image}`)
+            setResult(`data:image/png;base64, ${image}`)//никуда не выводится результат
             console.log('done')
         } catch(e) {
             console.error(e)
@@ -77,6 +81,7 @@ const Parametrs = observer(({closeWindow, closeParam,}) => {
                 </button>
             </div>
             <div className={cl.paramsList}>
+                {isCaption? <Caption setCaption={setCaption}/> : undefined}
                 {paramsToRender.map((param, id) => renderSwitch(param,id,sendValuesForRender))}
             </div>
         </div>

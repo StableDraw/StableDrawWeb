@@ -1,13 +1,25 @@
 .param {
     margin-top: 10px;
     width: 520px;
-    height: 60px;
+    /* height: 60px; */
     border-top: 1px solid #404249;
 }
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 10px;
+}
 .text {
-    padding: 0 0px 20px 30px;
-    margin-right: 35px;
+    display: inline-block;
+    padding: 0px 0px 10px 30px;
+    /* margin-right: 35px; */
     margin-top: 20px;
+    max-width: 400px;
+}
+.block2{
+    margin-top: 20px;
+    margin-bottom: auto;
 }
 .img {
     width: 20px;
@@ -19,7 +31,7 @@
     display: inline-block;
     width: 46px;
     height: 24px;
-    margin-left: 200px;
+    /* margin-left: auto; */
     margin-bottom: 10px;
 }
 

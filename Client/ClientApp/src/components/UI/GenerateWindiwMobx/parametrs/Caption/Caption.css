@@ -4,7 +4,7 @@
     /* height: 60px; */
     border-top: 1px solid #404249;
 }
-.container{
+.cont{
     display: flex;
     justify-content: space-between;
     align-items: center;

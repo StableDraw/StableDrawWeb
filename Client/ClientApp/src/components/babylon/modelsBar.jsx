@@ -37,7 +37,7 @@ const skeletonArray = [1, 2, 3, 4];
 export const ModelsBar = memo(({ changeModel, isLightTheme, modelStaff }) => {
 	return (
 		<div className={barClasses.modelsCont}>
-			{Boolean(modelStaff) ? modelStaff.data.models.map(model => <ModelsCard
+			{Boolean(modelStaff?.data?.models) ? modelStaff.data?.models?.map(model => <ModelsCard
 				name={model.name}
 				model={model.modelsDict}
 				img={model.preview}

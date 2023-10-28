@@ -30,6 +30,11 @@ const AppRoutes = [
         element: <AbtoutUs1/>
     },
     {
+        path:'/test',
+        requireAuth:true,
+        element:<DrawingtoImg/>
+    },
+    {
         path:'/drawing-to-img-oldv',
         requireAuth:true,
         element: <Drawing/>

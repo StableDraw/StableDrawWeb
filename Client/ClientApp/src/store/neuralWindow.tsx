@@ -4,6 +4,7 @@ class neuralWindow {
     neurals:{} = {}
     activeNeuralName:string = ''
     parametrs:object[] = []
+    caption:boolean
     defaultValue = {}
     constructor() {
         makeAutoObservable(this, {
@@ -25,7 +26,7 @@ class neuralWindow {
         try {
             const response = await api.GetNeurals(name)
             this.setActiveNeural(name)
-
+            response.data.caption ? this.caption = true : this.caption = false
             const array:object[] = []
             for (let item of response.data.params) {
                 const param:{} = JSON.parse(item)
