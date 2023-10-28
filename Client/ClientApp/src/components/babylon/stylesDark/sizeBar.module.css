@@ -111,7 +111,7 @@
 
 @keyframes placeHolderShimmer {
 	0% {
-		background-position: -200px 0
+		background-position: -800000px 0
 	}
 
 	100% {
@@ -120,11 +120,11 @@
 }
 
 .skeletonModelCard {
-	animation-duration: 3s;
+	animation-duration: 8000s;
 	animation-fill-mode: forwards;
 	animation-iteration-count: infinite;
 	animation-name: placeHolderShimmer;
-	animation-timing-function: 1000ms ease-in-out;
+	animation-timing-function: 1000ms linear;
 	background: linear-gradient(to right, #404249 8%, #4b4c50 18%, #404249 45%);
 	position: relative;
 	border-radius: 20px;
