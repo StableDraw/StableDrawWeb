@@ -106,7 +106,32 @@
 	border: 2px solid #656565;
 	width: 250px;
 	height: 230px;
-	z-index: 3;	
+	z-index: 3;
+}
+
+@keyframes placeHolderShimmer {
+	0% {
+		background-position: -200px 0
+	}
+
+	100% {
+		background-position: 200px 0
+	}
+}
+
+.skeletonModelCard {
+	animation-duration: 3s;
+	animation-fill-mode: forwards;
+	animation-iteration-count: infinite;
+	animation-name: placeHolderShimmer;
+	animation-timing-function: 1000ms ease-in-out;
+	background: linear-gradient(to right, #404249 8%, #4b4c50 18%, #404249 45%);
+	position: relative;
+	border-radius: 20px;
+	border: 2px solid #656565;
+	width: 250px;
+	height: 230px;
+	z-index: 3;
 }
 
 .dark {

@@ -20,6 +20,7 @@ export const ToggleBar = memo(({
 		const getLinksToAllStatics = async () => {
 			const staticMesh = await api.GetLinksToDownload()
 				.catch((err) => { console.log(err) });
+				console.log(staticMesh);
 			setModelStaff(staticMesh);
 		}
 		getLinksToAllStatics();

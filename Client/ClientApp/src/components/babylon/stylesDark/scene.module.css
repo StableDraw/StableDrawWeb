@@ -27,10 +27,7 @@
 }
 
 .canvasSkeleton {
-	display: flex;
 	position: relative;
-	justify-content: center;
-	align-items: center;
 	animation-duration: 3s;
 	animation-fill-mode: forwards;
 	animation-iteration-count: infinite;

@@ -62,21 +62,17 @@ export class BabylonScene {
 	}
 
 	 async createEnv(scene, envUrl) {
-		try{
-			// const staticMesh = await api.GetLinksToDownload()
 			if (envUrl) {
 				const envTex = BABYLON.CubeTexture.CreateFromPrefilteredData(
 					envUrl, // Важно передавать в формате .env
 					scene,);
+
 				scene.environmentTexture = envTex;
 				scene.createDefaultSkybox(envTex, true, 1000, 0.25);
 				scene.environmentIntensity = 0.5;
 				scene.getAnimationRatio();
 				scene.autoClear = false;
 			}
-		}catch(err){
-			console.log(err);
-		}
 	}
 
 		createScene(envUrl) {
@@ -107,39 +103,39 @@ export class BabylonScene {
 
 	async createOwnModel(
 		modelUrl: string,
-		sceneFileName: string,
+		sceneUrl: string,
 		texBase64: string,
 	): Promise<void> {
-		if (sceneFileName.includes('Fridge')) {
+		if (sceneUrl.includes('Fridge')) {
 			for (let i = 0; i < 3; i++) {
-				if (modelUrl)
-				{
-					await BABYLON.SceneLoader.Append('', modelUrl, this.scene, (model) => {
-						let positionIndex = sceneFileName === "FridgeSmall" ? i / 2.8 : i / 2.5;
+				if (modelUrl){
+					const model = await BABYLON.SceneLoader.ImportMeshAsync('', modelUrl,'', this.scene);
+					let positionIndex = sceneUrl.includes("FridgeSmall") ? i / 2.8 : i / 2.5;
 
-						model.meshes.forEach((mesh) => {
+						model.meshes.forEach(mesh => {
 							mesh.position = new BABYLON.Vector3(0, 0, positionIndex);
+							this.applyMaterial(mesh, texBase64);
 							mesh.material?.freeze();
-							this.applyMaterial(model, texBase64);
-						});
-					});
+						})
 				}
 			}
 			this.engine.hideLoadingUI();
 		}
 		else {
-			if (modelUrl)
-				BABYLON.SceneLoader.Append('', modelUrl, this.scene, (model) => {
-					model.meshes.forEach((mesh) => mesh.position = new BABYLON.Vector3(0, 0, 0));
-					this.applyMaterial(model, texBase64);
-				});
+			if (modelUrl){
+				const model = await BABYLON.SceneLoader.ImportMeshAsync('', modelUrl,'', this.scene);
 
+				model.meshes.forEach(mesh => {
+					this.applyMaterial(mesh, texBase64);
+					mesh.position = new BABYLON.Vector3(0, 0, 0)
+				});
+			}
 			this.engine.hideLoadingUI();
 		}
 	}
 
 	async applyMaterial(
-		model: BABYLON.Scene,
+		mesh: BABYLON.AbstractMesh,
 		texBase64: string,
 	) {
 		if (texBase64) {
@@ -149,8 +145,8 @@ export class BabylonScene {
 			const texture = BABYLON.Texture.CreateFromBase64String(`data:image;base64,${texBase64}`, '', this.scene);
 			texture.vScale = -1;
 			pbrMaterial._albedoTexture = texture;
-
-			model.meshes[2].material = pbrMaterial;
+			if(mesh)
+				mesh.material = pbrMaterial;
 		}
 	}
 

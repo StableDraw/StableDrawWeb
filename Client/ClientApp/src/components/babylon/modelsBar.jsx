@@ -2,6 +2,7 @@ import React from 'react';
 import { memo } from "react";
 import { ModelsCard } from './modelCard'
 import barClasses from './stylesLight/bar.module.css'
+import { SkeletonCard } from './UI_skeleton/SkeletonCard';
 
 
 const models = [
@@ -10,6 +11,8 @@ const models = [
 	{ id: 3, type: "Мини", model: { big: 'Mini', small: '' }, img: '/babylon/imgPreviewModels/mini.jpeg' },
 	{ id: 4, type: "Mини с крышкой", model: { big: 'MiniCap', small: '' }, img: '/babylon/imgPreviewModels/miniCap.jpeg' },
 ];
+
+const skeletonArray = [1, 2, 3, 4];
 
 // Вид JSON modelStaff; обращаться: modelStaff.data.
 // "Babylon": {
@@ -34,14 +37,15 @@ const models = [
 export const ModelsBar = memo(({ changeModel, isLightTheme, modelStaff }) => {
 	return (
 		<div className={barClasses.modelsCont}>
-			{ Boolean(modelStaff) && modelStaff.data.models.map(model => <ModelsCard
+			{Boolean(modelStaff) ? modelStaff.data.models.map(model => <ModelsCard
 				name={model.name}
 				model={model.modelsDict}
 				img={model.preview}
 				key={model.id}
 				changeModel={changeModel}
 				isLightTheme={isLightTheme}
-			/>)}
+			/>) :
+				skeletonArray.map(i => <SkeletonCard key={i} />)}
 		</div>
 	)
 });
