@@ -37,7 +37,7 @@ export const SceneBar = memo(({
 }) => {
 	return (
 		<div className={barClasses.sceneCont}>
-		{modelStaff.data.scenes.map(scene => <SceneCard
+		{Boolean(modelStaff?.data?.scenes) && modelStaff.data.scenes.map(scene => <SceneCard
 					preview={scene.preview}
 					name={scene.name}
 					scene={scene.scene}

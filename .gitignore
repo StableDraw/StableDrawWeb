@@ -78,3 +78,4 @@ StableDraw.MinIOService/credentials.json
 /Client/ClientApp/public/babylon
 Client/app.db-shm
 Client/app.db-wal
+StableDraw.MinIOService/credentials.json
