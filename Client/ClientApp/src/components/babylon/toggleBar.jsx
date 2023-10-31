@@ -19,7 +19,8 @@ export const ToggleBar = memo(({
 	useEffect(() => {
 		const getLinksToAllStatics = async () => {
 			const staticMesh = await api.GetLinksToDownload()
-				.catch((err) => { console.log(err) });
+				.catch((err) => { console.log("Ошибка при получении данных с сервера: ", err) });
+				// console.log(staticMesh);
 			setModelStaff(staticMesh);
 		}
 		getLinksToAllStatics();

@@ -4,6 +4,7 @@ import loadClassesLight from './stylesLight/loadTex.module.css';
 import mainClass from './stylesDark/main.module.css';
 import mainClassLight from './stylesLight/main.module.css';
 import { SelectTexMenu } from "./selectTexMenu";
+import { base64ToLinkImg } from "./base64ToLink.ts";
 import { useState, useEffect, useMemo } from "react";
 import api from '../../api/api';
 
@@ -32,10 +33,28 @@ export const Menu = ({ setCurrenTexture, canvasTextures, isLightTheme, }) => {
 	},
 		[canvasTextures]);
 
+		
 	const Send = async (img) => {
 		try {
 			const data = await api.LoadTexture(img);
 			setTextureStore([...textureStorage, data.data]);
+
+			/*** @example демонстрирует работу функций для отправки данных на сервер в графическом редакторе*/
+
+			// const ImageURL = `data:image/jpeg;base64,${data.data.bytes}`
+			// await fetch(ImageURL)
+			// 	.then(res => res.blob())
+			// 	.then(async (blob) => {
+			// 		const file = new File([blob], "file name", { type: "image" });
+			// 		console.log(file)
+			// 		let formData = new FormData();
+			// 		formData.append(`file`, file);
+			// 		formData.append("Content-Type", "multipart/form-data");
+			// 		// console.log(formData);
+			// 		const data = await api.LoadTexture(formData);
+			// 		console.log(data);
+			// 	})
+
 			setCurrenTexture(data.data.bytes);
 			setTexCount(textureStorage.length);
 			return data;
@@ -54,6 +73,7 @@ export const Menu = ({ setCurrenTexture, canvasTextures, isLightTheme, }) => {
 
 	const handleFileChange = (event) => {
 		let files = [...event.target.files];
+		console.log(files)
 
 		let formData = new FormData();
 		formData.append(`file`, files[0]);

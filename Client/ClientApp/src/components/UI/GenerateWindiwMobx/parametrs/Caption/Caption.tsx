@@ -8,7 +8,7 @@ const Caption = ({setCaption}) => {
     }
   return (
     <article className='param'>
-        <div className='item'>
+        <div className='cont'>
             <h3><span className='text'>Caption</span></h3>
             <textarea
                 placeholder='Ввод текста...'

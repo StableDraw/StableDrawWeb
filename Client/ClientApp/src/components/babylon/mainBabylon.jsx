@@ -9,7 +9,7 @@ import mainClass from './stylesDark/main.module.css'
 import mainClassLight from './stylesLight/main.module.css'
 import { DragAndDropLayout } from "./DragAndDropLayout";
 import { CloseScene } from "./closeScene";
-import { CanvasSkeleton } from "./canvasSkeleton";
+import { SkeletonCanvas } from "./UI_skeleton/SkeletonCanvas";
 
 export const MainBabylon = () => {
 	const [currentSceneUrl, setCurrentSceneUrl] = useState('');
@@ -26,8 +26,8 @@ export const MainBabylon = () => {
 				.catch((err) => {
 					console.log('Ошибка при загрузке стартовых данных сцены: ', err);
 				});
-			const envMap = staticMesh.data.envMaps[0].data;
-			const model = staticMesh.data.models[0].modelsDict.big;
+			const envMap = staticMesh?.data?.envMaps[0]?.data;
+			const model = staticMesh?.data?.models[0]?.modelsDict?.big;
 			if (envMap && model) {
 				setEnvUrl(envMap);
 				setCurrentModelUrl(model)
@@ -64,7 +64,7 @@ export const MainBabylon = () => {
 					modelUrl={currentModelUrl}
 					sceneUrl={currentSceneUrl}
 					texture={currenTexture}
-					envUrl={envUrl} /> : <CanvasSkeleton />
+					envUrl={envUrl} /> : <SkeletonCanvas />
 			}
 		</DragAndDropLayout>, [currentSceneUrl, currentModelUrl, currenTexture, envUrl]);
 
