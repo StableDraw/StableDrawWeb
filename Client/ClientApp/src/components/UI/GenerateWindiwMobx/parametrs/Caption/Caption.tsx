@@ -8,17 +8,15 @@ const Caption = ({setCaption}) => {
     }
   return (
     <article className='param'>
-        <div className='container'>
+        <div className='item'>
             <h3><span className='text'>Caption</span></h3>
-            <input
-                    type='text'
-                    placeholder='Ввод текста...'
-                    className='input'
-                    value={value}
-                    onChange={e => call(e)}
-                    // onMouseOut={()=>getValue(value,'text')}
-                    onBlur={()=>setCaption(value)}
-                />
+            <textarea
+                placeholder='Ввод текста...'
+                className='input'
+                value={value}
+                onChange={e => call(e)}
+                onBlur={()=>setCaption(value)}
+            />
             <Tooltip title='Caption'>
                 <img  className='paramImg' src='Question.svg'/>
             </Tooltip>        

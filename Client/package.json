@@ -8,6 +8,7 @@
     "cli": "^0.1.0",
     "mobx": "^6.10.2",
     "react-helmet": "^6.1.0",
+    "react-hook-form": "^7.47.0",
     "rimraf": "^5.0.4",
     "swagger": "^0.0.1"
   }

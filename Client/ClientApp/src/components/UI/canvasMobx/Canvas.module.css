@@ -4,10 +4,10 @@
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    /*position: relative;*/
-    /*width: 100%;*/
-    /*height: 100%;*/
-    /*border: 4px solid rgb(154, 154, 154);*/
+    /* position: relative; */
+    /* width: 100%; */
+    /* height: 100%; */
+    /* border: 4px solid rgb(154, 154, 154); */
 }
 .drawfield {
     background-color: white;

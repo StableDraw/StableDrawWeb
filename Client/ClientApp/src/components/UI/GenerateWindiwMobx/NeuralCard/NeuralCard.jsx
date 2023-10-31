@@ -6,14 +6,16 @@ import { observer } from 'mobx-react-lite'
 const NeuralCard = observer(({serverName, clientName, description, active,}) => {
   const test = () => {
     active(true)
-    // setNeuralName(serverName[0])
     testMob.getParams(serverName)
-    // getParams(serverName)
   }
+  console.log(JSON.parse(JSON.stringify(serverName)))
+  const image = `${serverName}.png`
   return (
     <Tooltip title={description} placement='right'>
       <div className={testMob.activeNeuralName === serverName ?  cl.itemActive : cl.item} onClick={test}>
-          <div className={cl.itemImg}></div>
+          <div>
+            <img src={image} className={cl.itemImg}/>
+          </div>
           <span className={cl.itemText}>{clientName}</span>
       </div>
     </Tooltip>

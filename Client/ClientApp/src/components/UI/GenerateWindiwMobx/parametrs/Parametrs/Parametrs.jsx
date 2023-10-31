@@ -48,6 +48,7 @@ const Parametrs = observer(({closeWindow, closeParam,}) => {
     }
     const goOnServer = async () => {
         const formData = new FormData()
+        console.log(caption)
         formData.append('NeuralType', neuralName)
         formData.append('Parameters', JSON.stringify(renderValue))
         formData.append('Caption', caption)

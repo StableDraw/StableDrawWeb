@@ -46,9 +46,9 @@ export const Header = () => {
 								{user}
 							</span>
 						</NavLink>
-						<NavLink tag={Link} state={{ local: true }} className={header.link} to={`${ApplicationPaths.LogOut}`}>
+						{/* <NavLink tag={Link} state={{ local: true }} className={header.link} to={`${ApplicationPaths.LogOut}`}>
 							<span className={header.txt}> Выход </span>
-						</NavLink>
+						</NavLink> */}
 					</div>
 			}
 			{/* <button onClick={() => { setIsVisible(!isVisible) }} className={header.menuBtn}>
