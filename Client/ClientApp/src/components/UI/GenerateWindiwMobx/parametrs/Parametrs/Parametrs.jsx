@@ -29,7 +29,6 @@ const Parametrs = observer(({closeWindow, closeParam,}) => {
 
     const [file, setFile] = useState()
     const [result, setResult] = useState('')
-
     const paramsToRender = testMob.parametrs
     const isCaption = testMob.caption
     let renderValue = testMob.defaultValue

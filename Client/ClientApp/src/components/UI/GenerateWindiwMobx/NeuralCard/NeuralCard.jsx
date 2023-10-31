@@ -8,7 +8,6 @@ const NeuralCard = observer(({serverName, clientName, description, active,}) => 
     active(true)
     testMob.getParams(serverName)
   }
-  console.log(JSON.parse(JSON.stringify(serverName)))
   const image = `${serverName}.png`
   return (
     <Tooltip title={description} placement='right'>
