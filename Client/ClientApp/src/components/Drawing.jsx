@@ -89,7 +89,7 @@ const Drawing = () => {
                             height={height}
                         />
                     </div>
-                    <div className={[cl.col, cl.block].join(" ")} style={{ padding: "0 0 0 5px" }}>
+                    <div className={[cl.col, cl.block].join(" ")} style={{ padding: "0 0 0 5px", height: `calc(${window.innerHeight - canvasState.height}px - 70px)` }}>
                         <div className={[cl.row, cl.canvas__button].join(" ")} style={{ gap: "9px", paddingTop: "10vh" }}>
                             <BabylonModule />
                             <Link className={cl.link} to='/Pay'>

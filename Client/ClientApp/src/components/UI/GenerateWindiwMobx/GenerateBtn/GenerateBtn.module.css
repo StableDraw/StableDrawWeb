@@ -64,3 +64,11 @@
     display: flex;
 
 }
+@media screen and (max-width: 1245px) {
+    .button {
+        width: 130px;
+    }
+    .button p {
+        font-size: 18px;
+    }
+}
