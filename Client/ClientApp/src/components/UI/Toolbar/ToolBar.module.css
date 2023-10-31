@@ -75,3 +75,13 @@
     right: 0;
     bottom: 0;
 }
+
+@media screen and (max-width: 1245px) {
+    .nav {
+        padding: 25px 0;
+    }
+    .nav svg {
+        width: 35px;
+        height: 35px;
+    }
+}

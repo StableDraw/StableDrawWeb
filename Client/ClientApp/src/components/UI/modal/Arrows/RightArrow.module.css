@@ -33,3 +33,14 @@
     background-color: #FFFFFF;
     border-top-right-radius: 20px;
 }
+@media screen and (max-width: 1180px) {
+
+    .right__btn {
+        width: 60px;
+        height: 50px;
+    }
+    .right__btn svg { 
+        width: 60px;
+        height: 50px;
+    }
+}
