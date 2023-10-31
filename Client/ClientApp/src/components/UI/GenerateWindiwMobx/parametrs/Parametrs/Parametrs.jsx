@@ -23,7 +23,25 @@ const renderSwitch = (value, id, func) => {
             return <MyCheckBox key={id} keyValue={key} name={value[key].name} defaultV={value[key].default === 'True' ?  true :  false} description={value[key].description} getValue={func}/>
     }
 }
+function dataURItoBlob (dataURI) {
+    // convert base64/URLEncoded data component to raw binary data held in a string
+    var byteString;
+    if (dataURI.split(',')[0].indexOf('base64') >= 0)
+        byteString = atob(dataURI.split(',')[1]);
+    else
+        byteString = unescape(dataURI.split(',')[1]);
 
+    // separate out the mime component
+    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+    // write the bytes of the string to a typed array
+    var ia = new Uint8Array(byteString.length);
+    for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+
+    return new Blob([ia], {type: mimeString});
+}
 
 const Parametrs = observer(({closeWindow, closeParam,}) => {
 
@@ -47,12 +65,14 @@ const Parametrs = observer(({closeWindow, closeParam,}) => {
     }
     const goOnServer = async () => {
         const formData = new FormData()
-        console.log(caption)
+
+        let blob = dataURItoBlob(file);
         formData.append('NeuralType', neuralName)
         formData.append('Parameters', JSON.stringify(renderValue))
         formData.append('Caption', caption)
         formData.append('Prompts', ["lalala", "kfkf"])
-        formData.append('ImagesInput', file)
+        formData.append('ImagesInput', blob)
+
         try {
             const response = await api.RunNeural(formData)
             const image = response.data.images[0]
