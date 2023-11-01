@@ -27,6 +27,7 @@ public class MinIoService : IMinIoService
             .WithEndpoint(_minIoSettings.Address, 9000)
             .WithCredentials(_minIoSettings.AccessKey,
                 _minIoSettings.SecretKey)
+            .WithSSL(true)
             .Build();
     }
     
@@ -240,7 +241,7 @@ public class MinIoService : IMinIoService
         // Check Exists object
         var objstatreply= await _minio.StatObjectAsync(new StatObjectArgs()
             .WithBucket(_minIoSettings.BucketName)
-            .WithObject(imageId.ToString())
+            .WithObject(imageId.ToString())            
         );
         
         if (objstatreply == null || objstatreply.DeleteMarker)

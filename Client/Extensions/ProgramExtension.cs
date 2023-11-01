@@ -129,6 +129,6 @@ public static class ProgramExtensions
         else
             services.Configure<JwtBearerOptions>(
                 "IdentityServerJwtBearer", 
-                o => o.Authority = "https://stabledraw.com");
+                o => o.Authority = "https://www.stabledraw.com");
     }
 }

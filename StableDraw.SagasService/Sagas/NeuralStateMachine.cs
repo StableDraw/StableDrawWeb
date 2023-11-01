@@ -18,10 +18,10 @@ public class NeuralStateMachine : MassTransitStateMachine<NeuralState>
             GenerateNeuralEvent, x =>
             x.CorrelateById(y => y.Message.OrderId));
         
-        Request(() => GenerateNeural);
+        Request(() => GenerateNeural, r => r.Timeout = TimeSpan.FromMinutes(15));
         
         Initially(WhenGenerateNeuralReceived());
-        
+
         During(GenerateNeural.Pending,
             When(GenerateNeural.Completed).ThenAsync(async context =>
             {
@@ -33,11 +33,11 @@ public class NeuralStateMachine : MassTransitStateMachine<NeuralState>
                         "Faulted On Generate " +
                         string.Join("; ", context.Message.Exceptions.Select(x => x.Message)));
                 })
-                .TransitionTo(Failed),
-            When(GenerateNeural.TimeoutExpired).ThenAsync(async context =>
-            {
-                await RespondFromSaga(context, "Time Expired On Generate");
-            }).TransitionTo(Failed));
+                .TransitionTo(Failed));
+            //When(GenerateNeural.TimeoutExpired).ThenAsync(async context =>
+            //{
+            //    await RespondFromSaga(context, "Time Expired On Generate");
+            //}).TransitionTo(Failed));
     }
     
     public Request<NeuralState, INeuralRequest, INeuralReply> GenerateNeural { get; set; }
@@ -59,7 +59,8 @@ public class NeuralStateMachine : MassTransitStateMachine<NeuralState>
             NeuralType = x.Message.NeuralType,
             Prompts = x.Message.Prompts,
             Parameters = x.Message.Parameters,
-            ImagesInput = x.Message.ImagesInput
+            ImagesInput = x.Message.ImagesInput,
+            Caption = x.Message.Caption,
         })).TransitionTo(GenerateNeural.Pending);
     }
     
@@ -74,7 +75,7 @@ public class NeuralStateMachine : MassTransitStateMachine<NeuralState>
                     OrderId = context.Saga.CorrelationId,
                     Images = neuralReply.Images,
                     NeuralType = neuralReply.NeuralType,
-                    TextResult = neuralReply.TextResult,
+                    TextResult = neuralReply.TextResult,                     
                     ErrorMsg = neuralReply.ErrorMsg
                 }, r => r.RequestId = context.Saga.RequestId);
                 break;
