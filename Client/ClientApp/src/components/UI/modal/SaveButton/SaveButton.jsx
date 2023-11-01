@@ -1,8 +1,6 @@
 import React from 'react';
 import cl from './SaveButton.module.css'
-
-import {  Typography, Input, InputLabel, } from '@mui/material';
-import newbackPng from './newback.png'
+import { InputLabel } from '@mui/material';
 import canvasState from '../../../../store/canvasState.tsx';
 import { observer } from 'mobx-react-lite';
 const SaveButton = observer(() => {

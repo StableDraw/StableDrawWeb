@@ -47,12 +47,12 @@ const Canvas = observer(() => {
             ctx2.drawImage(image, 0, 0, ctx2.canvas.width, ctx2.canvas.height)
         }
     }
-    let image = new Image()
+    
 
     const mouseDownHandler = () => {
+        let image = new Image()
         canvasState.pushToUndo(canvasState.canvas.toDataURL())
         image.src = canvasState.canvas.toDataURL()
-         // { willReadFrequently: true }
          image.onload = () => {
             const ctx = canvasState.canvas.getContext("2d")
 

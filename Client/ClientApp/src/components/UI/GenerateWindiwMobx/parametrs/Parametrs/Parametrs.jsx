@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import InputRange from '../InputRange/InputRange'
 import InputText from '../InputText/InputText'
 import MySelect from '../MySelect/MySelect'
@@ -9,6 +9,7 @@ import testMob from '../../../../../store/neuralWindow.tsx'
 import {observer} from 'mobx-react-lite'
 import DownloadImg from './DownloadImg'
 import Caption from '../Caption/Caption.tsx'
+
 const renderSwitch = (value, id, func) => {
     const key = Object.keys(value)
     const type = value[key].type
@@ -24,19 +25,18 @@ const renderSwitch = (value, id, func) => {
     }
 }
 function dataURItoBlob (dataURI) {
-    // convert base64/URLEncoded data component to raw binary data held in a string
-    var byteString;
+
+    let byteString;
     if (dataURI.split(',')[0].indexOf('base64') >= 0)
         byteString = atob(dataURI.split(',')[1]);
     else
         byteString = unescape(dataURI.split(',')[1]);
 
-    // separate out the mime component
-    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    let mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
 
-    // write the bytes of the string to a typed array
-    var ia = new Uint8Array(byteString.length);
-    for (var i = 0; i < byteString.length; i++) {
+
+    let ia = new Uint8Array(byteString.length);
+    for (let i = 0; i < byteString.length; i++) {
         ia[i] = byteString.charCodeAt(i);
     }
 
@@ -51,12 +51,12 @@ const Parametrs = observer(({closeWindow, closeParam,}) => {
     const isCaption = testMob.caption
     let renderValue = testMob.defaultValue
     const neuralName = testMob.activeNeuralName
-    
+    let caption = ''
+
     const closeModal = () => {
         closeWindow(false)
         closeParam(false)
     }
-    let caption = ''
     const setCaption = (value) => {
         caption = value
     }
@@ -70,15 +70,13 @@ const Parametrs = observer(({closeWindow, closeParam,}) => {
         formData.append('NeuralType', neuralName)
         formData.append('Parameters', JSON.stringify(renderValue))
         formData.append('Caption', caption)
-        formData.append('Prompts', ["lalala", "kfkf"])
+        formData.append('Prompts', ["", ""])//надо узнать че это такое
         formData.append('ImagesInput', blob)
 
         try {
             const response = await api.RunNeural(formData)
             const image = response.data.images[0]
-            // console.log(JSON.parse(JSON.stringify(renderValue)))
-            // setFile(image)
-            // console.log(response.data.images[0])
+      
             setResult(`data:image/png;base64, ${image}`)//никуда не выводится результат
             console.log('done')
         } catch(e) {
@@ -91,6 +89,7 @@ const Parametrs = observer(({closeWindow, closeParam,}) => {
         <DownloadImg closeWindow={closeWindow} closeParam={closeParam} setRenderValue={setFile}/>
         <div className={cl.params}>
             <div style={{display:'flex'}}>
+            {/* инлайн стиль плохо, на скорую руку */}
                 <input
                     type='text'
                     placeholder='Найти параметры...'
