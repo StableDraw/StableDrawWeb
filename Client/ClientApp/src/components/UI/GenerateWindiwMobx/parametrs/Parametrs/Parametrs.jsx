@@ -75,6 +75,7 @@ const Parametrs = observer(({closeWindow, closeParam,}) => {
         try {
             const response = await api.RunNeural(formData)
             const image = response.data.images[0]
+            console.log(image)
             image ? ResultWindowState.setImage(image) :  console.log('error')
 
         } catch(e) {
