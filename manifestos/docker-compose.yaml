@@ -1,4 +1,6 @@
 version: "3.7"
+
+
 services:
   rabbitmq:
     image: rabbitmq:3-management-delayed_message_exchange
@@ -20,11 +22,14 @@ services:
     ports:
       - "9000:9000"
       - "9001:9001"
-    restart: always
+    # expose:
+    # - "9000"
+    # - "9001"
+    restart: always   
     environment:
       MINIO_ROOT_USER: stabledraw
       MINIO_ROOT_PASSWORD: minio123
-      MINIO_SERVER_URL: http://stabledraw.com:9000
+      # MINIO_SERVER_URL: https://stabledraw.com
     volumes:
       - minio-storage:/data
     healthcheck:
@@ -32,7 +37,28 @@ services:
       interval: 30s
       timeout: 20s
       retries: 3
-  
+    networks:
+      - minio-local
+
+  # nginx:
+  #   image: nginx:1.19.2-alpine
+  #   volumes:
+  #     - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+  #     - ./certificate/www.stabledraw.com.crt:/etc/nginx/www.stabledraw.com/www.stabledraw.com.crt
+  #     - ./certificate/www.stabledraw.com.key:/etc/nginx/www.stabledraw.com/www.stabledraw.com.key
+  #     - ./certificate/ca.crt:/etc/nginx/www.stabledraw.com/ca.crt
+
+  #     # - nginx/nginx.conf
+  #     # - C:\\StableDrawWeb\\manifestos\\nginx\\nginx.conf
+  #   ports:
+  #     - mode: host
+  #       protocol: tcp
+  #       published: 80
+  #       target: 80
+  #   depends_on:
+  #     - minio      
+  #   networks:
+  #     - minio-local
   # sagas:
   #   image: sagasbackend
   #   build: 
@@ -72,6 +98,10 @@ services:
   #     PGADMIN_DEFAULT_PASSWORD: admin
   #   volumes:
   #     - pgadmin-data:/var/lib/pgadmin
+
+# networks:
+#   minio-local:
+#     driver: bridge
 
 volumes:
   minio-storage:
