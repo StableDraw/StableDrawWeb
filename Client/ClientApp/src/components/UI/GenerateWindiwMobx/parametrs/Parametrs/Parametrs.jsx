@@ -6,6 +6,7 @@ import MyCheckBox from '../MyCheckBox/MyCheckBox'
 import cl from './Parametrs.module.css'
 import api from '../../../../../api/apiNeurals'
 import testMob from '../../../../../store/neuralWindow.tsx'
+import ResultWindowState from '../../../ResultWindow/ResultWindowState.ts'
 import {observer} from 'mobx-react-lite'
 import DownloadImg from './DownloadImg'
 import Caption from '../Caption/Caption.tsx'
@@ -46,7 +47,6 @@ function dataURItoBlob (dataURI) {
 const Parametrs = observer(({closeWindow, closeParam,}) => {
 
     const [file, setFile] = useState()
-    const [result, setResult] = useState('')
     const paramsToRender = testMob.parametrs
     const isCaption = testMob.caption
     let renderValue = testMob.defaultValue
@@ -65,20 +65,20 @@ const Parametrs = observer(({closeWindow, closeParam,}) => {
     }
     const goOnServer = async () => {
         const formData = new FormData()
-
         let blob = dataURItoBlob(file);
         formData.append('NeuralType', neuralName)
         formData.append('Parameters', JSON.stringify(renderValue))
         formData.append('Caption', caption)
         formData.append('Prompts', ["", ""])//надо узнать че это такое
         formData.append('ImagesInput', blob)
-
+        closeModal()
+        ResultWindowState.setImage(file)
+        ResultWindowState.setIsOpen(true)
         try {
             const response = await api.RunNeural(formData)
             const image = response.data.images[0]
-      
-            setResult(`data:image/png;base64, ${image}`)//никуда не выводится результат
-            console.log('done')
+            image ? ResultWindowState.setImage(image) :  console.log('error')
+
         } catch(e) {
             console.error(e)
             throw(e)

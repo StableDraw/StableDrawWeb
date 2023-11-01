@@ -57,25 +57,15 @@ public class NeuralController : Controller
     [HttpGet("neuralList")]
     public IActionResult GetNeuralList()
     {
-        //if (_neuralBuilderSettings.Neurals != null)
-        //    return Ok(_neuralBuilderSettings.Neurals.Select(x => new
-        //    {
-        //        NeuralName = x.Key,
-        //        Description = x.Value.FirstOrDefault(y => y.Key == "description").Value,
-        //        ClientName = x.Value.FirstOrDefault(y => y.Key == "clientName").Value,
-        //        ServerName = x.Value.FirstOrDefault(y => y.Key == "serverName").Value
-        //    }));
-        //return NotFound();
-
-        var res = _model["Neurals"].Select(x => new
-        {
-            NeuralName = x.Path.Split('.').Last(),
-            Description = x.First["description"].ToString(),
-            ClientName = x.First["clientName"].ToString(),
-            ServerName = x.First["serverName"].ToString()
-        });
-
-        return Ok(res);
+        if (_neuralBuilderSettings.Neurals != null)
+            return Ok(_neuralBuilderSettings.Neurals.Select(x => new
+            {
+                NeuralName = x.Key,
+                Description = x.Value.FirstOrDefault(y => y.Key == "description").Value,
+                ClientName = x.Value.FirstOrDefault(y => y.Key == "clientName").Value,
+                ServerName = x.Value.FirstOrDefault(y => y.Key == "serverName").Value
+            }));
+        return NotFound();
     }
 
     [HttpPost]
