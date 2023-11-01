@@ -8,6 +8,7 @@ import DrawingMobx from './components/DrawingMobx'
 import AbtoutUs1 from './components//UI/AboutUs1/AboutUs1'
 import Regisration from './components/UI/Registration/Registration.tsx'
 import ResultWindow from './components/UI/ResultWindow/ResultWindow';
+import GenerateWindow from '../src/components/UI/GenerateWindiwMobx/GenerateBtn/GenerateBtn.jsx'
 const AppRoutes = [
     {
         index: true,
@@ -17,6 +18,11 @@ const AppRoutes = [
         path:'/drawing-to-img',
         requireAuth:true,
         element: <DrawingMobx/>
+    },
+    {
+        path:'/window',
+        requireAuth:true,
+        element: <GenerateWindow/>
     },
     {
         path:'/aboutus',

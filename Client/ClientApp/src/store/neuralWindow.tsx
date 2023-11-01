@@ -17,6 +17,7 @@ class neuralWindow {
         try {
             const response = await api.GetNeuralsList()
             this.neurals = response.data
+            console.log(JSON.parse(JSON.stringify(response.data)))
         } catch(e) {
             console.error(e)
             throw(e)

@@ -79,3 +79,4 @@ StableDraw.MinIOService/credentials.json
 Client/app.db-shm
 Client/app.db-wal
 StableDraw.MinIOService/credentials.json
+/StableDraw.MinIOService/credentials.json
