@@ -11,6 +11,8 @@ using StableDraw.Contracts.NeuralContracts.Replies;
 using StableDraw.Contracts.NeuralContracts.Requests;
 using StableDraw.Core.Models;
 using StableDraw.Domain.Repositories;
+using Newtonsoft.Json.Linq;
+using FileR = System.IO.File;
 
 namespace CLI.Controllers;
 
@@ -22,6 +24,8 @@ public class NeuralController : Controller
     private readonly IBus _bus;
     private readonly ILogger<NeuralController> _logger;
     private readonly NeuralBuilderSettings _neuralBuilderSettings;
+    private readonly JObject _model;
+
 
     public NeuralController(
         IBus bus, ILogger<NeuralController> logger, 
@@ -30,33 +34,46 @@ public class NeuralController : Controller
     {
         _bus = bus;
         _logger = logger;
+        _model = JObject.Parse(FileR.ReadAllText(@"neural.json"));
         _neuralBuilderSettings = new NeuralBuilderSettings()
         {
-            Neurals = configuration.GetSection("Neurals").Get<Dictionary<string, IDictionary<string, string[]>>>()
+            Neurals = configuration.GetSection("Neurals").Get<Dictionary<string, IDictionary<string, string[]>>>()            
         };
     }
 
     [HttpGet("{neuralType}")]
     public IActionResult GetNeuralInfo(string neuralType)
     {
-        if (_neuralBuilderSettings.Neurals != null && 
-            _neuralBuilderSettings.Neurals.TryGetValue(neuralType, out var param))
-            return Ok(param);
-        return NotFound();
+        //if (_neuralBuilderSettings.Neurals != null &&
+        //    _neuralBuilderSettings.Neurals.TryGetValue(neuralType, out var param))
+        //    return Ok(param);
+        //return NotFound();
+
+        return Ok(_model["Neurals"][neuralType].ToString());
     }
 
     [HttpGet("neuralList")]
     public IActionResult GetNeuralList()
     {
-        if (_neuralBuilderSettings.Neurals != null)
-            return Ok(_neuralBuilderSettings.Neurals.Select(x => new
-            {
-                NeuralName = x.Key,
-                Description = x.Value.FirstOrDefault(y => y.Key == "description").Value,
-                ClientName = x.Value.FirstOrDefault(y => y.Key == "clientName").Value,
-                ServerName = x.Value.FirstOrDefault(y => y.Key == "serverName").Value
-            }));
-        return NotFound();
+        //if (_neuralBuilderSettings.Neurals != null)
+        //    return Ok(_neuralBuilderSettings.Neurals.Select(x => new
+        //    {
+        //        NeuralName = x.Key,
+        //        Description = x.Value.FirstOrDefault(y => y.Key == "description").Value,
+        //        ClientName = x.Value.FirstOrDefault(y => y.Key == "clientName").Value,
+        //        ServerName = x.Value.FirstOrDefault(y => y.Key == "serverName").Value
+        //    }));
+        //return NotFound();
+
+        var res = _model["Neurals"].Select(x => new
+        {
+            NeuralName = x.First.Path.Split('.').Last(),
+            Description = x.First.First["description"].ToString(),
+            ClientName = x.First.First["clientName"].ToString(),
+            ServerName = x.First.First["serverName"].ToString()
+        });
+
+        return Ok(res);
     }
 
     [HttpPost]
@@ -85,7 +102,7 @@ public class NeuralController : Controller
         
             request.ImagesInput = dataBytes;
         }
-        var response = await _bus.Request<NeuralRequest, NeuralReply>(request, timeout: RequestTimeout.After(h: 4));
+        var response = await _bus.Request<NeuralRequest, INeuralReply>(request, timeout: RequestTimeout.After(m: 15));
         if (!response.Message.ErrorMsg.IsNullOrEmpty()) 
                 throw new Exception(response.Message.ErrorMsg);
         return Ok(response.Message);

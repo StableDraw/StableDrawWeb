@@ -5,6 +5,7 @@ import ToolBar from "./UI/Toolbar/ToolBar.jsx";
 import BabylonModule from "./UI/BabylonModule/BabylonBtn.jsx";
 import ToolOptionsBar from './UI/ToolOptionsBarMobx/ToolOptionsBar.jsx';
 import GenerateModule from './UI/GenerateBtnMobx/GenerationBtn.jsx'
+import ResultWindow from './UI/ResultWindow/ResultWindow.jsx'
 import { NavLink } from 'reactstrap';
 import cl from "./Drawing.module.css"
 // ДОБАВЛЕНИЕ КОМПОНЕТОВ СО СТЕЙТАМИ
@@ -21,6 +22,7 @@ const Drawing = () => {
 
     return (
         <div>
+            <ResultWindow/>
             <nav className={cl.navigation}>
                 <NavLink tag={Link} to="../" className={cl.logo}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="59" height="44" viewBox="0 0 59 44" fill="none">

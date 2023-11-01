@@ -65,20 +65,18 @@ const Parametrs = observer(({closeWindow, closeParam,}) => {
     }
     const goOnServer = async () => {
         const formData = new FormData()
-
         let blob = dataURItoBlob(file);
         formData.append('NeuralType', neuralName)
         formData.append('Parameters', JSON.stringify(renderValue))
         formData.append('Caption', caption)
         formData.append('Prompts', ["", ""])//надо узнать че это такое
         formData.append('ImagesInput', blob)
-
+        closeModal()
+        ResultWindowState.setImage(file)
+        ResultWindowState.setIsOpen(true)
         try {
             const response = await api.RunNeural(formData)
             const image = response.data.images[0]
-            console.log(image)
-            // setResult(`data:image/png;base64, ${image}`)//никуда не выводится результат
-            ResultWindowState.setIsOpen()
             image ? ResultWindowState.setImage(image) :  console.log('error')
 
         } catch(e) {

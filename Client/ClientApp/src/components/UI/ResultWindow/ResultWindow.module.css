@@ -96,19 +96,21 @@
     transform: scale(0.98);
 }
 .downloadImg {
-    display: inline-flex;
+    display: flex;
     height: 60px;
-    padding: 20px 31px;
-    justify-content: center;
-    align-items: center;
+    width: 130px;
     cursor: pointer;
-    text-decoration: none;
+    align-items: center;
+    justify-content: center;
     border-radius: 10px;
     border: 2px solid var(--dark-blue, #1975D2);
     background: var(--dark-blue, #1975D2);
-    margin-right: 40px;
-    color: white;
 }
 .downloadImg:hover {
     transform: scale(0.98);
+}
+.downloadImgText{
+    padding-top: 16px;
+    color: white;
+    text-decoration: none;
 }

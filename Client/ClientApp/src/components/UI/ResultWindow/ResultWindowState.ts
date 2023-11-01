@@ -12,8 +12,8 @@ class ResultWindowState {
     getImage(){
         return this.img
     }
-    setIsOpen(){
-        this.isOpen = !this.isOpen
+    setIsOpen(bool:boolean){
+        this.isOpen = bool
     }
 }
 export default new ResultWindowState
