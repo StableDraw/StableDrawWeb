@@ -13,6 +13,7 @@ using StableDraw.Core.Models;
 using StableDraw.Domain.Repositories;
 using Newtonsoft.Json.Linq;
 using FileR = System.IO.File;
+using Org.BouncyCastle.Tls;
 
 namespace CLI.Controllers;
 
@@ -50,22 +51,32 @@ public class NeuralController : Controller
         //return NotFound();
 
         //return Ok(_model["Neurals"].Children[neuralType].ToString());
-        var res = _model["Neurals"][neuralType].ToString();
+        var res = _model["Neurals"][neuralType]["params"].ToString();
         return Ok(res);
     }
 
     [HttpGet("neuralList")]
     public IActionResult GetNeuralList()
     {
-        if (_neuralBuilderSettings.Neurals != null)
-            return Ok(_neuralBuilderSettings.Neurals.Select(x => new
-            {
-                NeuralName = x.Key,
-                Description = x.Value.FirstOrDefault(y => y.Key == "description").Value,
-                ClientName = x.Value.FirstOrDefault(y => y.Key == "clientName").Value,
-                ServerName = x.Value.FirstOrDefault(y => y.Key == "serverName").Value
-            }));
-        return NotFound();
+        //if (_neuralBuilderSettings.Neurals != null)
+        //    return Ok(_neuralBuilderSettings.Neurals.Select(x => new
+        //    {
+        //        NeuralName = x.Key,
+        //        Description = x.Value.FirstOrDefault(y => y.Key == "description").Value,
+        //        ClientName = x.Value.FirstOrDefault(y => y.Key == "clientName").Value,
+        //        ServerName = x.Value.FirstOrDefault(y => y.Key == "serverName").Value
+        //    }));
+        //return NotFound();
+
+        var res = _model["Neurals"].Select(x => new 
+        {
+            NeuralName = x.Path.Split('.').Last().ToString(),
+            Description = x.First["description"].ToString(),
+            ClientName = x.First["clientName"].ToString(),
+            ServerName = x.First["serverName"].ToString(),
+        });
+
+        return Ok(res);    
     }
 
     [HttpPost]
