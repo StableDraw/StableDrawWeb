@@ -7,6 +7,7 @@ import { StartPage } from './components/UI/startPage/startPage';
 import DrawingMobx from './components/DrawingMobx'
 import AbtoutUs1 from './components//UI/AboutUs1/AboutUs1'
 import Regisration from './components/UI/Registration/Registration.tsx'
+import ResultWindow from './components/UI/ResultWindow/ResultWindow';
 const AppRoutes = [
     {
         index: true,
@@ -21,6 +22,11 @@ const AppRoutes = [
         path:'/aboutus',
         requireAuth:false,
         element: <AbtoutUs1/>
+    },
+    {
+        path:'/result',
+        requireAuth:true,
+        element: <ResultWindow/>
     },
     {
         path:'/registration',
