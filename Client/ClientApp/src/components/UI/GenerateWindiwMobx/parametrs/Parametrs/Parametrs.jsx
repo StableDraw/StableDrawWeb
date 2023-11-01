@@ -17,11 +17,11 @@ const renderSwitch = (value, id, func) => {
     switch(type) {
         case 'select':
             return <MySelect key={id} keyValue={key} name={value[key].name} defaultV={value[key].default} options={value[key].values} description={value[key].description} getValue={func}/>
-        case 'text':
+        case 'string':
             return <InputText key={id} keyValue={key} name={value[key].name} defaultV={value[key].default} description={value[key].description} getValue={func}/>
-        case 'range':
-            return <InputRange key={id} keyValue={key} name={value[key].name} defaultV={value[key].default} range={value[key].range} description={value[key].description} getValue={func}/>
-        case 'boolean':
+        case 'int':
+            return <InputRange key={id} keyValue={key} name={value[key].name} defaultV={value[key].default} step={value[key.step]} min={value[key].min} max={value[key].max} description={value[key].description} getValue={func}/>
+        case 'bool':
             return <MyCheckBox key={id} keyValue={key} name={value[key].name} defaultV={value[key].default === 'True' ?  true :  false} description={value[key].description} getValue={func}/>
     }
 }
@@ -45,14 +45,12 @@ function dataURItoBlob (dataURI) {
 }
 
 const Parametrs = observer(({closeWindow, closeParam,}) => {
-
     const [file, setFile] = useState()
     const paramsToRender = testMob.parametrs
     const isCaption = testMob.caption
     let renderValue = testMob.defaultValue
     const neuralName = testMob.activeNeuralName
     let caption = ''
-
     const closeModal = () => {
         closeWindow(false)
         closeParam(false)
@@ -66,13 +64,13 @@ const Parametrs = observer(({closeWindow, closeParam,}) => {
     const goOnServer = async () => {
         const formData = new FormData()
         let blob = dataURItoBlob(file);
+        console.log(JSON.parse(JSON.stringify(renderValue)))
         formData.append('NeuralType', neuralName)
         formData.append('Parameters', JSON.stringify(renderValue))
         formData.append('Caption', caption)
         formData.append('Prompts', ["", ""])//надо узнать че это такое
         formData.append('ImagesInput', blob)
         closeModal()
-        ResultWindowState.setImage(file)
         ResultWindowState.setIsOpen(true)
         try {
             const response = await api.RunNeural(formData)

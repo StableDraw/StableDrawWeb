@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import cl from './InputRange.module.css'
 import Tooltip from '@mui/material/Tooltip';
 
-const InputRange = ({getValue, description,defaultV, range, name, keyValue}) => {
+const InputRange = ({getValue, description,defaultV, max, min, step, name, keyValue}) => {
   const [value, setValue] = useState(defaultV)
   const call = (res) => {
     setValue(res)
@@ -14,20 +14,22 @@ const InputRange = ({getValue, description,defaultV, range, name, keyValue}) => 
             <input
               className={cl.range}
               type="range" 
-              min={range[0]} 
-              max={range[1]}
+              min={min} 
+              max={max}
               value={value} 
               onChange={(e)=>call(+e.target.value)}
               onMouseUp={()=>getValue(value, keyValue)}
+              step={step}
             />
             <input
               className={cl.number} 
               type="number" 
-              min={range[0]} 
-              max={range[1]}
+              min={min} 
+              max={max}
               value={value} 
               onChange={(e)=>call(e.target.value)} 
               onBlur={()=>getValue(value, keyValue)}
+              step={step}
             />
             <Tooltip title={description}>
               <img  className={cl.paramImg} src='Question.svg'/>

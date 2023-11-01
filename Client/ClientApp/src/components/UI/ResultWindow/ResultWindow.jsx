@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite'
 import {Modal, InputLabel} from '@mui/material'
 import cl from './ResultWindow.module.css'
 import ResultWindowState from './ResultWindowState.ts'
-
+import BabylonModule from '../BabylonModule/BabylonBtn'
 const ResultWindow = observer(() => {
     const image = `${ResultWindowState.getImage()}`
 return (
@@ -19,7 +19,7 @@ return (
                         <img  className ={cl.imgResult} src={image}/>
                     </section>
                     <section className={cl.navigate}>
-                        <button className={cl.open3D}>Открыть 3D модуль</button>
+                        <BabylonModule/>
                         <button 
                             className={cl.goToCanvas} 
                             onClick={()=>ResultWindowState.setIsOpen(false)}
@@ -36,8 +36,6 @@ return (
                         >
                             <p  className={cl.downloadImgText}>Скачать</p>
                         </a>
-
-                        {/* <button className={cl.downloadImg}>Скачать</button> */}
                     </section>
             </main>
         </div>

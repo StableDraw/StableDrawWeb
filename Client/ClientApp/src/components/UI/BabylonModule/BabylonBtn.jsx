@@ -4,6 +4,21 @@ import { Link } from "react-router-dom";
 import api from '../../../api/api';
 
 
+const sendImgToBack = async (ImgBase64, fileName) => {
+    //конвертируем base64 в file, затем в formData
+    await fetch(ImgBase64)
+        .then(res => res.blob())
+        .then(async (blob) => {
+            const file = new File([blob], fileName, { type: "image" });
+            let formData = new FormData();
+            formData.append(`file`, file);
+            formData.append("Content-Type", "multipart/form-data");
+
+            const data = await api.LoadTexture(formData);
+            return data;
+        })
+}
+
 const BabylonModule = () => {
 
     /**
@@ -25,31 +40,16 @@ const BabylonModule = () => {
  * Проверить работоспособность функций можно в файле menu.jsx в папке babylon проекта.(но я тестил, всё работает)
  */
 
-    const sendImgToBack = async (ImgBase64, fileName) => {
-        //конвертируем base64 в file, затем в formData
-        await fetch(ImgBase64)
-            .then(res => res.blob())
-            .then(async (blob) => {
-                const file = new File([blob], fileName, { type: "image" });
-                let formData = new FormData();
-                formData.append(`file`, file);
-                formData.append("Content-Type", "multipart/form-data");
-
-                const data = await api.LoadTexture(formData);
-                return data;
-            })
-    }
+   
 
     const loadImgToBabylon = async (ImgBase64, fileName) => {
         const data = sendImgToBack(ImgBase64, fileName);
     }
 
     return (
-        <div className={cl.babylonCont}>
-            <Link className={cl.babylon} to='/babylon'>
-                <span className={cl.txt}>3D модуль</span>
+            <Link className={cl.babylonCont} to='/babylon'>
+                <span>Открыть 3D модуль</span>
             </Link>
-        </div>
     );
 };
 

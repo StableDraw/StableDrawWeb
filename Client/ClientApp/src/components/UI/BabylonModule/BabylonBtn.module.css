@@ -1,33 +1,35 @@
 ﻿@import url("https://fonts.googleapis.com/css2?family=Montserrat+Subrayada:wght@400;700&display=swap");
 
 .babylon {
-    width: 150px;
-    height: 50px;
-    text-decoration: none;
-    display: flex;
+    display: inline-flex;
+    height: 60px;
+    padding: 20px 31px;
     justify-content: center;
     align-items: center;
-    background: #FFF;
     cursor: pointer;
-    align-items: center;
+    text-decoration: none;
+    border-radius: 10px;
+    border: 2px solid var(--dark-blue, #1975D2);
+    background: var(--dark-blue, #1975D2);
+    margin-right: 40px;
+    color: white;
 }
 
 .babylonCont{
-    display: flex;
-    flex-direction: row;
+    display: inline-flex;
+    height: 60px;
+    padding: 20px 31px;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 10px;
+    border: 2px solid var(--dark-blue, #1975D2);
+    background: var(--dark-blue, #1975D2);
+    margin-right: 40px;
+    color: white;
 }
-
-.btn{
-    scale: 0.8;
-    border: none;
-    background: none;
+.babylonCont:hover {
+    transform: scale(0.98);
+    color: white;
 }
-
-.txt{
-    color: #0366d6;
-    font-family: Montserrat;
-    font-weight: 600;
-}
-

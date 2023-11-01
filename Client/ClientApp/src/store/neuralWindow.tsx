@@ -26,18 +26,13 @@ class neuralWindow {
     async getParams(name:string) {
         try {
             const response = await api.GetNeurals(name)
-            // console.log(JSON.parse(JSON.stringify(response.data.params)))
-            const test:Array<Object> = (response.data.params)
-            console.log(test.length)
-            
             this.setActiveNeural(name)
             response.data.caption ? this.caption = true : this.caption = false
             const array:object[] = []
-            for (let item of response.data.params) {
+            for (let item of response.data) {
                 const param:{} = (item)
                 array.push(param)
             }
-            console.log(array)
             this.parametrs = array
             this.doDefaultValues()
         } catch(e) {
