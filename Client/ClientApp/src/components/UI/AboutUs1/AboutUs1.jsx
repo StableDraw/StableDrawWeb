@@ -178,11 +178,11 @@ const AboutUs1 = () => {
                     <div className={cl.threeDtext}>
                         3D модуль
                     </div>
-                    <div className={cl.paginationBlock}>
+                    {/* <div className={cl.paginationBlock}>
                         <div className={cl.hrLine1}></div>
                         <PhotoSlider data={sliderData}/>
                         <div className={cl.hrLine2}></div>
-                    </div>
+                    </div> */}
                     <div className={cl.newtex}>
                         <p>Веб-платформа для рисования, обработки
                             изображений и создания анимаций с

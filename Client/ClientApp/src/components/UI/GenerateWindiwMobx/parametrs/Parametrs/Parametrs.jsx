@@ -10,7 +10,6 @@ import ResultWindowState from '../../../ResultWindow/ResultWindowState.ts'
 import {observer} from 'mobx-react-lite'
 import DownloadImg from './DownloadImg'
 import Caption from '../Caption/Caption.tsx'
-
 const renderSwitch = (value, id, func) => {
     const key = Object.keys(value)
     const type = value[key].type
@@ -66,22 +65,19 @@ const Parametrs = observer(({closeWindow, closeParam,}) => {
     const goOnServer = async () => {
         const formData = new FormData()
         let blob = dataURItoBlob(file);
-        console.log(JSON.parse(JSON.stringify(renderValue)))
         formData.append('NeuralType', neuralName)
         formData.append('Parameters', JSON.stringify(renderValue))
         formData.append('Caption', caption)
         formData.append('Prompts', ["", ""])//надо узнать че это такое
         formData.append('ImagesInput', blob)
-        closeModal()
+        
         try {
-            console.log('hfabfbabvuqbavjkbajkvbjkavbjkv')
-
             const response = await api.RunNeural(formData)
-            console.log(response)
-            image = response.data.images[0]
-            console.log('hfabfbabvuqbavjkbajkvbjkavbjkv')
-            console.log(image)
-            setIsResult(true)
+            const image = response.data.images[0]
+            testMob.setActiveNeural('')
+            closeModal()
+            ResultWindowState.setImage(image)
+            ResultWindowState.setIsOpen(true)                     
         } catch(e) {
             console.error(e)
             throw(e)
@@ -112,7 +108,7 @@ const Parametrs = observer(({closeWindow, closeParam,}) => {
             </div>
         </div>
         <button onClick={()=>closeModal()} className={cl.cancel}>Отмена</button>
-        <button className={cl.generate} onClick={()=>goOnServer()}>Сгенерировать</button>
+        <button className={cl.generate} onClick={goOnServer}>Сгенерировать</button>
     </div>
   )
 })
