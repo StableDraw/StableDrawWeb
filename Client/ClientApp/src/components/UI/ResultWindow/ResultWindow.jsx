@@ -5,6 +5,8 @@ import cl from './ResultWindow.module.css'
 import ResultWindowState from './ResultWindowState.ts'
 import BabylonModule from '../BabylonModule/BabylonBtn'
 const ResultWindow = observer(() => {
+    const test = ResultWindowState.getImage()
+    console.log(test)
     const image = `${ResultWindowState.getImage()}`
 return (
     <Modal open={ResultWindowState.isOpen} className={cl.modalWindow} sx={{  border: '2px solid #000'}}>

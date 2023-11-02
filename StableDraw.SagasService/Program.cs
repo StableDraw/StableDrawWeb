@@ -38,13 +38,13 @@ IHost host = Host.CreateDefaultBuilder(args)
                 {
                     r.ExistingDbContext<SagasDbContext>();
                     r.LockStatementProvider = new SqliteLockStatementProvider();
-                });            
-            //cfg.AddSagaStateMachine<NeuralStateMachine, NeuralState>().EntityFrameworkRepository(r =>
-            //{
-            //    //r.ConcurrencyMode = ConcurrencyMode.Pessimistic;
-            //    r.ExistingDbContext<SagasDbContext>();
-            //    r.LockStatementProvider = new SqliteLockStatementProvider();
-            //});
+                });
+            cfg.AddSagaStateMachine<NeuralStateMachine, NeuralState>().EntityFrameworkRepository(r =>
+            {
+                //r.ConcurrencyMode = ConcurrencyMode.Pessimistic;
+                r.ExistingDbContext<SagasDbContext>();
+                r.LockStatementProvider = new SqliteLockStatementProvider();
+            });
             cfg.UsingRabbitMq((brc, rbfc) =>
             {
                 rbfc.UseInMemoryOutbox();

@@ -46,11 +46,13 @@ function dataURItoBlob (dataURI) {
 
 const Parametrs = observer(({closeWindow, closeParam,}) => {
     const [file, setFile] = useState()
+    const [isResult, setIsResult] = useState(false)
     const paramsToRender = testMob.parametrs
     const isCaption = testMob.caption
     let renderValue = testMob.defaultValue
     const neuralName = testMob.activeNeuralName
     let caption = ''
+    let image = ''
     const closeModal = () => {
         closeWindow(false)
         closeParam(false)
@@ -71,16 +73,22 @@ const Parametrs = observer(({closeWindow, closeParam,}) => {
         formData.append('Prompts', ["", ""])//надо узнать че это такое
         formData.append('ImagesInput', blob)
         closeModal()
-        ResultWindowState.setIsOpen(true)
         try {
-            const response = await api.RunNeural(formData)
-            const image = response.data.images[0]
-            console.log(image)
-            image ? ResultWindowState.setImage(image) :  console.log('error')
+            console.log('hfabfbabvuqbavjkbajkvbjkavbjkv')
 
+            const response = await api.RunNeural(formData)
+            console.log(response)
+            image = response.data.images[0]
+            console.log('hfabfbabvuqbavjkbajkvbjkavbjkv')
+            console.log(image)
+            setIsResult(true)
         } catch(e) {
             console.error(e)
             throw(e)
+        }
+        if (isResult) {
+            ResultWindowState.setImage(image)
+            ResultWindowState.setIsOpen(true)
         }
     }
   return (
