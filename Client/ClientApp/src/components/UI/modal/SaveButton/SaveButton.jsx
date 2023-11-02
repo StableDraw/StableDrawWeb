@@ -6,6 +6,7 @@ import { observer } from 'mobx-react-lite';
 const SaveButton = observer(() => {
     const img = new Image()
     img.src = canvasState.getImgSrc()
+    console.log(img.src)
     return (
         <div >
             <InputLabel className={cl.upload}>
