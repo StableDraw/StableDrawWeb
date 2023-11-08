@@ -68,7 +68,6 @@ const Parametrs = observer(({closeWindow, closeParam,}) => {
         formData.append('Caption', caption)
         formData.append('Prompts', ["", ""])//надо узнать че это такое
         formData.append('ImagesInput', blob)
-        
         try {
             const response = await api.RunNeural(formData)
             const image = response.data.images[0]
@@ -76,8 +75,6 @@ const Parametrs = observer(({closeWindow, closeParam,}) => {
             closeModal()
             ResultWindowState.setImage(image)
             ResultWindowState.setIsOpen(true)
-            
-
         } catch(e) {
             console.error(e)
             throw(e)

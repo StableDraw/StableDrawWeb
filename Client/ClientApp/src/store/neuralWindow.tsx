@@ -17,7 +17,7 @@ class neuralWindow {
         try {
             const response = await api.GetNeuralsList()
             this.neurals = response.data
-            // console.log(JSON.parse(JSON.stringify(response.data)))
+            console.log(JSON.parse(JSON.stringify(response.data)))
         } catch(e) {
             console.error(e)
             throw(e)
@@ -27,6 +27,7 @@ class neuralWindow {
         try {
             const response = await api.GetNeurals(name)
             this.setActiveNeural(name)
+            console.log(JSON.parse(JSON.stringify(response.data)))
             response.data.caption ? this.caption = true : this.caption = false
             const array:object[] = []
             for (let item of response.data) {

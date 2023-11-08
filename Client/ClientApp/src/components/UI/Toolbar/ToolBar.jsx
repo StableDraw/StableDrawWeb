@@ -5,7 +5,6 @@ import Eraser from '../modal/Eraser/Eraser';
 import ColorPalete from '../modal/ColorPalete/ColorPalete';
 import ClearPane from '../modal/ClearPane/ClearPane';
 import toolState from "../../../store/toolState.tsx";
-import Bucket from "../../../tools/Bucket";
 import Filling from '../../../toolsMobx/test'
 import canvasState from "../../../store/canvasState.tsx";
 import Bezie from "../../../toolsMobx/Bezie";
