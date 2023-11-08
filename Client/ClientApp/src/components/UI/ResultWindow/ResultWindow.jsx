@@ -19,7 +19,7 @@ return (
                         <img  className ={cl.imgResult} src={img}/>
                     </section>
                     <section className={cl.navigate}>
-                        <BabylonModule/>
+                        <BabylonModule img={img}/>
                         <button 
                             className={cl.goToCanvas} 
                             onClick={()=>ResultWindowState.setIsOpen(false)}

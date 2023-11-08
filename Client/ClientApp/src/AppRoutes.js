@@ -20,11 +20,6 @@ const AppRoutes = [
         element: <DrawingMobx/>
     },
     {
-        path:'/window',
-        requireAuth:true,
-        element: <GenerateWindow/>
-    },
-    {
         path:'/aboutus',
         requireAuth:false,
         element: <AbtoutUs1/>

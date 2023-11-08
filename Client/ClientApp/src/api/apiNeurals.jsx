@@ -19,7 +19,10 @@ export default class Neurals {
 	}
 	static async RunNeural(requestModel) {
 		if (await AuthorizeService.isAuthenticated()) {
-			return await axios.post('api/neural', requestModel, await ApiToken.GetConfigToken(), { timeout: 14400 })
+			//let res = await axios.post('api/neural', requestModel, await ApiToken.GetConfigToken(), { timeout: 14400 })
+			let res = await axios.post('api/neural', requestModel, await ApiToken.GetConfigToken())
+			console.log(res)
+			return res
 		} else {
 			return await axios.HttpStatusCode.NotFound();
 		}

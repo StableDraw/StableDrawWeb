@@ -209,7 +209,7 @@
         "serverName": "upscaler",
         "clientName": "Апскейлер",
         "description": "При помощи данного режима Вы можете повышать качество и разрешение исходных изображений, уменьшать шум и артефакты",
-        "caption": "",
+        "caption": true,
         "params": [
           {"model": {
             "default": "StableDiffusionx4Upscaler",
@@ -428,7 +428,7 @@
         "serverName": "image_to_image",
         "clientName": "Генерация по тексту и изображению",
         "description": "Генерирует изображение по тексту и описанию",
-        "caption": "",
+        "caption": true,
         "params": [
           {"add_watermark": {
             "default": "False",
@@ -1079,7 +1079,7 @@
         "serverName": "text_to_image",
         "clientName": "Генерация по тексту",
         "description": "Генерация изображения по текстовому описанию",
-        "caption": "",
+        "caption": true,
         "params": [
           {"add_watermark": {
             "default": "False",
@@ -1632,7 +1632,7 @@
         "serverName": "image_captioning",
         "clientName": "Генерация описания для изображения",
         "description": "Генерация случайного описания для изображения",
-        "caption": "",
+        "caption": true,
         "params": [
           {"ckpt": {
             "default": "caption_base_best.pt",
@@ -1802,7 +1802,7 @@
         "serverName": "inpainting",
         "clientName": "Перерисовка области изображения",
         "description": "Перерисовка выбранного участка изображения (инпеинтинг)",
-        "caption": "",
+        "caption": true,
         "params": [
           {"version": {
             "default": "Kandinsky2.2",

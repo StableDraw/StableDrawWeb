@@ -50,9 +50,11 @@ const Parametrs = observer(({closeWindow, closeParam,}) => {
     let renderValue = testMob.defaultValue
     const neuralName = testMob.activeNeuralName
     let caption = ''
+    let image = ''
     const closeModal = () => {
         closeWindow(false)
         closeParam(false)
+        testMob.setActiveNeural('')
     }
     const setCaption = (value) => {
         caption = value

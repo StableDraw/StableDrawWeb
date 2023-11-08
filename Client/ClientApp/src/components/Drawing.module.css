@@ -59,6 +59,8 @@
     height: 95vh;
     /* align-items: flex-end; */
     flex-direction: row;
+    height: calc(100vh - 70px);
+    background: #EFEFEF;
 }
 
 .col {
@@ -107,7 +109,17 @@
     -webkit-text-fill-color: transparent;
     
 }
-
+.subscribe__txt_3D {
+    color: #1975D2;
+    font-family: Montserrat;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 .link {
 	text-decoration: none;
     width: 90px;

@@ -19,7 +19,7 @@ const sendImgToBack = async (ImgBase64, fileName) => {
         })
 }
 
-const BabylonModule = () => {
+const BabylonModule = ({img}) => {
 
     /**
  * @function loadImgToBabylon загружает картинку в minIo и клиентскую bd, также синхронизирует(пока не особо)
@@ -47,7 +47,7 @@ const BabylonModule = () => {
     }
 
     return (
-            <Link className={cl.babylonCont} to='/babylon'>
+            <Link className={cl.babylonCont} to='/babylon' onClick={()=>loadImgToBabylon(img,'3D_Object')}>
                 <span>Открыть 3D модуль</span>
             </Link>
     );

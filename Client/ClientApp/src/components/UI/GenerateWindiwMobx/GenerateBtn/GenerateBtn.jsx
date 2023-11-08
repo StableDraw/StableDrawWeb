@@ -16,6 +16,7 @@ const GenerateBtn = () => {
     const closeBtn = () => {
         setModal(false)
         setOpenParam(false)
+        testMob.setActiveNeural('')
     }
   return (
     <div>

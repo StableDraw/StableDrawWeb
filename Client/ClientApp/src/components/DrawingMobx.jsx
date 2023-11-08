@@ -37,7 +37,9 @@ const Drawing = () => {
                     <p className={cl.logoText}>StableDraw</p>
                 </NavLink>
                 <div className={cl.modules}>
-                    <BabylonModule/>
+                    <Link className={cl.link} to='/babylon'>
+                        <span className={cl.subscribe__txt_3d}> 3D модуль</span>
+                    </Link>
                     <Link className={cl.link} to='/Pay'>
                         <span className={cl.subscribe__txt}> Подписка</span>
                     </Link>

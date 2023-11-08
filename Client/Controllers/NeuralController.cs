@@ -51,7 +51,7 @@ public class NeuralController : Controller
         //return NotFound();
 
         //return Ok(_model["Neurals"].Children[neuralType].ToString());
-        var res = _model["Neurals"][neuralType]["params"].ToString();
+        var res = _model["Neurals"][neuralType].ToString();
         return Ok(res);
     }
 
@@ -105,7 +105,7 @@ public class NeuralController : Controller
         
             request.ImagesInput = dataBytes;
         }
-        var response = await _bus.Request<NeuralRequest, INeuralReply>(request, timeout: RequestTimeout.After(m: 15));
+        var response = await _bus.Request<NeuralRequest, NeuralReply>(request, timeout: RequestTimeout.After(m: 15));
         if (!response.Message.ErrorMsg.IsNullOrEmpty()) 
                 throw new Exception(response.Message.ErrorMsg);
         return Ok(response.Message);
