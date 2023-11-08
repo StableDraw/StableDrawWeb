@@ -60,18 +60,27 @@ const Parametrs = ({closeWindow, closeParam, json, neuralName}) => {
     // Display the key/value pairs
     
     const goOnServer = async () => {
+        
+        const formData = new FormData()
+        let blob = dataURItoBlob(file);
+        formData.append('NeuralType', neuralName)
+        formData.append('Parameters', JSON.stringify(renderValue))
+        formData.append('Caption', "")
+        formData.append('Prompts', ["", ""])
+        formData.append('ImagesInput', blob)
+        //formData.append("Content-Type", "multipart/form-data")
+        
+        // console.log(res)
+        //setRenderValue()
         try {
-            const formData = new FormData()
-            formData.append('NeuralType', neuralName)
-            formData.append('Parameters', JSON.stringify(renderValue))
-            formData.append('Caption', "")
-            formData.append('Prompts', ["lalala", "kfkf"])
-            formData.append('ImagesInput', file)
-            //formData.append("Content-Type", "multipart/form-data")
             const res = await api.RunNeural(formData)
-            // console.log(res)
-            //setRenderValue()
-        } catch(e) {
+            const image = res.data.images[0]
+            testMob.setActiveNeural('')
+            closeModal()
+            ResultWindowState.setImage(image)
+            ResultWindowState.setIsOpen(true)
+        }
+        catch(e) {
             console.error(e)
             throw(e)
         }

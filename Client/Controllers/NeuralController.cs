@@ -51,7 +51,7 @@ public class NeuralController : Controller
         //return NotFound();
 
         //return Ok(_model["Neurals"].Children[neuralType].ToString());
-        var res = _model["Neurals"][neuralType]["params"].ToString();
+        var res = _model["Neurals"][neuralType].ToString();
         return Ok(res);
     }
 
