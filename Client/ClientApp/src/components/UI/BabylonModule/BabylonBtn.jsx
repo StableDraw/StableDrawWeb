@@ -39,10 +39,9 @@ const BabylonModule = ({img}) => {
  * 
  * Проверить работоспособность функций можно в файле menu.jsx в папке babylon проекта.(но я тестил, всё работает)
  */
-
-   
-
+  
     const loadImgToBabylon = async (ImgBase64, fileName) => {
+       
         const data = sendImgToBack(ImgBase64, fileName);
     }
 

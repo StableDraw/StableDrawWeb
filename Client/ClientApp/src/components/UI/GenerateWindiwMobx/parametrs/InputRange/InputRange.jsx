@@ -27,7 +27,7 @@ const InputRange = ({getValue, description,defaultV, max, min, step, name, keyVa
               min={min} 
               max={max}
               value={value} 
-              onChange={(e)=>call(e.target.value)} 
+              onChange={(e)=>call(+e.target.value)} 
               onBlur={()=>getValue(value, keyValue)}
               step={step}
             />
