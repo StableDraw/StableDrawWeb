@@ -16,11 +16,11 @@ const renderSwitch = (value, id, func) => {
     switch(type) {
         case 'select':
             return <MySelect key={id} keyValue={key} name={value[key].name} defaultV={value[key].default} options={value[key].values} description={value[key].description} getValue={func}/>
-        case 'string':
+        case 'text':
             return <InputText key={id} keyValue={key} name={value[key].name} defaultV={value[key].default} description={value[key].description} getValue={func}/>
-        case 'int':
-            return <InputRange key={id} keyValue={key} name={value[key].name} defaultV={value[key].default} step={value[key.step]} min={value[key].min} max={value[key].max} description={value[key].description} getValue={func}/>
-        case 'bool':
+        case 'range':
+            return <InputRange key={id} keyValue={key} name={value[key].name} defaultV={value[key].default} step={value[key].step} min={value[key].min} max={value[key].max} description={value[key].description} getValue={func}/>
+        case 'boolean':
             return <MyCheckBox key={id} keyValue={key} name={value[key].name} defaultV={value[key].default === 'True' ?  true :  false} description={value[key].description} getValue={func}/>
     }
 }
@@ -50,7 +50,6 @@ const Parametrs = observer(({closeWindow, closeParam,}) => {
     let renderValue = testMob.defaultValue
     const neuralName = testMob.activeNeuralName
     let caption = ''
-    let image = ''
     const closeModal = () => {
         closeWindow(false)
         closeParam(false)
