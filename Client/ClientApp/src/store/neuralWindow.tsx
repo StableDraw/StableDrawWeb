@@ -47,7 +47,16 @@ class neuralWindow {
         let result = {}
         for(let item of this.parametrs) {
             const key:string[] = Object.keys(item)
-            result = ({...result, [key[0]]:item[key[0]].default})            
+            if(item[key[0]].default === "True") {
+                result = ({...result, [key[0]]:true})
+            }
+            else if(item[key[0]].default === "False") {
+                result = ({...result, [key[0]]:false})
+            }
+            else {
+                result = ({...result, [key[0]]:item[key[0]].default})      
+
+            }
         }
         this.defaultValue = result     
     }
