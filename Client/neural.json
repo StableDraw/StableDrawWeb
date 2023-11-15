@@ -1675,7 +1675,7 @@
             "name": "Оценка с помощью метрики BLEU"
           }},
           {"eval_args": {
-            "default": "",
+            "default": "{}",
             "system": true,
             "description": "Аргументы генерации для оценки BLUE или CIDEr, например, \"{\"beam\": 4, \"lenpen\": 0,6}\", в виде строки JSON",
             "type": "text",
@@ -1695,7 +1695,7 @@
             "name": "Обучение самокритичной последовательности"
           }},
           {"scst_args": {
-            "default": "",
+            "default": "{}",
             "system": true,
             "description": "Аргументы генерации для оценки BLUE или CIDEr, например, \"{\"beam\": 4, \"lenpen\": 0,6}\", в виде строки JSON",
             "type": "text",
