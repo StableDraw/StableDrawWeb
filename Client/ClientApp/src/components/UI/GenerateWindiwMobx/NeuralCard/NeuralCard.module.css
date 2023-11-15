@@ -19,6 +19,8 @@
     margin-right: auto;
     border-bottom: 1px #656565 solid ;
     cursor: pointer;
+    align-items: center;
+    text-align: center;
 
 }
 .item:hover {
@@ -30,7 +32,8 @@
     height: 75px;
     margin-right: 15px;
     /* background-color: white; */
+    border-radius: 15px;
 }
 .itemText {
-    width: 113px;
+    /* width: 113px; */
 }
