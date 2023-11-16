@@ -1,12 +1,13 @@
 import ApiAuthorzationRoutes from './components/api-authorization/ApiAuthorizationRoutes';
 import { DrawingtoImg } from "./components/DrawingtoImg";
-import  Drawing  from './components/Drawing'
+import  Drawing  from './components/Drawing';
 import { MainBabylon } from "./components/babylon/mainBabylon";
-import {Pay} from './components/UI/PayNew/PayNew'
+import {Pay} from './components/UI/PayNew/PayNew';
 import { StartPage } from './components/UI/startPage/startPage';
-import DrawingMobx from './components/DrawingMobx'
-import AbtoutUs1 from './components//UI/AboutUs1/AboutUs1'
-import Regisration from './components/UI/Registration/Registration.tsx'
+import { UserProfile } from './components/UI/UserProfile/UserProfile.jsx';
+import DrawingMobx from './components/DrawingMobx';
+import AbtoutUs1 from './components//UI/AboutUs1/AboutUs1';
+import Regisration from './components/UI/Registration/Registration.tsx';
 import ResultWindow from './components/UI/ResultWindow/ResultWindow';
 import GenerateWindow from '../src/components/UI/GenerateWindiwMobx/GenerateBtn/GenerateBtn.jsx'
 const AppRoutes = [
@@ -54,6 +55,11 @@ const AppRoutes = [
         requireAuth: true,
         element: <MainBabylon />
     },
+		{
+			path: '/myProfile',
+        requireAuth: true,
+        element: <UserProfile />
+		},
     {
         path: '/api',
         requireAuth: true,
