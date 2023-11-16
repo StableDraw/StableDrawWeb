@@ -83,7 +83,7 @@ public class ImageController : Controller
     public async Task<IActionResult> PostObject(IFormFile file)
     {
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (string.IsNullOrEmpty(currentUserId)) return NotFound();
+        if (string.IsNullOrEmpty(currentUserId)) return Unauthorized();
         var img = new Image()
         {
             ImageName = file.FileName,
@@ -92,8 +92,9 @@ public class ImageController : Controller
         };
 
         byte[] image;
-        
-        _unitOfWork.Images.Create(img);
+
+        await _unitOfWork.Images.CreateImage(img);
+        //_unitOfWork.Images.Create(img);
         using var memoryStream = new MemoryStream(); 
         await file.CopyToAsync(memoryStream); 
         image = memoryStream.ToArray();
@@ -182,7 +183,7 @@ public class ImageController : Controller
     public async Task<IActionResult> GetObjects()
     {
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (string.IsNullOrEmpty(currentUserId)) return NotFound();
+        if (string.IsNullOrEmpty(currentUserId)) return Unauthorized();
         Response<GetObjectsMinIoReply> response;
         IEnumerable<Image> images;
         var cts = new CancellationTokenSource();

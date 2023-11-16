@@ -17,6 +17,7 @@ class neuralWindow {
         try {
             const response = await api.GetNeuralsList()
             this.neurals = response.data
+            console.log(JSON.parse(JSON.stringify(this.neurals)))
         } catch(e) {
             console.error(e)
             throw(e)
@@ -47,7 +48,16 @@ class neuralWindow {
         let result = {}
         for(let item of this.parametrs) {
             const key:string[] = Object.keys(item)
-            result = ({...result, [key[0]]:item[key[0]].default})            
+            if(item[key[0]].default === "True") {
+                result = ({...result, [key[0]]:true})
+            }
+            else if(item[key[0]].default === "False") {
+                result = ({...result, [key[0]]:false})
+            }
+            else {
+                result = ({...result, [key[0]]:item[key[0]].default})      
+
+            }
         }
         this.defaultValue = result     
     }

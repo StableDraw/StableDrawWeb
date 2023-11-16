@@ -1,4 +1,5 @@
 ﻿using System.Net.Mime;
+using System.Text.RegularExpressions;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using StableDraw.Core.Models;
@@ -32,9 +33,17 @@ public class ImageRepository : BaseRepository<Image>, IImageRepository
         RemoveRangeAsync(imgs);
     }
 
-    public void CreateImage(Image image)
+    public Task CreateImage(Image image)
     {
+        //var imgName = image.ImageName.Split('.')[0];
+        ////string pattern = $@"{imgName}(\w*)";
+        //var regex = new Regex(imgName + @"(\w*)");
+        //var imageList = await FindByCondition(x => 
+        //x.UserId.Equals(image.UserId) &&
+        //Regex.IsMatch(x.ImageName, imgName + @"(\w*)", RegexOptions.IgnoreCase)).ToListAsync();
+        //image.ImageName = image.ImageName.Insert(imgName.Count() + 1, $"({imageList.Count})");
         Create(image);
+        return Task.CompletedTask;
     }
 
     public async Task<Image?> GetImage(string imageName, string userId)
