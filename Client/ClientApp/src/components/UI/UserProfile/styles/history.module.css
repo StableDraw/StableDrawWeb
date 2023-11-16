@@ -1,0 +1,15 @@
+.main {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+}
+
+.historyTxt {
+	color: #1E1F22;
+	font-family: Montserrat;
+	font-size: 40px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
+}

@@ -1,3 +1,4 @@
+import styles from '../styles/personCard.module.css'
 import { History } from "./history"
 import { PersonCard } from "./personCard"
 
@@ -5,7 +6,7 @@ import { PersonCard } from "./personCard"
 
 export const Person = () => {
 	return (
-		<div >
+		<div className={styles.main}>
 			<PersonCard />
 			<History/>
 		</div>

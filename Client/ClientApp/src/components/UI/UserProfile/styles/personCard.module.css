@@ -1,3 +1,13 @@
+/* обёртка для компонента Person */
+.main{
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+	gap: 36px;
+}
+
+/* карточка пользователя */
 .card {
 	display: flex;
 	flex-direction: row;
@@ -46,6 +56,7 @@
 	line-height: normal;
 }
 
+/* кнопки в карточке */
 .btns {
 	display: flex;
 	flex-direction: column;

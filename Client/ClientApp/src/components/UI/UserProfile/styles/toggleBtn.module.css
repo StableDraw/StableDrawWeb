@@ -1,0 +1,82 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat+Subrayada:wght@400;700&family=Montserrat:wght@500&display=swap");
+
+
+.selectButtons {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	gap: 3px;
+}
+
+.selectButton1_select {
+	width: 307px;
+	height: 59px;
+	border-radius: 20px 0px 0px 20px;
+	background: #06F;
+	border: none;
+}
+
+.selectButton1_select:hover {
+	background: rgb(4, 72, 173);
+}
+
+.selectButton2_select {
+	width: 307px;
+	height: 59px;
+	border-radius: 0px 20px 20px 0px;
+	background: #1975D2;
+	border: none;
+}
+
+.selectButton2_select:hover {
+	background: rgb(4, 72, 173);
+}
+
+.selectButton2 {
+	width: 307px;
+	height: 59px;
+	border-radius: 0px 20px 20px 0px;
+	background: #FFF;
+	border: 2px solid #D9D9D9;
+}
+
+.selectButton2:hover {
+	background: #e7e7e7;
+}
+
+.selectButton1 {
+	width: 307px;
+	height: 59px;
+	background: #FFF;
+	border-radius: 20px 0px 0px 20px;
+	border: 2px solid #D9D9D9;
+}
+
+.selectButton1:hover {
+	background: #e7e7e7;
+}
+
+.selectTxt_select {
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 24px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
+}
+
+.selectTxt {
+	color: #1975D2;
+	font-family: Montserrat;
+	font-size: 24px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
+}
+
+.bar {
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+}
