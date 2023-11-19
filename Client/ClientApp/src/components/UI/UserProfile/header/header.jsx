@@ -8,7 +8,7 @@ export const Header = () => {
 	return (
 		<div className={styles.main}>
 			<Logo />
-			<NavLink tag={Link} className={styles.link} to={`${ApplicationPaths.LogOut}`}>
+			<NavLink state={{ local: true }} tag={Link} className={styles.link} to={`${ApplicationPaths.LogOut}`}>
 				<span className={styles.main__txt}>
 					Выход
 				</span>

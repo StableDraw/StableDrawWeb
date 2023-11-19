@@ -1,0 +1,82 @@
+.main {
+	display: flex;
+	flex-direction: column;
+}
+
+.titleTxt {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	color: #1E1F22;
+	font-family: Montserrat;
+	font-size: 32px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
+	margin-bottom: 10px;
+}
+
+/* карточка сотрудника */
+.card {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding: 17px 19px;
+	gap: 25px;
+	width: 398px;
+	height: 132px;
+	border-radius: 20px;
+	border: 2px solid #D9D9D9;
+	background: #FFF;
+	margin-top: 10px;
+}
+
+.card__photo {
+	background-color: gray;
+	width: 97px;
+	height: 97px;
+	border-radius: 97px;
+}
+
+.card__info {
+	display: flex;
+	flex-direction: column;
+}
+
+.name {
+	color: #2B2D31;
+	font-family: Montserrat;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
+}
+
+.profession {
+	color: #2B2D31;
+	font-family: Montserrat;
+	font-size: 15px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	margin-top: 10px;
+}
+
+.tg {
+	display: flex;
+	margin-top: 20px;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	border-radius: 10px;
+	width: 130px;
+	height: 25px;
+	background: #27A6E5;
+	z-index: 0;
+}
+
+.tg__icon{
+	position: absolute;
+	left: -10px;
+	z-index: 1;
+}

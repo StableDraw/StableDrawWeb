@@ -2,43 +2,45 @@ import React from 'react';
 import { useState, memo, } from "react";
 import styles from '../styles/toggleBtn.module.css'
 
-export const ToggleBtn = memo(() => {
-	const [isMyWorks, setIsMyWorks] = useState(true);
-	const [isTeamWorks, setIsTeamWorks] = useState(false)
+export const ToggleBtn = memo(({
+	leftBtnTxt,
+	rightBtnTxt,
+	setShowedContent,
+}) => {
+	const [isLeftBtn, setIsLeftBtn] = useState(true);
 
-	const showMyWorks = () => {
-		setIsTeamWorks(false)
-		setIsMyWorks(true)
+	const showLeftBtnContent = () => {
+		if (isLeftBtn)
+			return;
+
+		setIsLeftBtn(true);
+		setShowedContent(false);
 	}
 
-	const showTeamWorks = () => {
-		setIsMyWorks(false)
-		setIsTeamWorks(true)
+	const showRightBtnContent = () => {
+		if (!isLeftBtn)
+			return;
+
+		setIsLeftBtn(false);
+		setShowedContent(true);
 	}
 
 	return (
-		<div className={styles.bar}>
-			<div className={styles.selectButtons}>
-				<button
-					onClick={showMyWorks}
-					className={isMyWorks ? styles.selectButton1_select : styles.selectButton1}>
-
-					<span className={isMyWorks ? styles.selectTxt_select : styles.selectTxt}>
-						Mои работы
-					</span>
-
-				</button>
-				<button
-					onClick={showTeamWorks}
-					className={isTeamWorks ? styles.selectButton2_select : styles.selectButton2}>
-					<span className={isTeamWorks ? styles.selectTxt_select : styles.selectTxt}>
-						Работы команды
-					</span>
-
-				</button>
-			</div>
-			{/* {isModelsBar ? <ModelsBar modelStaff={modelStaff} changeModel={changeModel} isLightTheme={isLightTheme} /> :
-				<SceneBar modelStaff={modelStaff} changeScene={changeScene} setSceneModal={setSceneModal} isLightTheme={isLightTheme} />} */}
+		<div className={styles.selectButtons}>
+			<button
+				onClick={showLeftBtnContent}
+				className={isLeftBtn ? styles.selectedBtnLeft : styles.btnLeft}>
+				<span className={isLeftBtn ? styles.selectedTxt : styles.txt}>
+					{leftBtnTxt}
+				</span>
+			</button>
+			<button
+				onClick={showRightBtnContent}
+				className={isLeftBtn ? styles.btnRight : styles.selectedBtnRight}>
+				<span className={isLeftBtn ? styles.txt : styles.selectedTxt}>
+					{rightBtnTxt}
+				</span>
+			</button>
 		</div>
 	);
 })

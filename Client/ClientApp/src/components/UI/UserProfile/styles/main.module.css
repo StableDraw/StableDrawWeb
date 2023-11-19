@@ -6,12 +6,22 @@
 	align-items: center;
 	background: #FAFAFA;
 	width: 100vw;
-	height: 1080px;
-	gap: 50px;
+	height: 100vh;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 .main__content{
 	display: flex;
+	flex-direction: row;
+	margin-top: 50px;
+	gap: 10px;
+}
+
+.main__person{
+	display: flex;
 	flex-direction: column;
-	gap: 20px;
+	align-items: flex-start;
+	justify-content: center;
+	/* gap: 36px; */
 }

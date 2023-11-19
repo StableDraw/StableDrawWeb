@@ -1,11 +1,3 @@
-/* обёртка для компонента Person */
-.main{
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	justify-content: center;
-	gap: 36px;
-}
 
 /* карточка пользователя */
 .card {
@@ -73,6 +65,7 @@
 	width: 42.891px;
 	height: 42.891px;
 	border-radius: 15px;
+	text-decoration: none;
 }
 
 .btns__settingsBtn {

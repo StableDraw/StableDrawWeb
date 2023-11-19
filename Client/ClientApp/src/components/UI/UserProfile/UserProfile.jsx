@@ -1,15 +1,19 @@
 import styles from './styles/main.module.css'
 import { Header } from './header/header'
-import { Person } from './personModule/person'
 import { Team } from './team/team'
+import { History } from "./personModule/history"
+import { PersonCard } from "./personModule/personCard"
 
 export const UserProfile = () => {
-	return(
+	return (
 		<div className={styles.main}>
-			<Header/>
+			<Header />
 			<div className={styles.main__content}>
-				<Person/>
-				<Team/>
+				<div className={styles.main__person}>
+					<PersonCard />
+					<History />
+				</div>
+				<Team />
 			</div>
 		</div>
 	)
