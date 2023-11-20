@@ -3,7 +3,17 @@
 	flex-direction: column;
 }
 
+.cardsBlock {
+	display: flex;
+	flex-direction: column;
+	overflow-y: auto;
+	max-height: 570px;
+	border-radius: 20px;
+}
+
 .titleTxt {
+	width: 398px;
+	height: 25px;
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
@@ -75,8 +85,15 @@
 	z-index: 0;
 }
 
-.tg__icon{
+.tg__icon {
 	position: absolute;
 	left: -10px;
 	z-index: 1;
+}
+
+@media(max-height: 778px) {
+	.cardsBlock {
+		max-height: 570px;
+	}
+
 }

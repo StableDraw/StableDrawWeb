@@ -1,6 +1,6 @@
-
 /* карточка пользователя */
 .card {
+	position: relative;
 	display: flex;
 	flex-direction: row;
 	padding: 45px;
@@ -11,6 +11,8 @@
 	width: 704px;
 	height: 275px;
 	background: #FFF;
+	z-index: 0;
+
 }
 
 .photo {
@@ -77,36 +79,52 @@
 	border-radius: 20px;
 }
 
-.btns__logOutBtn:hover{
+.btns__logOutBtn:hover {
 	scale: 1.1;
 }
 
-.btns__settingsBtn:hover{
+.btns__settingsBtn:hover {
 	scale: 1.1;
 }
 
-.btns__logOutBtn:active{
+.btns__logOutBtn:active {
 	background: #D9D9D9;
 }
 
-.btns__settingsBtn:hover{
+.btns__settingsBtn:hover {
 	background: #D9D9D9;
 }
 
-@media(max-height: 980px){
-	.card{
-		height: 250px;
+@media(max-height: 900px) {
+	.card {
+		height: 220px;
+		justify-content: flex-start;
 	}
 
-	.photo{
-		scale: 0.95;
+	.photo {
+		scale: 0.7;
 	}
 
-	.btns{
-		gap:90px;
+	.btns {
+		gap: 77px;
+		margin-left: 180px;
 	}
 
-	.statusTxtP{
-		font-size: 30px;
+	.statusTxt {
+		margin-left: 50px;
+		font-size: 28px;
+	}
+
+	.nameTxt {
+		margin-left: 50px;
+		font-size: 32px;
+	}
+
+	.btns__logOutBtn {
+		scale: 0.85;
+	}
+
+	.btns__settingsBtn {
+		scale: 0.85;
 	}
 }

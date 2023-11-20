@@ -28,8 +28,6 @@
 }
 
 .card__img {
-	/* max-width: 150px;
-	min-width: 135px; */
 	max-width: 160px;
 	max-height: 130px;
 	border-radius: 15px;
@@ -66,3 +64,42 @@
 .share:active {
 	background-color: #D9D9D9;
 }
+
+@media(max-height: 980px) {
+	.main {
+		height: 340px;
+	}
+}
+
+@media(max-height: 900px) {
+	.card__img {
+		max-width: 128px;
+		max-height: 104px;
+	}
+
+	.card {
+		padding: 12px 34px;
+	}
+}
+
+@media(max-height: 850px) {
+	.card__img {
+		max-width: 115px;
+		max-height: 94px;
+	}
+
+	.card {
+		padding: 11px 31px;
+	}
+
+	.main {
+		height: 296px;
+	}
+}
+
+@media(max-height: 778px) {
+	.main {
+		height: 237px;
+	}
+}
+	
