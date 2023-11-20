@@ -15,3 +15,11 @@
 	margin-bottom: 30px;
 	margin-top: 30px;
 }
+
+
+@media(max-height: 960px) {
+	.historyTxt {
+		margin-bottom: 25px;
+		margin-top: 25px;
+	}
+}
