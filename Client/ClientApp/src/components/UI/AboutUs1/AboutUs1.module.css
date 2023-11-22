@@ -1,3098 +1,3150 @@
-.background{
-    width: 100%;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-end;
-    height: 970px;
-    display: flex;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat+Subrayada:wght@400;700&display=swap");
+.background {
+	width: 100%;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: flex-end;
+	height: 970px;
+	display: flex;
 }
 
-.background_image{
-    background-image: url("background_about_us.png");
-    background-size: 110% 100%;
-    background-color: #000000;
+.background_image {
+	background-image: url("background_about_us.png");
+	background-size: 110% 100%;
+	background-color: #000000;
 }
 
-.header{
-    width: 100%;
-    height: 7.5%;
-    background-color: #000000;
-    position: fixed;
-    z-index:  100;
-    vertical-align: middle;
-    align-items: center;
-    display: flex;
+.header {
+	width: 100%;
+	height: 7.5%;
+	background-color: #000000;
+	position: fixed;
+	z-index: 100;
+	vertical-align: middle;
+	align-items: center;
+	display: flex;
 }
 
-.navka{
-    margin-left: 15%;
+.navka {
+	margin-left: 15%;
 }
 
-.logo{
-    width: 100%;
-    height: 100%;
+.logo {
+	width: 100%;
+	height: 100%;
 }
 
-.textLinks{
-    margin-right: 15%;
-    margin-left: auto;
-    width: 20%;
-    height: auto;
-    vertical-align: middle;
-    display: flex;
-    justify-content: space-between;
+.textLinks {
+	margin-right: 15%;
+	margin-left: auto;
+	width: 20%;
+	height: auto;
+	vertical-align: middle;
+	display: flex;
+	justify-content: space-between;
 }
 
-.reg_text{
-    color: #FFF;
-    font-family: Montserrat;
-    font-size: 1.25em;
-    font-style: normal;
-    font-weight: 500;
-    margin-left: 5%;
-    display: inline-block;
-    float: left;
+.reg_text {
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 1.25em;
+	font-style: normal;
+	font-weight: 500;
+	margin-left: 5%;
+	display: inline-block;
+	float: left;
 }
 
-.enter_text{
-    color: #FFF;
-    font-family: Montserrat;
-    font-size: 1.25em;
-    font-style: normal;
-    font-weight: 500;
-    margin-left: 2%;
-    display: inline-block;
-    float: right;
+.enter_text {
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 1.25em;
+	font-style: normal;
+	font-weight: 500;
+	margin-left: 2%;
+	display: inline-block;
+	float: right;
 }
 
-.mainpart{
-    display: flex;
-    background-color: rgba(0,0,0,0.4);
-    width: 70%;
-    height: 660vh;
-    margin-left: 15%;
-    margin-right: 15%;
-    margin-top: 3.9%;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+.mainpart {
+	display: flex;
+	background-color: rgba(0, 0, 0, 0.4);
+	width: 70%;
+	height: 660vh;
+	margin-left: 15%;
+	margin-right: 15%;
+	margin-top: 3.9%;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
 }
 
-.photocontainer{
-    width: 100%;
-    height: 15%;
-    margin-top: 3%;
-    vertical-align: middle;
-    align-items: center;
-    display: inline-block;
+.photocontainer {
+	width: 100%;
+	height: 15%;
+	margin-top: 3%;
+	vertical-align: middle;
+	align-items: center;
+	display: inline-block;
 }
 
-.Neural{
-    width: 57%;
-    height: 100%;
-    border-radius: 20px;
-    display: inline-block;
+.Neural {
+	width: 57%;
+	height: 100%;
+	border-radius: 20px;
+	display: inline-block;
 }
 
-.NeuralText{
-    display: inline-block;
-    width: auto;
-    height: auto;
+.NeuralText {
+	display: inline-block;
+	width: auto;
+	height: auto;
 }
 
-.neurontex{
-    color: #FFF;
-    font-family: Montserrat;
-    font-size: 1.5em;
-    font-style: normal;
-    font-weight: 600;
-    margin-left: 8%;
-    line-height: 1;
+.neurontex {
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 1.5em;
+	font-style: normal;
+	font-weight: 600;
+	margin-left: 8%;
+	line-height: 1;
 }
 
-.float_container{
-    margin-left: 26.9%;
-    margin-right: 0;
-    margin-top: -16%;
+.float_container {
+	margin-left: 26.9%;
+	margin-right: 0;
+	margin-top: -16%;
 }
 
-.maintex{
-    color: #FFF;
-    font-family: Montserrat;
-    font-size: 6em;
-    font-style: normal;
-    font-weight: 800;
+.maintex {
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 6em;
+	font-style: normal;
+	font-weight: 800;
 }
 
-.hrLine{
-    margin-top: 2%;
-    padding: 0;
-    width: 100%;
-    height: 2px;
-    background-color: #ACACAC;
+.hrLine {
+	margin-top: 2%;
+	padding: 0;
+	width: 100%;
+	height: 2px;
+	background-color: #ACACAC;
 }
 
-.photoGroup{
-    width: 79%;
-    height: 23%;
-    margin-top: 5%;
-    display: inline-block;
-    position: relative;
-    z-index: 1;
+.photoGroup {
+	width: 79%;
+	height: 23%;
+	margin-top: 5%;
+	display: inline-block;
+	position: relative;
+	z-index: 1;
 }
 
-.what{
-    background: rgba(0, 0, 0, 0.20);
-    filter: blur(5px);
-    backdrop-filter: blur(2px);
-    justify-content: center;
-    width: 651px;
-    height: 183px;
-    position: absolute;
-    display: flex;
-    z-index: 3;
-    border-radius: 30px;
+.what {
+	background: rgba(0, 0, 0, 0.20);
+	filter: blur(5px);
+	backdrop-filter: blur(2px);
+	justify-content: center;
+	width: 651px;
+	height: 183px;
+	position: absolute;
+	display: flex;
+	z-index: 3;
+	border-radius: 30px;
 }
 
-.float_container1{
-    display: inline-block;
-    position: relative;
-    margin-top: 10%;
-    margin-right: 50%;
-    justify-content: center;
-    z-index: 2;
+.float_container1 {
+	display: inline-block;
+	position: relative;
+	margin-top: 10%;
+	margin-right: 50%;
+	justify-content: center;
+	z-index: 2;
 }
 
-.float_container1_Text{
-    width: 607px;
-    height: 148px;
-    position: absolute;
-    z-index: 4;
+.float_container1_Text {
+	width: 607px;
+	height: 148px;
+	position: absolute;
+	z-index: 4;
 
 }
 
-.float_container1_Text p{
-    color: #FFF;
-    font-family: Montserrat;
-    font-size: 2em;
-    font-style: normal;
-    font-weight: 500;
-    text-align: left;
+.float_container1_Text p {
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 2em;
+	font-style: normal;
+	font-weight: 500;
+	text-align: left;
 }
 
-.float_container1_Text p span{
-    font-weight: 800;
+.float_container1_Text p span {
+	font-weight: 800;
 }
 
-.vanGoghBlock{
-    width: 100%;
-    height: 45%;
-    display: flex;
-    justify-content: space-between;
+.vanGoghBlock {
+	width: 100%;
+	height: 45%;
+	display: flex;
+	justify-content: space-between;
 }
 
-.vanGogh1{
-    width: 47%;
-    height: 100%;
-    border-radius: 20px;
+.vanGogh1 {
+	width: 47%;
+	height: 100%;
+	border-radius: 20px;
 }
 
-.technoprom{
-    height: 490px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 80px;
+.technoprom {
+	height: 490px;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	margin-top: 80px;
 }
 
-.tech1{
-    width: 61.9%;
-    height: 100%;
-    border-radius: 20px;
+.tech1 {
+	width: 61.9%;
+	height: 100%;
+	border-radius: 20px;
 }
 
-.tech2{
-    width: 35.4%;
-    height: 100%;
-    border-radius: 20px;
+.tech2 {
+	width: 35.4%;
+	height: 100%;
+	border-radius: 20px;
 }
 
-.technopromText{
-    display: flex;
-    width: 100%;
-    height: 100px;
-    align-items: center;
-    vertical-align: middle;
-    justify-content: center;
+.technopromText {
+	display: flex;
+	width: 100%;
+	height: 100px;
+	align-items: center;
+	vertical-align: middle;
+	justify-content: center;
 }
 
-.technopromText p{
-    color: #FFF;
-    font-family: Montserrat;
-    font-size: 1.5em;
-    font-style: normal;
-    font-weight: 500;
-    text-align: center;
-    vertical-align: middle;
+.technopromText p {
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 1.5em;
+	font-style: normal;
+	font-weight: 500;
+	text-align: center;
+	vertical-align: middle;
 }
 
-.threeDtext{
-    color: #FFF;
-    font-family: Montserrat;
-    font-size: 4em;
-    font-style: normal;
-    font-weight: 800;
-    line-height: normal;
-    text-align: center;
-    width: 100%;
-    margin-top: 9%;
+.threeDtext {
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 4em;
+	font-style: normal;
+	font-weight: 800;
+	line-height: normal;
+	text-align: center;
+	width: 100%;
+	margin-top: 9%;
 }
 
-.paginationBlock{
-    width: 100%;
-    height: 250px;
-    margin-top: 7%;
-    position: relative;
+.paginationBlock {
+	width: 100%;
+	height: 250px;
+	margin-top: 7%;
+	position: relative;
 }
 
-.hrLine1{
-    padding: 0;
-    width: 100%;
-    height: 2px;
-    background-color: #ACACAC;
-    margin-bottom: 2%;
+.hrLine1 {
+	padding: 0;
+	width: 100%;
+	height: 2px;
+	background-color: #ACACAC;
+	margin-bottom: 2%;
 }
 
-.slider{
-    display: flex;
-    gap: 2px;
-    max-height: 250px;
-    position: relative;
+.slider {
+	display: flex;
+	gap: 2px;
+	max-height: 250px;
+	position: relative;
 }
 
-.slide{
-    flex: 1;
-    flex-grow: 1;
-    height: 22vw;
-    border-radius: 10px;
-    max-height: 250px;
-    max-width: 250px;
-    border: 0px solid white;
-    box-shadow: 0 0 0 rgba(0 0 0 / 40%);
-    transition: .3s;
-    position: relative;
+.slide {
+	flex: 1;
+	flex-grow: 1;
+	height: 22vw;
+	border-radius: 10px;
+	max-height: 250px;
+	max-width: 250px;
+	border: 0px solid white;
+	box-shadow: 0 0 0 rgba(0 0 0 / 40%);
+	transition: .3s;
+	position: relative;
 }
 
-.slide_active{
-    flex: 1.25;
-    flex-grow: 1.1;
-    height: 22vw;
-    max-height: 250px;
-    max-width: 250px;
-    border: 2px solid white;
-    box-shadow: 2px 4px 8px rgba(0 0 0 / 50%);
-    transition: .3s;
-    border-radius: 10px;
-    position: relative;
+.slide_active {
+	flex: 1.25;
+	flex-grow: 1.1;
+	height: 22vw;
+	max-height: 250px;
+	max-width: 250px;
+	border: 2px solid white;
+	box-shadow: 2px 4px 8px rgba(0 0 0 / 50%);
+	transition: .3s;
+	border-radius: 10px;
+	position: relative;
 }
 
-.slide img{
-    width: 111%;
-    height: 101%;
-    object-fit: cover;
-    object-position: center -1px;
+.slide img {
+	width: 111%;
+	height: 101%;
+	object-fit: cover;
+	object-position: center -1px;
 }
 
-.slide_active img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center -20px;
+.slide_active img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center -20px;
 }
 
-.left{
-    background: url('./assets/icons/LeftArrow.svg');
-    display: flex;
-    height: auto;
-    width: 50px;
-    cursor: pointer;
+.left {
+	background: url('./assets/icons/LeftArrow.svg');
+	display: flex;
+	height: auto;
+	width: 50px;
+	cursor: pointer;
 }
 
-.right{
-    display: flex;
-    height: auto;
-    width: 50px;
-    background: url('./assets/icons/RightArrow.svg');
-    cursor: pointer;
+.right {
+	display: flex;
+	height: auto;
+	width: 50px;
+	background: url('./assets/icons/RightArrow.svg');
+	cursor: pointer;
 }
 
-.left_disabled{
-    pointer-events: none;
-    display: flex;
-    height: auto;
-    width: 50px;
-    background: url('./assets/icons/LeftArrow.svg');
+.left_disabled {
+	pointer-events: none;
+	display: flex;
+	height: auto;
+	width: 50px;
+	background: url('./assets/icons/LeftArrow.svg');
 }
 
-.right_disabled{
-    pointer-events: none;
-    display: flex;
-    height: auto;
-    width: 50px;
-    background: url('./assets/icons/RightArrow.svg');
+.right_disabled {
+	pointer-events: none;
+	display: flex;
+	height: auto;
+	width: 50px;
+	background: url('./assets/icons/RightArrow.svg');
 }
 
-.left:hover{
-    background: url('./assets/icons/LeftArrow_activity1.svg');
+.left:hover {
+	background: url('./assets/icons/LeftArrow_activity1.svg');
 }
 
-.right:hover{
-    background: url('./assets/icons/RightArrow_activity1.svg');
+.right:hover {
+	background: url('./assets/icons/RightArrow_activity1.svg');
 }
 
-.hrLine2{
-    padding: 0;
-    width: 100%;
-    height: 2px;
-    background-color: #ACACAC;
-    margin-top: 2%;
+.hrLine2 {
+	padding: 0;
+	width: 100%;
+	height: 2px;
+	background-color: #ACACAC;
+	margin-top: 2%;
 }
 
-.newtex{
-    color: #FFF;
-    font-family: Montserrat;
-    font-size: 1.5em;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    text-align: left;
-    width: 50%;
-    margin-top: 10%;
-    margin-left: 25%;
-    margin-right: 25%;
+.newtex {
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 1.5em;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+	text-align: left;
+	width: 50%;
+	margin-top: 10%;
+	margin-left: 25%;
+	margin-right: 25%;
 }
 
-.section{
-    width: 100%;
-    height: 10%;
-    margin-top: 7%;
-    position: static;
-    display: flex;
+.section {
+	width: 100%;
+	height: 10%;
+	margin-top: 3%;
+	position: static;
+	display: flex;
 }
 
-.show{
-    width: 35%;
-    height: 78%;
-    border-radius: 20px;
-    float: left;
-    display: inline-block;
+.show {
+	width: 35%;
+	height: 78%;
+	border-radius: 20px;
+	float: left;
+	display: inline-block;
 }
 
-.showtex{
-    margin-top: 8%;
-    display: inline-block;
-    width: 26%;
-    height: auto;
-    align-items: center;
-    justify-content: center;
-    vertical-align: middle;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1;
+.showtex {
+	margin-top: 8%;
+	display: inline-block;
+	width: 26%;
+	height: auto;
+	align-items: center;
+	justify-content: center;
+	vertical-align: middle;
+	margin-left: auto;
+	margin-right: auto;
+	line-height: 1;
 }
 
-.showtex p{
-    color: #FFF;
-    font-family: Montserrat;
-    font-size: 1.5em;
-    font-style: normal;
-    font-weight: 500;
-    text-align: left;
-    vertical-align: middle;
+.showtex p {
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 1.5em;
+	font-style: normal;
+	font-weight: 500;
+	text-align: left;
+	vertical-align: middle;
 }
 
 .busket {
-    width: 30%;
-    height: 50%;
-    border-radius: 20px;
-    float: right;
-    display: inline-block;
+	width: 30%;
+	height: 50%;
+	border-radius: 20px;
+	float: right;
+	display: inline-block;
 }
 
-.ourCompanies{
-    color: #FFF;
-    font-family: Montserrat;
-    font-size: 3em;
-    font-style: normal;
-    font-weight: 800;
-    line-height: normal;
-    text-align: center;
-    width: 100%;
-    margin-top: 4%;
+.ourCompanies {
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 3em;
+	font-style: normal;
+	font-weight: 800;
+	line-height: normal;
+	text-align: center;
+	width: 100%;
+	margin-top: 2%;
 }
 
-.companiesBlock{
-    width: 100%;
-    height: 10%;
-    margin-top: 2.5%;
-    display: flex;
-    flex-wrap: wrap;
+.companiesBlock {
+	width: 100%;
+	height: 10%;
+	margin-top: 2.5%;
+	display: flex;
+	flex-wrap: wrap;
 }
 
-.LambumizBlock{
-    width: 50%;
-    height: 50%;
-    display: flex;
+.LambumizBlock {
+	width: 50%;
+	height: 50%;
+	display: flex;
 }
 
-.LambumizImg{
-    width: 35%;
-    height: 80%;
-    display: inline-block;
+.LambumizImg {
+	width: 35%;
+	height: 80%;
+	display: inline-block;
 }
 
-.LambumizText{
-    width: 100%;
-    height: 50%;
-    display: inline-block;
+.LambumizText {
+	width: 100%;
+	height: 50%;
+	display: inline-block;
 }
 
-.LambumizText p{
-    color: #FFF;
-    font-family: Montserrat;
-    font-size: 3em;
-    font-style: normal;
-    font-weight: 800;
-    text-align: center;
-    align-items: center;
-    vertical-align: middle;
-    justify-content: center;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20%;
+.LambumizText p {
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 3em;
+	font-style: normal;
+	font-weight: 800;
+	text-align: center;
+	align-items: center;
+	vertical-align: middle;
+	justify-content: center;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20%;
 }
 
-.NSTU{
-    width: 50%;
-    height: 50%;
+.NSTU {
+	width: 50%;
+	height: 50%;
 }
 
-.AniLibriaBlock{
-    width: 50%;
-    height: 50%;
-    display: flex;
+.AniLibriaBlock {
+	width: 50%;
+	height: 50%;
+	display: flex;
 }
 
-.DevoidBlock{
-    width: 50%;
-    height: 50%;
+.DevoidBlock {
+	width: 50%;
+	height: 50%;
 }
 
-.DevoidText{
-    color: #FFF;
-    font-family: Montserrat;
-    font-size: 3em;
-    font-style: normal;
-    font-weight: 800;
-    line-height: normal;
-    text-align: center;
-    vertical-align: middle;
-    margin-left: auto;
-    margin-right: auto;
-    height: 100%;
-    width: 100%;
-    margin-top: 10%;
+.DevoidText {
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 3em;
+	font-style: normal;
+	font-weight: 800;
+	line-height: normal;
+	text-align: center;
+	vertical-align: middle;
+	margin-left: auto;
+	margin-right: auto;
+	height: 100%;
+	width: 100%;
+	margin-top: 10%;
 }
 
-.DevoidText span{
-    color: #1DE9B6;
-    font-size: 1em;
+.DevoidText span {
+	color: #1DE9B6;
+	font-size: 1em;
 }
 
-.teamtext{
-    color: #FFF;
-    font-family: Montserrat;
-    font-size: 3em;
-    font-style: normal;
-    font-weight: 800;
-    line-height: normal;
-    text-align: center;
-    width: 100%;
-    margin-top: 4%;
+.teamtext {
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 3em;
+	font-style: normal;
+	font-weight: 800;
+	line-height: normal;
+	text-align: center;
+	width: 100%;
+	margin-top: 4%;
 }
 
-.ourTeam{
-    display: flex;
-    align-items: start;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    width: 100%;
-    margin-top: 3%;
-    height: 38%;
-    position: static;
-    margin-bottom: 4%;
+.ourTeam {
+	display: flex;
+	align-items: start;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	width: 100%;
+	margin-top: 3%;
+	height: 38%;
+	position: static;
+	margin-bottom: 4%;
 }
 
-.object{
-    display: flex;
-    flex-direction: row;
-    margin: 3% auto;
-    width: 32.23%;
-    height: 9%;
-    justify-content: space-around;
-    align-items: center;
-    background-color: #000000;
-    border: 1px solid #6A6A6A;
+.object {
+	display: flex;
+	flex-direction: row;
+	margin: 1% auto;
+	width: 32.23%;
+	height: 9%;
+	justify-content: space-around;
+	align-items: center;
+	background-color: #000000;
+	border: 1px solid #6A6A6A;
 }
 
-.imge1{
-    height: 90%;
-    width: 33%;
-    float: left;
-    margin-left: 2%;
-    margin-right: 2%;
+.imge1 {
+	height: 90%;
+	width: 33%;
+	float: left;
+	margin-left: 2%;
+	margin-right: 2%;
 }
 
-.texte{
-    text-align: left;
-    align-items: start;
-    justify-content: start;
-    width: 50.06%;
-    display: flex;
-    flex-direction: column;
-    height: 80%;
+.texte {
+	text-align: left;
+	align-items: start;
+	justify-content: start;
+	width: 50.06%;
+	display: flex;
+	flex-direction: column;
+	height: 80%;
 }
 
-.name{
-    text-align: left;
-    width: 100%;
-    color: #FFF;
-    font-family: Montserrat;
-    font-size: 1.25em;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
+.name {
+	text-align: left;
+	width: 100%;
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 1.25em;
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
 }
 
-.description{
-    text-align: left;
-    width: 100%;
-    margin-top: 6%;
-    color: #FFF;
-    font-family: Montserrat;
-    font-size: 1em;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
+.description {
+	text-align: left;
+	width: 100%;
+	margin-top: 6%;
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 1em;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
 }
 
-.footer{
-    height: 4%;
-    background-color: #000000;
-    width: 100%;
-    display: flex;
-    justify-content: center;
+.footer {
+	height: 4%;
+	background-color: #000000;
+	width: 100%;
+	display: flex;
+	justify-content: center;
 }
 
-.section1{
-    flex-direction: column;
-    display: flex;
-    width: 40%;
-    justify-content: space-around;
+.section1 {
+	flex-direction: column;
+	display: flex;
+	width: 40%;
+	justify-content: space-around;
 }
 
-.footer_section1{
-    height:auto;
-    display: flex;
-    width: 75%;
-    justify-content: space-between;
+.footer_section1 {
+	height: auto;
+	display: flex;
+	width: 75%;
+	justify-content: space-between;
 }
 
-.email{
-    display: flex;
-    width: 45%;
-    height: auto;
-    border-radius: 10px;
-    border: 1px solid #FFFFFF;
-    align-items: center;
-    vertical-align: middle;
-    justify-content: center;
+.email {
+	display: flex;
+	width: 45%;
+	height: auto;
+	border-radius: 10px;
+	border: 1px solid #FFFFFF;
+	align-items: center;
+	vertical-align: middle;
+	justify-content: center;
 }
 
-.email a{
-    color: #FFF;
-    font-family: Montserrat;
-    font-size: 0.95em;
-    font-style: normal;
-    font-weight: 500;
-    text-align: center;
-    vertical-align: middle;
+.email a {
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 0.95em;
+	font-style: normal;
+	font-weight: 500;
+	text-align: center;
+	vertical-align: middle;
 }
 
-.footer_section1_text{
-    color: #FFF;
-    font-family: Montserrat;
-    font-size: 0.95em;
-    font-style: normal;
-    font-weight: 400;
-    width: 100%;
-    margin-left: 0;
-    height: 20%;
+.footer_section1_text {
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 0.95em;
+	font-style: normal;
+	font-weight: 400;
+	width: 100%;
+	margin-left: 0;
+	height: 20%;
 }
 
-.socialBlock{
-    display: flex;
-    margin-top: 1.5%;
-    margin-left: -6%;
-    height: 30%;
-    width: auto;
-    text-align: left;
-    vertical-align: middle;
-    justify-content: left;
+.socialBlock {
+	display: flex;
+	margin-top: 1.5%;
+	margin-left: -6%;
+	height: 30%;
+	width: auto;
+	text-align: left;
+	vertical-align: middle;
+	justify-content: left;
 }
 
-.img_link{
-    width: 100%;
-    height: 100%;
-    margin-left: 15%;
+.img_link {
+	width: 100%;
+	height: 100%;
+	margin-left: 15%;
 }
 
-.img{
-    width: 100%;
-    height: 100%;
+.img {
+	width: 100%;
+	height: 100%;
 }
 
-.footer_section2{
-    height: 50%;
-    width: 12.88%;
-    margin-left: 5%;
-    margin-top: 4.5%;
+.footer_section2 {
+	height: 50%;
+	width: 12.88%;
+	margin-left: 5%;
+	margin-top: 4.5%;
 }
 
-.toptex{
-    color: #FFF;
-    font-family: Montserrat;
-    font-size: 0.875em;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+.toptex {
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 0.875em;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
 }
 
-.downtex{
-    margin-top: 3%;
-    color: #FFF;
-    font-family: Montserrat;
-    font-size: 0.875em;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+.downtex {
+	margin-top: 3%;
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 0.875em;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
 }
 
-.menuText{
-    margin-top: 3%;
-    width: 100%;
-    height: auto;
-    display: flex;
-    justify-content: space-between;
+.menuText {
+	margin-top: 3%;
+	width: 100%;
+	height: auto;
+	display: flex;
+	justify-content: space-between;
 }
 
-.Tex1{
-    color: #FFF;
-    font-family: Montserrat;
-    font-size: 0.875em;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    float: left;
-    display: inline-block;
+.Tex1 {
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 0.875em;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	float: left;
+	display: inline-block;
 }
 
-.Tex2{
-    color: #FFF;
-    font-family: Montserrat;
-    font-size: 0.875em;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    float: right;
-    display: inline-block;
+.Tex2 {
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 0.875em;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	float: right;
+	display: inline-block;
 }
 
 .slider-container {
-    width: 1800px;
-    height:600px;
-    position: relative;
+	width: 1800px;
+	height: 600px;
+	position: relative;
 }
+
 /* Лента с фото, имеет неограниченную ширину и тип flex, чтобы картинки не переносились */
 .slider-track {
-    height:600px;
-    display: flex;
-    transition-duration: .5s;
+	height: 600px;
+	display: flex;
+	transition-duration: .5s;
 }
+
 /* Стили для оформления кнопок prev/next */
 .arrow {
-    width:7px;
-    height:7px;
-    border-top:#cacaca 3px solid;
-    border-right:#cacaca 3px solid;
-    position: absolute;
+	width: 7px;
+	height: 7px;
+	border-top: #cacaca 3px solid;
+	border-right: #cacaca 3px solid;
+	position: absolute;
 }
+
 .arrow-bg {
-    width:30px;
-    height:30px;
-    background: #fff;
-    box-shadow: 0 0 4px 2px rgba(0,0,0,.2);
-    border-radius: 50%;
-    position: relative;
-    opacity: .8;
-    cursor: pointer;
+	width: 30px;
+	height: 30px;
+	background: #fff;
+	box-shadow: 0 0 4px 2px rgba(0, 0, 0, .2);
+	border-radius: 50%;
+	position: relative;
+	opacity: .8;
+	cursor: pointer;
 }
+
 .arrow-left .arrow {
-    transform: rotate(-135deg);
-    top:10px;
-    left:12px;
+	transform: rotate(-135deg);
+	top: 10px;
+	left: 12px;
 }
+
 .arrow-right .arrow {
-    transform: rotate(45deg);
-    top:10px;
-    left:8px;
+	transform: rotate(45deg);
+	top: 10px;
+	left: 8px;
 }
+
 .arrow-left {
-    position: absolute;
-    top:50%;
-    left:10px;
-    transform: translateY(-50%);
-    z-index: 2;
+	position: absolute;
+	top: 50%;
+	left: 10px;
+	transform: translateY(-50%);
+	z-index: 2;
 }
+
 .arrow-right {
-    position: absolute;
-    top:50%;
-    right:10px;
-    transform: translateY(-50%);
-    z-index: 2;
+	position: absolute;
+	top: 50%;
+	right: 10px;
+	transform: translateY(-50%);
+	z-index: 2;
 }
+
 @media(max-width: 1920px) {
-    .background{
-        width: 100%;
-        height: 970px;
-    }
-
-    .background_image{
-        background-size: 110% 100%;
-    }
-
-    .header{
-        width: 100%;
-        height: 7.5%;
-    }
-
-    .navka{
-        margin-left: 15%;
-    }
-
-    .logo{
-        width: 100%;
-        height: 100%;
-    }
-
-    .textLinks{
-        margin-right: 15%;
-        margin-left: auto;
-        width: 20%;
-        height: auto;
-    }
-
-    .reg_text{
-        font-size: 1.25em;
-        margin-left: 5%;
-    }
-
-    .enter_text{
-        font-size: 1.25em;
-        margin-left: 2%;
-    }
-
-    .mainpart{
-        width: 70%;
-        height: 660vh;
-        margin-left: 15%;
-        margin-right: 15%;
-        margin-top: 3.9%;
-    }
-
-    .photocontainer{
-        width: 100%;
-        height: 15%;
-        margin-top: 3%;
-    }
-
-    .Neural{
-        width: 57%;
-        height: 100%;
-    }
-
-    .NeuralText{
-        width: auto;
-        height: auto;
-    }
-
-    .neurontex{
-        font-size: 1.5em;
-        margin-left: 8%;
-        line-height: 1;
-        width: 100%;
-        height: auto;
-    }
-
-    .float_container{
-        margin-left: 26.9%;
-        margin-right: 0;
-        margin-top: -16%;
-    }
-
-    .maintex{
-        font-size: 6em;
-    }
-
-    .hrLine{
-        margin-top: 2%;
-        padding: 0;
-        width: 100%;
-        height: 2px;
-    }
-
-    .photoGroup{
-        width: 79%;
-        height: 23%;
-        margin-top: 4%;
-        display: inline-block;
-        position: relative;
-        z-index: 1;
-    }
-
-    .what{
-        background: rgba(0, 0, 0, 0.20);
-        filter: blur(5px);
-        backdrop-filter: blur(2px);
-        justify-content: center;
-        width: 651px;
-        height: 203px;
-        position: absolute;
-        display: flex;
-        z-index: 3;
-    }
-
-    .float_container1{
-        display: inline-block;
-        position: relative;
-        margin-top: 10%;
-        margin-right: 50%;
-        justify-content: center;
-        z-index: 2;
-    }
-
-    .float_container1_Text{
-        width: 607px;
-        height: 148px;
-        position: absolute;
-        z-index: 4;
-    }
-
-    .float_container1_Text p{
-        color: #FFF;
-        font-family: Montserrat;
-        font-size: 2em;
-        font-style: normal;
-        font-weight: 500;
-        text-align: left;
-    }
-
-    .vanGoghBlock{
-        width: 100%;
-        height: 45%;
-    }
-
-    .vanGogh1{
-        width: 47%;
-        height: 100%;
-    }
-
-    .technoprom{
-        height: 43%;
-        width: 100%;
-        margin-top: 10%;
-    }
-
-    .tech1{
-        width: 61.9%;
-        height: 100%;
-    }
-
-    .tech2{
-        width: 35.4%;
-        height: 100%;
-    }
-
-    .technopromText{
-        width: 100%;
-        height: 100px;
-    }
-
-    .technopromText p{
-        font-size: 1.5em;
-    }
-
-    .threeDtext{
-        font-size: 4em;
-        width: 100%;
-        margin-top: 9%;
-    }
-
-    .paginationBlock{
-        width: 100%;
-        height: 250px;
-        margin-top: 7%;
-    }
-
-    .hrLine1{
-        padding: 0;
-        width: 100%;
-        height: 2px;
-        margin-bottom: 2%;
-    }
-
-    .slider{
-        gap: 2px;
-        max-height: 250px;
-    }
-
-    .slide{
-        height: 22vw;
-        border-radius: 10px;
-        max-height: 250px;
-        max-width: 250px;
-    }
-
-    .slide_active{
-        height: 22vw;
-        max-height: 250px;
-        max-width: 250px;
-    }
-
-    .slide img{
-        width: 111%;
-        height: 101%;
-    }
-
-    .slide_active img{
-        width: 100%;
-        height: 100%;
-    }
-
-    .left{
-        height: auto;
-        width: 50px;
-    }
-
-    .right{
-        height: auto;
-        width: 50px;
-    }
-
-    .left_disabled{
-        height: auto;
-        width: 50px;
-    }
-
-    .right_disabled{
-        height: auto;
-        width: 50px;
-    }
-
-    .hrLine2{
-        padding: 0;
-        width: 100%;
-        height: 2px;
-        margin-top: 2%;
-    }
-
-    .newtex{
-        font-size: 1.5em;
-        width: 50%;
-        margin-top: 10%;
-        margin-left: 25%;
-        margin-right: 25%;
-    }
-
-    .section{
-        width: 100%;
-        height: 13%;
-        margin-top: 7%;
-    }
-
-    .show{
-        width: 35%;
-        height: 78%;
-    }
-
-    .showtex{
-        margin-top: 8%;
-        width: 26%;
-        height: auto;
-        margin-left: auto;
-        margin-right: auto;
-        line-height: 1;
-    }
-
-    .showtex p{
-        font-size: 1.5em;
-    }
-
-    .busket {
-        width: 30%;
-        height: 50%;
-    }
-
-    .ourCompanies{
-        font-size: 3em;
-        width: 100%;
-        margin-top: 4%;
-    }
-
-    .companiesBlock{
-        width: 100%;
-        height: 10%;
-        margin-top: 2.5%;
-    }
-
-    .LambumizBlock{
-        width: 50%;
-        height: 50%;
-    }
-
-    .LambumizImg{
-        width: 35%;
-        height: 80%;
-    }
-
-    .LambumizText{
-        width: 100%;
-        height: 50%;
-    }
-
-    .LambumizText p{
-        font-size: 3em;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 20%;
-    }
-
-    .NSTU{
-        width: 50%;
-        height: 50%;
-    }
-
-    .AniLibriaBlock{
-        width: 50%;
-        height: 50%;
-    }
-
-    .DevoidBlock{
-        width: 50%;
-        height: 50%;
-    }
-
-    .DevoidText{
-        font-size: 3em;
-        margin-left: auto;
-        margin-right: auto;
-        height: 100%;
-        width: 100%;
-        margin-top: 10%;
-    }
-
-    .DevoidText span{
-        font-size: 1em;
-    }
-
-    .teamtext{
-        font-size: 3em;
-        width: 100%;
-        margin-top: 4%;
-    }
-
-    .ourTeam{
-        width: 100%;
-        margin-top: 3%;
-        height: 38%;
-        margin-bottom: 4%;
-    }
-
-    .object{
-        margin: 3% auto;
-        width: 32.23%;
-        height: 9%;
-    }
-
-    .imge1{
-        height: 90%;
-        width: 33%;
-        margin-left: 2%;
-        margin-right: 2%;
-    }
-
-    .texte{
-        width: 50.06%;
-        height: 80%;
-    }
-
-    .name{
-        width: 100%;
-        font-size: 1.25em;
-    }
-
-    .description{
-        width: 100%;
-        margin-top: 6%;
-        font-size: 1em;
-    }
-
-    .footer{
-        height: 4%;
-        width: 100%;
-    }
-
-    .section1{
-        width: 43%;
-    }
-
-    .footer_section1{
-        height:auto;
-        width: 75%;
-    }
-
-    .email{
-        width: 47%;
-        height: auto;
-    }
-
-    .email a{
-        font-size: 0.95em;
-    }
-
-    .footer_section1_text{
-        font-size: 0.95em;
-        width: 100%;
-        margin-left: 0;
-        height: 20%;
-    }
-
-    .socialBlock{
-        margin-top: 1.3%;
-        margin-left: -6%;
-        height: 30%;
-        width: auto;
-    }
-
-    .img_link{
-        width: 100%;
-        height: 100%;
-        margin-left: 15%;
-    }
-
-    .img{
-        width: 100%;
-        height: 100%;
-    }
-
-    .footer_section2{
-        height: 50%;
-        width: 12%;
-        margin-left: 5%;
-        margin-top: 4.5%;
-    }
-
-    .toptex{
-        font-size: 0.875em;
-    }
-
-    .downtex{
-        margin-top: 3%;
-        font-size: 0.875em;
-    }
-
-    .menuText{
-        margin-top: 3%;
-        width: 100%;
-        height: auto;
-    }
-
-    .Tex1{
-        font-size: 0.875em;
-    }
-
-    .Tex2{
-        font-size: 0.875em;
-    }
-    @media (max-width: 1680px){
-        .background{
-            width: 100%;
-            height: 970px;
-        }
-
-        .background_image{
-            background-size: 110% 100%;
-        }
-
-        .header{
-            width: 100%;
-            height: 7.5%;
-        }
-
-        .navka{
-            margin-left: 15%;
-        }
-
-        .logo{
-            width: 100%;
-            height: 100%;
-        }
-
-        .textLinks{
-            margin-right: 15%;
-            margin-left: auto;
-            width: 20%;
-            height: auto;
-        }
-
-        .reg_text{
-            font-size: 1.25em;
-            margin-left: 5%;
-        }
-
-        .enter_text{
-            font-size: 1.25em;
-            margin-left: 2%;
-        }
-
-        .mainpart{
-            width: 70%;
-            height: 660vh;
-            margin-left: 15%;
-            margin-right: 15%;
-            margin-top: 3.9%;
-        }
-
-        .photocontainer{
-            width: 100%;
-            height: 15%;
-            margin-top: 3%;
-        }
-
-        .Neural{
-            width: 57%;
-            height: 100%;
-        }
-
-        .NeuralText{
-            width: auto;
-            height: auto;
-        }
-
-        .neurontex{
-            font-size: 1.5em;
-            margin-left: 8%;
-            line-height: 1;
-            width: 100%;
-            height: auto;
-        }
-
-        .float_container{
-            margin-left: 26.9%;
-            margin-right: 0;
-            margin-top: -16%;
-        }
-
-        .maintex{
-            font-size: 5.5em;
-        }
-
-        .hrLine{
-            margin-top: 2%;
-            padding: 0;
-            width: 100%;
-            height: 2px;
-        }
-
-        .photoGroup{
-            width: 79%;
-            height: 23%;
-            margin-top: 5%;
-        }
-
-        .what{
-            background: rgba(0, 0, 0, 0.20);
-            filter: blur(5px);
-            backdrop-filter: blur(2px);
-            justify-content: center;
-            width: 651px;
-            height: 173px;
-            position: absolute;
-            display: flex;
-            z-index: 3;
-        }
-
-        .float_container1{
-            display: inline-block;
-            position: relative;
-            margin-top: 10%;
-            margin-right: 50%;
-            justify-content: center;
-            z-index: 2;
-        }
-
-        .float_container1_Text{
-            width: 607px;
-            height: 148px;
-            position: absolute;
-            z-index: 4;
-        }
-
-        .float_container1_Text p{
-            color: #FFF;
-            font-family: Montserrat;
-            font-size: 1.8em;
-            font-style: normal;
-            font-weight: 500;
-            text-align: left;
-        }
-
-        .vanGoghBlock{
-            width: 100%;
-            height: 45%;
-        }
-
-        .vanGogh1{
-            width: 47%;
-            height: 100%;
-        }
-
-        .technoprom{
-            height: 43%;
-            width: 100%;
-            margin-top: 10%;
-        }
-
-        .tech1{
-            width: 61.9%;
-            height: 100%;
-        }
-
-        .tech2{
-            width: 35.4%;
-            height: 100%;
-        }
-
-        .technopromText{
-            width: 100%;
-            height: 100px;
-        }
-
-        .technopromText p{
-            font-size: 1.5em;
-        }
-
-        .threeDtext{
-            font-size: 4em;
-            width: 100%;
-            margin-top: 9%;
-        }
-
-        .paginationBlock{
-            width: 100%;
-            height: 250px;
-            margin-top: 7%;
-        }
-
-        .hrLine1{
-            padding: 0;
-            width: 100%;
-            height: 2px;
-            margin-bottom: 2%;
-        }
-
-        .slider{
-            gap: 2px;
-            max-height: 250px;
-        }
-
-        .slide{
-            height: 22vw;
-            border-radius: 10px;
-            max-height: 250px;
-            max-width: 250px;
-        }
-
-        .slide_active{
-            height: 22vw;
-            max-height: 250px;
-            max-width: 250px;
-        }
-
-        .slide img{
-            width: 111%;
-            height: 101%;
-        }
-
-        .slide_active img{
-            width: 100%;
-            height: 100%;
-        }
-
-        .left{
-            height: auto;
-            width: 50px;
-        }
-
-        .right{
-            height: auto;
-            width: 50px;
-        }
-
-        .left_disabled{
-            height: auto;
-            width: 50px;
-        }
-
-        .right_disabled{
-            height: auto;
-            width: 50px;
-        }
-
-        .hrLine2{
-            padding: 0;
-            width: 100%;
-            height: 2px;
-            margin-top: 2%;
-        }
-
-        .newtex{
-            font-size: 1.25em;
-            width: 50%;
-            margin-top: 10%;
-            margin-left: 25%;
-            margin-right: 25%;
-        }
-
-        .section{
-            width: 100%;
-            height: 10%;
-            margin-top: 7%;
-        }
-
-        .show{
-            width: 35%;
-            height: 78%;
-        }
-
-        .showtex{
-            margin-top: 7%;
-            width: 28%;
-            height: auto;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 0.7;
-        }
-
-        .showtex p{
-            font-size: 1.25em;
-        }
-
-        .busket {
-            width: 30%;
-            height: 50%;
-        }
-
-        .ourCompanies{
-            font-size: 3em;
-            width: 100%;
-            margin-top: 4%;
-        }
-
-        .companiesBlock{
-            width: 100%;
-            height: 10%;
-            margin-top: 2.5%;
-        }
-
-        .LambumizBlock{
-            width: 50%;
-            height: 50%;
-        }
-
-        .LambumizImg{
-            width: 35%;
-            height: 80%;
-        }
-
-        .LambumizText{
-            width: 100%;
-            height: 50%;
-        }
-
-        .LambumizText p{
-            font-size: 3em;
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: 20%;
-        }
-
-        .NSTU{
-            width: 50%;
-            height: 50%;
-        }
-
-        .AniLibriaBlock{
-            width: 50%;
-            height: 50%;
-        }
-
-        .DevoidBlock{
-            width: 50%;
-            height: 50%;
-        }
-
-        .DevoidText{
-            font-size: 3em;
-            margin-left: auto;
-            margin-right: auto;
-            height: 100%;
-            width: 100%;
-            margin-top: 10%;
-        }
-
-        .DevoidText span{
-            font-size: 1em;
-        }
-
-        .teamtext{
-            font-size: 3em;
-            width: 100%;
-            margin-top: 4%;
-        }
-
-        .ourTeam{
-            width: 100%;
-            margin-top: 3%;
-            height: 38%;
-            margin-bottom: 4%;
-        }
-
-        .object{
-            margin: 3% auto;
-            width: 32.23%;
-            height: 9%;
-        }
-
-        .imge1{
-            height: 90%;
-            width: 33%;
-            margin-left: 2%;
-            margin-right: 2%;
-        }
-
-        .texte{
-            width: 50.06%;
-            height: 80%;
-        }
-
-        .name{
-            width: 100%;
-            font-size: 1.25em;
-        }
-
-        .description{
-            width: 100%;
-            margin-top: 6%;
-            font-size: 1em;
-        }
-
-        .footer{
-            height: 6%;
-            width: 100%;
-        }
-
-        .section1{
-            width: 40%;
-        }
-
-        .footer_section1{
-            height:auto;
-            width: 75%;
-        }
-
-        .email{
-            margin-left: 2%;
-            width: 45%;
-            height: auto;
-        }
-
-        .email a{
-            font-size: 0.85em;
-        }
-
-        .footer_section1_text{
-            font-size: 0.95em;
-            width: 100%;
-            margin-left: 0;
-            height: 20%;
-        }
-
-        .socialBlock{
-            margin-top: 3%;
-            margin-left: -6%;
-            height: 20%;
-            width: auto;
-        }
-
-        .img_link{
-            width: 100%;
-            height: 100%;
-            margin-left: 15%;
-        }
-
-        .img{
-            width: 100%;
-            height: 100%;
-        }
-
-        .footer_section2{
-            height: 50%;
-            width: 14.88%;
-            margin-left: 5%;
-            margin-top: 4.5%;
-        }
-
-        .toptex{
-            font-size: 0.875em;
-        }
-
-        .downtex{
-            margin-top: 3%;
-            font-size: 0.875em;
-        }
-
-        .menuText{
-            margin-top: 3%;
-            width: 100%;
-            height: auto;
-        }
-
-        .Tex1{
-            font-size: 0.875em;
-        }
-
-        .Tex2{
-            font-size: 0.875em;
-        }
-    }
-    @media (max-width: 1440px){
-        .background{
-            width: 100%;
-            height: 970px;
-        }
-
-        .background_image{
-            background-size: 110% 100%;
-        }
-
-        .header{
-            width: 100%;
-            height: 7.5%;
-        }
-
-        .navka{
-            margin-left: 15%;
-        }
-
-        .logo{
-            width: 100%;
-            height: 100%;
-        }
-
-        .textLinks{
-            margin-right: 15%;
-            margin-left: auto;
-            width: 20%;
-            height: auto;
-        }
-
-        .reg_text{
-            font-size: 1.1em;
-            margin-left: 5%;
-        }
-
-        .enter_text{
-            font-size: 1.1em;
-            margin-left: 2%;
-        }
-
-        .mainpart{
-            width: 70%;
-            height: 660vh;
-            margin-left: 15%;
-            margin-right: 15%;
-            margin-top: 3.9%;
-        }
-
-        .photocontainer{
-            width: 100%;
-            height: 11%;
-            margin-top: 3%;
-        }
-
-        .Neural{
-            width: 57%;
-            height: 100%;
-        }
-
-        .NeuralText{
-            width: 43%;
-            height: auto;
-        }
-
-        .neurontex{
-            font-size: 1.25em;
-            margin-left: 8%;
-            line-height: 1;
-            width: auto;
-            height: auto;
-        }
-
-        .float_container{
-            margin-left: 35.9%;
-            margin-right: 0;
-            margin-top: -16%;
-            width: 70%;
-        }
-
-        .maintex{
-            font-size: 4.5em;
-            margin-left: 1%;
-        }
-
-        .hrLine{
-            margin-top: 2%;
-            padding: 0;
-            width: 100%;
-            height: 2px;
-        }
-
-        .photoGroup{
-            width: 79%;
-            height: 16%;
-            margin-top: 5%;
-        }
-
-        .what{
-            background: rgba(0, 0, 0, 0.20);
-            filter: blur(5px);
-            backdrop-filter: blur(2px);
-            justify-content: center;
-            width: 470px;
-            height: 153px;
-            position: absolute;
-            display: flex;
-            z-index: 3;
-        }
-
-        .float_container1{
-            display: inline-block;
-            position: relative;
-            margin-top: 10%;
-            margin-right: 50%;
-            justify-content: center;
-            z-index: 2;
-        }
-
-        .float_container1_Text{
-            width: 607px;
-            height: 148px;
-            position: absolute;
-            z-index: 4;
-        }
-
-        .float_container1_Text p{
-            color: #FFF;
-            font-family: Montserrat;
-            font-size: 1.5em;
-            font-style: normal;
-            font-weight: 500;
-            text-align: left;
-        }
-
-        .vanGoghBlock{
-            width: 100%;
-            height: 45%;
-        }
-
-        .vanGogh1{
-            width: 47%;
-            height: 100%;
-        }
-
-        .technoprom{
-            height: 43%;
-            width: 100%;
-            margin-top: 10%;
-        }
-
-        .tech1{
-            width: 61.9%;
-            height: 100%;
-        }
-
-        .tech2{
-            width: 35.4%;
-            height: 100%;
-        }
-
-        .technopromText{
-            width: 100%;
-            height: 100px;
-        }
-
-        .technopromText p{
-            font-size: 1.5em;
-        }
-
-        .threeDtext{
-            font-size: 4em;
-            width: 100%;
-            margin-top: 9%;
-        }
-
-        .paginationBlock{
-            width: 100%;
-            height: 250px;
-            margin-top: 7%;
-        }
-
-        .hrLine1{
-            padding: 0;
-            width: 100%;
-            height: 2px;
-            margin-bottom: 2%;
-        }
-
-        .slider{
-            gap: 2px;
-            max-height: 250px;
-        }
-
-        .slide{
-            height: 22vw;
-            border-radius: 10px;
-            max-height: 250px;
-            max-width: 250px;
-        }
-
-        .slide_active{
-            height: 22vw;
-            max-height: 250px;
-            max-width: 250px;
-        }
-
-        .slide img{
-            width: 111%;
-            height: 101%;
-        }
-
-        .slide_active img{
-            width: 100%;
-            height: 100%;
-        }
-
-        .left{
-            height: auto;
-            width: 50px;
-        }
-
-        .right{
-            height: auto;
-            width: 50px;
-        }
-
-        .left_disabled{
-            height: auto;
-            width: 50px;
-        }
-
-        .right_disabled{
-            height: auto;
-            width: 50px;
-        }
-
-        .hrLine2{
-            padding: 0;
-            width: 100%;
-            height: 2px;
-            margin-top: 2%;
-        }
-
-        .newtex{
-            font-size: 1.2em;
-            width: 50%;
-            margin-top: 10%;
-            margin-left: 25%;
-            margin-right: 25%;
-        }
-
-        .section{
-            width: 100%;
-            height: 10%;
-            margin-top: 7%;
-        }
-
-        .show{
-            width: 35%;
-            height: 78%;
-        }
-
-        .showtex{
-            margin-top: 7%;
-            width: 28%;
-            height: auto;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 0.7;
-        }
-
-        .showtex p{
-            font-size: 1.2em;
-        }
-
-        .busket {
-            width: 30%;
-            height: 50%;
-        }
-
-        .ourCompanies{
-            font-size: 3em;
-            width: 100%;
-            margin-top: 4%;
-        }
-
-        .companiesBlock{
-            width: 100%;
-            height: 8%;
-            margin-top: 2.5%;
-        }
-
-        .LambumizBlock{
-            width: 50%;
-            height: 50%;
-        }
-
-        .LambumizImg{
-            width: 35%;
-            height: 80%;
-        }
-
-        .LambumizText{
-            width: 100%;
-            height: 50%;
-        }
-
-        .LambumizText p{
-            font-size: 2.5em;
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: 20%;
-        }
-
-        .NSTU{
-            width: 50%;
-            height: 50%;
-        }
-
-        .AniLibriaBlock{
-            width: 50%;
-            height: 50%;
-        }
-
-        .DevoidBlock{
-            width: 50%;
-            height: 50%;
-        }
-
-        .DevoidText{
-            font-size: 2.5em;
-            margin-left: auto;
-            margin-right: auto;
-            height: 100%;
-            width: 100%;
-            margin-top: 10%;
-        }
-
-        .DevoidText span{
-            font-size: 1em;
-        }
-
-        .teamtext{
-            font-size: 3em;
-            width: 100%;
-            margin-top: 4%;
-        }
-
-        .ourTeam{
-            width: 100%;
-            margin-top: 3%;
-            height: 38%;
-            margin-bottom: 4%;
-        }
-
-        .object{
-            margin: 3% auto;
-            width: 32.23%;
-            height: 8%;
-        }
-
-        .imge1{
-            height: 85%;
-            width: 35%;
-            margin-left: 2%;
-            margin-right: 2%;
-        }
-
-        .texte{
-            width: 50.06%;
-            height: 80%;
-        }
-
-        .name{
-            width: 100%;
-            font-size: 0.95em;
-        }
-
-        .description{
-            width: 100%;
-            margin-top: 6%;
-            font-size: 0.85em;
-        }
-
-        .footer{
-            height: 6%;
-            width: 100%;
-        }
-
-        .section1{
-            width: 40%;
-        }
-
-        .footer_section1{
-            height:auto;
-            width: 75%;
-        }
-
-        .email{
-            margin-left: 2%;
-            width: 45%;
-            height: auto;
-        }
-
-        .email a{
-            font-size: 0.75em;
-        }
-
-        .footer_section1_text{
-            font-size: 0.8em;
-            width: 100%;
-            margin-left: 0;
-            height: 20%;
-        }
-
-        .socialBlock{
-            margin-top: 3%;
-            margin-left: -6%;
-            height: 20%;
-            width: auto;
-        }
-
-        .img_link{
-            width: 100%;
-            height: 100%;
-            margin-left: 15%;
-        }
-
-        .img{
-            width: 100%;
-            height: 100%;
-        }
-
-        .footer_section2{
-            height: 50%;
-            width: 14.88%;
-            margin-left: 5%;
-            margin-top: 6.5%;
-        }
-
-        .toptex{
-            font-size: 0.8em;
-        }
-
-        .downtex{
-            margin-top: 3%;
-            font-size: 0.8em;
-        }
-
-        .menuText{
-            margin-top: 3%;
-            width: 100%;
-            height: auto;
-        }
-
-        .Tex1{
-            font-size: 0.8em;
-        }
-
-        .Tex2{
-            font-size: 0.8em;
-        }
-    }
-    @media (max-width: 1280px){
-        .background{
-            width: 100%;
-            height: 970px;
-        }
-
-        .background_image{
-            background-size: 110% 100%;
-        }
-
-        .header{
-            width: 100%;
-            height: 7.5%;
-        }
-
-        .navka{
-            margin-left: 15%;
-        }
-
-        .logo{
-            width: 100%;
-            height: 100%;
-        }
-
-        .textLinks{
-            margin-right: 15%;
-            margin-left: auto;
-            width: 20%;
-            height: auto;
-        }
-
-        .reg_text{
-            font-size: 0.9em;
-            margin-left: 5%;
-        }
-
-        .enter_text{
-            font-size: 0.9em;
-            margin-left: 2%;
-        }
-
-        .mainpart{
-            width: 70%;
-            height: 600vh;
-            margin-left: 15%;
-            margin-right: 15%;
-            margin-top: 3.5%;
-        }
-
-        .photocontainer{
-            width: 100%;
-            height: 9%;
-            margin-top: 2%;
-        }
-
-        .Neural{
-            width: 57%;
-            height: 100%;
-        }
-
-        .NeuralText{
-            width: 43%;
-            height: auto;
-        }
-
-        .neurontex{
-            font-size: 1em;
-            margin-left: 6%;
-            line-height: 1;
-            width: auto;
-            height: auto;
-        }
-
-        .float_container{
-            margin-left: 50.9%;
-            margin-right: 0;
-            margin-top: -26%;
-            width: 70%;
-        }
-
-        .maintex{
-            font-size: 3em;
-            margin-left: 1%;
-        }
-
-        .hrLine{
-            margin-top: 2%;
-            padding: 0;
-            width: 70%;
-            height: 2px;
-        }
-
-        .photoGroup{
-            width: 79%;
-            height: auto;
-            margin-top: -10%;
-        }
-
-        .what{
-            background: rgba(0, 0, 0, 0.20);
-            filter: blur(5px);
-            backdrop-filter: blur(2px);
-            justify-content: center;
-            width: 410px;
-            height: 133px;
-            position: absolute;
-            display: flex;
-            z-index: 3;
-        }
-
-        .float_container1{
-            display: inline-block;
-            position: relative;
-            margin-top: 10%;
-            margin-right: 50%;
-            justify-content: center;
-            z-index: 2;
-        }
-
-        .float_container1_Text{
-            width: 607px;
-            height: 148px;
-            position: absolute;
-            z-index: 4;
-        }
-
-        .float_container1_Text p{
-            color: #FFF;
-            font-family: Montserrat;
-            font-size: 1.2em;
-            font-style: normal;
-            font-weight: 500;
-            text-align: left;
-        }
-
-        .vanGoghBlock{
-            width: 100%;
-            height: 45%;
-        }
-
-        .vanGogh1{
-            width: 47%;
-            height: 100%;
-        }
-
-        .technoprom{
-            height: 41%;
-            width: 100%;
-            margin-top: 8%;
-        }
-
-        .tech1{
-            width: 61.9%;
-            height: 100%;
-        }
-
-        .tech2{
-            width: 35.4%;
-            height: 100%;
-        }
-
-        .technopromText{
-            width: 100%;
-            height: 70px;
-        }
-
-        .technopromText p{
-            font-size: 1.3em;
-        }
-
-        .threeDtext{
-            font-size: 3em;
-            width: 100%;
-            margin-top: 2%;
-        }
-
-        .paginationBlock{
-            width: 100%;
-            height: 250px;
-            margin-top: 2%;
-        }
-
-        .hrLine1{
-            padding: 0;
-            width: 100%;
-            height: 2px;
-            margin-bottom: 2%;
-        }
-
-        .slider{
-            gap: 2px;
-            max-height: 250px;
-        }
-
-        .slide{
-            height: 22vw;
-            border-radius: 10px;
-            max-height: 250px;
-            max-width: 250px;
-        }
-
-        .slide_active{
-            height: 22vw;
-            max-height: 250px;
-            max-width: 250px;
-        }
-
-        .slide img{
-            width: 111%;
-            height: 101%;
-        }
-
-        .slide_active img{
-            width: 100%;
-            height: 100%;
-        }
-
-        .left{
-            height: auto;
-            width: 50px;
-        }
-
-        .right{
-            height: auto;
-            width: 50px;
-        }
-
-        .left_disabled{
-            height: auto;
-            width: 50px;
-        }
-
-        .right_disabled{
-            height: auto;
-            width: 50px;
-        }
-
-        .hrLine2{
-            padding: 0;
-            width: 100%;
-            height: 2px;
-            margin-top: 2%;
-        }
-
-        .newtex{
-            font-size: 1em;
-            width: 50%;
-            margin-top: 2%;
-            margin-left: 25%;
-            margin-right: 25%;
-        }
-
-        .section{
-            width: 100%;
-            height: auto;
-            margin-top: 2%;
-        }
-
-        .show{
-            width: 35%;
-            height: 100%;
-        }
-
-        .showtex{
-            margin-top: 7%;
-            width: 28%;
-            height: auto;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 0.7;
-        }
-
-        .showtex p{
-            font-size: 1em;
-        }
-
-        .busket {
-            width: 30%;
-            height: 70%;
-        }
-
-        .ourCompanies{
-            font-size: 2.5em;
-            width: 100%;
-            margin-top: 2%;
-        }
-
-        .companiesBlock{
-            width: 100%;
-            height: 7%;
-            margin-top: 2%;
-        }
-
-        .LambumizBlock{
-            width: 50%;
-            height: 50%;
-        }
-
-        .LambumizImg{
-            width: 35%;
-            height: 80%;
-        }
-
-        .LambumizText{
-            width: 100%;
-            height: 50%;
-        }
-
-        .LambumizText p{
-            font-size: 2em;
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: 20%;
-        }
-
-        .NSTU{
-            width: 50%;
-            height: 50%;
-        }
-
-        .AniLibriaBlock{
-            width: 50%;
-            height: 50%;
-        }
-
-        .DevoidBlock{
-            width: 50%;
-            height: 50%;
-        }
-
-        .DevoidText{
-            font-size: 2em;
-            margin-left: auto;
-            margin-right: auto;
-            height: 100%;
-            width: 100%;
-            margin-top: 10%;
-        }
-
-        .DevoidText span{
-            font-size: 1em;
-        }
-
-        .teamtext{
-            font-size: 2.5em;
-            width: 100%;
-            margin-top: 2%;
-        }
-
-        .ourTeam{
-            width: 100%;
-            margin-top: 2%;
-            height: 33%;
-            margin-bottom: 2%;
-        }
-
-        .object{
-            margin: 1% auto;
-            width: 32.23%;
-            height: 7%;
-        }
-
-        .imge1{
-            height: 80%;
-            width: 33%;
-            margin-left: 2%;
-            margin-right: 2%;
-        }
-
-        .texte{
-            width: 50.06%;
-            height: 80%;
-        }
-
-        .name{
-            width: 100%;
-            font-size: 0.95em;
-        }
-
-        .description{
-            width: 100%;
-            margin-top: 6%;
-            font-size: 0.85em;
-        }
-
-        .footer{
-            height: 5.8%;
-            width: 100%;
-        }
-
-        .section1{
-            width: 40%;
-            height: 80%;
-        }
-
-        .footer_section1{
-            height:auto;
-            width: 75%;
-            margin-top: 3%;
-        }
-
-        .email{
-            margin-left: 2%;
-            width: 45%;
-            height: auto;
-        }
-
-        .email a{
-            font-size: 0.65em;
-        }
-
-        .footer_section1_text{
-            font-size: 0.75em;
-            width: 100%;
-            margin-left: 0;
-            height: 20%;
-        }
-
-        .socialBlock{
-            margin-top: 3.5%;
-            margin-left: -6%;
-            height: 18%;
-            width: auto;
-        }
-
-        .img_link{
-            width: 100%;
-            height: 100%;
-            margin-left: 15%;
-        }
-
-        .img{
-            width: 100%;
-            height: 100%;
-        }
-
-        .footer_section2{
-            height: 50%;
-            width: 17.5%;
-            margin-left: 5%;
-            margin-top: 6.5%;
-        }
-
-        .toptex{
-            font-size: 0.7em;
-        }
-
-        .downtex{
-            margin-top: 3%;
-            font-size: 0.7em;
-        }
-
-        .menuText{
-            margin-top: 3%;
-            width: 100%;
-            height: auto;
-        }
-
-        .Tex1{
-            font-size: 0.7em;
-        }
-
-        .Tex2{
-            font-size: 0.7em;
-        }
-    }
-    @media (max-width: 1024px){
-        .background{
-            width: 100%;
-            height: 970px;
-        }
-
-        .background_image{
-            background-size: 110% 100%;
-        }
-
-        .header{
-            width: 100%;
-            height: 7.5%;
-        }
-
-        .navka{
-            margin-left: 15%;
-        }
-
-        .logo{
-            width: 100%;
-            height: 100%;
-        }
-
-        .textLinks{
-            margin-right: 15%;
-            margin-left: auto;
-            width: 20%;
-            height: auto;
-        }
-
-        .reg_text{
-            font-size: 0.9em;
-            margin-left: 5%;
-        }
-
-        .enter_text{
-            font-size: 0.9em;
-            margin-left: 2%;
-        }
-
-        .mainpart{
-            width: 70%;
-            height: 530vh;
-            margin-left: 15%;
-            margin-right: 15%;
-            margin-top: 5.5%;
-        }
-
-        .photocontainer{
-            width: 100%;
-            height: 7%;
-            margin-top: 2%;
-        }
-
-        .Neural{
-            width: 57%;
-            height: 100%;
-        }
-
-        .NeuralText{
-            width: 43%;
-            height: auto;
-        }
-
-        .neurontex{
-            font-size: 1em;
-            margin-left: 6%;
-            line-height: 1;
-            width: auto;
-            height: auto;
-        }
-
-        .float_container{
-            margin-left: 50.9%;
-            margin-right: 0;
-            margin-top: -26%;
-            width: 70%;
-        }
-
-        .maintex{
-            font-size: 3em;
-            margin-left: 1%;
-        }
-
-        .hrLine{
-            margin-top: 2%;
-            padding: 0;
-            width: 80%;
-            height: 2px;
-        }
-
-        .photoGroup{
-            width: 79%;
-            height: auto;
-            margin-top: -10%;
-        }
-
-        .what{
-            background: rgba(0, 0, 0, 0.20);
-            filter: blur(5px);
-            backdrop-filter: blur(2px);
-            justify-content: center;
-            width: 410px;
-            height: 133px;
-            position: absolute;
-            display: flex;
-            z-index: 3;
-        }
-
-        .float_container1{
-            display: inline-block;
-            position: relative;
-            margin-top: 10%;
-            margin-right: 50%;
-            justify-content: center;
-            z-index: 2;
-        }
-
-        .float_container1_Text{
-            width: 607px;
-            height: 148px;
-            position: absolute;
-            z-index: 4;
-        }
-
-        .float_container1_Text p{
-            color: #FFF;
-            font-family: Montserrat;
-            font-size: 1.2em;
-            font-style: normal;
-            font-weight: 500;
-            text-align: left;
-        }
-
-        .vanGoghBlock{
-            width: 100%;
-            height: 45%;
-        }
-
-        .vanGogh1{
-            width: 47%;
-            height: 100%;
-        }
-
-        .technoprom{
-            height: 41%;
-            width: 100%;
-            margin-top: 8%;
-        }
-
-        .tech1{
-            width: 61.9%;
-            height: 100%;
-        }
-
-        .tech2{
-            width: 35.4%;
-            height: 100%;
-        }
-
-        .technopromText{
-            width: 100%;
-            height: 70px;
-        }
-
-        .technopromText p{
-            font-size: 1.3em;
-        }
-
-        .threeDtext{
-            font-size: 3em;
-            width: 100%;
-            margin-top: 2%;
-        }
-
-        .paginationBlock{
-            width: 100%;
-            height: 250px;
-            margin-top: 2%;
-        }
-
-        .hrLine1{
-            padding: 0;
-            width: 100%;
-            height: 2px;
-            margin-bottom: 2%;
-        }
-
-        .slider{
-            gap: 2px;
-            max-height: 250px;
-        }
-
-        .slide{
-            height: 22vw;
-            border-radius: 10px;
-            max-height: 250px;
-            max-width: 250px;
-        }
-
-        .slide_active{
-            height: 22vw;
-            max-height: 250px;
-            max-width: 250px;
-        }
-
-        .slide img{
-            width: 111%;
-            height: 101%;
-        }
-
-        .slide_active img{
-            width: 100%;
-            height: 100%;
-        }
-
-        .left{
-            height: auto;
-            width: 50px;
-        }
-
-        .right{
-            height: auto;
-            width: 50px;
-        }
-
-        .left_disabled{
-            height: auto;
-            width: 50px;
-        }
-
-        .right_disabled{
-            height: auto;
-            width: 50px;
-        }
-
-        .hrLine2{
-            padding: 0;
-            width: 100%;
-            height: 2px;
-            margin-top: 2%;
-        }
-
-        .newtex{
-            font-size: 1em;
-            width: 50%;
-            margin-top: 2%;
-            margin-left: 25%;
-            margin-right: 25%;
-        }
-
-        .section{
-            width: 100%;
-            height: auto;
-            margin-top: 2%;
-        }
-
-        .show{
-            width: 35%;
-            height: 100%;
-        }
-
-        .showtex{
-            margin-top: 7%;
-            width: 28%;
-            height: auto;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 0.7;
-        }
-
-        .showtex p{
-            font-size: 1em;
-        }
-
-        .busket {
-            width: 30%;
-            height: 70%;
-        }
-
-        .ourCompanies{
-            font-size: 2.5em;
-            width: 100%;
-            margin-top: 2%;
-        }
-
-        .companiesBlock{
-            width: 100%;
-            height: 7%;
-            margin-top: 2%;
-        }
-
-        .LambumizBlock{
-            width: 50%;
-            height: 50%;
-        }
-
-        .LambumizImg{
-            width: 35%;
-            height: 80%;
-        }
-
-        .LambumizText{
-            width: 100%;
-            height: 50%;
-        }
-
-        .LambumizText p{
-            font-size: 2em;
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: 20%;
-        }
-
-        .NSTU{
-            width: 50%;
-            height: 50%;
-        }
-
-        .AniLibriaBlock{
-            width: 50%;
-            height: 50%;
-        }
-
-        .DevoidBlock{
-            width: 50%;
-            height: 50%;
-        }
-
-        .DevoidText{
-            font-size: 2em;
-            margin-left: auto;
-            margin-right: auto;
-            height: 100%;
-            width: 100%;
-            margin-top: 10%;
-        }
-
-        .DevoidText span{
-            font-size: 1em;
-        }
-
-        .teamtext{
-            font-size: 2.5em;
-            width: 100%;
-            margin-top: 2%;
-        }
-
-        .ourTeam{
-            width: 100%;
-            margin-top: 2%;
-            height: 33%;
-            margin-bottom: 2%;
-        }
-
-        .object{
-            margin: 1% auto;
-            width: 32.23%;
-            height: 7%;
-        }
-
-        .imge1{
-            height: 80%;
-            width: 33%;
-            margin-left: 2%;
-            margin-right: 2%;
-        }
-
-        .texte{
-            width: 50.06%;
-            height: 80%;
-        }
-
-        .name{
-            width: 100%;
-            font-size: 0.95em;
-        }
-
-        .description{
-            width: 100%;
-            margin-top: 6%;
-            font-size: 0.85em;
-        }
-
-        .footer{
-            height: 5.8%;
-            width: 100%;
-        }
-
-        .section1{
-            width: 40%;
-            height: 80%;
-        }
-
-        .footer_section1{
-            height:auto;
-            width: 75%;
-            margin-top: 3%;
-        }
-
-        .email{
-            margin-left: 2%;
-            width: 45%;
-            height: auto;
-        }
-
-        .email a{
-            font-size: 0.55em;
-        }
-
-        .footer_section1_text{
-            font-size: 0.75em;
-            width: 100%;
-            margin-left: 0;
-            height: 20%;
-        }
-
-        .socialBlock{
-            margin-top: 3.5%;
-            margin-left: -6%;
-            height: 18%;
-            width: auto;
-        }
-
-        .img_link{
-            width: 100%;
-            height: 100%;
-            margin-left: 15%;
-        }
-
-        .img{
-            width: 100%;
-            height: 100%;
-        }
-
-        .footer_section2{
-            height: 50%;
-            width: 17.5%;
-            margin-left: 5%;
-            margin-top: 6.5%;
-        }
-
-        .toptex{
-            font-size: 0.7em;
-        }
-
-        .downtex{
-            margin-top: 3%;
-            font-size: 0.7em;
-        }
-
-        .menuText{
-            margin-top: 3%;
-            width: 100%;
-            height: auto;
-        }
-
-        .Tex1{
-            font-size: 0.7em;
-        }
-
-        .Tex2{
-            font-size: 0.7em;
-        }
-    }
+	.background {
+		width: 100%;
+		height: 970px;
+	}
+
+	.background_image {
+		background-size: 110% 100%;
+	}
+
+	.header {
+		width: 100%;
+		height: 7.5%;
+	}
+
+	.navka {
+		margin-left: 15%;
+	}
+
+	.logo {
+		width: 100%;
+		height: 100%;
+	}
+
+	.textLinks {
+		margin-right: 15%;
+		margin-left: auto;
+		width: 20%;
+		height: auto;
+	}
+
+	.reg_text {
+		font-size: 1.25em;
+		margin-left: 5%;
+	}
+
+	.enter_text {
+		font-size: 1.25em;
+		margin-left: 2%;
+	}
+
+	.mainpart {
+		width: 70%;
+		height: 660vh;
+		margin-left: 15%;
+		margin-right: 15%;
+		margin-top: 3.9%;
+	}
+
+	.photocontainer {
+		width: 100%;
+		height: 15%;
+		margin-top: 3%;
+	}
+
+	.Neural {
+		width: 57%;
+		height: 100%;
+	}
+
+	.NeuralText {
+		width: auto;
+		height: auto;
+	}
+
+	.neurontex {
+		font-size: 1.5em;
+		margin-left: 8%;
+		line-height: 1;
+		width: 100%;
+		height: auto;
+	}
+
+	.float_container {
+		margin-left: 26.9%;
+		margin-right: 0;
+		margin-top: -16%;
+	}
+
+	.maintex {
+		font-size: 6em;
+	}
+
+	.hrLine {
+		margin-top: 2%;
+		padding: 0;
+		width: 100%;
+		height: 2px;
+	}
+
+	.photoGroup {
+		width: 79%;
+		height: 23%;
+		margin-top: 4%;
+		display: inline-block;
+		position: relative;
+		z-index: 1;
+	}
+
+	.what {
+		background: rgba(0, 0, 0, 0.20);
+		filter: blur(5px);
+		backdrop-filter: blur(2px);
+		justify-content: center;
+		width: 651px;
+		height: 203px;
+		position: absolute;
+		display: flex;
+		z-index: 3;
+	}
+
+	.float_container1 {
+		display: inline-block;
+		position: relative;
+		margin-top: 10%;
+		margin-right: 50%;
+		justify-content: center;
+		z-index: 2;
+	}
+
+	.float_container1_Text {
+		width: 607px;
+		height: 148px;
+		position: absolute;
+		z-index: 4;
+	}
+
+	.float_container1_Text p {
+		color: #FFF;
+		font-family: Montserrat;
+		font-size: 2em;
+		font-style: normal;
+		font-weight: 500;
+		text-align: left;
+	}
+
+	.vanGoghBlock {
+		width: 100%;
+		height: 45%;
+	}
+
+	.vanGogh1 {
+		width: 47%;
+		height: 100%;
+	}
+
+	.technoprom {
+		height: 43%;
+		width: 100%;
+		margin-top: 10%;
+	}
+
+	.tech1 {
+		width: 61.9%;
+		height: 100%;
+	}
+
+	.tech2 {
+		width: 35.4%;
+		height: 100%;
+	}
+
+	.technopromText {
+		width: 100%;
+		height: 100px;
+	}
+
+	.technopromText p {
+		font-size: 1.5em;
+	}
+
+	.threeDtext {
+		font-size: 4em;
+		width: 100%;
+		margin-top: 4%;
+	}
+
+	.paginationBlock {
+		width: 100%;
+		height: 250px;
+		margin-top: 7%;
+	}
+
+	.hrLine1 {
+		padding: 0;
+		width: 100%;
+		height: 2px;
+		margin-bottom: 2%;
+	}
+
+	.slider {
+		gap: 2px;
+		max-height: 250px;
+	}
+
+	.slide {
+		height: 22vw;
+		border-radius: 10px;
+		max-height: 250px;
+		max-width: 250px;
+	}
+
+	.slide_active {
+		height: 22vw;
+		max-height: 250px;
+		max-width: 250px;
+	}
+
+	.slide img {
+		width: 111%;
+		height: 101%;
+	}
+
+	.slide_active img {
+		width: 100%;
+		height: 100%;
+	}
+
+	.left {
+		height: auto;
+		width: 50px;
+	}
+
+	.right {
+		height: auto;
+		width: 50px;
+	}
+
+	.left_disabled {
+		height: auto;
+		width: 50px;
+	}
+
+	.right_disabled {
+		height: auto;
+		width: 50px;
+	}
+
+	.hrLine2 {
+		padding: 0;
+		width: 100%;
+		height: 2px;
+		margin-top: 2%;
+	}
+
+	.newtex {
+		font-size: 1.5em;
+		width: 50%;
+		margin-top: 10%;
+		margin-left: 25%;
+		margin-right: 25%;
+	}
+
+	.section {
+		width: 100%;
+		height: 13%;
+		margin-top: 3%;
+	}
+
+	.show {
+		width: 35%;
+		height: 78%;
+	}
+
+	.showtex {
+		margin-top: 8%;
+		width: 26%;
+		height: auto;
+		margin-left: auto;
+		margin-right: auto;
+		line-height: 1;
+	}
+
+	.showtex p {
+		font-size: 1.5em;
+	}
+
+	.busket {
+		width: 30%;
+		height: 50%;
+	}
+
+	.ourCompanies {
+		font-size: 3em;
+		width: 100%;
+		margin-top: 4%;
+	}
+
+	.companiesBlock {
+		width: 100%;
+		height: 10%;
+		margin-top: 2.5%;
+	}
+
+	.LambumizBlock {
+		width: 50%;
+		height: 50%;
+	}
+
+	.LambumizImg {
+		width: 35%;
+		height: 80%;
+	}
+
+	.LambumizText {
+		width: 100%;
+		height: 50%;
+	}
+
+	.LambumizText p {
+		font-size: 3em;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 20%;
+	}
+
+	.NSTU {
+		width: 50%;
+		height: 50%;
+	}
+
+	.AniLibriaBlock {
+		width: 50%;
+		height: 50%;
+	}
+
+	.DevoidBlock {
+		width: 50%;
+		height: 50%;
+	}
+
+	.DevoidText {
+		font-size: 3em;
+		margin-left: auto;
+		margin-right: auto;
+		height: 100%;
+		width: 100%;
+		margin-top: 10%;
+	}
+
+	.DevoidText span {
+		font-size: 1em;
+	}
+
+	.teamtext {
+		font-size: 3em;
+		width: 100%;
+		margin-top: 4%;
+	}
+
+	.ourTeam {
+		width: 100%;
+		margin-top: 3%;
+		height: 38%;
+		margin-bottom: 4%;
+	}
+
+	.object {
+		margin: 1% auto;
+		width: 32.23%;
+		height: 9%;
+	}
+
+	.imge1 {
+		height: 90%;
+		width: 33%;
+		margin-left: 2%;
+		margin-right: 2%;
+	}
+
+	.texte {
+		width: 50.06%;
+		height: 80%;
+	}
+
+	.name {
+		width: 100%;
+		font-size: 1.25em;
+	}
+
+	.description {
+		width: 100%;
+		margin-top: 6%;
+		font-size: 1em;
+	}
+
+	.footer {
+		height: 4%;
+		width: 100%;
+	}
+
+	.section1 {
+		width: 43%;
+	}
+
+	.footer_section1 {
+		height: auto;
+		width: 75%;
+	}
+
+	.email {
+		width: 47%;
+		height: auto;
+	}
+
+	.email a {
+		font-size: 0.95em;
+	}
+
+	.footer_section1_text {
+		font-size: 0.95em;
+		width: 100%;
+		margin-left: 0;
+		height: 20%;
+	}
+
+	.socialBlock {
+		margin-top: 1.3%;
+		margin-left: -6%;
+		height: 30%;
+		width: auto;
+	}
+
+	.img_link {
+		width: 100%;
+		height: 100%;
+		margin-left: 15%;
+	}
+
+	.img {
+		width: 100%;
+		height: 100%;
+	}
+
+	.footer_section2 {
+		height: 50%;
+		width: 12%;
+		margin-left: 5%;
+		margin-top: 4.5%;
+	}
+
+	.toptex {
+		font-size: 0.875em;
+	}
+
+	.downtex {
+		margin-top: 3%;
+		font-size: 0.875em;
+	}
+
+	.menuText {
+		margin-top: 3%;
+		width: 100%;
+		height: auto;
+	}
+
+	.Tex1 {
+		font-size: 0.875em;
+	}
+
+	.Tex2 {
+		font-size: 0.875em;
+	}
+
+	@media (max-width: 1680px) {
+		.background {
+			width: 100%;
+			height: 970px;
+		}
+
+		.background_image {
+			background-size: 110% 100%;
+		}
+
+		.header {
+			width: 100%;
+			height: 7.5%;
+		}
+
+		.navka {
+			margin-left: 15%;
+		}
+
+		.logo {
+			width: 100%;
+			height: 100%;
+		}
+
+		.textLinks {
+			margin-right: 15%;
+			margin-left: auto;
+			width: 20%;
+			height: auto;
+		}
+
+		.reg_text {
+			font-size: 1.25em;
+			margin-left: 5%;
+		}
+
+		.enter_text {
+			font-size: 1.25em;
+			margin-left: 2%;
+		}
+
+		.mainpart {
+			width: 70%;
+			height: 660vh;
+			margin-left: 15%;
+			margin-right: 15%;
+			margin-top: 3.9%;
+		}
+
+		.photocontainer {
+			width: 100%;
+			height: 15%;
+			margin-top: 3%;
+		}
+
+		.Neural {
+			width: 57%;
+			height: 100%;
+		}
+
+		.NeuralText {
+			width: auto;
+			height: auto;
+		}
+
+		.neurontex {
+			font-size: 1.5em;
+			margin-left: 8%;
+			line-height: 1;
+			width: 100%;
+			height: auto;
+		}
+
+		.float_container {
+			margin-left: 26.9%;
+			margin-right: 0;
+			margin-top: -16%;
+		}
+
+		.maintex {
+			font-size: 5.5em;
+		}
+
+		.hrLine {
+			margin-top: 2%;
+			padding: 0;
+			width: 100%;
+			height: 2px;
+		}
+
+		.photoGroup {
+			width: 79%;
+			height: 23%;
+			margin-top: 5%;
+		}
+
+		.what {
+			background: rgba(0, 0, 0, 0.20);
+			filter: blur(5px);
+			backdrop-filter: blur(2px);
+			justify-content: center;
+			width: 651px;
+			height: 173px;
+			position: absolute;
+			display: flex;
+			z-index: 3;
+		}
+
+		.float_container1 {
+			display: inline-block;
+			position: relative;
+			margin-top: 10%;
+			margin-right: 50%;
+			justify-content: center;
+			z-index: 2;
+		}
+
+		.float_container1_Text {
+			width: 607px;
+			height: 148px;
+			position: absolute;
+			z-index: 4;
+		}
+
+		.float_container1_Text p {
+			color: #FFF;
+			font-family: Montserrat;
+			font-size: 1.8em;
+			font-style: normal;
+			font-weight: 500;
+			text-align: left;
+		}
+
+		.vanGoghBlock {
+			width: 100%;
+			height: 45%;
+		}
+
+		.vanGogh1 {
+			width: 47%;
+			height: 100%;
+		}
+
+		.technoprom {
+			height: 43%;
+			width: 100%;
+			margin-top: 10%;
+		}
+
+		.tech1 {
+			width: 61.9%;
+			height: 100%;
+		}
+
+		.tech2 {
+			width: 35.4%;
+			height: 100%;
+		}
+
+		.technopromText {
+			width: 100%;
+			height: 100px;
+		}
+
+		.technopromText p {
+			font-size: 1.5em;
+		}
+
+		.threeDtext {
+			font-size: 4em;
+			width: 100%;
+			margin-top: 4%;
+		}
+
+		.paginationBlock {
+			width: 100%;
+			height: 250px;
+			margin-top: 7%;
+		}
+
+		.hrLine1 {
+			padding: 0;
+			width: 100%;
+			height: 2px;
+			margin-bottom: 2%;
+		}
+
+		.slider {
+			gap: 2px;
+			max-height: 250px;
+		}
+
+		.slide {
+			height: 22vw;
+			border-radius: 10px;
+			max-height: 250px;
+			max-width: 250px;
+		}
+
+		.slide_active {
+			height: 22vw;
+			max-height: 250px;
+			max-width: 250px;
+		}
+
+		.slide img {
+			width: 111%;
+			height: 101%;
+		}
+
+		.slide_active img {
+			width: 100%;
+			height: 100%;
+		}
+
+		.left {
+			height: auto;
+			width: 50px;
+		}
+
+		.right {
+			height: auto;
+			width: 50px;
+		}
+
+		.left_disabled {
+			height: auto;
+			width: 50px;
+		}
+
+		.right_disabled {
+			height: auto;
+			width: 50px;
+		}
+
+		.hrLine2 {
+			padding: 0;
+			width: 100%;
+			height: 2px;
+			margin-top: 2%;
+		}
+
+		.newtex {
+			font-size: 1.25em;
+			width: 50%;
+			margin-top: 10%;
+			margin-left: 25%;
+			margin-right: 25%;
+		}
+
+		.section {
+			width: 100%;
+			height: 10%;
+			margin-top: 3%;
+		}
+
+		.show {
+			width: 35%;
+			height: 78%;
+		}
+
+		.showtex {
+			margin-top: 7%;
+			width: 28%;
+			height: auto;
+			margin-left: auto;
+			margin-right: auto;
+			line-height: 0.7;
+		}
+
+		.showtex p {
+			font-size: 1.25em;
+		}
+
+		.busket {
+			width: 30%;
+			height: 50%;
+		}
+
+		.ourCompanies {
+			font-size: 3em;
+			width: 100%;
+			margin-top: 2%;
+		}
+
+		.companiesBlock {
+			width: 100%;
+			height: 10%;
+			margin-top: 2.5%;
+		}
+
+		.LambumizBlock {
+			width: 50%;
+			height: 50%;
+		}
+
+		.LambumizImg {
+			width: 35%;
+			height: 80%;
+		}
+
+		.LambumizText {
+			width: 100%;
+			height: 50%;
+		}
+
+		.LambumizText p {
+			font-size: 3em;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: 20%;
+		}
+
+		.NSTU {
+			width: 50%;
+			height: 50%;
+		}
+
+		.AniLibriaBlock {
+			width: 50%;
+			height: 50%;
+		}
+
+		.DevoidBlock {
+			width: 50%;
+			height: 50%;
+		}
+
+		.DevoidText {
+			font-size: 3em;
+			margin-left: auto;
+			margin-right: auto;
+			height: 100%;
+			width: 100%;
+			margin-top: 10%;
+		}
+
+		.DevoidText span {
+			font-size: 1em;
+		}
+
+		.teamtext {
+			font-size: 3em;
+			width: 100%;
+			margin-top: 4%;
+		}
+
+		.ourTeam {
+			width: 100%;
+			margin-top: 3%;
+			height: 38%;
+			margin-bottom: 4%;
+		}
+
+		.object {
+			margin: 1% auto;
+			width: 32.23%;
+			height: 9%;
+		}
+
+		.imge1 {
+			height: 90%;
+			width: 33%;
+			margin-left: 2%;
+			margin-right: 2%;
+		}
+
+		.texte {
+			width: 50.06%;
+			height: 80%;
+		}
+
+		.name {
+			width: 100%;
+			font-size: 1.25em;
+		}
+
+		.description {
+			width: 100%;
+			margin-top: 6%;
+			font-size: 1em;
+		}
+
+		.footer {
+			height: 6%;
+			width: 100%;
+		}
+
+		.section1 {
+			width: 40%;
+		}
+
+		.footer_section1 {
+			height: auto;
+			width: 75%;
+		}
+
+		.email {
+			margin-left: 2%;
+			width: 45%;
+			height: auto;
+		}
+
+		.email a {
+			font-size: 0.85em;
+		}
+
+		.footer_section1_text {
+			font-size: 0.95em;
+			width: 100%;
+			margin-left: 0;
+			height: 20%;
+		}
+
+		.socialBlock {
+			margin-top: 3%;
+			margin-left: -6%;
+			height: 20%;
+			width: auto;
+		}
+
+		.img_link {
+			width: 100%;
+			height: 100%;
+			margin-left: 15%;
+		}
+
+		.img {
+			width: 100%;
+			height: 100%;
+		}
+
+		.footer_section2 {
+			height: 50%;
+			width: 14.88%;
+			margin-left: 5%;
+			margin-top: 4.5%;
+		}
+
+		.toptex {
+			font-size: 0.875em;
+		}
+
+		.downtex {
+			margin-top: 3%;
+			font-size: 0.875em;
+		}
+
+		.menuText {
+			margin-top: 3%;
+			width: 100%;
+			height: auto;
+		}
+
+		.Tex1 {
+			font-size: 0.875em;
+		}
+
+		.Tex2 {
+			font-size: 0.875em;
+		}
+	}
+
+	@media (max-width: 1440px) {
+		.background {
+			width: 100%;
+			height: 970px;
+		}
+
+		.background_image {
+			background-size: 110% 100%;
+		}
+
+		.header {
+			width: 100%;
+			height: 7.5%;
+		}
+
+		.navka {
+			margin-left: 15%;
+		}
+
+		.logo {
+			width: 100%;
+			height: 100%;
+		}
+
+		.textLinks {
+			margin-right: 15%;
+			margin-left: auto;
+			width: 20%;
+			height: auto;
+		}
+
+		.reg_text {
+			font-size: 1.1em;
+			margin-left: 5%;
+		}
+
+		.enter_text {
+			font-size: 1.1em;
+			margin-left: 2%;
+		}
+
+		.mainpart {
+			width: 70%;
+			height: 660vh;
+			margin-left: 15%;
+			margin-right: 15%;
+			margin-top: 3.9%;
+		}
+
+		.photocontainer {
+			width: 100%;
+			height: 11%;
+			margin-top: 3%;
+		}
+
+		.Neural {
+			width: 57%;
+			height: 100%;
+		}
+
+		.NeuralText {
+			width: 43%;
+			height: auto;
+		}
+
+		.neurontex {
+			font-size: 1.25em;
+			margin-left: 8%;
+			line-height: 1;
+			width: auto;
+			height: auto;
+		}
+
+		.float_container {
+			margin-left: 35.9%;
+			margin-right: 0;
+			margin-top: -16%;
+			width: 70%;
+		}
+
+		.maintex {
+			font-size: 4.5em;
+			margin-left: 1%;
+		}
+
+		.hrLine {
+			margin-top: 2%;
+			padding: 0;
+			width: 100%;
+			height: 2px;
+		}
+
+		.photoGroup {
+			width: 79%;
+			height: 16%;
+			margin-top: 5%;
+		}
+
+		.what {
+			background: rgba(0, 0, 0, 0.20);
+			filter: blur(5px);
+			backdrop-filter: blur(2px);
+			justify-content: center;
+			width: 470px;
+			height: 153px;
+			position: absolute;
+			display: flex;
+			z-index: 3;
+		}
+
+		.float_container1 {
+			display: inline-block;
+			position: relative;
+			margin-top: 10%;
+			margin-right: 50%;
+			justify-content: center;
+			z-index: 2;
+		}
+
+		.float_container1_Text {
+			width: 607px;
+			height: 148px;
+			position: absolute;
+			z-index: 4;
+		}
+
+		.float_container1_Text p {
+			color: #FFF;
+			font-family: Montserrat;
+			font-size: 1.5em;
+			font-style: normal;
+			font-weight: 500;
+			text-align: left;
+		}
+
+		.vanGoghBlock {
+			width: 100%;
+			height: 45%;
+		}
+
+		.vanGogh1 {
+			width: 47%;
+			height: 100%;
+		}
+
+		.technoprom {
+			height: 43%;
+			width: 100%;
+			margin-top: 10%;
+		}
+
+		.tech1 {
+			width: 61.9%;
+			height: 100%;
+		}
+
+		.tech2 {
+			width: 35.4%;
+			height: 100%;
+		}
+
+		.technopromText {
+			width: 100%;
+			height: 100px;
+		}
+
+		.technopromText p {
+			font-size: 1.5em;
+		}
+
+		.threeDtext {
+			font-size: 4em;
+			width: 100%;
+			margin-top: 4%;
+		}
+
+		.paginationBlock {
+			width: 100%;
+			height: 250px;
+			margin-top: 7%;
+		}
+
+		.hrLine1 {
+			padding: 0;
+			width: 100%;
+			height: 2px;
+			margin-bottom: 2%;
+		}
+
+		.slider {
+			gap: 2px;
+			max-height: 250px;
+		}
+
+		.slide {
+			height: 22vw;
+			border-radius: 10px;
+			max-height: 250px;
+			max-width: 250px;
+		}
+
+		.slide_active {
+			height: 22vw;
+			max-height: 250px;
+			max-width: 250px;
+		}
+
+		.slide img {
+			width: 111%;
+			height: 101%;
+		}
+
+		.slide_active img {
+			width: 100%;
+			height: 100%;
+		}
+
+		.left {
+			height: auto;
+			width: 50px;
+		}
+
+		.right {
+			height: auto;
+			width: 50px;
+		}
+
+		.left_disabled {
+			height: auto;
+			width: 50px;
+		}
+
+		.right_disabled {
+			height: auto;
+			width: 50px;
+		}
+
+		.hrLine2 {
+			padding: 0;
+			width: 100%;
+			height: 2px;
+			margin-top: 2%;
+		}
+
+		.newtex {
+			font-size: 1.2em;
+			width: 50%;
+			margin-top: 10%;
+			margin-left: 25%;
+			margin-right: 25%;
+		}
+
+		.section {
+			width: 100%;
+			height: 10%;
+			margin-top: 7%;
+		}
+
+		.show {
+			width: 35%;
+			height: 78%;
+		}
+
+		.showtex {
+			margin-top: 7%;
+			width: 28%;
+			height: auto;
+			margin-left: auto;
+			margin-right: auto;
+			line-height: 0.7;
+		}
+
+		.showtex p {
+			font-size: 1.2em;
+		}
+
+		.busket {
+			width: 30%;
+			height: 50%;
+		}
+
+		.ourCompanies {
+			font-size: 3em;
+			width: 100%;
+			margin-top: 2%;
+		}
+
+		.companiesBlock {
+			width: 100%;
+			height: 8%;
+			margin-top: 2.5%;
+		}
+
+		.LambumizBlock {
+			width: 50%;
+			height: 50%;
+		}
+
+		.LambumizImg {
+			width: 35%;
+			height: 80%;
+		}
+
+		.LambumizText {
+			width: 100%;
+			height: 50%;
+		}
+
+		.LambumizText p {
+			font-size: 2.5em;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: 20%;
+		}
+
+		.NSTU {
+			width: 50%;
+			height: 50%;
+		}
+
+		.AniLibriaBlock {
+			width: 50%;
+			height: 50%;
+		}
+
+		.DevoidBlock {
+			width: 50%;
+			height: 50%;
+		}
+
+		.DevoidText {
+			font-size: 2.5em;
+			margin-left: auto;
+			margin-right: auto;
+			height: 100%;
+			width: 100%;
+			margin-top: 10%;
+		}
+
+		.DevoidText span {
+			font-size: 1em;
+		}
+
+		.teamtext {
+			font-size: 3em;
+			width: 100%;
+			margin-top: 4%;
+		}
+
+		.ourTeam {
+			width: 100%;
+			margin-top: 3%;
+			height: 38%;
+			margin-bottom: 4%;
+		}
+
+		.object {
+			margin: 1% auto;
+			width: 32.23%;
+			height: 8%;
+		}
+
+		.imge1 {
+			height: 85%;
+			width: 35%;
+			margin-left: 2%;
+			margin-right: 2%;
+		}
+
+		.texte {
+			width: 50.06%;
+			height: 80%;
+		}
+
+		.name {
+			width: 100%;
+			font-size: 0.95em;
+		}
+
+		.description {
+			width: 100%;
+			margin-top: 6%;
+			font-size: 0.85em;
+		}
+
+		.footer {
+			height: 6%;
+			width: 100%;
+		}
+
+		.section1 {
+			width: 40%;
+		}
+
+		.footer_section1 {
+			height: auto;
+			width: 75%;
+		}
+
+		.email {
+			margin-left: 2%;
+			width: 45%;
+			height: auto;
+		}
+
+		.email a {
+			font-size: 0.75em;
+		}
+
+		.footer_section1_text {
+			font-size: 0.8em;
+			width: 100%;
+			margin-left: 0;
+			height: 20%;
+		}
+
+		.socialBlock {
+			margin-top: 3%;
+			margin-left: -6%;
+			height: 20%;
+			width: auto;
+		}
+
+		.img_link {
+			width: 100%;
+			height: 100%;
+			margin-left: 15%;
+		}
+
+		.img {
+			width: 100%;
+			height: 100%;
+		}
+
+		.footer_section2 {
+			height: 50%;
+			width: 14.88%;
+			margin-left: 5%;
+			margin-top: 6.5%;
+		}
+
+		.toptex {
+			font-size: 0.8em;
+		}
+
+		.downtex {
+			margin-top: 3%;
+			font-size: 0.8em;
+		}
+
+		.menuText {
+			margin-top: 3%;
+			width: 100%;
+			height: auto;
+		}
+
+		.Tex1 {
+			font-size: 0.8em;
+		}
+
+		.Tex2 {
+			font-size: 0.8em;
+		}
+	}
+
+	@media (max-width: 1280px) {
+		.background {
+			width: 100%;
+			height: 970px;
+		}
+
+		.background_image {
+			background-size: 110% 100%;
+		}
+
+		.header {
+			width: 100%;
+			height: 7.5%;
+		}
+
+		.navka {
+			margin-left: 15%;
+		}
+
+		.logo {
+			width: 100%;
+			height: 100%;
+		}
+
+		.textLinks {
+			margin-right: 15%;
+			margin-left: auto;
+			width: 20%;
+			height: auto;
+		}
+
+		.reg_text {
+			font-size: 0.9em;
+			margin-left: 5%;
+		}
+
+		.enter_text {
+			font-size: 0.9em;
+			margin-left: 2%;
+		}
+
+		.mainpart {
+			width: 70%;
+			height: 600vh;
+			margin-left: 15%;
+			margin-right: 15%;
+			margin-top: 3.5%;
+		}
+
+		.photocontainer {
+			width: 100%;
+			height: 9%;
+			margin-top: 2%;
+		}
+
+		.Neural {
+			width: 57%;
+			height: 100%;
+		}
+
+		.NeuralText {
+			width: 43%;
+			height: auto;
+		}
+
+		.neurontex {
+			font-size: 1em;
+			margin-left: 6%;
+			line-height: 1;
+			width: auto;
+			height: auto;
+		}
+
+		.float_container {
+			margin-left: 50.9%;
+			margin-right: 0;
+			margin-top: -26%;
+			width: 70%;
+		}
+
+		.maintex {
+			font-size: 3em;
+			margin-left: 1%;
+		}
+
+		.hrLine {
+			margin-top: 2%;
+			padding: 0;
+			width: 70%;
+			height: 2px;
+		}
+
+		.photoGroup {
+			width: 79%;
+			height: auto;
+			margin-top: -10%;
+		}
+
+		.what {
+			background: rgba(0, 0, 0, 0.20);
+			filter: blur(5px);
+			backdrop-filter: blur(2px);
+			justify-content: center;
+			width: 410px;
+			height: 133px;
+			position: absolute;
+			display: flex;
+			z-index: 3;
+		}
+
+		.float_container1 {
+			display: inline-block;
+			position: relative;
+			margin-top: 10%;
+			margin-right: 50%;
+			justify-content: center;
+			z-index: 2;
+		}
+
+		.float_container1_Text {
+			width: 607px;
+			height: 148px;
+			position: absolute;
+			z-index: 4;
+		}
+
+		.float_container1_Text p {
+			color: #FFF;
+			font-family: Montserrat;
+			font-size: 1.2em;
+			font-style: normal;
+			font-weight: 500;
+			text-align: left;
+		}
+
+		.vanGoghBlock {
+			width: 100%;
+			height: 45%;
+		}
+
+		.vanGogh1 {
+			width: 47%;
+			height: 100%;
+		}
+
+		.technoprom {
+			height: 41%;
+			width: 100%;
+			margin-top: 8%;
+		}
+
+		.tech1 {
+			width: 61.9%;
+			height: 100%;
+		}
+
+		.tech2 {
+			width: 35.4%;
+			height: 100%;
+		}
+
+		.technopromText {
+			width: 100%;
+			height: 70px;
+		}
+
+		.technopromText p {
+			font-size: 1.3em;
+		}
+
+		.threeDtext {
+			font-size: 3em;
+			width: 100%;
+			margin-top: 2%;
+		}
+
+		.paginationBlock {
+			width: 100%;
+			height: 250px;
+			margin-top: 2%;
+		}
+
+		.hrLine1 {
+			padding: 0;
+			width: 100%;
+			height: 2px;
+			margin-bottom: 2%;
+		}
+
+		.slider {
+			gap: 2px;
+			max-height: 250px;
+		}
+
+		.slide {
+			height: 22vw;
+			border-radius: 10px;
+			max-height: 250px;
+			max-width: 250px;
+		}
+
+		.slide_active {
+			height: 22vw;
+			max-height: 250px;
+			max-width: 250px;
+		}
+
+		.slide img {
+			width: 111%;
+			height: 101%;
+		}
+
+		.slide_active img {
+			width: 100%;
+			height: 100%;
+		}
+
+		.left {
+			height: auto;
+			width: 50px;
+		}
+
+		.right {
+			height: auto;
+			width: 50px;
+		}
+
+		.left_disabled {
+			height: auto;
+			width: 50px;
+		}
+
+		.right_disabled {
+			height: auto;
+			width: 50px;
+		}
+
+		.hrLine2 {
+			padding: 0;
+			width: 100%;
+			height: 2px;
+			margin-top: 2%;
+		}
+
+		.newtex {
+			font-size: 1em;
+			width: 50%;
+			margin-top: 2%;
+			margin-left: 25%;
+			margin-right: 25%;
+		}
+
+		.section {
+			width: 100%;
+			height: auto;
+			margin-top: 2% !important;
+		}
+
+		.show {
+			width: 35%;
+			height: 100%;
+		}
+
+		.showtex {
+			margin-top: 7%;
+			width: 28%;
+			height: auto;
+			margin-left: auto;
+			margin-right: auto;
+			line-height: 0.7;
+		}
+
+		.showtex p {
+			font-size: 1em;
+		}
+
+		.busket {
+			width: 30%;
+			height: 70%;
+		}
+
+		.ourCompanies {
+			font-size: 2.5em;
+			width: 100%;
+			margin-top: 2%;
+		}
+
+		.companiesBlock {
+			width: 100%;
+			height: 7%;
+			margin-top: 2%;
+		}
+
+		.LambumizBlock {
+			width: 50%;
+			height: 50%;
+		}
+
+		.LambumizImg {
+			width: 35%;
+			height: 80%;
+		}
+
+		.LambumizText {
+			width: 100%;
+			height: 50%;
+		}
+
+		.LambumizText p {
+			font-size: 2em;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: 20%;
+		}
+
+		.NSTU {
+			width: 50%;
+			height: 50%;
+		}
+
+		.AniLibriaBlock {
+			width: 50%;
+			height: 50%;
+		}
+
+		.DevoidBlock {
+			width: 50%;
+			height: 50%;
+		}
+
+		.DevoidText {
+			font-size: 2em;
+			margin-left: auto;
+			margin-right: auto;
+			height: 100%;
+			width: 100%;
+			margin-top: 10%;
+		}
+
+		.DevoidText span {
+			font-size: 1em;
+		}
+
+		.teamtext {
+			font-size: 2.5em;
+			width: 100%;
+			margin-top: 2%;
+		}
+
+		.ourTeam {
+			width: 100%;
+			margin-top: 2%;
+			height: 33%;
+			margin-bottom: 2%;
+		}
+
+		.object {
+			margin: 1% auto;
+			width: 32.23%;
+			height: 7%;
+		}
+
+		.imge1 {
+			height: 80%;
+			width: 33%;
+			margin-left: 2%;
+			margin-right: 2%;
+		}
+
+		.texte {
+			width: 50.06%;
+			height: 80%;
+		}
+
+		.name {
+			width: 100%;
+			font-size: 0.95em;
+		}
+
+		.description {
+			width: 100%;
+			margin-top: 6%;
+			font-size: 0.85em;
+		}
+
+		.footer {
+			height: 5.8%;
+			width: 100%;
+		}
+
+		.section1 {
+			width: 40%;
+			height: 80%;
+		}
+
+		.footer_section1 {
+			height: auto;
+			width: 75%;
+			margin-top: 3%;
+		}
+
+		.email {
+			margin-left: 2%;
+			width: 45%;
+			height: auto;
+		}
+
+		.email a {
+			font-size: 0.65em;
+		}
+
+		.footer_section1_text {
+			font-size: 0.75em;
+			width: 100%;
+			margin-left: 0;
+			height: 20%;
+		}
+
+		.socialBlock {
+			margin-top: 3.5%;
+			margin-left: -6%;
+			height: 18%;
+			width: auto;
+		}
+
+		.img_link {
+			width: 100%;
+			height: 100%;
+			margin-left: 15%;
+		}
+
+		.img {
+			width: 100%;
+			height: 100%;
+		}
+
+		.footer_section2 {
+			height: 50%;
+			width: 17.5%;
+			margin-left: 5%;
+			margin-top: 6.5%;
+		}
+
+		.toptex {
+			font-size: 0.7em;
+		}
+
+		.downtex {
+			margin-top: 3%;
+			font-size: 0.7em;
+		}
+
+		.menuText {
+			margin-top: 3%;
+			width: 100%;
+			height: auto;
+		}
+
+		.Tex1 {
+			font-size: 0.7em;
+		}
+
+		.Tex2 {
+			font-size: 0.7em;
+		}
+	}
+
+	@media (max-width: 1024px) {
+		.background {
+			width: 100%;
+			height: 970px;
+		}
+
+		.background_image {
+			background-size: 110% 100%;
+		}
+
+		.header {
+			width: 100%;
+			height: 7.5%;
+		}
+
+		.navka {
+			margin-left: 15%;
+		}
+
+		.logo {
+			width: 100%;
+			height: 100%;
+		}
+
+		.textLinks {
+			margin-right: 15%;
+			margin-left: auto;
+			width: 20%;
+			height: auto;
+		}
+
+		.reg_text {
+			font-size: 0.9em;
+			margin-left: 5%;
+		}
+
+		.enter_text {
+			font-size: 0.9em;
+			margin-left: 2%;
+		}
+
+		.mainpart {
+			width: 70%;
+			height: 530vh;
+			margin-left: 15%;
+			margin-right: 15%;
+			margin-top: 5.5%;
+		}
+
+		.photocontainer {
+			width: 100%;
+			height: 7%;
+			margin-top: 2%;
+		}
+
+		.Neural {
+			width: 57%;
+			height: 100%;
+		}
+
+		.NeuralText {
+			width: 43%;
+			height: auto;
+		}
+
+		.neurontex {
+			font-size: 1em;
+			margin-left: 6%;
+			line-height: 1;
+			width: auto;
+			height: auto;
+		}
+
+		.float_container {
+			margin-left: 50.9%;
+			margin-right: 0;
+			margin-top: -26%;
+			width: 70%;
+		}
+
+		.maintex {
+			font-size: 3em;
+			margin-left: 1%;
+		}
+
+		.hrLine {
+			margin-top: 2%;
+			padding: 0;
+			width: 80%;
+			height: 2px;
+		}
+
+		.photoGroup {
+			width: 79%;
+			height: auto;
+			margin-top: -10%;
+		}
+
+		.what {
+			background: rgba(0, 0, 0, 0.20);
+			filter: blur(5px);
+			backdrop-filter: blur(2px);
+			justify-content: center;
+			width: 410px;
+			height: 133px;
+			position: absolute;
+			display: flex;
+			z-index: 3;
+		}
+
+		.float_container1 {
+			display: inline-block;
+			position: relative;
+			margin-top: 10%;
+			margin-right: 50%;
+			justify-content: center;
+			z-index: 2;
+		}
+
+		.float_container1_Text {
+			width: 607px;
+			height: 148px;
+			position: absolute;
+			z-index: 4;
+		}
+
+		.float_container1_Text p {
+			color: #FFF;
+			font-family: Montserrat;
+			font-size: 1.2em;
+			font-style: normal;
+			font-weight: 500;
+			text-align: left;
+		}
+
+		.vanGoghBlock {
+			width: 100%;
+			height: 45%;
+		}
+
+		.vanGogh1 {
+			width: 47%;
+			height: 100%;
+		}
+
+		.technoprom {
+			height: 41%;
+			width: 100%;
+			margin-top: 8%;
+		}
+
+		.tech1 {
+			width: 61.9%;
+			height: 100%;
+		}
+
+		.tech2 {
+			width: 35.4%;
+			height: 100%;
+		}
+
+		.technopromText {
+			width: 100%;
+			height: 70px;
+		}
+
+		.technopromText p {
+			font-size: 1.3em;
+		}
+
+		.threeDtext {
+			font-size: 3em;
+			width: 100%;
+			margin-top: 2%;
+		}
+
+		.paginationBlock {
+			width: 100%;
+			height: 250px;
+			margin-top: 2%;
+		}
+
+		.hrLine1 {
+			padding: 0;
+			width: 100%;
+			height: 2px;
+			margin-bottom: 2%;
+		}
+
+		.slider {
+			gap: 2px;
+			max-height: 250px;
+		}
+
+		.slide {
+			height: 22vw;
+			border-radius: 10px;
+			max-height: 250px;
+			max-width: 250px;
+		}
+
+		.slide_active {
+			height: 22vw;
+			max-height: 250px;
+			max-width: 250px;
+		}
+
+		.slide img {
+			width: 111%;
+			height: 101%;
+		}
+
+		.slide_active img {
+			width: 100%;
+			height: 100%;
+		}
+
+		.left {
+			height: auto;
+			width: 50px;
+		}
+
+		.right {
+			height: auto;
+			width: 50px;
+		}
+
+		.left_disabled {
+			height: auto;
+			width: 50px;
+		}
+
+		.right_disabled {
+			height: auto;
+			width: 50px;
+		}
+
+		.hrLine2 {
+			padding: 0;
+			width: 100%;
+			height: 2px;
+			margin-top: 2%;
+		}
+
+		.newtex {
+			font-size: 1em;
+			width: 50%;
+			margin-top: 2%;
+			margin-left: 25%;
+			margin-right: 25%;
+		}
+
+		.section {
+			width: 100%;
+			height: auto;
+			margin-top: 2%;
+		}
+
+		.show {
+			width: 35%;
+			height: 100%;
+		}
+
+		.showtex {
+			margin-top: 7%;
+			width: 28%;
+			height: auto;
+			margin-left: auto;
+			margin-right: auto;
+			line-height: 0.7;
+		}
+
+		.showtex p {
+			font-size: 1em;
+		}
+
+		.busket {
+			width: 30%;
+			height: 70%;
+		}
+
+		.ourCompanies {
+			font-size: 2.5em;
+			width: 100%;
+			margin-top: 2%;
+		}
+
+		.companiesBlock {
+			width: 100%;
+			height: 7%;
+			margin-top: 2%;
+		}
+
+		.LambumizBlock {
+			width: 50%;
+			height: 50%;
+		}
+
+		.LambumizImg {
+			width: 35%;
+			height: 80%;
+		}
+
+		.LambumizText {
+			width: 100%;
+			height: 50%;
+		}
+
+		.LambumizText p {
+			font-size: 2em;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: 20%;
+		}
+
+		.NSTU {
+			width: 50%;
+			height: 50%;
+		}
+
+		.AniLibriaBlock {
+			width: 50%;
+			height: 50%;
+		}
+
+		.DevoidBlock {
+			width: 50%;
+			height: 50%;
+		}
+
+		.DevoidText {
+			font-size: 2em;
+			margin-left: auto;
+			margin-right: auto;
+			height: 100%;
+			width: 100%;
+			margin-top: 10%;
+		}
+
+		.DevoidText span {
+			font-size: 1em;
+		}
+
+		.teamtext {
+			font-size: 2.5em;
+			width: 100%;
+			margin-top: 2%;
+		}
+
+		.ourTeam {
+			width: 100%;
+			margin-top: 2%;
+			height: 33%;
+			margin-bottom: 2%;
+		}
+
+		.object {
+			margin: 1% auto;
+			width: 32.23%;
+			height: 7%;
+		}
+
+		.imge1 {
+			height: 80%;
+			width: 33%;
+			margin-left: 2%;
+			margin-right: 2%;
+		}
+
+		.texte {
+			width: 50.06%;
+			height: 80%;
+		}
+
+		.name {
+			width: 100%;
+			font-size: 0.95em;
+		}
+
+		.description {
+			width: 100%;
+			margin-top: 6%;
+			font-size: 0.85em;
+		}
+
+		.footer {
+			height: 5.8%;
+			width: 100%;
+		}
+
+		.section1 {
+			width: 40%;
+			height: 80%;
+		}
+
+		.footer_section1 {
+			height: auto;
+			width: 75%;
+			margin-top: 3%;
+		}
+
+		.email {
+			margin-left: 2%;
+			width: 45%;
+			height: auto;
+		}
+
+		.email a {
+			font-size: 0.55em;
+		}
+
+		.footer_section1_text {
+			font-size: 0.75em;
+			width: 100%;
+			margin-left: 0;
+			height: 20%;
+		}
+
+		.socialBlock {
+			margin-top: 3.5%;
+			margin-left: -6%;
+			height: 18%;
+			width: auto;
+		}
+
+		.img_link {
+			width: 100%;
+			height: 100%;
+			margin-left: 15%;
+		}
+
+		.img {
+			width: 100%;
+			height: 100%;
+		}
+
+		.footer_section2 {
+			height: 50%;
+			width: 17.5%;
+			margin-left: 5%;
+			margin-top: 6.5%;
+		}
+
+		.toptex {
+			font-size: 0.7em;
+		}
+
+		.downtex {
+			margin-top: 3%;
+			font-size: 0.7em;
+		}
+
+		.menuText {
+			margin-top: 3%;
+			width: 100%;
+			height: auto;
+		}
+
+		.Tex1 {
+			font-size: 0.7em;
+		}
+
+		.Tex2 {
+			font-size: 0.7em;
+		}
+	}
 }
+
+.txt {
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 24px;
+	font-style: normal;
+	font-weight: 400;
+}
+
+.txtInfo {
+	margin-top: 100px;
+}
+
+
+.infoBlock {
+	display: flex;
+	flex-direction: row;
+	margin-top: 23px;
+	gap: 10px;
+}
+
+.infoBlock__txt {
+	display: flex;
+	flex-direction: column;
+	gap: 50px;
+}
+
+.certificate {
+	width: 400px;
+	height: 566px;
+	border-radius: 20px;
+}
+
+.txtInfo2{
+	margin-top: 20px;
+}
+
+
+
 /*    @media (max-width: 1680px) {*/
 /*        .header {*/
 /*            height: 70px;*/
@@ -4909,7 +4961,3 @@
 /*        }*/
 /*    }*/
 /*}*/
-
-
-
-
