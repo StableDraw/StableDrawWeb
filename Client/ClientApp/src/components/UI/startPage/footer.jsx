@@ -60,13 +60,16 @@ export const Footer = () => {
 			</div>
 
 			<span className={footer.docs}>
-				ИНН: 5405088796
+				ИНН/КПП: 5405088796/540501001, ОГРН: 123540003826, место нахождения:630112, г. Новосибирск, ул. Гоголя, д. 192, кв. 71; телефон: +7-913-786-9887;
 			</span>
 			<span className={footer.docs}>
 				62.01 «Разработка компьютерного программного обеспечения»
 			</span>
 			<span className={footer.docs}>
-				Стек используемых технологий: ASP.NET Core, .NET 7, MinIo, RabbitMQ, Masstransit, Docker Compose, MediatR, Propan, Sqlite, Entity Framework Core, Nginx, React, MobX, Typescript
+				Стек используемых технологий: ASP.NET Core, .NET 7, MinIo, RabbitMQ, Masstransit, Docker Compose, MediatR, Propan, Sqlite, Entity Framework Core, Nginx, React, MobX, PyTorch
+			</span>
+			<span className={footer.docs}>
+				Языки программирования: C#, Typescript, Python, HTML, CSS
 			</span>
 		</footer>
 	)

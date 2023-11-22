@@ -131,4 +131,12 @@ public static class ProgramExtensions
                 "IdentityServerJwtBearer", 
                 o => o.Authority = "https://www.stabledraw.com");
     }
+
+    public static void AddTimerHostedService(this IServiceCollection services, bool isDevelopment)
+    {
+        if(!isDevelopment)
+        {
+            services.AddHostedService<TimerHostedUpdateDbService>();
+        }
+    }
 }
