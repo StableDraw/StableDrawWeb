@@ -55,11 +55,12 @@ const AppRoutes = [
         requireAuth: true,
         element: <MainBabylon />
     },
-		{
-			path: '/myProfile',
-        requireAuth: true,
-        element: <UserProfile />
-		},
+		//модуль временно не готов
+		// {
+		// 	path: '/myProfile',
+    //     requireAuth: true, 
+    //     element: <UserProfile />
+		// },
     {
         path: '/api',
         requireAuth: true,
