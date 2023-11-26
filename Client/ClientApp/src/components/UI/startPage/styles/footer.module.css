@@ -114,10 +114,9 @@
 .info{
 	display: flex;
 	flex-direction: column;
-	height: 240px;
+	height: 250px;
 	background: #000;
 	width: 100%;
-
 }
 
 .docs{
@@ -125,4 +124,5 @@
 	font-size: 12px;
 	margin-left: 110px;
 }
+
 

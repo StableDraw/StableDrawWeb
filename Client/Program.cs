@@ -2,7 +2,6 @@ using System.Net;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using CLI.Services;
 using CLI.Extensions;
-using Duende.IdentityServer.Models;
 using MassTransit;
 using Microsoft.AspNetCore.Diagnostics;
 using Newtonsoft.Json;

@@ -1,19 +1,16 @@
-﻿using System.Collections;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using CLI.Settings;
 using Duende.IdentityServer.Extensions;
 using MassTransit;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using StableDraw.Contracts.NeuralContracts.Replies;
 using StableDraw.Contracts.NeuralContracts.Requests;
 using StableDraw.Core.Models;
-using StableDraw.Domain.Repositories;
 using Newtonsoft.Json.Linq;
 using FileR = System.IO.File;
-using Org.BouncyCastle.Tls;
+using StableDraw.Domain.Data.Identity;
 
 namespace CLI.Controllers;
 
@@ -26,16 +23,19 @@ public class NeuralController : Controller
     private readonly ILogger<NeuralController> _logger;
     private readonly NeuralBuilderSettings _neuralBuilderSettings;
     private readonly JObject _model;
-
+    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly ApplicationDbContext _context;
 
     public NeuralController(
         IBus bus, ILogger<NeuralController> logger, 
         UserManager<ApplicationUser> userManager, 
-        IConfiguration configuration)
+        IConfiguration configuration, ApplicationDbContext context)
     {
         _bus = bus;
         _logger = logger;
         _model = JObject.Parse(FileR.ReadAllText(@"neural.json"));
+        _userManager = userManager;
+        _context = context;
         _neuralBuilderSettings = new NeuralBuilderSettings()
         {
             Neurals = configuration.GetSection("Neurals").Get<Dictionary<string, IDictionary<string, string[]>>>()            
@@ -44,30 +44,14 @@ public class NeuralController : Controller
 
     [HttpGet("{neuralType}")]
     public IActionResult GetNeuralInfo(string neuralType)
-    {
-        //if (_neuralBuilderSettings.Neurals != null &&
-        //    _neuralBuilderSettings.Neurals.TryGetValue(neuralType, out var param))
-        //    return Ok(param);
-        //return NotFound();
-
-        //return Ok(_model["Neurals"].Children[neuralType].ToString());
+    {        
         var res = _model["Neurals"][neuralType].ToString();
         return Ok(res);
     }
 
     [HttpGet("neuralList")]
     public IActionResult GetNeuralList()
-    {
-        //if (_neuralBuilderSettings.Neurals != null)
-        //    return Ok(_neuralBuilderSettings.Neurals.Select(x => new
-        //    {
-        //        NeuralName = x.Key,
-        //        Description = x.Value.FirstOrDefault(y => y.Key == "description").Value,
-        //        ClientName = x.Value.FirstOrDefault(y => y.Key == "clientName").Value,
-        //        ServerName = x.Value.FirstOrDefault(y => y.Key == "serverName").Value
-        //    }));
-        //return NotFound();
-
+    {       
         var res = _model["Neurals"].Select(x => new 
         {
             NeuralName = x.Path.Split('.').Last().ToString(),
@@ -84,6 +68,8 @@ public class NeuralController : Controller
     {
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (string.IsNullOrEmpty(currentUserId)) return NotFound();
+        var user = await _userManager.FindByIdAsync(currentUserId);
+        if (user.GenerationCount > 10) return BadRequest("User has exhausted the number of generations for the day");
         var request = new NeuralRequest()
         {
             OrderId = NewId.NextGuid(),
@@ -108,6 +94,8 @@ public class NeuralController : Controller
         var response = await _bus.Request<NeuralRequest, NeuralReply>(request, timeout: RequestTimeout.After(m: 15));
         if (!response.Message.ErrorMsg.IsNullOrEmpty()) 
                 throw new Exception(response.Message.ErrorMsg);
+        user.GenerationCount++;
+        _context.SaveChanges();
         return Ok(response.Message);
     }
 }
