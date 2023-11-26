@@ -64,3 +64,9 @@
     display: flex;
 
 }
+
+/* из - за бутстрапа свойства кнопки и стартового окна едут */
+.closeBtn{
+	background: #E3E5E8;
+	margin-bottom: 5px; 
+}
