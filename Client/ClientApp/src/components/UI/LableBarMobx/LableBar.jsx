@@ -5,7 +5,6 @@ import cl from "./LableBar.module.css";
 import ListLayers from "../layer/ListLayers/ListLayers.jsx";
 import {observer} from 'mobx-react-lite'
 import canvasState from '../../../store/canvasState.tsx';
-// import CanvasState from "../../../store/canvasState";
 
 const LableBar = observer((props) => {
     // const [layers, SetLayer] = useState([
@@ -20,12 +19,12 @@ const LableBar = observer((props) => {
     
     // new logic
     const [range, setRange] = useState(0)
-    // const Grad = (e) => {
-    //     e.preventDefault()
-    //     CanvasState.canvas.style.opacity = (1 - (e.target.value / 100))
-    //     setRange(e.target.value)
+    const Grad = (e) => {
+        e.preventDefault()
+        canvasState.opacity = (1 - (e.target.value / 100))
+        setRange(e.target.value)
         
-    // }
+    }
     // const DefaultOpacity = (value) => {
     //     if (value === (0 || "")) {
     //         setRange(0)
@@ -42,7 +41,7 @@ const LableBar = observer((props) => {
                 <input 
                     type="range" 
                     style={{opacity: 0}} 
-                    // onChange={(e) => Grad(e)}
+                    onChange={(e) => Grad(e)}
                     
                 />
             </label>

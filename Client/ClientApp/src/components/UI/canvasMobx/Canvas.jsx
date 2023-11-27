@@ -8,7 +8,9 @@ import canvasList from '../../../store/canvasList.tsx'
 const Canvas = observer(() => {
     const width = canvasState.width
     const height = canvasState.height
-    const styles = { zIndex: 0, position: "absolute", backgroundColor: "white", touchAction: "none", userSelect: "none" }
+    const opacity = canvasState.opacity;
+    const visibility = canvasState.visable;
+    const styles = { zIndex: 0, position: "absolute", backgroundColor: "white", touchAction: "none", userSelect: "none", opacity: opacity, visibility: visibility ? "visible" : "hidden" }
     // const setRef = (ref) => {
     //     setCanva( [...canva, ref])
     //     CanvasState.setCanvasList(ref.current)
