@@ -531,7 +531,7 @@
 	margin-top: 3%;
 	height: 38%;
 	position: static;
-	margin-bottom: 4%;
+	margin-bottom: 2%;
 }
 
 .object {
@@ -1134,7 +1134,7 @@
 		width: 100%;
 		margin-top: 3%;
 		height: 38%;
-		margin-bottom: 4%;
+		margin-bottom: 2%;
 	}
 
 	.object {
@@ -1595,7 +1595,7 @@
 			width: 100%;
 			margin-top: 3%;
 			height: 38%;
-			margin-bottom: 4%;
+			margin-bottom: 2%;
 		}
 
 		.object {
@@ -2060,7 +2060,7 @@
 			width: 100%;
 			margin-top: 3%;
 			height: 38%;
-			margin-bottom: 4%;
+			margin-bottom: 2%;
 		}
 
 		.object {
@@ -3141,6 +3141,73 @@
 
 .txtInfo2{
 	margin-top: 20px;
+}
+
+.txtEnd{
+	font-size: 18px;
+}
+
+@media(max-width:1600px){
+	.txt{
+		font-size: 22px;
+	}
+}
+
+@media(max-width:1415px){
+	.txt{
+		font-size: 20px;
+	}
+	.certificate {
+		 width: 320px;
+		 height: 453px;
+	}
+
+	.txtEnd{
+		font-size: 17px;
+	}
+}
+
+@media(max-width:1415px){
+	.txt{
+		font-size: 20px;
+	}
+
+	.txtEnd{
+		font-size: 16px;
+	}
+}
+
+@media(max-width:1280px){
+	.txt{
+		font-size: 18px;
+	}
+
+	.txtEnd{
+		font-size: 15px;
+	}
+}
+
+@media(max-width:1280px){
+	.txt{
+		font-size: 16px;
+	}
+
+}
+@media(max-width:1030px){
+	.txt{
+		font-size: 14px;
+	}
+
+	.txtEnd{
+		font-size: 13px;
+	}
+}
+
+@media(max-width:1280px){
+	.txt{
+		font-size: 16px;
+	}
+
 }
 
 
