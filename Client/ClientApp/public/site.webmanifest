@@ -1,7 +1,19 @@
-{"name":"StableDraw - Веб-платформа для рисования, обработки изображений и создания анимаций с применением искусственных нейронных сетей",
-"short_name":"StableDraw",
-"icons":[{"src":"/android-chrome-192x192.png","sizes":"192x192","type":"image/png"},
-	{"src":"/android-chrome-512x512.png","sizes":"512x512","type":"image/png"}],
-"theme_color":"#ffffff",
-"background_color":"#ffffff",
-"display":"standalone"}
+{
+	"name": "Свидетельство о государственной регистрации программы для ЭВМ №2023662897, автор: Богданов Антон Аркадьевич, дата государственной регистрации в Реестре программ для ЭВМ: 16 июня 2023 г.",
+	"short_name": "StableDraw",
+	"icons": [
+		{
+			"src": "/android-chrome-192x192.png",
+			"sizes": "192x192",
+			"type": "image/png"
+		},
+		{
+			"src": "/android-chrome-512x512.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		}
+	],
+	"theme_color": "#ffffff",
+	"background_color": "#ffffff",
+	"display": "standalone"
+}

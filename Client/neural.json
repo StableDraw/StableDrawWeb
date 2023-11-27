@@ -1,12 +1,13 @@
 {
   "Neurals": {
-      "colorizer": {
-        "image_count_input": 1,
-        "serverName": "colorizer",
-        "clientName": "Колоризация",
-        "description": "При помощи данного режима Вы можете окрашивать или меня окрас изображений, как чёрно-белых фотографий, так и набросков или цветных изображений",
-        "params": [
-          {"ckpt": {
+    "colorizer": {
+      "image_count_input": 1,
+      "serverName": "colorizer",
+      "clientName": "Колоризация",
+      "description": "При помощи данного режима Вы можете окрашивать или меня окрас изображений, как чёрно-белых фотографий, так и набросков или цветных изображений",
+      "params": [
+        {
+          "ckpt": {
             "default": "ColorizeArtistic_gen",
             "values": [
               {
@@ -33,8 +34,10 @@
             "description": "Различные модели по-разному способны распознавать отдельные объекты и играшивать их",
             "type": "select",
             "name": "Выбор модели"
-          }},
-          {"steps": {
+          }
+        },
+        {
+          "steps": {
             "default": 1,
             "min": 1,
             "max": 1000,
@@ -42,20 +45,26 @@
             "description": "Количество шагов влияет на то, сколько раз нейронная сеть будет обрабатывать ваш рисунок",
             "type": "range",
             "name": "Количество шагов обработки"
-          }},
-          {"compare": {
+          }
+        },
+        {
+          "compare": {
             "default": "False",
             "description": "Если этот параметр выбран, то нейронная сеть будет стараться сделать обработку максимально близкую по тону к оригиналу",
             "type": "boolean",
             "name": "Сравнивать с оригиналом"
-          }},
-          {"artistic": {
+          }
+        },
+        {
+          "artistic": {
             "default": "True",
             "description": "Эта дополнительная модель помогает основной находить области для ограшивания. Без неё результат будет практически незаметен, советуем не выключать этот параметр",
             "type": "boolean",
             "name": "Дополнительная модель для обработки"
-          }},
-          {"render_factor": {
+          }
+        },
+        {
+          "render_factor": {
             "default": 12,
             "min": 0,
             "max": 1000000,
@@ -63,14 +72,18 @@
             "description": "Значение, влияющее на то, как именно нейронная сеть будет производить обработку. Как правило 12 показывает наилучший результат в большинстве сценариев, но вы можете перебрать несколько",
             "type": "range",
             "name": "Фактор обработки"
-          }},
-          {"post_process": {
+          }
+        },
+        {
+          "post_process": {
             "default": "True",
             "description": "Дополнительно повышать цветовую насыщенность изображения, получаемого от нейронной сети. Позволяет изображениям быть менее бледными",
             "type": "boolean",
             "name": "Постобработка"
-          }},
-          {"clr_saturation_factor": {
+          }
+        },
+        {
+          "clr_saturation_factor": {
             "default": 1,
             "min": 0,
             "max": 1000,
@@ -78,8 +91,10 @@
             "description": "Коэффициент отвечает за то, насколько сильно будет повышаться цветовая насыщенность при постобработке",
             "type": "range",
             "name": "Коэффициент увеличения цветовой насыщенности"
-          }},
-          {"line_color_limit": {
+          }
+        },
+        {
+          "line_color_limit": {
             "default": 100,
             "min": 0,
             "max": 255,
@@ -87,24 +102,27 @@
             "description": "Параметр отвечает за то, при каком пороговом значении цветовая насыщенность будет улучшаться. Чем он меньше, тем сильнее будет цветовой шум, но насыщеннее итоговое изображение",
             "type": "range",
             "name": "Минимальная яркость пикселя"
-          }},
-          {"clr_saturate_every_step": {
+          }
+        },
+        {
+          "clr_saturate_every_step": {
             "default": "True",
             "description": "Параметр отвечает за то, чтобы постобработка производилась не в самом конце, но и между генерациями, если выбрана обработка больше одного шага",
             "type": "boolean",
             "name": "Повышать цветовую насыщенность после каждого шага"
-          }}
-        ]
-      }
-    ,
-    
-      "delete_background": {
-        "image_count_input": 1,
-        "serverName": "delete_background",
-        "clientName": "Удаление фона",
-        "description": "При помощи данного режима Вы можете удалять фон с изображений",
-        "params": [
-          {"ckpt": {
+          }
+        }
+      ]
+    },
+
+    "delete_background": {
+      "image_count_input": 1,
+      "serverName": "delete_background",
+      "clientName": "Удаление фона",
+      "description": "При помощи данного режима Вы можете удалять фон с изображений",
+      "params": [
+        {
+          "ckpt": {
             "default": "isnet.pth",
             "values": [
               {
@@ -121,8 +139,10 @@
             "description": "Различные модели по-разному справляются с удалением фона на различных изображениях",
             "type": "select",
             "name": "Выбор модели"
-          }},
-          {"model": {
+          }
+        },
+        {
+          "model": {
             "default": "DIS",
             "values": [
               {
@@ -139,8 +159,10 @@
             "description": "",
             "type": "select",
             "name": "Выбор нейронной сети для удаления фона. U2NET более старая и обкатанная, DIS новее и лучше, но пока в предварительной версии, может часто ошибаться"
-          }},
-          {"RescaleT": {
+          }
+        },
+        {
+          "RescaleT": {
             "default": 320,
             "min": 0,
             "max": 1000000,
@@ -148,20 +170,26 @@
             "description": "Позволяет сохранять соотношение сторон при обработке",
             "type": "range",
             "name": "Сохранение соотношения сторон"
-          }},
-          {"model_digit": {
+          }
+        },
+        {
+          "model_digit": {
             "default": "True",
             "description": "Если выбран, то результат будет точнее, но обработка дольше",
             "type": "boolean",
             "name": "Использовать двойную точность обработки"
-          }},
-          {"interm_sup": {
+          }
+        },
+        {
+          "interm_sup": {
             "default": "False",
             "description": "Параметр, отвечающий за контроль промежуточных функций",
             "type": "boolean",
             "name": "Активировать контроль промежуточных функций"
-          }},
-          {"seed": {
+          }
+        },
+        {
+          "seed": {
             "default": 0,
             "min": 0,
             "max": 1000000,
@@ -169,8 +197,10 @@
             "description": "В зависимости от установленного значения модель по-разному будет применять обработку. Можете перебрать несколько значений, чтобы найти оптимальное для Вашего конкретного случая",
             "type": "range",
             "name": "Инициализирующее значение"
-          }},
-          {"cache_size": {
+          }
+        },
+        {
+          "cache_size": {
             "default": [
               1024,
               1024
@@ -179,8 +209,10 @@
             "description": "Значение можно повысить или понизить в зависимости от разрешения входного изображения",
             "type": "int[]",
             "name": "Кешированное входное пространственное разрешение"
-          }},
-          {"input_size": {
+          }
+        },
+        {
+          "input_size": {
             "default": [
               1024,
               1024
@@ -189,8 +221,10 @@
             "description": "Значение можно повысить или понизить в зависимости от разрешения входного изображения",
             "type": "int[]",
             "name": "Входной пространственный размер модели"
-          }},
-          {"crop_size": {
+          }
+        },
+        {
+          "crop_size": {
             "default": [
               1024,
               1024
@@ -199,19 +233,20 @@
             "description": "Значение можно повысить или понизить в зависимости от разрешения входного изображения",
             "type": "int[]",
             "name": "Размер случайной обрезки из ввода"
-          }}
-        ]
-      }
-    ,
-    
-      "upscaler": {
-        "image_count_input": 1,
-        "serverName": "upscaler",
-        "clientName": "Апскейлер",
-        "description": "При помощи данного режима Вы можете повышать качество и разрешение исходных изображений, уменьшать шум и артефакты",
-        "caption": true,
-        "params": [
-          {"model": {
+          }
+        }
+      ]
+    },
+
+    "upscaler": {
+      "image_count_input": 1,
+      "serverName": "upscaler",
+      "clientName": "Апскейлер",
+      "description": "При помощи данного режима Вы можете повышать качество и разрешение исходных изображений, уменьшать шум и артефакты",
+      "caption": true,
+      "params": [
+        {
+          "model": {
             "default": "StableDiffusionx4Upscaler",
             "values": [
               {
@@ -258,8 +293,10 @@
             "description": "Различные модели нейронных сетей по-разному применяют обработку. Для моделей, оставанных на StableDiffusion обящательно необходимо описание и их качество генерации, как правило, выше. ESRGAN модели способны обрабатывать только для основе изображения",
             "type": "select",
             "name": "Выбор модели"
-          }},
-          {"steps": {
+          }
+        },
+        {
+          "steps": {
             "default": 50,
             "min": 2,
             "max": 250,
@@ -267,8 +304,10 @@
             "description": "Шаги обработки. Параметр отвечает за то, сколько раз модель применит к изображению в процессе генерации",
             "type": "range",
             "name": "Выбор шага DDIM"
-          }},
-          {"ddim_eta": {
+          }
+        },
+        {
+          "ddim_eta": {
             "default": 0.0,
             "min": 0.0,
             "max": 1.0,
@@ -276,8 +315,10 @@
             "description": "Данный коэффициент отражает насколько модель будет оригинальна в своей обработке. Чем он выше, тем больше модель будет \"додумывать\"",
             "type": "range",
             "name": "Коэффициент детерминированной выборки"
-          }},
-          {"guidance_scale": {
+          }
+        },
+        {
+          "guidance_scale": {
             "default": 9.0,
             "min": 0.1,
             "max": 30.0,
@@ -285,8 +326,10 @@
             "description": "Отвечает за то, насколько искуственный интеллект должен приблизиться к буквальному изображению запроса",
             "type": "range",
             "name": "Коэффициент точности соответсвтвия запросу"
-          }},
-          {"ckpt": {
+          }
+        },
+        {
+          "ckpt": {
             "default": "x4-upscaler-ema.safetensors",
             "values": [
               {
@@ -298,8 +341,35 @@
             "description": "только для модели StableDiffusionx4Upscaler",
             "type": "select",
             "name": "Выбор весов модели"
-          }},
-          {"seed": {
+          }
+        },
+        {
+          "sampler": {
+            "default": "ddim_sampler",
+            "values": [
+              {
+                "value": "ddim_sampler",
+                "description": "DDIM для ввода случайного шума",
+                "name": "Семплинг"
+              },
+              {
+                "value": "plms_sampler",
+                "description": "PLMS для ввода случайного шума",
+                "name": "Семплинг"
+              },
+              {
+                "value": "p_sampler",
+                "description": "Ввод случайного шума",
+                "name": "Семплинг"
+              }
+            ],
+            "description": "только для модели 'StableDiffusionx4Upscaler'",
+            "type": "select",
+            "name": "Выбор обработчика"
+          }
+        },
+        {
+          "seed": {
             "default": 42,
             "min": 0,
             "max": 1000000,
@@ -307,8 +377,10 @@
             "description": "Отвечает за то, как от чего именно будет отталкиваться нейронная сеть в генерации. Можете попробовать различные значения и получить различные вариации генерации",
             "type": "range",
             "name": "Инициализирующее значение"
-          }},
-          {"outscale": {
+          }
+        },
+        {
+          "outscale": {
             "default": 4,
             "min": 2,
             "max": 8,
@@ -316,8 +388,10 @@
             "description": "Величина того, во сколько раз необходимо увеличить разрешение изображения (рекомендуется 2 для моделей (StableDiffusionxLatentx2Upscaler и RealESRGAN_x2plus) и 4 для остальных)",
             "type": "range",
             "name": "Коэффициент увеличения разрешения изображения"
-          }},
-          {"noise_augmentation": {
+          }
+        },
+        {
+          "noise_augmentation": {
             "default": 20,
             "min": 0,
             "max": 350,
@@ -325,22 +399,28 @@
             "description": "Уничтожает часть информации при обработке, чтобы достичь более качественного результата. Актуально для сильно зашёмленных изображений",
             "type": "range",
             "name": "Добавление шума при обработке"
-          }},
-          {"negative_prompt": {
+          }
+        },
+        {
+          "negative_prompt": {
             "default": "",
             "description": "Описание того, что Вы не хотите видеть на итоговом изображении",
             "type": "text",
             "caption": "true",
             "name": "Негативное описание"
-          }},
-          {"verbose": {
+          }
+        },
+        {
+          "verbose": {
             "default": "False",
             "system": true,
             "description": "",
             "type": "boolean",
             "name": "Проверка модели"
-          }},
-          {"max_dim": {
+          }
+        },
+        {
+          "max_dim": {
             "default": 1048576,
             "min": 0,
             "max": 1000000000,
@@ -349,8 +429,10 @@
             "description": "",
             "type": "range",
             "name": "Максимальное разрешение"
-          }},
-          {"denoise_strength": {
+          }
+        },
+        {
+          "denoise_strength": {
             "default": 0.5,
             "min": 0.0,
             "max": 1.0,
@@ -358,8 +440,10 @@
             "description": "0 для слабого удаления шума (шум сохраняется), 1 для сильного удаления шума",
             "type": "range",
             "name": "Сила усиления шума"
-          }},
-          {"tile": {
+          }
+        },
+        {
+          "tile": {
             "default": 0,
             "min": 0,
             "max": 10000,
@@ -367,8 +451,10 @@
             "description": "Разбивает изображение на подобласти выбранного размера для обработки. 0 для отсутствия разбиения на области",
             "type": "range",
             "name": "Размер подобласти"
-          }},
-          {"tile_pad": {
+          }
+        },
+        {
+          "tile_pad": {
             "default": 10,
             "min": 0,
             "max": 10000,
@@ -376,8 +462,10 @@
             "description": "Заполнение плитки",
             "type": "range",
             "name": "Заполнение плитки"
-          }},
-          {"pre_pad": {
+          }
+        },
+        {
+          "pre_pad": {
             "default": 0,
             "min": 0,
             "max": 10000,
@@ -385,20 +473,26 @@
             "description": "Предварительный размер заполнения на каждой границе",
             "type": "range",
             "name": "Предварительный размер заполнения"
-          }},
-          {"face_enhance": {
+          }
+        },
+        {
+          "face_enhance": {
             "default": "False",
             "description": "Дополнительная обработка моделью GFPGAN улучшает изображения, на которых представлены лица",
             "type": "boolean",
             "name": "Использовать GFPGAN для улучшения лиц"
-          }},
-          {"fp32": {
+          }
+        },
+        {
+          "fp32": {
             "default": "True",
             "description": "Если выбрано, то точность обработки немного повышается за счёт замедления самой обработки",
             "type": "boolean",
             "name": "Повышенная точность"
-          }},
-          {"alpha_upsampler": {
+          }
+        },
+        {
+          "alpha_upsampler": {
             "default": "realesrgan",
             "values": [
               {
@@ -415,8 +509,10 @@
             "description": "Параметр актуален только для изображений с альфа каналом. Бикубический апсемплер преобразовывает изображение алгоритмически, посредствам бикубической интерполяции. При выборе realesrgan для альфа-канала будет примён отдельный монохромный апскейл посредствам ESRGAN",
             "type": "select",
             "name": "Апсемплер для альфа-канала"
-          }},
-          {"gpu-id": {
+          }
+        },
+        {
+          "gpu-id": {
             "default": 0,
             "min": 0,
             "max": 6,
@@ -425,33 +521,38 @@
             "description": "(по умолчанию = 0) может быть 0, 1, 2 для обработки на нескольких GPU",
             "type": "range",
             "name": "Устройство GPU для использования"
-          }}
-        ]
-      }
-    ,
-    
-      "image_to_image": {
-        "image_count_input": 1,
-        "serverName": "image_to_image",
-        "clientName": "Генерация по тексту и изображению",
-        "description": "Генерирует изображение по тексту и описанию",
-        "caption": true,
-        "params": [
-          {"add_watermark": {
+          }
+        }
+      ]
+    },
+
+    "image_to_image": {
+      "image_count_input": 1,
+      "serverName": "image_to_image",
+      "clientName": "Генерация по тексту и изображению",
+      "description": "Генерирует изображение по тексту и описанию",
+      "caption": true,
+      "params": [
+        {
+          "add_watermark": {
             "default": "False",
             "system": true,
             "description": "",
             "type": "boolean",
             "name": "Добавлять невидимую вотермарку"
-          }},
-          {"low_vram_mode": {
+          }
+        },
+        {
+          "low_vram_mode": {
             "default": "False",
             "system": true,
             "description": "",
             "type": "boolean",
             "name": "Режим для работы на малом количестве видеопамяти"
-          }},
-          {"max_dim": {
+          }
+        },
+        {
+          "max_dim": {
             "default": 4194304,
             "min": 0,
             "max": 1000000000,
@@ -460,8 +561,10 @@
             "description": "",
             "type": "range",
             "name": "Максимальный размер генерации изображения"
-          }},
-          {"version": {
+          }
+        },
+        {
+          "version": {
             "default": "SDXL-base-1.0",
             "values": [
               {
@@ -520,33 +623,43 @@
             "description": "Данный выбор отвечает за то, какой нейронной сетью будет обрабатываться изображение. Как правило более новые версии нейронных сетей генерируют более качетсвенные результаты",
             "type": "select",
             "name": "Выбор нейронной сети для обработки"
-          }},
-          {"ControlNET": {
+          }
+        },
+        {
+          "ControlNET": {
             "default": "False",
             "description": "",
             "type": "boolean",
             "name": "Генерация с дополнительным контролем схожести с оригинальным изображением"
-          }},
-          {"progress": {
+          }
+        },
+        {
+          "progress": {
             "default": "True",
             "system": true,
             "description": "",
             "type": "boolean",
             "name": "Текущий прогресс"
-          }},
-          {"Depth": {
+          }
+        },
+        {
+          "Depth": {
             "default": "True",
             "description": "Генерация с дополнительным слоем глубины обеспечивает лучшую передачу глубиныдля изображений с перспективой",
             "type": "boolean",
             "name": "Использовать дополнительный слой глубины"
-          }},
-          {"use_custom_ckpt": {
+          }
+        },
+        {
+          "use_custom_ckpt": {
             "default": "False",
             "description": "Различные веса обучались по-разному, потому результаты генерации при их изменении могут отличаться",
             "type": "boolean",
             "name": "Выбрать веса для модели"
-          }},
-          {"custom_ckpt_name": {
+          }
+        },
+        {
+          "custom_ckpt_name": {
             "default": "512-depth-ema.safetensors",
             "values": [
               {
@@ -588,14 +701,18 @@
             "description": "",
             "type": "select",
             "name": "Название верси модели"
-          }},
-          {"version2SDXL-refiner": {
+          }
+        },
+        {
+          "version2SDXL-refiner": {
             "default": "False",
             "description": "Загрузить SDXL-refiner как модель для второй стадии обработки. Требует более длительной обработки",
             "type": "boolean",
             "name": "Двухступенчатая обработка"
-          }},
-          {"seed": {
+          }
+        },
+        {
+          "seed": {
             "default": 42,
             "min": 0,
             "max": 1000000000,
@@ -603,22 +720,28 @@
             "description": "Отвечает за то, как именно модель будет проводить обработку. Пробуя различные значения данного параметра вы будете получать различные вариации итогового результата",
             "type": "range",
             "name": "Инициализирующее значение"
-          }},
-          {"negative_prompt": {
+          }
+        },
+        {
+          "negative_prompt": {
             "default": "lowres, text, error, cropped, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, out of frame, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck, username, watermark, signature",
             "description": "Здесь, через запятую, можно перечислить всё то, что бы Вы не хотели видеть на итоговом изображении",
             "type": "text",
             "caption": "true",
             "name": "Негативное описание"
-          }},
-          {"negative_prior_prompt": {
+          }
+        },
+        {
+          "negative_prior_prompt": {
             "default": "lowres, text, error, cropped, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, out of frame, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck, username, watermark, signature",
             "description": "Здесь, через запятую, можно перечислить всё то, что бы Вы не хотели видеть на итоговом изображении",
             "type": "text",
             "caption": "true",
             "name": "Негативное описание первичной модели"
-          }},
-          {"refiner": {
+          }
+        },
+        {
+          "refiner": {
             "default": "SDXL-refiner-1.0",
             "values": [
               {
@@ -636,8 +759,10 @@
             "description": "Выбор модели для второй стадии обработки",
             "type": "select",
             "name": "Версия модели для второй стадии обработки"
-          }},
-          {"refinement_strength": {
+          }
+        },
+        {
+          "refinement_strength": {
             "default": 0.15,
             "min": 0.0,
             "max": 1.0,
@@ -645,14 +770,18 @@
             "description": "Насколько значительно будет осуществлён вклад в обработку модели второй стадии",
             "type": "range",
             "name": "Сила вклада обработки на второй стадии"
-          }},
-          {"finish_denoising": {
+          }
+        },
+        {
+          "finish_denoising": {
             "default": "True",
             "description": "Если выбран, то на постобработке будет предпринята попытка устранения возможных шумов и артифактов с изображения",
             "type": "boolean",
             "name": "Завершить удаление шума рафинёром"
-          }},
-          {"h": {
+          }
+        },
+        {
+          "h": {
             "default": 1024,
             "min": 64,
             "max": 1024,
@@ -660,8 +789,10 @@
             "description": "",
             "type": "range",
             "name": "Высота желаемого изображения"
-          }},
-          {"w": {
+          }
+        },
+        {
+          "w": {
             "default": 1024,
             "min": 64,
             "max": 1024,
@@ -669,8 +800,10 @@
             "description": "",
             "type": "range",
             "name": "Ширина желаемого изображения"
-          }},
-          {"f": {
+          }
+        },
+        {
+          "f": {
             "default": 8,
             "min": 8,
             "max": 16,
@@ -678,14 +811,18 @@
             "description": "Понижает или повышает частоту дискретизации, увеличивая или уменьшая размер итогового изображения, соотвественно, если не равен 8",
             "type": "range",
             "name": "Коэффициент понижающей дискретизации"
-          }},
-          {"use_recommended_res": {
+          }
+        },
+        {
+          "use_recommended_res": {
             "default": "True",
             "description": "если выбран, то указанные в параметрах значения ожидаемого итогового разрешения игнорируются",
             "type": "boolean",
             "name": "Использовать рекомендованное для каждой модели разрешение генерации"
-          }},
-          {"sampler": {
+          }
+        },
+        {
+          "sampler": {
             "default": "EulerEDMSampler",
             "values": [
               {
@@ -744,8 +881,10 @@
             "description": "Различные обработчики по-разному будут производить генерацию изображений. Каждый из них может лучше подходить для различных ситуаций, имеет смысл перебрать несколько",
             "type": "select",
             "name": "Выбрать обработчик"
-          }},
-          {"ddim_eta": {
+          }
+        },
+        {
+          "ddim_eta": {
             "default": 0.0,
             "min": 0.0,
             "max": 1.0,
@@ -753,8 +892,10 @@
             "description": "",
             "type": "range",
             "name": "Коэффициент детерминированной выборки"
-          }},
-          {"dynamic_threshold_v": {
+          }
+        },
+        {
+          "dynamic_threshold_v": {
             "default": 99.5,
             "min": 0.0,
             "max": 1000.0,
@@ -762,8 +903,10 @@
             "description": "Коэффициент динамической отбраковки зашумлённых результатов",
             "type": "range",
             "name": "Коэффициент динамической отбраковки"
-          }},
-          {"denoised_type": {
+          }
+        },
+        {
+          "denoised_type": {
             "default": "dynamic_threshold",
             "values": [
               {
@@ -780,8 +923,10 @@
             "description": "Различные модели производят шумоподавление по-разному",
             "type": "select",
             "name": "Тип шумоподавления"
-          }},
-          {"model_type": {
+          }
+        },
+        {
+          "model_type": {
             "default": "dpt_hybrid",
             "values": [
               {
@@ -808,15 +953,19 @@
             "description": "Отвечает за то, какой тип модели будет применён для обработки",
             "type": "select",
             "name": "Тип модели"
-          }},
-          {"verbose": {
+          }
+        },
+        {
+          "verbose": {
             "default": "True",
             "system": true,
             "description": "",
             "type": "boolean",
             "name": "Проверка модели"
-          }},
-          {"s_churn": {
+          }
+        },
+        {
+          "s_churn": {
             "default": 0.0,
             "min": 0.0,
             "max": 1.0,
@@ -824,8 +973,10 @@
             "description": "",
             "type": "range",
             "name": "Общая величина стохастичности"
-          }},
-          {"s_tmin": {
+          }
+        },
+        {
+          "s_tmin": {
             "default": 0.0,
             "min": 0.0,
             "max": 1.0,
@@ -833,8 +984,10 @@
             "description": "Обнуляет сигмы меньше этого значения (от 0.0 до значения максимальной сигмы и меньше конечного значения сигма-диапазона)",
             "type": "range",
             "name": "Начальное значение сигма-диапазона"
-          }},
-          {"s_tmax": {
+          }
+        },
+        {
+          "s_tmax": {
             "default": 999.0,
             "min": 0.0,
             "max": 1.0,
@@ -842,8 +995,10 @@
             "description": "Обнуляет сигмы больше этого значения (от значения минимальной сигмы до значения максимальной сигмы и больше начального значения сигма-диапазона",
             "type": "range",
             "name": "Конечное значение сигма-диапазона"
-          }},
-          {"s_noise": {
+          }
+        },
+        {
+          "s_noise": {
             "default": 1.0,
             "min": 0.0,
             "max": 1000.0,
@@ -851,8 +1006,10 @@
             "description": "Только для значения общей величины стахостичности больше 0",
             "type": "range",
             "name": ""
-          }},
-          {"eta": {
+          }
+        },
+        {
+          "eta": {
             "default": 1.0,
             "min": 0.0,
             "max": 1000.0,
@@ -860,8 +1017,10 @@
             "description": "",
             "type": "range",
             "name": "Значение скорости расширения"
-          }},
-          {"order": {
+          }
+        },
+        {
+          "order": {
             "default": 4,
             "min": 1,
             "max": 4,
@@ -869,14 +1028,18 @@
             "description": "",
             "type": "range",
             "name": "Количество желаемых итоговых изображений"
-          }},
-          {"force_i2i_resolution": {
+          }
+        },
+        {
+          "force_i2i_resolution": {
             "default": "False",
             "description": "Если выбран, то размер итогового изображения будет взят из параметров ширины и высоты, а не у исходного изображения",
             "type": "boolean",
             "name": "Соответствие разрешения исходному изображению"
-          }},
-          {"i2i_strength": {
+          }
+        },
+        {
+          "i2i_strength": {
             "default": 0.75,
             "min": 0.0,
             "max": 1.0,
@@ -884,8 +1047,10 @@
             "description": "",
             "type": "range",
             "name": "Вклад в генерацию модели"
-          }},
-          {"i2i_prior_strength": {
+          }
+        },
+        {
+          "i2i_prior_strength": {
             "default": 0.85,
             "min": 0.0,
             "max": 1.0,
@@ -893,8 +1058,10 @@
             "description": "",
             "type": "range",
             "name": "Вклад в генерацию перичной модели"
-          }},
-          {"i2i_negative_prior_strength": {
+          }
+        },
+        {
+          "i2i_negative_prior_strength": {
             "default": 1.0,
             "min": 0.0,
             "max": 1.0,
@@ -902,8 +1069,10 @@
             "description": "",
             "type": "range",
             "name": "Значимость вклада в генерацию негативного описания"
-          }},
-          {"m_k": {
+          }
+        },
+        {
+          "m_k": {
             "default": 8,
             "min": 0,
             "max": 1000,
@@ -911,8 +1080,10 @@
             "description": "",
             "type": "range",
             "name": "Коэффициент улучшения при постобработке"
-          }},
-          {"aesthetic_score": {
+          }
+        },
+        {
+          "aesthetic_score": {
             "default": 6.0,
             "min": 0.0,
             "max": 1000.0,
@@ -920,8 +1091,10 @@
             "description": "",
             "type": "range",
             "name": "Эстетический коэффициент"
-          }},
-          {"negative_aesthetic_score": {
+          }
+        },
+        {
+          "negative_aesthetic_score": {
             "default": 2.5,
             "min": 0.0,
             "max": 1000.0,
@@ -929,14 +1102,18 @@
             "description": "",
             "type": "range",
             "name": "Негативный эстетический коэффициент"
-          }},
-          {"custom_orig_size": {
+          }
+        },
+        {
+          "custom_orig_size": {
             "default": "False",
             "description": "Изменение размеров входного изображения на размеры исходного изображений",
             "type": "boolean",
             "name": "Изменение размеров взодного изображения на указанные"
-          }},
-          {"orig_width": {
+          }
+        },
+        {
+          "orig_width": {
             "default": 1024,
             "min": 64,
             "max": 1024,
@@ -944,8 +1121,10 @@
             "description": "",
             "type": "range",
             "name": "Новая ширина входного изображения"
-          }},
-          {"orig_heigt": {
+          }
+        },
+        {
+          "orig_heigt": {
             "default": 1024,
             "min": 64,
             "max": 1024,
@@ -953,8 +1132,10 @@
             "description": "",
             "type": "range",
             "name": "Новая высота входного изображения"
-          }},
-          {"crop_coords_top": {
+          }
+        },
+        {
+          "crop_coords_top": {
             "default": 0,
             "min": 0,
             "max": 1024,
@@ -962,8 +1143,10 @@
             "description": "",
             "type": "range",
             "name": "Обрезка координат сверху"
-          }},
-          {"crop_coords_left": {
+          }
+        },
+        {
+          "crop_coords_left": {
             "default": 0,
             "min": 0,
             "max": 1024,
@@ -971,8 +1154,10 @@
             "description": "",
             "type": "range",
             "name": "Обрезка координат слева"
-          }},
-          {"guider_discretization": {
+          }
+        },
+        {
+          "guider_discretization": {
             "default": "VanillaCFG",
             "values": [
               {
@@ -989,8 +1174,10 @@
             "description": "Выбор модели влияет на то, как именно будет обрабатываться входной запрос",
             "type": "select",
             "name": "Дискретизатор проводника"
-          }},
-          {"sampling_discretization": {
+          }
+        },
+        {
+          "sampling_discretization": {
             "default": "LegacyDDPMDiscretization",
             "values": [
               {
@@ -1007,8 +1194,10 @@
             "description": "Выбор дискретизатора влияет на то, какая именно дистектизация будет применена к обработчику",
             "type": "select",
             "name": "Дискретизатор обработчика"
-          }},
-          {"sigma_min": {
+          }
+        },
+        {
+          "sigma_min": {
             "default": 0.03,
             "min": 0.0,
             "max": 1000.0,
@@ -1016,8 +1205,10 @@
             "description": "",
             "type": "range",
             "name": "Минимальная сигма"
-          }},
-          {"sigma_max": {
+          }
+        },
+        {
+          "sigma_max": {
             "default": 14.61,
             "min": 0.0,
             "max": 1000.0,
@@ -1025,8 +1216,10 @@
             "description": "",
             "type": "range",
             "name": "Максимальная сигма"
-          }},
-          {"rho": {
+          }
+        },
+        {
+          "rho": {
             "default": 3.0,
             "min": 0.0,
             "max": 1000.0,
@@ -1034,8 +1227,10 @@
             "description": "",
             "type": "range",
             "name": "Значение скорости расширения"
-          }},
-          {"num_cols": {
+          }
+        },
+        {
+          "num_cols": {
             "default": 1,
             "min": 1,
             "max": 4,
@@ -1043,8 +1238,10 @@
             "description": "",
             "type": "range",
             "name": "Количество возвращаемых изображений"
-          }},
-          {"guidance_scale": {
+          }
+        },
+        {
+          "guidance_scale": {
             "default": 9.0,
             "min": 0.0,
             "max": 1000.0,
@@ -1052,8 +1249,10 @@
             "description": "Отвечает за то, насколько искуственный интеллект должен приблизиться к буквальному изображению запроса",
             "type": "range",
             "name": "Коэффициент точности соответсвтвия запросу"
-          }},
-          {"prior_scale": {
+          }
+        },
+        {
+          "prior_scale": {
             "default": 4,
             "min": 0,
             "max": 1000,
@@ -1061,8 +1260,10 @@
             "description": "",
             "type": "range",
             "name": "Коэффициент величины первичной модели"
-          }},
-          {"steps": {
+          }
+        },
+        {
+          "steps": {
             "default": 40,
             "min": 2,
             "max": 350,
@@ -1070,8 +1271,10 @@
             "description": "",
             "type": "range",
             "name": "Количество шагов обработки"
-          }},
-          {"prior_steps": {
+          }
+        },
+        {
+          "prior_steps": {
             "default": 25,
             "min": 2,
             "max": 350,
@@ -1079,34 +1282,44 @@
             "description": "",
             "type": "range",
             "name": "Количество шагов обработки первичной модели"
-          }}
-        ]
-      }
-    ,
-    
-      "text_to_image": {
-        "serverName": "text_to_image",
-        "clientName": "Генерация по тексту",
-        "description": "Генерация изображения по текстовому описанию",
-        "caption": true,
-        "params": [
-          {"add_watermark": {
+          }
+        }
+      ]
+    },
+
+    "text_to_image": {
+      "serverName": "text_to_image",
+      "clientName": "Генерация по тексту",
+      "description": "Генерация изображения по текстовому описанию",
+      "caption": true,
+      "params": [
+        {
+          "add_watermark": {
             "default": "False",
             "system": true,
             "description": "",
             "type": "boolean",
             "name": "Добавлять невидимую вотермарку"
-          }},
-          {"low_vram_mode": {
+          }
+        },
+        {
+          "low_vram_mode": {
             "default": "False",
             "system": true,
             "description": "",
             "type": "boolean",
             "name": "Режим для работы на малом количестве видеопамяти"
-          }},
-          {"version": {
-            "default": "SDXL-base-1.0",
+          }
+        },
+        {
+          "version": {
+            "default": "Kandinsky2.2",
             "values": [
+              {
+                "value": "Kandinsky2.2",
+                "description": "Наилучшая, на данный момент, модель Kandinsky, для генерации 768 на 768",
+                "name": "Kandinsky2.2"
+              },
               {
                 "value": "SDXL-base-1.0",
                 "description": "Наилучшая, на данный момент, модель StableDiffusionXL, но достаточно долго обрабатывается",
@@ -1117,11 +1330,6 @@
                 "system": true,
                 "description": "Тестовая модель StableDiffusionXL, достаточно долго обрабатывается",
                 "name": "SDXL-base-0.9"
-              },
-              {
-                "value": "Kandinsky2.2",
-                "description": "Наилучшая, на данный момент, модель Kandinsky, для генерации 768 на 768",
-                "name": "Kandinsky2.2"
               },
               {
                 "value": "SD-2.1-768",
@@ -1163,27 +1371,35 @@
             "description": "Данный выбор отвечает за то, какой нейронной сетью будет обрабатываться изображение. Как правило более новые версии нейронных сетей генерируют более качетсвенные результаты",
             "type": "select",
             "name": "Выбор модели"
-          }},
-          {"ControlNET": {
+          }
+        },
+        {
+          "ControlNET": {
             "default": "False",
             "description": "Генерация с дополнительной моделью контроля качества",
             "type": "boolean",
             "name": "Подключение контроллера"
-          }},
-          {"use_flash_attention": {
+          }
+        },
+        {
+          "use_flash_attention": {
             "default": "False",
             "description": "Применение технологии оперативного вычленения контекста из описания. При верном применении может повысить точность генерации в некоторых сценариях",
             "type": "boolean",
             "name": "Оперативное внимание"
-          }},
-          {"progress": {
+          }
+        },
+        {
+          "progress": {
             "default": "True",
             "system": true,
             "description": "",
             "type": "boolean",
             "name": "Текущий прогресс"
-          }},
-          {"dynamic_threshold_v": {
+          }
+        },
+        {
+          "dynamic_threshold_v": {
             "default": 99.5,
             "min": 0.0,
             "max": 1000.0,
@@ -1191,8 +1407,10 @@
             "description": "Контроллирует то, с каким порогом будут отбраковываться неудачные результаты в процессе генерации",
             "type": "range",
             "name": "Коэффициент динамической отбраковки"
-          }},
-          {"denoised_type": {
+          }
+        },
+        {
+          "denoised_type": {
             "default": "dynamic_threshold",
             "values": [
               {
@@ -1209,14 +1427,18 @@
             "description": "Разлые модели по-разному производят отбраковку неудачных результатов в процессе генерации",
             "type": "select",
             "name": "Тип отбраковки"
-          }},
-          {"use_custom_ckpt": {
+          }
+        },
+        {
+          "use_custom_ckpt": {
             "default": "False",
             "description": "",
             "type": "boolean",
             "name": "Выбрать версию весов для модели"
-          }},
-          {"custom_ckpt_name": {
+          }
+        },
+        {
+          "custom_ckpt_name": {
             "default": "v2-1_512-ema-pruned.safetensors",
             "values": [
               {
@@ -1243,14 +1465,18 @@
             "description": "",
             "type": "select",
             "name": "Название верси модели"
-          }},
-          {"version2SDXL-refiner": {
+          }
+        },
+        {
+          "version2SDXL-refiner": {
             "default": "False",
             "description": "Загрузить SDXL-refiner как модель для второй стадии обработки. Требует более длительной обработки",
             "type": "boolean",
             "name": "Двухступенчатая обработка"
-          }},
-          {"seed": {
+          }
+        },
+        {
+          "seed": {
             "default": 42,
             "min": 0,
             "max": 1000000000,
@@ -1258,21 +1484,28 @@
             "description": "Отвечает за то, как именно модель будет проводить обработку. Пробуя различные значения данного параметра вы будете получать различные вариации итогового результата",
             "type": "range",
             "name": "Инициализирующее значение"
-          }},
-          {"negative_prompt": {
+          }
+        },
+        {
+          "negative_prompt": {
             "default": "lowres, text, error, cropped, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, out of frame, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck, username, watermark, signature",
             "description": "Здесь, через запятую, можно перечислить всё то, что бы Вы не хотели видеть на итоговом изображении",
-            "type": "text", "caption": "true",
+            "type": "text",
+            "caption": "true",
             "name": "Негативное описание"
-          }},
-          {"negative_prior_prompt": {
+          }
+        },
+        {
+          "negative_prior_prompt": {
             "default": "lowres, text, error, cropped, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, out of frame, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck, username, watermark, signature",
             "description": "",
             "type": "text",
             "caption": "true",
             "name": "Дефолтные параметры негативного описания"
-          }},
-          {"refiner": {
+          }
+        },
+        {
+          "refiner": {
             "default": "SDXL-refiner-1.0",
             "values": [
               {
@@ -1290,8 +1523,10 @@
             "description": "Выбор модели для второй стадии обработки",
             "type": "select",
             "name": "Выбор версии модели для второй стадии обработки"
-          }},
-          {"refinement_strength": {
+          }
+        },
+        {
+          "refinement_strength": {
             "default": 0.15,
             "min": 0.0,
             "max": 1.0,
@@ -1299,14 +1534,18 @@
             "description": "Насколько значительно будет осуществлён вклад в обработку модели второй стадии",
             "type": "range",
             "name": "Сила вклада обработки на второй стадии"
-          }},
-          {"finish_denoising": {
+          }
+        },
+        {
+          "finish_denoising": {
             "default": "True",
             "description": "Если выбран, то на постобработке будет предпринята попытка устранения возможных шумов и артифактов с изображения",
             "type": "boolean",
             "name": "Завершить удаление шума рафинёром"
-          }},
-          {"h": {
+          }
+        },
+        {
+          "h": {
             "default": 1024,
             "min": 64,
             "max": 1024,
@@ -1314,8 +1553,10 @@
             "description": "",
             "type": "range",
             "name": "Высота желаемого изображения"
-          }},
-          {"w": {
+          }
+        },
+        {
+          "w": {
             "default": 1024,
             "min": 64,
             "max": 1024,
@@ -1323,8 +1564,10 @@
             "description": "",
             "type": "range",
             "name": "Ширина желаемого изображения"
-          }},
-          {"f": {
+          }
+        },
+        {
+          "f": {
             "default": 8,
             "min": 8,
             "max": 16,
@@ -1332,14 +1575,18 @@
             "description": "Понижает или повышает частоту дискретизации, увеличивая или уменьшая размер итогового изображения, соотвественно, если не равен 8",
             "type": "range",
             "name": "Коэффициент понижающей дискретизации"
-          }},
-          {"use_recommended_res": {
+          }
+        },
+        {
+          "use_recommended_res": {
             "default": "True",
             "description": "если выбран, то указанные в параметрах значения ожидаемого итогового разрешения игнорируются",
             "type": "boolean",
             "name": "Использовать рекомендованное для каждой модели разрешение генерации"
-          }},
-          {"sampler": {
+          }
+        },
+        {
+          "sampler": {
             "default": "EulerEDMSampler",
             "values": [
               {
@@ -1391,8 +1638,10 @@
             "description": "Различные обработчики по-разному будут производить генерацию изображений. Каждый из них может лучше подходить для различных ситуаций, имеет смысл перебрать несколько",
             "type": "select",
             "name": "Выбрать обработчик"
-          }},
-          {"ddim_eta": {
+          }
+        },
+        {
+          "ddim_eta": {
             "default": 0.05,
             "min": 0.0,
             "max": 1.0,
@@ -1400,8 +1649,10 @@
             "description": "",
             "type": "range",
             "name": "Коэффициент детерминированной выборки"
-          }},
-          {"s_churn": {
+          }
+        },
+        {
+          "s_churn": {
             "default": 0.0,
             "min": 0.0,
             "max": 1.0,
@@ -1409,8 +1660,10 @@
             "description": "",
             "type": "range",
             "name": "Общая величина стохастичности"
-          }},
-          {"s_tmin": {
+          }
+        },
+        {
+          "s_tmin": {
             "default": 0.0,
             "min": 0.0,
             "max": 1.0,
@@ -1418,8 +1671,10 @@
             "description": "Обнуляет сигмы меньше этого значения (от 0.0 до значения максимальной сигмы и меньше конечного значения сигма-диапазона)",
             "type": "range",
             "name": "Начальное значение сигма-диапазона"
-          }},
-          {"s_tmax": {
+          }
+        },
+        {
+          "s_tmax": {
             "default": 999.0,
             "min": 0.0,
             "max": 1.0,
@@ -1427,8 +1682,10 @@
             "description": "Обнуляет сигмы больше этого значения (от значения минимальной сигмы до значения максимальной сигмы и больше начального значения сигма-диапазона",
             "type": "range",
             "name": "Конечное значение сигма-диапазона"
-          }},
-          {"s_noise": {
+          }
+        },
+        {
+          "s_noise": {
             "default": 1.0,
             "min": 0.0,
             "max": 1000.0,
@@ -1436,8 +1693,10 @@
             "description": "Только для значения общей величины стахостичности больше 0",
             "type": "range",
             "name": ""
-          }},
-          {"eta": {
+          }
+        },
+        {
+          "eta": {
             "default": 1.0,
             "min": 0.0,
             "max": 1000.0,
@@ -1445,8 +1704,10 @@
             "description": "",
             "type": "range",
             "name": "Значение скорости расширения"
-          }},
-          {"order": {
+          }
+        },
+        {
+          "order": {
             "default": 4,
             "min": 1,
             "max": 4,
@@ -1454,8 +1715,10 @@
             "description": "",
             "type": "range",
             "name": "Количество желаемых итоговых изображений"
-          }},
-          {"m_k": {
+          }
+        },
+        {
+          "m_k": {
             "default": 8,
             "min": 0,
             "max": 1000,
@@ -1463,8 +1726,10 @@
             "description": "",
             "type": "range",
             "name": "Коэффициент улучшения при постобработке"
-          }},
-          {"aesthetic_score": {
+          }
+        },
+        {
+          "aesthetic_score": {
             "default": 6.0,
             "min": 0.0,
             "max": 1000.0,
@@ -1472,8 +1737,10 @@
             "description": "",
             "type": "range",
             "name": "Эстетический коэффициент"
-          }},
-          {"negative_aesthetic_score": {
+          }
+        },
+        {
+          "negative_aesthetic_score": {
             "default": 2.5,
             "min": 0.0,
             "max": 1000.0,
@@ -1481,14 +1748,18 @@
             "description": "",
             "type": "range",
             "name": "Негативный эстетический коэффициент"
-          }},
-          {"custom_orig_size": {
+          }
+        },
+        {
+          "custom_orig_size": {
             "default": "False",
             "description": "Изменение размеров входного изображения на размеры исходного изображений",
             "type": "boolean",
             "name": "Изменение размеров взодного изображения на указанные"
-          }},
-          {"orig_width": {
+          }
+        },
+        {
+          "orig_width": {
             "default": 1024,
             "min": 64,
             "max": 1024,
@@ -1496,8 +1767,10 @@
             "description": "",
             "type": "range",
             "name": "Новая ширина входного изображения"
-          }},
-          {"orig_heigt": {
+          }
+        },
+        {
+          "orig_heigt": {
             "default": 1024,
             "min": 64,
             "max": 1024,
@@ -1505,8 +1778,10 @@
             "description": "",
             "type": "range",
             "name": "Новая высота входного изображения"
-          }},
-          {"crop_coords_top": {
+          }
+        },
+        {
+          "crop_coords_top": {
             "default": 0,
             "min": 0,
             "max": 1024,
@@ -1514,8 +1789,10 @@
             "description": "",
             "type": "range",
             "name": "Обрезка координат сверху"
-          }},
-          {"crop_coords_left": {
+          }
+        },
+        {
+          "crop_coords_left": {
             "default": 0,
             "min": 0,
             "max": 1024,
@@ -1523,8 +1800,10 @@
             "description": "",
             "type": "range",
             "name": "Обрезка координат слева"
-          }},
-          {"guider_discretization": {
+          }
+        },
+        {
+          "guider_discretization": {
             "default": "VanillaCFG",
             "values": [
               {
@@ -1541,8 +1820,10 @@
             "description": "Выбор модели влияет на то, как именно будет обрабатываться входной запрос",
             "type": "select",
             "name": "Дискретизатор проводника"
-          }},
-          {"sampling_discretization": {
+          }
+        },
+        {
+          "sampling_discretization": {
             "default": "LegacyDDPMDiscretization",
             "values": [
               {
@@ -1559,8 +1840,10 @@
             "description": "Выбор дискретизатора влияет на то, какая именно дистектизация будет применена к обработчику",
             "type": "select",
             "name": "Дискретизатор обработчика"
-          }},
-          {"sigma_min": {
+          }
+        },
+        {
+          "sigma_min": {
             "default": 0.03,
             "min": 0.0,
             "max": 1000.0,
@@ -1568,8 +1851,10 @@
             "description": "",
             "type": "range",
             "name": "Минимальная сигма"
-          }},
-          {"sigma_max": {
+          }
+        },
+        {
+          "sigma_max": {
             "default": 14.61,
             "min": 0.0,
             "max": 1000.0,
@@ -1577,8 +1862,10 @@
             "description": "",
             "type": "range",
             "name": "Максимальная сигма"
-          }},
-          {"rho": {
+          }
+        },
+        {
+          "rho": {
             "default": 3.0,
             "min": 0.0,
             "max": 1000.0,
@@ -1586,8 +1873,10 @@
             "description": "",
             "type": "range",
             "name": "Значение скорости расширения"
-          }},
-          {"num_cols": {
+          }
+        },
+        {
+          "num_cols": {
             "default": 1,
             "min": 1,
             "max": 4,
@@ -1595,8 +1884,10 @@
             "description": "",
             "type": "range",
             "name": "Количество возвращаемых изображений"
-          }},
-          {"guidance_scale": {
+          }
+        },
+        {
+          "guidance_scale": {
             "default": 9.0,
             "min": 0.0,
             "max": 1000.0,
@@ -1604,8 +1895,10 @@
             "description": "Отвечает за то, насколько искуственный интеллект должен приблизиться к буквальному изображению запроса",
             "type": "range",
             "name": "Коэффициент точности соответсвтвия запросу"
-          }},
-          {"prior_scale": {
+          }
+        },
+        {
+          "prior_scale": {
             "default": 4,
             "min": 0,
             "max": 1000,
@@ -1613,8 +1906,10 @@
             "description": "",
             "type": "range",
             "name": "Коэффициент величины первичной модели"
-          }},
-          {"steps": {
+          }
+        },
+        {
+          "steps": {
             "default": 40,
             "min": 2,
             "max": 350,
@@ -1622,8 +1917,10 @@
             "description": "",
             "type": "range",
             "name": "Количество шагов обработки"
-          }},
-          {"prior_steps": {
+          }
+        },
+        {
+          "prior_steps": {
             "default": 25,
             "min": 2,
             "max": 350,
@@ -1631,20 +1928,21 @@
             "description": "",
             "type": "range",
             "name": "Количество шагов обработки первичной модели"
-          }}
-        ]
-      }
-    ,
-    
-      "image_captioning": {
-        "image_count_input": 1,
-        "system": true,
-        "serverName": "image_captioning",
-        "clientName": "Генерация описания для изображения",
-        "description": "Генерация случайного описания для изображения",
-        "caption": true,
-        "params": [
-          {"ckpt": {
+          }
+        }
+      ]
+    },
+
+    "image_captioning": {
+      "image_count_input": 1,
+      "system": true,
+      "serverName": "image_captioning",
+      "clientName": "Генерация описания для изображения",
+      "description": "Генерация случайного описания для изображения",
+      "caption": true,
+      "params": [
+        {
+          "ckpt": {
             "default": "caption_base_best.pt",
             "values": [
               {
@@ -1661,48 +1959,62 @@
             "description": "",
             "type": "select",
             "name": "Используемая модель"
-          }},
-          {"eval_cider": {
+          }
+        },
+        {
+          "eval_cider": {
             "default": "True",
             "description": "",
             "type": "boolean",
             "name": "Оценка с помощью метрики CIDEr"
-          }},
-          {"eval_bleu": {
+          }
+        },
+        {
+          "eval_bleu": {
             "default": "False",
             "description": "",
             "type": "boolean",
             "name": "Оценка с помощью метрики BLEU"
-          }},
-          {"eval_args": {
+          }
+        },
+        {
+          "eval_args": {
             "default": "{}",
             "system": true,
             "description": "Аргументы генерации для оценки BLUE или CIDEr, например, \"{\"beam\": 4, \"lenpen\": 0,6}\", в виде строки JSON",
             "type": "text",
             "caption": "true",
             "name": "Аргументы генерации для оценки"
-          }},
-          {"eval_print_samples": {
-          "default": "False",
+          }
+        },
+        {
+          "eval_print_samples": {
+            "default": "False",
             "description": "",
             "type": "boolean",
             "name": "Печатать поколения образцов во время валидации"
-          }},
-          {"scst": {
+          }
+        },
+        {
+          "scst": {
             "default": "False",
             "description": "",
             "type": "boolean",
             "name": "Обучение самокритичной последовательности"
-          }},
-          {"scst_args": {
+          }
+        },
+        {
+          "scst_args": {
             "default": "{}",
             "system": true,
             "description": "Аргументы генерации для оценки BLUE или CIDEr, например, \"{\"beam\": 4, \"lenpen\": 0,6}\", в виде строки JSON",
             "type": "text",
             "caption": "true",
             "name": "Аргументы генерации для обучения"
-          }},
-          {"beam": {
+          }
+        },
+        {
+          "beam": {
             "default": 5,
             "min": 0,
             "max": 1000,
@@ -1710,8 +2022,10 @@
             "description": "",
             "type": "range",
             "name": "Балансировка"
-          }},
-          {"max_len_a": {
+          }
+        },
+        {
+          "max_len_a": {
             "default": 0,
             "min": 0,
             "max": 1000,
@@ -1719,8 +2033,10 @@
             "description": "",
             "type": "range",
             "name": "Максимальная длина буфера a"
-          }},
-          {"max_len_b": {
+          }
+        },
+        {
+          "max_len_b": {
             "default": 100,
             "min": 0,
             "max": 1000,
@@ -1728,8 +2044,10 @@
             "description": "",
             "type": "range",
             "name": "Максимальная длина буфера b"
-          }},
-          {"min_len": {
+          }
+        },
+        {
+          "min_len": {
             "default": 1,
             "min": 0,
             "max": 1000,
@@ -1737,14 +2055,18 @@
             "description": "",
             "type": "range",
             "name": "Минимальная длина буфера"
-          }},
-          {"unnormalized": {
+          }
+        },
+        {
+          "unnormalized": {
             "default": "False",
             "description": "",
             "type": "boolean",
             "name": "Использовать нормализацию"
-          }},
-          {"lenpen": {
+          }
+        },
+        {
+          "lenpen": {
             "default": 1,
             "min": 0,
             "max": 1000,
@@ -1752,8 +2074,10 @@
             "description": "",
             "type": "range",
             "name": "lenpen"
-          }},
-          {"unkpen": {
+          }
+        },
+        {
+          "unkpen": {
             "default": 0,
             "min": 0,
             "max": 1000,
@@ -1761,8 +2085,10 @@
             "description": "",
             "type": "range",
             "name": "unkpen"
-          }},
-          {"temperature": {
+          }
+        },
+        {
+          "temperature": {
             "default": 1.0,
             "min": 0.0,
             "max": 1000.0,
@@ -1770,14 +2096,18 @@
             "description": "",
             "type": "range",
             "name": "Значение параметра управления случайностью (температуры)"
-          }},
-          {"match_source_len": {
+          }
+        },
+        {
+          "match_source_len": {
             "default": "False",
             "description": "",
             "type": "boolean",
             "name": "Сопоставлять с исходной длиной"
-          }},
-          {"no_repeat_ngram_size": {
+          }
+        },
+        {
+          "no_repeat_ngram_size": {
             "default": 3,
             "min": 0,
             "max": 1000,
@@ -1785,8 +2115,10 @@
             "description": "",
             "type": "range",
             "name": "Не повторять N-граммы размера"
-          }},
-          {"sampling_topk": {
+          }
+        },
+        {
+          "sampling_topk": {
             "default": 3,
             "min": 0,
             "max": 1000,
@@ -1794,8 +2126,10 @@
             "description": "",
             "type": "range",
             "name": "Количество токенов для выбора"
-          }},
-          {"seed": {
+          }
+        },
+        {
+          "seed": {
             "default": 42,
             "min": 0,
             "max": 1000000000,
@@ -1803,20 +2137,21 @@
             "description": "",
             "type": "range",
             "name": "Инициализирующее значение для генерации"
-          }}
-        
-        ]
-    }
-    ,
-    
-      "inpainting": {
-        "image_count_input": 2,
-        "serverName": "inpainting",
-        "clientName": "Перерисовка области изображения",
-        "description": "Перерисовка выбранного участка изображения (инпеинтинг)",
-        "caption": true,
-        "params": [
-          {"version": {
+          }
+        }
+
+      ]
+    },
+
+    "inpainting": {
+      "image_count_input": 2,
+      "serverName": "inpainting",
+      "clientName": "Перерисовка области изображения",
+      "description": "Перерисовка выбранного участка изображения (инпеинтинг)",
+      "caption": true,
+      "params": [
+        {
+          "version": {
             "default": "Kandinsky2.2",
             "values": [
               {
@@ -1843,15 +2178,19 @@
             "description": "От выбора нейронной сети зависит то, какой нейронной сетью будет осуществляться обработка. Как правило более новые версии выболняют более качественную генерацию",
             "type": "select",
             "name": "Выбор нейронной сети для обработки"
-          }},
-          {"progress": {
+          }
+        },
+        {
+          "progress": {
             "default": "True",
             "system": true,
             "description": "",
             "type": "boolean",
             "name": "Отображать прогресс"
-          }},
-          {"dynamic_threshold_v": {
+          }
+        },
+        {
+          "dynamic_threshold_v": {
             "default": 99.5,
             "min": 0.0,
             "max": 1000.0,
@@ -1859,8 +2198,10 @@
             "description": "Данный коэффициент влияет на то, с каким пороговым значением будут отбраковываться неудачные генерации в процессе генерации",
             "type": "range",
             "name": "Коэффициент динамической отбраковки"
-          }},
-          {"denoised_type": {
+          }
+        },
+        {
+          "denoised_type": {
             "default": "dynamic_threshold",
             "values": [
               {
@@ -1877,29 +2218,37 @@
             "description": "",
             "type": "select",
             "name": "Тип отбраковки"
-          }},
-          {"negative_prior_prompt": {
+          }
+        },
+        {
+          "negative_prior_prompt": {
             "default": "lowres, text, error, cropped, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, out of frame, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck, username, watermark, signature",
             "description": "Здесь, через запятую, можно перечислить всё то, что бы Вы не хотели видеть на итоговом изображении",
             "type": "text",
             "caption": "true",
             "name": "Негативное описание для первичной модели"
-          }},
-          {"negative_prompt": {
+          }
+        },
+        {
+          "negative_prompt": {
             "default": "lowres, text, error, cropped, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, out of frame, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck, username, watermark, signature",
             "description": "Здесь, через запятую, можно перечислить всё то, что бы Вы не хотели видеть на итоговом изображении",
             "type": "text",
             "caption": "true",
             "name": "Негативное описание"
-          }},
-          {"low_vram_mode": {
+          }
+        },
+        {
+          "low_vram_mode": {
             "default": "False",
             "system": true,
             "description": "",
             "type": "boolean",
             "name": "Режим для работы на малом количестве видеопамяти"
-          }},
-          {"sampler": {
+          }
+        },
+        {
+          "sampler": {
             "default": "ddim_sampler",
             "values": [
               {
@@ -1921,8 +2270,10 @@
             "description": "Различные обработчики по-разному будут производить генерацию изображений. Каждый из них может лучше подходить для различных ситуаций, имеет смысл перебрать несколько",
             "type": "select",
             "name": "Выбрать обработчик"
-          }},
-          {"steps": {
+          }
+        },
+        {
+          "steps": {
             "default": 50,
             "min": 1,
             "max": 1000,
@@ -1930,8 +2281,10 @@
             "description": "",
             "type": "range",
             "name": "Количество шагов обработки"
-          }},
-          {"prior_steps": {
+          }
+        },
+        {
+          "prior_steps": {
             "default": 25,
             "min": 1,
             "max": 1000,
@@ -1939,8 +2292,10 @@
             "description": "",
             "type": "range",
             "name": "Количество шагов обработки первичной модели"
-          }},
-          {"num_cols": {
+          }
+        },
+        {
+          "num_cols": {
             "default": 1,
             "min": 1,
             "max": 4,
@@ -1948,8 +2303,10 @@
             "description": "Параметр отвечает за то, сколько, по итогу, изображений Вы получите после генерации, и из них уже сможете выбрать лучшее",
             "type": "range",
             "name": "Количество вариаций изображений за одну генерацию"
-          }},
-          {"ddim_eta": {
+          }
+        },
+        {
+          "ddim_eta": {
             "default": 0.0,
             "min": 0.0,
             "max": 0.1,
@@ -1957,8 +2314,10 @@
             "description": "",
             "type": "range",
             "name": "Коэффициент детерминированности выборки"
-          }},
-          {"guidance_scale": {
+          }
+        },
+        {
+          "guidance_scale": {
             "default": 10.0,
             "min": 0.0,
             "max": 0.1,
@@ -1966,8 +2325,10 @@
             "description": "Отвечает за то, насколько модель должена приблизиться к буквальному изображению запроса",
             "type": "range",
             "name": "Коэффициент точности соответсвтвия запросу"
-          }},
-          {"prior_scale": {
+          }
+        },
+        {
+          "prior_scale": {
             "default": 4,
             "min": 0,
             "max": 0,
@@ -1975,8 +2336,10 @@
             "description": "Отвечает за то, насколько первичная модель должена приблизиться к буквальному изображению запроса",
             "type": "range",
             "name": "Значение точности соответствия первичной модели"
-          }},
-          {"strength": {
+          }
+        },
+        {
+          "strength": {
             "default": 0.9,
             "min": 0.0,
             "max": 0.1,
@@ -1984,8 +2347,10 @@
             "description": "",
             "type": "range",
             "name": "Сила увеличения/уменьшения шума"
-          }},
-          {"ckpt": {
+          }
+        },
+        {
+          "ckpt": {
             "default": "512-inpainting-ema.safetensors",
             "values": [
               {
@@ -1997,8 +2362,10 @@
             "description": "",
             "type": "select",
             "name": "Выбор весов модели"
-          }},
-          {"seed": {
+          }
+        },
+        {
+          "seed": {
             "default": 42,
             "min": 0,
             "max": 0,
@@ -2006,15 +2373,19 @@
             "description": "Отвечает за то, как именно модель будет проводить обработку. Пробуя различные значения данного параметра вы будете получать различные вариации итогового результата",
             "type": "range",
             "name": "Инициализирующее значение"
-          }},
-          {"verbose": {
+          }
+        },
+        {
+          "verbose": {
             "default": "False",
             "system": true,
             "description": "",
             "type": "boolean",
             "name": "Проверка модели"
-          }},
-          {"max_dim": {
+          }
+        },
+        {
+          "max_dim": {
             "default": 4194304,
             "min": 0,
             "max": 0,
@@ -2023,26 +2394,29 @@
             "description": "",
             "type": "range",
             "name": "Максимальный размер генерации изображения"
-          }}
-        ]
-      }
-    ,
-    
-      "stylization": {
-        "image_count_input": 2,
-        "serverName": "stylization",
-        "clientName": "Стилизация",
-        "description": "Стилизация одного изображения под другое",
-        "prompt": "",
-        "params": [
-          {"low_vram_mode": {
+          }
+        }
+      ]
+    },
+
+    "stylization": {
+      "image_count_input": 2,
+      "serverName": "stylization",
+      "clientName": "Стилизация",
+      "description": "Стилизация одного изображения под другое",
+      "prompt": "",
+      "params": [
+        {
+          "low_vram_mode": {
             "default": "False",
             "system": true,
             "description": "",
             "type": "boolean",
             "name": "Режим для работы на малом количестве видеопамяти"
-          }},
-          {"num_cols": {
+          }
+        },
+        {
+          "num_cols": {
             "default": 1,
             "min": 1,
             "max": 4,
@@ -2050,8 +2424,10 @@
             "description": "Сколько изображений будет генерироваться за раз",
             "type": "range",
             "name": "Количество генерируемых изображений"
-          }},
-          {"steps": {
+          }
+        },
+        {
+          "steps": {
             "default": 50,
             "min": 1,
             "max": 350,
@@ -2059,8 +2435,10 @@
             "description": "",
             "type": "range",
             "name": "Количество шагов обработки"
-          }},
-          {"prior_steps": {
+          }
+        },
+        {
+          "prior_steps": {
             "default": 25,
             "min": 1,
             "max": 350,
@@ -2068,8 +2446,10 @@
             "description": "",
             "type": "range",
             "name": "Приоритетное количество шагов обработки"
-          }},
-          {"guidance_scale": {
+          }
+        },
+        {
+          "guidance_scale": {
             "default": 4,
             "min": 0,
             "max": 1000,
@@ -2077,8 +2457,10 @@
             "description": "Отвечает за то, насколько модель должна приблизиться к буквальному изображению запроса",
             "type": "range",
             "name": "Коэффициент соответствия"
-          }},
-          {"prior_scale": {
+          }
+        },
+        {
+          "prior_scale": {
             "default": 4,
             "min": 0,
             "max": 1000,
@@ -2086,14 +2468,18 @@
             "description": "Отвечает за то, насколько первичная модель должна приблизиться к буквальному изображению запроса",
             "type": "range",
             "name": "Коэффициент соответствия первичной модели"
-          }},
-          {"style_size_as_content": {
+          }
+        },
+        {
+          "style_size_as_content": {
             "default": "True",
             "description": "Если выбран, то размер изображения стиля будет интерполирован в соотвествии с размером изображения контента перед обработкой",
             "type": "boolean",
             "name": "Изменять размер изображения стиля под размеры изображения контента"
-          }},
-          {"seed": {
+          }
+        },
+        {
+          "seed": {
             "default": 42,
             "min": 0,
             "max": 1000000000,
@@ -2101,8 +2487,10 @@
             "description": "В зависимости от установленного значения модель по-разному будет применять обработку. Можете перебрать несколько значений, чтобы найти оптимальное для Вашего конкретного случая",
             "type": "range",
             "name": "Инициализирующее значение"
-          }},
-          {"prompt_weight": {
+          }
+        },
+        {
+          "prompt_weight": {
             "default": 0.3,
             "min": 0.0,
             "max": 1.0,
@@ -2110,8 +2498,10 @@
             "description": "Отвечает на то, насколько сильно модель будет соответствовать описанию",
             "type": "range",
             "name": "Вес описания"
-          }},
-          {"content_weight": {
+          }
+        },
+        {
+          "content_weight": {
             "default": 0.3,
             "min": 0.0,
             "max": 1.0,
@@ -2119,8 +2509,10 @@
             "description": "Отвечает на то, насколько сильно модель будет соответствовать изображению контента",
             "type": "range",
             "name": "Вес изображения контента"
-          }},
-          {"style_weight": {
+          }
+        },
+        {
+          "style_weight": {
             "default": 0.4,
             "min": 0.0,
             "max": 1.0,
@@ -2128,27 +2520,30 @@
             "description": "",
             "type": "range",
             "name": "Вес изображения стиля"
-          }},
-          {"negative_prior_prompt": {
+          }
+        },
+        {
+          "negative_prior_prompt": {
             "default": "",
             "description": "Здесь, через запятую, можно перечислить всё то, что бы Вы не хотели видеть на итоговом изображении",
             "type": "text",
             "caption": "true",
             "name": "Первичное негативное описание"
-          }}
-        ]
-      }
-    ,
-    
-      "image_fusion": {
-        "image_count_input": 2,
-        "serverName": "image_fusion",
-        "clientName": "Объединение изображений",
-        "description": "При помощи данного редима можно совместить несколько изображений",
-        "prompt1": "",
-        "prompt2": "",
-        "params": [
-          {"version": {
+          }
+        }
+      ]
+    },
+
+    "image_fusion": {
+      "image_count_input": 2,
+      "serverName": "image_fusion",
+      "clientName": "Объединение изображений",
+      "description": "При помощи данного редима можно совместить несколько изображений",
+      "prompt1": "",
+      "prompt2": "",
+      "params": [
+        {
+          "version": {
             "default": "Kandinsky2.2",
             "values": [
               {
@@ -2165,15 +2560,19 @@
             "description": "Выбор модели влияет на то, как именно будет обрабатываться входной запрос. Как правило, более новые версии выполняют более качественную генерацию",
             "type": "select",
             "name": "Выбор версии модели"
-          }},
-          {"low_vram_mode": {
+          }
+        },
+        {
+          "low_vram_mode": {
             "default": "False",
             "system": true,
             "description": "",
             "type": "boolean",
             "name": "Режим для работы на малом количестве видеопамяти"
-          }},
-          {"steps": {
+          }
+        },
+        {
+          "steps": {
             "default": 100,
             "min": 1,
             "max": 350,
@@ -2181,8 +2580,10 @@
             "description": "",
             "type": "range",
             "name": "Количество шагов обработки"
-          }},
-          {"prior_steps": {
+          }
+        },
+        {
+          "prior_steps": {
             "default": 25,
             "min": 1,
             "max": 350,
@@ -2190,8 +2591,10 @@
             "description": "",
             "type": "range",
             "name": "Количество шагов обработки первичной модели"
-          }},
-          {"first_image_weight": {
+          }
+        },
+        {
+          "first_image_weight": {
             "default": 0.25,
             "min": 0.0,
             "max": 1.0,
@@ -2199,8 +2602,10 @@
             "description": "Отвечает на то, насколько сильно модель будет соответствовать первому изображению",
             "type": "range",
             "name": "Вес первого изображения"
-          }},
-          {"second_image_weight": {
+          }
+        },
+        {
+          "second_image_weight": {
             "default": 0.25,
             "min": 0.0,
             "max": 1.0,
@@ -2208,8 +2613,10 @@
             "description": "Отвечает на то, насколько сильно модель будет соответствовать второму изображению",
             "type": "range",
             "name": "Вес второго изображения"
-          }},
-          {"first_prompt_weight": {
+          }
+        },
+        {
+          "first_prompt_weight": {
             "default": 0.25,
             "min": 0.0,
             "max": 1.0,
@@ -2217,8 +2624,10 @@
             "description": "Отвечает на то, насколько сильно модель будет соответствовать первому описанию",
             "type": "range",
             "name": "Вес первого описания"
-          }},
-          {"second_prompt_weight": {
+          }
+        },
+        {
+          "second_prompt_weight": {
             "default": 0.25,
             "min": 0.0,
             "max": 1.0,
@@ -2226,8 +2635,10 @@
             "description": "Отвечает на то, насколько сильно модель будет соответствовать второму описанию",
             "type": "range",
             "name": "Вес второго описания"
-          }},
-          {"num_cols": {
+          }
+        },
+        {
+          "num_cols": {
             "default": 1,
             "min": 1,
             "max": 4,
@@ -2235,14 +2646,18 @@
             "description": "Параметр отвечает за то, сколько, по итогу, изображений Вы получите после генерации, и из них уже сможете выбрать лучшее",
             "type": "range",
             "name": "Количество генерируемых изображений"
-          }},
-          {"custom_orig_size": {
+          }
+        },
+        {
+          "custom_orig_size": {
             "default": "True",
             "description": "Если выбран, размеры исходных изображений будут интерполироваться до размеров, указанных в параметрах ширины и высоты",
             "type": "boolean",
             "name": "Изменять размеры исходных изображения"
-          }},
-          {"w": {
+          }
+        },
+        {
+          "w": {
             "default": 1024,
             "min": 64,
             "max": 1024,
@@ -2250,8 +2665,10 @@
             "description": "Новая ширина исходных изображений",
             "type": "range",
             "name": "Ширина исходных изображений"
-          }},
-          {"h": {
+          }
+        },
+        {
+          "h": {
             "default": 1024,
             "min": 64,
             "max": 1024,
@@ -2259,15 +2676,19 @@
             "description": "Новая высота исходных изображений",
             "type": "range",
             "name": "Высота исходных изображений"
-          }},
-          {"progress": {
+          }
+        },
+        {
+          "progress": {
             "default": "True",
             "system": true,
             "description": "",
             "type": "boolean",
             "name": "Текущий прогресс"
-          }},
-          {"guidance_scale": {
+          }
+        },
+        {
+          "guidance_scale": {
             "default": 4,
             "min": 0,
             "max": 1000,
@@ -2275,8 +2696,10 @@
             "description": "Отвечает за то, насколько модель должна приблизиться к буквальному изображению запроса",
             "type": "range",
             "name": "Коэффициент точности соответсвтвия запросу"
-          }},
-          {"prior_scale": {
+          }
+        },
+        {
+          "prior_scale": {
             "default": 4,
             "min": 0,
             "max": 1000,
@@ -2284,8 +2707,10 @@
             "description": "Отвечает за то, насколько модель первичная должна приблизиться к буквальному изображению запроса",
             "type": "range",
             "name": "Коэффициент соответсвтвия первичной модели"
-          }},
-          {"sampler": {
+          }
+        },
+        {
+          "sampler": {
             "default": "ddim_sampler",
             "values": [
               {
@@ -2307,8 +2732,10 @@
             "description": "Различные обработчики по-разному будут производить генерацию изображений. Каждый из них может лучше подходить для различных ситуаций, имеет смысл перебрать несколько",
             "type": "select",
             "name": "Выбрать обработчик"
-          }},
-          {"ddim_eta": {
+          }
+        },
+        {
+          "ddim_eta": {
             "default": 0.05,
             "min": 0.0,
             "max": 100.0,
@@ -2316,8 +2743,10 @@
             "description": "Чем меньше значение, тем меньше модель стремиться извлекать информации из описания и отталкивается от данных, на которых обучена",
             "type": "range",
             "name": "Коэффициент детерминированности выборки"
-          }},
-          {"seed": {
+          }
+        },
+        {
+          "seed": {
             "default": 42,
             "min": 0,
             "max": 1000000000,
@@ -2325,24 +2754,29 @@
             "description": "Отвечает за то, как именно модель будет проводить обработку. Пробуя различные значения данного параметра вы будете получать различные вариации итогового результата",
             "type": "range",
             "name": "Инициализирующее значение"
-          }},
-          {"negative_prior_prompt": {
+          }
+        },
+        {
+          "negative_prior_prompt": {
             "default": "lowres, text, error, cropped, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, out of frame, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck, username, watermark, signature",
             "description": "Здесь, через запятую, можно перечислить всё то, что бы Вы не хотели видеть на итоговом изображении",
             "type": "text",
             "caption": "true",
             "name": "Негативное описание для первичной модели"
-          }},
-          {"negative_prompt": {
+          }
+        },
+        {
+          "negative_prompt": {
             "default": "",
             "description": "Здесь, через запятую, можно перечислить всё то, что бы Вы не хотели видеть на итоговом изображении",
             "type": "text",
             "caption": "true",
             "name": "Негативное описание"
-          }}
-        ]
-      }
-    
+          }
+        }
+      ]
+    }
+
   }
 }
     

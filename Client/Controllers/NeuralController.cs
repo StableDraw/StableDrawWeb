@@ -69,7 +69,7 @@ public class NeuralController : Controller
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (string.IsNullOrEmpty(currentUserId)) return NotFound();
         var user = await _userManager.FindByIdAsync(currentUserId);
-        if (user.GenerationCount > 10) return BadRequest("User has exhausted the number of generations for the day");
+        //if (user.GenerationCount > 10) return BadRequest("User has exhausted the number of generations for the day");
         var request = new NeuralRequest()
         {
             OrderId = NewId.NextGuid(),
@@ -94,8 +94,8 @@ public class NeuralController : Controller
         var response = await _bus.Request<NeuralRequest, NeuralReply>(request, timeout: RequestTimeout.After(m: 15));
         if (!response.Message.ErrorMsg.IsNullOrEmpty()) 
                 throw new Exception(response.Message.ErrorMsg);
-        user.GenerationCount++;
-        _context.SaveChanges();
+        //user.GenerationCount++;
+        //_context.SaveChanges();
         return Ok(response.Message);
     }
 }
