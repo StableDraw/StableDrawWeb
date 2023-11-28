@@ -122,6 +122,7 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 		closeWindow(false)
 		closeParam(false)
 		testMob.setActiveNeural('')
+		testMob.endGeneration();
 	}
 
 	const setCaption = (value) => {
