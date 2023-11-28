@@ -1,10 +1,13 @@
 ﻿import React, {useState} from 'react';
 import  cl from '.././ListItem.module.css'
+import CanvasState from "../../../../../store/canvasState.tsx";
 const Visability = ({ids, ...props}) => {
     const [item, setId] = useState(ids)
     const [img, setImg] = useState(true)
     const handle = () => {
         setImg(!img)
+        CanvasState.visable = !CanvasState.visable
+        console.log(CanvasState.visable)
         // console.log("ids: ", ids)
         // Visable({
         //     index: IndexVisable,

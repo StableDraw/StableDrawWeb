@@ -75,7 +75,7 @@ export class Home extends Component {
                                             StableDraw
                                         </h1>
                                         <p className="font-size-24" style={{ color: "#cccccc" }} >
-                                            Веб-платформа для рисования, обработки изображений и создания анимаций с применением искусственных нейронных сетей
+                                            Свидетельство о государственной регистрации программы для ЭВМ №2023662897, автор: Богданов Антон Аркадьевич, дата государственной регистрации в Реестре программ для ЭВМ: 16 июня 2023 г.
                                         </p>
                                         <div className="block-start-button">
                                             <NavLink tag={Link} to="/drawing-to-img" className="bootstrap-btn primary-outline-blue--hover">
@@ -146,7 +146,7 @@ export class Home extends Component {
                                             StableDraw
                                         </h1>
                                         <p className="font-size-24" style={{ color: "#cccccc" }} >
-                                            Веб-платформа для рисования, обработки изображений и создания анимаций с применением искусственных нейронных сетей
+                                            Свидетельство о государственной регистрации программы для ЭВМ №2023662897, автор: Богданов Антон Аркадьевич, дата государственной регистрации в Реестре программ для ЭВМ: 16 июня 2023 г.
                                         </p>
                                         <div className="block-start-button">
                                             <NavLink tag={Link} to="/test" className="bootstrap-btn primary-outline-blue--hover">
@@ -162,6 +162,15 @@ export class Home extends Component {
                                                         className='faulty-letter'>ВЕР</span>СИЯ</span>
                                                 </button>
                                             </NavLink>
+                                            
+                                            <NavLink tag={Link} to="/video-editor" className="bootstrap-btn primary-outline-blue--hover">
+                                                <button className="start-button-text1">
+                                                    <span className='glowing-txt'>
+                                                        Видео-редактор
+                                                    </span>
+                                                </button>
+                                            </NavLink>
+                                            
                                             {/* <button className="start-button-text2">
                                                     <span className='glowing-txt'>ТЕС<span
                                                         className='faulty-letter'>ТИ</span>РОВАТЬ1</span>

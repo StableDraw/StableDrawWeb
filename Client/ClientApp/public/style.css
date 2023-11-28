@@ -4,6 +4,13 @@ html
     margin: 0;
     padding: 0;
 }
+
+/*DELETE ON REALEASE*/
+/*canvas {*/
+/*    background-color: #ccc!important;*/
+/*}*/
+
+
 body
 {
     touch-action: none;
