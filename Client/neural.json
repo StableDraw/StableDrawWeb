@@ -114,6 +114,7 @@
 				}
 			]
 		},
+
 		"delete_background": {
 			"image_count_input": 1,
 			"serverName": "delete_background",
@@ -125,14 +126,16 @@
 						"default": "isnet.pth",
 						"values": [
 							{
-								"value": "Дополнительная модель ISNET",
+								"value": "isnet.pth",
+								"child": true,
 								"description": "",
-								"name": "isnet.pth"
+								"name": "Дополнительная модель ISNET"
 							},
 							{
-								"value": "Главная модель ISNET",
+								"value": "isnet-general-use.pth",
+								"child": true,
 								"description": "",
-								"name": "isnet-general-use.pth"
+								"name": "Главная модель ISNET"
 							}
 						],
 						"description": "Различные модели по-разному справляются с удалением фона на различных изображениях",
@@ -147,12 +150,48 @@
 							{
 								"value": "U2NET",
 								"description": "Старая, стабильная модель",
-								"name": "U2NET"
+								"name": "U2NET",
+								"childs": [
+									{
+										"param_id": "RescaleT",
+										"values_id": []
+									}
+								]
 							},
 							{
 								"value": "DIS",
 								"description": "Новая, более качественная, но нестабильная модель",
-								"name": "DIS"
+								"name": "DIS",
+								"childs": [
+									{
+										"param_id": "ckpt",
+										"values_id": [ "isnet.pth", "isnet-general-use.pth" ]
+									},
+									{
+										"param_id": "interm_sup",
+										"values_id": []
+									},
+									{
+										"param_id": "model_digit",
+										"values_id": []
+									},
+									{
+										"param_id": "seed",
+										"values_id": []
+									},
+									{
+										"param_id": "cache_size",
+										"values_id": []
+									},
+									{
+										"param_id": "input_size",
+										"values_id": []
+									},
+									{
+										"param_id": "crop_size",
+										"values_id": []
+									}
+								]
 							}
 						],
 						"description": "",
@@ -163,6 +202,7 @@
 				{
 					"RescaleT": {
 						"default": 320,
+						"child": true,
 						"min": 0,
 						"max": 1000000,
 						"step": 1,
@@ -174,6 +214,7 @@
 				{
 					"model_digit": {
 						"default": "True",
+						"child": true,
 						"description": "Если выбран, то результат будет точнее, но обработка дольше",
 						"type": "boolean",
 						"name": "Использовать двойную точность обработки"
@@ -182,6 +223,7 @@
 				{
 					"interm_sup": {
 						"default": "False",
+						"child": true,
 						"description": "Параметр, отвечающий за контроль промежуточных функций",
 						"type": "boolean",
 						"name": "Активировать контроль промежуточных функций"
@@ -190,6 +232,7 @@
 				{
 					"seed": {
 						"default": 0,
+						"child": true,
 						"min": 0,
 						"max": 1000000,
 						"step": 1,
@@ -204,6 +247,7 @@
 							1024,
 							1024
 						],
+						"child": true,
 						"system": true,
 						"description": "Значение можно повысить или понизить в зависимости от разрешения входного изображения",
 						"type": "int[]",
@@ -216,6 +260,7 @@
 							1024,
 							1024
 						],
+						"child": true,
 						"system": true,
 						"description": "Значение можно повысить или понизить в зависимости от разрешения входного изображения",
 						"type": "int[]",
@@ -228,6 +273,7 @@
 							1024,
 							1024
 						],
+						"child": true,
 						"system": true,
 						"description": "Значение можно повысить или понизить в зависимости от разрешения входного изображения",
 						"type": "int[]",
@@ -236,6 +282,7 @@
 				}
 			]
 		},
+
 		"upscaler": {
 			"image_count_input": 1,
 			"serverName": "upscaler",
@@ -254,17 +301,11 @@
 								"childs": [
 									{
 										"param_id": "ckpt",
-										"values_id": [
-											"x4-upscaler-ema.safetensors"
-										]
+										"values_id": [ "x4-upscaler-ema.safetensors" ]
 									},
 									{
 										"param_id": "sampler",
-										"values_id": [
-											"ddim_sampler",
-											"plms_sampler",
-											"p_sampler"
-										]
+										"values_id": [ "ddim_sampler", "plms_sampler", "p_sampler" ]
 									}
 								]
 							},
@@ -372,19 +413,19 @@
 								"value": "ddim_sampler",
 								"description": "DDIM для ввода случайного шума",
 								"child": true,
-								"name": "Семплинг"
+								"name": "ddim_sampler"
 							},
 							{
 								"value": "plms_sampler",
 								"description": "PLMS для ввода случайного шума",
 								"child": true,
-								"name": "Семплинг"
+								"name": "plms_sampler"
 							},
 							{
 								"value": "p_sampler",
 								"description": "Ввод случайного шума",
 								"child": true,
-								"name": "Семплинг"
+								"name": "p_sampler"
 							}
 						],
 						"description": "только для модели 'StableDiffusionx4Upscaler'",
@@ -550,6 +591,7 @@
 				}
 			]
 		},
+
 		"image_to_image": {
 			"image_count_input": 1,
 			"serverName": "image_to_image",
@@ -610,14 +652,7 @@
 									},
 									{
 										"param_id": "sampler",
-										"values_id": [
-											"EulerEDMSampler",
-											"HeunEDMSampler",
-											"EulerAncestralSampler",
-											"DPMPP2SAncestralSampler",
-											"DPMPP2MSampler",
-											"LinearMultistepSampler"
-										]
+										"values_id": [ "EulerEDMSampler", "HeunEDMSampler", "EulerAncestralSampler", "DPMPP2SAncestralSampler", "DPMPP2MSampler", "LinearMultistepSampler" ]
 									},
 									{
 										"param_id": "m_k",
@@ -653,14 +688,7 @@
 									},
 									{
 										"param_id": "sampler",
-										"values_id": [
-											"EulerEDMSampler",
-											"HeunEDMSampler",
-											"EulerAncestralSampler",
-											"DPMPP2SAncestralSampler",
-											"DPMPP2MSampler",
-											"LinearMultistepSampler"
-										]
+										"values_id": [ "EulerEDMSampler", "HeunEDMSampler", "EulerAncestralSampler", "DPMPP2SAncestralSampler", "DPMPP2MSampler", "LinearMultistepSampler" ]
 									},
 									{
 										"param_id": "m_k",
@@ -742,14 +770,7 @@
 									},
 									{
 										"param_id": "sampler",
-										"values_id": [
-											"EulerEDMSampler",
-											"HeunEDMSampler",
-											"EulerAncestralSampler",
-											"DPMPP2SAncestralSampler",
-											"DPMPP2MSampler",
-											"LinearMultistepSampler"
-										]
+										"values_id": [ "EulerEDMSampler", "HeunEDMSampler", "EulerAncestralSampler", "DPMPP2SAncestralSampler", "DPMPP2MSampler", "LinearMultistepSampler" ]
 									}
 								]
 							},
@@ -768,14 +789,7 @@
 									},
 									{
 										"param_id": "sampler",
-										"values_id": [
-											"EulerEDMSampler",
-											"HeunEDMSampler",
-											"EulerAncestralSampler",
-											"DPMPP2SAncestralSampler",
-											"DPMPP2MSampler",
-											"LinearMultistepSampler"
-										]
+										"values_id": [ "EulerEDMSampler", "HeunEDMSampler", "EulerAncestralSampler", "DPMPP2SAncestralSampler", "DPMPP2MSampler", "LinearMultistepSampler" ]
 									}
 								]
 							},
@@ -798,11 +812,7 @@
 									},
 									{
 										"param_id": "sampler",
-										"values_id": [
-											"ddim_sampler",
-											"plms_sampler",
-											"p_sampler"
-										]
+										"values_id": [ "ddim_sampler", "plms_sampler", "p_sampler" ]
 									},
 									{
 										"param_id": "ddim_eta",
@@ -837,20 +847,11 @@
 									},
 									{
 										"param_id": "model_type",
-										"values_id": [
-											"dpt_large",
-											"dpt_hybrid",
-											"midas_v21",
-											"midas_v21_small"
-										]
+										"values_id": [ "dpt_large", "dpt_hybrid", "midas_v21", "midas_v21_small" ]
 									},
 									{
 										"param_id": "sampler",
-										"values_id": [
-											"ddim_sampler",
-											"plms_sampler",
-											"p_sampler"
-										]
+										"values_id": [ "ddim_sampler", "plms_sampler", "p_sampler" ]
 									}
 								]
 							},
@@ -865,11 +866,7 @@
 									},
 									{
 										"param_id": "sampler",
-										"values_id": [
-											"ddim_sampler",
-											"plms_sampler",
-											"p_sampler"
-										]
+										"values_id": [ "ddim_sampler", "plms_sampler", "p_sampler" ]
 									},
 									{
 										"param_id": "ddim_eta",
@@ -881,10 +878,7 @@
 									},
 									{
 										"param_id": "denoised_type",
-										"values_id": [
-											"dynamic_threshold",
-											"clip_denoised"
-										]
+										"values_id": [ "dynamic_threshold", "clip_denoised" ]
 									}
 								]
 							},
@@ -903,14 +897,7 @@
 									},
 									{
 										"param_id": "sampler",
-										"values_id": [
-											"EulerEDMSampler",
-											"HeunEDMSampler",
-											"EulerAncestralSampler",
-											"DPMPP2SAncestralSampler",
-											"DPMPP2MSampler",
-											"LinearMultistepSampler"
-										]
+										"values_id": [ "EulerEDMSampler", "HeunEDMSampler", "EulerAncestralSampler", "DPMPP2SAncestralSampler", "DPMPP2MSampler", "LinearMultistepSampler" ]
 									}
 								]
 							},
@@ -930,14 +917,7 @@
 									},
 									{
 										"param_id": "sampler",
-										"values_id": [
-											"EulerEDMSampler",
-											"HeunEDMSampler",
-											"EulerAncestralSampler",
-											"DPMPP2SAncestralSampler",
-											"DPMPP2MSampler",
-											"LinearMultistepSampler"
-										]
+										"values_id": [ "EulerEDMSampler", "HeunEDMSampler", "EulerAncestralSampler", "DPMPP2SAncestralSampler", "DPMPP2MSampler", "LinearMultistepSampler" ]
 									}
 								]
 							}
@@ -1167,42 +1147,49 @@
 								"description": "",
 								"name": "HeunEDM"
 							},
+
 							{
 								"value": "EulerAncestralSampler",
 								"child": true,
 								"description": "",
 								"name": "EulerAncestral"
 							},
+
 							{
 								"value": "DPMPP2SAncestralSampler",
 								"child": true,
 								"description": "",
 								"name": "DPMPP2SAncestral"
 							},
+
 							{
 								"value": "DPMPP2MSampler",
 								"child": true,
 								"description": "",
 								"name": "DPMPP2M"
 							},
+
 							{
 								"value": "LinearMultistepSampler",
 								"child": true,
 								"description": "",
 								"name": "LinearMultistep"
 							},
+
 							{
 								"value": "ddim_sampler",
 								"child": true,
 								"description": "",
 								"name": "ddim"
 							},
+
 							{
 								"value": "plms_sampler",
 								"child": true,
 								"description": "",
 								"name": "plms"
 							},
+
 							{
 								"value": "p_sampler",
 								"child": true,
@@ -1345,7 +1332,7 @@
 						"step": 0.1,
 						"description": "Только для значения общей величины стахостичности больше 0",
 						"type": "range",
-						"name": "Добавление случайного шума"
+						"name": ""
 					}
 				},
 				{
@@ -1633,6 +1620,7 @@
 				}
 			]
 		},
+
 		"text_to_image": {
 			"serverName": "text_to_image",
 			"clientName": "Генерация по тексту",
@@ -1758,14 +1746,7 @@
 									},
 									{
 										"param_id": "sampler",
-										"values_id": [
-											"EulerEDMSampler",
-											"HeunEDMSampler",
-											"EulerAncestralSampler",
-											"DPMPP2SAncestralSampler",
-											"DPMPP2MSampler",
-											"LinearMultistepSampler"
-										]
+										"values_id": [ "EulerEDMSampler", "HeunEDMSampler", "EulerAncestralSampler", "DPMPP2SAncestralSampler", "DPMPP2MSampler", "LinearMultistepSampler" ]
 									}
 								]
 							},
@@ -1780,14 +1761,7 @@
 									},
 									{
 										"param_id": "sampler",
-										"values_id": [
-											"EulerEDMSampler",
-											"HeunEDMSampler",
-											"EulerAncestralSampler",
-											"DPMPP2SAncestralSampler",
-											"DPMPP2MSampler",
-											"LinearMultistepSampler"
-										]
+										"values_id": [ "EulerEDMSampler", "HeunEDMSampler", "EulerAncestralSampler", "DPMPP2SAncestralSampler", "DPMPP2MSampler", "LinearMultistepSampler" ]
 									},
 									{
 										"param_id": "prior_scale",
@@ -1822,11 +1796,7 @@
 									},
 									{
 										"param_id": "sampler",
-										"values_id": [
-											"ddim_sampler",
-											"plms_sampler",
-											"p_sampler"
-										]
+										"values_id": [ "ddim_sampler", "plms_sampler", "p_sampler" ]
 									},
 									{
 										"param_id": "ddim_eta",
@@ -1845,11 +1815,7 @@
 									},
 									{
 										"param_id": "sampler",
-										"values_id": [
-											"ddim_sampler",
-											"plms_sampler",
-											"p_sampler"
-										]
+										"values_id": [ "ddim_sampler", "plms_sampler", "p_sampler" ]
 									},
 									{
 										"param_id": "ddim_eta",
@@ -1876,18 +1842,11 @@
 									},
 									{
 										"param_id": "denoised_type",
-										"values_id": [
-											"dynamic_threshold",
-											"clip_denoised"
-										]
+										"values_id": [ "dynamic_threshold", "clip_denoised" ]
 									},
 									{
 										"param_id": "sampler",
-										"values_id": [
-											"ddim_sampler",
-											"plms_sampler",
-											"p_sampler"
-										]
+										"values_id": [ "ddim_sampler", "plms_sampler", "p_sampler" ]
 									},
 									{
 										"param_id": "ddim_eta",
@@ -2507,6 +2466,7 @@
 				}
 			]
 		},
+
 		"image_captioning": {
 			"image_count_input": 1,
 			"system": true,
@@ -2713,8 +2673,10 @@
 						"name": "Инициализирующее значение для генерации"
 					}
 				}
+
 			]
 		},
+
 		"inpainting": {
 			"image_count_input": 2,
 			"serverName": "inpainting",
@@ -2784,11 +2746,7 @@
 									},
 									{
 										"param_id": "sampler",
-										"values_id": [
-											"ddim_sampler",
-											"plms_sampler",
-											"p_sampler"
-										]
+										"values_id": [ "ddim_sampler", "plms_sampler", "p_sampler" ]
 									},
 									{
 										"param_id": "ddim_eta",
@@ -2803,11 +2761,7 @@
 								"childs": [
 									{
 										"param_id": "sampler",
-										"values_id": [
-											"ddim_sampler",
-											"plms_sampler",
-											"p_sampler"
-										]
+										"values_id": [ "ddim_sampler", "plms_sampler", "p_sampler" ]
 									},
 									{
 										"param_id": "ddim_eta",
@@ -2830,10 +2784,7 @@
 									},
 									{
 										"param_id": "denoised_type",
-										"values_id": [
-											"dynamic_threshold",
-											"clip_denoised"
-										]
+										"values_id": [ "dynamic_threshold", "clip_denoised" ]
 									},
 									{
 										"param_id": "low_vram_mode",
@@ -2841,11 +2792,7 @@
 									},
 									{
 										"param_id": "sampler",
-										"values_id": [
-											"ddim_sampler",
-											"plms_sampler",
-											"p_sampler"
-										]
+										"values_id": [ "ddim_sampler", "plms_sampler", "p_sampler" ]
 									},
 									{
 										"param_id": "ddim_eta",
@@ -3090,6 +3037,7 @@
 				}
 			]
 		},
+
 		"stylization": {
 			"image_count_input": 2,
 			"serverName": "stylization",
@@ -3224,6 +3172,7 @@
 				}
 			]
 		},
+
 		"image_fusion": {
 			"image_count_input": 2,
 			"serverName": "image_fusion",
@@ -3252,11 +3201,7 @@
 									},
 									{
 										"param_id": "sampler",
-										"values_id": [
-											"ddim_sampler",
-											"plms_sampler",
-											"p_sampler"
-										]
+										"values_id": [ "ddim_sampler", "plms_sampler", "p_sampler" ]
 									},
 									{
 										"param_id": "ddim_eta",
@@ -3489,6 +3434,7 @@
 				}
 			]
 		}
+
 	}
 }
     
