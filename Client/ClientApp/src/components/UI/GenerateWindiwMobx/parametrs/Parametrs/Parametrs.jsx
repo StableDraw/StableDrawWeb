@@ -122,6 +122,7 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 		closeWindow(false)
 		closeParam(false)
 		testMob.setActiveNeural('')
+		testMob.endGeneration();
 	}
 
 	const setCaption = (value) => {
@@ -148,13 +149,13 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 			ResultWindowState.setImage(image)
 			ResultWindowState.setIsOpen(true)
 			testMob.endGeneration();
-			// setIsLoaded(true)
 		} catch (e) {
 			alert("При генерации возникла ошибка");
+			testMob.endGeneration();
 			console.error(e);
 			throw (e);
 		}
-	}
+	} 
 	return (
 		<div>
 			<DownloadImg closeWindow={closeWindow} closeParam={closeParam} setRenderValue={setFile} />

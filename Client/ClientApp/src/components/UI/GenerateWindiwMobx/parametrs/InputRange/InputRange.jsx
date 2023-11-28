@@ -8,6 +8,10 @@ const InputRange = ({ getValue, description, defaultV, max, min, step, name, key
 		setValue(res)
 	}
 
+	const handleSelect = (e) => {
+		e.target.select();
+	};
+
 	return (
 		<>
 			{
@@ -32,10 +36,11 @@ const InputRange = ({ getValue, description, defaultV, max, min, step, name, key
 							value={value}
 							onChange={(e) => call(+e.target.value)}
 							onBlur={() => getValue(value, keyValue)}
+							onClick={handleSelect}
 							step={step}
 						/>
 						<Tooltip title={description}>
-							<img className={cl.paramImg} src='Question.svg' />
+							<img className={cl.paramImg} src='Question.svg' alt='' />
 						</Tooltip>
 					</div>
 				</article>
