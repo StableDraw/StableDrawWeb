@@ -6,6 +6,7 @@ using MassTransit;
 using Microsoft.AspNetCore.Diagnostics;
 using Newtonsoft.Json;
 using StableDraw.Domain.Extensions;
+using Microsoft.AspNetCore.Rewrite;
 
 #region Builder
 var builder = WebApplication.CreateBuilder(args);
@@ -72,6 +73,10 @@ builder.Services.AddProblemDetails();
 var app = builder.Build();
 //app.UseExceptionHandler();
 // Configure the HTTP request pipeline.
+
+var option = new RewriteOptions().AddRedirectToWwwPermanent();
+
+app.UseRewriter(option);
 
 app.UseExceptionHandler(applicationBuilder =>
 {
