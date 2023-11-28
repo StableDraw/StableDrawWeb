@@ -125,14 +125,16 @@
 						"default": "isnet.pth",
 						"values": [
 							{
-								"value": "Дополнительная модель ISNET",
+								"value": "isnet.pth",
+								"child": true,
 								"description": "",
-								"name": "isnet.pth"
+								"name": "Дополнительная модель ISNET"
 							},
 							{
-								"value": "Главная модель ISNET",
+								"value": "isnet-general-use.pth",
+								"child": true,
 								"description": "",
-								"name": "isnet-general-use.pth"
+								"name": "Главная модель ISNET"
 							}
 						],
 						"description": "Различные модели по-разному справляются с удалением фона на различных изображениях",
@@ -147,12 +149,51 @@
 							{
 								"value": "U2NET",
 								"description": "Старая, стабильная модель",
-								"name": "U2NET"
+								"name": "U2NET",
+								"childs": [
+									{
+										"param_id": "RescaleT",
+										"values_id": []
+									}
+								]
 							},
 							{
 								"value": "DIS",
 								"description": "Новая, более качественная, но нестабильная модель",
-								"name": "DIS"
+								"name": "DIS",
+								"childs": [
+									{
+										"param_id": "ckpt",
+										"values_id": [
+											"isnet.pth",
+											"isnet-general-use.pth"
+										]
+									},
+									{
+										"param_id": "interm_sup",
+										"values_id": []
+									},
+									{
+										"param_id": "model_digit",
+										"values_id": []
+									},
+									{
+										"param_id": "seed",
+										"values_id": []
+									},
+									{
+										"param_id": "cache_size",
+										"values_id": []
+									},
+									{
+										"param_id": "input_size",
+										"values_id": []
+									},
+									{
+										"param_id": "crop_size",
+										"values_id": []
+									}
+								]
 							}
 						],
 						"description": "",
@@ -163,6 +204,7 @@
 				{
 					"RescaleT": {
 						"default": 320,
+						"child": true,
 						"min": 0,
 						"max": 1000000,
 						"step": 1,
@@ -174,6 +216,7 @@
 				{
 					"model_digit": {
 						"default": "True",
+						"child": true,
 						"description": "Если выбран, то результат будет точнее, но обработка дольше",
 						"type": "boolean",
 						"name": "Использовать двойную точность обработки"
@@ -182,6 +225,7 @@
 				{
 					"interm_sup": {
 						"default": "False",
+						"child": true,
 						"description": "Параметр, отвечающий за контроль промежуточных функций",
 						"type": "boolean",
 						"name": "Активировать контроль промежуточных функций"
@@ -190,6 +234,7 @@
 				{
 					"seed": {
 						"default": 0,
+						"child": true,
 						"min": 0,
 						"max": 1000000,
 						"step": 1,
@@ -204,6 +249,7 @@
 							1024,
 							1024
 						],
+						"child": true,
 						"system": true,
 						"description": "Значение можно повысить или понизить в зависимости от разрешения входного изображения",
 						"type": "int[]",
@@ -216,6 +262,7 @@
 							1024,
 							1024
 						],
+						"child": true,
 						"system": true,
 						"description": "Значение можно повысить или понизить в зависимости от разрешения входного изображения",
 						"type": "int[]",
@@ -228,6 +275,7 @@
 							1024,
 							1024
 						],
+						"child": true,
 						"system": true,
 						"description": "Значение можно повысить или понизить в зависимости от разрешения входного изображения",
 						"type": "int[]",
@@ -1345,7 +1393,7 @@
 						"step": 0.1,
 						"description": "Только для значения общей величины стахостичности больше 0",
 						"type": "range",
-						"name": "Добавление случайного шума"
+						"name": ""
 					}
 				},
 				{
@@ -3491,4 +3539,3 @@
 		}
 	}
 }
-    
