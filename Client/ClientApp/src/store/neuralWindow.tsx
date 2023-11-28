@@ -1,4 +1,4 @@
-import { makeAutoObservable, observable, action } from 'mobx'
+import { makeAutoObservable, observable, action, configure } from 'mobx'
 import api from '../api/apiNeurals'
 class neuralWindow {
 	neurals: {} = {}
@@ -6,12 +6,18 @@ class neuralWindow {
 	parametrs: object[] = [];
 	caption: boolean;
 	defaultValue = {};
-	isGenerationEnd: boolean = true;
+	isGenerationEnd: boolean = true;// флаг для отслеживания отправленной на генерацию картинки
+	currentModel: string = ''; // текущая модель/версия для генерации
+	childParams: Array<string> = []; // массив дочерних параметров для текущей модели
+	childValues: Array<string> = []; // массив дочерних значений для селекторов для текущей модели
 
 	constructor() {
 		makeAutoObservable(this, {
 			activeNeuralName: observable,
 			getParams: action,
+		})
+		configure({
+			enforceActions: "never", // отключил предупреждения 
 		})
 	}
 
@@ -19,7 +25,6 @@ class neuralWindow {
 		try {
 			const response = await api.GetNeuralsList()
 			this.neurals = response.data
-			// console.log(JSON.parse(JSON.stringify(this.neurals)))
 		} catch (e) {
 			console.error(e)
 			throw (e)
@@ -76,6 +81,30 @@ class neuralWindow {
 	endGeneration = () => {
 		this.isGenerationEnd = true;
 	}
+
+	setCurrentModel = (currentModel: string) => {
+		this.currentModel = currentModel;
+	}
+
+	setChildParams = (childParams: string) => {
+		this.childParams.push(childParams);
+	}
+
+	clearChildParams = () => {
+		this.childParams = [];
+	}
+
+	setChildValues = (childValues: Array<string>) => {
+		if (childValues.length) {
+			this.childValues.push(...childValues)
+		}
+
+	}
+
+	clearChildValues = () => {
+		this.childValues = [];
+	}
+
 
 }
 export default new neuralWindow()
