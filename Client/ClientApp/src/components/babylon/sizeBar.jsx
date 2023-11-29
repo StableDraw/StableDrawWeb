@@ -8,7 +8,7 @@ export const SizeBar = ({ changeModel, model, isLightTheme }) => {
 	const [isBigButtonClicked, setIsBigButtonClicked] = useState(true);
 
 	const changeButtonColor = () => {
-		if(model.small && model.big)
+		if(model.small)
 		setIsBigButtonClicked(!isBigButtonClicked);
 	}
 
