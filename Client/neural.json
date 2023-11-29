@@ -413,19 +413,19 @@
 								"value": "ddim_sampler",
 								"description": "DDIM для ввода случайного шума",
 								"child": true,
-								"name": "ddim_sampler"
+								"name": "ddim"
 							},
 							{
 								"value": "plms_sampler",
 								"description": "PLMS для ввода случайного шума",
 								"child": true,
-								"name": "plms_sampler"
+								"name": "plms"
 							},
 							{
 								"value": "p_sampler",
 								"description": "Ввод случайного шума",
 								"child": true,
-								"name": "p_sampler"
+								"name": "p"
 							}
 						],
 						"description": "только для модели 'StableDiffusionx4Upscaler'",
