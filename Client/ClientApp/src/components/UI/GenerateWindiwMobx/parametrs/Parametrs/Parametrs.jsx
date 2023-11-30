@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import InputRange from '../InputRange/InputRange'
 import InputText from '../InputText/InputText'
 import MySelect from '../MySelect/MySelect'
@@ -58,8 +58,8 @@ const renderSwitch = (value, id, func) => {
 					defaultV={value[key].default}
 					description={value[key].description}
 					getValue={func}
-					isValidParam = {isValid}
-					 />
+					isValidParam={isValid}
+				/>
 			case 'range':
 				return <InputRange
 					key={id}
@@ -71,8 +71,8 @@ const renderSwitch = (value, id, func) => {
 					max={value[key].max}
 					description={value[key].description}
 					getValue={func}
-					isValidParam = {isValid}
-					 />
+					isValidParam={isValid}
+				/>
 			case 'boolean':
 				return <MyCheckBox
 					key={id}
@@ -81,7 +81,7 @@ const renderSwitch = (value, id, func) => {
 					defaultV={value[key].default === 'True' ? true : false}
 					description={value[key].description}
 					getValue={func}
-					isValidParam = {isValid}
+					isValidParam={isValid}
 				/>
 			default:
 		}
@@ -155,7 +155,7 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 			console.error(e);
 			throw (e);
 		}
-	} 
+	}
 	return (
 		<div>
 			<DownloadImg closeWindow={closeWindow} closeParam={closeParam} setRenderValue={setFile} />
@@ -170,9 +170,11 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 						<p className={cl.saveParamText}>Сохранить параметры</p>
 					</button>
 				</div>
-				<div className={cl.paramsList}>
-					{isCaption ? <Caption setCaption={setCaption} /> : undefined}
-					{paramsToRender.map((param, id) => renderSwitch(param, id, sendValuesForRender, currentModel))}
+				<div className={cl.paramCont}>
+					<div className={cl.paramsList}>
+						{isCaption ? <Caption setCaption={setCaption} /> : undefined}
+						{paramsToRender.map((param, id) => renderSwitch(param, id, sendValuesForRender, currentModel))}
+					</div>
 				</div>
 			</div>
 			<div className={cl.downBtns}>

@@ -82,20 +82,23 @@ class neuralWindow {
 	doDefaultValues = () => {
 		let result = {}
 
+		// && (!(!this.childParams.includes(paramName) && item[paramName].hasOwnProperty("child")))
 		for (let item of this.parametrs) {
-			const key = Object.keys(item)
-
-			if (item[key[0]].default === "True") {
-				result = ({ ...result, [key[0]]: true })
+			const paramName = Object.keys(item)[0]
+			//проверка на наличие поля system (чтобы не отправлять параметры с ним)
+			if ((!item[paramName].hasOwnProperty("system")) ) {
+				if (item[paramName].default === "True") {
+					result = ({ ...result, [paramName]: true })
+				}
+				else if (item[paramName].default === "False") {
+					result = ({ ...result, [paramName]: false })
+				}
+				else {
+					result = ({ ...result, [paramName]: item[paramName].default })
+				}
 			}
-			else if (item[key[0]].default === "False") {
-				result = ({ ...result, [key[0]]: false })
-			}
-			else {
-				result = ({ ...result, [key[0]]: item[key[0]].default })
-			}
+			this.defaultValue = result
 		}
-		this.defaultValue = result
 	}
 
 	startGeneration = () => {

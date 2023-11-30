@@ -119,12 +119,19 @@
 	font-size: 11px;
 	line-height: normal;
 }
-
-.paramsList {
+.paramCont{
+	padding: 10px;
 	width: 550px;
 	height: 250px;
+	overflow-y: hidden;
+	overflow-x: hidden;
+}
+
+.paramsList {
+	width: 540px;
+	height: 250px;
 	overflow-y: scroll;
-	scroll-behavior: auto;
+	scroll-behavior: smooth;
 	overflow-x: hidden;
 }
 
