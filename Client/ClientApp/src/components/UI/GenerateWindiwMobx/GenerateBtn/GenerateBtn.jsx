@@ -3,7 +3,8 @@ import cl from './GenerateBtn.module.css'
 import LeftPanel from '../LeftPanel/LeftPanel'
 import RightPanel from '../RightPanel/RightPanel'
 import { Modal } from '@mui/material';
-import testMob from '../../../../store/neuralWindow.tsx'
+import testMob from '../../../../store/neuralWindow.jsx'
+
 const GenerateBtn = () => {
 	const [modal, setModal] = useState(false)
 	const [openParam, setOpenParam] = useState(false)

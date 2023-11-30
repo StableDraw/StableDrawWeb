@@ -1,7 +1,7 @@
 import React from 'react'
 import cl from './NeuralCard.module.css'
 import { Tooltip } from '@mui/material'
-import testMob from '../../../../store/neuralWindow.tsx'
+import testMob from '../../../../store/neuralWindow.jsx'
 import { observer } from 'mobx-react-lite'
 
 const NeuralCard = observer(({serverName, clientName, description, active,}) => {
@@ -9,6 +9,7 @@ const NeuralCard = observer(({serverName, clientName, description, active,}) => 
     active(true)
     testMob.getParams(serverName)
   }
+
   const image = `${serverName}.png`
   return (
     <Tooltip title={description} placement='right'>

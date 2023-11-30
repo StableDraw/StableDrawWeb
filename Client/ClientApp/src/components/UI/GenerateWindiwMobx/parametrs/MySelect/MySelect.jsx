@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import cl from './MySelect.module.css'
 import Tooltip from '@mui/material/Tooltip';
-import testMob from '../../../../../store/neuralWindow.tsx'
+import testMob from '../../../../../store/neuralWindow.jsx'
 
 const MySelect = ({ getValue, name, description, options, keyValue, defaultV, setChild }) => {
-	const [value, setValue] = useState(defaultV)
+	const [value, setValue] = useState(defaultV);
 
-	useEffect(() => { setCurrentModel(value) }, []); // обновляем модель во время маунта компонента
+	useEffect(() => {setChild(testMob.currentModel) }, [testMob.currentModel]); // заполняем массивы параметров, при смене нейронки
 
 	//устанавливаем текущую модель генерации для дальнейшего вывода специальных параметров
 	const setCurrentModel = (value) => {
+		// console.log("пришедшее значение: ", value);
+		// console.log("дефолтное значение: ", defaultV);
+		// console.log('проверка наличия childs',options.some(value => value.hasOwnProperty("childs")))
+		// console.log('проверка модели', (keyValue[0] === "model" || keyValue[0] === "version"))
 		if ((keyValue[0] === "model" || keyValue[0] === "version") && options.some(value => value.hasOwnProperty("childs"))) {
 			testMob.setCurrentModel(value);
 			setChild(value); //Заполняет массив из дочерних параметров

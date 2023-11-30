@@ -6,17 +6,18 @@ import ResultWindowState from './ResultWindowState.ts'
 import BabylonModule from '../BabylonModule/BabylonBtn'
 const ResultWindow = observer(() => {
 	const img = `data:image/png;base64,${ResultWindowState.getImage()}`
+
 	return (
 		<Modal open={ResultWindowState.isOpen} className={cl.modalWindow} sx={{ border: '2px solid #000' }}>
 			<div className={cl.modal}>
 				<header className={cl.header}>
 					<button className={cl.closeBtn} onClick={() => ResultWindowState.setIsOpen(false)}>
-						<img src='Close.svg' />
+						<img className = {cl.closeImg} src='Close.svg' alt=''/>
 					</button>
 				</header>
 				<main className={cl.main}>
 					<section className={cl.imgResultDiv}>
-						<img className={cl.imgResult} src={img} />
+						<img className={cl.imgResult} src={img} alt=''/>
 					</section>
 					<section className={cl.navigate}>
 						<BabylonModule img={img} />
@@ -24,7 +25,9 @@ const ResultWindow = observer(() => {
 							className={cl.goToCanvas}
 							onClick={() => ResultWindowState.setIsOpen(false)}
 						>
-							Назад к редактору
+							<span className={cl.txt}>
+								Назад к редактору
+							</span>
 						</button>
 
 						<a className={cl.downloadImg}
@@ -34,7 +37,7 @@ const ResultWindow = observer(() => {
 							rel="noreferrer"
 							style={{ textDecoration: 'none' }}
 						>
-							<p className={cl.downloadImgText}>Скачать</p>
+							<p className={`${cl.downloadImgText} ${cl.txt}`}>Скачать</p>
 						</a>
 					</section>
 				</main>

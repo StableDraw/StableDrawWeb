@@ -2,7 +2,7 @@ import cl from './LeftPanel.module.css'
 import NeuralCard from '../NeuralCard/NeuralCard'
 import { useState, useEffect } from 'react'
 import { observer } from 'mobx-react-lite'
-import testMob from '../../../../store/neuralWindow.tsx'
+import testMob from '../../../../store/neuralWindow.jsx'
 
 const filterNeurals = (searchText, listOfNeurals) => {
 	if (!searchText) {

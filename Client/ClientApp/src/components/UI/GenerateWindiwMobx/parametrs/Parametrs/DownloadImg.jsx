@@ -52,26 +52,27 @@ const DownloadImg = observer(({ closeWindow, closeParam, setRenderValue }) => {
 
 	return (
 		<div className={cl.image}>
+			{!file && !img &&<span className={`${cl.txt} ${cl.loadTxt}`}>Загрузить изображение</span>}
 			<img className={cl.img} src={file ? file : (img ? `${img}` : '/neuralWindow/startImg.png')} alt='' />
 			<div className={cl.download}>
 				<Tooltip title='Дорисовать' placement='top'>
 					<button className={cl.imgBtn} onClick={() => closeModal()}>
-						<img src='goToCanvas.png' alt='' />
+						<img src='/neuralWindow/photoEdit.svg' alt='' />
 					</button>
 				</Tooltip>
 				<Tooltip title='Загрузить с ПК' placement='top'>
 					<label className={cl.imgBtn}>
-						<img src='addImage.png' alt='' />
-						<input style={{ display: 'none', background:'none' }} type='file' multiple={true} onChange={handleFileInputChange} />
+						<img src='/neuralWindow/addImg.svg' alt='' />
+						<input style={{ display: 'none', background: 'none' }} type='file' multiple={true} onChange={handleFileInputChange} />
 					</label>
 				</Tooltip>
-				<Tooltip title='Убрать' placement='top'>
-					<button className={cl.imgBtn} onClick={() => setFile()}>
-						<img src='deleteImg.png' alt='' />
-					</button>
-				</Tooltip>
-
 			</div>
+
+			<Tooltip title='Убрать' placement='top'>
+				<button className={`${cl.imgBtn} ${cl.deleteBtn}`} onClick={() => setFile('')}>
+					<img src='/neuralWindow/deleteImg.svg' alt='' />
+				</button>
+			</Tooltip>
 		</div>
 	)
 })

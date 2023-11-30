@@ -5,14 +5,14 @@ import MySelect from '../MySelect/MySelect'
 import MyCheckBox from '../MyCheckBox/MyCheckBox'
 import cl from './Parametrs.module.css'
 import api from '../../../../../api/apiNeurals'
-import testMob from '../../../../../store/neuralWindow.tsx'
+import testMob from '../../../../../store/neuralWindow.jsx'
 import ResultWindowState from '../../../ResultWindow/ResultWindowState.ts'
 import { observer } from 'mobx-react-lite'
 import DownloadImg from './DownloadImg'
 import Caption from '../Caption/Caption.tsx'
 
 const renderSwitch = (value, id, func) => {
-	const key = Object.keys(value);
+	const key = Object.keys(value); //название параметра(системное)
 
 	//задаёт массивы дочерних параметров и значений селекторов в зависимости от текущей модели/версии
 	const setChild = (currentModel) => {
@@ -161,7 +161,6 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 			<DownloadImg closeWindow={closeWindow} closeParam={closeParam} setRenderValue={setFile} />
 			<div className={cl.params}>
 				<div style={{ display: 'flex' }}>
-					{/* инлайн стиль плохо, на скорую руку */}
 					<input
 						type='text'
 						placeholder='Найти параметры...'

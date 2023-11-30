@@ -909,3 +909,11 @@ input[type=range].up_add_window_slider::-ms-fill-lower
     padding: 0 !important;
     max-width: 100% !important;
 }
+
+img {
+	-khtml-user-select: none;
+	-o-user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+}

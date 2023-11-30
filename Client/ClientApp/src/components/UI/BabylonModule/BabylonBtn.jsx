@@ -46,8 +46,8 @@ const BabylonModule = ({img}) => {
     }
 
     return (
-            <Link className={cl.babylonCont} to='/babylon' onClick={()=>loadImgToBabylon(img,'3D_Object')}>
-                <span>Открыть 3D модуль</span>
+            <Link className={cl.babylonCont} to='/3d' onClick={()=>loadImgToBabylon(img,'3D_Object')}>
+                <span className={cl.txt}>Открыть 3D модуль</span>
             </Link>
     );
 };
