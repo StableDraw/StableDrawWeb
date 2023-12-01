@@ -167,7 +167,7 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 						className={cl.findParam}
 					/>
 					<button className={cl.saveParam}>
-						<p className={cl.saveParamText}>Сохранить параметры</p>
+						<span className={`${cl.txt} ${cl.txt__saveParam}`}>Сохранить параметры</span>
 					</button>
 				</div>
 				<div className={cl.paramCont}>

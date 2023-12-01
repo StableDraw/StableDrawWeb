@@ -11,6 +11,7 @@
 	border: 1px solid #ACACAC;
 	background: #FFF;
 	gap: 5px;
+	border-radius: 10px;
 }
 
 .download {
@@ -25,6 +26,7 @@
 	align-items: center;
 	opacity: 0%;
 	transition: 250ms ease-in-out;
+	border-radius: 10px;
 }
 
 .img {
@@ -99,19 +101,42 @@
 }
 
 .saveParam {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	width: 150px;
 	height: 30px;
 	border: 2px solid #06F;
 	border-radius: 8px;
-	color: #06F;
 	background: white;
+}
+
+.txt {
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
+}
+
+.txt__saveParam{
+	font-size: 11px;
+	font-weight: 600;
+	color: #06F;
+	transition: 100ms ease-in-out;
 }
 
 .saveParam:hover {
 	color: white;
 	background-color: #06F;
 	transition: background-color 0.1s linear;
+}
 
+.saveParam:hover .txt__saveParam{
+	font-weight: 600;
+	font-size: 11px;
+	color: #FFF;
 }
 
 .saveParamText {
@@ -179,12 +204,12 @@
 	border: none;
 	color: white;
 	border-radius: 10px;
-	background: linear-gradient(90deg, #4101BF 0%, #C40386 100%);
+	background: var(--AI, linear-gradient(90deg, #3E01C0 0%, #0F94DF 100%));
 }
 
 .downBtns__generate:hover {
 	border-radius: 10px;
-	background: linear-gradient(90deg, #8201BF 0%, #C40386 53.65%);
+	background: #3D03C0;
 }
 
 .loadingMode {
@@ -220,17 +245,11 @@
 	height: 30px;
 }
 
-.txt {
-	color: #FFF;
-	font-family: Montserrat;
-	font-size: 16px;
-	font-style: normal;
-	font-weight: 600;
-	line-height: normal;
-}
+
 
 .loadTxt{
 	color: var(--dark-gray, #656565);
 	font-size: 12px;
 	font-weight: 500;
 }
+
