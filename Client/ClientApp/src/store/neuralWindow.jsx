@@ -81,12 +81,30 @@ class neuralWindow {
 
 	doDefaultValues = () => {
 		let result = {}
+		this.defaultValue = {};
 
-		// && (!(!this.childParams.includes(paramName) && item[paramName].hasOwnProperty("child")))
+		// проверяет, нужно ли отправлять дефолтное значение селектора для текущей модели
+		const isValidSelector = (param) => {
+			// проверяет имеет ли дефолтное значение селектора свойство child
+			const isDefValueHasChild = (values) => {
+				let isHasChild = false;
+				values.forEach((value) => {
+					if (Boolean(value.child) && param.default === value.value)
+						isHasChild = true;
+				})
+				return isHasChild
+			}
+
+			if (param?.type === "select" && param !== "model" && param !== "version")
+				return !(isDefValueHasChild(param.values) && !this.childValues.includes(param.default));
+			else
+				return true;
+		}
+
 		for (let item of this.parametrs) {
 			const paramName = Object.keys(item)[0]
-			//проверка на наличие поля system (чтобы не отправлять параметры с ним)
-			if ((!item[paramName].hasOwnProperty("system")) ) {
+			//проверка на наличие поля system (чтобы не отправлять параметры с ним), а также проверка валидности параметров для отправки на сервер(селекторы проверяются ниже)
+			if ((!item[paramName].hasOwnProperty("system") && !(!this.childParams.includes(paramName) && ((item[paramName].hasOwnProperty("child")))))) {
 				if (item[paramName].default === "True") {
 					result = ({ ...result, [paramName]: true })
 				}
@@ -94,10 +112,12 @@ class neuralWindow {
 					result = ({ ...result, [paramName]: false })
 				}
 				else {
-					result = ({ ...result, [paramName]: item[paramName].default })
+					if (isValidSelector(item[paramName]))
+						result = ({ ...result, [paramName]: item[paramName].default })
 				}
 			}
 			this.defaultValue = result
+			// console.log("на отправку: ", this.defaultValue)
 		}
 	}
 

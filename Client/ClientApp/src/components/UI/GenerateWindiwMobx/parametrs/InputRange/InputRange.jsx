@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import cl from './InputRange.module.css'
 import Tooltip from '@mui/material/Tooltip';
+import testMob from '../../../../../store/neuralWindow.jsx'
 
 const InputRange = ({ getValue, description, defaultV, max, min, step, name, keyValue, isValidParam }) => {
 	const [value, setValue] = useState(defaultV);
 
+	useEffect(() => {setValue(defaultV)}, [testMob.currentModel])
 	const call = (res) => {
 		setValue(res);
 	}

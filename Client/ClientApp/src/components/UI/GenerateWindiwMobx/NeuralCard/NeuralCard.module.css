@@ -5,10 +5,10 @@
 	padding: 25px 0 25px 15px;
 	margin-left: auto;
 	margin-right: auto;
-	border-bottom: 1px #656565 solid;
+	border-bottom: 1px #ACACAC solid;
 	cursor: pointer;
-	align-items: center;
-	text-align: center;
+	align-items: flex-start;
+	text-align:left;
 
 
 }
@@ -21,11 +21,10 @@
 	background-color: #ACACAC;
 	margin-left: auto;
 	margin-right: auto;
-	border-bottom: 1px #656565 solid;
+	border-bottom: 1px #ACACAC solid;
 	cursor: pointer;
-	align-items: center;
-	text-align: center;
-
+	align-items: flex-start;
+	text-align:left;
 }
 
 .item:hover {
@@ -42,5 +41,10 @@
 }
 
 .itemText {
-	/* width: 113px; */
+	color: #656565;
+	font-family: Montserrat;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
 }

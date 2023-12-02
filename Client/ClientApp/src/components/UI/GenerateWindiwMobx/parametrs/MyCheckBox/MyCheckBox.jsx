@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import cl from './MyCheckBox.module.css'
 import Tooltip from '@mui/material/Tooltip';
+import testMob from '../../../../../store/neuralWindow.jsx'
 
 
 const MyCheckBox = ({ getValue, name, defaultV, description, keyValue, isValidParam}) => {
 
 	const [value, setValue] = useState(defaultV)
+
+	useEffect(() => {setValue(defaultV)}, [testMob.currentModel])
 
 	return (
 		<>

@@ -55,7 +55,7 @@ const DownloadImg = observer(({ closeWindow, closeParam, setRenderValue }) => {
 			{!file && !img &&<span className={`${cl.txt} ${cl.loadTxt}`}>Загрузить изображение</span>}
 			<img className={cl.img} src={file ? file : (img ? `${img}` : '/neuralWindow/startImg.png')} alt='' />
 			<div className={cl.download}>
-				<Tooltip title='Дорисовать' placement='top'>
+				<Tooltip title='Назад к редактору' placement='top'>
 					<button className={cl.imgBtn} onClick={() => closeModal()}>
 						<img src='/neuralWindow/photoEdit.svg' alt='' />
 					</button>
@@ -68,7 +68,7 @@ const DownloadImg = observer(({ closeWindow, closeParam, setRenderValue }) => {
 				</Tooltip>
 			</div>
 
-			<Tooltip title='Убрать' placement='top'>
+			<Tooltip title='Удалить' placement='top'>
 				<button className={`${cl.imgBtn} ${cl.deleteBtn}`} onClick={() => setFile('')}>
 					<img src='/neuralWindow/deleteImg.svg' alt='' />
 				</button>

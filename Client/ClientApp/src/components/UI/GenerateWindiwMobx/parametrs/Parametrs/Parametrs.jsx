@@ -131,6 +131,7 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 
 	const sendValuesForRender = (value, str) => {
 		renderValue = ({ ...renderValue, [str]: value })
+		// console.log("awdawdawd", renderValue)
 	}
 
 	const goOnServer = async () => {

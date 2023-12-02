@@ -1,42 +1,62 @@
 .param {
-    margin-top: 10px;
-    max-width: 520px;
-    border-top: 1px solid #404249;
+	margin-top: 10px;
+	max-width: 520px;
+	border-top: 1px solid #404249;
 }
-.container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 
-    margin: 10px 10px 10px 0;
-    padding: 5px 0;
+.container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	margin: 10px 10px 10px 0;
+	padding: 5px 0;
 }
 
 .paramText {
-    max-width: 290px;
-    padding: 0 0px 0px 30px;
+	max-width: 290px;
+	padding: 0 0px 0px 30px;
+	color: #656565;
+	font-family: Montserrat;
+	font-size: 15px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
 }
-.block2{
-    justify-content: space-between;
+
+.block2 {
+	justify-content: space-between;
 }
 
 .paramImg {
-    width: 20px;
-    height: 20px;
-    margin-left: 10px;
+	width: 20px;
+	height: 20px;
+	margin-left: 10px;
 }
+
 .select {
-    max-width: 235px;
-    height: 25px;
-    border-radius: 5px;
-    background: #D9DBDC;
-    outline: none;
+	max-width: 235px;
+	height: 25px;
+	border-radius: 5px;
+	background: #D9DBDC;
+	outline: none;
+	color: #656565;
+	font-family: Montserrat;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+	padding-left: 15px;
+	cursor: pointer;
 }
+
 .option {
-    color: #656565;
-    font-family: Montserrat;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
+	color: #656565;
+	font-family: Montserrat;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+	cursor: pointer;
+	border-radius: 5px;
 }

@@ -83,7 +83,10 @@
 .findParam {
 	width: 390px;
 	height: 30px;
-
+	font-family: Montserrat;
+	color: #656565;
+	font-weight: 500;
+	font-size: 13px;
 	border-radius: 6px;
 	border: 1px solid #656565;
 	-moz-border-radius: 10px;
@@ -177,6 +180,10 @@
 	line-height: normal;
 }
 
+.cancel:active{
+	opacity: 50%;
+}
+
 .cancel:hover {
 	background: #06F;
 	transition: background-color 0.1s linear;
@@ -208,9 +215,13 @@
 }
 
 .downBtns__generate:hover {
-	border-radius: 10px;
 	background: #3D03C0;
 }
+
+.downBtns__generate:active{
+	background: #7850D1;
+}
+
 
 .loadingMode {
 	width: 220px;

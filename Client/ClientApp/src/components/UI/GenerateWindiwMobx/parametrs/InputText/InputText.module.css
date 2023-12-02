@@ -1,32 +1,48 @@
 .param {
-    margin-top: 10px;
-    width: 520px;
-    /* height: 60px; */
-    border-top: 1px solid #404249;
+	margin-top: 10px;
+	width: 520px;
+	/* height: 60px; */
+	border-top: 1px solid #404249;
 }
-.container{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+
+.container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 
 }
+
 .text {
-    display: inline-block;
-    width: 200px;
-    padding: 10px 0px 10px 30px;
-    margin-right: 35px;
+	display: inline-block;
+	width: 200px;
+	padding: 10px 0px 10px 30px;
+	margin-right: 35px;
+	color: #656565;
+	font-family: Montserrat;
+	font-size: 15px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
 }
+
 .input {
-    width: 250px;
-    height: 30px;
-    border: none;
-    border-radius: 5px;
-    background: #D9DBDC;
-    padding: 5px 0 5px 20px;
-    outline: none;
+	color: #656565;
+	font-family: Montserrat;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+	width: 250px;
+	height: 30px;
+	border: none;
+	border-radius: 5px;
+	background: #D9DBDC;
+	padding: 5px 0 5px 20px;
+	outline: none;
 }
+
 .img {
-    width: 20px;
-    height: 20px;
-    margin-left: 10px;
+	width: 20px;
+	height: 20px;
+	margin-left: 10px;
 }

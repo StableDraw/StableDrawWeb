@@ -6,14 +6,16 @@ import testMob from '../../../../../store/neuralWindow.jsx'
 const MySelect = ({ getValue, name, description, options, keyValue, defaultV, setChild }) => {
 	const [value, setValue] = useState(defaultV);
 
-	useEffect(() => {setChild(testMob.currentModel) }, [testMob.currentModel]); // заполняем массивы параметров, при смене нейронки
+	useEffect(() => {
+		// if (!((keyValue[0] === "model" || keyValue[0] === "version") && options.some(value => value.hasOwnProperty("childs"))))
+		// 	setValue(defaultV);
+
+		setChild(testMob.currentModel); // заполняем массивы параметров, при смене модели генерации
+		testMob.doDefaultValues(); //заполняем объект из параметров для отправки на сервер при смене модели генерации
+	}, [testMob.currentModel]);
 
 	//устанавливаем текущую модель генерации для дальнейшего вывода специальных параметров
 	const setCurrentModel = (value) => {
-		// console.log("пришедшее значение: ", value);
-		// console.log("дефолтное значение: ", defaultV);
-		// console.log('проверка наличия childs',options.some(value => value.hasOwnProperty("childs")))
-		// console.log('проверка модели', (keyValue[0] === "model" || keyValue[0] === "version"))
 		if ((keyValue[0] === "model" || keyValue[0] === "version") && options.some(value => value.hasOwnProperty("childs"))) {
 			testMob.setCurrentModel(value);
 			setChild(value); //Заполняет массив из дочерних параметров
