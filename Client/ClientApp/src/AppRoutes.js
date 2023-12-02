@@ -4,9 +4,10 @@ import  Drawing  from './components/Drawing'
 import { MainBabylon } from "./components/babylon/mainBabylon";
 import {Pay} from './components/UI/PayNew/PayNew'
 import { StartPage } from './components/UI/startPage/startPage';
-import DrawingMobx from './components/DrawingMobx'
-import AbtoutUs1 from './components//UI/AboutUs1/AboutUs1'
-import Regisration from './components/UI/Registration/Registration.tsx'
+import DrawingMobx from './components/DrawingMobx';
+import AbtoutUs1 from './components//UI/AboutUs1/AboutUs1';
+import Regisration from './components/UI/Registration/Registration.tsx';
+import Authentication from './components/UI/Auth/Auth.tsx';
 import ResultWindow from './components/UI/ResultWindow/ResultWindow';
 import GenerateWindow from '../src/components/UI/GenerateWindiwMobx/GenerateBtn/GenerateBtn.jsx'
 const AppRoutes = [
@@ -16,7 +17,7 @@ const AppRoutes = [
     },
     {
         path:'/drawing-to-img',
-        requireAuth:true,
+        requireAuth:false,
         element: <DrawingMobx/>
     },
     {
@@ -33,6 +34,11 @@ const AppRoutes = [
         path:'/registration',
         requireAuth:true,
         element: <Regisration/>
+    },
+    {
+        path:'/auth',
+        requireAuth:true,
+        element: <Authentication/>
     },
     {
         path:'/test',

@@ -27,13 +27,13 @@
 
 .main {
 	background: #000;
-	width: 100%;
+	width: 80%;
+	margin: auto 10%;
 	height: 70px;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
-	padding: 0 70px 0 40px;
 }
 
 .menuBtn {
@@ -59,4 +59,9 @@
 	gap: 90px;
 	justify-content: center;
 	align-items: center;
+}
+@media(max-width: 590px){
+	.main {
+		margin: auto 40px;
+	}
 }

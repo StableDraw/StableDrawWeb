@@ -6,7 +6,7 @@ interface IFormInput {
     email:string,
     password:string
 }
-const Registration = () => {
+const Authentication = () => {
     const {
         register,
         handleSubmit,
@@ -37,19 +37,19 @@ const Registration = () => {
                     src="/register/socials.svg" 
                     className={styles.social_icon}
                   />
-                  <span>Регистрация с помощью Google</span>
+                  <span>Авторизация с помощью Google</span>
                 </div>
                 <div className={styles.service_item}>
                   <img 
                     src="/register/socials2.svg"
                     className={styles.social_icon}
                   />
-                  <span>Регистрация с помощью Facebook</span>
+                  <span>Авторизация с помощью Facebook</span>
                 </div>
               </div>
               <div className={styles.separator_line}>
                 <div className={styles.sep_line}></div>
-                <span>Или зарегистрироваться с помощью</span>
+                <span>Или авторизоваться с помощью</span>
                 <div className={styles.sep_line}></div>
               </div>
               <div className={styles.register_form}>
@@ -63,12 +63,6 @@ const Registration = () => {
                   name="password" 
                   placeholder="Пароль"
                 />
-                <div 
-                  className={styles.policy} 
-                  id="policy"
-                >
-                  <span>Продолжая регистрацию, я соглашаюсь с условиями <a href="#">Пользовательского соглашения</a>, включая <a href="#">условия обработки персональных данных</a></span>
-                </div>
                 <button className={styles.submit}>Регистрация</button>
               </div>
               <div className={styles.sign_in}>
@@ -90,4 +84,4 @@ const Registration = () => {
         // </form>
       )
 }
-export default Registration
+export default Authentication
