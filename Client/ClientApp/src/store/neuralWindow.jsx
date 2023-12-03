@@ -6,8 +6,9 @@ class neuralWindow {
 	activeNeuralName = '';
 	parametrs = [];
 	caption;
-	defaultValue = {};
-	isGenerationEnd = true;// флаг для отслеживания отправленной на генерацию картинки
+	neuralWindowImages = []; // массив картинок, которые в данный момент загружены в окно генерации
+	defaultValue = {}; //объект дефолтных значений параметров(костыль Серёги, нужно переписать на useEffect)
+	isGenerationEnd = true; // флаг для отслеживания отправленной на генерацию картинки
 	currentModel = ''; // текущая модель/версия для генерации
 	childParams = []; // массив дочерних параметров для текущей модели
 	childValues = []; // массив дочерних значений для селекторов для текущей модели
@@ -105,7 +106,7 @@ class neuralWindow {
 			const paramName = Object.keys(item)[0]
 			//проверка на наличие поля system (чтобы не отправлять параметры с ним), а также проверка валидности параметров для отправки на сервер(селекторы проверяются ниже)
 			if ((!item[paramName].hasOwnProperty("system") && !(!this.childParams.includes(paramName) && ((item[paramName].hasOwnProperty("child")))))) {
-				if (item[paramName].default === "True") {
+				if (item[paramName].default === "True") { // переписать json и убрать эти костыли нах*й
 					result = ({ ...result, [paramName]: true })
 				}
 				else if (item[paramName].default === "False") {
@@ -128,27 +129,33 @@ class neuralWindow {
 	endGeneration = () => {
 		this.isGenerationEnd = true;
 	}
-
+	//задаёт текущую модель/версию для генерации
 	setCurrentModel = (currentModel) => {
 		this.currentModel = currentModel;
 	}
 
+	// заполняет массив дочерних параметров для текущей модели
 	setChildParams = (childParams) => {
 		this.childParams.push(childParams);
 	}
 
-	clearChildParams = () => {
-		this.childParams = [];
-	}
-
+	//заполняет массив дочерних значений для текущей модели
 	setChildValues = (childValues) => {
 		if (childValues.length)
 			this.childValues.push(...childValues)
+	}
+	clearChildParams = () => {
+		this.childParams = [];
 	}
 
 	clearChildValues = () => {
 		this.childValues = [];
 	}
+
+	setNeuralWindowImages = (images) => {
+		this.neuralWindowImages = images
+	}
+
 }
 
 export default new neuralWindow()

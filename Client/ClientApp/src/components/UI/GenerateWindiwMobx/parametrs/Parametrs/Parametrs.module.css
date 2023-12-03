@@ -13,6 +13,10 @@
 	gap: 5px;
 	border-radius: 10px;
 }
+.image__withImages{
+	position: relative;
+	border: none;
+}
 
 .download {
 	position: absolute;
@@ -27,16 +31,60 @@
 	opacity: 0%;
 	transition: 250ms ease-in-out;
 	border-radius: 10px;
+	z-index: 0;
 }
 
-.img {
+.img_1 {
+	border-radius: 10px;
 	transition: 300ms ease-in-out;
 	opacity: 100%;
-	max-height: 248px;
+	max-height: 245px;
 	max-width: 548px;
 }
 
-.image:hover .img {
+.img_2{
+	max-width: 270px;
+}
+
+.img_3{
+	max-width: 180px;
+}
+
+.img_4{
+	max-width: 135px;
+}
+
+.pictures {
+	display: flex;
+	flex-direction: row;
+	border-radius: 10px;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+}
+
+.picture {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	padding: 3px;
+	border-radius: 10px;
+	border: 1px solid var(--gray, #ABABAB);
+	height: 250px;
+	transition: 200ms ease-in-out;
+}
+
+.picture:hover .deleteBtn{
+	opacity: 100%;
+}
+
+
+.picture:hover{
+	scale: 1.03;
+}
+
+.image:hover .img_1 {
 	opacity: 25%;
 }
 
@@ -44,9 +92,15 @@
 	opacity: 100%;
 	gap: 40px
 }
+
 .image:hover .deleteBtn {
 	opacity: 100%;
 }
+
+.picture:hover .addBtn {
+	opacity: 100%;
+}
+
 
 .imgBtn {
 	border: none;
@@ -55,8 +109,27 @@
 	transition: 200ms ease-in-out;
 }
 
+.addBtn{
+	border: none;
+	background: none;
+	cursor: pointer;
+	opacity: 0%;
+	position: absolute;
+	transition: 250ms ease-in-out;
+	right: 5px;	
+	top: 5px;
+}
+
+.addImg{
+	width: 50px;
+}
+
+.addBtn:hover{
+	scale: 1.2;
+}
+
 .deleteBtn {
-	opacity: 0;
+	opacity: 0%;
 	position: absolute;
 	bottom: 9px;
 	right: 9px;
@@ -123,7 +196,7 @@
 	line-height: normal;
 }
 
-.txt__saveParam{
+.txt__saveParam {
 	font-size: 11px;
 	font-weight: 600;
 	color: #06F;
@@ -136,7 +209,7 @@
 	transition: background-color 0.1s linear;
 }
 
-.saveParam:hover .txt__saveParam{
+.saveParam:hover .txt__saveParam {
 	font-weight: 600;
 	font-size: 11px;
 	color: #FFF;
@@ -147,7 +220,8 @@
 	font-size: 11px;
 	line-height: normal;
 }
-.paramCont{
+
+.paramCont {
 	padding: 10px;
 	width: 550px;
 	height: 250px;
@@ -180,7 +254,7 @@
 	line-height: normal;
 }
 
-.cancel:active{
+.cancel:active {
 	opacity: 50%;
 }
 
@@ -218,7 +292,7 @@
 	background: #3D03C0;
 }
 
-.downBtns__generate:active{
+.downBtns__generate:active {
 	background: #7850D1;
 }
 
@@ -258,9 +332,8 @@
 
 
 
-.loadTxt{
+.loadTxt {
 	color: var(--dark-gray, #656565);
 	font-size: 12px;
 	font-weight: 500;
 }
-

@@ -10,7 +10,6 @@
 	align-items: flex-start;
 	text-align:left;
 
-
 }
 
 .itemActive {
@@ -25,6 +24,7 @@
 	cursor: pointer;
 	align-items: flex-start;
 	text-align:left;
+	border-radius: 5px;
 }
 
 .item:hover {

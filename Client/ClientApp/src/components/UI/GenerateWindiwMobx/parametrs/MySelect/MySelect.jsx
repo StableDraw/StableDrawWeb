@@ -14,6 +14,10 @@ const MySelect = ({ getValue, name, description, options, keyValue, defaultV, se
 		testMob.doDefaultValues(); //заполняем объект из параметров для отправки на сервер при смене модели генерации
 	}, [testMob.currentModel]);
 
+	useEffect(()=>{
+		setValue(defaultV)
+	}, [testMob.activeNeuralName])
+
 	//устанавливаем текущую модель генерации для дальнейшего вывода специальных параметров
 	const setCurrentModel = (value) => {
 		if ((keyValue[0] === "model" || keyValue[0] === "version") && options.some(value => value.hasOwnProperty("childs"))) {

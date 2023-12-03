@@ -3,44 +3,71 @@ import cl from './Parametrs.module.css'
 import { Tooltip } from '@mui/material'
 import canvasState from '../../../../../store/canvasState.tsx'
 import { observer } from 'mobx-react-lite'
+import testMob from '../../../../../store/neuralWindow.jsx'
 
-const getBase64 = file => {
+
+const imagesToBase64 = files => {
+
 	return new Promise(resolve => {
-		let baseURL = "";
-		let reader = new FileReader();
+		let baseURLs = [];
+		let promises = []
+		for (let file of files) {
+			let reader = new FileReader();
 
-		reader.readAsDataURL(file);
-		reader.onload = () => {
-			baseURL = reader.result;
-			resolve(baseURL);
-		};
+			promises.push(
+				new Promise(innerResolve => {
+					reader.readAsDataURL(file);
+					reader.onload = () => {
+						const baseURL = reader.result;
+						baseURLs.push(baseURL);
+						innerResolve(); // Resolve inner promise when the file is read
+					};
+				}));
+		}
+
+		// Wait for all promises to resolve before resolving the main promise
+		Promise.all(promises).then(() => {
+			resolve(baseURLs);
+		});
 	});
 };
 
-const DownloadImg = observer(({ closeWindow, closeParam, setRenderValue }) => {
-	let [file, setFile] = useState()
-
-	//никогда не пытайся приводить значение к строковому типу, которое потенциально
-	//может быть undefined или null, т.к Boolean('undefined') = true
-	// по этой причине у тебя в src 'undefined' передавался
-
-	const img = canvasState.getImgSrc()
+const DownloadImg = observer(({ closeWindow, closeParam, setSendImages, sendImages }) => {
+	const [imgWidthMax, setImgWidthMax] = useState(548);
+	const canvasImg = canvasState.getImgSrc()
+	const images = testMob.neuralWindowImages;
 
 	useEffect(() => {
-		if (img)
-			setRenderValue(`${img}`)
-	}, [img])
+		if (sendImages.length <= 4) {
+			setSendImages(images);
+			if (canvasImg && sendImages.length < 4) {
+				setSendImages([...images, `${canvasImg}`])
+			}
+		}
+	}, [canvasImg])
+
+	useEffect(() => {
+		selectImgMaxWidth();
+		if (sendImages.length < 4){
+			testMob.setNeuralWindowImages([...sendImages]);
+		}
+	}, [sendImages])
 
 	const handleFileInputChange = e => {
-		let file = e.target.files[0];
-		getBase64(file)
-			.then(result => {
-				setFile(`${result}`)
-				setRenderValue(`${result}`)
-			})
-			.catch(err => {
-				console.log(err);
-			});
+		let files = e.target.files;
+
+		if (files.length <= 4 && (sendImages.length + files.length) <= 4) {
+			imagesToBase64(files)
+				.then(result => {
+					setSendImages([...sendImages, ...result])
+				})
+				.catch(err => {
+					console.log("Произошла ошибка при попытке загрузить img")
+					console.log(err);
+				});
+		} else {
+			alert("Максимально возможное количество загруженных картинок - 4")
+		}
 	}
 
 	const closeModal = () => {
@@ -48,31 +75,85 @@ const DownloadImg = observer(({ closeWindow, closeParam, setRenderValue }) => {
 		closeParam(false)
 	}
 
-	console.log();
+	const deletePicture = (index) => {
+		sendImages.splice(index, 1) // удаляет 1 элемент с заданным индексом 
+		setSendImages([...sendImages])
+	}
+
+	const selectImgMaxWidth = () => {
+
+		if (sendImages.length === 1)
+			setImgWidthMax(cl.img_1)
+
+		if (sendImages.length === 2)
+			setImgWidthMax(cl.img_2)
+
+		if (sendImages.length === 3)
+			setImgWidthMax(cl.img_3)
+
+		if (sendImages.length === 4)
+			setImgWidthMax(cl.img_4)
+	}
 
 	return (
-		<div className={cl.image}>
-			{!file && !img &&<span className={`${cl.txt} ${cl.loadTxt}`}>Загрузить изображение</span>}
-			<img className={cl.img} src={file ? file : (img ? `${img}` : '/neuralWindow/startImg.png')} alt='' />
-			<div className={cl.download}>
-				<Tooltip title='Назад к редактору' placement='top'>
-					<button className={cl.imgBtn} onClick={() => closeModal()}>
-						<img src='/neuralWindow/photoEdit.svg' alt='' />
-					</button>
-				</Tooltip>
-				<Tooltip title='Загрузить с ПК' placement='top'>
-					<label className={cl.imgBtn}>
-						<img src='/neuralWindow/addImg.svg' alt='' />
-						<input style={{ display: 'none', background: 'none' }} type='file' multiple={true} onChange={handleFileInputChange} />
-					</label>
-				</Tooltip>
-			</div>
+		<div className={!Boolean(sendImages.length) ? cl.image : cl.image__withImages}>
+			{!Boolean(sendImages.length) && <span className={`${cl.txt} ${cl.loadTxt}`}>Загрузить изображение</span>}
+			<div className={cl.pictures}>
+				{
+					Boolean(sendImages.length) ? sendImages.map((img, i) =>
+						<div className={cl.picture}>
+							<img className={`${cl.img_1} ${imgWidthMax}`} key={i} src={img} alt='' />
 
-			<Tooltip title='Удалить' placement='top'>
-				<button className={`${cl.imgBtn} ${cl.deleteBtn}`} onClick={() => setFile('')}>
-					<img src='/neuralWindow/deleteImg.svg' alt='' />
-				</button>
-			</Tooltip>
+							{sendImages.length < 4 && <Tooltip title='Загрузить с ПК' placement='top'>
+								<label className={`${cl.addBtn}`}>
+									<img className={cl.addImg} src='/neuralWindow/addImg.svg' alt='' />
+									<input
+										style={{ display: 'none', background: 'none' }}
+										type='file'
+										accept="image/png, image/jpeg, image/jpg"
+										multiple={true}
+										onChange={handleFileInputChange} />
+								</label>
+							</Tooltip>}
+
+							<Tooltip title='Удалить' placement='top'>
+								<button className={`${cl.imgBtn} ${cl.deleteBtn}`} onClick={() => { deletePicture(i) }}>
+									<img src='/neuralWindow/deleteImg.svg' alt='' />
+								</button>
+							</Tooltip>
+						</div>
+					) : <img className={cl.img_1} src='/neuralWindow/startImg.png' alt='' />
+				}
+			</div>
+			{
+				!Boolean(sendImages.length) && <>
+					<div className={cl.download}>
+						<Tooltip title='Назад к редактору' placement='top'>
+							<button className={cl.imgBtn} onClick={() => closeModal()}>
+								<img src='/neuralWindow/photoEdit.svg' alt='' />
+							</button>
+						</Tooltip>
+						<Tooltip title='Загрузить с ПК' placement='top'>
+							<label className={`${cl.imgBtn}`}>
+								<img src='/neuralWindow/addImg.svg' alt='' />
+								<input
+									style={{ display: 'none', background: 'none' }}
+									type='file'
+									accept="image/png, image/jpeg, image/jpg"
+									multiple={true}
+									onChange={handleFileInputChange} />
+							</label>
+						</Tooltip>
+					</div>
+					<Tooltip title='Удалить' placement='top'>
+						<button className={`${cl.imgBtn} ${cl.deleteBtn}`} onClick={() => setSendImages([])}>
+							<img src='/neuralWindow/deleteImg.svg' alt='' />
+						</button>
+					</Tooltip>
+				</>
+			}
+
+
 		</div>
 	)
 })
