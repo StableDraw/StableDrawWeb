@@ -97,8 +97,6 @@ class neuralWindow {
 		// проверяет, нужно ли отправлять на сервер дефолтное значение селектора для текущей модели
 		const isValidDefSelectorValue = (param) => {
 			if (param?.type === "select" && param !== "model" && param !== "version") {
-				console.log("массив: ", this.childValues)
-				console.log(`есть ли ${param.default} в массиве:` , this.childValues.includes(param.default))
 				return !(isDefValueHasChild(param) && !this.childValues.includes(param.default) && !this.childParams.includes(param));
 			}
 			else
@@ -110,7 +108,6 @@ class neuralWindow {
 			let newDefault = '';
 			for (const value of param.values) {
 				if (this.childValues.includes(value.value)) {
-					console.log("новое дефолтное значение селектора: ", value.value);
 					newDefault = value.value;
 					return newDefault;
 				}
@@ -143,7 +140,6 @@ class neuralWindow {
 				}
 			}
 			this.defaultValue = result
-			console.log("на отправку: ", this.defaultValue)
 		}
 	}
 

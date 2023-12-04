@@ -87,7 +87,6 @@ const renderSwitch = (value, id, func) => {
 }
 
 function dataURItoBlob(dataURLs) {
-	console.log(dataURLs)
 	let blobs = [];
 
 	if (dataURLs) {
