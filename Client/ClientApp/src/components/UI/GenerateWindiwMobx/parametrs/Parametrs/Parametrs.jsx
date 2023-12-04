@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import InputRange from '../InputRange/InputRange'
 import InputText from '../InputText/InputText'
 import MySelect from '../MySelect/MySelect'
@@ -109,12 +109,17 @@ function dataURItoBlob(dataURLs) {
 
 	const Parametrs = observer(({ closeWindow, closeParam, }) => {
 		const [img, setImg] = useState([]);
+		const [caption, setCaption] = useState('');
+
+
+		useEffect(() => {
+			setCaption('')
+		}, [testMob.activeNeuralName])
 
 		const paramsToRender = testMob.parametrs
-		const isCaption = testMob.caption
+		const isCaption = testMob.isCaption
 		let renderValue = testMob.defaultValue
 		const neuralName = testMob.activeNeuralName
-		let caption = ''
 		const currentModel = testMob.currentModel;
 
 		const closeModal = () => {
@@ -124,15 +129,11 @@ function dataURItoBlob(dataURLs) {
 			testMob.endGeneration();
 		}
 
-		const setCaption = (value) => {
-			caption = value
-		}
-
 		const sendValuesForRender = (value, str) => {
 			renderValue = ({ ...renderValue, [str]: value })
 			// console.log("awdawdawd", renderValue)
 		}
-
+		
 		const goOnServer = async () => {
 			const formData = new FormData();
 			let blobs = dataURItoBlob(img);
@@ -198,7 +199,6 @@ function dataURItoBlob(dataURLs) {
 								</div>
 							</div>
 					}
-
 				</div>
 			</div>
 		)

@@ -5,7 +5,8 @@ class neuralWindow {
 	neurals = {}
 	activeNeuralName = '';
 	parametrs = [];
-	caption;
+	isCaption;
+	caption = '';
 	neuralWindowImages = []; // массив картинок, которые в данный момент загружены в окно генерации
 	defaultValue = {}; //объект дефолтных значений параметров(костыль Серёги, нужно переписать на useEffect)
 	isGenerationEnd = true; // флаг для отслеживания отправленной на генерацию картинки
@@ -60,7 +61,7 @@ class neuralWindow {
 		try {
 			const response = await api.GetNeurals(name)
 			this.setActiveNeural(name)
-			response.data.caption ? this.caption = true : this.caption = false
+			this.isCaption = response.data.caption;
 			const array = []
 
 			for (let item of response.data.params) {
@@ -78,7 +79,12 @@ class neuralWindow {
 
 	setActiveNeural(name) {
 		this.activeNeuralName = name
+		this.caption = '';
 	}
+
+	// setCaption(caption) {
+	// 	this.caption = caption;
+	// }
 
 	doDefaultValues = () => {
 		let result = {}

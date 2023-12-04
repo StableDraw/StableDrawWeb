@@ -6,7 +6,7 @@ import testMob from '../../../../../store/neuralWindow.jsx'
 const InputRange = ({ getValue, description, defaultV, max, min, step, name, keyValue, isValidParam }) => {
 	const [value, setValue] = useState(defaultV);
 
-	useEffect(() => {setValue(defaultV)}, [testMob.currentModel])
+	useEffect(() => {setValue(defaultV)}, [testMob.currentModel, testMob.activeNeuralName])
 	const call = (res) => {
 		setValue(res);
 	}

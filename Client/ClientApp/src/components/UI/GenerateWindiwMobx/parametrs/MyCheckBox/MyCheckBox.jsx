@@ -8,7 +8,7 @@ const MyCheckBox = ({ getValue, name, defaultV, description, keyValue, isValidPa
 
 	const [value, setValue] = useState(defaultV)
 
-	useEffect(() => {setValue(defaultV)}, [testMob.currentModel])
+	useEffect(() => {setValue(defaultV)}, [testMob.currentModel, testMob.activeNeuralName])
 
 	return (
 		<>
