@@ -1,4 +1,4 @@
-import { makeAutoObservable, observable, action, configure } from 'mobx'
+import { makeAutoObservable, observable, action, configure, values } from 'mobx'
 import api from '../api/apiNeurals'
 
 class neuralWindow {
@@ -84,41 +84,66 @@ class neuralWindow {
 		let result = {}
 		this.defaultValue = {};
 
-		// проверяет, нужно ли отправлять дефолтное значение селектора для текущей модели
-		const isValidSelector = (param) => {
-			// проверяет имеет ли дефолтное значение селектора свойство child
-			const isDefValueHasChild = (values) => {
-				let isHasChild = false;
-				values.forEach((value) => {
-					if (Boolean(value.child) && param.default === value.value)
-						isHasChild = true;
-				})
-				return isHasChild
-			}
+		// проверяет имеет ли дефолтное значение селектора свойство child (можно было проверять просто наличие param.default в массиве childValues, перестраховался)
+		const isDefValueHasChild = (param) => {
+			let isHasChild = false;
+			param.values.forEach((value) => {
+				if (Boolean(value.child) && param.default === value.value)
+					isHasChild = true;
+			})
+			return isHasChild
+		}
 
-			if (param?.type === "select" && param !== "model" && param !== "version")
-				return !(isDefValueHasChild(param.values) && !this.childValues.includes(param.default));
+		// проверяет, нужно ли отправлять на сервер дефолтное значение селектора для текущей модели
+		const isValidDefSelectorValue = (param) => {
+			if (param?.type === "select" && param !== "model" && param !== "version") {
+				console.log("массив: ", this.childValues)
+				console.log(`есть ли ${param.default} в массиве:` , this.childValues.includes(param.default))
+				return !(isDefValueHasChild(param) && !this.childValues.includes(param.default) && !this.childParams.includes(param));
+			}
 			else
 				return true;
+		}
+
+		// задаёт новое дефолтное значение селектору, в случае, если для текущей модели его базовое дефолтное значение не используется
+		const setNewDefValue = (param) => {
+			let newDefault = '';
+			for (const value of param.values) {
+				if (this.childValues.includes(value.value)) {
+					console.log("новое дефолтное значение селектора: ", value.value);
+					newDefault = value.value;
+					return newDefault;
+				}
+			}
+
+			return newDefault;
 		}
 
 		for (let item of this.parametrs) {
 			const paramName = Object.keys(item)[0]
 			//проверка на наличие поля system (чтобы не отправлять параметры с ним), а также проверка валидности параметров для отправки на сервер(селекторы проверяются ниже)
 			if ((!item[paramName].hasOwnProperty("system") && !(!this.childParams.includes(paramName) && ((item[paramName].hasOwnProperty("child")))))) {
-				if (item[paramName].default === "True") { // переписать json и убрать эти костыли нах*й
+				if (item[paramName].default === "True") { // переписать json и убрать этот костыль нах*й
 					result = ({ ...result, [paramName]: true })
 				}
-				else if (item[paramName].default === "False") {
+				else if (item[paramName].default === "False") {// переписать json и убрать этот костыль нах*й
 					result = ({ ...result, [paramName]: false })
 				}
 				else {
-					if (isValidSelector(item[paramName]))
+					//если def селектор не валиден => проверяем остальные значения селектора и задаём новое def знач
+					if (isValidDefSelectorValue(item[paramName]))
 						result = ({ ...result, [paramName]: item[paramName].default })
+					else {
+						const newDefault = setNewDefValue(item[paramName])
+
+						if (newDefault)
+							result = ({ ...result, [paramName]: newDefault })
+					}
+
 				}
 			}
 			this.defaultValue = result
-			// console.log("на отправку: ", this.defaultValue)
+			console.log("на отправку: ", this.defaultValue)
 		}
 	}
 
@@ -131,6 +156,8 @@ class neuralWindow {
 	}
 	//задаёт текущую модель/версию для генерации
 	setCurrentModel = (currentModel) => {
+		this.clearChildParams()
+		this.clearChildValues()
 		this.currentModel = currentModel;
 	}
 

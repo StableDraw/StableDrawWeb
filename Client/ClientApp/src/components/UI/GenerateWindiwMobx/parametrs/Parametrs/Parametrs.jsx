@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import InputRange from '../InputRange/InputRange'
 import InputText from '../InputText/InputText'
 import MySelect from '../MySelect/MySelect'
@@ -19,8 +19,6 @@ const renderSwitch = (value, id, func) => {
 		if ((key[0] === "model" || key[0] === "version")) {
 			value[key].values.map((model) => {
 				if (model.value === currentModel && Object.hasOwn(model, "childs")) {
-					testMob.clearChildParams();
-					testMob.clearChildValues();
 					model.childs.map((child) => {
 						testMob.setChildParams(child.param_id)
 						testMob.setChildValues(child.values_id)

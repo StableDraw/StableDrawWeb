@@ -126,7 +126,7 @@ const DownloadImg = observer(({ closeWindow, closeParam, setSendImages, sendImag
 				}
 			</div>
 			{
-				!Boolean(sendImages.length) && <>
+				!Boolean(sendImages.length) &&
 					<div className={cl.download}>
 						<Tooltip title='Назад к редактору' placement='top'>
 							<button className={cl.imgBtn} onClick={() => closeModal()}>
@@ -145,12 +145,6 @@ const DownloadImg = observer(({ closeWindow, closeParam, setSendImages, sendImag
 							</label>
 						</Tooltip>
 					</div>
-					<Tooltip title='Удалить' placement='top'>
-						<button className={`${cl.imgBtn} ${cl.deleteBtn}`} onClick={() => setSendImages([])}>
-							<img src='/neuralWindow/deleteImg.svg' alt='' />
-						</button>
-					</Tooltip>
-				</>
 			}
 
 
