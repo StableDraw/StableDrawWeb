@@ -43,7 +43,7 @@ const ResultWindow = observer(() => {
 				<main className={cl.main}>
 					<section className={cl.imgResult}>
 						{
-							images.map((img, i) =>
+							Boolean(images.length && images[0]) && images?.map((img, i) =>
 								<div className={cl.picture}>
 									<img key={i} className={`${cl.img_main} ${width}`} src={img} alt='' onError={() => console.error(`Error loading image: ${img}`)} />
 									<Tooltip title='Скачать' placement='top'>
