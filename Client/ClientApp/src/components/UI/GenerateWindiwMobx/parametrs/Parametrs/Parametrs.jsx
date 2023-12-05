@@ -131,15 +131,19 @@ function dataURItoBlob(dataURI) {
 // 	}}
 
 function setSendImgArray(ImgFilesBase64) {
-	if (ImgFilesBase64.length === 1) {
-		const blob = dataURItoBlob(ImgFilesBase64[0]);
-		return blob
-	}
+	// if (ImgFilesBase64.length === 1) {
+	// 	const blob = dataURItoBlob(ImgFilesBase64[0]);
+	// 	return blob
+	// }
 
 	let binaryToSend = []
 	ImgFilesBase64.forEach((file) => {
 		binaryToSend.push(dataURItoBlob(file))
 	})
+
+	console.log(binaryToSend)
+	console.log(typeof(binaryToSend[0]))
+
 	return binaryToSend
 }
 
@@ -177,7 +181,10 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 		formData.append('Parameters', JSON.stringify(renderValue));
 		formData.append('Caption', caption);
 		formData.append('Prompts', ["", ""])//надо узнать че это такое
-		formData.append('ImagesInput', binary);
+		console.log(binary)
+		binary.forEach((file, index) => {
+				formData.append(`ImagesInput_${index}`, file)
+		})
 		try {
 			const response = await api.RunNeural(formData);
 			const images = response.data.images;
