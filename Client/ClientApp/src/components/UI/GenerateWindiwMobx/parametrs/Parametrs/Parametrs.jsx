@@ -183,7 +183,7 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 		formData.append('Prompts', ["", ""])//надо узнать че это такое
 		console.log(binary)
 		binary.forEach((file, index) => {
-				formData.append(`ImagesInput_${index}`, file)
+				formData.append(`ImagesInput`, file)
 		})
 		try {
 			const response = await api.RunNeural(formData);
