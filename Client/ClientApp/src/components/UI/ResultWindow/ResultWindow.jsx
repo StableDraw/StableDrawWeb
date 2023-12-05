@@ -9,14 +9,22 @@ import Tooltip from '@mui/material/Tooltip';
 const ResultWindow = observer(() => {
 	// const img = `data:image/png;base64,${ResultWindowState.getImages()}`
 	const [width, setWidth] = useState(cl.img_1)
+	const [images, setImages] = useState([])
 
 	useEffect(() => {
 		selectImgSize()
 	}, [])
 
-	const images = ResultWindowState.getImages().map((img) => {
-		return `data:image/png;base64,${img}`
-	})
+	useEffect(() => {
+		if (ResultWindowState.images) {
+			const images = ResultWindowState.getImages()?.map((img) => {
+				return `data:image/png;base64,${img}`
+			})
+
+			setImages(images)
+		}
+	}, [ResultWindowState.images])
+
 
 	// const images = ["/startPage/backGround.png", "/NGTU.png"]
 
@@ -43,7 +51,7 @@ const ResultWindow = observer(() => {
 				<main className={cl.main}>
 					<section className={cl.imgResult}>
 						{
-							Boolean(images.length && images[0]) && images?.map((img, i) =>
+							Boolean(images && images?.length && images[0]) && images?.map((img, i) =>
 								<div className={cl.picture}>
 									<img key={i} className={`${cl.img_main} ${width}`} src={img} alt='' onError={() => console.error(`Error loading image: ${img}`)} />
 									<Tooltip title='Скачать' placement='top'>

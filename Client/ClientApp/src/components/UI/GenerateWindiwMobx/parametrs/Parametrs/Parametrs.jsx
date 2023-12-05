@@ -91,18 +91,21 @@ function dataURItoBlob(dataURLs) {
 
 	if (dataURLs) {
 		dataURLs.forEach(dataURL => {
-			if (dataURL.split(',')[0].indexOf('base64') >= 0) {
-				const byteString = atob(dataURL.split(',')[1]);
+			let byteString = ''
+			if (dataURL.split(',')[0].indexOf('base64') >= 0) 
+				byteString = atob(dataURL.split(',')[1]);
+				else
+				byteString = unescape(dataURL.split(',')[1]);
+				
 				const mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0];
 
 				let ia = new Uint8Array(byteString.length);
-
 				for (let i = 0; i < byteString.length; i++) {
 					ia[i] = byteString.charCodeAt(i);
 				}
 
 				blobs.push(new Blob([ia], { type: mimeString }));
-			}
+			
 		})
 		return blobs;
 	}}
