@@ -116,7 +116,7 @@ function dataURItoBlob(dataURI) {
 // 				byteString = atob(dataURL.split(',')[1]);
 // 				else
 // 				byteString = unescape(dataURL.split(',')[1]);
-				
+
 // 				const mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0];
 
 // 				let ia = new Uint8Array(byteString.length);
@@ -125,117 +125,125 @@ function dataURItoBlob(dataURI) {
 // 				}
 
 // 				blobs.push(new Blob([ia], { type: mimeString }));
-			
+
 // 		})
 // 		return blobs;
 // 	}}
 
- function setSendImgArray(ImgFilesBase64) {
+function setSendImgArray(ImgFilesBase64) {
+	if (ImgFilesBase64.length === 1) {
+		const blob = dataURItoBlob(ImgFilesBase64[0]);
+		return blob
+	}
+
 	let binaryToSend = []
 	ImgFilesBase64.forEach((file) => {
 		binaryToSend.push(dataURItoBlob(file))
 	})
 	return binaryToSend
- }
+}
 
-	const Parametrs = observer(({ closeWindow, closeParam, }) => {
-		const [img, setImg] = useState([]);
-		const [caption, setCaption] = useState('');
+const Parametrs = observer(({ closeWindow, closeParam, }) => {
+	const [img, setImg] = useState([]);
+	const [caption, setCaption] = useState('');
 
 
-		useEffect(() => {
-			setCaption('')
-		}, [testMob.activeNeuralName])
+	useEffect(() => {
+		setCaption('')
+	}, [testMob.activeNeuralName])
 
-		const paramsToRender = testMob.parametrs
-		const isCaption = testMob.isCaption
-		let renderValue = testMob.defaultValue
-		const neuralName = testMob.activeNeuralName
-		const currentModel = testMob.currentModel;
+	const paramsToRender = testMob.parametrs
+	const isCaption = testMob.isCaption
+	let renderValue = testMob.defaultValue
+	const neuralName = testMob.activeNeuralName
+	const currentModel = testMob.currentModel;
 
-		const closeModal = () => {
-			closeWindow(false)
-			closeParam(false)
-			testMob.setActiveNeural('')
-			testMob.endGeneration();
-		}
+	const closeModal = () => {
+		closeWindow(false)
+		closeParam(false)
+		testMob.setActiveNeural('')
+		testMob.endGeneration();
+	}
 
-		const sendValuesForRender = (value, str) => {
-			renderValue = ({ ...renderValue, [str]: value })
-			// console.log("awdawdawd", renderValue)
-		}
-		
-		const goOnServer = async () => {
-			const formData = new FormData();
-			let binary = setSendImgArray(img)
-			formData.append('NeuralType', neuralName);
-			formData.append('Parameters', JSON.stringify(renderValue));
-			formData.append('Caption', caption);
-			formData.append('Prompts', ["", ""])//надо узнать че это такое
-			formData.append('ImagesInput', binary);
-			try {
-				const response = await api.RunNeural(formData);
-				const images = response.data.images;
-				testMob.setActiveNeural('');
-				closeModal();
+	const sendValuesForRender = (value, str) => {
+		renderValue = ({ ...renderValue, [str]: value })
+		// console.log("awdawdawd", renderValue)
+	}
+
+	const goOnServer = async () => {
+		const formData = new FormData();
+		let binary = setSendImgArray(img)
+		formData.append('NeuralType', neuralName);
+		formData.append('Parameters', JSON.stringify(renderValue));
+		formData.append('Caption', caption);
+		formData.append('Prompts', ["", ""])//надо узнать че это такое
+		formData.append('ImagesInput', binary);
+		try {
+			const response = await api.RunNeural(formData);
+			const images = response.data.images;
+			testMob.setActiveNeural('');
+			closeModal();
+			if (images) {
 				ResultWindowState.setImages(images);
 				ResultWindowState.setIsOpen(true);
-				testMob.endGeneration();
-			} catch (e) {
-				alert("При генерации возникла ошибка");
-				testMob.endGeneration();
-				console.error(e);
-				throw (e);
 			}
+
+			testMob.endGeneration();
+		} catch (e) {
+			alert("При генерации возникла ошибка");
+			testMob.endGeneration();
+			console.error(e);
+			throw (e);
 		}
-		return (
-			<div>
-				<DownloadImg closeWindow={closeWindow} closeParam={closeParam} setSendImages={setImg} sendImages={img} />
-				<div className={cl.params}>
-					<div style={{ display: 'flex' }}>
-						<input
-							type='text'
-							placeholder='Найти параметры...'
-							className={cl.findParam}
-						/>
-						<button className={cl.saveParam}>
-							<span className={`${cl.txt} ${cl.txt__saveParam}`}>Сохранить параметры</span>
-						</button>
-					</div>
-					<div className={cl.paramCont}>
-						<div className={cl.paramsList}>
-							{isCaption ? <Caption setCaption={setCaption} /> : undefined}
-							{paramsToRender.map((param, id) => renderSwitch(param, id, sendValuesForRender, currentModel))}
-						</div>
-					</div>
-				</div>
-				<div className={cl.downBtns}>
-					<button onClick={() => closeModal()} className={cl.cancel}>
-						<span className={cl.cancel__txt}>
-							Отмена
-						</span>
+	}
+	return (
+		<div>
+			<DownloadImg closeWindow={closeWindow} closeParam={closeParam} setSendImages={setImg} sendImages={img} />
+			<div className={cl.params}>
+				<div style={{ display: 'flex' }}>
+					<input
+						type='text'
+						placeholder='Найти параметры...'
+						className={cl.findParam}
+					/>
+					<button className={cl.saveParam}>
+						<span className={`${cl.txt} ${cl.txt__saveParam}`}>Сохранить параметры</span>
 					</button>
-					{
-						testMob.isGenerationEnd ?
-							<button className={cl.downBtns__generate} onClick={() => { testMob.startGeneration(); goOnServer() }}>
-								<span className={cl.txt}>
-									Сгенерировать
-								</span>
-							</button> :
-							<div className={`${cl.downBtns__generate} ${cl.loadingMode}`}>
-								<span className={cl.txt}> Идёт генерация...</span>
-								<div className={cl.loading}>
-									<div className={cl.spin}>
-									</div>
-								</div>
-							</div>
-					}
+				</div>
+				<div className={cl.paramCont}>
+					<div className={cl.paramsList}>
+						{isCaption ? <Caption setCaption={setCaption} /> : undefined}
+						{paramsToRender.map((param, id) => renderSwitch(param, id, sendValuesForRender, currentModel))}
+					</div>
 				</div>
 			</div>
-		)
-	})
+			<div className={cl.downBtns}>
+				<button onClick={() => closeModal()} className={cl.cancel}>
+					<span className={cl.cancel__txt}>
+						Отмена
+					</span>
+				</button>
+				{
+					testMob.isGenerationEnd ?
+						<button className={cl.downBtns__generate} onClick={() => { testMob.startGeneration(); goOnServer() }}>
+							<span className={cl.txt}>
+								Сгенерировать
+							</span>
+						</button> :
+						<div className={`${cl.downBtns__generate} ${cl.loadingMode}`}>
+							<span className={cl.txt}> Идёт генерация...</span>
+							<div className={cl.loading}>
+								<div className={cl.spin}>
+								</div>
+							</div>
+						</div>
+				}
+			</div>
+		</div>
+	)
+})
 
-	export default Parametrs
+export default Parametrs
 
 
 
