@@ -86,29 +86,57 @@ const renderSwitch = (value, id, func) => {
 	}
 }
 
-function dataURItoBlob(dataURLs) {
-	let blobs = [];
+function dataURItoBlob(dataURI) {
+	let byteString;
+	if (dataURI) {
+		if (dataURI.split(',')[0].indexOf('base64') >= 0)
+			byteString = atob(dataURI.split(',')[1]);
+		else
+			byteString = unescape(dataURI.split(',')[1]);
 
-	if (dataURLs) {
-		dataURLs.forEach(dataURL => {
-			let byteString = ''
-			if (dataURL.split(',')[0].indexOf('base64') >= 0) 
-				byteString = atob(dataURL.split(',')[1]);
-				else
-				byteString = unescape(dataURL.split(',')[1]);
+		let mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+		let ia = new Uint8Array(byteString.length);
+		for (let i = 0; i < byteString.length; i++) {
+			ia[i] = byteString.charCodeAt(i);
+		}
+
+		return new Blob([ia], { type: mimeString });
+	}
+
+}
+
+// function dataURItoBlob(dataURLs) {
+// 	let blobs = [];
+
+// 	if (dataURLs) {
+// 		dataURLs.forEach(dataURL => {
+// 			let byteString = ''
+// 			if (dataURL.split(',')[0].indexOf('base64') >= 0) 
+// 				byteString = atob(dataURL.split(',')[1]);
+// 				else
+// 				byteString = unescape(dataURL.split(',')[1]);
 				
-				const mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0];
+// 				const mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0];
 
-				let ia = new Uint8Array(byteString.length);
-				for (let i = 0; i < byteString.length; i++) {
-					ia[i] = byteString.charCodeAt(i);
-				}
+// 				let ia = new Uint8Array(byteString.length);
+// 				for (let i = 0; i < byteString.length; i++) {
+// 					ia[i] = byteString.charCodeAt(i);
+// 				}
 
-				blobs.push(new Blob([ia], { type: mimeString }));
+// 				blobs.push(new Blob([ia], { type: mimeString }));
 			
-		})
-		return blobs;
-	}}
+// 		})
+// 		return blobs;
+// 	}}
+
+ function setSendImgArray(ImgFilesBase64) {
+	let binaryToSend = []
+	ImgFilesBase64.forEach((file) => {
+		binaryToSend.push(dataURItoBlob(file))
+	})
+	return binaryToSend
+ }
 
 	const Parametrs = observer(({ closeWindow, closeParam, }) => {
 		const [img, setImg] = useState([]);
@@ -139,12 +167,12 @@ function dataURItoBlob(dataURLs) {
 		
 		const goOnServer = async () => {
 			const formData = new FormData();
-			let blobs = dataURItoBlob(img);
+			let binary = setSendImgArray(img)
 			formData.append('NeuralType', neuralName);
 			formData.append('Parameters', JSON.stringify(renderValue));
 			formData.append('Caption', caption);
 			formData.append('Prompts', ["", ""])//надо узнать че это такое
-			formData.append('ImagesInput', blobs);
+			formData.append('ImagesInput', binary);
 			try {
 				const response = await api.RunNeural(formData);
 				const images = response.data.images;

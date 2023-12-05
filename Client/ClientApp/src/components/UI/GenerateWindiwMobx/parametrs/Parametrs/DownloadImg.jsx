@@ -101,7 +101,7 @@ const DownloadImg = observer(({ closeWindow, closeParam, setSendImages, sendImag
 			<div className={cl.pictures}>
 				{
 					Boolean(sendImages.length) ? sendImages.map((img, i) =>
-						<div className={cl.picture}>
+						<div key={i + 1} className={cl.picture}>
 							<img className={`${cl.img_1} ${imgWidthMax}`} key={i} src={img} alt='' />
 
 							{sendImages.length < 4 && <Tooltip title='Загрузить с ПК' placement='top'>
