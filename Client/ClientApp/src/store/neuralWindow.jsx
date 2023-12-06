@@ -124,8 +124,8 @@ class neuralWindow {
 
 		for (let item of this.parametrs) {
 			const paramName = Object.keys(item)[0]
-			//проверка на наличие поля system (чтобы не отправлять параметры с ним), а также проверка валидности параметров для отправки на сервер(селекторы проверяются ниже)
-			if ((!item[paramName].hasOwnProperty("system") && !(!this.childParams.includes(paramName) && ((item[paramName].hasOwnProperty("child")))))) {
+			//проверка валидности параметров для отправки на сервер(селекторы проверяются ниже)
+			if ((!(!this.childParams.includes(paramName) && (item[paramName].hasOwnProperty("child"))))) {
 				if (item[paramName].default === "True") { // переписать json и убрать этот костыль нах*й
 					result = ({ ...result, [paramName]: true })
 				}
