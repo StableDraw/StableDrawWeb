@@ -13,7 +13,8 @@
 	gap: 5px;
 	border-radius: 10px;
 }
-.image__withImages{
+
+.image__withImages {
 	position: relative;
 	border: none;
 }
@@ -42,15 +43,15 @@
 	max-width: 548px;
 }
 
-.img_2{
+.img_2 {
 	max-width: 270px;
 }
 
-.img_3{
+.img_3 {
 	max-width: 180px;
 }
 
-.img_4{
+.img_4 {
 	max-width: 135px;
 }
 
@@ -83,12 +84,12 @@
 	transition: 250ms ease-in-out;
 }
 
-.picture:hover .deleteBtn{
+.picture:hover .deleteBtn {
 	opacity: 100%;
 }
 
 
-.picture:hover{
+.picture:hover {
 	scale: 1.03;
 }
 
@@ -117,22 +118,22 @@
 	transition: 200ms ease-in-out;
 }
 
-.addBtn{
+.addBtn {
 	border: none;
 	background: none;
 	cursor: pointer;
 	opacity: 0%;
 	position: absolute;
 	transition: 250ms ease-in-out;
-	right: 5px;	
+	right: 5px;
 	top: 5px;
 }
 
-.addImg{
+.addImg {
 	width: 50px;
 }
 
-.addBtn:hover{
+.addBtn:hover {
 	scale: 1.2;
 }
 
@@ -210,6 +211,8 @@
 	color: #06F;
 	transition: 100ms ease-in-out;
 }
+
+
 
 .saveParam:hover {
 	color: white;
@@ -308,6 +311,23 @@
 .loadingMode {
 	width: 220px;
 	pointer-events: none;
+}
+
+.attention {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	justify-content: center;
+	align-items: center;
+}
+
+.attentionTxt {
+	color: red;
+	font-size: 11px;
+	font-family: Montserrat;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
 }
 
 /* Анимация загрузки */

@@ -90,7 +90,7 @@ class neuralWindow {
 		let result = {}
 		this.defaultValue = {};
 
-		// проверяет имеет ли дефолтное значение селектора свойство child (можно было проверять просто наличие param.default в массиве childValues, перестраховался)
+		// проверяет имеет ли дефолтное значение селектора свойство child
 		const isDefValueHasChild = (param) => {
 			let isHasChild = false;
 			param.values.forEach((value) => {
