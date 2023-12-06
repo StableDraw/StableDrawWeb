@@ -40,3 +40,13 @@
 	height: 20px;
 	margin-left: 10px;
 }
+
+.attentionTxt {
+	margin-left: 20px;
+	color: red;
+	font-size: 11px;
+	font-family: Montserrat;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+}

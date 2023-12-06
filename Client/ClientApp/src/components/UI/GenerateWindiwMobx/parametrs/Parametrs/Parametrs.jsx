@@ -131,18 +131,10 @@ function dataURItoBlob(dataURI) {
 // 	}}
 
 function setSendImgArray(ImgFilesBase64) {
-	// if (ImgFilesBase64.length === 1) {
-	// 	const blob = dataURItoBlob(ImgFilesBase64[0]);
-	// 	return blob
-	// }
-
 	let binaryToSend = []
 	ImgFilesBase64.forEach((file) => {
 		binaryToSend.push(dataURItoBlob(file))
 	})
-
-	console.log(binaryToSend)
-	console.log(typeof(binaryToSend[0]))
 
 	return binaryToSend
 }
@@ -151,10 +143,16 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 	const [img, setImg] = useState([]);
 	const [caption, setCaption] = useState('');
 
-
+	// показывает можно ли отправить параметры на генерацию
+	const [isGenAvailable, setIsGenAvailable] = useState(true);
 	useEffect(() => {
 		setCaption('')
 	}, [testMob.activeNeuralName])
+
+	useEffect(() => {
+		if(caption && isCaption)
+			setIsGenAvailable(true)
+	}, [caption])
 
 	const paramsToRender = testMob.parametrs
 	const isCaption = testMob.isCaption
@@ -174,6 +172,17 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 		// console.log("awdawdawd", renderValue)
 	}
 
+	const startGeneration = () => {
+		if (isCaption && !caption) // проверка наличия описания
+			setIsGenAvailable(false)
+		else
+			testMob.startGeneration()
+	}
+
+	// console.log(testMob.activeNeuralName)
+	// console.log(testMob.childParams)
+	// console.log(testMob.childValues)
+
 	const goOnServer = async () => {
 		const formData = new FormData();
 		let binary = setSendImgArray(img)
@@ -181,21 +190,23 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 		formData.append('Parameters', JSON.stringify(renderValue));
 		formData.append('Caption', caption);
 		formData.append('Prompts', ["", ""])//надо узнать че это такое
-		console.log(binary)
 		binary.forEach((file, index) => {
-				formData.append(`ImagesInput`, file)
+			formData.append(`ImagesInput`, file)
 		})
+
 		try {
 			const response = await api.RunNeural(formData);
 			const images = response.data.images;
-			testMob.setActiveNeural('');
-			closeModal();
+			testMob.endGeneration();
+
 			if (images) {
+				testMob.endGeneration();
 				ResultWindowState.setImages(images);
 				ResultWindowState.setIsOpen(true);
+			} else {
+				console.log(response);
+				alert("Произошла ошибка генерации");
 			}
-
-			testMob.endGeneration();
 		} catch (e) {
 			alert("При генерации возникла ошибка");
 			testMob.endGeneration();
@@ -225,18 +236,24 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 				</div>
 			</div>
 			<div className={cl.downBtns}>
-				<button onClick={() => closeModal()} className={cl.cancel}>
+				<button onClick={() => testMob.endGeneration()} className={cl.cancel}>
 					<span className={cl.cancel__txt}>
 						Отмена
 					</span>
 				</button>
 				{
 					testMob.isGenerationEnd ?
-						<button className={cl.downBtns__generate} onClick={() => { testMob.startGeneration(); goOnServer() }}>
-							<span className={cl.txt}>
-								Сгенерировать
-							</span>
-						</button> :
+						<div className={cl.attantion}>
+							<button className={cl.downBtns__generate} onClick={() => { startGeneration(); goOnServer() }}>
+								<span className={cl.txt}>
+									Сгенерировать
+								</span>
+							</button>
+							{!isGenAvailable && <span className={cl.attentionTxt}>
+								*Введите описание для модели
+							</span>}
+						</div>
+						:
 						<div className={`${cl.downBtns__generate} ${cl.loadingMode}`}>
 							<span className={cl.txt}> Идёт генерация...</span>
 							<div className={cl.loading}>
