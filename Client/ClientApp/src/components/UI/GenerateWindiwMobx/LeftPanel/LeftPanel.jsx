@@ -30,14 +30,14 @@ const LeftPanel = observer(({ openParam, }) => {
 	return (
 		<section className={cl.finder}>
 			<div className={cl.finderBlock}>
-				<input
-					value={searchTerm}
-					type='text'
-					placeholder="Поиск режима"
-					className={cl.inputFinder}
-					onChange={e => setSearchTerm(e.target.value)}
-				>
-				</input>
+					<input
+						value={searchTerm}
+						type='text'
+						placeholder="Поиск режима"
+						className={cl.inputFinder}
+						onChange={e => setSearchTerm(e.target.value)}
+					>
+					</input>
 				<div className={cl.list}>
 					{neuralList ? neuralList.map((neural, id) =>
 						<NeuralCard

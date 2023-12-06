@@ -6,7 +6,7 @@ import MyCheckBox from '../MyCheckBox/MyCheckBox'
 import cl from './Parametrs.module.css'
 import api from '../../../../../api/apiNeurals'
 import testMob from '../../../../../store/neuralWindow.jsx'
-import ResultWindowState from '../../../ResultWindow/ResultWindowState.ts'
+import ResultWindowState from '../../../ResultWindow/ResultWindowState.jsx'
 import { observer } from 'mobx-react-lite'
 import DownloadImg from './DownloadImg'
 import Caption from '../Caption/Caption.tsx'
@@ -19,8 +19,6 @@ const renderSwitch = (value, id, func) => {
 		if ((key[0] === "model" || key[0] === "version")) {
 			value[key].values.map((model) => {
 				if (model.value === currentModel && Object.hasOwn(model, "childs")) {
-					testMob.clearChildParams();
-					testMob.clearChildValues();
 					model.childs.map((child) => {
 						testMob.setChildParams(child.param_id)
 						testMob.setChildValues(child.values_id)
@@ -108,14 +106,60 @@ function dataURItoBlob(dataURI) {
 
 }
 
+// function dataURItoBlob(dataURLs) {
+// 	let blobs = [];
+
+// 	if (dataURLs) {
+// 		dataURLs.forEach(dataURL => {
+// 			let byteString = ''
+// 			if (dataURL.split(',')[0].indexOf('base64') >= 0) 
+// 				byteString = atob(dataURL.split(',')[1]);
+// 				else
+// 				byteString = unescape(dataURL.split(',')[1]);
+
+// 				const mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0];
+
+// 				let ia = new Uint8Array(byteString.length);
+// 				for (let i = 0; i < byteString.length; i++) {
+// 					ia[i] = byteString.charCodeAt(i);
+// 				}
+
+// 				blobs.push(new Blob([ia], { type: mimeString }));
+
+// 		})
+// 		return blobs;
+// 	}}
+
+function setSendImgArray(ImgFilesBase64) {
+	// if (ImgFilesBase64.length === 1) {
+	// 	const blob = dataURItoBlob(ImgFilesBase64[0]);
+	// 	return blob
+	// }
+
+	let binaryToSend = []
+	ImgFilesBase64.forEach((file) => {
+		binaryToSend.push(dataURItoBlob(file))
+	})
+
+	console.log(binaryToSend)
+	console.log(typeof(binaryToSend[0]))
+
+	return binaryToSend
+}
+
 const Parametrs = observer(({ closeWindow, closeParam, }) => {
-	const [file, setFile] = useState();
+	const [img, setImg] = useState([]);
+	const [caption, setCaption] = useState('');
+
+
+	useEffect(() => {
+		setCaption('')
+	}, [testMob.activeNeuralName])
 
 	const paramsToRender = testMob.parametrs
-	const isCaption = testMob.caption
+	const isCaption = testMob.isCaption
 	let renderValue = testMob.defaultValue
 	const neuralName = testMob.activeNeuralName
-	let caption = ''
 	const currentModel = testMob.currentModel;
 
 	const closeModal = () => {
@@ -125,29 +169,32 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 		testMob.endGeneration();
 	}
 
-	const setCaption = (value) => {
-		caption = value
-	}
-
 	const sendValuesForRender = (value, str) => {
 		renderValue = ({ ...renderValue, [str]: value })
+		// console.log("awdawdawd", renderValue)
 	}
 
 	const goOnServer = async () => {
-		const formData = new FormData()
-		let blob = dataURItoBlob(file);
-		formData.append('NeuralType', neuralName)
-		formData.append('Parameters', JSON.stringify(renderValue))
-		formData.append('Caption', caption)
+		const formData = new FormData();
+		let binary = setSendImgArray(img)
+		formData.append('NeuralType', neuralName);
+		formData.append('Parameters', JSON.stringify(renderValue));
+		formData.append('Caption', caption);
 		formData.append('Prompts', ["", ""])//надо узнать че это такое
-		formData.append('ImagesInput', blob)
+		console.log(binary)
+		binary.forEach((file, index) => {
+				formData.append(`ImagesInput`, file)
+		})
 		try {
 			const response = await api.RunNeural(formData);
-			const image = response.data.images[0];
+			const images = response.data.images;
 			testMob.setActiveNeural('');
-			closeModal()
-			ResultWindowState.setImage(image)
-			ResultWindowState.setIsOpen(true)
+			closeModal();
+			if (images) {
+				ResultWindowState.setImages(images);
+				ResultWindowState.setIsOpen(true);
+			}
+
 			testMob.endGeneration();
 		} catch (e) {
 			alert("При генерации возникла ошибка");
@@ -158,7 +205,7 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 	}
 	return (
 		<div>
-			<DownloadImg closeWindow={closeWindow} closeParam={closeParam} setRenderValue={setFile} />
+			<DownloadImg closeWindow={closeWindow} closeParam={closeParam} setSendImages={setImg} sendImages={img} />
 			<div className={cl.params}>
 				<div style={{ display: 'flex' }}>
 					<input
@@ -198,7 +245,6 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 							</div>
 						</div>
 				}
-
 			</div>
 		</div>
 	)

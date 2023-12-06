@@ -5,11 +5,10 @@
 	padding: 25px 0 25px 15px;
 	margin-left: auto;
 	margin-right: auto;
-	border-bottom: 1px #656565 solid;
+	border-bottom: 1px #ACACAC solid;
 	cursor: pointer;
-	align-items: center;
-	text-align: center;
-
+	align-items: flex-start;
+	text-align:left;
 
 }
 .item:first-child
@@ -25,11 +24,11 @@
 	background-color: #ACACAC;
 	margin-left: auto;
 	margin-right: auto;
-	border-bottom: 1px #656565 solid;
+	border-bottom: 1px #ACACAC solid;
 	cursor: pointer;
-	align-items: center;
-	text-align: center;
-
+	align-items: flex-start;
+	text-align:left;
+	border-radius: 5px;
 }
 
 .item:hover {

@@ -50,7 +50,7 @@
 	flex-direction: column;
 	width: 295px;
 	height: 651px;
-	gap:15px;
+	gap: 15px;
 }
 
 .loadMenu {
@@ -134,12 +134,31 @@
 	size: 20px !important;
 }
 
-.text {}
+.textLamb {
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	cursor: pointer;
+}
 
+.Lamb{
+	display: flex;
+	padding: 5px;
+	flex-direction: row;
+	gap: 5px;
+	justify-content: flex-end;
+	align-items:center;
+}
 
-@media(max-width: 1450px){
+.Link{
+	text-decoration: none;
+}
+
+@media(max-width: 1450px) {
 	.content {
-	 zoom: 0.8 !important;
+		zoom: 0.8 !important;
 	}
- }
-
+}

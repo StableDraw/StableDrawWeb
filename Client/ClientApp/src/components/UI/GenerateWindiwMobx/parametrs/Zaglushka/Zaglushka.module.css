@@ -1,46 +1,60 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat+Subrayada:wght@400;700&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 .container {
-    width: 600px;
-    height: 130px;
-    margin-left: 5px;
-    margin-top: 250px;
+	width: 600px;
+	height: 130px;
+	margin-left: 5px;
+	margin-top: 250px;
 }
 
 .item {
-    color: #313338;
-    font-family: Montserrat;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    margin-top: 45px;
+	color: #313338;
+	font-family: Montserrat;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+	margin-top: 45px;
 }
 
-.blueitem{
-    color: #06F;
+.blueitem {
+	color: var(--extra-dark-blue, #0D3157);
+	font-family: Montserrat;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
 }
 
-.gradientitem{
-    background: linear-gradient(90deg, #4101BF 0%, #C40386 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+.gradientitem {
+	background: var(--AI, linear-gradient(90deg, #3E01C0 0%, #0F94DF 100%));
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	font-family: Montserrat;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 }
 
-.image{
-    width: 60px;
-    height: 60px;
-    stroke-width: 2px;
-    margin-right: 20px;
+.image {
+	width: 60px;
+	height: 60px;
+	stroke-width: 2px;
+	margin-right: 20px;
 }
 
-.list{
-    padding: 0;
-    margin-left: 0;
-    margin-right: 0;
+.list {
+	padding: 0;
+	margin-left: 0;
+	margin-right: 0;
 }
 
-.list li{
-    list-style-type: none;
+.list li {
+	list-style-type: none;
 }
 
 .dropdown{

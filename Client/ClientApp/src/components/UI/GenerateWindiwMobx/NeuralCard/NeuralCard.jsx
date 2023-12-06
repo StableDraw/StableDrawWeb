@@ -15,7 +15,7 @@ const NeuralCard = observer(({serverName, clientName, description, active,}) => 
     <Tooltip title={description} placement='right'>
       <div className={testMob.activeNeuralName === serverName ?  cl.itemActive : cl.item} onClick={getParametrs}>
           <div>
-            <img src={image} className={cl.itemImg}/>
+            <img src={image} className={cl.itemImg} alt=''/>
           </div>
           <span className={cl.itemText}>{clientName}</span>
       </div>

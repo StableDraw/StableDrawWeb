@@ -1,6 +1,6 @@
 import React from "react";
 import { Scene } from './Scene'
-import { useMemo, useState, useCallback, useEffect } from "react";
+import { useMemo, useState, useCallback, useEffect,  } from "react";
 import { Header } from "./header";
 import api from '../../api/api';
 import { Menu } from "./menu";
@@ -10,6 +10,8 @@ import mainClassLight from './stylesLight/main.module.css'
 import { DragAndDropLayout } from "./DragAndDropLayout";
 import { CloseScene } from "./closeScene";
 import { SkeletonCanvas } from "./UI_skeleton/SkeletonCanvas";
+import { Link } from "react-router-dom";
+
 
 export const MainBabylon = () => {
 	const [currentSceneUrl, setCurrentSceneUrl] = useState('');
@@ -95,6 +97,15 @@ export const MainBabylon = () => {
 				canvasTextures={canvasTextures}
 				isLightTheme={isLightTheme}
 			/>
+			<div className={mainClass.Lamb}>
+				<Link to='https://lambumiz.ru/' className={mainClass.Link}>
+				<span className={mainClass.textLamb} >
+					Сделано в пратнёрстве с АО Ламбумиз
+				</span>
+				</Link>
+				<img src="/babylon UI/lambumiz.png" alt="" />
+			</div>
+
 		</div>
 	);
 };

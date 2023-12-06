@@ -33,6 +33,7 @@
 						],
 						"description": "Различные модели по-разному способны распознавать отдельные объекты и раскрашивать их",
 						"type": "select",
+						"main": true,
 						"name": "Выбор модели"
 					}
 				},
@@ -44,6 +45,7 @@
 						"step": 1,
 						"description": "Количество шагов влияет на то, сколько раз нейронная сеть будет обрабатывать ваш рисунок",
 						"type": "range",
+						"main": true,
 						"name": "Количество шагов обработки"
 					}
 				},
@@ -122,28 +124,6 @@
 			"description": "При помощи данного режима Вы можете удалять фон с изображений",
 			"params": [
 				{
-					"ckpt": {
-						"default": "isnet.pth",
-						"values": [
-							{
-								"value": "isnet.pth",
-								"child": true,
-								"description": "",
-								"name": "Дополнительная модель ISNET"
-							},
-							{
-								"value": "isnet-general-use.pth",
-								"child": true,
-								"description": "",
-								"name": "Главная модель ISNET"
-							}
-						],
-						"description": "Различные модели по-разному справляются с удалением фона на различных изображениях",
-						"type": "select",
-						"name": "Выбор модели"
-					}
-				},
-				{
 					"model": {
 						"default": "DIS",
 						"values": [
@@ -196,7 +176,31 @@
 						],
 						"description": "",
 						"type": "select",
+						"main": true,
 						"name": "Выбор нейронной сети для удаления фона. U2NET более старая и обкатанная, DIS новее и лучше, но пока, в предварительной версии, может часто ошибаться"
+					}
+				},
+				{
+					"ckpt": {
+						"default": "isnet-general-use.pth",
+						"values": [
+							{
+								"value": "isnet.pth",
+								"child": true,
+								"description": "",
+								"name": "Дополнительная модель ISNET"
+							},
+							{
+								"value": "isnet-general-use.pth",
+								"child": true,
+								"description": "",
+								"name": "Главная модель ISNET"
+							}
+						],
+						"description": "Различные модели по-разному справляются с удалением фона на различных изображениях",
+						"type": "select",
+						"main": true,
+						"name": "Выбор модели"
 					}
 				},
 				{
@@ -288,7 +292,6 @@
 			"serverName": "upscaler",
 			"clientName": "Апскейлер",
 			"description": "При помощи данного режима Вы можете повышать качество и разрешение исходных изображений, уменьшать шум и артефакты",
-			"caption": true,
 			"params": [
 				{
 					"model": {
@@ -306,38 +309,218 @@
 									{
 										"param_id": "sampler",
 										"values_id": [ "ddim_sampler", "plms_sampler", "p_sampler" ]
+									},
+									{
+										"param_id": "caption_main",
+										"values_id": []
 									}
 								]
 							},
 							{
 								"value": "StableDiffusionxLatentx2Upscaler",
 								"description": "Двукратный сторонний апскейлер, основанный на StableDiffusion",
-								"name": "StableDiffusionxLatentx2Upscaler"
+								"name": "StableDiffusionxLatentx2Upscaler",
+								"childs": [
+									{
+										"param_id": "caption_main",
+										"values_id": []
+									}
+								]
 							},
 							{
 								"value": "RealESRGAN_x4plus",
 								"description": "Основная модель RealESRGAN для четырёхкратного апскейла изображений",
-								"name": "RealESRGAN_x4plus"
+								"name": "RealESRGAN_x4plus",
+								"childs": [
+									{
+										"param_id": "denoise_strength",
+										"values_id": []
+									},
+									{
+										"param_id": "tile",
+										"values_id": []
+									},
+									{
+										"param_id": "tile_pad",
+										"values_id": []
+									},
+									{
+										"param_id": "pre_pad",
+										"values_id": []
+									},
+									{
+										"param_id": "face_enhance",
+										"values_id": []
+									},
+									{
+										"param_id": "fp32",
+										"values_id": []
+									},
+									{
+										"param_id": "alpha_upsampler",
+										"values_id": []
+									},
+									{
+										"param_id": "gpu-id",
+										"values_id": []
+									}
+								]
 							},
 							{
 								"value": "RealESRNet_x4plus",
 								"description": "Облегчённая, быстрая модель RealESRGAN для четырёхкратного апскейла изображений",
-								"name": "RealESRNet_x4plus"
+								"name": "RealESRNet_x4plus",
+								"childs": [
+									{
+										"param_id": "denoise_strength",
+										"values_id": []
+									},
+									{
+										"param_id": "tile",
+										"values_id": []
+									},
+									{
+										"param_id": "tile_pad",
+										"values_id": []
+									},
+									{
+										"param_id": "pre_pad",
+										"values_id": []
+									},
+									{
+										"param_id": "face_enhance",
+										"values_id": []
+									},
+									{
+										"param_id": "fp32",
+										"values_id": []
+									},
+									{
+										"param_id": "alpha_upsampler",
+										"values_id": []
+									},
+									{
+										"param_id": "gpu-id",
+										"values_id": []
+									}
+								]
 							},
 							{
 								"value": "RealESRGAN_x4plus_anime_6B",
 								"description": "Облегчённая, быстрая модель RealESRGAN для четырёхкратного апскейла изображений с 6 дополнительными блоками для обработки, обученная на мультипликационной стилистике",
-								"name": "RealESRGAN_x4plus_anime_6B"
+								"name": "RealESRGAN_x4plus_anime_6B",
+								"childs": [
+									{
+										"param_id": "denoise_strength",
+										"values_id": []
+									},
+									{
+										"param_id": "tile",
+										"values_id": []
+									},
+									{
+										"param_id": "tile_pad",
+										"values_id": []
+									},
+									{
+										"param_id": "pre_pad",
+										"values_id": []
+									},
+									{
+										"param_id": "face_enhance",
+										"values_id": []
+									},
+									{
+										"param_id": "fp32",
+										"values_id": []
+									},
+									{
+										"param_id": "alpha_upsampler",
+										"values_id": []
+									},
+									{
+										"param_id": "gpu-id",
+										"values_id": []
+									}
+								]
 							},
 							{
 								"value": "RealESRGAN_x2plus",
 								"description": "Основная модель RealESRGAN для двукратного апскейла изображений",
-								"name": "RealESRGAN_x2plus"
+								"name": "RealESRGAN_x2plus",
+								"childs": [
+									{
+										"param_id": "denoise_strength",
+										"values_id": []
+									},
+									{
+										"param_id": "tile",
+										"values_id": []
+									},
+									{
+										"param_id": "tile_pad",
+										"values_id": []
+									},
+									{
+										"param_id": "pre_pad",
+										"values_id": []
+									},
+									{
+										"param_id": "face_enhance",
+										"values_id": []
+									},
+									{
+										"param_id": "fp32",
+										"values_id": []
+									},
+									{
+										"param_id": "alpha_upsampler",
+										"values_id": []
+									},
+									{
+										"param_id": "gpu-id",
+										"values_id": []
+									}
+								]
 							},
 							{
 								"value": "realesr-animevideov3",
 								"description": "Облегчённая модель RealESRGAN для быстрого двукратного апскейла изображений, обученная на мультипликацонном стиле",
-								"name": "realesr-animevideov3"
+								"name": "realesr-animevideov3",
+								"childs": [
+									{
+										"param_id": "denoise_strength",
+										"values_id": []
+									},
+									{
+										"param_id": "tile",
+										"values_id": []
+									},
+									{
+										"param_id": "tile_pad",
+										"values_id": []
+									},
+									{
+										"param_id": "pre_pad",
+										"values_id": []
+									},
+									{
+										"param_id": "face_enhance",
+										"values_id": []
+									},
+									{
+										"param_id": "fp32",
+										"values_id": []
+									},
+									{
+										"param_id": "alpha_upsampler",
+										"values_id": []
+									},
+									{
+										"param_id": "gpu-id",
+										"values_id": []
+									}
+								]
 							},
 							{
 								"value": "realesr-general-x4v3",
@@ -347,13 +530,52 @@
 									{
 										"param_id": "denoise_strength",
 										"values_id": []
+									},
+									{
+										"param_id": "tile",
+										"values_id": []
+									},
+									{
+										"param_id": "tile_pad",
+										"values_id": []
+									},
+									{
+										"param_id": "pre_pad",
+										"values_id": []
+									},
+									{
+										"param_id": "face_enhance",
+										"values_id": []
+									},
+									{
+										"param_id": "fp32",
+										"values_id": []
+									},
+									{
+										"param_id": "alpha_upsampler",
+										"values_id": []
+									},
+									{
+										"param_id": "gpu-id",
+										"values_id": []
 									}
 								]
 							}
 						],
 						"description": "Различные модели нейронных сетей по-разному применяют обработку. Для моделей, оставанных на StableDiffusion обящательно необходимо описание и их качество генерации, как правило, выше. ESRGAN модели способны обрабатывать только для основе изображения",
 						"type": "select",
+						"main": true,
 						"name": "Выбор модели"
+					}
+				},
+				{
+					"caption_main": {
+						"default": "",
+						"description": "",
+						"type": "text",
+						"main": true,
+						"caption": "true",
+						"name": "Описание"
 					}
 				},
 				{
@@ -364,29 +586,8 @@
 						"step": 1,
 						"description": "Шаги обработки. Параметр отвечает за то, сколько раз модель применит к изображению в процессе генерации",
 						"type": "range",
-						"name": "Выбор шага DDIM"
-					}
-				},
-				{
-					"ddim_eta": {
-						"default": 0.0,
-						"min": 0.0,
-						"max": 1.0,
-						"step": 0.01,
-						"description": "Данный коэффициент отражает насколько модель будет оригинальна в своей обработке. Чем он выше, тем больше модель будет \"додумывать\"",
-						"type": "range",
-						"name": "Коэффициент детерминированной выборки"
-					}
-				},
-				{
-					"guidance_scale": {
-						"default": 9.0,
-						"min": 0.1,
-						"max": 30.0,
-						"step": 0.1,
-						"description": "Отвечает за то, насколько искуственный интеллект должен приблизиться к буквальному изображению запроса",
-						"type": "range",
-						"name": "Коэффициент точности соответсвтвия запросу"
+						"main": true,
+						"name": "Количество шагов обработки"
 					}
 				},
 				{
@@ -402,6 +603,7 @@
 						],
 						"description": "только для модели StableDiffusionx4Upscaler",
 						"type": "select",
+						"main": true,
 						"name": "Выбор весов модели"
 					}
 				},
@@ -430,9 +632,64 @@
 						],
 						"description": "только для модели 'StableDiffusionx4Upscaler'",
 						"type": "select",
+						"main": true,
 						"name": "Выбор обработчика"
 					}
 				},
+				{
+					"negative_prompt": {
+						"default": "",
+						"description": "Описание того, что Вы не хотите видеть на итоговом изображении",
+						"type": "text",
+						"main": true,
+						"caption": "true",
+						"name": "Негативное описание"
+					}
+				},
+				{
+					"alpha_upsampler": {
+						"default": "realesrgan",
+						"values": [
+							{
+								"value": "realesrgan",
+								"description": "Обработка нейронной сетью",
+								"name": "Апскейл"
+							},
+							{
+								"value": "bicubic",
+								"description": "Алгоритмическая бикубическая интерполяция",
+								"name": "Апсемплинг"
+							}
+						],
+						"description": "Параметр актуален только для изображений с альфа каналом. Бикубический апсемплер преобразовывает изображение алгоритмически, посредствам бикубической интерполяции. При выборе realesrgan для альфа-канала будет примён отдельный монохромный апскейл посредствам ESRGAN",
+						"type": "select",
+						"main": true,
+						"name": "Апсемплер для альфа-канала"
+					}
+				},
+				{
+					"ddim_eta": {
+						"default": 0.0,
+						"min": 0.0,
+						"max": 1.0,
+						"step": 0.01,
+						"description": "Данный коэффициент отражает насколько модель будет оригинальна в своей обработке. Чем он выше, тем больше модель будет \"додумывать\"",
+						"type": "range",
+						"name": "Коэффициент детерминированной выборки"
+					}
+				},
+				{
+					"guidance_scale": {
+						"default": 9.0,
+						"min": 0.1,
+						"max": 30.0,
+						"step": 0.1,
+						"description": "Отвечает за то, насколько искуственный интеллект должен приблизиться к буквальному изображению запроса",
+						"type": "range",
+						"name": "Коэффициент точности соответсвтвия запросу"
+					}
+				},
+
 				{
 					"seed": {
 						"default": 42,
@@ -446,7 +703,7 @@
 				},
 				{
 					"outscale": {
-						"default": 4,
+						"default": 2,
 						"min": 2,
 						"max": 8,
 						"step": 1,
@@ -457,22 +714,13 @@
 				},
 				{
 					"noise_augmentation": {
-						"default": 20,
+						"default": 0,
 						"min": 0,
 						"max": 350,
 						"step": 1,
 						"description": "Уничтожает часть информации при обработке, чтобы достичь более качественного результата. Актуально для сильно зашёмленных изображений",
 						"type": "range",
 						"name": "Добавление шума при обработке"
-					}
-				},
-				{
-					"negative_prompt": {
-						"default": "",
-						"description": "Описание того, что Вы не хотите видеть на итоговом изображении",
-						"type": "text",
-						"caption": "true",
-						"name": "Негативное описание"
 					}
 				},
 				{
@@ -558,26 +806,6 @@
 					}
 				},
 				{
-					"alpha_upsampler": {
-						"default": "realesrgan",
-						"values": [
-							{
-								"value": "realesrgan",
-								"description": "Обработка нейронной сетью",
-								"name": "Апскейл"
-							},
-							{
-								"value": "bicubic",
-								"description": "Алгоритмическая бикубическая интерполяция",
-								"name": "Апсемплинг"
-							}
-						],
-						"description": "Параметр актуален только для изображений с альфа каналом. Бикубический апсемплер преобразовывает изображение алгоритмически, посредствам бикубической интерполяции. При выборе realesrgan для альфа-канала будет примён отдельный монохромный апскейл посредствам ESRGAN",
-						"type": "select",
-						"name": "Апсемплер для альфа-канала"
-					}
-				},
-				{
 					"gpu-id": {
 						"default": 0,
 						"min": 0,
@@ -599,36 +827,6 @@
 			"description": "Генерирует изображение по тексту и описанию",
 			"caption": true,
 			"params": [
-				{
-					"add_watermark": {
-						"default": "False",
-						"system": true,
-						"description": "",
-						"type": "boolean",
-						"name": "Добавлять невидимую вотермарку"
-					}
-				},
-				{
-					"low_vram_mode": {
-						"default": "False",
-						"system": true,
-						"description": "",
-						"type": "boolean",
-						"name": "Режим для работы на малом количестве видеопамяти"
-					}
-				},
-				{
-					"max_dim": {
-						"default": 4194304,
-						"min": 0,
-						"max": 1000000000,
-						"step": 1,
-						"system": true,
-						"description": "",
-						"type": "range",
-						"name": "Максимальный размер генерации изображения"
-					}
-				},
 				{
 					"version": {
 						"default": "SDXL-base-1.0",
@@ -924,44 +1122,8 @@
 						],
 						"description": "Данный выбор отвечает за то, какой нейронной сетью будет обрабатываться изображение. Как правило более новые версии нейронных сетей генерируют более качетсвенные результаты",
 						"type": "select",
+						"main": true,
 						"name": "Выбор нейронной сети для обработки"
-					}
-				},
-				{
-					"ControlNET": {
-						"default": "False",
-						"description": "",
-						"child": true,
-						"type": "boolean",
-						"name": "Генерация с дополнительным контролем схожести с оригинальным изображением"
-					}
-				},
-				{
-					"progress": {
-						"default": "True",
-						"system": true,
-						"child": true,
-						"description": "",
-						"type": "boolean",
-						"name": "Текущий прогресс"
-					}
-				},
-				{
-					"Depth": {
-						"default": "True",
-						"child": true,
-						"description": "Генерация с дополнительным слоем глубины обеспечивает лучшую передачу глубиныдля изображений с перспективой",
-						"type": "boolean",
-						"name": "Использовать дополнительный слой глубины"
-					}
-				},
-				{
-					"use_custom_ckpt": {
-						"default": "False",
-						"child": true,
-						"description": "Различные веса обучались по-разному, потому результаты генерации при их изменении могут отличаться",
-						"type": "boolean",
-						"name": "Выбрать веса для модели"
 					}
 				},
 				{
@@ -1006,27 +1168,8 @@
 						],
 						"description": "",
 						"type": "select",
+						"main": true,
 						"name": "Название верси модели"
-					}
-				},
-				{
-					"version2SDXL-refiner": {
-						"default": "False",
-						"child": true,
-						"description": "Загрузить SDXL-refiner как модель для второй стадии обработки. Требует более длительной обработки",
-						"type": "boolean",
-						"name": "Двухступенчатая обработка"
-					}
-				},
-				{
-					"seed": {
-						"default": 42,
-						"min": 0,
-						"max": 1000000000,
-						"step": 1,
-						"description": "Отвечает за то, как именно модель будет проводить обработку. Пробуя различные значения данного параметра вы будете получать различные вариации итогового результата",
-						"type": "range",
-						"name": "Инициализирующее значение"
 					}
 				},
 				{
@@ -1035,6 +1178,7 @@
 						"child": true,
 						"description": "Здесь, через запятую, можно перечислить всё то, что бы Вы не хотели видеть на итоговом изображении",
 						"type": "text",
+						"main": true,
 						"caption": "true",
 						"name": "Негативное описание"
 					}
@@ -1044,6 +1188,7 @@
 						"default": "lowres, text, error, cropped, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, out of frame, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck, username, watermark, signature",
 						"description": "Здесь, через запятую, можно перечислить всё то, что бы Вы не хотели видеть на итоговом изображении",
 						"type": "text",
+						"main": true,
 						"child": true,
 						"caption": "true",
 						"name": "Негативное описание первичной модели"
@@ -1067,68 +1212,8 @@
 						],
 						"description": "Выбор модели для второй стадии обработки",
 						"type": "select",
+						"main": true,
 						"name": "Версия модели для второй стадии обработки"
-					}
-				},
-				{
-					"refinement_strength": {
-						"default": 0.15,
-						"min": 0.0,
-						"max": 1.0,
-						"step": 0.01,
-						"description": "Насколько значительно будет осуществлён вклад в обработку модели второй стадии",
-						"type": "range",
-						"name": "Сила вклада обработки на второй стадии"
-					}
-				},
-				{
-					"finish_denoising": {
-						"default": "True",
-						"child": true,
-						"description": "Если выбран, то на постобработке будет предпринята попытка устранения возможных шумов и артифактов с изображения",
-						"type": "boolean",
-						"name": "Завершить удаление шума рафинёром"
-					}
-				},
-				{
-					"h": {
-						"default": 1024,
-						"min": 64,
-						"max": 1024,
-						"step": 64,
-						"description": "",
-						"type": "range",
-						"name": "Высота желаемого изображения"
-					}
-				},
-				{
-					"w": {
-						"default": 1024,
-						"min": 64,
-						"max": 1024,
-						"step": 64,
-						"description": "",
-						"type": "range",
-						"name": "Ширина желаемого изображения"
-					}
-				},
-				{
-					"f": {
-						"default": 8,
-						"min": 8,
-						"max": 16,
-						"step": 4,
-						"description": "Понижает или повышает частоту дискретизации, увеличивая или уменьшая размер итогового изображения, соотвественно, если не равен 8",
-						"type": "range",
-						"name": "Коэффициент понижающей дискретизации"
-					}
-				},
-				{
-					"use_recommended_res": {
-						"default": "True",
-						"description": "если выбран, то указанные в параметрах значения ожидаемого итогового разрешения игнорируются",
-						"type": "boolean",
-						"name": "Использовать рекомендованное для каждой модели разрешение генерации"
 					}
 				},
 				{
@@ -1199,31 +1284,8 @@
 						],
 						"description": "Различные обработчики по-разному будут производить генерацию изображений. Каждый из них может лучше подходить для различных ситуаций, имеет смысл перебрать несколько",
 						"type": "select",
+						"main": true,
 						"name": "Выбрать обработчик"
-					}
-				},
-				{
-					"ddim_eta": {
-						"default": 0.0,
-						"child": true,
-						"min": 0.0,
-						"max": 1.0,
-						"step": 0.01,
-						"description": "",
-						"type": "range",
-						"name": "Коэффициент детерминированной выборки"
-					}
-				},
-				{
-					"dynamic_threshold_v": {
-						"default": 99.5,
-						"child": true,
-						"min": 0.0,
-						"max": 1000.0,
-						"step": 0.1,
-						"description": "Коэффициент динамической отбраковки зашумлённых результатов",
-						"type": "range",
-						"name": "Коэффициент динамической отбраковки"
 					}
 				},
 				{
@@ -1245,6 +1307,7 @@
 						],
 						"description": "Различные модели производят шумоподавление по-разному",
 						"type": "select",
+						"main": true,
 						"name": "Тип шумоподавления"
 					}
 				},
@@ -1279,7 +1342,224 @@
 						],
 						"description": "Отвечает за то, какой тип модели будет применён для обработки",
 						"type": "select",
+						"main": true,
 						"name": "Тип модели"
+					}
+				},
+				{
+					"guider_discretization": {
+						"default": "VanillaCFG",
+						"values": [
+							{
+								"value": "VanillaCFG",
+								"description": "",
+								"name": "VanillaCFG"
+							},
+							{
+								"value": "IdentityGuider",
+								"description": "",
+								"name": "IdentityGuider"
+							}
+						],
+						"description": "Выбор модели влияет на то, как именно будет обрабатываться входной запрос",
+						"type": "select",
+						"main": true,
+						"name": "Дискретизатор проводника"
+					}
+				},
+				{
+					"sampling_discretization": {
+						"default": "LegacyDDPMDiscretization",
+						"values": [
+							{
+								"value": "LegacyDDPMDiscretization",
+								"description": "",
+								"name": "LegacyDDPMDiscretization"
+							},
+							{
+								"value": "EDMDiscretization",
+								"description": "",
+								"name": "EDMDiscretization"
+							}
+						],
+						"description": "Выбор дискретизатора влияет на то, какая именно дистектизация будет применена к обработчику",
+						"type": "select",
+						"main": true,
+						"name": "Дискретизатор обработчика"
+					}
+				},
+				{
+					"add_watermark": {
+						"default": "False",
+						"system": true,
+						"description": "",
+						"type": "boolean",
+						"name": "Добавлять невидимую вотермарку"
+					}
+				},
+				{
+					"low_vram_mode": {
+						"default": "False",
+						"system": true,
+						"description": "",
+						"type": "boolean",
+						"name": "Режим для работы на малом количестве видеопамяти"
+					}
+				},
+				{
+					"max_dim": {
+						"default": 4194304,
+						"min": 0,
+						"max": 1000000000,
+						"step": 1,
+						"system": true,
+						"description": "",
+						"type": "range",
+						"name": "Максимальный размер генерации изображения"
+					}
+				},
+
+				{
+					"ControlNET": {
+						"default": "False",
+						"description": "",
+						"child": true,
+						"type": "boolean",
+						"name": "Генерация с дополнительным контролем схожести с оригинальным изображением"
+					}
+				},
+				{
+					"progress": {
+						"default": "True",
+						"system": true,
+						"child": true,
+						"description": "",
+						"type": "boolean",
+						"name": "Текущий прогресс"
+					}
+				},
+				{
+					"Depth": {
+						"default": "True",
+						"child": true,
+						"description": "Генерация с дополнительным слоем глубины обеспечивает лучшую передачу глубиныдля изображений с перспективой",
+						"type": "boolean",
+						"name": "Использовать дополнительный слой глубины"
+					}
+				},
+				{
+					"use_custom_ckpt": {
+						"default": "False",
+						"child": true,
+						"description": "Различные веса обучались по-разному, потому результаты генерации при их изменении могут отличаться",
+						"type": "boolean",
+						"name": "Выбрать веса для модели"
+					}
+				},
+
+				{
+					"version2SDXL-refiner": {
+						"default": "False",
+						"child": true,
+						"description": "Загрузить SDXL-refiner как модель для второй стадии обработки. Требует более длительной обработки",
+						"type": "boolean",
+						"name": "Двухступенчатая обработка"
+					}
+				},
+				{
+					"seed": {
+						"default": 42,
+						"min": 0,
+						"max": 1000000000,
+						"step": 1,
+						"description": "Отвечает за то, как именно модель будет проводить обработку. Пробуя различные значения данного параметра вы будете получать различные вариации итогового результата",
+						"type": "range",
+						"name": "Инициализирующее значение"
+					}
+				},
+				{
+					"refinement_strength": {
+						"default": 0.15,
+						"min": 0.0,
+						"max": 1.0,
+						"step": 0.01,
+						"description": "Насколько значительно будет осуществлён вклад в обработку модели второй стадии",
+						"type": "range",
+						"name": "Сила вклада обработки на второй стадии"
+					}
+				},
+				{
+					"finish_denoising": {
+						"default": "True",
+						"child": true,
+						"description": "Если выбран, то на постобработке будет предпринята попытка устранения возможных шумов и артифактов с изображения",
+						"type": "boolean",
+						"name": "Завершить удаление шума рафинёром"
+					}
+				},
+				{
+					"h": {
+						"default": 1024,
+						"min": 64,
+						"max": 1024,
+						"step": 64,
+						"description": "",
+						"type": "range",
+						"name": "Высота желаемого изображения"
+					}
+				},
+				{
+					"w": {
+						"default": 1024,
+						"min": 64,
+						"max": 1024,
+						"step": 64,
+						"description": "",
+						"type": "range",
+						"name": "Ширина желаемого изображения"
+					}
+				},
+				{
+					"f": {
+						"default": 8,
+						"min": 8,
+						"max": 16,
+						"step": 4,
+						"description": "Понижает или повышает частоту дискретизации, увеличивая или уменьшая размер итогового изображения, соотвественно, если не равен 8",
+						"type": "range",
+						"name": "Коэффициент понижающей дискретизации"
+					}
+				},
+				{
+					"use_recommended_res": {
+						"default": "True",
+						"description": "если выбран, то указанные в параметрах значения ожидаемого итогового разрешения игнорируются",
+						"type": "boolean",
+						"name": "Использовать рекомендованное для каждой модели разрешение генерации"
+					}
+				},
+				{
+					"ddim_eta": {
+						"default": 0.0,
+						"child": true,
+						"min": 0.0,
+						"max": 1.0,
+						"step": 0.01,
+						"description": "",
+						"type": "range",
+						"name": "Коэффициент детерминированной выборки"
+					}
+				},
+				{
+					"dynamic_threshold_v": {
+						"default": 99.5,
+						"child": true,
+						"min": 0.0,
+						"max": 1000.0,
+						"step": 0.1,
+						"description": "Коэффициент динамической отбраковки зашумлённых результатов",
+						"type": "range",
+						"name": "Коэффициент динамической отбраковки"
 					}
 				},
 				{
@@ -1489,46 +1769,6 @@
 					}
 				},
 				{
-					"guider_discretization": {
-						"default": "VanillaCFG",
-						"values": [
-							{
-								"value": "VanillaCFG",
-								"description": "",
-								"name": "VanillaCFG"
-							},
-							{
-								"value": "IdentityGuider",
-								"description": "",
-								"name": "IdentityGuider"
-							}
-						],
-						"description": "Выбор модели влияет на то, как именно будет обрабатываться входной запрос",
-						"type": "select",
-						"name": "Дискретизатор проводника"
-					}
-				},
-				{
-					"sampling_discretization": {
-						"default": "LegacyDDPMDiscretization",
-						"values": [
-							{
-								"value": "LegacyDDPMDiscretization",
-								"description": "",
-								"name": "LegacyDDPMDiscretization"
-							},
-							{
-								"value": "EDMDiscretization",
-								"description": "",
-								"name": "EDMDiscretization"
-							}
-						],
-						"description": "Выбор дискретизатора влияет на то, какая именно дистектизация будет применена к обработчику",
-						"type": "select",
-						"name": "Дискретизатор обработчика"
-					}
-				},
-				{
 					"sigma_min": {
 						"default": 0.03,
 						"min": 0.0,
@@ -1627,24 +1867,6 @@
 			"description": "Генерация изображения по текстовому описанию",
 			"caption": true,
 			"params": [
-				{
-					"add_watermark": {
-						"default": "False",
-						"system": true,
-						"description": "",
-						"type": "boolean",
-						"name": "Добавлять невидимую вотермарку"
-					}
-				},
-				{
-					"low_vram_mode": {
-						"default": "False",
-						"system": true,
-						"description": "",
-						"type": "boolean",
-						"name": "Режим для работы на малом количестве видеопамяти"
-					}
-				},
 				{
 					"version": {
 						"default": "Kandinsky2.2",
@@ -1880,47 +2102,8 @@
 						],
 						"description": "Данный выбор отвечает за то, какой нейронной сетью будет обрабатываться изображение. Как правило более новые версии нейронных сетей генерируют более качетсвенные результаты",
 						"type": "select",
+						"main": true,
 						"name": "Выбор модели"
-					}
-				},
-				{
-					"ControlNET": {
-						"default": "False",
-						"child": true,
-						"description": "Генерация с дополнительной моделью контроля качества",
-						"type": "boolean",
-						"name": "Подключение контроллера"
-					}
-				},
-				{
-					"use_flash_attention": {
-						"default": "False",
-						"child": true,
-						"description": "Применение технологии оперативного вычленения контекста из описания. При верном применении может повысить точность генерации в некоторых сценариях",
-						"type": "boolean",
-						"name": "Оперативное внимание"
-					}
-				},
-				{
-					"progress": {
-						"default": "True",
-						"child": true,
-						"system": true,
-						"description": "",
-						"type": "boolean",
-						"name": "Текущий прогресс"
-					}
-				},
-				{
-					"dynamic_threshold_v": {
-						"default": 99.5,
-						"child": true,
-						"min": 0.0,
-						"max": 1000.0,
-						"step": 0.1,
-						"description": "Контроллирует то, с каким порогом будут отбраковываться неудачные результаты в процессе генерации",
-						"type": "range",
-						"name": "Коэффициент динамической отбраковки"
 					}
 				},
 				{
@@ -1942,15 +2125,8 @@
 						],
 						"description": "Разлые модели по-разному производят отбраковку неудачных результатов в процессе генерации",
 						"type": "select",
+						"main": true,
 						"name": "Тип отбраковки"
-					}
-				},
-				{
-					"use_custom_ckpt": {
-						"default": "False",
-						"description": "",
-						"type": "boolean",
-						"name": "Выбрать версию весов для модели"
 					}
 				},
 				{
@@ -1980,27 +2156,8 @@
 						],
 						"description": "",
 						"type": "select",
+						"main": true,
 						"name": "Название верси модели"
-					}
-				},
-				{
-					"version2SDXL-refiner": {
-						"default": "False",
-						"child": true,
-						"description": "Загрузить SDXL-refiner как модель для второй стадии обработки. Требует более длительной обработки",
-						"type": "boolean",
-						"name": "Двухступенчатая обработка"
-					}
-				},
-				{
-					"seed": {
-						"default": 42,
-						"min": 0,
-						"max": 1000000000,
-						"step": 1,
-						"description": "Отвечает за то, как именно модель будет проводить обработку. Пробуя различные значения данного параметра вы будете получать различные вариации итогового результата",
-						"type": "range",
-						"name": "Инициализирующее значение"
 					}
 				},
 				{
@@ -2009,6 +2166,7 @@
 						"child": true,
 						"description": "Здесь, через запятую, можно перечислить всё то, что бы Вы не хотели видеть на итоговом изображении",
 						"type": "text",
+						"main": true,
 						"caption": "true",
 						"name": "Негативное описание"
 					}
@@ -2019,6 +2177,7 @@
 						"child": true,
 						"description": "",
 						"type": "text",
+						"main": true,
 						"caption": "true",
 						"name": "Дефолтные параметры негативного описания"
 					}
@@ -2041,68 +2200,8 @@
 						],
 						"description": "Выбор модели для второй стадии обработки",
 						"type": "select",
+						"main": true,
 						"name": "Выбор версии модели для второй стадии обработки"
-					}
-				},
-				{
-					"refinement_strength": {
-						"default": 0.15,
-						"min": 0.0,
-						"max": 1.0,
-						"step": 0.01,
-						"description": "Насколько значительно будет осуществлён вклад в обработку модели второй стадии",
-						"type": "range",
-						"name": "Сила вклада обработки на второй стадии"
-					}
-				},
-				{
-					"finish_denoising": {
-						"default": "True",
-						"child": true,
-						"description": "Если выбран, то на постобработке будет предпринята попытка устранения возможных шумов и артифактов с изображения",
-						"type": "boolean",
-						"name": "Завершить удаление шума рафинёром"
-					}
-				},
-				{
-					"h": {
-						"default": 1024,
-						"min": 64,
-						"max": 1024,
-						"step": 64,
-						"description": "",
-						"type": "range",
-						"name": "Высота желаемого изображения"
-					}
-				},
-				{
-					"w": {
-						"default": 1024,
-						"min": 64,
-						"max": 1024,
-						"step": 64,
-						"description": "",
-						"type": "range",
-						"name": "Ширина желаемого изображения"
-					}
-				},
-				{
-					"f": {
-						"default": 8,
-						"min": 8,
-						"max": 16,
-						"step": 4,
-						"description": "Понижает или повышает частоту дискретизации, увеличивая или уменьшая размер итогового изображения, соотвественно, если не равен 8",
-						"type": "range",
-						"name": "Коэффициент понижающей дискретизации"
-					}
-				},
-				{
-					"use_recommended_res": {
-						"default": "True",
-						"description": "если выбран, то указанные в параметрах значения ожидаемого итогового разрешения игнорируются",
-						"type": "boolean",
-						"name": "Использовать рекомендованное для каждой модели разрешение генерации"
 					}
 				},
 				{
@@ -2165,7 +2264,223 @@
 						],
 						"description": "Различные обработчики по-разному будут производить генерацию изображений. Каждый из них может лучше подходить для различных ситуаций, имеет смысл перебрать несколько",
 						"type": "select",
+						"main": true,
 						"name": "Выбрать обработчик"
+					}
+				},
+				{
+					"guider_discretization": {
+						"default": "VanillaCFG",
+						"values": [
+							{
+								"value": "VanillaCFG",
+								"description": "",
+								"name": "VanillaCFG"
+							},
+							{
+								"value": "IdentityGuider",
+								"description": "",
+								"name": "IdentityGuider"
+							}
+						],
+						"description": "Выбор модели влияет на то, как именно будет обрабатываться входной запрос",
+						"type": "select",
+						"main": true,
+						"name": "Дискретизатор проводника"
+					}
+				},
+				{
+					"sampling_discretization": {
+						"default": "LegacyDDPMDiscretization",
+						"values": [
+							{
+								"value": "LegacyDDPMDiscretization",
+								"description": "",
+								"name": "LegacyDDPMDiscretization"
+							},
+							{
+								"value": "EDMDiscretization",
+								"description": "",
+								"name": "EDMDiscretization"
+							}
+						],
+						"description": "Выбор дискретизатора влияет на то, какая именно дистектизация будет применена к обработчику",
+						"type": "select",
+						"main": true,
+						"name": "Дискретизатор обработчика"
+					}
+				},
+				{
+					"steps": {
+						"default": 40,
+						"min": 2,
+						"max": 350,
+						"step": 1,
+						"description": "",
+						"type": "range",
+						"main": true,
+						"name": "Количество шагов обработки"
+					}
+				},
+				{
+					"prior_steps": {
+						"default": 25,
+						"child": true,
+						"min": 2,
+						"max": 350,
+						"step": 1,
+						"description": "",
+						"type": "range",
+						"main": true,
+						"name": "Количество шагов обработки первичной модели"
+					}
+				},
+				{
+					"add_watermark": {
+						"default": "False",
+						"system": true,
+						"description": "",
+						"type": "boolean",
+						"name": "Добавлять невидимую вотермарку"
+					}
+				},
+				{
+					"low_vram_mode": {
+						"default": "False",
+						"system": true,
+						"description": "",
+						"type": "boolean",
+						"name": "Режим для работы на малом количестве видеопамяти"
+					}
+				},
+
+				{
+					"ControlNET": {
+						"default": "False",
+						"child": true,
+						"description": "Генерация с дополнительной моделью контроля качества",
+						"type": "boolean",
+						"name": "Подключение контроллера"
+					}
+				},
+				{
+					"use_flash_attention": {
+						"default": "False",
+						"child": true,
+						"description": "Применение технологии оперативного вычленения контекста из описания. При верном применении может повысить точность генерации в некоторых сценариях",
+						"type": "boolean",
+						"name": "Оперативное внимание"
+					}
+				},
+				{
+					"progress": {
+						"default": "True",
+						"child": true,
+						"system": true,
+						"description": "",
+						"type": "boolean",
+						"name": "Текущий прогресс"
+					}
+				},
+				{
+					"dynamic_threshold_v": {
+						"default": 99.5,
+						"child": true,
+						"min": 0.0,
+						"max": 1000.0,
+						"step": 0.1,
+						"description": "Контроллирует то, с каким порогом будут отбраковываться неудачные результаты в процессе генерации",
+						"type": "range",
+						"name": "Коэффициент динамической отбраковки"
+					}
+				},
+				{
+					"use_custom_ckpt": {
+						"default": "False",
+						"description": "",
+						"type": "boolean",
+						"name": "Выбрать версию весов для модели"
+					}
+				},
+				{
+					"version2SDXL-refiner": {
+						"default": "False",
+						"child": true,
+						"description": "Загрузить SDXL-refiner как модель для второй стадии обработки. Требует более длительной обработки",
+						"type": "boolean",
+						"name": "Двухступенчатая обработка"
+					}
+				},
+				{
+					"seed": {
+						"default": 42,
+						"min": 0,
+						"max": 1000000000,
+						"step": 1,
+						"description": "Отвечает за то, как именно модель будет проводить обработку. Пробуя различные значения данного параметра вы будете получать различные вариации итогового результата",
+						"type": "range",
+						"name": "Инициализирующее значение"
+					}
+				},
+				{
+					"refinement_strength": {
+						"default": 0.15,
+						"min": 0.0,
+						"max": 1.0,
+						"step": 0.01,
+						"description": "Насколько значительно будет осуществлён вклад в обработку модели второй стадии",
+						"type": "range",
+						"name": "Сила вклада обработки на второй стадии"
+					}
+				},
+				{
+					"finish_denoising": {
+						"default": "True",
+						"child": true,
+						"description": "Если выбран, то на постобработке будет предпринята попытка устранения возможных шумов и артифактов с изображения",
+						"type": "boolean",
+						"name": "Завершить удаление шума рафинёром"
+					}
+				},
+				{
+					"h": {
+						"default": 1024,
+						"min": 64,
+						"max": 1024,
+						"step": 64,
+						"description": "",
+						"type": "range",
+						"name": "Высота желаемого изображения"
+					}
+				},
+				{
+					"w": {
+						"default": 1024,
+						"min": 64,
+						"max": 1024,
+						"step": 64,
+						"description": "",
+						"type": "range",
+						"name": "Ширина желаемого изображения"
+					}
+				},
+				{
+					"f": {
+						"default": 8,
+						"min": 8,
+						"max": 16,
+						"step": 4,
+						"description": "Понижает или повышает частоту дискретизации, увеличивая или уменьшая размер итогового изображения, соотвественно, если не равен 8",
+						"type": "range",
+						"name": "Коэффициент понижающей дискретизации"
+					}
+				},
+				{
+					"use_recommended_res": {
+						"default": "True",
+						"description": "если выбран, то указанные в параметрах значения ожидаемого итогового разрешения игнорируются",
+						"type": "boolean",
+						"name": "Использовать рекомендованное для каждой модели разрешение генерации"
 					}
 				},
 				{
@@ -2335,46 +2650,6 @@
 					}
 				},
 				{
-					"guider_discretization": {
-						"default": "VanillaCFG",
-						"values": [
-							{
-								"value": "VanillaCFG",
-								"description": "",
-								"name": "VanillaCFG"
-							},
-							{
-								"value": "IdentityGuider",
-								"description": "",
-								"name": "IdentityGuider"
-							}
-						],
-						"description": "Выбор модели влияет на то, как именно будет обрабатываться входной запрос",
-						"type": "select",
-						"name": "Дискретизатор проводника"
-					}
-				},
-				{
-					"sampling_discretization": {
-						"default": "LegacyDDPMDiscretization",
-						"values": [
-							{
-								"value": "LegacyDDPMDiscretization",
-								"description": "",
-								"name": "LegacyDDPMDiscretization"
-							},
-							{
-								"value": "EDMDiscretization",
-								"description": "",
-								"name": "EDMDiscretization"
-							}
-						],
-						"description": "Выбор дискретизатора влияет на то, какая именно дистектизация будет применена к обработчику",
-						"type": "select",
-						"name": "Дискретизатор обработчика"
-					}
-				},
-				{
 					"sigma_min": {
 						"default": 0.03,
 						"min": 0.0,
@@ -2440,29 +2715,6 @@
 						"type": "range",
 						"name": "Коэффициент величины первичной модели"
 					}
-				},
-				{
-					"steps": {
-						"default": 40,
-						"min": 2,
-						"max": 350,
-						"step": 1,
-						"description": "",
-						"type": "range",
-						"name": "Количество шагов обработки"
-					}
-				},
-				{
-					"prior_steps": {
-						"default": 25,
-						"child": true,
-						"min": 2,
-						"max": 350,
-						"step": 1,
-						"description": "",
-						"type": "range",
-						"name": "Количество шагов обработки первичной модели"
-					}
 				}
 			]
 		},
@@ -2492,7 +2744,19 @@
 						],
 						"description": "",
 						"type": "select",
+						"main": true,
 						"name": "Используемая модель"
+					}
+				},
+				{
+					"scst_args": {
+						"default": "{}",
+						"system": true,
+						"description": "Аргументы генерации для оценки BLUE или CIDEr, например, \"{\"beam\": 4, \"lenpen\": 0,6}\", в виде строки JSON",
+						"type": "text",
+						"main": true,
+						"caption": "true",
+						"name": "Аргументы генерации для обучения"
 					}
 				},
 				{
@@ -2535,16 +2799,6 @@
 						"description": "",
 						"type": "boolean",
 						"name": "Обучение самокритичной последовательности"
-					}
-				},
-				{
-					"scst_args": {
-						"default": "{}",
-						"system": true,
-						"description": "Аргументы генерации для оценки BLUE или CIDEr, например, \"{\"beam\": 4, \"lenpen\": 0,6}\", в виде строки JSON",
-						"type": "text",
-						"caption": "true",
-						"name": "Аргументы генерации для обучения"
 					}
 				},
 				{
@@ -2803,81 +3057,8 @@
 						],
 						"description": "От выбора нейронной сети зависит то, какой нейронной сетью будет осуществляться обработка. Как правило более новые версии выболняют более качественную генерацию",
 						"type": "select",
+						"main": true,
 						"name": "Выбор нейронной сети для обработки"
-					}
-				},
-				{
-					"progress": {
-						"default": "True",
-						"child": true,
-						"system": true,
-						"description": "",
-						"type": "boolean",
-						"name": "Отображать прогресс"
-					}
-				},
-				{
-					"dynamic_threshold_v": {
-						"default": 99.5,
-						"child": true,
-						"min": 0.0,
-						"max": 1000.0,
-						"step": 0.1,
-						"description": "Данный коэффициент влияет на то, с каким пороговым значением будут отбраковываться неудачные генерации в процессе генерации",
-						"type": "range",
-						"name": "Коэффициент динамической отбраковки"
-					}
-				},
-				{
-					"denoised_type": {
-						"default": "dynamic_threshold",
-						"values": [
-							{
-								"value": "dynamic_threshold",
-								"child": true,
-								"description": "",
-								"name": "Динамическая отбраковка"
-							},
-							{
-								"value": "clip_denoised",
-								"child": true,
-								"description": "",
-								"name": "Кусочная отбраковка"
-							}
-						],
-						"description": "",
-						"type": "select",
-						"name": "Тип отбраковки"
-					}
-				},
-				{
-					"negative_prior_prompt": {
-						"default": "lowres, text, error, cropped, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, out of frame, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck, username, watermark, signature",
-						"child": true,
-						"description": "Здесь, через запятую, можно перечислить всё то, что бы Вы не хотели видеть на итоговом изображении",
-						"type": "text",
-						"caption": "true",
-						"name": "Негативное описание для первичной модели"
-					}
-				},
-				{
-					"negative_prompt": {
-						"default": "lowres, text, error, cropped, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, out of frame, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck, username, watermark, signature",
-						"child": true,
-						"description": "Здесь, через запятую, можно перечислить всё то, что бы Вы не хотели видеть на итоговом изображении",
-						"type": "text",
-						"caption": "true",
-						"name": "Негативное описание"
-					}
-				},
-				{
-					"low_vram_mode": {
-						"default": "False",
-						"child": true,
-						"system": true,
-						"description": "",
-						"type": "boolean",
-						"name": "Режим для работы на малом количестве видеопамяти"
 					}
 				},
 				{
@@ -2905,7 +3086,24 @@
 						],
 						"description": "Различные обработчики по-разному будут производить генерацию изображений. Каждый из них может лучше подходить для различных ситуаций, имеет смысл перебрать несколько",
 						"type": "select",
+						"main": true,
 						"name": "Выбрать обработчик"
+					}
+				},
+				{
+					"ckpt": {
+						"default": "512-inpainting-ema.safetensors",
+						"values": [
+							{
+								"value": "512-inpainting-ema.safetensors",
+								"description": "",
+								"name": "512-inpainting-ema"
+							}
+						],
+						"description": "",
+						"type": "select",
+						"main": true,
+						"name": "Выбор весов модели"
 					}
 				},
 				{
@@ -2916,7 +3114,85 @@
 						"step": 1,
 						"description": "",
 						"type": "range",
+						"main": true,
 						"name": "Количество шагов обработки"
+					}
+				},
+				{
+					"denoised_type": {
+						"default": "dynamic_threshold",
+						"values": [
+							{
+								"value": "dynamic_threshold",
+								"child": true,
+								"description": "",
+								"name": "Динамическая отбраковка"
+							},
+							{
+								"value": "clip_denoised",
+								"child": true,
+								"description": "",
+								"name": "Кусочная отбраковка"
+							}
+						],
+						"description": "",
+						"type": "select",
+						"main": true,
+						"name": "Тип отбраковки"
+					}
+				},
+				{
+					"negative_prior_prompt": {
+						"default": "lowres, text, error, cropped, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, out of frame, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck, username, watermark, signature",
+						"child": true,
+						"description": "Здесь, через запятую, можно перечислить всё то, что бы Вы не хотели видеть на итоговом изображении",
+						"type": "text",
+						"main": true,
+						"caption": "true",
+						"name": "Негативное описание для первичной модели"
+					}
+				},
+				{
+					"negative_prompt": {
+						"default": "lowres, text, error, cropped, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, out of frame, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck, username, watermark, signature",
+						"child": true,
+						"description": "Здесь, через запятую, можно перечислить всё то, что бы Вы не хотели видеть на итоговом изображении",
+						"type": "text",
+						"main": true,
+						"caption": "true",
+						"name": "Негативное описание"
+					}
+				},
+				{
+					"progress": {
+						"default": "True",
+						"child": true,
+						"system": true,
+						"description": "",
+						"type": "boolean",
+						"name": "Отображать прогресс"
+					}
+				},
+				{
+					"dynamic_threshold_v": {
+						"default": 99.5,
+						"child": true,
+						"min": 0.0,
+						"max": 1000.0,
+						"step": 0.1,
+						"description": "Данный коэффициент влияет на то, с каким пороговым значением будут отбраковываться неудачные генерации в процессе генерации",
+						"type": "range",
+						"name": "Коэффициент динамической отбраковки"
+					}
+				},
+				{
+					"low_vram_mode": {
+						"default": "False",
+						"child": true,
+						"system": true,
+						"description": "",
+						"type": "boolean",
+						"name": "Режим для работы на малом количестве видеопамяти"
 					}
 				},
 				{
@@ -2989,21 +3265,6 @@
 					}
 				},
 				{
-					"ckpt": {
-						"default": "512-inpainting-ema.safetensors",
-						"values": [
-							{
-								"value": "512-inpainting-ema.safetensors",
-								"description": "",
-								"name": "512-inpainting-ema"
-							}
-						],
-						"description": "",
-						"type": "select",
-						"name": "Выбор весов модели"
-					}
-				},
-				{
 					"seed": {
 						"default": 42,
 						"min": 0,
@@ -3046,6 +3307,40 @@
 			"prompt": "",
 			"params": [
 				{
+					"steps": {
+						"default": 50,
+						"min": 1,
+						"max": 350,
+						"step": 1,
+						"description": "",
+						"type": "range",
+						"main": true,
+						"name": "Количество шагов обработки"
+					}
+				},
+				{
+					"prior_steps": {
+						"default": 25,
+						"min": 1,
+						"max": 350,
+						"step": 1,
+						"description": "",
+						"type": "range",
+						"main": true,
+						"name": "Приоритетное количество шагов обработки"
+					}
+				},
+				{
+					"negative_prior_prompt": {
+						"default": "",
+						"description": "Здесь, через запятую, можно перечислить всё то, что бы Вы не хотели видеть на итоговом изображении",
+						"type": "text",
+						"main": true,
+						"caption": "true",
+						"name": "Первичное негативное описание"
+					}
+				},
+				{
 					"low_vram_mode": {
 						"default": "False",
 						"system": true,
@@ -3063,28 +3358,6 @@
 						"description": "Сколько изображений будет генерироваться за раз",
 						"type": "range",
 						"name": "Количество генерируемых изображений"
-					}
-				},
-				{
-					"steps": {
-						"default": 50,
-						"min": 1,
-						"max": 350,
-						"step": 1,
-						"description": "",
-						"type": "range",
-						"name": "Количество шагов обработки"
-					}
-				},
-				{
-					"prior_steps": {
-						"default": 25,
-						"min": 1,
-						"max": 350,
-						"step": 1,
-						"description": "",
-						"type": "range",
-						"name": "Приоритетное количество шагов обработки"
 					}
 				},
 				{
@@ -3160,15 +3433,6 @@
 						"type": "range",
 						"name": "Вес изображения стиля"
 					}
-				},
-				{
-					"negative_prior_prompt": {
-						"default": "",
-						"description": "Здесь, через запятую, можно перечислить всё то, что бы Вы не хотели видеть на итоговом изображении",
-						"type": "text",
-						"caption": "true",
-						"name": "Первичное негативное описание"
-					}
 				}
 			]
 		},
@@ -3212,16 +3476,8 @@
 						],
 						"description": "Выбор модели влияет на то, как именно будет обрабатываться входной запрос. Как правило, более новые версии выполняют более качественную генерацию",
 						"type": "select",
+						"main": true,
 						"name": "Выбор версии модели"
-					}
-				},
-				{
-					"low_vram_mode": {
-						"default": "False",
-						"system": true,
-						"description": "",
-						"type": "boolean",
-						"name": "Режим для работы на малом количестве видеопамяти"
 					}
 				},
 				{
@@ -3232,6 +3488,7 @@
 						"step": 1,
 						"description": "",
 						"type": "range",
+						"main": true,
 						"name": "Количество шагов обработки"
 					}
 				},
@@ -3243,7 +3500,66 @@
 						"step": 1,
 						"description": "",
 						"type": "range",
+						"main": true,
 						"name": "Количество шагов обработки первичной модели"
+					}
+				},
+				{
+					"sampler": {
+						"default": "ddim_sampler",
+						"values": [
+							{
+								"value": "ddim_sampler",
+								"child": true,
+								"description": "",
+								"name": "ddim"
+							},
+							{
+								"value": "plms_sampler",
+								"child": true,
+								"description": "",
+								"name": "plms"
+							},
+							{
+								"value": "p_sampler",
+								"child": true,
+								"description": "",
+								"name": "p"
+							}
+						],
+						"description": "Различные обработчики по-разному будут производить генерацию изображений. Каждый из них может лучше подходить для различных ситуаций, имеет смысл перебрать несколько",
+						"type": "select",
+						"main": true,
+						"name": "Выбрать обработчик"
+					}
+				},
+				{
+					"negative_prior_prompt": {
+						"default": "lowres, text, error, cropped, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, out of frame, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck, username, watermark, signature",
+						"description": "Здесь, через запятую, можно перечислить всё то, что бы Вы не хотели видеть на итоговом изображении",
+						"type": "text",
+						"main": true,
+						"caption": "true",
+						"name": "Негативное описание для первичной модели"
+					}
+				},
+				{
+					"negative_prompt": {
+						"default": "",
+						"description": "Здесь, через запятую, можно перечислить всё то, что бы Вы не хотели видеть на итоговом изображении",
+						"type": "text",
+						"main": true,
+						"caption": "true",
+						"name": "Негативное описание"
+					}
+				},
+				{
+					"low_vram_mode": {
+						"default": "False",
+						"system": true,
+						"description": "",
+						"type": "boolean",
+						"name": "Режим для работы на малом количестве видеопамяти"
 					}
 				},
 				{
@@ -3364,34 +3680,6 @@
 					}
 				},
 				{
-					"sampler": {
-						"default": "ddim_sampler",
-						"values": [
-							{
-								"value": "ddim_sampler",
-								"child": true,
-								"description": "",
-								"name": "ddim"
-							},
-							{
-								"value": "plms_sampler",
-								"child": true,
-								"description": "",
-								"name": "plms"
-							},
-							{
-								"value": "p_sampler",
-								"child": true,
-								"description": "",
-								"name": "p"
-							}
-						],
-						"description": "Различные обработчики по-разному будут производить генерацию изображений. Каждый из них может лучше подходить для различных ситуаций, имеет смысл перебрать несколько",
-						"type": "select",
-						"name": "Выбрать обработчик"
-					}
-				},
-				{
 					"ddim_eta": {
 						"default": 0.05,
 						"child": true,
@@ -3413,28 +3701,9 @@
 						"type": "range",
 						"name": "Инициализирующее значение"
 					}
-				},
-				{
-					"negative_prior_prompt": {
-						"default": "lowres, text, error, cropped, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, out of frame, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck, username, watermark, signature",
-						"description": "Здесь, через запятую, можно перечислить всё то, что бы Вы не хотели видеть на итоговом изображении",
-						"type": "text",
-						"caption": "true",
-						"name": "Негативное описание для первичной модели"
-					}
-				},
-				{
-					"negative_prompt": {
-						"default": "",
-						"description": "Здесь, через запятую, можно перечислить всё то, что бы Вы не хотели видеть на итоговом изображении",
-						"type": "text",
-						"caption": "true",
-						"name": "Негативное описание"
-					}
 				}
 			]
 		}
 
 	}
-}
-    
+}    
