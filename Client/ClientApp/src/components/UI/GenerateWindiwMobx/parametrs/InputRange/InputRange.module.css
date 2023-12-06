@@ -1,28 +1,58 @@
 .param {
-    box-sizing: border-box;
-    width: 520px;
-    border-top: 1px solid #404249;
+	box-sizing: border-box;
+	width: 520px;
+	border-top: 1px solid #404249;
 }
+
 .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-right: 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
+
 .text {
-    padding: 10px 0px 10px 30px;
+	padding: 10px 0px 10px 30px;
 }
+
 .range {
-    width: 200px;
-    margin-right: 15px;
+	width: 200px;
+	margin-right: 15px;
 }
+
 .number {
-    border: 1px solid #656565;
-    outline: none;
-    width: 60px;
+	border: 1px solid #656565;
+	border-radius: 7px;
+	outline: none;
+	width: 60px;
 }
+
 .paramImg {
-    width: 20px;
-    height: 20px;
-    margin-left: 10px;
+	width: 20px;
+	height: 20px;
+	margin-left: 10px;
+}
+
+@media(max-width: 1280px){
+	.text
+	{
+		font-size: 14px;
+		padding-left: 20px;
+		width: 210px;
+	}
+	.paramImg
+	{
+		margin-left: 0;
+	}
+}
+@media(max-width: 768px){
+	.param
+	{
+		width: 475px;
+	}
+	.text
+	{
+		width: 170px;
+		font-size: 12px;
+		padding-left: 10px;
+	}
 }

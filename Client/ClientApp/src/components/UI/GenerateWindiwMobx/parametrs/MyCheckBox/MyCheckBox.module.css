@@ -8,7 +8,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-right: 10px;
+    /* margin-right: 10px; */
 }
 .text {
     display: inline-block;
@@ -77,4 +77,44 @@ input:checked + .slider_round:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
+}
+@media(max-width: 1280px){
+    .param
+    {
+        margin-top: 0;
+    }
+    .text
+    {
+        margin-top: 10px;
+        font-size: 14px;
+        padding-left: 20px;
+    }
+    .block2
+    {
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+    }
+    .switch
+    {
+        margin-bottom: 0;
+        margin-right: 5px;
+    }
+}
+@media(max-width: 1280px){
+    .param
+    {
+        width: 475px;
+    }
+}
+@media(max-width: 768px){
+    .text
+    {
+        font-size: 12px;
+        padding-left: 10px;
+    }
+    .switch
+    {
+        margin: 0;
+    }
 }

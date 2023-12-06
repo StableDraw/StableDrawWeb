@@ -1,0 +1,31 @@
+.main {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+}
+
+.historyTxt {
+	color: #1E1F22;
+	font-family: Montserrat;
+	font-size: 40px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
+	margin-bottom: 30px;
+	margin-top: 30px;
+}
+
+
+@media(max-height: 960px) {
+	.historyTxt {
+		margin-bottom: 25px;
+		margin-top: 25px;
+	}
+}
+
+@media(max-height: 900px) {
+	.historyTxt {
+		font-size: 35px;
+	}
+}

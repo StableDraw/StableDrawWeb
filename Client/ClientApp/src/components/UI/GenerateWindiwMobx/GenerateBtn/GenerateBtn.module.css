@@ -3,17 +3,15 @@
     margin: 0;
 }
 .button {
-    width: 160px;
-    height: 40px;
+    width: fit-content;
+    height: fit-content;
     text-align: center;
     text-decoration: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     border-radius: 20px;
     background: linear-gradient(90deg, #3701C3 0%, #D6037E 104.9%);
     cursor: pointer;
     border: none;
+    padding: 11px 10px;
     margin-bottom: 10px;
 }
 .button p {
@@ -24,22 +22,22 @@
     text-align: center;
     vertical-align: middle;
     margin: 0;
-    line-height: 1px;
+    line-height: 18px;
 }
 .modal {
     display: none;
 }
 .activeModal {
     display: block;
-    position: absolute;
+    position: relative;
     z-index: 1000000;
     box-sizing: border-box;
-    width: 1010px;
-    height: 740px;
-    top: 5%;
-    left: 10%;
-    /* margin-left: auto;
-    margin-right: auto; */
+    width: fit-content;
+    height: fit-content;
+    top: 10%;
+    /* left: 20%; */
+    margin-left: auto;
+    margin-right: auto;
 
     border-radius: 20px;
     background-color:#FFFFFF;
@@ -53,8 +51,9 @@
 .close {
     width: 24px;
     height: 24px;
-    margin: 8px 20px 8px 966px;
-    /* background-color: #768C9E; */
+    position: absolute;
+    top: 10px;
+    right: 10px;
     border: none;
 }
 .close:hover {
@@ -63,4 +62,57 @@
 .content {
     display: flex;
 
+}
+
+/* из - за бутстрапа свойства кнопки и стартового окна едут */
+.closeBtn{
+	background: #E3E5E8;
+	margin-bottom: 5px; 
+}
+@media screen and (max-width: 1600px) {
+    .button p
+    {
+        font-size: 15px;
+    }
+    .button
+    {
+        padding: 11px 15px;
+    }
+}
+@media(max-width: 1280px){
+    .activeModal
+    {
+        top: 5%;
+        /* left: 10%; */
+    }
+}
+@media(max-width: 1024px){
+    .activeModal
+    {
+        top: 5%;
+        /* left: 7px; */
+    }
+    .button p
+    {
+        font-size: 11px;
+    }
+    .button
+    {
+        padding: 6px 15px;
+        margin-bottom: 4px;
+    }
+    
+}
+@media(max-width: 768px){
+    .activeModal
+    {
+        top: 5%;
+        /* left: 15px; */
+        width: 738px;
+        height: 470px;
+    }
+    .close
+    {
+        margin-left: 706px;
+    }
 }

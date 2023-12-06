@@ -68,3 +68,62 @@
     display:  flex;
     gap: 20px;
 }
+@media screen and (max-width: 1024px) {
+    .opacity__text
+    {
+        font-size: 14px;
+    }
+    .opacity__block
+    {
+        height: 30px;
+    }
+    .layers
+    {
+        height: 350px;
+    }
+    .input__scale
+    {
+        font-size: 12px;
+    }
+    .layers__button
+    {
+        padding: 10px;
+    }
+    .layers__button svg
+    {
+        width: 25px;
+    }
+}
+@media screen and (max-width: 768px) {
+    .opacity__text
+    {
+        font-size: 10px;
+    }
+    .opacity__block
+    {
+        height: 24px;
+    }
+    .layers
+    {
+        height: 245px;
+        width: 185px;
+    }
+    .input__scale
+    {
+        font-size: 10px;
+    }
+    .layers__button
+    {
+        padding: 5px;
+    }
+    .layers__button svg
+    {
+        width: 17px;
+        height: 17px;
+        margin-top: -8px;
+    }
+    .scale__block
+    {
+        gap: 15px;
+    }
+}

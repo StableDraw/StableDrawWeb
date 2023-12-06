@@ -142,8 +142,11 @@ public class MinIoService : IMinIoService
             {
                 foreach (var keyVal in model.ModelsDict)
                 {
-                    args.WithObject(keyVal.Value);
-                    model.ModelsDict[keyVal.Key] = await _minio.PresignedGetObjectAsync(args);    
+                    if(!string.IsNullOrEmpty(keyVal.Value))
+                    {
+                        args.WithObject(keyVal.Value);
+                        model.ModelsDict[keyVal.Key] = await _minio.PresignedGetObjectAsync(args);
+                    }                    
                 }
 
                 args.WithObject(model.Preview);

@@ -63,12 +63,12 @@ const Authentication = () => {
                   name="password" 
                   placeholder="Пароль"
                 />
-                <button className={styles.submit}>Регистрация</button>
+                <button className={styles.submit}>Авторизоваться</button>
               </div>
               <div className={styles.sign_in}>
-                <span>Уже есть аккаунт?</span>
+                <span>Еще нет аккаунта?</span>
                 <span>
-                  <a href="#">Войти</a>
+                  <a href="#">Регистрация</a>
                 </span>
               </div>
             </div>

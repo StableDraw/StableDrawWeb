@@ -4,6 +4,13 @@ html
     margin: 0;
     padding: 0;
 }
+
+/*DELETE ON REALEASE*/
+/*canvas {*/
+/*    background-color: #ccc!important;*/
+/*}*/
+
+
 body
 {
     touch-action: none;
@@ -901,4 +908,12 @@ input[type=range].up_add_window_slider::-ms-fill-lower
     margin: 0;
     padding: 0 !important;
     max-width: 100% !important;
+}
+
+img {
+	-khtml-user-select: none;
+	-o-user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
 }

@@ -49,3 +49,26 @@
     border-radius: 5px;
     padding: 5px 6px 6px 13px;
 }
+@media(max-width: 1280px){
+    .container
+    {
+        margin-top: 150px;
+    }
+}
+@media(max-width: 768px){
+    .container
+    {
+        margin-top: 150px;
+        width: 500px;
+    }
+    .image
+    {
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+    }
+    .item
+    {
+        font-size: 16px;
+    }
+}

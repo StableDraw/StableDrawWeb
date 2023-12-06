@@ -37,15 +37,15 @@ const Drawing = () => {
                     <p className={cl.logoText}>StableDraw</p>
                 </NavLink>
                 <div className={cl.modules}>
-                    <Link className={cl.link} to='/babylon'>
+                    <Link className={cl.link} to='/3d'>
                         <span className={cl.subscribe__txt_3d}> 3D модуль</span>
                     </Link>
                     <Link className={cl.link} to='/Pay'>
                         <span className={cl.subscribe__txt}> Подписка</span>
                     </Link>
-                    <div className={cl.personalArea}>
+                    <Link to='/myProfile' className={cl.personalArea}>
                         <p>Личный кабинет</p>
-                    </div>
+                    </Link>
                 </div>
             </nav>
             <div className={cl.main}>
@@ -61,9 +61,9 @@ const Drawing = () => {
                         </div>
                         <Canvas/>
                     </div>
-                    <div className={[cl.col, cl.block].join(" ")} style={{ padding: "0 0 0 5px" }}>
+                    <div className={[cl.col, cl.block].join(" ")} style={{ padding: "0 0 0 5px", height: `calc(100% - (${window.innerHeight - canvasState.height}px - 140px))` }}>
                        
-                        <div style={{marginTop:"300px"}}/>
+                        {/*<div style={{marginTop:"300px"}}/>*/}
                         <LableBar/>
                     </div>
                     

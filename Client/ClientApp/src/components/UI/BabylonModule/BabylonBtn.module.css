@@ -1,35 +1,44 @@
 ﻿@import url("https://fonts.googleapis.com/css2?family=Montserrat+Subrayada:wght@400;700&display=swap");
 
 .babylon {
-    display: inline-flex;
-    height: 60px;
-    padding: 20px 31px;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    text-decoration: none;
-    border-radius: 10px;
-    border: 2px solid var(--dark-blue, #1975D2);
-    background: var(--dark-blue, #1975D2);
-    margin-right: 40px;
-    color: white;
+	display: inline-flex;
+	height: 60px;
+	padding: 20px 31px;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	text-decoration: none;
+	border-radius: 10px;
+	border: 2px solid var(--dark-blue, #1975D2);
+	background: var(--dark-blue, #1975D2);
+	margin-right: 40px;
+	color: white;
 }
 
-.babylonCont{
-    display: inline-flex;
-    height: 60px;
-    padding: 20px 31px;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    text-decoration: none;
-    border-radius: 10px;
-    border: 2px solid var(--dark-blue, #1975D2);
-    background: var(--dark-blue, #1975D2);
-    margin-right: 40px;
-    color: white;
+.babylonCont {
+	display: inline-flex;
+	height: 60px;
+	padding: 20px 20px;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	text-decoration: none;
+	border-radius: 10px;
+	border: 2px solid var(--dark-blue, #1975D2);
+	background: var(--dark-blue, #1975D2);
+	margin-right: 40px;
+	color: white;
 }
+
 .babylonCont:hover {
-    transform: scale(0.98);
-    color: white;
+	transform: scale(0.98);
+	color: white;
+}
+
+.txt {
+	font-family: Montserrat;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
 }

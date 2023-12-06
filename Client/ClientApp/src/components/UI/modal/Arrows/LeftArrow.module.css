@@ -32,3 +32,24 @@
     background-color: #FFFFFF;
     border-top-left-radius: 20px;
 }
+@media screen and (max-width: 768) {
+    .left__btn {
+        width: 100%;
+        height: 100%;
+    }
+    .left__btn svg {
+        width: 100%;
+        height: 100%;
+    }
+}
+@media screen and (max-width: 1180px) {
+
+    .left__btn {
+        width: 100%;
+        height: 100%;
+    }
+    .left__btn svg {
+        width: 100%;
+        height: 100%;
+    }
+}

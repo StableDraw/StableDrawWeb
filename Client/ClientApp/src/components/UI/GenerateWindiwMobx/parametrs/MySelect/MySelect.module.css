@@ -40,3 +40,45 @@
     font-weight: 500;
     line-height: normal;
 }
+@media(max-width: 1280px){
+    .container
+    {
+        margin: 5px 0px 5px 0px
+    }
+    .paramText
+    {
+        padding-left: 20px;
+        font-size: 14px;
+    }
+    .select
+    {
+        font-size: 14px;
+        padding: 0 10px;
+    }
+}
+@media(max-width: 768px){
+    .param
+    {
+        max-width: 475px;
+        margin-top: 5px;
+    }
+    .select
+    {
+        padding: 0 5px;
+        max-width: 130px;
+    }
+    .block2
+    {
+        display: flex;
+        align-items: center;
+    }
+    .paramImg
+    {
+        margin-left: 5px;
+    }
+    .paramText
+    {
+        padding-left: 10px;
+        font-size: 12px;
+    }
+}

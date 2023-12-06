@@ -27,14 +27,14 @@
 	flex-direction: column;
 	gap: 30px;
 	align-items: flex-start;
-	padding: 0 0 0 933px;
-	margin-top: 300px;
+	padding: 0 0 0 333px;
+	margin-top: 10%;
 }
 .preview1 {
 	display: flex;
 	gap: 30px;
 	align-items: flex-start;
-	padding-left: 969px;
+	padding-left: 359px;
 }
 
 .name {
@@ -128,19 +128,24 @@
 }
 @media(max-width: 1600px){
 	.preview {
-		padding-left: 633px;
+		padding-left: 340px;
+		margin-top: 8%;
 	}
 	.preview1 {
-		padding-left: 668px;
+		padding-left: 350px;
 	}
 	.aboutUs {
-		height: 160px;
+		height: 100px;
 		width: 630px;
 		margin-top: 40px;
 		margin-bottom: 78px;
 	}
+	.aboutUsTxt
+	{
+		font-size: 28px;
+	}
 }
-@media(max-width: 1530px){
+/* @media(max-width: 1530px){
 	.content {
 	 zoom: 0.9;
 	}
@@ -149,13 +154,14 @@
 	.content {
 	 zoom: 0.8 !important;
 	}
- }
+ } */
 @media(max-width: 1280px){
 	.preview {
-		padding-left: 645px;
+		padding-left: 200px;
+		margin-top: 10%;
 	}
 	.preview1 {
-		padding-left: 675px;
+		padding-left: 210px;
 	}
 	.aboutUsTxt {
 		font-size: 24px;
@@ -184,18 +190,22 @@
 		width: fit-content;
 		height: fit-content;
 	}
-}
-@media(max-width: 1250px){
-	.content {
-	 zoom: 0.7 !important;
+	.content
+	{
+		height: 750px;
+	}
+	.aboutUs
+	{
+		margin-bottom: 38px;
 	}
 }
+
 @media(max-width: 1024px){
 	.preview {
-		padding-left: 552px;
+		padding-left: 10%;
 	}
 	.preview1 {
-		padding-left: 562px;
+		padding-left: 11%;
 	}
 	.aboutUs {
 		height: 90px;
@@ -211,28 +221,12 @@
 	}
 	
 }
-@media(max-width: 855px){
-	.preview {
-		padding-left: 598px;
-	}
-	.preview1 {
-		padding-left: 608px;
-		margin-bottom: 43px;
-	}
-	.aboutUsTxt {
-		width: 409px;
-		height: 150px;
-	}
-}
+
 @media(max-width: 768px){
-	.preview {
-		padding-left: 532px;
-	}
-	.preview1 {
-		padding-left: 532px;
-	}
+	
 	.aboutUs {
 		height: 90px;
+		margin-bottom: 50px;
 	}
 	.name {
 		font-size: 48px;
@@ -265,13 +259,11 @@
 		padding-left: 40px;
 	}
 	.content {
-		zoom: 0.8 !important;
 		height: 900px;
 	}
 }
 @media(max-width: 480px){
 	.content {
 		height: 885px;
-		zoom: 0.8 !important;
 	}
 }

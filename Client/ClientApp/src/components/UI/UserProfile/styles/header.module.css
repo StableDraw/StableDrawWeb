@@ -1,0 +1,48 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat+Subrayada:wght@400;700&display=swap");
+
+/* основной контейнер header */
+.main {
+	display: flex;
+	padding: 13px 80px 13px 30px;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	width: 100vw;
+	height: 70px;
+	background-color: #FFF;
+}
+
+.main__txt {
+	color: #492281;
+	font-family: Montserrat;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+}
+
+/* логотип stableDraw */
+.logo {
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+	align-items: center;
+
+}
+
+.logo__txt {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	color: #492281;
+	font-family: Montserrat Subrayada;
+	font-size: 24px;
+	font-style: normal;
+	font-weight: 900;
+	line-height: normal;
+}
+
+.link {
+	text-decoration: none;
+}

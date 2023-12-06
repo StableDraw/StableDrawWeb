@@ -1,116 +1,152 @@
-*{
-    padding: 0;
-    margin: 0;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat+Subrayada:wght@400;700&family=Montserrat:wght@500&display=swap");
+
+* {
+	padding: 0;
+	margin: 0;
 }
+
 .test {
-    width: 100vw;
-    height: 100vh;
-    background-color: violet;
-    border: 2px solid #000;
+	width: 100vw;
+	height: 100vh;
+	background-color: violet;
+	border: 2px solid #000;
 
 }
+
 .modalWindow {
-    /* position: absolute; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    border: 2px solid #000;
+	/* position: absolute; */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: none;
+	border: 2px solid #000;
 
 }
+
 .modal {
-    box-sizing: border-box;
-    width: 1010px;
-    height: 594px;
+	box-sizing: border-box;
+	width: 1010px;
+	height: 594px;
 }
+
 .header {
-    width: 1010px;
-    height: 40px;
-    background: #E3E5E8;
-    border-radius: 20px 20px 0px 0px;
+	width: 1010px;
+	height: 40px;
+	background: #E3E5E8;
+	border-radius: 20px 20px 0px 0px;
 
 }
+
 .closeBtn {
-    width: 24px;
-    height: 24px;
-    margin: 10px 20px 8px 966px;
-    border: none;
+	width: 24px;
+	height: 24px;
+	margin: 10px 20px 8px 966px;
+	border: none;
 }
+
 .main {
-    display: flex;
-    flex-direction: column;
-    width: 1010px;
-    height: 554px;
-    background-color: #FFFFFF;
-    border-radius: 0px 0px 20px 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	width: 1010px;
+	height: 554px;
+	background-color: #FFFFFF;
+	border-radius: 0px 0px 20px 20px;
 
 }
+
 .imgResultDiv {
-    width: 788px;
-    height: 358px;
-    border: 1px solid #ACACAC;
-    margin: 40px 111px 32px 111px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 10px;
+	width: 788px;
+	height: 358px;
+	border: 1px solid #ACACAC;
+	border-radius: 10px;
 }
+
 .imgResult {
-    display: inline-block;
-    width: 100%;
-    height: 100%;
+	max-width: 788px;
+	max-height: 358px;
 }
+
 .navigate {
-    display: flex;
-    justify-content: center;
-    width: 788px;
-    margin: 0px 111px 64px 111px;
+	display: flex;
+	justify-content: center;
+	width: 788px;
+	margin-top: 20px;
 }
+
 .open3D {
-    display: inline-flex;
-    height: 60px;
-    padding: 20px 31px;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    text-decoration: none;
-    border-radius: 10px;
-    border: 2px solid var(--dark-blue, #1975D2);
-    background: var(--dark-blue, #1975D2);
-    margin-right: 40px;
-    color: white;
+	display: inline-flex;
+	height: 60px;
+	padding: 20px 31px;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	text-decoration: none;
+	border-radius: 10px;
+	border: 2px solid var(--dark-blue, #1975D2);
+	background: var(--dark-blue, #1975D2);
+	margin-right: 40px;
+	color: white;
 }
+
 .open3D:hover {
-    transform: scale(0.98);
+	transform: scale(0.98);
 }
+
 .goToCanvas {
-    display: inline-flex;
-    height: 60px;
-    padding: 20px 35px 20px 34px;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
-    margin-right: 158px;
-    border-radius: 10px;
-    border: 2px solid var(--dark-blue, #1975D2);
-    background: var(--white, #FFF);
-    color: #1975D2;
+	display: inline-flex;
+	height: 60px;
+	padding: 20px 35px 20px 34px;
+	justify-content: center;
+	align-items: center;
+	flex-shrink: 0;
+	margin-right: 158px;
+	border-radius: 10px;
+	border: 2px solid var(--dark-blue, #1975D2);
+	background: var(--white, #FFF);
+	color: #1975D2;
 }
+
 .goToCanvas:hover {
-    transform: scale(0.98);
+	transform: scale(0.98);
 }
+
 .downloadImg {
-    display: flex;
-    height: 60px;
-    width: 130px;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    border: 2px solid var(--dark-blue, #1975D2);
-    background: var(--dark-blue, #1975D2);
+	display: flex;
+	height: 60px;
+	width: 130px;
+	cursor: pointer;
+	align-items: center;
+	justify-content: center;
+	border-radius: 10px;
+	border: 2px solid var(--dark-blue, #1975D2);
+	background: var(--dark-blue, #1975D2);
 }
+
 .downloadImg:hover {
-    transform: scale(0.98);
+	transform: scale(0.98);
 }
-.downloadImgText{
-    padding-top: 16px;
-    color: white;
-    text-decoration: none;
+
+.downloadImgText {
+	padding-top: 16px;
+	color: white;
+	text-decoration: none;
+}
+
+.txt {
+	font-family: Montserrat;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
+}
+
+.closeImg{
+	background-color: #E3E5E8;
+	margin-bottom: 5px;
 }

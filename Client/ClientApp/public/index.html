@@ -1,56 +1,89 @@
 ﻿<!DOCTYPE html>
-<html lang = "ru" prefix = "og: http://ogp.me/ns#">
+<html lang="ru" prefix="og: http://ogp.me/ns#">
+
 <head>
-    <!-- Yandex.Metrika counter -->
-    <script src="/YandexMetricaCounter.js" type="text/javascript"></script>
+	<!-- Yandex.Metrika counter -->
+	<script type="text/javascript">
+		(function (m, e, t, r, i, k, a) {
+			m[i] = m[i] || function () {
+				(m[i].a = m[i].a || []).push(arguments)
+			};
 
-    <noscript>
-        <div style="height: 200px; width: auto;">
-            <img src="https://mc.yandex.ru/watch/93489554" style="position:absolute; left:-9999px;" alt="" />
-        </div>
-    </noscript>
-    <!-- /Yandex.Metrika counter -->
+			m[i].l = 1 * new Date();
 
-    <base href="%PUBLIC_URL%/" />
-    <meta charset="utf-8" />
-    <meta http-equiv="cache-control" content="no-cache">
-    <meta http-equiv="expires" content="0">
-    <meta http-equiv="pragma" content="no-cache">
-    <meta name="viewport" content="width = device-width, initial-scale = 1.0" />
-    <meta http-equiv="X-UA-Compatible" content="IE = edge">
-    <meta property="og:title" content="StableDraw: рисование с применением нейросетей" />
-    <meta property="og:url" content="https://www.stabledraw.com/" />
-    <meta property="og:image" content="/VK_TG_510x228.png" />
-    <meta name="twitter:card" content="summary_large_image" /> 
-    <meta name="viewport" content="width = device-width, initial-scale = 1, shrink-to-fit = no">
-    <meta name="theme-color" content="#000000">
-    <meta property="vk:image" content="/VK_TG_510x228.png" />
-    <meta property="tg:image" content="/VK_TG_510x228.png" />
-    <link rel="stylesheet" href="/style.css" type="text/css">
+			for (var j = 0; j < document.scripts.length; j++)
+				if (document.scripts[j].src === r)
+					return;
 
-    <!-- Этот файл нужно отсюда убрать, но чтобы всё норм без него работало, 
+			k = e.createElement(t);
+			a = e.getElementsByTagName(t)[0];
+			k.async = 1;
+			k.src = r;
+			a.parentNode.insertBefore(k, a);
+		})
+
+			(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+		ym(93489554, "init", {
+			clickmap: true,
+			trackLinks: true,
+			accurateTrackBounce: true,
+			webvisor: true
+		});
+	</script>
+
+	<noscript>
+		<div style="height: 200px; width: auto;">
+			<img src="https://mc.yandex.ru/watch/93489554" style="position:absolute; left:-9999px;" alt="" />
+		</div>
+	</noscript>
+	<!-- /Yandex.Metrika counter -->
+
+	<base href="%PUBLIC_URL%/" />
+	<meta charset="utf-8" />
+	<meta name="yandex-verification" content="d8175219233b4909" />
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">
+	<meta http-equiv="pragma" content="no-cache">
+	<meta name="viewport" content="width = device-width, initial-scale = 1.0" />
+	<meta http-equiv="X-UA-Compatible" content="IE = edge">
+	<meta property="og:title" content="StableDraw: рисование с применением нейросетей" />
+	<meta property="og:url" content="https://www.stabledraw.com/" />
+	<meta property="og:image" content="linkAppearance/VK_TG_510x228.png" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="viewport" content="width = device-width, initial-scale = 1, shrink-to-fit = no">
+	<meta name="theme-color" content="#000000">
+	<meta property="vk:image" content="linkAppearance/VK_TG_510x228.png" />
+	<meta property="tg:image" content="linkAppearance/VK_TG_510x228.png" />
+	<link rel="stylesheet" href="/style.css" type="text/css">
+
+	<!-- Этот файл нужно отсюда убрать, но чтобы всё норм без него работало, 
     нужно удалить бутсрап из проекта, пока не удаляю, т.к возможно от него зависят другие модули -->
-    <!-- <link rel="stylesheet" href="/start_page_style.css"> -->
+	<!-- <link rel="stylesheet" href="/start_page_style.css"> -->
 
-    <!-- favicon set -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <!-- favicon set -->
+	<!-- favicon setUp -->
+	<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+	<link rel="manifest" href="/favicons/site.webmanifest">
+	<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#c828d0">
+	<link rel="shortcut icon" href="/favicons/favicon.ico">
+	<meta name="msapplication-TileColor" content="#2d89ef">
+	<meta name="msapplication-config" content="/favicons/browserconfig.xml">
+	<meta name="theme-color" content="#ffffff">
+	<!-- favicon set -->
 
-    <link rel="manifest" href="/site.webmanifest">
-
-    <title>StableDraw</title>
+	<title>StableDraw</title>
 </head>
 
 <body style="margin: 0; position: fixed; width: 100%; height: 100%; ">
-    <div id="root" style="position: fixed; width: 100%; height: 100%; overflow-y: auto; overflow-x: hidden;"></div>
+	<div id="root" style="position: fixed; width: 100%; height: 100%; overflow-y: auto; overflow-x: hidden;"></div>
 </body>
 
 </html>
-    <script type = "text/javascript" src = "/jquery.min.js"></script>
+<script type="text/javascript" src="/jquery.min.js"></script>
 
-    <!-- Пакет Jquery для выбора цвета в старом редакторе -->
-    <script type = "text/javascript" src = "/farbtastic.js"></script>
-    <link rel="stylesheet" href="/farbtastic.css" type="text/css" />
-    <!-- Пакет Jquery для выбора цвета в старом редакторе -->
+<!-- Пакет Jquery для выбора цвета в старом редакторе -->
+<script type="text/javascript" src="/farbtastic.js"></script>
+<link rel="stylesheet" href="/farbtastic.css" type="text/css" />
+<!-- Пакет Jquery для выбора цвета в старом редакторе -->

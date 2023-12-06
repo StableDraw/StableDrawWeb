@@ -6,4 +6,9 @@
     height: 210px;
     overflow-y: auto;
 }
-
+@media screen and (max-width: 768px) {
+    .layer_box
+    {
+        height: 146px;
+    }
+}

@@ -24,6 +24,10 @@
 .modules{
     display: flex;
     margin-left: 200px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+
 }
 .personalArea{
     width: 150px;
@@ -56,8 +60,6 @@
     display: flex;
     justify-content: center;
     flex: 0 0 100%;
-    height: 95vh;
-    /* align-items: flex-end; */
     flex-direction: row;
     height: calc(100vh - 70px);
     background: #EFEFEF;
@@ -77,12 +79,12 @@
 }
 
 .block {
-    justify-content: space-between;
-    height: 100%;
+    justify-content: flex-end;
 }
 
 .canvas__button {
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 20px;
 
 }
 
@@ -137,6 +139,34 @@
 @media screen and (max-width: 1480px) {
     .main__content {
         justify-content: flex-start;
-        padding-left: 5px;
+        padding-left: 5%;
+    }
+}
+@media screen and (max-width: 1245px) {
+    .navigation {
+        padding: 13px 5px;
+    }
+}
+@media screen and (max-width: 1024px) {
+    .personalArea, .subscribe__txt, .link{
+        font-size: 10px;
+    }
+    .personalArea
+    {
+        margin-left: 50px;
+    }
+    .modules
+    {
+        margin-left: 100px;
+    }
+    .canvas__button
+    {
+        gap: 8px;
+    }
+}
+@media screen and (max-width: 768px) {
+    .block
+    {
+        height: calc(100% - 75px) !important;
     }
 }
