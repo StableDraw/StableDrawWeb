@@ -12,14 +12,16 @@ const GenerateBtn = () => {
 	let rootClasses = [cl.modal]
 	if (modal)
 		rootClasses.push(cl.activeModal)
-	
+
 	testMob.getNeurals()
 
 	const closeBtn = () => {
-		setModal(false)
-		setOpenParam(false)
-		testMob.setActiveNeural('')
+		setModal(false);
+		setOpenParam(false);
+		testMob.setActiveNeural('');
+		testMob.setCurrentModel('')
 	}
+
 	return (
 		<div>
 			<button className={cl.button} onClick={() => setModal(!modal)}><p>Генерация</p></button>
@@ -27,12 +29,12 @@ const GenerateBtn = () => {
 				<div className={rootClasses.join(' ')}>
 					<header className={cl.header}>
 						<button className={cl.close} onClick={() => closeBtn()}>
-							<img className={cl.closeBtn} src='Close.svg' alt=''/>
+							<img className={cl.closeBtn} src='Close.svg' alt='' />
 						</button>
 					</header>
 					<div className={cl.content}>
 						<LeftPanel openParam={setOpenParam} />
-						<RightPanel showParam={openParam} closeWindow={setModal} closeParam={setOpenParam} />
+						<RightPanel showParam={openParam} closeWindow={closeBtn} closeParam={setOpenParam} />
 					</div>
 				</div>
 			</Modal>

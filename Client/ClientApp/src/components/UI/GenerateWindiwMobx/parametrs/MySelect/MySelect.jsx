@@ -12,7 +12,7 @@ const MySelect = ({ getValue, name, description, options, keyValue, defaultV, se
 
 		setChild(testMob.currentModel); // заполняем массивы параметров, при смене модели генерации
 		testMob.doDefaultValues(); //заполняем объект из параметров для отправки на сервер при смене модели генерации
-	}, [testMob.currentModel]);
+	}, [testMob.currentModel, testMob.activeNeuralName]);
 
 	useEffect(()=>{
 		setValue(defaultV)

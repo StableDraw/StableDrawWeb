@@ -24,7 +24,9 @@ const renderSwitch = (value, id, func) => {
 						testMob.setChildValues(child.values_id)
 					})
 				} else if (!Object.hasOwn(model, "childs") && model.value === currentModel) {
+					testMob.setCurrentModel('');
 					testMob.clearChildParams();
+					testMob.clearChildValues();
 				}
 			})
 		}
@@ -106,30 +108,6 @@ function dataURItoBlob(dataURI) {
 
 }
 
-// function dataURItoBlob(dataURLs) {
-// 	let blobs = [];
-
-// 	if (dataURLs) {
-// 		dataURLs.forEach(dataURL => {
-// 			let byteString = ''
-// 			if (dataURL.split(',')[0].indexOf('base64') >= 0) 
-// 				byteString = atob(dataURL.split(',')[1]);
-// 				else
-// 				byteString = unescape(dataURL.split(',')[1]);
-
-// 				const mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0];
-
-// 				let ia = new Uint8Array(byteString.length);
-// 				for (let i = 0; i < byteString.length; i++) {
-// 					ia[i] = byteString.charCodeAt(i);
-// 				}
-
-// 				blobs.push(new Blob([ia], { type: mimeString }));
-
-// 		})
-// 		return blobs;
-// 	}}
-
 function setSendImgArray(ImgFilesBase64) {
 	let binaryToSend = []
 	ImgFilesBase64.forEach((file) => {
@@ -150,7 +128,7 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 	}, [testMob.activeNeuralName])
 
 	useEffect(() => {
-		if(caption && isCaption)
+		if (caption && isCaption)
 			setIsGenAvailable(true)
 	}, [caption])
 
@@ -160,28 +138,26 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 	const neuralName = testMob.activeNeuralName
 	const currentModel = testMob.currentModel;
 
-	const closeModal = () => {
-		closeWindow(false)
-		closeParam(false)
-		testMob.setActiveNeural('')
-		testMob.endGeneration();
-	}
+	// const closeModal = () => {
+	// 	closeWindow(false)
+	// 	closeParam(false)
+	// 	testMob.setActiveNeural('')
+	// 	testMob.endGeneration();
+	// }
 
 	const sendValuesForRender = (value, str) => {
 		renderValue = ({ ...renderValue, [str]: value })
-		// console.log("awdawdawd", renderValue)
 	}
 
 	const startGeneration = () => {
 		if (isCaption && !caption) // проверка наличия описания
 			setIsGenAvailable(false)
-		else
+		else {
+			goOnServer()
 			testMob.startGeneration()
-	}
+		}
 
-	// console.log(testMob.activeNeuralName)
-	// console.log(testMob.childParams)
-	// console.log(testMob.childValues)
+	}
 
 	const goOnServer = async () => {
 		const formData = new FormData();
@@ -243,8 +219,8 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 				</button>
 				{
 					testMob.isGenerationEnd ?
-						<div className={cl.attantion}>
-							<button className={cl.downBtns__generate} onClick={() => { startGeneration(); goOnServer() }}>
+						<div className={cl.attention}>
+							<button className={cl.downBtns__generate} onClick={startGeneration}>
 								<span className={cl.txt}>
 									Сгенерировать
 								</span>

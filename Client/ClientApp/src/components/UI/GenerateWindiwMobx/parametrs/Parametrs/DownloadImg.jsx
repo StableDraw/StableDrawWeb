@@ -71,12 +71,12 @@ const DownloadImg = observer(({ closeWindow, closeParam, setSendImages, sendImag
 	}
 
 	const closeModal = () => {
-		closeWindow(false)
+		closeWindow()
 		closeParam(false)
 	}
 
 	const deletePicture = (index) => {
-		sendImages.splice(index, 1) // удаляет 1 элемент с заданным индексом 
+		sendImages.splice(index, 1) // удаляет 1 картинку с заданным индексом 
 		setSendImages([...sendImages])
 	}
 

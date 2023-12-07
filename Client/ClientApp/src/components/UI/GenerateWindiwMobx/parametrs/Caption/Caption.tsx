@@ -45,7 +45,8 @@ const Caption = ({ setCaption }) => {
 					<img className='paramImg' src='Question.svg' alt='' />
 				</Tooltip>
 			</div>
-			{!isValidInput && <span className='attentionTxt'>*На данный момент описание доступно только на английском языке</span>}
+			{!isValidInput && 
+			<span className='attentionTxt'>*На данный момент описание доступно только на английском языке</span>}
 		</article>)
 }
 

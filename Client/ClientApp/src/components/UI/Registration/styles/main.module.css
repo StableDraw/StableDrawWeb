@@ -16,7 +16,8 @@ body
 }
 .popupAuth
 {
-	background: url('C:/react/my-app/auth.png'), lightgray 50% / cover no-repeat;
+	/* АБСОЛЮТНЫЙ ПУТЬ К ФАЙЛУ НА ЛИЧНОМ КОМПЕ???? ахахахаххаха Исправьте, пж, весь клиент падает*/
+	/* background: url('C:/react/my-app/auth.png'), lightgray 50% / cover no-repeat; */
 	width: 959px;
 	height: 900px;
     border-radius: 30px;

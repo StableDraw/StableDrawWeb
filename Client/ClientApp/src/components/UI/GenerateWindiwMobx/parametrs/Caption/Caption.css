@@ -35,6 +35,15 @@
 	outline: none;
 }
 
+.attentionTxt{
+	color: red;
+	font-size: 11px;
+	font-family: Montserrat;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+}
+
 .img {
     width: 20px;
     height: 20px;

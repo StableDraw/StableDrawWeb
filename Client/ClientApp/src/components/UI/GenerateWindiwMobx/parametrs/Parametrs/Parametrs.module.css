@@ -166,14 +166,13 @@
 	color: #656565;
 	font-weight: 500;
 	font-size: 13px;
-	border-radius: 6px;
+	border-radius: 10px;
 	border: 1px solid #656565;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 	outline: none;
-
 	padding-left: 20px;
-	padding: 0px 20px 5px 40px;
+	padding: 0px 20px 0px 40px;
 
 	background-image: url('../../../../../../public/Magnifier.svg');
 	background-repeat: no-repeat;
@@ -206,6 +205,7 @@
 }
 
 .txt__saveParam {
+	font-family: Montserrat;
 	font-size: 11px;
 	font-weight: 600;
 	color: #06F;
@@ -316,7 +316,6 @@
 .attention {
 	display: flex;
 	flex-direction: column;
-	gap: 5px;
 	justify-content: center;
 	align-items: center;
 }

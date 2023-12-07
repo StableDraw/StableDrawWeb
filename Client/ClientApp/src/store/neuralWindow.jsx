@@ -55,6 +55,7 @@ class neuralWindow {
 					this.setCurrentModel(param?.version?.default);
 			}
 		})
+
 	}
 
 	async getParams(name) {
@@ -62,14 +63,14 @@ class neuralWindow {
 			const response = await api.GetNeurals(name)
 			this.setActiveNeural(name)
 			this.isCaption = response.data.caption;
-			const array = []
+			const params = []
 
 			for (let item of response.data.params) {
 				const param = item;
-				array.push(param)
+				params.push(param)
 			}
-			this.parametrs = array
-			this.setCurrentModelOnMount(array)//задаём модель генерации
+			this.parametrs = params
+			this.setCurrentModelOnMount(params)//задаём модель генерации
 			this.doDefaultValues()
 		} catch (e) {
 			console.error(e)
@@ -81,10 +82,6 @@ class neuralWindow {
 		this.activeNeuralName = name
 		this.caption = '';
 	}
-
-	// setCaption(caption) {
-	// 	this.caption = caption;
-	// }
 
 	doDefaultValues = () => {
 		let result = {}
