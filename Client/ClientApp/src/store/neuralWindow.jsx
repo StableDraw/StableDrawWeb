@@ -7,6 +7,7 @@ class neuralWindow {
 	parametrs = [];
 	isCaption;
 	caption = '';
+	maxImageAmount = 1; // максимальное количество картинок для текущей нейросети
 	neuralWindowImages = []; // массив картинок, которые в данный момент загружены в окно генерации
 	defaultValue = {}; //объект дефолтных значений параметров(костыль Серёги, нужно переписать на useEffect)
 	isGenerationEnd = true; // флаг для отслеживания отправленной на генерацию картинки
@@ -61,6 +62,7 @@ class neuralWindow {
 	async getParams(name) {
 		try {
 			const response = await api.GetNeurals(name)
+			this.maxImageAmount = response.data.image_count_input;
 			this.setActiveNeural(name)
 			this.isCaption = response.data.caption;
 			const params = []

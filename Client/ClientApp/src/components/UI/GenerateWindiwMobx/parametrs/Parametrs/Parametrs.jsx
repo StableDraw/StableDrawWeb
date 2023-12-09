@@ -1,162 +1,66 @@
 import React, { useEffect, useState } from 'react'
-import InputRange from '../InputRange/InputRange'
-import InputText from '../InputText/InputText'
-import MySelect from '../MySelect/MySelect'
-import MyCheckBox from '../MyCheckBox/MyCheckBox'
 import cl from './Parametrs.module.css'
 import api from '../../../../../api/apiNeurals'
 import testMob from '../../../../../store/neuralWindow.jsx'
 import ResultWindowState from '../../../ResultWindow/ResultWindowState.jsx'
 import { observer } from 'mobx-react-lite'
-import DownloadImg from './DownloadImg'
+import ImagesBlock from '../../imagesBlock/imagesBlock.jsx'
 import Caption from '../Caption/Caption.tsx'
-
-const renderSwitch = (value, id, func) => {
-	const key = Object.keys(value); //название параметра(системное)
-
-	//задаёт массивы дочерних параметров и значений селекторов в зависимости от текущей модели/версии
-	const setChild = (currentModel) => {
-		if ((key[0] === "model" || key[0] === "version")) {
-			value[key].values.map((model) => {
-				if (model.value === currentModel && Object.hasOwn(model, "childs")) {
-					model.childs.map((child) => {
-						testMob.setChildParams(child.param_id)
-						testMob.setChildValues(child.values_id)
-					})
-				} else if (!Object.hasOwn(model, "childs") && model.value === currentModel) {
-					testMob.setCurrentModel('');
-					testMob.clearChildParams();
-					testMob.clearChildValues();
-				}
-			})
-		}
-	}
-
-	//возвращает false, если у параметра есть свойство child и при этом его нет в массиве дочерних параметров к текущей модели
-	const isValid = () => {
-		return !(!testMob.childParams.includes(key[0]) && Boolean(value[key]?.child))
-	}
-
-	if (!Object.hasOwn(value[key], "system")) {
-		const type = value[key].type;
-		switch (type) {
-			case 'select':
-				return <MySelect
-					key={id}
-					keyValue={key}
-					name={value[key].name}
-					defaultV={value[key].default}
-					options={value[key].values}
-					description={value[key].description}
-					getValue={func}
-					setChild={setChild} />
-			case 'text':
-				return <InputText
-					key={id}
-					keyValue={key}
-					name={value[key].name}
-					defaultV={value[key].default}
-					description={value[key].description}
-					getValue={func}
-					isValidParam={isValid}
-				/>
-			case 'range':
-				return <InputRange
-					key={id}
-					keyValue={key}
-					name={value[key].name}
-					defaultV={value[key].default}
-					step={value[key].step}
-					min={value[key].min}
-					max={value[key].max}
-					description={value[key].description}
-					getValue={func}
-					isValidParam={isValid}
-				/>
-			case 'boolean':
-				return <MyCheckBox
-					key={id}
-					keyValue={key}
-					name={value[key].name}
-					defaultV={value[key].default === 'True' ? true : false}
-					description={value[key].description}
-					getValue={func}
-					isValidParam={isValid}
-				/>
-			default:
-		}
-	}
-}
-
-function dataURItoBlob(dataURI) {
-	let byteString;
-	if (dataURI) {
-		if (dataURI.split(',')[0].indexOf('base64') >= 0)
-			byteString = atob(dataURI.split(',')[1]);
-		else
-			byteString = unescape(dataURI.split(',')[1]);
-
-		let mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-
-		let ia = new Uint8Array(byteString.length);
-		for (let i = 0; i < byteString.length; i++) {
-			ia[i] = byteString.charCodeAt(i);
-		}
-
-		return new Blob([ia], { type: mimeString });
-	}
-
-}
+import { base64ToBlob } from './base64Converter.jsx'
+import { ParamSwitch } from './paramSwitch.jsx'
 
 function setSendImgArray(ImgFilesBase64) {
 	let binaryToSend = []
 	ImgFilesBase64.forEach((file) => {
-		binaryToSend.push(dataURItoBlob(file))
+		binaryToSend.push(base64ToBlob(file))
 	})
 
 	return binaryToSend
 }
 
 const Parametrs = observer(({ closeWindow, closeParam, }) => {
-	const [img, setImg] = useState([]);
-	const [caption, setCaption] = useState('');
-
-	// показывает можно ли отправить параметры на генерацию
-	const [isGenAvailable, setIsGenAvailable] = useState(true);
-	useEffect(() => {
-		setCaption('')
-	}, [testMob.activeNeuralName])
-
-	useEffect(() => {
-		if (caption && isCaption)
-			setIsGenAvailable(true)
-	}, [caption])
+	const [img, setImg] = useState([]); // массив картинок для отправки на сервер
+	const [caption, setCaption] = useState(''); //описание для генерации
+	const [attention, setAttention] = useState(''); // предупреждение о невалидности параметров для отправки на сервер
+	const [searchValue, setSearchValue] = useState('')
 
 	const paramsToRender = testMob.parametrs
 	const isCaption = testMob.isCaption
 	let renderValue = testMob.defaultValue
 	const neuralName = testMob.activeNeuralName
-	const currentModel = testMob.currentModel;
 
-	// const closeModal = () => {
-	// 	closeWindow(false)
-	// 	closeParam(false)
-	// 	testMob.setActiveNeural('')
-	// 	testMob.endGeneration();
-	// }
+	useEffect(() => {
+		setCaption('')
+	}, [neuralName])
+
+	useEffect(() => {
+		if (caption && isCaption)
+			setAttention('')
+	}, [caption])
+
+	useEffect(() => {
+		if (img.length)
+			setAttention('')
+	}, [img])
 
 	const sendValuesForRender = (value, str) => {
 		renderValue = ({ ...renderValue, [str]: value })
 	}
 
 	const startGeneration = () => {
-		if (isCaption && !caption) // проверка наличия описания
-			setIsGenAvailable(false)
-		else {
-			goOnServer()
-			testMob.startGeneration()
+		// проверка наличия описания
+		if ((isCaption && !caption)) {
+			setAttention('*Введите описание для модели')
+			return;
+		}
+		//проверка наличия изображения
+		if (!img.length) {
+			setAttention('*Добавьте изображение для генерации')
+			return;
 		}
 
+		goOnServer()
+		testMob.startGeneration()
 	}
 
 	const goOnServer = async () => {
@@ -165,8 +69,8 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 		formData.append('NeuralType', neuralName);
 		formData.append('Parameters', JSON.stringify(renderValue));
 		formData.append('Caption', caption);
-		formData.append('Prompts', ["", ""])//надо узнать че это такое
-		binary.forEach((file, index) => {
+		formData.append('Prompts', ["", ""]) //надо узнать че это такое
+		binary.forEach((file) => {
 			formData.append(`ImagesInput`, file)
 		})
 
@@ -181,21 +85,34 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 				ResultWindowState.setIsOpen(true);
 			} else {
 				console.log(response);
-				alert("Произошла ошибка генерации");
+				alert("При генерации возникла ошибка");
 			}
 		} catch (e) {
-			alert("При генерации возникла ошибка");
+			alert("Произошла ошибка сервера");
 			testMob.endGeneration();
 			console.error(e);
 			throw (e);
 		}
 	}
+
+	const getSearchValue = (e) => {
+		setSearchValue(e.target.value)
+	}
+
+	const getSearchResult = () => {
+		return paramsToRender.filter((param) => {
+			const paramSystemName = Object.keys(param)
+			return param[paramSystemName[0]].name.toLowerCase().includes(searchValue.toLowerCase())
+		})
+	}
+
 	return (
 		<div>
-			<DownloadImg closeWindow={closeWindow} closeParam={closeParam} setSendImages={setImg} sendImages={img} />
+			<ImagesBlock closeWindow={closeWindow} closeParam={closeParam} setSendImages={setImg} sendImages={img} />
 			<div className={cl.params}>
-				<div style={{ display: 'flex' }}>
+				<div className={cl.paramsHeader}>
 					<input
+						onChange={getSearchValue}
 						type='text'
 						placeholder='Найти параметры...'
 						className={cl.findParam}
@@ -207,7 +124,13 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 				<div className={cl.paramCont}>
 					<div className={cl.paramsList}>
 						{isCaption ? <Caption setCaption={setCaption} /> : undefined}
-						{paramsToRender.map((param, id) => renderSwitch(param, id, sendValuesForRender, currentModel))}
+						{
+							searchValue.length > 1 ? getSearchResult().map((param, id) =>
+								<ParamSwitch key={id} value={param} id={id} setValueForServer={sendValuesForRender} />)
+								:
+								paramsToRender.map((param, id) =>
+									<ParamSwitch key={id} value={param} id={id} setValueForServer={sendValuesForRender} />)
+						}
 					</div>
 				</div>
 			</div>
@@ -225,8 +148,8 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 									Сгенерировать
 								</span>
 							</button>
-							{!isGenAvailable && <span className={cl.attentionTxt}>
-								*Введите описание для модели
+							{attention && <span className={cl.attentionTxt}>
+								{attention}
 							</span>}
 						</div>
 						:
