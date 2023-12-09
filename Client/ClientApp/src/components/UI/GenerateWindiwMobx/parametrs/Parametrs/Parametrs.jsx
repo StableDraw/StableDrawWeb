@@ -8,6 +8,7 @@ import ImagesBlock from '../../imagesBlock/imagesBlock.jsx'
 import Caption from '../Caption/Caption.tsx'
 import { base64ToBlob } from './base64Converter.jsx'
 import { ParamSwitch } from './paramSwitch.jsx'
+import Manual from '../Manual/Manual.jsx'
 
 function setSendImgArray(ImgFilesBase64) {
 	let binaryToSend = []
@@ -109,59 +110,63 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 	return (
 		<div>
 			<ImagesBlock closeWindow={closeWindow} closeParam={closeParam} setSendImages={setImg} sendImages={img} />
-			<div className={cl.params}>
-				<div className={cl.paramsHeader}>
-					<input
-						onChange={getSearchValue}
-						type='text'
-						placeholder='Найти параметры...'
-						className={cl.findParam}
-					/>
-					<button className={cl.saveParam}>
-						<span className={`${cl.txt} ${cl.txt__saveParam}`}>Сохранить параметры</span>
-					</button>
-				</div>
-				<div className={cl.paramCont}>
-					<div className={cl.paramsList}>
-						{isCaption ? <Caption setCaption={setCaption} /> : undefined}
-						{
-							searchValue.length > 1 ? getSearchResult().map((param, id) =>
-								<ParamSwitch key={id} value={param} id={id} setValueForServer={sendValuesForRender} />)
-								:
-								paramsToRender.map((param, id) =>
+			{testMob.activeNeuralName ? <>
+				<div className={cl.params}>
+					<div className={cl.paramsHeader}>
+						<input
+							onChange={getSearchValue}
+							type='text'
+							placeholder='Найти параметры...'
+							className={cl.findParam}
+						/>
+						<button className={cl.saveParam}>
+							<span className={`${cl.txt} ${cl.txt__saveParam}`}>Сохранить параметры</span>
+						</button>
+					</div>
+					<div className={cl.paramCont}>
+						<div className={cl.paramsList}>
+							{isCaption ? <Caption setCaption={setCaption} /> : undefined}
+							{
+								searchValue.length > 1 ? getSearchResult().map((param, id) =>
 									<ParamSwitch key={id} value={param} id={id} setValueForServer={sendValuesForRender} />)
-						}
+									:
+									paramsToRender.map((param, id) =>
+										<ParamSwitch key={id} value={param} id={id} setValueForServer={sendValuesForRender} />)
+							}
+						</div>
 					</div>
 				</div>
-			</div>
-			<div className={cl.downBtns}>
-				<button onClick={() => testMob.endGeneration()} className={cl.cancel}>
-					<span className={cl.cancel__txt}>
-						Отмена
-					</span>
-				</button>
-				{
-					testMob.isGenerationEnd ?
-						<div className={cl.attention}>
-							<button className={cl.downBtns__generate} onClick={startGeneration}>
-								<span className={cl.txt}>
-									Сгенерировать
-								</span>
-							</button>
-							{attention && <span className={cl.attentionTxt}>
-								{attention}
-							</span>}
-						</div>
-						:
-						<div className={`${cl.downBtns__generate} ${cl.loadingMode}`}>
-							<span className={cl.txt}> Идёт генерация...</span>
-							<div className={cl.loading}>
-								<div className={cl.spin}>
+				<div className={cl.downBtns}>
+					<button onClick={() => testMob.endGeneration()} className={cl.cancel}>
+						<span className={cl.cancel__txt}>
+							Отмена
+						</span>
+					</button>
+					{
+						testMob.isGenerationEnd ?
+							<div className={cl.attention}>
+								<button className={cl.downBtns__generate} onClick={startGeneration}>
+									<span className={cl.txt}>
+										Сгенерировать
+									</span>
+								</button>
+								{attention && <span className={cl.attentionTxt}>
+									{attention}
+								</span>}
+							</div>
+							:
+							<div className={`${cl.downBtns__generate} ${cl.loadingMode}`}>
+								<span className={cl.txt}> Идёт генерация...</span>
+								<div className={cl.loading}>
+									<div className={cl.spin}>
+									</div>
 								</div>
 							</div>
-						</div>
+					}
+				</div>
+			</> :
+			<Manual/>
 				}
-			</div>
 		</div>
 	)
 })
