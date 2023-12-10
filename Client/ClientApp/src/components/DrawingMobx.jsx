@@ -61,7 +61,7 @@ const Drawing = () => {
                         </div>
                         <Canvas/>
                     </div>
-                    <div className={[cl.col, cl.block].join(" ")} style={{ padding: "0 0 0 5px", height: `calc(100% - (${window.innerHeight - canvasState.height}px - 140px))` }}>
+                    <div className={[cl.col, cl.block].join(" ")} style={{ padding: "0 0 0 5px"}}>
                        
                         {/*<div style={{marginTop:"300px"}}/>*/}
                         <LableBar/>

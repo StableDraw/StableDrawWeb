@@ -78,9 +78,6 @@ export const Footer = () => {
 						<span>Код ОКВЭД:</span> 62.01 «Разработка компьютерного программного обеспечения»
 					</span>
 					<span className={footer.docs}>
-						<span>Стек используемых технологий:</span> <br />ASP.NET Core, .NET 7, MinIo, RabbitMQ, Masstransit, Docker Compose, MediatR, Propan, Sqlite, Entity Framework Core, Nginx, React, MobX, PyTorch
-					</span>
-					<span className={footer.docs}>
 						<span>Языки программирования:</span> C#, Typescript, Python, HTML, CSS
 					</span>
 				</div>

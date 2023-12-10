@@ -4,8 +4,9 @@
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    height: 380px;
-    width: 296px;
+    height: fit-content;
+    width: fit-content;
+    max-width: 350px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -34,6 +35,7 @@
     width: 100%;
     border: none;
     text-align: center;
+    padding-left: 0;
 }
 .input__scale::placeholder {
     color: #929292;
@@ -77,10 +79,6 @@
     {
         height: 30px;
     }
-    .layers
-    {
-        height: 350px;
-    }
     .input__scale
     {
         font-size: 12px;
@@ -103,11 +101,7 @@
     {
         height: 24px;
     }
-    .layers
-    {
-        height: 245px;
-        width: 185px;
-    }
+    
     .input__scale
     {
         font-size: 10px;
