@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import cl from './Parametrs.module.css'
 import api from '../../../../../api/apiNeurals'
-import testMob from '../../../../../store/neuralWindow.jsx'
+import store from '../../../../../store/neuralWindow.jsx'
 import ResultWindowState from '../../../ResultWindow/ResultWindowState.jsx'
 import { observer } from 'mobx-react-lite'
 import ImagesBlock from '../../imagesBlock/imagesBlock.jsx'
@@ -25,10 +25,10 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 	const [attention, setAttention] = useState(''); // предупреждение о невалидности параметров для отправки на сервер
 	const [searchValue, setSearchValue] = useState('')
 
-	const paramsToRender = testMob.parametrs
-	const isCaption = testMob.isCaption
-	let renderValue = testMob.defaultValue
-	const neuralName = testMob.activeNeuralName
+	const paramsToRender = store.parametrs
+	const isCaption = store.isCaption
+	let renderValue = store.defaultValue
+	const neuralName = store.activeNeuralName
 
 	useEffect(() => {
 		setCaption('')
@@ -61,7 +61,7 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 		}
 
 		goOnServer()
-		testMob.startGeneration()
+		store.startGeneration()
 	}
 
 	const goOnServer = async () => {
@@ -78,10 +78,10 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 		try {
 			const response = await api.RunNeural(formData);
 			const images = response.data.images;
-			testMob.endGeneration();
+			store.endGeneration();
 
 			if (images) {
-				testMob.endGeneration();
+				store.endGeneration();
 				ResultWindowState.setImages(images);
 				ResultWindowState.setIsOpen(true);
 			} else {
@@ -90,7 +90,7 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 			}
 		} catch (e) {
 			alert("Произошла ошибка сервера");
-			testMob.endGeneration();
+			store.endGeneration();
 			console.error(e);
 			throw (e);
 		}
@@ -110,7 +110,7 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 	return (
 		<div>
 			<ImagesBlock closeWindow={closeWindow} closeParam={closeParam} setSendImages={setImg} sendImages={img} />
-			{testMob.activeNeuralName ? <>
+			{neuralName ? <>
 				<div className={cl.params}>
 					<div className={cl.paramsHeader}>
 						<input
@@ -137,13 +137,13 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 					</div>
 				</div>
 				<div className={cl.downBtns}>
-					<button onClick={() => testMob.endGeneration()} className={cl.cancel}>
+					<button onClick={() => store.endGeneration()} className={cl.cancel}>
 						<span className={cl.cancel__txt}>
 							Отмена
 						</span>
 					</button>
 					{
-						testMob.isGenerationEnd ?
+						store.isGenerationEnd ?
 							<div className={cl.attention}>
 								<button className={cl.downBtns__generate} onClick={startGeneration}>
 									<span className={cl.txt}>

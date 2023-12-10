@@ -14,7 +14,7 @@ const MySelect = ({ getValue, name, description, options, keyValue, defaultV, se
 		testMob.doDefaultValues(); //заполняем объект из параметров для отправки на сервер при смене модели генерации
 	}, [testMob.currentModel, testMob.activeNeuralName]);
 
-	useEffect(()=>{
+	useEffect(() => {
 		setValue(defaultV)
 	}, [testMob.activeNeuralName])
 
@@ -49,37 +49,41 @@ const MySelect = ({ getValue, name, description, options, keyValue, defaultV, se
 	return (
 		<>
 			{
-				!isAnyChild() ? <article className={cl.param} >
-					<div className={cl.container}>
-						<span className={cl.paramText} style={{ marginRight: 40 }}>{name}</span>
-						<section className={cl.block2}>
-							<select className={cl.select} value={value} onChange={e => { call(e); }} onBlur={() => { getValue(value, keyValue) }}>
-								{options.map(({ name, value, description, system }, id) => {
-									if (!system)
-										return <option key={id} value={value}>{name}</option>
-								})}
-							</select>
+				!isAnyChild() ?
+					<div className={cl.cont}>
+						<div>
+							<span className={cl.paramText} style={{ marginRight: 40 }}>{name}</span>
+								<select className={cl.select} value={value} onChange={e => { call(e); }} onBlur={() => { getValue(value, keyValue) }}>
+									{options.map(({ name, value, description, system }, id) => {
+										if (!system)
+											return <option key={id} value={value}>{name}</option>
+									})}
+								</select>
+						</div>
+						<div>
 							<Tooltip title={description}>
 								<img className={cl.paramImg} src='Question.svg' alt='' />
 							</Tooltip>
-						</section>
-					</div>
-				</article> : isChildMatch() ? <article className={cl.param} >
-					<div className={cl.container}>
-						<span className={cl.paramText} style={{ marginRight: 40 }}>{name}</span>
-						<section className={cl.block2}>
-							<select className={cl.select} value={value} onChange={e => { call(e); }} onBlur={() => { getValue(value, keyValue) }}>
-								{options.map(({ name, value, description, system }, id) => {
-									if (!system)
-										return isValid(value, options[id]) && <option key={id} value={value}>{name}</option>
-								})}
-							</select>
-							<Tooltip title={description}>
-								<img className={cl.paramImg} src='Question.svg' alt='' />
-							</Tooltip>
-						</section>
-					</div>
-				</article> : <></>
+						</div>
+					</div> : isChildMatch() ?
+						<div className={cl.cont}>
+							<div>
+								<span className={cl.paramText} style={{ marginRight: 40 }}>{name}</span>
+								<section className={cl.block2}>
+									<select className={cl.select} value={value} onChange={e => { call(e); }} onBlur={() => { getValue(value, keyValue) }}>
+										{options.map(({ name, value, description, system }, id) => {
+											if (!system)
+												return isValid(value, options[id]) && <option key={id} value={value}>{name}</option>
+										})}
+									</select>
+								</section>
+							</div>
+							<div>
+								<Tooltip title={description}>
+									<img className={cl.paramImg} src='Question.svg' alt='' />
+								</Tooltip>
+							</div>
+						</div> : <></>
 			}
 		</>
 
