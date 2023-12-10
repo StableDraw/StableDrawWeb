@@ -84,6 +84,8 @@
     {
         top: 5%;
         /* left: 10%; */
+        margin-left: 5%;
+        margin-right: 5%;
     }
 }
 @media(max-width: 1024px){
@@ -107,9 +109,6 @@
     .activeModal
     {
         top: 5%;
-        /* left: 15px; */
-        width: 738px;
-        height: 470px;
     }
     .close
     {

@@ -1,13 +1,13 @@
 .mainContent {
-    width: 700px;
-    height: 700px;
+    width: 70%;
+    height: fit-content;
     background-color: #FFFFFF;
     border-bottom-right-radius: 20px;
 }
 .mainContent2 {
-    width: 550px;
-    height: 610px;
-    margin: 35px 90px 45px 60px;
+    width: 100%;
+    height: fit-content;
+    padding: 3% 8%;
     color: #656565;
 }
 input
@@ -15,26 +15,14 @@ input
     padding-left: 5px;
 }
 @media(max-width: 1280px){
-    .mainContent
-    {
-        height: 590px;
-    }
-    .mainContent2
-    {
-        height: fit-content;
-    }
+
 }
 @media(max-width: 768px){
-    .mainContent
-    {
-        height: 430px;
-        width: fit-content;
-    }
     .mainContent2
     {
         height: fit-content;
         width: fit-content;
-        margin: 13px;
+        padding:2%;
     }
 
 }

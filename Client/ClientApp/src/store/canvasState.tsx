@@ -1,7 +1,8 @@
 import { makeAutoObservable } from "mobx";
 class Canvas {
-    height = (window.innerHeight / 2) + (window.innerHeight * 0.1) /*половина высоты экрана + 10% экрана*/
-    width = (window.innerWidth / 2 ) + (window.innerWidth * 0.05) /*половина ширины экрана + 5% экрана*/
+    height = window.innerHeight - 150; /*половина высоты экрана + 10% экрана*/
+    width = window.innerWidth - (window.innerWidth * 0.23); /*половина ширины экрана + 5% экрана*/
+    heightLayerBox = window.innerHeight - (window.innerHeight * 0.6 );
     opacity = 1;
     visable: boolean = 1;
     undoList:any= []

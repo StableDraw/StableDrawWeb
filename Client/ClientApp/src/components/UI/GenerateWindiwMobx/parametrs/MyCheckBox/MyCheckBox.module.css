@@ -1,6 +1,6 @@
 .param {
-	margin-top: 10px;
-	width: 520px;
+	width: 100%;
+	padding: 10px 15px 10px 0;
 	/* height: 60px; */
 	border-top: 1px solid #404249;
 }
@@ -14,9 +14,8 @@
 
 .text {
 	display: inline-block;
-	padding: 0px 0px 10px 30px;
+	padding: 0px 0px 0px 30px;
 	/* margin-right: 35px; */
-	margin-top: 20px;
 	max-width: 400px;
 	color: #656565;
 	font-family: Montserrat;
@@ -27,8 +26,8 @@
 }
 
 .block2 {
-	margin-top: 20px;
-	margin-bottom: auto;
+	display: flex;
+    align-items: center;
 }
 
 .img {
@@ -43,9 +42,11 @@
 	width: 46px;
 	height: 24px;
 	/* margin-left: auto; */
-	margin-bottom: 10px;
 }
-
+.block2 img
+{
+	margin-left: 10px;
+}
 .switch input {
 	opacity: 0;
 	width: 0;
@@ -112,12 +113,7 @@ input:checked + .slider_round:before {
         margin-right: 5px;
     }
 }
-@media(max-width: 1280px){
-    .param
-    {
-        width: 475px;
-    }
-}
+
 @media(max-width: 768px){
     .text
     {

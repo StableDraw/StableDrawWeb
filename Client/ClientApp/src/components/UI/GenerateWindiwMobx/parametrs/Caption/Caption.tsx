@@ -35,6 +35,7 @@ const Caption = ({ setCaption }) => {
 		<article className='param'>
 			<div className='cont'>
 				<h3><span className='text'>Описание</span></h3>
+				<div className='inputBlock'>
 				<textarea
 					placeholder='Ввод текста...'
 					className='input'
@@ -44,6 +45,7 @@ const Caption = ({ setCaption }) => {
 				<Tooltip title='Caption'>
 					<img className='paramImg' src='Question.svg' alt='' />
 				</Tooltip>
+				</div>
 			</div>
 			{!isValidInput && <span className='attentionTxt'>*На данный момент описание доступно только на английском языке</span>}
 		</article>)

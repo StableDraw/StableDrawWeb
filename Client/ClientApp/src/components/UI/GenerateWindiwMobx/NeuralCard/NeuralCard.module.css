@@ -1,8 +1,8 @@
 .item {
 	display: flex;
-	width: 225px;
+	width: 100%;
 	height: 120px;
-	padding: 25px 0 25px 15px;
+	padding: 25px 15px 25px 15px;
 	margin-left: auto;
 	margin-right: auto;
 	border-bottom: 1px #ACACAC solid;
@@ -18,9 +18,9 @@
 
 .itemActive {
 	display: flex;
-	width: 225px;
+	width: 100%;
 	height: 120px;
-	padding: 25px 0 25px 15px;
+	padding: 25px 15px 25px 15px;
 	background-color: #ACACAC;
 	margin-left: auto;
 	margin-right: auto;

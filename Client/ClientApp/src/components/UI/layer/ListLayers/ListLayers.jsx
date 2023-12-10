@@ -1,9 +1,11 @@
 ﻿import ListItem from "../ListItem/ListItem";
 import cl from './ListLayers.module.css'
 import canvasList from "../../../../store/canvasList.tsx";
-import {observer} from 'mobx-react-lite'
+import {observer} from 'mobx-react-lite';
+import canvasState from "../../../../store/canvasState.tsx";
 const ListLayers = observer(({}) => {
     const layers = canvasList.canvases
+    const heightLayerBox = canvasState.heightLayerBox
     // console.log((JSON.parse(JSON.stringify(layers))))
     // const [merge, setMerge] = useState([])
     // const [canvasMerge, setCanvasMerge] = useState([])
@@ -42,7 +44,7 @@ const ListLayers = observer(({}) => {
     
     
     return (
-        <div className={cl.layer_box}>
+        <div className={cl.layer_box} style={{ maxHeight: `${heightLayerBox}px`}}>
             {layers.map((item) =>
                <ListItem item={item} key={item.id}/>
             )}

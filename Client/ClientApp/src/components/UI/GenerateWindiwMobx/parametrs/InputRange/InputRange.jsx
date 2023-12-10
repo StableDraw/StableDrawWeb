@@ -28,30 +28,32 @@ const InputRange = ({ getValue, description, defaultV, max, min, step, name, key
 				isValidParam() && <article className={cl.param}>
 					<div className={cl.container}>
 						<span className={cl.text}>{name}</span>
-						<input
-							className={cl.range}
-							type="range"
-							min={min}
-							max={max}
-							value={value}
-							onChange={(e) => call(+e.target.value)}
-							onMouseUp={() => getValue(value, keyValue)}
-							step={step}
-						/>
-						<input
-							className={cl.number}
-							type="number"
-							min={min}
-							max={max}
-							value={value}
-							onChange={(e) => call(+e.target.value)}
-							onBlur={() => getValue(value, keyValue)}
-							onClick={handleSelect}
-							step={step}
-						/>
-						<Tooltip title={description}>
-							<img className={cl.paramImg} src='Question.svg' alt='' />
-						</Tooltip>
+						<div className={cl.inputBlock}>
+							<input
+								className={cl.range}
+								type="range"
+								min={min}
+								max={max}
+								value={value}
+								onChange={(e) => call(+e.target.value)}
+								onMouseUp={() => getValue(value, keyValue)}
+								step={step}
+							/>
+							<input
+								className={cl.number}
+								type="number"
+								min={min}
+								max={max}
+								value={value}
+								onChange={(e) => call(+e.target.value)}
+								onBlur={() => getValue(value, keyValue)}
+								onClick={handleSelect}
+								step={step}
+							/>
+							<Tooltip title={description}>
+								<img className={cl.paramImg} src='Question.svg' alt='' />
+							</Tooltip>
+						</div>
 					</div>
 				</article>
 			}
