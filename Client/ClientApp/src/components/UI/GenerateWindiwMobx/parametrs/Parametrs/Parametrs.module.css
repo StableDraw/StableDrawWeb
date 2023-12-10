@@ -156,10 +156,7 @@
 	height: 250px;
 	margin-top: 20px;
 }
-.params div:first-child
-{
-	justify-content: space-between;
-}
+
 .findParam {
 	width: 65%;
 	height: 30px;
@@ -167,24 +164,24 @@
 	color: #656565;
 	font-weight: 500;
 	font-size: 13px;
-	border-radius: 6px;
+	border-radius: 10px;
 	border: 1px solid #656565;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 	outline: none;
-
 	padding-left: 20px;
-	padding: 0px 20px 5px 40px;
+	padding: 0px 20px 0px 40px;
 
 	background-image: url('../../../../../../public/Magnifier.svg');
 	background-repeat: no-repeat;
 	background-position: 15px;
 	background-size: 18px;
 }
-.findParam::placeholder
-{
+
+.findParam::placeholder {
 	font-size: 14px;
 }
+
 .saveParam {
 	display: flex;
 	justify-content: center;
@@ -207,13 +204,12 @@
 }
 
 .txt__saveParam {
+	font-family: Montserrat;
 	font-size: 11px;
 	font-weight: 600;
 	color: #06F;
 	transition: 100ms ease-in-out;
 }
-
-
 
 .saveParam:hover {
 	color: white;
@@ -247,6 +243,7 @@
 	overflow-y: scroll;
 	scroll-behavior: smooth;
 	overflow-x: hidden;
+	padding-right: 20px;
 }
 
 .cancel {
@@ -317,7 +314,6 @@
 .attention {
 	display: flex;
 	flex-direction: column;
-	gap: 5px;
 	justify-content: center;
 	align-items: center;
 }
@@ -329,6 +325,11 @@
 	font-style: normal;
 	font-weight: 400;
 	line-height: normal;
+}
+
+.paramsHeader {
+	display: flex;
+	justify-content: space-between;
 }
 
 /* Анимация загрузки */
@@ -359,77 +360,68 @@
 	height: 30px;
 }
 
-
-
 .loadTxt {
 	color: var(--dark-gray, #656565);
 	font-size: 12px;
 	font-weight: 500;
 }
 
-@media(max-width: 1920px){
-	.downBtns
-	{
+@media(max-width: 1920px) {
+	.downBtns {
 		margin-top: 30px;
 	}
-	.paramCont
-	{
+
+	.paramCont {
 		height: 300px;
 	}
-	.paramsList
-	{
+
+	.paramsList {
 		height: 280px;
 	}
-	.params
-	{
+
+	.params {
 		height: 300px;
 	}
 }
 
-@media(max-width: 1280px){
-	.image
-	{
+@media(max-width: 1280px) {
+	.image {
 		height: 210px;
 	}
-	.params
-	{
+
+	.params {
 		margin-top: 10px;
 		height: 230px;
 	}
-	.paramCont
-	{
+
+	.paramCont {
 		height: 240px;
 	}
-	.paramsList
-	{
+
+	.paramsList {
 		height: 230px;
 	}
-	.cancel
-	{
+
+	.cancel {
 		width: fit-content;
 		height: fit-content;
 		padding: 10px 25px;
 		display: flex;
 	}
-	.cancel__txt
-	{
+
+	.cancel__txt {
 		font-size: 14px;
 	}
-	.downBtns__generate
-	{
+
+	.downBtns__generate {
 		width: fit-content;
 		height: fit-content;
 		padding: 10px 25px;
 		display: flex;
 	}
-	.downBtns
-	{
+
+	.downBtns {
 		margin-top: 50px;
-	}
-	.txt
-	{
-		font-size: 14px;
-		font-weight: 500;
 	}
 }
 @media(max-width: 768px){
@@ -441,17 +433,17 @@
 	{
 		max-height: 100px;
 	}
-	.txt
-	{
+
+	.txt {
 		font-size: 12px;
 	}
-	.imgBtn img
-	{
+
+	.imgBtn img {
 		width: 50px;
 		height: 50px;
 	}
-	.deleteBtn img
-	{
+
+	.deleteBtn img {
 		width: 25px;
 		height: 25px;
 	}
@@ -459,8 +451,8 @@
 	{
 		height: 150px;
 	}
-	.params img
-	{
+
+	.params img {
 		margin-left: 5px;
 	}
 	.paramCont
@@ -471,9 +463,9 @@
 	{
 		height: 140px;
 	}
-	.downBtns__generate
-	{
+
+	.downBtns__generate {
 		padding: 12px 25px;
 	}
-	
+
 }

@@ -7,6 +7,7 @@ class neuralWindow {
 	parametrs = [];
 	isCaption;
 	caption = '';
+	maxImageAmount = 1; // максимальное количество картинок для текущей нейросети
 	neuralWindowImages = []; // массив картинок, которые в данный момент загружены в окно генерации
 	defaultValue = {}; //объект дефолтных значений параметров(костыль Серёги, нужно переписать на useEffect)
 	isGenerationEnd = true; // флаг для отслеживания отправленной на генерацию картинки
@@ -55,21 +56,23 @@ class neuralWindow {
 					this.setCurrentModel(param?.version?.default);
 			}
 		})
+
 	}
 
 	async getParams(name) {
 		try {
 			const response = await api.GetNeurals(name)
+			this.maxImageAmount = response.data.image_count_input;
 			this.setActiveNeural(name)
 			this.isCaption = response.data.caption;
-			const array = []
+			const params = []
 
 			for (let item of response.data.params) {
 				const param = item;
-				array.push(param)
+				params.push(param)
 			}
-			this.parametrs = array
-			this.setCurrentModelOnMount(array)//задаём модель генерации
+			this.parametrs = params
+			this.setCurrentModelOnMount(params)//задаём модель генерации
 			this.doDefaultValues()
 		} catch (e) {
 			console.error(e)
@@ -81,10 +84,6 @@ class neuralWindow {
 		this.activeNeuralName = name
 		this.caption = '';
 	}
-
-	// setCaption(caption) {
-	// 	this.caption = caption;
-	// }
 
 	doDefaultValues = () => {
 		let result = {}

@@ -7,7 +7,8 @@ import testMob from '../../../../../store/neuralWindow.jsx'
 const InputText = ({ getValue, name, description, defaultV, keyValue, isValidParam }) => {
 	const [value, setValue] = useState(defaultV)
 
-	useEffect(() => {setValue(defaultV)}, [testMob.currentModel, testMob.activeNeuralName])
+	useEffect(() => { setValue(defaultV) }, [testMob.currentModel, testMob.activeNeuralName])
+
 	const call = (e) => {
 		setValue(e.target.value)
 	}
@@ -15,8 +16,9 @@ const InputText = ({ getValue, name, description, defaultV, keyValue, isValidPar
 	return (
 		<>
 			{
-				isValidParam() && <article className={cl.param}>
-					<div className={cl.container}>
+				isValidParam() && 
+				<div className={cl.cont}>
+					<div>
 						<span className={cl.text}>{name}</span>
 						<div className={cl.inputBlock}>
 							<input
@@ -32,7 +34,7 @@ const InputText = ({ getValue, name, description, defaultV, keyValue, isValidPar
 							</Tooltip>
 						</div>
 					</div>
-				</article>
+				</div>
 			}
 		</>
 
