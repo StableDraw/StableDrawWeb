@@ -15,7 +15,6 @@ class neuralWindow {
 	childParams = []; // массив дочерних параметров для текущей модели
 	childValues = []; // массив дочерних значений для селекторов для текущей модели
 
-
 	constructor() {
 		makeAutoObservable(this, {
 			activeNeuralName: observable,
@@ -82,7 +81,7 @@ class neuralWindow {
 
 	setActiveNeural(name) {
 		this.activeNeuralName = name
-		this.caption = '';
+		this.setCaption(''); //при переключении нейронки описание обнуляется
 	}
 
 	doDefaultValues = () => {
@@ -182,6 +181,10 @@ class neuralWindow {
 
 	setNeuralWindowImages = (images) => {
 		this.neuralWindowImages = images
+	}
+	
+	setCaption = (caption) => {
+		this.caption = caption;
 	}
 
 }

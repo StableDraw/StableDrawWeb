@@ -16,8 +16,7 @@ const InputText = ({ getValue, name, description, defaultV, keyValue, isValidPar
 	return (
 		<>
 			{
-				isValidParam() && 
-				<div className={cl.cont}>
+				isValidParam() && <div className={cl.cont}>
 					<div>
 						<span className={cl.text}>{name}</span>
 						<input

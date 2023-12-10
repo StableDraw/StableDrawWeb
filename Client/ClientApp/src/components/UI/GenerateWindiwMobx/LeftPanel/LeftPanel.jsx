@@ -7,7 +7,7 @@ import testMob from '../../../../store/neuralWindow.jsx'
 
 const LeftPanel = observer(({ openParam, }) => {
 	const [searchValue, setSearchValue] = useState('')
-	const [neuralList, setNeuralList] = useState('')
+	const [neuralList, setNeuralList] = useState([])
 
 	useEffect(() => {
 		if (!searchValue)
@@ -25,7 +25,6 @@ const LeftPanel = observer(({ openParam, }) => {
 
 		return requiredNeurons; // новый список для отображения
 	}
-
 	return (
 		<section className={cl.finder}>
 			<div className={cl.finderBlock}>
@@ -37,7 +36,7 @@ const LeftPanel = observer(({ openParam, }) => {
 				>
 				</input>
 				<div className={cl.list}>
-					{neuralList ? neuralList.map((neural, id) =>
+					{Boolean(neuralList) ? neuralList.map((neural, id) =>
 						<NeuralCard
 							key={id}
 							active={openParam}
