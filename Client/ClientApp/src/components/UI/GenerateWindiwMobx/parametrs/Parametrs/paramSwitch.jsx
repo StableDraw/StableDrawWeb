@@ -74,6 +74,7 @@ export const ParamSwitch = observer(({value, id, setValueForServer}) => {
 					key={id}
 					keyValue={paramName}
 					name={value[paramName].name}
+					//оставил полюбоваться строчкой кода коллеги(Привет, Сергей)
 					defaultV={value[paramName].default === 'True' ? true : false}
 					description={value[paramName].description}
 					getValue={setValueForServer}

@@ -7,6 +7,8 @@
 	flex-direction: column;
 	background-color: #EFEFEF;
 	height: 100vh;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 .content {
@@ -135,11 +137,11 @@
 }
 
 .textLamb {
-	color: #FFF;
+	color: #525151;
 	font-family: Montserrat;
-	font-size: 14px;
+	font-size: 26px;
 	font-style: normal;
-	font-weight: 400;
+	font-weight: 800;
 	line-height: normal;
 	cursor: pointer;
 }
@@ -151,6 +153,11 @@
 	gap: 5px;
 	justify-content: flex-end;
 	align-items:center;
+}
+
+.lambLogo{
+	color: #525151;
+	width: 48px;
 }
 
 .Link{
