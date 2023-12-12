@@ -3,9 +3,9 @@
 
 .main {
 	display: flex;
-	justify-content: flex-start;
+	justify-content: space-between;
 	flex-direction: column;
-	background-color: #EFEFEF;
+	background-color: #2B2D31;
 	height: 100vh;
 	overflow-y: auto;
 	overflow-x: hidden;

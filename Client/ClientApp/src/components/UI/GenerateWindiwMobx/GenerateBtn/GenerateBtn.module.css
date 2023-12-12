@@ -86,7 +86,22 @@
         /* left: 10%; */
     }
 }
-@media(max-width: 1024px){
+
+@media(max-height: 828px){
+    .activeModal
+    {
+        top: 5%;
+        /* left: 10%; */
+    }
+}
+
+@media(max-height: 780px){
+    .activeModal
+    {
+        top: 2%;
+    }
+}
+@media(max-height: 760px){
     .activeModal
     {
         top: 5%;
