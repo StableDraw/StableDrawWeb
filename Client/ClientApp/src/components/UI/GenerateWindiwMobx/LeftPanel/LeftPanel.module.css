@@ -86,7 +86,7 @@
     background-color: #656565;
 }
 
-@media(max-width: 1280px){
+@media(max-height: 760px){
     .inputFinder
     {
         height: 30px;
