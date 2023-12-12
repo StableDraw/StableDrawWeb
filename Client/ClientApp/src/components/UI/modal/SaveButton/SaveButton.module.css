@@ -21,11 +21,36 @@
     vertical-align: middle;
     margin: 0;
 }
+@media screen and (max-width: 1600px) {
+    .upload {
+        width: fit-content;
+        padding: 15px !important;
+        gap: 5px;
+    }
+    .upload p {
+        font-size: 15px;
+    }
+}
 @media screen and (max-width: 1245px) {
     .upload {
         width: 115px;
     }
     .upload p {
         font-size: 14px;
+    }
+}
+@media screen and (max-width: 1024px) {
+    .upload {
+        width: fit-content;
+        height: 24px;
+        padding: 15px !important;
+        gap: 5px;
+    }
+    .upload p {
+        font-size: 11px;
+    }
+    .upload svg
+    {
+        width: 15px;
     }
 }

@@ -1,10 +1,10 @@
 .nav
 {
     display: flex;
-    flex: 0 0 90px;
+    flex: 0 0 70px;
     height: calc(100vh - 70px);
     background-color: white;
-    width: 90px;
+    width: 70px;
     align-content: center;
     /* justify-content: center; */
     align-items: center;
@@ -13,12 +13,16 @@
 }
 .el {
     cursor: pointer;
-    padding: 15px;
-    width: 75px;
-    height: 75px;
+    padding: 10px;
+    width: 100%;
+    height: fit-content;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.el svg
+{
+    width: 30px;
 }
 .el:focus {
      border-radius: 25px;
@@ -75,7 +79,17 @@
     right: 0;
     bottom: 0;
 }
-
+@media screen and (max-width: 1280px) {
+    .nav
+    {
+        flex: 0 0 50px;
+        width: 50px;
+    }
+    .el svg
+    {
+        width: 20px;
+    }
+}
 @media screen and (max-width: 1245px) {
     .nav {
         padding: 25px 0;
@@ -83,5 +97,12 @@
     .nav svg {
         width: 35px;
         height: 35px;
+    }
+}
+@media screen and (max-width: 768px) {
+    
+    .nav svg {
+        width: 20px;
+        height: 20px;
     }
 }

@@ -74,3 +74,21 @@
 	background: none;
 }
 
+@media(max-width: 768px){
+	.checkPrtTxt
+	{
+		font-size: 10px;
+	}
+	.buttons, .counterTxt
+	{
+		font-size: 14px;
+	}
+	.selectors
+	{
+		margin-top: 15px;
+	}
+	.checkPrt
+	{
+		gap: 10px;
+	}
+}

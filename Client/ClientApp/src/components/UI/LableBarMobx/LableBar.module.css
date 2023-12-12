@@ -4,8 +4,9 @@
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    height: 380px;
-    width: 296px;
+    height: fit-content;
+    width: fit-content;
+    max-width: 350px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -34,6 +35,7 @@
     width: 100%;
     border: none;
     text-align: center;
+    padding-left: 0;
 }
 .input__scale::placeholder {
     color: #929292;
@@ -67,4 +69,55 @@
 .left__button_group {
     display:  flex;
     gap: 20px;
+}
+@media screen and (max-width: 1024px) {
+    .opacity__text
+    {
+        font-size: 14px;
+    }
+    .opacity__block
+    {
+        height: 30px;
+    }
+    .input__scale
+    {
+        font-size: 12px;
+    }
+    .layers__button
+    {
+        padding: 10px;
+    }
+    .layers__button svg
+    {
+        width: 25px;
+    }
+}
+@media screen and (max-width: 768px) {
+    .opacity__text
+    {
+        font-size: 10px;
+    }
+    .opacity__block
+    {
+        height: 24px;
+    }
+    
+    .input__scale
+    {
+        font-size: 10px;
+    }
+    .layers__button
+    {
+        padding: 5px;
+    }
+    .layers__button svg
+    {
+        width: 17px;
+        height: 17px;
+        margin-top: -8px;
+    }
+    .scale__block
+    {
+        gap: 15px;
+    }
 }

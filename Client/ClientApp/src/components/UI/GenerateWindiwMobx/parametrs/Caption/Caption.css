@@ -1,15 +1,18 @@
-.param {
-	margin-top: 10px;
-	width: 520px;
-	/* height: 60px; */
-	border-top: 1px solid #404249;
-}
 
 .cont {
 	display: flex;
+	flex-direction: row;
 	justify-content: space-between;
-	align-items: center;
+	align-items: flex-start;
+	border-top: 1px solid #ABABAB;
+	padding: 15px 10px 10px 10px;
+}
 
+.cont div {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 10px;
 }
 
 .text {
@@ -17,17 +20,15 @@
 	font-family: Montserrat;
 	font-size: 19px;
 	font-style: normal;
-	font-weight: 600;
+	font-weight: 700;
 	line-height: normal;
 	display: inline-block;
-	width: 200px;
-	padding: 10px 0px 10px 30px;
-	margin-right: 35px;
+	width: 100%;
 }
 
 .input {
-	width: 250px;
-	height: 100px;
+	width: 465px;
+	height: 50px;
 	border: none;
 	border-radius: 5px;
 	background: #D9DBDC;
@@ -35,8 +36,38 @@
 	outline: none;
 }
 
+.attentionTxt{
+	color: red;
+	font-size: 11px;
+	font-family: Montserrat;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+}
+
 .img {
-	width: 20px;
-	height: 20px;
-	margin-left: 10px;
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+}
+@media(max-width: 1280px){
+    .imput
+    {
+        margin-top: 10px;
+    }
+}
+@media(max-width: 768px){
+    .param
+    {
+        width: 475px;
+    }
+    .text
+    {
+        font-size: 18px;
+    }
+    .input
+    {
+        width: 210px;
+        height: 80px;
+    }
 }

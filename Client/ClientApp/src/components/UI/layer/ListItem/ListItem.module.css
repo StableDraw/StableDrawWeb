@@ -130,6 +130,32 @@
     background-color: #FFFFFF;
 }
 
+@media screen and (max-width: 768px) {
+    .layerActive
+    {
+        height: 34px;
+    }
+    .canvas
+    {
+        width: 30px;
+        height: 20px;
+    }
+    .layer_display_icon
+    {
+        display: flex;
+        align-items: center;
+    }
+    .layer__block
+    {
+        gap: 5px;
+    }
+    .layer_left_mini_button svg
+    {
+        width: 14px;
+        height: 10px;
+    }
+}
+
 /*.not__selected {*/
 /*    border: 1px solid rgb(85, 85, 85);*/
 /*}*/

@@ -1,37 +1,56 @@
 import React, { useEffect, useState } from 'react'
 import './Caption.css'
 import Tooltip from '@mui/material/Tooltip';
-import testMob from '../../../../../store/neuralWindow.jsx'
+import store from '../../../../../store/neuralWindow.jsx'
+import { observer } from 'mobx-react-lite'
 
-const Caption = ({ setCaption }) => {
+const Caption = observer(() => {
 	const [value, setValue] = useState('');
+	const [isValidInput, setIsValidInput] = useState(true)
+
 	useEffect(() => {
-		setCaption(value)
+		store.setCaption(value)
+
+		if (!lngType(value) && value)
+			setIsValidInput(false);
+		else
+			setIsValidInput(true);
+
 	}, [value])
 
 	useEffect(() => {
 		setValue('')
-	}, [testMob.activeNeuralName])
+	}, [store.activeNeuralName])
 
 	const call = (e) => {
 		setValue(e.target.value)
 	}
 
+	// проверяем язык ввода
+	const lngType = (text) => {
+		let eng = /^[\w\s\d.,!?"';*=<>@%:&+()-/|\\`~$#№^\{\}\[\]]+$/
+		return text.match(eng)
+	}
+
 	return (
-		<article className='param'>
 			<div className='cont'>
-				<h3><span className='text'>Описание</span></h3>
-				<textarea
-					placeholder='Ввод текста...'
-					className='input'
-					value={value}
-					onChange={e => call(e)}
-				/>
-				<Tooltip title='Caption'>
-					<img className='paramImg' src='Question.svg' alt=''/>
-				</Tooltip>
+				<div>
+					<span className='text'>Описание</span>
+					<textarea
+						placeholder='Ввод текста...'
+						className='input'
+						value={value}
+						onChange={e => call(e)}/>
+						{!isValidInput &&
+				<span className='attentionTxt'>*На данный момент описание доступно только на английском языке</span>}
+				</div>
+				<div>
+					<Tooltip title='Caption'>
+						<img className='paramImg' src='Question.svg' alt='' />
+					</Tooltip>
+				</div>
 			</div>
-		</article>)
-}
+	)
+})
 
 export default Caption

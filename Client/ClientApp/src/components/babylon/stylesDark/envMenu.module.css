@@ -1,0 +1,65 @@
+.main{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	right: 25px;
+	bottom: 25px;
+	border-radius: 25px;
+	width: 47px;
+	height: 47px;
+	background-color: var(--dark-blue-gray, #313338);
+	cursor: pointer;
+	transition: 250ms ease-in-out;
+	z-index: 2;
+}
+
+.main:hover{
+	scale: 1.05;
+}
+
+.main__open{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 5px;
+	height: 220px;
+	width: 55px;
+	border-radius: 20px;
+	transition: 250ms ease-in-out;
+	padding: 5px;
+}
+.main__open:hover{
+	scale: 1;
+}
+
+@keyframes show {
+	from {opacity:0%;}
+
+	to {opacity:100%;}
+	}
+.main__envMap{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 4px;
+	border-radius: 25px;
+	width: 47px;
+	height: 47px;
+	animation: show ease-in-out 350ms;
+	background-color: var(--dark-blue-gray, #383a3d);
+}
+
+.main__envMap:hover{
+	scale: 1.05;
+}
+
+.main__envImg{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 42px;
+	height: 42px;
+	border-radius: 30px;
+}

@@ -6,7 +6,7 @@ import testMob from '../../../../../store/neuralWindow.jsx'
 const InputRange = ({ getValue, description, defaultV, max, min, step, name, keyValue, isValidParam }) => {
 	const [value, setValue] = useState(defaultV);
 
-	useEffect(() => {setValue(defaultV)}, [testMob.currentModel, testMob.activeNeuralName])
+	useEffect(() => { setValue(defaultV) }, [testMob.currentModel, testMob.activeNeuralName])
 	const call = (res) => {
 		setValue(res);
 	}
@@ -25,35 +25,40 @@ const InputRange = ({ getValue, description, defaultV, max, min, step, name, key
 	return (
 		<>
 			{
-				isValidParam() && <article className={cl.param}>
-					<div className={cl.container}>
+				isValidParam() &&
+				<div className={cl.cont}>
+					<div>
 						<span className={cl.text}>{name}</span>
-						<input
-							className={cl.range}
-							type="range"
-							min={min}
-							max={max}
-							value={value}
-							onChange={(e) => call(+e.target.value)}
-							onMouseUp={() => getValue(value, keyValue)}
-							step={step}
-						/>
-						<input
-							className={cl.number}
-							type="number"
-							min={min}
-							max={max}
-							value={value}
-							onChange={(e) => call(+e.target.value)}
-							onBlur={() => getValue(value, keyValue)}
-							onClick={handleSelect}
-							step={step}
-						/>
+						<div className={cl.inputBlock}>
+							<input
+								className={cl.range}
+								type="range"
+								min={min}
+								max={max}
+								value={value}
+								onChange={(e) => call(+e.target.value)}
+								onMouseUp={() => getValue(value, keyValue)}
+								step={step}
+							/>
+							<input
+								className={cl.number}
+								type="number"
+								min={min}
+								max={max}
+								value={value}
+								onChange={(e) => call(+e.target.value)}
+								onBlur={() => getValue(value, keyValue)}
+								onClick={handleSelect}
+								step={step}
+							/>
+						</div>
+					</div>
+					<div>
 						<Tooltip title={description}>
 							<img className={cl.paramImg} src='Question.svg' alt='' />
 						</Tooltip>
 					</div>
-				</article>
+				</div>
 			}
 		</>
 

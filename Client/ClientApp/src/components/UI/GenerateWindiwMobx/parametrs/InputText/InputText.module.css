@@ -1,22 +1,22 @@
-.param {
-	margin-top: 10px;
-	width: 520px;
-	/* height: 60px; */
-	border-top: 1px solid #404249;
+.cont {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: flex-start;
+	border-top: 1px solid #ABABAB;
+	padding: 15px 10px 10px 10px;
 }
 
-.container {
+.cont div {
 	display: flex;
+	flex-direction: column;
 	justify-content: space-between;
-	align-items: center;
-
+	gap: 10px;
 }
 
 .text {
 	display: inline-block;
-	width: 200px;
-	padding: 10px 0px 10px 30px;
-	margin-right: 35px;
+	width: 100%;
 	color: #656565;
 	font-family: Montserrat;
 	font-size: 15px;
@@ -32,7 +32,7 @@
 	font-style: normal;
 	font-weight: 500;
 	line-height: normal;
-	width: 250px;
+	width: 465px;
 	height: 30px;
 	border: none;
 	border-radius: 5px;
@@ -41,8 +41,46 @@
 	outline: none;
 }
 
-.img {
+.input::placeholder {
+	color: #656565;
+	font-family: Montserrat;
+	font-size: 15px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+	width: 250px;
+	height: 30px;
+	border: none;
+	border-radius: 5px;
+	background: #D9DBDC;
+	outline: none;
+}
+
+.paramImg {
 	width: 20px;
 	height: 20px;
-	margin-left: 10px;
+}
+
+@media(max-width: 1280px) {
+	.input::placeholder {
+		font-size: 16px;
+		font-weight: 500;
+	}
+}
+
+@media(max-width: 768px) {
+	.input::placeholder {
+		font-size: 12px;
+		font-weight: 500;
+	}
+
+	.input {
+		font-size: 12px;
+		width: 400px;
+	}
+
+	.text {
+		font-size: 12px;
+	}
+
 }

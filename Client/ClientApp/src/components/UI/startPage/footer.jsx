@@ -58,19 +58,30 @@ export const Footer = () => {
 					</div>
 				</div>
 			</div>
-
-			<span className={footer.docs}>
-				ИНН/КПП: 5405088796/540501001, ОГРН: 123540003826, место нахождения:630112, г. Новосибирск, ул. Гоголя, д. 192, кв. 71; телефон: +7-913-786-9887;
-			</span>
-			<span className={footer.docs}>
-				62.01 «Разработка компьютерного программного обеспечения»
-			</span>
-			<span className={footer.docs}>
-				Стек используемых технологий: ASP.NET Core, .NET 7, MinIo, RabbitMQ, Masstransit, Docker Compose, MediatR, Propan, Sqlite, Entity Framework Core, Nginx, React, MobX, PyTorch
-			</span>
-			<span className={footer.docs}>
-				Языки программирования: C#, Typescript, Python, HTML, CSS
-			</span>
+			<div className={footer.box_docs}>
+				<div className={footer.left_docs}>
+					<span className={footer.docs}>
+						<span>ИНН/КПП:</span> 5405088796/540501001
+					</span>
+					<span className={footer.docs}>
+						<span>ОГРН:</span> 123540003826
+					</span>
+					<span className={footer.docs}>
+						<span>Место нахождения:</span><br />630112, г. Новосибирск, ул. Гоголя, д. 192, кв. 71
+					</span>
+					<span className={footer.docs}>
+						<span>Телефон:</span> +7-913-786-9887;
+					</span>
+				</div>
+				<div className={footer.right_docs}>
+					<span className={footer.docs}>
+						<span>Код ОКВЭД:</span> 62.01 «Разработка компьютерного программного обеспечения»
+					</span>
+					<span className={footer.docs}>
+						<span>Языки программирования:</span> C#, Typescript, Python, HTML, CSS
+					</span>
+				</div>
+			</div>
 		</footer>
 	)
 }
