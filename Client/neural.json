@@ -313,6 +313,38 @@
 									{
 										"param_id": "caption_main",
 										"values_id": []
+									},
+									{
+										"param_id": "steps",
+										"values_id": []
+									},
+									{
+										"param_id": "ddim_eta",
+										"values_id": []
+									},
+									{
+										"param_id": "guidance_scale",
+										"values_id": []
+									},
+									{
+										"param_id": "verbose",
+										"values_id": []
+									},
+									{
+										"param_id": "seed",
+										"values_id": []
+									},
+									{
+										"param_id": "outscale",
+										"values_id": []
+									},
+									{
+										"param_id": "negative_prompt",
+										"values_id": []
+									},
+									{
+										"param_id": "noise_augmentation",
+										"values_id": []
 									}
 								]
 							},
@@ -323,6 +355,38 @@
 								"childs": [
 									{
 										"param_id": "caption_main",
+										"values_id": []
+									},
+									{
+										"param_id": "steps",
+										"values_id": []
+									},
+									{
+										"param_id": "ddim_eta",
+										"values_id": []
+									},
+									{
+										"param_id": "guidance_scale",
+										"values_id": []
+									},
+									{
+										"param_id": "verbose",
+										"values_id": []
+									},
+									{
+										"param_id": "seed",
+										"values_id": []
+									},
+									{
+										"param_id": "outscale",
+										"values_id": []
+									},
+									{
+										"param_id": "negative_prompt",
+										"values_id": []
+									},
+									{
+										"param_id": "noise_augmentation",
 										"values_id": []
 									}
 								]
@@ -363,6 +427,38 @@
 									{
 										"param_id": "gpu-id",
 										"values_id": []
+									},
+									{
+										"param_id": "steps",
+										"values_id": []
+									},
+									{
+										"param_id": "ddim_eta",
+										"values_id": []
+									},
+									{
+										"param_id": "guidance_scale",
+										"values_id": []
+									},
+									{
+										"param_id": "verbose",
+										"values_id": []
+									},
+									{
+										"param_id": "seed",
+										"values_id": []
+									},
+									{
+										"param_id": "outscale",
+										"values_id": []
+									},
+									{
+										"param_id": "negative_prompt",
+										"values_id": []
+									},
+									{
+										"param_id": "noise_augmentation",
+										"values_id": []
 									}
 								]
 							},
@@ -401,6 +497,38 @@
 									},
 									{
 										"param_id": "gpu-id",
+										"values_id": []
+									},
+									{
+										"param_id": "steps",
+										"values_id": []
+									},
+									{
+										"param_id": "ddim_eta",
+										"values_id": []
+									},
+									{
+										"param_id": "guidance_scale",
+										"values_id": []
+									},
+									{
+										"param_id": "verbose",
+										"values_id": []
+									},
+									{
+										"param_id": "seed",
+										"values_id": []
+									},
+									{
+										"param_id": "outscale",
+										"values_id": []
+									},
+									{
+										"param_id": "negative_prompt",
+										"values_id": []
+									},
+									{
+										"param_id": "noise_augmentation",
 										"values_id": []
 									}
 								]
@@ -441,6 +569,38 @@
 									{
 										"param_id": "gpu-id",
 										"values_id": []
+									},
+									{
+										"param_id": "steps",
+										"values_id": []
+									},
+									{
+										"param_id": "ddim_eta",
+										"values_id": []
+									},
+									{
+										"param_id": "guidance_scale",
+										"values_id": []
+									},
+									{
+										"param_id": "verbose",
+										"values_id": []
+									},
+									{
+										"param_id": "seed",
+										"values_id": []
+									},
+									{
+										"param_id": "outscale",
+										"values_id": []
+									},
+									{
+										"param_id": "negative_prompt",
+										"values_id": []
+									},
+									{
+										"param_id": "noise_augmentation",
+										"values_id": []
 									}
 								]
 							},
@@ -479,6 +639,38 @@
 									},
 									{
 										"param_id": "gpu-id",
+										"values_id": []
+									},
+									{
+										"param_id": "steps",
+										"values_id": []
+									},
+									{
+										"param_id": "ddim_eta",
+										"values_id": []
+									},
+									{
+										"param_id": "guidance_scale",
+										"values_id": []
+									},
+									{
+										"param_id": "verbose",
+										"values_id": []
+									},
+									{
+										"param_id": "seed",
+										"values_id": []
+									},
+									{
+										"param_id": "outscale",
+										"values_id": []
+									},
+									{
+										"param_id": "negative_prompt",
+										"values_id": []
+									},
+									{
+										"param_id": "noise_augmentation",
 										"values_id": []
 									}
 								]
@@ -519,6 +711,38 @@
 									{
 										"param_id": "gpu-id",
 										"values_id": []
+									},
+									{
+										"param_id": "steps",
+										"values_id": []
+									},
+									{
+										"param_id": "ddim_eta",
+										"values_id": []
+									},
+									{
+										"param_id": "guidance_scale",
+										"values_id": []
+									},
+									{
+										"param_id": "verbose",
+										"values_id": []
+									},
+									{
+										"param_id": "seed",
+										"values_id": []
+									},
+									{
+										"param_id": "outscale",
+										"values_id": []
+									},
+									{
+										"param_id": "negative_prompt",
+										"values_id": []
+									},
+									{
+										"param_id": "noise_augmentation",
+										"values_id": []
 									}
 								]
 							},
@@ -558,6 +782,77 @@
 									{
 										"param_id": "gpu-id",
 										"values_id": []
+									},
+									{
+										"param_id": "steps",
+										"values_id": []
+									},
+									{
+										"param_id": "ddim_eta",
+										"values_id": []
+									},
+									{
+										"param_id": "guidance_scale",
+										"values_id": []
+									},
+									{
+										"param_id": "verbose",
+										"values_id": []
+									},
+									{
+										"param_id": "seed",
+										"values_id": []
+									},
+									{
+										"param_id": "outscale",
+										"values_id": []
+									},
+									{
+										"param_id": "negative_prompt",
+										"values_id": []
+									},
+									{
+										"param_id": "noise_augmentation",
+										"values_id": []
+									}
+								]
+							},
+							{
+								"value": "webui_upscaler",
+								"description": "Модель StableDiffusion WebUI",
+								"name": "webui_upscaler",
+								"childs": [
+									{
+										"param_id": "host",
+										"values_id": []
+									},
+									{
+										"param_id": "port",
+										"values_id": []
+									},
+									{
+										"param_id": "save",
+										"values_id": []
+									},
+									{
+										"param_id": "upscaling_resize",
+										"values_id": []
+									},
+									{
+										"param_id": "upscaling_resize_w",
+										"values_id": []
+									},
+									{
+										"param_id": "upscaling_resize_h",
+										"values_id": []
+									},
+									{
+										"param_id": "upscaling_crop",
+										"values_id": []
+									},
+									{
+										"param_id": "upscaler_1",
+										"values_id": []
 									}
 								]
 							},
@@ -581,7 +876,7 @@
 								]
 							}
 						],
-						"description": "Различные модели нейронных сетей по-разному применяют обработку. Для моделей, оставанных на StableDiffusion обящательно необходимо описание и их качество генерации, как правило, выше. ESRGAN модели способны обрабатывать только для основе изображения",
+						"description": "Различные модели нейронных сетей по-разному применяют обработку. Для моделей, основанных на StableDiffusion обязательно необходимо описание, их качество генерации, как правило, выше. ESRGAN модели способны обрабатывать только на основе изображения",
 						"type": "select",
 						"main": true,
 						"name": "Выбор модели"
@@ -601,6 +896,7 @@
 				{
 					"steps": {
 						"default": 50,
+						"child": true,
 						"min": 2,
 						"max": 250,
 						"step": 1,
@@ -615,6 +911,7 @@
 						"default": "",
 						"description": "Описание того, что Вы не хотите видеть на итоговом изображении",
 						"type": "text",
+						"child": true,
 						"main": true,
 						"caption": "true",
 						"name": "Негативное описание"
@@ -689,6 +986,7 @@
 				{
 					"ddim_eta": {
 						"default": 0.0,
+						"child": true,
 						"min": 0.0,
 						"max": 1.0,
 						"step": 0.01,
@@ -700,6 +998,7 @@
 				{
 					"guidance_scale": {
 						"default": 9.0,
+						"child": true,
 						"min": 0.1,
 						"max": 30.0,
 						"step": 0.1,
@@ -712,6 +1011,7 @@
 				{
 					"seed": {
 						"default": 42,
+						"child": true,
 						"min": 0,
 						"max": 1000000,
 						"step": 1,
@@ -723,6 +1023,7 @@
 				{
 					"outscale": {
 						"default": 2,
+						"child": true,
 						"min": 2,
 						"max": 8,
 						"step": 1,
@@ -734,6 +1035,7 @@
 				{
 					"noise_augmentation": {
 						"default": 0,
+						"child": true,
 						"min": 0,
 						"max": 350,
 						"step": 1,
@@ -745,6 +1047,7 @@
 				{
 					"verbose": {
 						"default": "False",
+						"child": true,
 						"system": true,
 						"description": "",
 						"type": "boolean",
@@ -876,6 +1179,126 @@
 						"description": "",
 						"type": "range",
 						"name": "Высота увеличеного изображения"
+					}
+				},
+				{
+					"upscaler_1": {
+						"default": "ESRGAN_4x",
+						"values": [
+							{
+								"value": "ESRGAN_4x",
+								"description": "Четкий, однако резкий и много небольших артефактов",
+								"child": true,
+								"name": "ESRGAN_4x"
+							},
+							{
+								"value": "Lanczos",
+								"description": "Мутный",
+								"child": true,
+								"name": "Lanczos"
+							},
+							{
+								"value": "Nearest",
+								"description": "Худший, становятся видны пиксели",
+								"child": true,
+								"name": "Nearest"
+							},
+							{
+								"value": "LDSR",
+								"description": "Долгий, качественный",
+								"child": true,
+								"name": "LDSR"
+							},
+							{
+								"value": "BSRGAN",
+								"description": "нет описания",
+								"child": true,
+								"name": "BSRGAN"
+							},
+							{
+								"value": "R-ESRGAN General 4xV3",
+								"description": "нет описания",
+								"child": true,
+								"name": "R-ESRGAN General 4xV3"
+							},
+							{
+								"value": "ScuNET GAN",
+								"description": "Мутноват, но качественее чем Lanczos",
+								"child": true,
+								"name": "ScuNET GAN"
+							},
+							{
+								"value": "ScuNET PSNR",
+								"description": "нет описания",
+								"child": true,
+								"name": "ScuNET PSNR"
+							},
+							{
+								"value": "SwinIR 4x",
+								"description": "Четкий, недостатков меньше, чем у ESRGAN_4x, один из лучших по качеству с +- адекватной скоростью",
+								"child": true,
+								"name": "SwinIR 4x"
+							}
+						],
+						"description": "Только для модели 'webui_upscaler'",
+						"type": "select",
+						"name": "Выбор апскейлера"
+					}
+				},
+				{
+					"upscale_first": {
+						"default": "False",
+						"child": true,
+						"system": true,
+						"description": "",
+						"type": "boolean",
+						"name": ""
+					}
+				},
+				{
+					"upscaling_crop": {
+						"default": "True",
+						"child": true,
+						"description": "Кроп перед апскейлом? Разницы не заметил.",
+						"type": "boolean",
+						"name": "Кроп апскейла"
+					}
+				},
+				{
+					"save": {
+						"default": "False",
+						"child": true,
+						"system": true,
+						"description": "Сохранять картинки после генерации в папку save_dir",
+						"type": "boolean",
+						"name": "Сохранение картинки в указанную папку"
+					}
+				},
+				{
+					"host": {
+						"default": "127.0.0.1",
+						"child": true,
+						"system": true,
+						"description": "Хост где запущен webui",
+						"type": "text",
+						"name": "Хост"
+					}
+				},
+				{
+					"port": {
+						"default": 7860,
+						"system": true,
+						"values": [
+							{
+								"value": 7860,
+								"child": true,
+								"description": "Порт где запущен webui",
+								"name": "Порт"
+							}
+						],
+						"type": "select",
+						"description": "Порт где запущен webui",
+						"name": "Порт"
 					}
 				}
 			]
