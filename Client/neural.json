@@ -855,25 +855,6 @@
 										"values_id": []
 									}
 								]
-							},
-							{
-								"value": "webui_upscaler",
-								"description": "Модель StableDiffusion WebUI",
-								"name": "webui_upscaler",
-								"childs": [
-									{
-										"param_id": "upscaling_resize",
-										"values_id": []
-									},
-									{
-										"param_id": "upscaling_resize_w",
-										"values_id": []
-									},
-									{
-										"param_id": "upscaling_resize_h",
-										"values_id": []
-									}
-								]
 							}
 						],
 						"description": "Различные модели нейронных сетей по-разному применяют обработку. Для моделей, основанных на StableDiffusion обязательно необходимо описание, их качество генерации, как правило, выше. ESRGAN модели способны обрабатывать только на основе изображения",
@@ -3922,11 +3903,12 @@
 
 		"image_fusion": {
 			"image_count_input": 2,
+			"prompt_count_input": 2,
 			"serverName": "image_fusion",
 			"clientName": "Объединение изображений",
 			"description": "При помощи данного редима можно совместить несколько изображений",
-			"caption1": true,
-			"caption2": true,
+			"prompt1": true,
+			"prompt2": true,
 			"params": [
 				{
 					"version": {
@@ -4188,4 +4170,3 @@
 
 	}
 }
-    
