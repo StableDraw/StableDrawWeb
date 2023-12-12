@@ -157,6 +157,8 @@ public class MinIoService : IMinIoService
             {
                 args.WithObject(env.Data);
                 env.Data = await _minio.PresignedGetObjectAsync(args);
+                args.WithObject(env.Preview);
+                env.Preview = await _minio.PresignedGetObjectAsync(args);
             }
 
             return result;
