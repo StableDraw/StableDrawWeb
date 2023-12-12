@@ -9,7 +9,7 @@ const envMapsTest = [
 ]
 export const EnvMenu = ({ setEnvMap, envMaps }) => {
 	const [isOpened, setIsOpened] = useState(false);
-
+	console.log("env array: ", envMaps);
 	return (
 		<div
 			// чтобы работал onBlur
@@ -21,7 +21,7 @@ export const EnvMenu = ({ setEnvMap, envMaps }) => {
 			{
 			isOpened && envMaps.map((envMap, i )=> {
 				return (
-				<div onClick={() => setEnvMap(envMapsTest.data)} key={i} className={cl.main__envMap}>
+				<div onClick={() => setEnvMap(envMap.data)} key={i} className={cl.main__envMap}>
 					<img className={cl.main__envImg} src={envMap.preview} alt="" />
 				</div>)
 			})
