@@ -74,7 +74,7 @@ namespace CLI.Areas.Identity.Pages.Account
             /// </summary>
             [Required]
             [EmailAddress]
-            [RegularExpression(@"\w*.ru$", ErrorMessage = "Допустима только почта .ru")]
+            //[RegularExpression(@"\w*.ru$", ErrorMessage = "Допустима только почта .ru")]
             [Display(Name = "Email")]
             public string Email { get; set; }
 

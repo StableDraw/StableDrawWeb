@@ -21,70 +21,61 @@ services:
     ports:
       - "8443:8443"
       - "9000:9000"
+      # - "8080:8000"
       # - "43301:43301"
       # - "8080:8080"
     environment:
       - NGINX_HOST=www.stabledraw.com
       - STABLE_KITE_HOST=stablekite.ru
     volumes:
+      - ./certbot/conf:/etc/nginx/ssl
+      - ./certbot/data:/var/www/html
       - ./nginx.conf:/etc/nginx/nginx.conf      
       - ./certificate/stabledraw/www.stabledraw.com.pem:/etc/nginx/www.stabledraw.com/www.stabledraw.com.pem
       - ./certificate/stabledraw/www.stabledraw.com.key:/etc/nginx/www.stabledraw.com/www.stabledraw.com.key
       - ./certificate/stabledraw/ca.pem:/etc/nginx/www.stabledraw.com/ca.pem
-      - ./certificate/stablekite/www.stablekite.ru.crt:/etc/nginx/www.stablekite.ru/www.stablekite.ru.crt
-      - ./certificate/stablekite/www.stablekite.ru.csr:/etc/nginx/www.stablekite.ru/www.stablekite.ru.csr
+      - ./certificate/stablekite/www.stablekite.ru.pem:/etc/nginx/www.stablekite.ru/www.stablekite.ru.pem
+      - ./certificate/stablekite/www.stablekite.ru.key:/etc/nginx/www.stablekite.ru/www.stablekite.ru.key
+      - ./certificate/stablekite/ca.pem:/etc/nginx/www.stablekite.ru/ca.pem
     depends_on:
       - minio
       # - wordpress
     restart: always
 
-  wordpress:
-    container_name: wordpress
-    image: wordpress:php8.2-apache
-    restart: always
-    depends_on:
-      - mariadb
-    # ports:
-    #   - 8080:85
-    environment:
-        WORDPRESS_DB_HOST: mariadb
-        WORDPRESS_DB_USER: wbStableKite
-        WORDPRESS_DB_PASSWORD: Robolightning_1862
-        WORDPRESS_DB_NAME: dbStableKite
-        WORDPRESS_CONFIG_EXTRA: |
-          define( 'WP_HOME', 'http://www.stablekite.ru' );
-          define( 'WP_SITEURL', 'http://www.stablekite.ru' );
-    volumes:        
-        - wordpress_data:/var/www/html
+  # wordpress:
+  #   container_name: wordpress
+  #   image: wordpress:php8.2-apache
+  #   restart: always
+  #   depends_on:
+  #     - mariadb
+  #   ports:
+  #     - 8000
+  #   environment:        
+  #       WORDPRESS_DB_HOST: mariadb
+  #       WORDPRESS_DB_USER: wbStableKite
+  #       WORDPRESS_DB_PASSWORD: Robolightning_1862
+  #       WORDPRESS_DB_NAME: dbStableKite
+  #       WORDPRESS_CONFIG_EXTRA: |
+  #         define( 'WP_HOME', 'https://www.stablekite.ru' );
+  #         define( 'WP_SITEURL', 'https://www.stablekite.ru' );
+  #         define( 'ServerName', 'https://www.stablekite.ru')
+  #   volumes:        
+  #       - wordpress_data:/var/www/html
 
-  mariadb:
-    container_name: mariadb
-    image: mariadb
-    restart: always
-    ports:
-      - "3306:3306"
-    environment:
-        MYSQL_DATABASE: dbStableKite
-        MYSQL_USER: wbStableKite
-        MYSQL_PASSWORD: Robolightning_1862
-        MYSQL_ROOT_PASSWORD: Robolightning_18621
-    volumes:
-        - db_data:/var/lib/mysql
-
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin
-    volumes:
-      - ./config/phpmyadmin.ini:/usr/local/etc/php/conf.d/phpmyadmin.ini
-    environment:
-      PMA_HOST: "mysql"
-      PMA_PORT: 3306
-      MYSQL_ROOT_PASSWORD: Robolightning_18621
-    ports:
-      - '8082:80'
-    links:
-      - mariadb:mariadb
-
+  # mariadb:
+  #   container_name: mariadb
+  #   image: mariadb
+  #   restart: always
+  #   ports:
+  #     - "3306:3306"
+  #   environment:
+  #       MYSQL_DATABASE: dbStableKite
+  #       MYSQL_USER: wbStableKite
+  #       MYSQL_PASSWORD: Robolightning_1862
+  #       MYSQL_ROOT_PASSWORD: Robolightning_18621
+  #   volumes:
+  #       - db_data:/var/lib/mysql
+ 
   minio:
     image: minio/minio:latest
     container_name: minio
@@ -113,8 +104,8 @@ services:
 
 volumes:
   minio-storage:
-  db_data:
-  wordpress_data:
+  # db_data:
+  # wordpress_data:
     
   # nginx:
   #   image: nginx:1.19.2-alpine
