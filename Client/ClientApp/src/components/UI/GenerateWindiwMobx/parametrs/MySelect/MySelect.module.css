@@ -1,7 +1,11 @@
-.param {
-	width: 100%;
-    padding: 10px 15px 10px 0;
-	border-top: 1px solid #404249;
+
+.cont {
+	display: flex;
+	align-items: flex-start;
+	flex-direction: row;
+	padding: 15px 10px 15px 10px;
+	border-top: 1px solid #ABABAB;
+	justify-content: space-between;
 }
 
 .cont div {
@@ -9,23 +13,18 @@
 	flex-direction: column;
 	align-items: flex-start;
 	justify-content: space-between;
-	align-items: center;
+	gap: 10px;
 }
 
 .paramText {
-	width: fit-content;
-	padding: 0 0px 0px 30px;
+	max-width: 100%;
 	color: #656565;
 	font-family: Montserrat;
 	font-size: 15px;
 	font-style: normal;
 	font-weight: 500;
 	line-height: normal;
-}
-
-.block2 {
-	justify-content: space-between;
-    display: flex;
+	margin: 0px !important; 
 }
 
 .paramImg {
@@ -58,7 +57,6 @@
     line-height: normal;
 }
 @media(max-width: 1280px){
-    
     .paramText
     {
         font-size: 14px;
@@ -70,24 +68,7 @@
     }
 }
 @media(max-width: 768px){
-    .param
-    {
-        margin-top: 5px;
-    }
-    .select
-    {
-        padding: 0 5px;
-        max-width: 130px;
-    }
-    .block2
-    {
-        display: flex;
-        align-items: center;
-    }
-    .paramImg
-    {
-        margin-left: 5px;
-    }
+
     .paramText
     {
         font-size: 12px;

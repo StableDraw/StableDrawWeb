@@ -21,7 +21,6 @@ function setSendImgArray(ImgFilesBase64) {
 
 const Parametrs = observer(({ closeWindow, closeParam, }) => {
 	const [img, setImg] = useState([]); // массив картинок для отправки на сервер
-	const [caption, setCaption] = useState(''); //описание для генерации
 	const [attention, setAttention] = useState(''); // предупреждение о невалидности параметров для отправки на сервер
 	const [searchValue, setSearchValue] = useState('')
 
@@ -31,13 +30,9 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 	const neuralName = store.activeNeuralName
 
 	useEffect(() => {
-		setCaption('')
-	}, [neuralName])
-
-	useEffect(() => {
-		if (caption && isCaption)
+		if (store.caption && isCaption)
 			setAttention('')
-	}, [caption])
+	}, [store.caption])
 
 	useEffect(() => {
 		if (img.length)
@@ -50,7 +45,7 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 
 	const startGeneration = () => {
 		// проверка наличия описания
-		if ((isCaption && !caption)) {
+		if ((isCaption && !store.caption)) {
 			setAttention('*Введите описание для модели')
 			return;
 		}
@@ -69,7 +64,7 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 		let binary = setSendImgArray(img)
 		formData.append('NeuralType', neuralName);
 		formData.append('Parameters', JSON.stringify(renderValue));
-		formData.append('Caption', caption);
+		formData.append('Caption', store.caption);
 		formData.append('Prompts', ["", ""]) //надо узнать че это такое
 		binary.forEach((file) => {
 			formData.append(`ImagesInput`, file)
@@ -125,7 +120,7 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 					</div>
 					<div className={cl.paramCont}>
 						<div className={cl.paramsList}>
-							{isCaption ? <Caption setCaption={setCaption} /> : undefined}
+							{isCaption ? <Caption /> : undefined}
 							{
 								searchValue.length > 1 ? getSearchResult().map((param, id) =>
 									<ParamSwitch key={id} value={param} id={id} setValueForServer={sendValuesForRender} />)

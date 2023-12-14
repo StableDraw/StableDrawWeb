@@ -51,10 +51,12 @@ const InputRange = ({ getValue, description, defaultV, max, min, step, name, key
 								onClick={handleSelect}
 								step={step}
 							/>
-							<Tooltip title={description}>
-								<img className={cl.paramImg} src='Question.svg' alt='' />
-							</Tooltip>
 						</div>
+					</div>
+					<div>
+						<Tooltip title={description}>
+							<img className={cl.paramImg} src='Question.svg' alt='' />
+						</Tooltip>
 					</div>
 				</div>
 			}

@@ -16,23 +16,22 @@ const InputText = ({ getValue, name, description, defaultV, keyValue, isValidPar
 	return (
 		<>
 			{
-				isValidParam() && 
-				<div className={cl.cont}>
+				isValidParam() && <div className={cl.cont}>
 					<div>
 						<span className={cl.text}>{name}</span>
-						<div className={cl.inputBlock}>
-							<input
-								type='text'
-								placeholder='Ввод текста...'
-								className={cl.input}
-								value={value}
-								onChange={e => call(e)}
-								onBlur={() => getValue(value, keyValue)}
-							/>
-							<Tooltip title={description}>
-								<img className={cl.paramImg} src='Question.svg' alt='' />
-							</Tooltip>
-						</div>
+						<input
+							type='text'
+							placeholder='Ввод текста...'
+							className={cl.input}
+							value={value}
+							onChange={e => call(e)}
+							onBlur={() => getValue(value, keyValue)}
+						/>
+					</div>
+					<div>
+						<Tooltip title={description}>
+							<img className={cl.paramImg} src='Question.svg' alt='' />
+						</Tooltip>
 					</div>
 				</div>
 			}

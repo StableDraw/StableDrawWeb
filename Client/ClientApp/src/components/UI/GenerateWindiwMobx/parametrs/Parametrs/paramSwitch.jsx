@@ -8,12 +8,12 @@ import { observer } from 'mobx-react-lite'
 
 
 export const ParamSwitch = observer(({value, id, setValueForServer}) => {
-	const key = Object.keys(value); //название параметра(системное)
+	const paramName = Object.keys(value); //название параметра(системное) в массиве
 
 	//задаёт массивы дочерних параметров и значений селекторов в зависимости от текущей модели/версии
 	const setChild = (currentModel) => {
-		if ((key[0] === "model" || key[0] === "version")) {
-			value[key].values.map((model) => {
+		if ((paramName[0] === "model" || paramName[0] === "version")) {
+			value[paramName].values.map((model) => {
 				if (model.value === currentModel && Object.hasOwn(model, "childs")) {
 					model.childs.map((child) => {
 						testMob.setChildParams(child.param_id)
@@ -30,52 +30,53 @@ export const ParamSwitch = observer(({value, id, setValueForServer}) => {
 
 	//возвращает false, если у параметра есть свойство child и при этом его нет в массиве дочерних параметров к текущей модели
 	const isValid = () => {
-		return !(!testMob.childParams.includes(key[0]) && Boolean(value[key]?.child))
+		return !(!testMob.childParams.includes(paramName[0]) && Boolean(value[paramName]?.child))
 	}
 	//параметры с полем system не отображаем
-	if (!Object.hasOwn(value[key], "system")) {
-		const type = value[key].type;
+	if (!Object.hasOwn(value[paramName], "system")) {
+		const type = value[paramName].type;
 		switch (type) {
 			case 'select':
 				return <MySelect
 					key={id}
-					keyValue={key}
-					name={value[key].name}
-					defaultV={value[key].default}
-					options={value[key].values}
-					description={value[key].description}
+					keyValue={paramName}
+					name={value[paramName].name}
+					defaultV={value[paramName].default}
+					options={value[paramName].values}
+					description={value[paramName].description}
 					getValue={setValueForServer}
 					setChild={setChild} />
 			case 'text':
 				return <InputText
 					key={id}
-					keyValue={key}
-					name={value[key].name}
-					defaultV={value[key].default}
-					description={value[key].description}
+					keyValue={paramName}
+					name={value[paramName].name}
+					defaultV={value[paramName].default}
+					description={value[paramName].description}
 					getValue={setValueForServer}
 					isValidParam={isValid}
 				/>
 			case 'range':
 				return <InputRange
 					key={id}
-					keyValue={key}
-					name={value[key].name}
-					defaultV={value[key].default}
-					step={value[key].step}
-					min={value[key].min}
-					max={value[key].max}
-					description={value[key].description}
+					keyValue={paramName}
+					name={value[paramName].name}
+					defaultV={value[paramName].default}
+					step={value[paramName].step}
+					min={value[paramName].min}
+					max={value[paramName].max}
+					description={value[paramName].description}
 					getValue={setValueForServer}
 					isValidParam={isValid}
 				/>
 			case 'boolean':
 				return <MyCheckBox
 					key={id}
-					keyValue={key}
-					name={value[key].name}
-					defaultV={value[key].default === 'True' ? true : false}
-					description={value[key].description}
+					keyValue={paramName}
+					name={value[paramName].name}
+					//оставил полюбоваться строчкой кода коллеги(Привет, Сергей)
+					defaultV={value[paramName].default === 'True' ? true : false}
+					description={value[paramName].description}
 					getValue={setValueForServer}
 					isValidParam={isValid}
 				/>

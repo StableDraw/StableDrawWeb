@@ -1,8 +1,11 @@
-.param {
-	width: 100%;
-	padding: 10px 15px 10px 0;
-	/* height: 60px; */
-	border-top: 1px solid #404249;
+
+.cont {
+	display: flex;
+	align-items: flex-start;
+	flex-direction: row;
+	padding: 15px 10px 10px 10px;
+	border-top: 1px solid #ABABAB;
+	justify-content: space-between;
 }
 
 .cont div {
@@ -15,9 +18,7 @@
 
 .text {
 	display: inline-block;
-	padding: 0px 0px 0px 30px;
-	/* margin-right: 35px; */
-	max-width: 400px;
+	max-width: 100%;
 	color: #656565;
 	font-family: Montserrat;
 	font-size: 15px;
@@ -26,12 +27,7 @@
 	line-height: normal;
 }
 
-.block2 {
-	display: flex;
-    align-items: center;
-}
-
-.img {
+.paramImg {
 	width: 20px;
 	height: 20px;
 }
@@ -42,10 +38,7 @@
 	width: 46px;
 	height: 24px;
 }
-.block2 img
-{
-	margin-left: 10px;
-}
+
 .switch input {
 	opacity: 0;
 	width: 0;
@@ -93,18 +86,6 @@ input:checked + .slider_round:before {
     .text
     {
         font-size: 14px;
-        padding-left: 20px;
-    }
-    .block2
-    {
-        margin-top: 10px;
-        display: flex;
-        align-items: center;
-    }
-    .switch
-    {
-        margin-bottom: 0;
-        margin-right: 5px;
     }
 }
 

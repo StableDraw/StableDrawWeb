@@ -1,6 +1,6 @@
 import React from "react";
 import { Scene } from './Scene'
-import { useMemo, useState, useCallback, useEffect,  } from "react";
+import { useMemo, useState, useCallback, useEffect, } from "react";
 import { Header } from "./header";
 import api from '../../api/api';
 import { Menu } from "./menu";
@@ -11,6 +11,7 @@ import { DragAndDropLayout } from "./DragAndDropLayout";
 import { CloseScene } from "./closeScene";
 import { SkeletonCanvas } from "./UI_skeleton/SkeletonCanvas";
 import { Link } from "react-router-dom";
+import { EnvMenu } from "./envMenu";
 
 
 export const MainBabylon = () => {
@@ -20,7 +21,8 @@ export const MainBabylon = () => {
 	const [canvasTextures, setCanvasTextures] = useState([]);
 	const [sceneModal, setSceneModal] = useState('');
 	const [isLightTheme, setTheme] = useState(false);
-	const [envUrl, setEnvUrl] = useState('');
+	const [envUrlList, setEnvUrlList] = useState([]); //список объектов с картами окружения
+	const [envUrl, setEnvUrl] = useState(''); // текущая карта окружения
 
 	useEffect(() => {
 		const getEnvUrl = async () => {
@@ -28,13 +30,15 @@ export const MainBabylon = () => {
 				.catch((err) => {
 					console.log('Ошибка при загрузке стартовых данных сцены: ', err);
 				});
-			const envMap = staticMesh?.data?.envMaps[0]?.data;
+			const envMap = staticMesh?.data?.envMaps;
 			const model = staticMesh?.data?.models[0]?.modelsDict?.big;
 			if (envMap && model) {
-				setEnvUrl(envMap);
-				setCurrentModelUrl(model)
-			}
+				if(envMap[0]?.data)
+					setEnvUrl(envMap[0].data);
 
+				setEnvUrlList(envMap);
+				setCurrentModelUrl(model);
+			}
 		}
 		getEnvUrl();
 	}, []);
@@ -62,11 +66,15 @@ export const MainBabylon = () => {
 					setScene={setCurrentSceneUrl} />
 			}
 			{
-				envUrl && currentModelUrl ? <Scene
-					modelUrl={currentModelUrl}
-					sceneUrl={currentSceneUrl}
-					texture={currenTexture}
-					envUrl={envUrl} /> : <SkeletonCanvas />
+				envUrl && currentModelUrl ?
+					<>
+						<EnvMenu setEnvMap={setEnvUrl} envMaps={envUrlList} />
+						<Scene
+							modelUrl={currentModelUrl}
+							sceneUrl={currentSceneUrl}
+							texture={currenTexture}
+							envUrl={envUrl} />
+					</> : <SkeletonCanvas />
 			}
 		</DragAndDropLayout>, [currentSceneUrl, currentModelUrl, currenTexture, envUrl]);
 
@@ -98,12 +106,12 @@ export const MainBabylon = () => {
 				isLightTheme={isLightTheme}
 			/>
 			<div className={mainClass.Lamb}>
-				<Link to='https://lambumiz.ru/' className={mainClass.Link}>
-				<span className={mainClass.textLamb} >
-					Сделано в пратнёрстве с АО Ламбумиз
-				</span>
+				<Link to='https://lambumiz.ru/' className={isLightTheme ? mainClassLight.Link : mainClass.Link}>
+					<span className={isLightTheme ? mainClassLight.textLamb : mainClass.textLamb} >
+						Сделано в пратнёрстве с АО Ламбумиз
+					</span>
 				</Link>
-				<img src="/babylon UI/lambumiz.png" alt="" />
+				<img className={isLightTheme ? mainClassLight.lambLogo : mainClass.lambLogo} src="/babylon UI/lambumiz.png" alt="" />
 			</div>
 
 		</div>

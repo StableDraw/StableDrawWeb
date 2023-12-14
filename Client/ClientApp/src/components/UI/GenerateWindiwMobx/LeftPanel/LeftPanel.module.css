@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat+Subrayada:wght@400;700&display=swap");
 
 .finder {
-    width: 30%;
+    width: 310px;
     background-color:#EEF1F5;
     border-bottom-left-radius: 20px;
     background-image: url('../../../../../public/backgroundModal.svg');
@@ -11,7 +11,7 @@
     width: 250px;
     height: 640px;
 }
-/* .inputFinder {
+.inputFinder {
     width: 250px;
     height: 50px;
     border-radius: 10px;
@@ -23,7 +23,7 @@
     outline: none; 
     -moz-border-radius: 10px; 
     -webkit-border-radius: 10px; 
-} */
+}
 .inputFinder::placeholder
 {
     font-size: 16px;
@@ -42,8 +42,8 @@
 }
 
 .finderBlock {
-	margin: 35px 20px 25px 20px;
-	width: 100%;
+	margin: 35px 20px 25px 40px;
+	width: 250px;
 	height: 640px;
 }
 
@@ -54,7 +54,7 @@
 	font-style: normal;
 	font-weight: 500;
 	line-height: normal;
-	width: 90%;
+	width: 250px;
 	height: 50px;
 	border-radius: 10px;
 	border: 1px solid #656565;
@@ -74,7 +74,6 @@
 
 .list {
 	height: 570px;
-    width: 90%;
 	margin-top: 30px;
 	overflow-y: scroll;
 	overflow-x: hidden;
@@ -87,7 +86,7 @@
     background-color: #656565;
 }
 
-@media(max-width: 1280px){
+@media(max-height: 760px){
     .inputFinder
     {
         height: 30px;

@@ -1,8 +1,10 @@
-.param {
-	box-sizing: border-box;
-	width: 100%;
-	border-top: 1px solid #404249;
-	padding: 10px 15px 10px 0;
+.cont {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: flex-start;
+	border-top: 1px solid #ABABAB;
+	padding: 15px 10px 10px 10px;
 }
 
 .cont div {
@@ -11,14 +13,8 @@
 	justify-content: space-between;
 	gap: 10px;
 }
-.inputBlock
-{
-	display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
+
 .text {
-	padding: 0px 0px 0px 30px;
 	color: #656565;
 	width: 100%;
 	font-family: Montserrat;
@@ -53,8 +49,7 @@ input[type='range']::-webkit-slider-thumb {
 }
 
 .range {
-	width: 100%;
-	margin-right: 15px;
+	width: 380px;
 }
 
 .number {
@@ -80,23 +75,21 @@ input[type='range']::-webkit-slider-thumb {
 @media(max-width: 1280px) {
 	.text {
 		font-size: 14px;
-		padding-left: 20px;
-	}
-}
-@media(max-width: 920px){
-	.container
-	{
-		flex-wrap: wrap;
-	}
-	.inputBlock
-	{
-		justify-content: flex-end;
 		width: 100%;
 	}
+
+	.paramImg {
+		margin-left: 0;
+	}
 }
-@media(max-width: 768px){
-	.text
-	{
+
+@media(max-width: 768px) {
+	.range {
+		width: 320px;
+	}
+
+	.text {
+		width: 100%;
 		font-size: 12px;
 	}
 }

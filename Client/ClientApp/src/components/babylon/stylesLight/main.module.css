@@ -3,10 +3,12 @@
 
 .main {
 	display: flex;
-	justify-content: flex-start;
+	justify-content: space-between;
 	flex-direction: column;
-	background-color: #EFEFEF;
+	background-color: #2B2D31;
 	height: 100vh;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 .content {
@@ -135,11 +137,11 @@
 }
 
 .textLamb {
-	color: #FFF;
+	color: #525151;
 	font-family: Montserrat;
-	font-size: 14px;
+	font-size: 26px;
 	font-style: normal;
-	font-weight: 400;
+	font-weight: 800;
 	line-height: normal;
 	cursor: pointer;
 }
@@ -151,6 +153,11 @@
 	gap: 5px;
 	justify-content: flex-end;
 	align-items:center;
+}
+
+.lambLogo{
+	color: #525151;
+	width: 48px;
 }
 
 .Link{
