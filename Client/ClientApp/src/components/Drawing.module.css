@@ -50,7 +50,7 @@
     line-height: normal;
     text-align: center;
     padding-top: 10px;
-
+    margin-bottom: 0.6rem;
 }
 .main {
     display: flex;
@@ -139,14 +139,15 @@
     cursor: pointer;
     margin-left: 20px;
 }
+
 @media screen and (max-width: 1245px) {
     .navigation {
         padding: 13px 5px;
     }
 }
 @media screen and (max-width: 1024px) {
-    .personalArea, .subscribe__txt, .link{
-        font-size: 10px;
+    .personalArea p, .subscribe__txt, .link{
+        font-size: 12px;
     }
     .personalArea
     {

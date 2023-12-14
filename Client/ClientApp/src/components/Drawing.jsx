@@ -77,9 +77,9 @@ const Drawing = () => {
                     <div className={cl.col}>
 
                         <div className={[cl.row, cl.canvas__button].join(" ")}>
-                            <ToolOptionsBar />
-                            <GenerateModule />
-                            <GenerateWindow />
+                                <ToolOptionsBar />
+                                <GenerateModule />
+                                <GenerateWindow />
                         </div>
                         <Canvas
                             mergeRes={mergeRes}

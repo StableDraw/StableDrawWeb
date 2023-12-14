@@ -63,7 +63,12 @@
     display: flex;
 
 }
-
+.generateBtn
+{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
 /* из - за бутстрапа свойства кнопки и стартового окна едут */
 .closeBtn{
 	background: #E3E5E8;
