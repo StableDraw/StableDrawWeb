@@ -113,6 +113,16 @@
 						"type": "boolean",
 						"name": "Повышать цветовую насыщенность после каждого шага"
 					}
+				},
+				{
+					"isCaption": {
+						"default": false,
+						"description": "Нужно ли описание",
+						"type": "boolean",
+						"main": true,
+						"name": "Флаг описания",
+						"system": true
+					}
 				}
 			]
 		},
@@ -283,6 +293,16 @@
 						"type": "int[]",
 						"name": "Размер случайной обрезки из ввода"
 					}
+				},
+				{
+					"isCaption": {
+						"default": false,
+						"description": "Нужно ли описание",
+						"type": "boolean",
+						"main": true,
+						"name": "Флаг описания",
+						"system": true
+					}
 				}
 			]
 		},
@@ -345,6 +365,10 @@
 									{
 										"param_id": "noise_augmentation",
 										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
 									}
 								]
 							},
@@ -387,6 +411,10 @@
 									},
 									{
 										"param_id": "noise_augmentation",
+										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
 										"values_id": []
 									}
 								]
@@ -875,6 +903,17 @@
 					}
 				},
 				{
+					"isCaption": {
+						"default": true,
+						"child": true,
+						"description": "Нужно ли описание",
+						"type": "boolean",
+						"main": true,
+						"name": "Флаг описания",
+						"system": true
+					}
+				},
+				{
 					"steps": {
 						"default": 50,
 						"child": true,
@@ -1328,6 +1367,10 @@
 									{
 										"param_id": "negative_aesthetic_score",
 										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
 									}
 								]
 							},
@@ -1363,6 +1406,10 @@
 									},
 									{
 										"param_id": "negative_aesthetic_score",
+										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
 										"values_id": []
 									}
 								]
@@ -1415,6 +1462,10 @@
 									{
 										"param_id": "prior_steps",
 										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
 									}
 								]
 							},
@@ -1434,6 +1485,10 @@
 									{
 										"param_id": "sampler",
 										"values_id": [ "EulerEDMSampler", "HeunEDMSampler", "EulerAncestralSampler", "DPMPP2SAncestralSampler", "DPMPP2MSampler", "LinearMultistepSampler" ]
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
 									}
 								]
 							},
@@ -1453,6 +1508,10 @@
 									{
 										"param_id": "sampler",
 										"values_id": [ "EulerEDMSampler", "HeunEDMSampler", "EulerAncestralSampler", "DPMPP2SAncestralSampler", "DPMPP2MSampler", "LinearMultistepSampler" ]
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
 									}
 								]
 							},
@@ -1488,6 +1547,10 @@
 									{
 										"param_id": "prior_steps",
 										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
 									}
 								]
 							},
@@ -1515,6 +1578,10 @@
 									{
 										"param_id": "sampler",
 										"values_id": [ "ddim_sampler", "plms_sampler", "p_sampler" ]
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
 									}
 								]
 							},
@@ -1542,6 +1609,10 @@
 									{
 										"param_id": "denoised_type",
 										"values_id": [ "dynamic_threshold", "clip_denoised" ]
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
 									}
 								]
 							},
@@ -1561,6 +1632,10 @@
 									{
 										"param_id": "sampler",
 										"values_id": [ "EulerEDMSampler", "HeunEDMSampler", "EulerAncestralSampler", "DPMPP2SAncestralSampler", "DPMPP2MSampler", "LinearMultistepSampler" ]
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
 									}
 								]
 							},
@@ -1581,6 +1656,10 @@
 									{
 										"param_id": "sampler",
 										"values_id": [ "EulerEDMSampler", "HeunEDMSampler", "EulerAncestralSampler", "DPMPP2SAncestralSampler", "DPMPP2MSampler", "LinearMultistepSampler" ]
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
 									}
 								]
 							}
@@ -2316,6 +2395,17 @@
 						"type": "range",
 						"name": "Количество шагов обработки первичной модели"
 					}
+				},
+				{
+					"isCaption": {
+						"default": true,
+						"child": true,
+						"description": "Нужно ли описание",
+						"type": "boolean",
+						"main": true,
+						"name": "Флаг описания",
+						"system": true
+					}
 				}
 			]
 		},
@@ -2359,6 +2449,10 @@
 									{
 										"param_id": "prior_steps",
 										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
 									}
 								]
 							},
@@ -2385,6 +2479,10 @@
 									},
 									{
 										"param_id": "negative_aesthetic_score",
+										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
 										"values_id": []
 									}
 								]
@@ -2414,6 +2512,10 @@
 									{
 										"param_id": "negative_aesthetic_score",
 										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
 									}
 								]
 							},
@@ -2429,6 +2531,10 @@
 									{
 										"param_id": "sampler",
 										"values_id": [ "EulerEDMSampler", "HeunEDMSampler", "EulerAncestralSampler", "DPMPP2SAncestralSampler", "DPMPP2MSampler", "LinearMultistepSampler" ]
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
 									}
 								]
 							},
@@ -2444,6 +2550,10 @@
 									{
 										"param_id": "sampler",
 										"values_id": [ "EulerEDMSampler", "HeunEDMSampler", "EulerAncestralSampler", "DPMPP2SAncestralSampler", "DPMPP2MSampler", "LinearMultistepSampler" ]
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
 									}
 								]
 							},
@@ -2466,6 +2576,10 @@
 									},
 									{
 										"param_id": "prior_steps",
+										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
 										"values_id": []
 									}
 								]
@@ -2498,6 +2612,10 @@
 									{
 										"param_id": "ddim_eta",
 										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
 									}
 								]
 							},
@@ -2516,6 +2634,10 @@
 									},
 									{
 										"param_id": "ddim_eta",
+										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
 										"values_id": []
 									}
 								]
@@ -2548,6 +2670,10 @@
 									{
 										"param_id": "ddim_eta",
 										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
 									}
 								]
 							},
@@ -2558,6 +2684,10 @@
 								"childs": [
 									{
 										"param_id": "negative_prompt",
+										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
 										"values_id": []
 									}
 								]
@@ -2570,6 +2700,10 @@
 								"childs": [
 									{
 										"param_id": "negative_prompt",
+										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
 										"values_id": []
 									}
 								]
@@ -3184,6 +3318,17 @@
 						"type": "range",
 						"name": "Коэффициент величины первичной модели"
 					}
+				},
+				{
+					"isCaption": {
+						"default": true,
+						"child": true,
+						"description": "Нужно ли описание",
+						"type": "boolean",
+						"main": true,
+						"name": "Флаг описания",
+						"system": true
+					}
 				}
 			]
 		},
@@ -3394,8 +3539,17 @@
 						"type": "range",
 						"name": "Инициализирующее значение для генерации"
 					}
+				},
+				{
+					"isCaption": {
+						"default": false,
+						"description": "Нужно ли описание",
+						"type": "boolean",
+						"main": true,
+						"name": "Флаг описания",
+						"system": true
+					}
 				}
-
 			]
 		},
 
@@ -3433,6 +3587,10 @@
 									},
 									{
 										"param_id": "low_vram_mode",
+										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
 										"values_id": []
 									}
 								]
@@ -3473,6 +3631,10 @@
 									{
 										"param_id": "ddim_eta",
 										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
 									}
 								]
 							},
@@ -3487,6 +3649,10 @@
 									},
 									{
 										"param_id": "ddim_eta",
+										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
 										"values_id": []
 									}
 								]
@@ -3518,6 +3684,10 @@
 									},
 									{
 										"param_id": "ddim_eta",
+										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
 										"values_id": []
 									}
 								]
@@ -3760,6 +3930,17 @@
 						"type": "range",
 						"name": "Максимальный размер генерации изображения"
 					}
+				},
+				{
+					"isCaption": {
+						"default": true,
+						"child": true,
+						"description": "Нужно ли описание",
+						"type": "boolean",
+						"main": true,
+						"name": "Флаг описания",
+						"system": true
+					}
 				}
 			]
 		},
@@ -3896,6 +4077,16 @@
 						"description": "",
 						"type": "range",
 						"name": "Вес изображения стиля"
+					}
+				},
+				{
+					"isCaption": {
+						"default": true,
+						"description": "Нужно ли описание",
+						"type": "boolean",
+						"main": true,
+						"name": "Флаг описания",
+						"system": true
 					}
 				}
 			]
