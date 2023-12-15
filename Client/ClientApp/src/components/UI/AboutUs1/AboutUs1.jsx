@@ -192,7 +192,7 @@ const AboutUs1 = () => {
                         
                     </div>
                     <span className={`${cl.txt} ${cl.txtInfo2}`}>
-                        Наши клиенты — это компании, специализирующиеся в области графического дизайна, анимации, а также разработчики дизайна упаковочной продукции.
+                        Наши клиенты — это компании, специализирующиеся в области графического дизайна, анимации, разработчики дизайна упаковочной продукции. Также мы занимаемся расширением функционала нашего веб-сервиса по требованиям заказчиков.
                     </span>
                     </div>
                     <div className={cl.threeDtext}>
@@ -295,9 +295,13 @@ const AboutUs1 = () => {
                                 </a>
                             </div>
                         </div>
-                        <div className={cl.footer_section1_text}>
+												<div style={{display:'flex', flexDirection: 'column', gap:'20px'}}>
+														<span>Код ОКВЭД: 62.01 «Разработка компьютерного программного обеспечения»</span> 
+													<span className={cl.Tex1}>Языки программирования: C#, Typescript, Python, HTML, CSS</span>
+													<div className={cl.footer_section1_text}>
                             ООО "Стейбл Дроу", 630112, г. Новосибирск, ул. Гоголя, д. 192, кв. 71
                         </div>
+												</div>
                     </div>
                     <div className={cl.socialBlock}>
                         {imgLinks.map(imgLink=><ImgLinkObject1

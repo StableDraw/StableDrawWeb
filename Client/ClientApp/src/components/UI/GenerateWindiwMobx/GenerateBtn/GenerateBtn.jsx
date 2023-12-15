@@ -23,7 +23,7 @@ const GenerateBtn = () => {
 	}
 
 	return (
-		<div>
+		<div className={cl.generateBtn}>
 			<button className={cl.button} onClick={() => setModal(!modal)}><p>Генерация</p></button>
 			<Modal open={modal}>
 				<div className={rootClasses.join(' ')}>
