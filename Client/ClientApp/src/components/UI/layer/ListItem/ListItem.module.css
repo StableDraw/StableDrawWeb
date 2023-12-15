@@ -135,6 +135,10 @@
     {
         height: 34px;
     }
+    .layer, .layerActive
+    {
+        margin-bottom: 4px;
+    }
     .canvas
     {
         width: 30px;
