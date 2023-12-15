@@ -73,14 +73,6 @@ export const Footer = () => {
 						<span>Телефон:</span> +7-913-786-9887;
 					</span>
 				</div>
-				<div className={footer.right_docs}>
-					<span className={footer.docs}>
-						<span>Код ОКВЭД:</span> 62.01 «Разработка компьютерного программного обеспечения»
-					</span>
-					<span className={footer.docs}>
-						<span>Языки программирования:</span> C#, Typescript, Python, HTML, CSS
-					</span>
-				</div>
 			</div>
 		</footer>
 	)

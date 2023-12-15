@@ -25,18 +25,18 @@ services:
       # - "43301:43301"
       # - "8080:8080"
     environment:
-      - NGINX_HOST=www.stabledraw.com
-      - STABLE_KITE_HOST=stablekite.ru
+      - NGINX_HOST=stabledraw.com
+      # - STABLE_KITE_HOST=stablekite.ru
     volumes:
-      - ./certbot/conf:/etc/nginx/ssl
-      - ./certbot/data:/var/www/html
+      # - ./certbot/conf:/etc/nginx/ssl
+      # - ./certbot/data:/var/www/html
       - ./nginx.conf:/etc/nginx/nginx.conf      
       - ./certificate/stabledraw/www.stabledraw.com.pem:/etc/nginx/www.stabledraw.com/www.stabledraw.com.pem
       - ./certificate/stabledraw/www.stabledraw.com.key:/etc/nginx/www.stabledraw.com/www.stabledraw.com.key
       - ./certificate/stabledraw/ca.pem:/etc/nginx/www.stabledraw.com/ca.pem
-      - ./certificate/stablekite/www.stablekite.ru.pem:/etc/nginx/www.stablekite.ru/www.stablekite.ru.pem
-      - ./certificate/stablekite/www.stablekite.ru.key:/etc/nginx/www.stablekite.ru/www.stablekite.ru.key
-      - ./certificate/stablekite/ca.pem:/etc/nginx/www.stablekite.ru/ca.pem
+      # - ./certificate/stablekite/www.stablekite.ru.pem:/etc/nginx/www.stablekite.ru/www.stablekite.ru.pem
+      # - ./certificate/stablekite/www.stablekite.ru.key:/etc/nginx/www.stablekite.ru/www.stablekite.ru.key
+      # - ./certificate/stablekite/ca.pem:/etc/nginx/www.stablekite.ru/ca.pem
     depends_on:
       - minio
       # - wordpress
