@@ -58,6 +58,7 @@ public class NeuralController : Controller
             Description = x.First["description"].ToString(),
             ClientName = x.First["clientName"].ToString(),
             ServerName = x.First["serverName"].ToString(),
+						ImageCount = x.First["image_count_input"].ToString(),
         });
 
         return Ok(res);    

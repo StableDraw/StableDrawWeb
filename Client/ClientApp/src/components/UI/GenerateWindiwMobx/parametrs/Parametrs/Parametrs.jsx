@@ -49,9 +49,14 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 			setAttention('*Введите описание для модели')
 			return;
 		}
+
 		//проверка наличия изображения
-		if (!img.length) {
-			setAttention('*Добавьте изображение для генерации')
+		if ((!img.length || img.length !== store.maxImageAmount) && neuralName !== "text_to_image") {
+			if(img.length < store.maxImageAmount)
+				setAttention('*Добавьте изображение для генерации')
+			else
+				setAttention('*Удалите изображение')
+
 			return;
 		}
 
@@ -104,7 +109,7 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 
 	return (
 		<div>
-			<ImagesBlock closeWindow={closeWindow} closeParam={closeParam} setSendImages={setImg} sendImages={img} />
+			<ImagesBlock closeWindow={closeWindow} setSendImages={setImg} sendImages={img} />
 			{neuralName ? <>
 				<div className={cl.params}>
 					<div className={cl.paramsHeader}>
@@ -160,8 +165,8 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 					}
 				</div>
 			</> :
-			<Manual/>
-				}
+				<Manual />
+			}
 		</div>
 	)
 })

@@ -26,14 +26,14 @@ input
 }
 
 @media(max-width: 1280px){
-    .mainContent
+    /* .mainContent
     {
         height: 630px;
-    }
-    .mainContent2
+    } */
+    /* .mainContent2
     {
         height: fit-content;
-    }
+    } */
 }
 @media(max-width: 768px){
     .mainContent
