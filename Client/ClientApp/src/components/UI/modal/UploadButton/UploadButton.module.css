@@ -32,9 +32,6 @@
     }
 }
 @media screen and (max-width: 1245px) {
-    .upload {
-        width: 115px;
-    }
     .upload p {
         font-size: 14px;
     }
