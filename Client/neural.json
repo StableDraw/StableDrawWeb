@@ -831,31 +831,7 @@
 								"name": "webui_upscaler",
 								"childs": [
 									{
-										"param_id": "host",
-										"values_id": []
-									},
-									{
-										"param_id": "port",
-										"values_id": []
-									},
-									{
-										"param_id": "save",
-										"values_id": []
-									},
-									{
 										"param_id": "upscaling_resize",
-										"values_id": []
-									},
-									{
-										"param_id": "upscaling_resize_w",
-										"values_id": []
-									},
-									{
-										"param_id": "upscaling_resize_h",
-										"values_id": []
-									},
-									{
-										"param_id": "upscaling_crop",
 										"values_id": []
 									},
 									{
@@ -1147,30 +1123,6 @@
 					}
 				},
 				{
-					"upscaling_resize_w": {
-						"child": true,
-						"default": 2,
-						"min": 1,
-						"max": 4.0,
-						"step": 0.1,
-						"description": "",
-						"type": "range",
-						"name": "Ширина увеличеного изображения"
-					}
-				},
-				{
-					"upscaling_resize_h": {
-						"child": true,
-						"default": 2,
-						"min": 1,
-						"max": 4.0,
-						"step": 0.1,
-						"description": "",
-						"type": "range",
-						"name": "Высота увеличеного изображения"
-					}
-				},
-				{
 					"upscaler_1": {
 						"default": "ESRGAN_4x",
 						"values": [
@@ -1233,62 +1185,6 @@
 						"type": "select",
 						"name": "Выбор апскейлера"
 					}
-				},
-				{
-					"upscale_first": {
-						"default": "False",
-						"child": true,
-						"system": true,
-						"description": "",
-						"type": "boolean",
-						"name": ""
-					}
-				},
-				{
-					"upscaling_crop": {
-						"default": "True",
-						"child": true,
-						"description": "Кроп перед апскейлом? Разницы не заметил.",
-						"type": "boolean",
-						"name": "Кроп апскейла"
-					}
-				},
-				{
-					"save": {
-						"default": "False",
-						"child": true,
-						"system": true,
-						"description": "Сохранять картинки после генерации в папку save_dir",
-						"type": "boolean",
-						"name": "Сохранение картинки в указанную папку"
-					}
-				},
-				{
-					"host": {
-						"default": "127.0.0.1",
-						"child": true,
-						"system": true,
-						"description": "Хост где запущен webui",
-						"type": "text",
-						"name": "Хост"
-					}
-				},
-				{
-					"port": {
-						"default": 7860,
-						"system": true,
-						"values": [
-							{
-								"value": 7860,
-								"child": true,
-								"description": "Порт где запущен webui",
-								"name": "Порт"
-							}
-						],
-						"type": "select",
-						"description": "Порт где запущен webui",
-						"name": "Порт"
-					}
 				}
 			]
 		},
@@ -1340,6 +1236,10 @@
 									{
 										"param_id": "isCaption",
 										"values_id": []
+									},
+									{
+										"param_id": "sampler",
+										"values_id": [ "EulerEDMSampler", "HeunEDMSampler", "EulerAncestralSampler", "DPMPP2SAncestralSampler", "DPMPP2MSampler", "LinearMultistepSampler" ]
 									}
 								]
 							},
@@ -1380,6 +1280,10 @@
 									{
 										"param_id": "isCaption",
 										"values_id": []
+									},
+									{
+										"param_id": "sampler",
+										"values_id": [ "EulerEDMSampler", "HeunEDMSampler", "EulerAncestralSampler", "DPMPP2SAncestralSampler", "DPMPP2MSampler", "LinearMultistepSampler" ]
 									}
 								]
 							},
@@ -2442,6 +2346,10 @@
 									{
 										"param_id": "isCaption",
 										"values_id": []
+									},
+									{
+										"param_id": "sampler",
+										"values_id": [ "EulerEDMSampler", "HeunEDMSampler", "EulerAncestralSampler", "DPMPP2SAncestralSampler", "DPMPP2MSampler", "LinearMultistepSampler" ]
 									}
 								]
 							},
@@ -2474,6 +2382,10 @@
 									{
 										"param_id": "isCaption",
 										"values_id": []
+									},
+									{
+										"param_id": "sampler",
+										"values_id": [ "EulerEDMSampler", "HeunEDMSampler", "EulerAncestralSampler", "DPMPP2SAncestralSampler", "DPMPP2MSampler", "LinearMultistepSampler" ]
 									}
 								]
 							},
