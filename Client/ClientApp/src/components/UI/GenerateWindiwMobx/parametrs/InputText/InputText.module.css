@@ -1,17 +1,27 @@
 .cont {
 	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
 	align-items: flex-start;
+	flex-direction: row;
+	padding: 15px 10px 0px 10px;
 	border-top: 1px solid #ABABAB;
-	padding: 15px 10px 10px 10px;
+	justify-content: space-between;
 }
 
-.cont div {
+.main__cont{
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
-	gap: 10px;
+	gap: 15px;
+	align-items: flex-start;
+	justify-content: center;
+}
+
+.question{
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: center;
+	padding-bottom: 5px;
+	height: 80px;
 }
 
 .text {
@@ -32,7 +42,7 @@
 	font-style: normal;
 	font-weight: 500;
 	line-height: normal;
-	width: 465px;
+	width: 451px;
 	height: 30px;
 	border: none;
 	border-radius: 5px;

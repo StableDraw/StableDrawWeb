@@ -5,7 +5,7 @@ import store from '../../../../../store/neuralWindow.jsx'
 import ResultWindowState from '../../../ResultWindow/ResultWindowState.jsx'
 import { observer } from 'mobx-react-lite'
 import ImagesBlock from '../../imagesBlock/imagesBlock.jsx'
-import Caption from '../Caption/Caption.tsx'
+import Caption from '../Caption/Caption.jsx'
 import { base64ToBlob } from './base64Converter.jsx'
 import { ParamSwitch } from './paramSwitch.jsx'
 import Manual from '../Manual/Manual.jsx'
@@ -22,22 +22,36 @@ function setSendImgArray(ImgFilesBase64) {
 const Parametrs = observer(({ closeWindow, closeParam, }) => {
 	const [img, setImg] = useState([]); // массив картинок для отправки на сервер
 	const [attention, setAttention] = useState(''); // предупреждение о невалидности параметров для отправки на сервер
-	const [searchValue, setSearchValue] = useState('')
+	const [searchValue, setSearchValue] = useState('');
+	const [isCaption, setIsCaption] = useState(false);
 
 	const paramsToRender = store.parametrs
-	const isCaption = store.isCaption
 	let renderValue = store.defaultValue
 	const neuralName = store.activeNeuralName
 
 	useEffect(() => {
-		if (store.caption && isCaption)
+		// store.captions - фактическое описание( массив строк)
+		if (!store.captions.some((caption) => caption === '') && isCaption)
 			setAttention('')
-	}, [store.caption])
+	}, [store.captions])
 
 	useEffect(() => {
 		if (img.length)
 			setAttention('')
 	}, [img])
+
+	useEffect(() => {
+		const setCaptionFlag = () => {
+			if (store.childParams.includes("isCaption")
+				|| store.activeNeuralName === "stylization"// нейронки без поля с выбором модели
+				|| store.activeNeuralName === "image_captioning")
+				setIsCaption(true)
+			else
+				setIsCaption(false)
+		}
+
+		setCaptionFlag();
+	}, [store.currentModel, store.activeNeuralName])
 
 	const sendValuesForRender = (value, str) => {
 		renderValue = ({ ...renderValue, [str]: value })
@@ -45,14 +59,14 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 
 	const startGeneration = () => {
 		// проверка наличия описания
-		if ((isCaption && !store.caption)) {
+		if ((isCaption && store.captions.some((caption) => caption === ''))) {
 			setAttention('*Введите описание для модели')
 			return;
 		}
 
 		//проверка наличия изображения
 		if ((!img.length || img.length !== store.maxImageAmount) && neuralName !== "text_to_image") {
-			if(img.length < store.maxImageAmount)
+			if (img.length < store.maxImageAmount)
 				setAttention('*Добавьте изображение для генерации')
 			else
 				setAttention('*Удалите изображение')
@@ -69,7 +83,7 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 		let binary = setSendImgArray(img)
 		formData.append('NeuralType', neuralName);
 		formData.append('Parameters', JSON.stringify(renderValue));
-		formData.append('Caption', store.caption);
+		formData.append('Caption', store.captions);
 		formData.append('Prompts', ["", ""]) //надо узнать че это такое
 		binary.forEach((file) => {
 			formData.append(`ImagesInput`, file)
@@ -106,7 +120,7 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 			return param[paramSystemName[0]].name.toLowerCase().includes(searchValue.toLowerCase())
 		})
 	}
-
+	console.log("parameters")
 	return (
 		<div>
 			<ImagesBlock closeWindow={closeWindow} setSendImages={setImg} sendImages={img} />
@@ -125,7 +139,7 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 					</div>
 					<div className={cl.paramCont}>
 						<div className={cl.paramsList}>
-							{isCaption ? <Caption /> : undefined}
+							{isCaption && <Caption />}
 							{
 								searchValue.length > 1 ? getSearchResult().map((param, id) =>
 									<ParamSwitch key={id} value={param} id={id} setValueForServer={sendValuesForRender} />)

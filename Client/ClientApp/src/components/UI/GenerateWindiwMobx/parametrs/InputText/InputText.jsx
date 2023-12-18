@@ -17,7 +17,7 @@ const InputText = ({ getValue, name, description, defaultV, keyValue, isValidPar
 		<>
 			{
 				isValidParam() && <div className={cl.cont}>
-					<div>
+					<div className={cl.main__cont}>
 						<span className={cl.text}>{name}</span>
 						<input
 							type='text'
@@ -28,7 +28,7 @@ const InputText = ({ getValue, name, description, defaultV, keyValue, isValidPar
 							onBlur={() => getValue(value, keyValue)}
 						/>
 					</div>
-					<div>
+					<div className={cl.question}>
 						<Tooltip title={description}>
 							<img className={cl.paramImg} src='Question.svg' alt='' />
 						</Tooltip>

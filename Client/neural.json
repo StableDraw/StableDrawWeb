@@ -113,16 +113,6 @@
 						"type": "boolean",
 						"name": "Повышать цветовую насыщенность после каждого шага"
 					}
-				},
-				{
-					"isCaption": {
-						"default": false,
-						"description": "Нужно ли описание",
-						"type": "boolean",
-						"main": true,
-						"name": "Флаг описания",
-						"system": true
-					}
 				}
 			]
 		},
@@ -292,16 +282,6 @@
 						"description": "Значение можно повысить или понизить в зависимости от разрешения входного изображения",
 						"type": "int[]",
 						"name": "Размер случайной обрезки из ввода"
-					}
-				},
-				{
-					"isCaption": {
-						"default": false,
-						"description": "Нужно ли описание",
-						"type": "boolean",
-						"main": true,
-						"name": "Флаг описания",
-						"system": true
 					}
 				}
 			]
@@ -900,17 +880,6 @@
 						"main": true,
 						"caption": "true",
 						"name": "Описание"
-					}
-				},
-				{
-					"isCaption": {
-						"default": true,
-						"child": true,
-						"description": "Нужно ли описание",
-						"type": "boolean",
-						"main": true,
-						"name": "Флаг описания",
-						"system": true
 					}
 				},
 				{
@@ -2395,17 +2364,6 @@
 						"type": "range",
 						"name": "Количество шагов обработки первичной модели"
 					}
-				},
-				{
-					"isCaption": {
-						"default": true,
-						"child": true,
-						"description": "Нужно ли описание",
-						"type": "boolean",
-						"main": true,
-						"name": "Флаг описания",
-						"system": true
-					}
 				}
 			]
 		},
@@ -3318,17 +3276,6 @@
 						"type": "range",
 						"name": "Коэффициент величины первичной модели"
 					}
-				},
-				{
-					"isCaption": {
-						"default": true,
-						"child": true,
-						"description": "Нужно ли описание",
-						"type": "boolean",
-						"main": true,
-						"name": "Флаг описания",
-						"system": true
-					}
 				}
 			]
 		},
@@ -3538,16 +3485,6 @@
 						"description": "",
 						"type": "range",
 						"name": "Инициализирующее значение для генерации"
-					}
-				},
-				{
-					"isCaption": {
-						"default": false,
-						"description": "Нужно ли описание",
-						"type": "boolean",
-						"main": true,
-						"name": "Флаг описания",
-						"system": true
 					}
 				}
 			]
@@ -3930,17 +3867,6 @@
 						"type": "range",
 						"name": "Максимальный размер генерации изображения"
 					}
-				},
-				{
-					"isCaption": {
-						"default": true,
-						"child": true,
-						"description": "Нужно ли описание",
-						"type": "boolean",
-						"main": true,
-						"name": "Флаг описания",
-						"system": true
-					}
 				}
 			]
 		},
@@ -4078,16 +4004,6 @@
 						"type": "range",
 						"name": "Вес изображения стиля"
 					}
-				},
-				{
-					"isCaption": {
-						"default": true,
-						"description": "Нужно ли описание",
-						"type": "boolean",
-						"main": true,
-						"name": "Флаг описания",
-						"system": true
-					}
 				}
 			]
 		},
@@ -4098,8 +4014,6 @@
 			"serverName": "image_fusion",
 			"clientName": "Объединение изображений",
 			"description": "При помощи данного редима можно совместить несколько изображений",
-			"prompt1": true,
-			"prompt2": true,
 			"params": [
 				{
 					"version": {
@@ -4125,6 +4039,10 @@
 									},
 									{
 										"param_id": "ddim_eta",
+										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
 										"values_id": []
 									}
 								]
