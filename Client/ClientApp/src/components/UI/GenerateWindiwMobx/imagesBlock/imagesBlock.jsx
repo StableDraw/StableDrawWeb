@@ -6,15 +6,15 @@ import { observer } from 'mobx-react-lite'
 import testMob from '../../../../store/neuralWindow.jsx'
 import { imagesToBase64 } from '../parametrs/Parametrs/base64Converter.jsx'
 
-const ImagesBlock = observer(({ closeWindow, closeParam, setSendImages, sendImages }) => {
-	const [imgWidthMax, setImgWidthMax] = useState(548);
-	const [imgAmount, setImgAmount] = useState(1);
-	const canvasImg = canvasState.getImgSrc();
-	const images = testMob.neuralWindowImages;
+const ImagesBlock = observer(({ closeWindow, setSendImages, sendImages }) => {
+	const [imgWidthMax, setImgWidthMax] = useState(''); // максимально допустимая ширина изображения
+	const [imgState, setImgState] = useState('NoImgNoNeuron');// состояние окна с картинками
+	const [attention, setAttention] = useState(false); // наличие предупреждения
 
-	useEffect(() => {
-		setImgAmount(testMob.maxImageAmount)
-	}, [testMob.activeNeuralName])
+	const canvasImg = canvasState.getImgSrc(); // картинка из графического редактора
+	const currentNeural = testMob.activeNeuralName // выбранная нейронка
+	const images = testMob.neuralWindowImages; // картинки, которые лежали в хранилище
+	const imgAmount = testMob.maxImageAmount; // допустимое количество картинок для текущей нейронки
 
 	useEffect(() => {
 		if (sendImages.length <= imgAmount) {
@@ -27,11 +27,30 @@ const ImagesBlock = observer(({ closeWindow, closeParam, setSendImages, sendImag
 	}, [canvasImg])
 
 	useEffect(() => {
-		selectImgMaxWidth();
+		selectImgMaxWidth(); // задаём максимальную ширину для блоков и картинок
+
+		//если картинки есть, их количество не соответствует imgAmount для текущей нейронки, нейронка выбрана
+		//и переходим с большего количества картинок на меньшее - предупреждение
+		if (sendImages.length && sendImages.length !== imgAmount && currentNeural && !(imgAmount - sendImages.length >= 0))
+			setAttention(true);
+		else
+			setAttention(false);
+
+		//помещаем картинки в хранилище
 		if (sendImages.length <= imgAmount) {
 			testMob.setNeuralWindowImages([...sendImages]);
 		}
-	}, [sendImages])
+
+		if (!currentNeural && !sendImages.length)
+			setImgState("NoImgNoNeuron") // нейронка не выбрана, картинок нет
+
+		else if (currentNeural && !sendImages.length)
+			setImgState("NoImgNeuron") // нейронка выбрана, картинок нет
+
+		else if (sendImages.length)
+			setImgState("img") // есть картинки
+
+	}, [currentNeural, sendImages])
 
 	const handleFileInputChange = e => {
 		let files = e.target.files;
@@ -51,18 +70,13 @@ const ImagesBlock = observer(({ closeWindow, closeParam, setSendImages, sendImag
 		}
 	}
 
-	const closeModal = () => {
-		closeWindow()
-		closeParam(false)
-	}
-
 	const deletePicture = (index) => {
 		sendImages.splice(index, 1) // удаляет 1 картинку с заданным индексом 
-		setSendImages([...sendImages])
+		setSendImages([...sendImages]) // сетит картинки для отправки на сервер
 	}
 
+	// меняем макс допустимую ширину для картинки и блока в зависимости от их количества в окне
 	const selectImgMaxWidth = () => {
-
 		if (sendImages.length === 1)
 			setImgWidthMax(cl.img_1)
 
@@ -76,46 +90,38 @@ const ImagesBlock = observer(({ closeWindow, closeParam, setSendImages, sendImag
 			setImgWidthMax(cl.img_4)
 	}
 
-	return (
-		<div className={!Boolean(sendImages.length) ? cl.image : cl.image__withImages}>
-			{!Boolean(sendImages.length) && <span className={`${cl.txt} ${cl.loadTxt}`}>Загрузить изображение</span>}
-				<div className={sendImages.length !== imgAmount && sendImages.length ? `${cl.pictures} ${cl.pictures__attention}` : cl.pictures}>
-					{
-						<>
-							{sendImages.length !== imgAmount && Boolean(sendImages.length) && 
-								<span className={cl.attentionTxt}> Необходимое количество изображений для текущей нейросети - {imgAmount}</span>}
-							{Boolean(sendImages.length) ? sendImages.map((img, i) =>
-								<div key={i + 1} className={cl.picture}>
-									<img className={`${cl.img_1} ${imgWidthMax}`} key={i} src={img} alt='' />
+	//создаём заданное количество блоков под картинки(рамочки с кнопкой "добавить картинку")
+	const createPictureBlocks = (blocksQuantity) => {
+		let quantityArr = [];
 
-									{sendImages.length < imgAmount && <Tooltip title='Загрузить с ПК' placement='top'>
-										<label className={`${cl.addBtn}`}>
-											<img className={cl.addImg} src='/neuralWindow/addImg.svg' alt='' />
-											<input
-												style={{ display: 'none', background: 'none' }}
-												type='file'
-												accept="image/png, image/jpeg, image/jpg"
-												multiple={true}
-												onChange={handleFileInputChange} />
-										</label>
-									</Tooltip>}
+		if (blocksQuantity > 0)
+			quantityArr = new Array(blocksQuantity).fill(1);
 
-									<Tooltip title='Удалить' placement='top'>
-										<button className={`${cl.imgBtn} ${cl.deleteBtn}`} onClick={() => { deletePicture(i) }}>
-											<img src='/neuralWindow/deleteImg.svg' alt='' />
-										</button>
-									</Tooltip>
-								</div>
-							) : <img className={cl.img_1} src='/neuralWindow/startImg.png' alt='' />}
-						</>
+		return quantityArr.map((n, i) =>
+			<div key={i} className={`${cl.imgBlock_1} ${imgWidthMax}`}>
+				<Tooltip title='Загрузить с ПК' placement='top'>
+					<label className={`${cl.imgBtn}`}>
+						<img src='/neuralWindow/addImg.svg' alt='' />
+						<input
+							style={{ display: 'none', background: 'none' }}
+							type='file'
+							accept="image/png, image/jpeg, image/jpg"
+							multiple={true}
+							onChange={handleFileInputChange} />
+					</label>
+				</Tooltip>
+			</div>)
+	}
 
-					}
-				</div>
-			{
-				!Boolean(sendImages.length) &&
+	//рендерим компонент в зависимости от его состояния
+	switch (imgState) {
+		case 'NoImgNoNeuron':
+			return (<div className={cl.image}>
+				<img className={cl.img_1} src='/neuralWindow/startImg.png' alt='' />
+
 				<div className={cl.download}>
 					<Tooltip title='Назад к редактору' placement='top'>
-						<button className={cl.imgBtn} onClick={() => closeModal()}>
+						<button className={cl.imgBtn} onClick={() => closeWindow()}>
 							<img src='/neuralWindow/photoEdit.svg' alt='' />
 						</button>
 					</Tooltip>
@@ -131,9 +137,31 @@ const ImagesBlock = observer(({ closeWindow, closeParam, setSendImages, sendImag
 						</label>
 					</Tooltip>
 				</div>
-			}
-		</div>
-	)
+			</div>)
+		case "NoImgNeuron":
+			return <div className={cl.pictures}>
+				{createPictureBlocks(imgAmount)}
+			</div>
+		case "img":
+			return <div className={cl.pictures}>
+				{attention &&
+					<span className={cl.attentionTxt}> Допустимое количество изображений для данной нейросети - {imgAmount} </span>}
+
+				{sendImages.map((img, i) =>
+					<div key={i + 1} className={cl.picture}>
+						<img className={`${cl.img_1} ${imgWidthMax}`} key={i} src={img} alt='' />
+						<Tooltip title='Удалить' placement='top'>
+							<button className={`${cl.imgBtn} ${cl.deleteBtn}`} onClick={() => { deletePicture(i) }}>
+								<img src='/neuralWindow/deleteImg.svg' alt='' />
+							</button>
+						</Tooltip>
+					</div>
+				)}
+
+				{Boolean(imgAmount - sendImages.length) && createPictureBlocks(imgAmount - sendImages.length)}
+			</div>
+		default:
+	}
 })
 
 export default ImagesBlock

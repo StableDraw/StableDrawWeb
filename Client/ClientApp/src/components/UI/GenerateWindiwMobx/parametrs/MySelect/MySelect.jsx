@@ -51,7 +51,7 @@ const MySelect = ({ getValue, name, description, options, keyValue, defaultV, se
 			{
 				!isAnyChild() ?
 					<div className={cl.cont}>
-						<div>
+						<div className={cl.main__cont}>
 							<span className={cl.paramText} style={{ marginRight: 40 }}>{name}</span>
 								<select className={cl.select} value={value} onChange={e => { call(e); }} onBlur={() => { getValue(value, keyValue) }}>
 									{options.map(({ name, value, description, system }, id) => {
@@ -60,14 +60,14 @@ const MySelect = ({ getValue, name, description, options, keyValue, defaultV, se
 									})}
 								</select>
 						</div>
-						<div>
+						<div className={cl.question}>
 							<Tooltip title={description}>
 								<img className={cl.paramImg} src='Question.svg' alt='' />
 							</Tooltip>
 						</div>
 					</div> : isChildMatch() ?
 						<div className={cl.cont}>
-							<div>
+							<div className={cl.main__cont}>
 								<span className={cl.paramText} style={{ marginRight: 40 }}>{name}</span>
 								<section className={cl.block2}>
 									<select className={cl.select} value={value} onChange={e => { call(e); }} onBlur={() => { getValue(value, keyValue) }}>
@@ -78,7 +78,7 @@ const MySelect = ({ getValue, name, description, options, keyValue, defaultV, se
 									</select>
 								</section>
 							</div>
-							<div>
+							<div className={cl.question}>
 								<Tooltip title={description}>
 									<img className={cl.paramImg} src='Question.svg' alt='' />
 								</Tooltip>

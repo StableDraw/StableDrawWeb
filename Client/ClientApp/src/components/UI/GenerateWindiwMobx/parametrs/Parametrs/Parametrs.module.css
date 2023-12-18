@@ -168,11 +168,11 @@
 }
 
 .attentionTxt {
-	color: red;
-	font-size: 11px;
+	color: #DC1010;
 	font-family: Montserrat;
+	font-size: 12px;
 	font-style: normal;
-	font-weight: 400;
+	font-weight: 500;
 	line-height: normal;
 }
 
@@ -233,7 +233,7 @@
 	}
 }
 
-@media(max-height: 760px){
+@media(max-height: 760px) {
 	.downBtns__generate {
 		width: fit-content;
 		height: fit-content;
@@ -249,6 +249,7 @@
 		display: flex;
 		margin-top: 20px;
 	}
+
 	.image {
 		height: 210px;
 	}
@@ -268,9 +269,9 @@
 }
 
 @media(max-width: 1280px) {
-	.image {
+	/* .image {
 		height: 210px;
-	}
+	} */
 
 	.cancel {
 		width: fit-content;
@@ -290,9 +291,9 @@
 		display: flex;
 	}
 
-	.downBtns {
+	/* .downBtns {
 		margin-top: 50px;
-	}
+	} */
 }
 
 @media(max-width: 768px) {

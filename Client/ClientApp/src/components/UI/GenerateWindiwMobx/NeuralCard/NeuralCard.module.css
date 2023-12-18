@@ -36,14 +36,24 @@
 	background: #ACACAC;
 }
 
-.itemImg {
+.item__Img {
 	width: 75px;
 	height: 75px;
 	margin-right: 15px;
 	border-radius: 15px;
 }
 
-.itemText {
+/* блок с инфой о нейронке */
+.item__info{
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	flex-direction: column;
+	height: 100%;
+}
+
+
+.item__Text {
 	color: #656565;
 	font-family: Montserrat;
 	font-size: 16px;
@@ -52,14 +62,40 @@
 	line-height: normal;
 }
 
+/* блок, показывающий сколько картинок можно юзать для текущей нейронки */
+.item__pictures {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	flex-direction: row;
+	gap: 5px;
+	margin-top: 5px;
+}
+
+.item__pictures span {
+	color: var(--dark-gray, #656565);
+	font-family: Montserrat;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
+}
+
+/* иконка количества картинок для нейронки */
+.item__images {}
+
 @media(max-width: 1280px) {
+	.item__pictures span{
+		font-weight: 500;
+	}
+
 	.item {
 		padding: 10px 0;
 		text-align: left;
-		height: 80px;
+		height: 100px;
 	}
 
-	.itemImg {
+	.item__Img {
 		width: 55px;
 		height: 55px;
 	}
@@ -72,17 +108,17 @@
 		padding: 10px 0 10px 15px;
 		font-size: 14px;
 		text-align: left;
-		height: 80px;
+		height: 100px;
 	}
 
-	.itemText{
-		font-size: 14px;
+	.item__Text {
+		font-size: 15px;
 	}
 
 }
 
 @media(max-width: 768px) {
-	.itemImg {
+	.item__Img {
 		width: 45px;
 		height: 45px;
 	}
@@ -90,11 +126,13 @@
 	.item {
 		padding: 5px 0;
 		width: 175px;
+		height: 80px;
 	}
 
 	.itemActive {
 		padding: 5px 0 5px 10px;
 		width: 175px;
+		height: 80px;
 		font-size: 12px;
 	}
 

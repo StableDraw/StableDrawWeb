@@ -15,7 +15,7 @@ const MyCheckBox = ({ getValue, name, defaultV, description, keyValue, isValidPa
 			{
 				isValidParam() &&
 				<div className={cl.cont}>
-					<div>
+					<div className={cl.main__cont}>
 						<section className={cl.block}>
 							<span className={cl.text}>{name}</span>
 						</section>
@@ -24,7 +24,7 @@ const MyCheckBox = ({ getValue, name, defaultV, description, keyValue, isValidPa
 								<span className={cl.slider_round} />
 							</label>
 					</div>
-					<div>
+					<div className={cl.question}>
 						<Tooltip title={description}>
 							<img className={cl.paramImg} src='Question.svg' alt='' />
 						</Tooltip>

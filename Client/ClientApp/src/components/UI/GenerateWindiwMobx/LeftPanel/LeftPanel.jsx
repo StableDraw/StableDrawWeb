@@ -15,6 +15,7 @@ const LeftPanel = observer(({ openParam, }) => {
 		else
 			setNeuralList(searchNeuron())
 
+			console.log(neuralList)
 	}, [searchValue])
 
 	//фильтруем список нейросетей по искомому значению
@@ -38,6 +39,7 @@ const LeftPanel = observer(({ openParam, }) => {
 				<div className={cl.list}>
 					{Boolean(neuralList) ? neuralList.map((neural, id) =>
 						<NeuralCard
+							imgCount={neural.imageCount}
 							key={id}
 							active={openParam}
 							serverName={neural.serverName}
