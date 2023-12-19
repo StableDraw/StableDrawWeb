@@ -904,11 +904,11 @@ input[type=range].up_add_window_slider::-ms-fill-lower
 }
 
 
-.container{
-    margin: 0;
-    padding: 0 !important;
-    max-width: 100% !important;
-}
+/*.container{*/
+/*    margin: 0;*/
+/*    padding: 0 !important;*/
+/*    max-width: 100% !important;*/
+/*}*/
 
 img {
 	-khtml-user-select: none;

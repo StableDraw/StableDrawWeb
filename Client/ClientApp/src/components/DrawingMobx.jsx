@@ -43,7 +43,7 @@ const Drawing = () => {
                     <Link className={cl.link} to='/Pay'>
                         <span className={cl.subscribe__txt}> Подписка</span>
                     </Link>
-                    <Link to='/myProfile' className={cl.personalArea}>
+                    <Link to='/profile' className={cl.personalArea}>
                         <p>Личный кабинет</p>
                     </Link>
                 </div>

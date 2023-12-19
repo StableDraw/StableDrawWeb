@@ -1,8 +1,4 @@
-body
-{
-	background: var(--black, #000);
-	color: #fff;
-}
+
 .backgroundBlur
 {
   background: rgba(18, 18, 18, 0.67);
@@ -161,14 +157,14 @@ body
 	color: var(--dark-blue, #1975D2);
 	text-decoration-line: underline;
 }
-input::placeholder {
-	color: #404249;
-	font-family: Montserrat;
-	font-size: 20px;
-	font-style: normal;
-	font-weight: 600;
-	line-height: normal;
-}
+/*input::placeholder {*/
+/*	color: #404249;*/
+/*	font-family: Montserrat;*/
+/*	font-size: 20px;*/
+/*	font-style: normal;*/
+/*	font-weight: 600;*/
+/*	line-height: normal;*/
+/*}*/
 input
 {
 	padding-left: 40px;

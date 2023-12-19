@@ -1887,11 +1887,11 @@ Then run the `firebase init` command from your project’s root. You need to cho
 ```sh
     === Project Setup
 
-    First, let's associate this project directory with a Firebase project.
-    You can create multiple project aliases by running firebase use --add,
-    but for now we'll just set up a default project.
+    First, let's associate this projects-list directory with a Firebase projects-list.
+    You can create multiple projects-list aliases by running firebase use --add,
+    but for now we'll just set up a default projects-list.
 
-    ? What Firebase project do you want to associate as default? Example app (example-app-fd690)
+    ? What Firebase projects-list do you want to associate as default? Example app (example-app-fd690)
 
     === Database Setup
 
@@ -1905,7 +1905,7 @@ Then run the `firebase init` command from your project’s root. You need to cho
 
     === Hosting Setup
 
-    Your public directory is the folder (relative to your project directory) that
+    Your public directory is the folder (relative to your projects-list directory) that
     will contain Hosting assets to uploaded with firebase deploy. If you
     have a build process for your assets, use your build's output directory.
 
@@ -1914,7 +1914,7 @@ Then run the `firebase init` command from your project’s root. You need to cho
     ✔  Wrote build/index.html
 
     i  Writing configuration info to firebase.json...
-    i  Writing project information to .firebaserc...
+    i  Writing projects-list information to .firebaserc...
 
     ✔  Firebase initialization complete!
 ```
@@ -1933,7 +1933,7 @@ Now, after you create a production build with `npm run build`, you can deploy it
 
     ✔  Deploy complete!
 
-    Project Console: https://console.firebase.google.com/project/example-app-fd690/overview
+    Project Console: https://console.firebase.google.com/projects-list/example-app-fd690/overview
     Hosting URL: https://example-app-fd690.firebaseapp.com
 ```
 
@@ -2107,7 +2107,7 @@ Install the Surge CLI if you haven’t already by running `npm install -g surge`
 When asked about the project path, make sure to specify the `build` folder, for example:
 
 ```sh
-       project path: /path/to/project/build
+       projects-list path: /path/to/projects-list/build
 ```
 
 Note that in order to support routers that use HTML5 `pushState` API, you may want to rename the `index.html` in your build folder to `200.html` before deploying to Surge. This [ensures that every URL falls back to that file](https://surge.sh/help/adding-a-200-page-for-client-side-routing).

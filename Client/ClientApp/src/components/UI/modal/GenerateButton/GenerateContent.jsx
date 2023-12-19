@@ -47,7 +47,7 @@ const GenerateContent = () => {
             {/*                <Button color="apple" variant="contained" disableElevation >*/}
 
             {/*                    <img src={'github_logo.png'} alt={"github_icon"} style={{ fontSize: 20, height: 25 }}/>*/}
-            {/*                    Import Babylon to your project*/}
+            {/*                    Import Babylon to your projects-list*/}
             {/*                </Button>*/}
             {/*            </ThemeProvider>*/}
             {/*        </Link>*/}

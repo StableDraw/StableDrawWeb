@@ -4,13 +4,14 @@ import Drawing from './components/Drawing';
 import { MainBabylon } from "./components/babylon/mainBabylon";
 import { Pay } from './components/UI/PayNew/PayNew';
 import { StartPage } from './components/UI/startPage/startPage';
-import { UserProfile } from './components/UI/UserProfile/UserProfile.jsx';
 import DrawingMobx from './components/DrawingMobx';
 import AbtoutUs1 from './components//UI/AboutUs1/AboutUs1';
 import Regisration from './components/UI/Registration/Registration.tsx';
 import Auth from './components/UI/Auth/Auth.tsx';
 import ResultWindow from './components/UI/ResultWindow/ResultWindow';
 import GenerateWindow from '../src/components/UI/GenerateWindiwMobx/GenerateBtn/GenerateBtn.jsx'
+import ProfilePage from "./page/profile";
+
 const AppRoutes = [
 	{
 		index: true,
@@ -67,9 +68,9 @@ const AppRoutes = [
 		element: <MainBabylon />
 	},
 	{
-		path: '/myProfile',
+		path: '/profile',
 		requireAuth: true,
-		element: <UserProfile />
+		element: <ProfilePage />
 	},
 	{
 		path: '/api',
