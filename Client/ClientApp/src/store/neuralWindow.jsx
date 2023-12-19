@@ -5,8 +5,9 @@ class neuralWindow {
 	neurals = {}
 	activeNeuralName = '';
 	parametrs = [];
-	isCaption;
-	caption = '';
+	isNeuralCaption;
+	captionAmount = 1; //может принимать undefined, количество описаний для нейронки
+	captions = []; // описания для отправки на сервер
 	maxImageAmount = 1; // максимальное количество картинок для текущей нейросети
 	neuralWindowImages = []; // массив картинок, которые в данный момент загружены в окно генерации
 	defaultValue = {}; //объект дефолтных значений параметров(костыль Серёги, нужно переписать на useEffect)
@@ -61,15 +62,22 @@ class neuralWindow {
 	async getParams(name) {
 		try {
 			const response = await api.GetNeurals(name)
-			this.maxImageAmount = response.data.image_count_input;
+			this.maxImageAmount = response.data.image_count_input; //количество картинок для текущей нейронки
+
+			if(response.data.prompt_count_input)
+			this.captionAmount = response.data.prompt_count_input; //может принимать undefined, количество описаний для нейронки
+			else
+			this.captionAmount = 1
+
+			this.isNeuralCaption = response.data.caption
 			this.setActiveNeural(name)
-			this.isCaption = response.data.caption;
 			const params = []
 
 			for (let item of response.data.params) {
 				const param = item;
 				params.push(param)
 			}
+
 			this.parametrs = params
 			this.setCurrentModelOnMount(params)//задаём модель генерации
 			this.doDefaultValues()
@@ -81,7 +89,7 @@ class neuralWindow {
 
 	setActiveNeural(name) {
 		this.activeNeuralName = name
-		this.setCaption(''); //при переключении нейронки описание обнуляется
+		this.setCaption([]); //при переключении нейронки описание обнуляется
 	}
 
 	doDefaultValues = () => {
@@ -148,6 +156,7 @@ class neuralWindow {
 	}
 
 	startGeneration = () => {
+		console.log(this.childParams)
 		this.isGenerationEnd = false;
 	}
 
@@ -159,6 +168,7 @@ class neuralWindow {
 		this.clearChildParams()
 		this.clearChildValues()
 		this.currentModel = currentModel;
+		this.captions = [];
 	}
 
 	// заполняет массив дочерних параметров для текущей модели
@@ -182,11 +192,12 @@ class neuralWindow {
 	setNeuralWindowImages = (images) => {
 		this.neuralWindowImages = images
 	}
-	
-	setCaption = (caption) => {
-		this.caption = caption;
-	}
 
+	setCaption = (captions) => {
+		console.log("caption", captions)
+		this.captions = captions;
+		console.log(this.caption);
+	}
 }
 
 export default new neuralWindow()

@@ -58,22 +58,6 @@ export const Footer = () => {
 					</div>
 				</div>
 			</div>
-			<div className={footer.box_docs}>
-				<div className={footer.left_docs}>
-					<span className={footer.docs}>
-						<span>ИНН/КПП:</span> 5405088796/540501001
-					</span>
-					<span className={footer.docs}>
-						<span>ОГРН:</span> 123540003826
-					</span>
-					<span className={footer.docs}>
-						<span>Место нахождения:</span><br />630112, г. Новосибирск, ул. Гоголя, д. 192, кв. 71
-					</span>
-					<span className={footer.docs}>
-						<span>Телефон:</span> +7-913-786-9887;
-					</span>
-				</div>
-			</div>
 		</footer>
 	)
 }

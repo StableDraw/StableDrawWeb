@@ -1,8 +1,7 @@
 .layer_box
 {
     outline: 0 solid rgb(85, 85, 85);
-    margin: 0 12px 0 12px;
-    padding: 3px;
+    margin: 0 13px 0 13px;
     min-height: 150px;
     max-height: 60vh;
     overflow-y: auto;
@@ -11,5 +10,6 @@
     .layer_box
     {
         height: 146px;
+        margin: 0 5px 10px 5px;
     }
 }

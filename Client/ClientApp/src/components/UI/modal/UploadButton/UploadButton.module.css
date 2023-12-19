@@ -9,23 +9,22 @@
     background: #1975D2;
     justify-content: space-evenly;
     cursor: pointer;
+    padding: 9px 22px;
 }
 .upload p {
     color: #FFF;
-    /*font-family: Montserrat;*/
-    font-size: 16px;
+    font-family: Montserrat;
+    font-size: 15px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-    text-align: center;
-    vertical-align: middle;
     margin: 0;
 }
 
 @media screen and (max-width: 1600px) {
     .upload {
         width: fit-content;
-        padding: 15px;
+        padding: 9px 15px;
         gap: 5px;
     }
     .upload p {
@@ -33,9 +32,6 @@
     }
 }
 @media screen and (max-width: 1245px) {
-    .upload {
-        width: 115px;
-    }
     .upload p {
         font-size: 14px;
     }
@@ -43,15 +39,26 @@
 @media screen and (max-width: 1024px) {
     .upload {
         width: fit-content;
-        height: 24px;
-        padding: 15px;
+        padding: 9px 22px;
+        height: 35px;
         gap: 5px;
     }
     .upload p {
-        font-size: 11px;
+        font-size: 15px;
     }
     .upload svg
     {
         width: 15px;
+    }
+}
+@media screen and (max-width: 768px) {
+    .upload {
+        width: fit-content;
+        padding: 8px 15px;
+        height: 24px;
+        gap: 5px;
+    }
+    .upload p {
+        font-size: 11px;
     }
 }

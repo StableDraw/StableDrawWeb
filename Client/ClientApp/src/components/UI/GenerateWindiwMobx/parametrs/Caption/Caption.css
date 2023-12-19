@@ -4,15 +4,26 @@
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: flex-start;
-	border-top: 1px solid #ABABAB;
-	padding: 15px 10px 10px 10px;
+	padding: 15px 10px 0px 10px;
+	gap:20px;
 }
 
-.cont div {
+.cont__caption{
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
-	gap: 10px;
+	align-items: center;
+	justify-content: center;
+	gap: 15px;
+}
+
+.captionsBlock{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	border-top: 1px solid #ABABAB;
+	padding-bottom: 5px;
+	position: relative;
 }
 
 .text {
@@ -27,7 +38,7 @@
 }
 
 .input {
-	width: 465px;
+	width: 451px;
 	height: 50px;
 	border: none;
 	border-radius: 5px;
@@ -36,13 +47,34 @@
 	outline: none;
 }
 
+.input__2 {
+	width: 215px;
+	height: 50px;
+}
+
 .attentionTxt{
+	position: absolute;
 	color: red;
 	font-size: 11px;
 	font-family: Montserrat;
 	font-style: normal;
 	font-weight: 400;
 	line-height: normal;
+	bottom: 5px;
+	left: 5px;
+}
+
+.attentionTxt__2{
+	bottom: -3px;
+	left: 5px;
+}
+
+.question{
+	height: 109px;
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-end;
+	flex-direction: column;
 }
 
 .img {

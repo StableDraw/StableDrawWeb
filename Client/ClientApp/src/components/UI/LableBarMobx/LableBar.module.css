@@ -5,7 +5,7 @@
     -moz-user-select: none;
     -ms-user-select: none;
     height: fit-content;
-    width: fit-content;
+    width: 250px;
     max-width: 350px;
     display: flex;
     flex-direction: column;
@@ -35,7 +35,7 @@
     width: 100%;
     border: none;
     text-align: center;
-    padding-left: 0;
+    padding: 0 5px;
 }
 .input__scale::placeholder {
     color: #929292;
@@ -50,7 +50,7 @@
     justify-content: center;
     align-items: center;
     height: 40px;
-    margin: 10px 15px 0 15px;
+    margin: 23px 13px 10px 13px;
     /*background-color: #ABABAB;*/
 }
 .opacity__text {
@@ -83,6 +83,11 @@
     {
         font-size: 12px;
     }
+    .layers
+    {
+        max-width: 256px;
+        border-radius: 20px;
+    }
     .layers__button
     {
         padding: 10px;
@@ -100,11 +105,17 @@
     .opacity__block
     {
         height: 24px;
+        margin: 11px 5px;
     }
     
     .input__scale
     {
         font-size: 10px;
+    }
+    .layers
+    {
+        max-width: 185px;
+        border-radius: 10px;
     }
     .layers__button
     {
@@ -112,12 +123,13 @@
     }
     .layers__button svg
     {
-        width: 17px;
-        height: 17px;
+        width: 22px;
+        height: 22px;
         margin-top: -8px;
     }
     .scale__block
     {
         gap: 15px;
+        margin: 0 5px 10px 5px;
     }
 }

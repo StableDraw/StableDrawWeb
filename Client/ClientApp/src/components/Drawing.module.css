@@ -37,12 +37,12 @@
     justify-content: center;
     align-items: center;
     background: #FFF;
-    margin-left: 120px;
+    margin-left: 42px;
     cursor: pointer;
 
 }
 .personalArea p {
-    color: #492281;
+    color: #0D3157;
     font-family: Montserrat;
     font-size: 16px;
     font-style: normal;
@@ -59,13 +59,11 @@
 
 .main__content {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
     flex-direction: row;
     height: calc(100vh - 70px);
     background: #EFEFEF;
-    padding-left: 1%;
-    padding-right: 1%;
 }
 
 .col {
@@ -137,7 +135,16 @@
     align-items: center;
     background: #FFF;
     cursor: pointer;
-    margin-left: 20px;
+    margin-left: 32px;
+}
+.link span
+{
+    color: #1975D2;
+    font-family: Montserrat;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
 }
 
 @media screen and (max-width: 1245px) {
@@ -146,9 +153,7 @@
     }
 }
 @media screen and (max-width: 1024px) {
-    .personalArea p, .subscribe__txt, .link{
-        font-size: 12px;
-    }
+    
     .personalArea
     {
         margin-left: 50px;
@@ -160,5 +165,24 @@
     .canvas__button
     {
         gap: 8px;
+        align-items: flex-start;
+    }
+    .main__content
+    {
+        padding-left: 30px;
+    }
+}
+@media screen and (max-width: 768px) {
+    .personalArea p, .subscribe__txt, .link span{
+        font-size: 10px;
+    }
+    .personalArea
+    {
+        margin-left: 0;
+    }
+    .link
+    {
+        width: fit-content;
+        margin-left: 37px;
     }
 }

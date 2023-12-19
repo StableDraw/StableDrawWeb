@@ -729,6 +729,16 @@
 	display: inline-block;
 }
 
+.txtt{
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+	float: left;
+}
+
 .Tex2 {
 	color: #FFF;
 	font-family: Montserrat;
