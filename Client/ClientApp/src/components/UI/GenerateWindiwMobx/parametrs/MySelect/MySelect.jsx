@@ -7,9 +7,6 @@ const MySelect = ({ getValue, name, description, options, keyValue, defaultV, se
 	const [value, setValue] = useState(defaultV);
 
 	useEffect(() => {
-		// if (!((keyValue[0] === "model" || keyValue[0] === "version") && options.some(value => value.hasOwnProperty("childs"))))
-		// 	setValue(defaultV);
-
 		setChild(testMob.currentModel); // заполняем массивы параметров, при смене модели генерации
 		testMob.doDefaultValues(); //заполняем объект из параметров для отправки на сервер при смене модели генерации
 	}, [testMob.currentModel, testMob.activeNeuralName]);
@@ -22,7 +19,7 @@ const MySelect = ({ getValue, name, description, options, keyValue, defaultV, se
 	const setCurrentModel = (value) => {
 		if ((keyValue[0] === "model" || keyValue[0] === "version") && options.some(value => value.hasOwnProperty("childs"))) {
 			testMob.setCurrentModel(value);
-			setChild(value); //Заполняет массив из дочерних параметров
+			// setChild(value); //Заполняет массив из дочерних параметров
 		}
 	}
 

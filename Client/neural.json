@@ -345,6 +345,10 @@
 									{
 										"param_id": "noise_augmentation",
 										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
 									}
 								]
 							},
@@ -387,6 +391,10 @@
 									},
 									{
 										"param_id": "noise_augmentation",
+										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
 										"values_id": []
 									}
 								]
@@ -823,31 +831,7 @@
 								"name": "webui_upscaler",
 								"childs": [
 									{
-										"param_id": "host",
-										"values_id": []
-									},
-									{
-										"param_id": "port",
-										"values_id": []
-									},
-									{
-										"param_id": "save",
-										"values_id": []
-									},
-									{
 										"param_id": "upscaling_resize",
-										"values_id": []
-									},
-									{
-										"param_id": "upscaling_resize_w",
-										"values_id": []
-									},
-									{
-										"param_id": "upscaling_resize_h",
-										"values_id": []
-									},
-									{
-										"param_id": "upscaling_crop",
 										"values_id": []
 									},
 									{
@@ -1139,30 +1123,6 @@
 					}
 				},
 				{
-					"upscaling_resize_w": {
-						"child": true,
-						"default": 2,
-						"min": 1,
-						"max": 4.0,
-						"step": 0.1,
-						"description": "",
-						"type": "range",
-						"name": "Ширина увеличеного изображения"
-					}
-				},
-				{
-					"upscaling_resize_h": {
-						"child": true,
-						"default": 2,
-						"min": 1,
-						"max": 4.0,
-						"step": 0.1,
-						"description": "",
-						"type": "range",
-						"name": "Высота увеличеного изображения"
-					}
-				},
-				{
 					"upscaler_1": {
 						"default": "ESRGAN_4x",
 						"values": [
@@ -1225,62 +1185,6 @@
 						"type": "select",
 						"name": "Выбор апскейлера"
 					}
-				},
-				{
-					"upscale_first": {
-						"default": "False",
-						"child": true,
-						"system": true,
-						"description": "",
-						"type": "boolean",
-						"name": ""
-					}
-				},
-				{
-					"upscaling_crop": {
-						"default": "True",
-						"child": true,
-						"description": "Кроп перед апскейлом? Разницы не заметил.",
-						"type": "boolean",
-						"name": "Кроп апскейла"
-					}
-				},
-				{
-					"save": {
-						"default": "False",
-						"child": true,
-						"system": true,
-						"description": "Сохранять картинки после генерации в папку save_dir",
-						"type": "boolean",
-						"name": "Сохранение картинки в указанную папку"
-					}
-				},
-				{
-					"host": {
-						"default": "127.0.0.1",
-						"child": true,
-						"system": true,
-						"description": "Хост где запущен webui",
-						"type": "text",
-						"name": "Хост"
-					}
-				},
-				{
-					"port": {
-						"default": 7860,
-						"system": true,
-						"values": [
-							{
-								"value": 7860,
-								"child": true,
-								"description": "Порт где запущен webui",
-								"name": "Порт"
-							}
-						],
-						"type": "select",
-						"description": "Порт где запущен webui",
-						"name": "Порт"
-					}
 				}
 			]
 		},
@@ -1328,6 +1232,14 @@
 									{
 										"param_id": "negative_aesthetic_score",
 										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
+									},
+									{
+										"param_id": "sampler",
+										"values_id": [ "EulerEDMSampler", "HeunEDMSampler", "EulerAncestralSampler", "DPMPP2SAncestralSampler", "DPMPP2MSampler", "LinearMultistepSampler" ]
 									}
 								]
 							},
@@ -1364,6 +1276,14 @@
 									{
 										"param_id": "negative_aesthetic_score",
 										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
+									},
+									{
+										"param_id": "sampler",
+										"values_id": [ "EulerEDMSampler", "HeunEDMSampler", "EulerAncestralSampler", "DPMPP2SAncestralSampler", "DPMPP2MSampler", "LinearMultistepSampler" ]
 									}
 								]
 							},
@@ -1415,6 +1335,10 @@
 									{
 										"param_id": "prior_steps",
 										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
 									}
 								]
 							},
@@ -1434,6 +1358,10 @@
 									{
 										"param_id": "sampler",
 										"values_id": [ "EulerEDMSampler", "HeunEDMSampler", "EulerAncestralSampler", "DPMPP2SAncestralSampler", "DPMPP2MSampler", "LinearMultistepSampler" ]
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
 									}
 								]
 							},
@@ -1453,6 +1381,10 @@
 									{
 										"param_id": "sampler",
 										"values_id": [ "EulerEDMSampler", "HeunEDMSampler", "EulerAncestralSampler", "DPMPP2SAncestralSampler", "DPMPP2MSampler", "LinearMultistepSampler" ]
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
 									}
 								]
 							},
@@ -1488,6 +1420,10 @@
 									{
 										"param_id": "prior_steps",
 										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
 									}
 								]
 							},
@@ -1515,6 +1451,10 @@
 									{
 										"param_id": "sampler",
 										"values_id": [ "ddim_sampler", "plms_sampler", "p_sampler" ]
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
 									}
 								]
 							},
@@ -1542,6 +1482,10 @@
 									{
 										"param_id": "denoised_type",
 										"values_id": [ "dynamic_threshold", "clip_denoised" ]
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
 									}
 								]
 							},
@@ -1561,6 +1505,10 @@
 									{
 										"param_id": "sampler",
 										"values_id": [ "EulerEDMSampler", "HeunEDMSampler", "EulerAncestralSampler", "DPMPP2SAncestralSampler", "DPMPP2MSampler", "LinearMultistepSampler" ]
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
 									}
 								]
 							},
@@ -1581,6 +1529,10 @@
 									{
 										"param_id": "sampler",
 										"values_id": [ "EulerEDMSampler", "HeunEDMSampler", "EulerAncestralSampler", "DPMPP2SAncestralSampler", "DPMPP2MSampler", "LinearMultistepSampler" ]
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
 									}
 								]
 							}
@@ -1662,6 +1614,13 @@
 				{
 					"refiner": {
 						"default": "SDXL-refiner-1.0",
+						"child": true,
+						"childs": [
+							{
+								"param_id": "refinement_strength",
+								"values_id": []
+							}
+						],
 						"values": [
 							{
 								"value": "SDXL-refiner-1.0",
@@ -1915,16 +1874,6 @@
 						"name": "Выбрать веса для модели"
 					}
 				},
-
-				{
-					"version2SDXL-refiner": {
-						"default": "False",
-						"child": true,
-						"description": "Загрузить SDXL-refiner как модель для второй стадии обработки. Требует более длительной обработки",
-						"type": "boolean",
-						"name": "Двухступенчатая обработка"
-					}
-				},
 				{
 					"seed": {
 						"default": 42,
@@ -1939,6 +1888,7 @@
 				{
 					"refinement_strength": {
 						"default": 0.15,
+						"child": true,
 						"min": 0.0,
 						"max": 1.0,
 						"step": 0.01,
@@ -1958,7 +1908,8 @@
 				},
 				{
 					"h": {
-						"default": 1024,
+						"default": 512,
+						"child": true,
 						"min": 64,
 						"max": 1024,
 						"step": 64,
@@ -1969,7 +1920,8 @@
 				},
 				{
 					"w": {
-						"default": 1024,
+						"default": 512,
+						"child": true,
 						"min": 64,
 						"max": 1024,
 						"step": 64,
@@ -1990,11 +1942,21 @@
 					}
 				},
 				{
-					"use_recommended_res": {
-						"default": "True",
-						"description": "если выбран, то указанные в параметрах значения ожидаемого итогового разрешения игнорируются",
+					"use_custom_res": {
+						"default": "False",
+						"childs": [
+							{
+								"param_id": "w",
+								"values_id": []
+							},
+							{
+								"param_id": "h",
+								"values_id": []
+							}
+						],
+						"description": "Позволяет использовать собственные разрешения изображения, вместо рекомендованных",
 						"type": "boolean",
-						"name": "Использовать рекомендованное для каждой модели разрешение генерации"
+						"name": "Установить свои разрешения изображения"
 					}
 				},
 				{
@@ -2087,7 +2049,7 @@
 				},
 				{
 					"order": {
-						"default": 4,
+						"default": 1,
 						"min": 1,
 						"max": 4,
 						"step": 1,
@@ -2180,7 +2142,7 @@
 						"default": "False",
 						"description": "Изменение размеров входного изображения на размеры исходного изображений",
 						"type": "boolean",
-						"name": "Изменение размеров взодного изображения на указанные"
+						"name": "Изменение размеров входного изображения на указанные"
 					}
 				},
 				{
@@ -2359,6 +2321,10 @@
 									{
 										"param_id": "prior_steps",
 										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
 									}
 								]
 							},
@@ -2367,10 +2333,6 @@
 								"description": "Наилучшая (на данный момент) модель StableDiffusionXL, но достаточно долго обрабатывается",
 								"name": "SDXL-base-1.0",
 								"childs": [
-									{
-										"param_id": "version2SDXL-refiner",
-										"values_id": []
-									},
 									{
 										"param_id": "finish_denoising",
 										"values_id": []
@@ -2386,6 +2348,14 @@
 									{
 										"param_id": "negative_aesthetic_score",
 										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
+									},
+									{
+										"param_id": "sampler",
+										"values_id": [ "EulerEDMSampler", "HeunEDMSampler", "EulerAncestralSampler", "DPMPP2SAncestralSampler", "DPMPP2MSampler", "LinearMultistepSampler" ]
 									}
 								]
 							},
@@ -2396,10 +2366,6 @@
 								"name": "SDXL-base-0.9",
 								"childs": [
 									{
-										"param_id": "version2SDXL-refiner",
-										"values_id": []
-									},
-									{
 										"param_id": "finish_denoising",
 										"values_id": []
 									},
@@ -2414,6 +2380,14 @@
 									{
 										"param_id": "negative_aesthetic_score",
 										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
+									},
+									{
+										"param_id": "sampler",
+										"values_id": [ "EulerEDMSampler", "HeunEDMSampler", "EulerAncestralSampler", "DPMPP2SAncestralSampler", "DPMPP2MSampler", "LinearMultistepSampler" ]
 									}
 								]
 							},
@@ -2429,6 +2403,10 @@
 									{
 										"param_id": "sampler",
 										"values_id": [ "EulerEDMSampler", "HeunEDMSampler", "EulerAncestralSampler", "DPMPP2SAncestralSampler", "DPMPP2MSampler", "LinearMultistepSampler" ]
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
 									}
 								]
 							},
@@ -2444,6 +2422,10 @@
 									{
 										"param_id": "sampler",
 										"values_id": [ "EulerEDMSampler", "HeunEDMSampler", "EulerAncestralSampler", "DPMPP2SAncestralSampler", "DPMPP2MSampler", "LinearMultistepSampler" ]
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
 									}
 								]
 							},
@@ -2466,6 +2448,10 @@
 									},
 									{
 										"param_id": "prior_steps",
+										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
 										"values_id": []
 									}
 								]
@@ -2498,6 +2484,10 @@
 									{
 										"param_id": "ddim_eta",
 										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
 									}
 								]
 							},
@@ -2516,6 +2506,10 @@
 									},
 									{
 										"param_id": "ddim_eta",
+										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
 										"values_id": []
 									}
 								]
@@ -2548,6 +2542,10 @@
 									{
 										"param_id": "ddim_eta",
 										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
 									}
 								]
 							},
@@ -2559,6 +2557,14 @@
 									{
 										"param_id": "negative_prompt",
 										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
+									},
+									{
+										"param_id": "sampler",
+										"values_id": [ "EulerEDMSampler", "HeunEDMSampler", "EulerAncestralSampler", "DPMPP2SAncestralSampler", "DPMPP2MSampler", "LinearMultistepSampler" ]
 									}
 								]
 							},
@@ -2571,6 +2577,14 @@
 									{
 										"param_id": "negative_prompt",
 										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
+									},
+									{
+										"param_id": "sampler",
+										"values_id": [ "EulerEDMSampler", "HeunEDMSampler", "EulerAncestralSampler", "DPMPP2SAncestralSampler", "DPMPP2MSampler", "LinearMultistepSampler" ]
 									}
 								]
 							}
@@ -2671,7 +2685,19 @@
 				{
 					"refiner": {
 						"default": "SDXL-refiner-1.0",
+						"child": true,
+						"childs": [
+							{
+								"param_id": "refinement_strength",
+								"values_id": []
+							}
+						],
 						"values": [
+							{
+								"value": "",
+								"description": "Быстрее, но менее качественно",
+								"name": "Без второй стадии обработки"
+							},
 							{
 								"value": "SDXL-refiner-1.0",
 								"description": "Модель для постобработки StableDiffusionXL",
@@ -2872,15 +2898,6 @@
 					}
 				},
 				{
-					"version2SDXL-refiner": {
-						"default": "False",
-						"child": true,
-						"description": "Загрузить SDXL-refiner как модель для второй стадии обработки. Требует более длительной обработки",
-						"type": "boolean",
-						"name": "Двухступенчатая обработка"
-					}
-				},
-				{
 					"seed": {
 						"default": 42,
 						"min": 0,
@@ -2894,6 +2911,7 @@
 				{
 					"refinement_strength": {
 						"default": 0.15,
+						"child": true,
 						"min": 0.0,
 						"max": 1.0,
 						"step": 0.01,
@@ -2913,7 +2931,7 @@
 				},
 				{
 					"h": {
-						"default": 1024,
+						"default": 512,
 						"min": 64,
 						"max": 1024,
 						"step": 64,
@@ -2924,7 +2942,7 @@
 				},
 				{
 					"w": {
-						"default": 1024,
+						"default": 512,
 						"min": 64,
 						"max": 1024,
 						"step": 64,
@@ -2945,11 +2963,21 @@
 					}
 				},
 				{
-					"use_recommended_res": {
-						"default": "True",
-						"description": "если выбран, то указанные в параметрах значения ожидаемого итогового разрешения игнорируются",
+					"use_custom_res": {
+						"default": "False",
+						"childs": [
+							{
+								"param_id": "w",
+								"values_id": []
+							},
+							{
+								"param_id": "h",
+								"values_id": []
+							}
+						],
+						"description": "Позволяет использовать собственные разрешения изображения, вместо рекомендованных",
 						"type": "boolean",
-						"name": "Использовать рекомендованное для каждой модели разрешение генерации"
+						"name": "Установить свои разрешения изображения"
 					}
 				},
 				{
@@ -3021,7 +3049,7 @@
 				},
 				{
 					"order": {
-						"default": 4,
+						"default": 1,
 						"min": 1,
 						"max": 4,
 						"step": 1,
@@ -3071,7 +3099,7 @@
 						"default": "False",
 						"description": "Изменение размеров входного изображения на размеры исходного изображений",
 						"type": "boolean",
-						"name": "Изменение размеров взодного изображения на указанные"
+						"name": "Изменение размеров входного изображения на указанные"
 					}
 				},
 				{
@@ -3395,7 +3423,6 @@
 						"name": "Инициализирующее значение для генерации"
 					}
 				}
-
 			]
 		},
 
@@ -3433,6 +3460,10 @@
 									},
 									{
 										"param_id": "low_vram_mode",
+										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
 										"values_id": []
 									}
 								]
@@ -3473,6 +3504,10 @@
 									{
 										"param_id": "ddim_eta",
 										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
+										"values_id": []
 									}
 								]
 							},
@@ -3487,6 +3522,10 @@
 									},
 									{
 										"param_id": "ddim_eta",
+										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
 										"values_id": []
 									}
 								]
@@ -3518,6 +3557,10 @@
 									},
 									{
 										"param_id": "ddim_eta",
+										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
 										"values_id": []
 									}
 								]
@@ -3907,8 +3950,6 @@
 			"serverName": "image_fusion",
 			"clientName": "Объединение изображений",
 			"description": "При помощи данного редима можно совместить несколько изображений",
-			"prompt1": true,
-			"prompt2": true,
 			"params": [
 				{
 					"version": {
@@ -3934,6 +3975,10 @@
 									},
 									{
 										"param_id": "ddim_eta",
+										"values_id": []
+									},
+									{
+										"param_id": "isCaption",
 										"values_id": []
 									}
 								]
@@ -4090,7 +4135,7 @@
 				},
 				{
 					"w": {
-						"default": 1024,
+						"default": 512,
 						"min": 64,
 						"max": 1024,
 						"step": 64,
@@ -4101,7 +4146,7 @@
 				},
 				{
 					"h": {
-						"default": 1024,
+						"default": 512,
 						"min": 64,
 						"max": 1024,
 						"step": 64,
