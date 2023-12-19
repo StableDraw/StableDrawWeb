@@ -41,7 +41,6 @@ const Caption = observer(() => {
 		let eng = /^[\w\s\d.,!?"';*=<>@%:&+()-/|\\`~$#№^\{\}\[\]]+$/
 		return text.match(eng)
 	}
-	console.log(store.captionAmount);
 	return (
 		<>
 			{

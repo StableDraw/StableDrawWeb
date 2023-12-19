@@ -1614,6 +1614,13 @@
 				{
 					"refiner": {
 						"default": "SDXL-refiner-1.0",
+						"child": true,
+						"childs": [
+							{
+								"param_id": "refinement_strength",
+								"values_id": []
+							}
+						],
 						"values": [
 							{
 								"value": "SDXL-refiner-1.0",
@@ -1867,16 +1874,6 @@
 						"name": "Выбрать веса для модели"
 					}
 				},
-
-				{
-					"version2SDXL-refiner": {
-						"default": "False",
-						"child": true,
-						"description": "Загрузить SDXL-refiner как модель для второй стадии обработки. Требует более длительной обработки",
-						"type": "boolean",
-						"name": "Двухступенчатая обработка"
-					}
-				},
 				{
 					"seed": {
 						"default": 42,
@@ -1891,6 +1888,7 @@
 				{
 					"refinement_strength": {
 						"default": 0.15,
+						"child": true,
 						"min": 0.0,
 						"max": 1.0,
 						"step": 0.01,
@@ -1910,7 +1908,8 @@
 				},
 				{
 					"h": {
-						"default": 1024,
+						"default": 512,
+						"child": true,
 						"min": 64,
 						"max": 1024,
 						"step": 64,
@@ -1921,7 +1920,8 @@
 				},
 				{
 					"w": {
-						"default": 1024,
+						"default": 512,
+						"child": true,
 						"min": 64,
 						"max": 1024,
 						"step": 64,
@@ -1942,11 +1942,21 @@
 					}
 				},
 				{
-					"use_recommended_res": {
-						"default": "True",
-						"description": "если выбран, то указанные в параметрах значения ожидаемого итогового разрешения игнорируются",
+					"use_custom_res": {
+						"default": "False",
+						"childs": [
+							{
+								"param_id": "w",
+								"values_id": []
+							},
+							{
+								"param_id": "h",
+								"values_id": []
+							}
+						],
+						"description": "Позволяет использовать собственные разрешения изображения, вместо рекомендованных",
 						"type": "boolean",
-						"name": "Использовать рекомендованное для каждой модели разрешение генерации"
+						"name": "Установить свои разрешения изображения"
 					}
 				},
 				{
@@ -2039,7 +2049,7 @@
 				},
 				{
 					"order": {
-						"default": 4,
+						"default": 1,
 						"min": 1,
 						"max": 4,
 						"step": 1,
@@ -2132,7 +2142,7 @@
 						"default": "False",
 						"description": "Изменение размеров входного изображения на размеры исходного изображений",
 						"type": "boolean",
-						"name": "Изменение размеров взодного изображения на указанные"
+						"name": "Изменение размеров входного изображения на указанные"
 					}
 				},
 				{
@@ -2324,10 +2334,6 @@
 								"name": "SDXL-base-1.0",
 								"childs": [
 									{
-										"param_id": "version2SDXL-refiner",
-										"values_id": []
-									},
-									{
 										"param_id": "finish_denoising",
 										"values_id": []
 									},
@@ -2359,10 +2365,6 @@
 								"description": "Тестовая модель StableDiffusionXL, достаточно долго обрабатывается",
 								"name": "SDXL-base-0.9",
 								"childs": [
-									{
-										"param_id": "version2SDXL-refiner",
-										"values_id": []
-									},
 									{
 										"param_id": "finish_denoising",
 										"values_id": []
@@ -2559,6 +2561,10 @@
 									{
 										"param_id": "isCaption",
 										"values_id": []
+									},
+									{
+										"param_id": "sampler",
+										"values_id": [ "EulerEDMSampler", "HeunEDMSampler", "EulerAncestralSampler", "DPMPP2SAncestralSampler", "DPMPP2MSampler", "LinearMultistepSampler" ]
 									}
 								]
 							},
@@ -2575,6 +2581,10 @@
 									{
 										"param_id": "isCaption",
 										"values_id": []
+									},
+									{
+										"param_id": "sampler",
+										"values_id": [ "EulerEDMSampler", "HeunEDMSampler", "EulerAncestralSampler", "DPMPP2SAncestralSampler", "DPMPP2MSampler", "LinearMultistepSampler" ]
 									}
 								]
 							}
@@ -2675,7 +2685,19 @@
 				{
 					"refiner": {
 						"default": "SDXL-refiner-1.0",
+						"child": true,
+						"childs": [
+							{
+								"param_id": "refinement_strength",
+								"values_id": []
+							}
+						],
 						"values": [
+							{
+								"value": "",
+								"description": "Быстрее, но менее качественно",
+								"name": "Без второй стадии обработки"
+							},
 							{
 								"value": "SDXL-refiner-1.0",
 								"description": "Модель для постобработки StableDiffusionXL",
@@ -2876,15 +2898,6 @@
 					}
 				},
 				{
-					"version2SDXL-refiner": {
-						"default": "False",
-						"child": true,
-						"description": "Загрузить SDXL-refiner как модель для второй стадии обработки. Требует более длительной обработки",
-						"type": "boolean",
-						"name": "Двухступенчатая обработка"
-					}
-				},
-				{
 					"seed": {
 						"default": 42,
 						"min": 0,
@@ -2898,6 +2911,7 @@
 				{
 					"refinement_strength": {
 						"default": 0.15,
+						"child": true,
 						"min": 0.0,
 						"max": 1.0,
 						"step": 0.01,
@@ -2917,7 +2931,7 @@
 				},
 				{
 					"h": {
-						"default": 1024,
+						"default": 512,
 						"min": 64,
 						"max": 1024,
 						"step": 64,
@@ -2928,7 +2942,7 @@
 				},
 				{
 					"w": {
-						"default": 1024,
+						"default": 512,
 						"min": 64,
 						"max": 1024,
 						"step": 64,
@@ -2949,11 +2963,21 @@
 					}
 				},
 				{
-					"use_recommended_res": {
-						"default": "True",
-						"description": "если выбран, то указанные в параметрах значения ожидаемого итогового разрешения игнорируются",
+					"use_custom_res": {
+						"default": "False",
+						"childs": [
+							{
+								"param_id": "w",
+								"values_id": []
+							},
+							{
+								"param_id": "h",
+								"values_id": []
+							}
+						],
+						"description": "Позволяет использовать собственные разрешения изображения, вместо рекомендованных",
 						"type": "boolean",
-						"name": "Использовать рекомендованное для каждой модели разрешение генерации"
+						"name": "Установить свои разрешения изображения"
 					}
 				},
 				{
@@ -3025,7 +3049,7 @@
 				},
 				{
 					"order": {
-						"default": 4,
+						"default": 1,
 						"min": 1,
 						"max": 4,
 						"step": 1,
@@ -3075,7 +3099,7 @@
 						"default": "False",
 						"description": "Изменение размеров входного изображения на размеры исходного изображений",
 						"type": "boolean",
-						"name": "Изменение размеров взодного изображения на указанные"
+						"name": "Изменение размеров входного изображения на указанные"
 					}
 				},
 				{
@@ -4111,7 +4135,7 @@
 				},
 				{
 					"w": {
-						"default": 1024,
+						"default": 512,
 						"min": 64,
 						"max": 1024,
 						"step": 64,
@@ -4122,7 +4146,7 @@
 				},
 				{
 					"h": {
-						"default": 1024,
+						"default": 512,
 						"min": 64,
 						"max": 1024,
 						"step": 64,

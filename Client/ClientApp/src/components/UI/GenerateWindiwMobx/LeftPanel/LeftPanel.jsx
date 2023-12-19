@@ -15,7 +15,6 @@ const LeftPanel = observer(({ openParam, }) => {
 		else
 			setNeuralList(searchNeuron())
 
-			console.log(neuralList)
 	}, [searchValue])
 
 	//фильтруем список нейросетей по искомому значению

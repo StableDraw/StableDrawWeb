@@ -156,7 +156,6 @@ class neuralWindow {
 	}
 
 	startGeneration = () => {
-		console.log(this.childParams)
 		this.isGenerationEnd = false;
 	}
 
@@ -194,9 +193,7 @@ class neuralWindow {
 	}
 
 	setCaption = (captions) => {
-		console.log("caption", captions)
 		this.captions = captions;
-		console.log(this.caption);
 	}
 }
 
