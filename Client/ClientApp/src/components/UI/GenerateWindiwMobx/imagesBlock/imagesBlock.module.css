@@ -6,7 +6,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	border: 3px dashed var(--gray, #ABABAB);
+	border: 2px solid var(--gray, #ABABAB);
 	background: #FFF;
 	gap: 5px;
 	border-radius: 10px;

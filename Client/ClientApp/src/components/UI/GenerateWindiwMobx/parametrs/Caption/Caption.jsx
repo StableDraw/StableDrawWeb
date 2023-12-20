@@ -5,7 +5,7 @@ import store from '../../../../../store/neuralWindow.jsx'
 import { observer } from 'mobx-react-lite'
 
 const Caption = observer(() => {
-	const [values, setValues] = useState([]); // состояние описаний
+	const [values, setValues] = useState(['']); // состояние описаний
 	const [isValidInput, setIsValidInput] = useState(true)
 
 	useEffect(() => {
@@ -18,7 +18,7 @@ const Caption = observer(() => {
 		}
 
 		store.setCaption(values);
-		if(values.some((value) => !lngType(value) && value))
+		if (values.some((value) => !lngType(value) && value))
 			setIsValidInput(false);
 		else
 			setIsValidInput(true);
@@ -41,12 +41,11 @@ const Caption = observer(() => {
 		let eng = /^[\w\s\d.,!?"';*=<>@%:&+()-/|\\`~$#№^\{\}\[\]]+$/
 		return text.match(eng)
 	}
-	console.log(store.captionAmount);
 	return (
 		<>
 			{
 				<div className='captionsBlock'>
-					{values.map((value, i) => <div className='cont'>
+					{values.map((value, i) => <div key={i} className='cont'>
 						<div className='cont__caption'>
 							<span className='text'>Описание</span>
 							<textarea

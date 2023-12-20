@@ -19,7 +19,6 @@ const MySelect = ({ getValue, name, description, options, keyValue, defaultV, se
 	const setCurrentModel = (value) => {
 		if ((keyValue[0] === "model" || keyValue[0] === "version") && options.some(value => value.hasOwnProperty("childs"))) {
 			testMob.setCurrentModel(value);
-			// setChild(value); //Заполняет массив из дочерних параметров
 		}
 	}
 

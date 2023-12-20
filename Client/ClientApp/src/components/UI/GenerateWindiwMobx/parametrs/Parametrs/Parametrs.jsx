@@ -120,7 +120,6 @@ const Parametrs = observer(({ closeWindow, closeParam, }) => {
 			return param[paramSystemName[0]].name.toLowerCase().includes(searchValue.toLowerCase())
 		})
 	}
-	console.log("parameters")
 	return (
 		<div>
 			<ImagesBlock closeWindow={closeWindow} setSendImages={setImg} sendImages={img} />
