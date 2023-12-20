@@ -1,0 +1,203 @@
+{
+	"params": [
+		{
+			"ckpt": {
+				"default": "caption_base_best.pt",
+				"values": [
+					{
+						"value": "caption_huge_best.pt",
+						"description": "Больше параметров, теоретически выше качество генерации описания",
+						"name": "Большая модель"
+					},
+					{
+						"value": "caption_base_best.pt",
+						"description": "Среднее количество параметров, но работает быстрее",
+						"name": "Базовая модель"
+					}
+				],
+				"description": "",
+				"type": "select",
+				"main": true,
+				"name": "Используемая модель"
+			}
+		},
+		{
+			"scst_args": {
+				"default": "{}",
+				"system": true,
+				"description": "Аргументы генерации для оценки BLUE или CIDEr, например, \"{\"beam\": 4, \"lenpen\": 0,6}\", в виде строки JSON",
+				"type": "text",
+				"caption": "true",
+				"name": "Аргументы генерации для обучения"
+			}
+		},
+		{
+			"eval_cider": {
+				"default": "True",
+				"description": "",
+				"type": "boolean",
+				"name": "Оценка с помощью метрики CIDEr"
+			}
+		},
+		{
+			"eval_bleu": {
+				"default": "False",
+				"description": "",
+				"type": "boolean",
+				"name": "Оценка с помощью метрики BLEU"
+			}
+		},
+		{
+			"eval_args": {
+				"default": "{}",
+				"system": true,
+				"description": "Аргументы генерации для оценки BLUE или CIDEr, например, \"{\"beam\": 4, \"lenpen\": 0,6}\", в виде строки JSON",
+				"type": "text",
+				"caption": "true",
+				"name": "Аргументы генерации для оценки"
+			}
+		},
+		{
+			"eval_print_samples": {
+				"default": "False",
+				"description": "",
+				"type": "boolean",
+				"name": "Печатать поколения образцов во время валидации"
+			}
+		},
+		{
+			"scst": {
+				"default": "False",
+				"description": "",
+				"type": "boolean",
+				"name": "Обучение самокритичной последовательности"
+			}
+		},
+		{
+			"beam": {
+				"default": 5,
+				"min": 0,
+				"max": 1000,
+				"step": 1,
+				"description": "",
+				"type": "range",
+				"name": "Балансировка"
+			}
+		},
+		{
+			"max_len_a": {
+				"default": 0,
+				"min": 0,
+				"max": 1000,
+				"step": 1,
+				"description": "",
+				"type": "range",
+				"name": "Максимальная длина буфера a"
+			}
+		},
+		{
+			"max_len_b": {
+				"default": 100,
+				"min": 0,
+				"max": 1000,
+				"step": 1,
+				"description": "",
+				"type": "range",
+				"name": "Максимальная длина буфера b"
+			}
+		},
+		{
+			"min_len": {
+				"default": 1,
+				"min": 0,
+				"max": 1000,
+				"step": 1,
+				"description": "",
+				"type": "range",
+				"name": "Минимальная длина буфера"
+			}
+		},
+		{
+			"unnormalized": {
+				"default": "False",
+				"description": "",
+				"type": "boolean",
+				"name": "Использовать нормализацию"
+			}
+		},
+		{
+			"lenpen": {
+				"default": 1,
+				"min": 0,
+				"max": 1000,
+				"step": 1,
+				"description": "",
+				"type": "range",
+				"name": "lenpen"
+			}
+		},
+		{
+			"unkpen": {
+				"default": 0,
+				"min": 0,
+				"max": 1000,
+				"step": 1,
+				"description": "",
+				"type": "range",
+				"name": "unkpen"
+			}
+		},
+		{
+			"temperature": {
+				"default": 1.0,
+				"min": 0.0,
+				"max": 1000.0,
+				"step": 0.1,
+				"description": "",
+				"type": "range",
+				"name": "Значение параметра управления случайностью (температуры)"
+			}
+		},
+		{
+			"match_source_len": {
+				"default": "False",
+				"description": "",
+				"type": "boolean",
+				"name": "Сопоставлять с исходной длиной"
+			}
+		},
+		{
+			"no_repeat_ngram_size": {
+				"default": 3,
+				"min": 0,
+				"max": 1000,
+				"step": 1,
+				"description": "",
+				"type": "range",
+				"name": "Не повторять N-граммы размера"
+			}
+		},
+		{
+			"sampling_topk": {
+				"default": 3,
+				"min": 0,
+				"max": 1000,
+				"step": 1,
+				"description": "",
+				"type": "range",
+				"name": "Количество токенов для выбора"
+			}
+		},
+		{
+			"seed": {
+				"default": 42,
+				"min": 0,
+				"max": 1000000000,
+				"step": 1,
+				"description": "",
+				"type": "range",
+				"name": "Инициализирующее значение для генерации"
+			}
+		}
+	]
+}
