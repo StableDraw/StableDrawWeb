@@ -64,10 +64,10 @@ class neuralWindow {
 			const response = await api.GetNeurals(name)
 			this.maxImageAmount = response.data.image_count_input; //количество картинок для текущей нейронки
 
-			if(response.data.prompt_count_input)
-			this.captionAmount = response.data.prompt_count_input; //может принимать undefined, количество описаний для нейронки
+			if (response.data.prompt_count_input)
+				this.captionAmount = response.data.prompt_count_input; //может принимать undefined, количество описаний для нейронки
 			else
-			this.captionAmount = 1
+				this.captionAmount = 1
 
 			this.isNeuralCaption = response.data.caption
 			this.setActiveNeural(name)
@@ -84,6 +84,31 @@ class neuralWindow {
 		} catch (e) {
 			console.error(e)
 			throw (e)
+		}
+	}
+
+	visitedParams = ["model", "version", ]
+	setChildParams(allParams, rootParam, currentModel) {
+		this.visitedParams.push(rootParam)
+
+		//обрабатываем случай для селектора
+		if (rootParam.type === "select") {
+			rootParam.values.forEach((value) => {
+				if (value.hasOwnProperty("childs")) {
+					value.childs.forEach((child) => {
+						this.setChildParams(child.param_id);
+						this.setChildValues(child.values_id);
+					})
+				}
+			})
+		}
+
+		//случай для остальных типов параметров
+		if (rootParam.hasOwnProperty("childs")) {
+			rootParam.childs.forEach((child) => {
+				this.setChildParams(child.param_id);
+				this.setChildValues(child.values_id);
+			})
 		}
 	}
 
