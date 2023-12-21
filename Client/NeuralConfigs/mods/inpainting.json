@@ -1,0 +1,375 @@
+{
+    	"params": [
+		{
+			"version": {
+				"default": "Kandinsky2.2",
+				"values": [
+					{
+						"value": "Kandinsky2.2",
+						"description": "Модель Kandinsky 2.2, обученная для генерации изображений 768 на 768",
+						"name": "Kandinsky 2.2",
+						"childs": [
+							{
+								"param_id": "negative_prompt",
+								"values_id": []
+							},
+							{
+								"param_id": "negative_prior_prompt",
+								"values_id": []
+							},
+							{
+								"param_id": "prior_steps",
+								"values_id": []
+							},
+							{
+								"param_id": "prior_scale",
+								"values_id": []
+							},
+							{
+								"param_id": "low_vram_mode",
+								"values_id": []
+							},
+							{
+								"param_id": "isCaption",
+								"values_id": []
+							}
+						]
+					},
+					{
+						"value": "Kandinsky2.1",
+						"description": "Модель Kandinsky 2.1, обученная для генерации изображений 768 на 768",
+						"name": "Kandinsky 2.1",
+						"childs": [
+							{
+								"param_id": "progress",
+								"values_id": []
+							},
+							{
+								"param_id": "negative_prompt",
+								"values_id": []
+							},
+							{
+								"param_id": "negative_prior_prompt",
+								"values_id": []
+							},
+							{
+								"param_id": "prior_steps",
+								"values_id": []
+							},
+							{
+								"param_id": "prior_scale",
+								"values_id": []
+							},
+							{
+								"param_id": "low_vram_mode",
+								"values_id": []
+							},
+							{
+								"param_id": "sampler",
+								"values_id": [ "ddim_sampler", "plms_sampler", "p_sampler" ]
+							},
+							{
+								"param_id": "ddim_eta",
+								"values_id": []
+							},
+							{
+								"param_id": "isCaption",
+								"values_id": []
+							}
+						]
+					},
+					{
+						"value": "SD-2.0",
+						"description": "Модель StableDiffusion 2.0, обученная для генерации изображений 512 на 512",
+						"name": "StableDiffusion 2.0",
+						"childs": [
+							{
+								"param_id": "sampler",
+								"values_id": [ "ddim_sampler", "plms_sampler", "p_sampler" ]
+							},
+							{
+								"param_id": "ddim_eta",
+								"values_id": []
+							},
+							{
+								"param_id": "isCaption",
+								"values_id": []
+							}
+						]
+					},
+					{
+						"value": "Kandinsky2.0",
+						"description": "Модель Kandinsky 2.0, обученная для генерации изображений 512 на 512",
+						"name": "Kandinsky 2.0",
+						"childs": [
+							{
+								"param_id": "dynamic_threshold_v",
+								"values_id": []
+							},
+							{
+								"param_id": "progress",
+								"values_id": []
+							},
+							{
+								"param_id": "denoised_type",
+								"values_id": [ "dynamic_threshold", "clip_denoised" ]
+							},
+							{
+								"param_id": "low_vram_mode",
+								"values_id": []
+							},
+							{
+								"param_id": "sampler",
+								"values_id": [ "ddim_sampler", "plms_sampler", "p_sampler" ]
+							},
+							{
+								"param_id": "ddim_eta",
+								"values_id": []
+							},
+							{
+								"param_id": "isCaption",
+								"values_id": []
+							}
+						]
+					}
+				],
+				"description": "От выбора нейронной сети зависит то, какой нейронной сетью будет осуществляться обработка. Как правило более новые версии выболняют более качественную генерацию",
+				"type": "select",
+				"main": true,
+				"name": "Выбор нейронной сети для обработки"
+			}
+		},
+		{
+			"steps": {
+				"default": 50,
+				"min": 1,
+				"max": 1000,
+				"step": 1,
+				"description": "",
+				"type": "range",
+				"main": true,
+				"name": "Количество шагов обработки"
+			}
+		},
+		{
+			"negative_prompt": {
+				"default": "lowres, text, error, cropped, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, out of frame, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck, username, watermark, signature",
+				"child": true,
+				"description": "Здесь, через запятую, можно перечислить всё то, что бы Вы не хотели видеть на итоговом изображении",
+				"type": "text",
+				"main": true,
+				"caption": "true",
+				"name": "Негативное описание"
+			}
+		},
+		{
+			"negative_prior_prompt": {
+				"default": "lowres, text, error, cropped, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, out of frame, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck, username, watermark, signature",
+				"child": true,
+				"description": "Здесь, через запятую, можно перечислить всё то, что бы Вы не хотели видеть на итоговом изображении",
+				"type": "text",
+				"main": true,
+				"caption": "true",
+				"name": "Негативное описание для первичной модели"
+			}
+		},
+		{
+			"sampler": {
+				"default": "ddim_sampler",
+				"values": [
+					{
+						"value": "ddim_sampler",
+						"child": true,
+						"description": "",
+						"name": "ddim"
+					},
+					{
+						"value": "plms_sampler",
+						"child": true,
+						"description": "",
+						"name": "plms"
+					},
+					{
+						"value": "p_sampler",
+						"child": true,
+						"description": "",
+						"name": "p"
+					}
+				],
+				"description": "Различные обработчики по-разному будут производить генерацию изображений. Каждый из них может лучше подходить для различных ситуаций, имеет смысл перебрать несколько",
+				"type": "select",
+				"name": "Выбрать обработчик"
+			}
+		},
+		{
+			"ckpt": {
+				"default": "512-inpainting-ema.safetensors",
+				"values": [
+					{
+						"value": "512-inpainting-ema.safetensors",
+						"description": "",
+						"name": "512-inpainting-ema"
+					}
+				],
+				"description": "",
+				"type": "select",
+				"name": "Выбор весов модели"
+			}
+		},
+		{
+			"denoised_type": {
+				"default": "dynamic_threshold",
+				"values": [
+					{
+						"value": "dynamic_threshold",
+						"child": true,
+						"description": "",
+						"name": "Динамическая отбраковка"
+					},
+					{
+						"value": "clip_denoised",
+						"child": true,
+						"description": "",
+						"name": "Кусочная отбраковка"
+					}
+				],
+				"description": "",
+				"type": "select",
+				"name": "Тип отбраковки"
+			}
+		},
+		{
+			"progress": {
+				"default": "True",
+				"child": true,
+				"system": true,
+				"description": "",
+				"type": "boolean",
+				"name": "Отображать прогресс"
+			}
+		},
+		{
+			"dynamic_threshold_v": {
+				"default": 99.5,
+				"child": true,
+				"min": 0.0,
+				"max": 1000.0,
+				"step": 0.1,
+				"description": "Данный коэффициент влияет на то, с каким пороговым значением будут отбраковываться неудачные генерации в процессе генерации",
+				"type": "range",
+				"name": "Коэффициент динамической отбраковки"
+			}
+		},
+		{
+			"low_vram_mode": {
+				"default": "False",
+				"child": true,
+				"system": true,
+				"description": "",
+				"type": "boolean",
+				"name": "Режим для работы на малом количестве видеопамяти"
+			}
+		},
+		{
+			"prior_steps": {
+				"default": 25,
+				"child": true,
+				"min": 1,
+				"max": 1000,
+				"step": 1,
+				"description": "",
+				"type": "range",
+				"name": "Количество шагов обработки первичной модели"
+			}
+		},
+		{
+			"num_cols": {
+				"default": 1,
+				"min": 1,
+				"max": 4,
+				"step": 1,
+				"description": "Параметр отвечает за то, сколько, по итогу, изображений Вы получите после генерации, и из них уже сможете выбрать лучшее",
+				"type": "range",
+				"name": "Количество вариаций изображений за одну генерацию"
+			}
+		},
+		{
+			"ddim_eta": {
+				"default": 0.0,
+				"child": true,
+				"min": 0.0,
+				"max": 0.1,
+				"step": 1000.0,
+				"description": "",
+				"type": "range",
+				"name": "Коэффициент детерминированности выборки"
+			}
+		},
+		{
+			"guidance_scale": {
+				"default": 10.0,
+				"min": 0.0,
+				"max": 0.1,
+				"step": 1000.0,
+				"description": "Отвечает за то, насколько модель должена приблизиться к буквальному изображению запроса",
+				"type": "range",
+				"name": "Коэффициент точности соответсвтвия запросу"
+			}
+		},
+		{
+			"prior_scale": {
+				"default": 4,
+				"child": true,
+				"min": 0,
+				"max": 0,
+				"step": 1000,
+				"description": "Отвечает за то, насколько первичная модель должена приблизиться к буквальному изображению запроса",
+				"type": "range",
+				"name": "Значение точности соответствия первичной модели"
+			}
+		},
+		{
+			"strength": {
+				"default": 0.9,
+				"min": 0.0,
+				"max": 0.1,
+				"step": 1000.0,
+				"description": "",
+				"type": "range",
+				"name": "Сила увеличения/уменьшения шума"
+			}
+		},
+		{
+			"seed": {
+				"default": 42,
+				"min": 0,
+				"max": 0,
+				"step": 1000000000,
+				"description": "Отвечает за то, как именно модель будет проводить обработку. Пробуя различные значения данного параметра вы будете получать различные вариации итогового результата",
+				"type": "range",
+				"name": "Инициализирующее значение"
+			}
+		},
+		{
+			"verbose": {
+				"default": "False",
+				"system": true,
+				"description": "",
+				"type": "boolean",
+				"name": "Проверка модели"
+			}
+		},
+		{
+			"max_dim": {
+				"default": 4194304,
+				"min": 0,
+				"max": 0,
+				"step": 1000000000,
+				"system": true,
+				"description": "",
+				"type": "range",
+				"name": "Максимальный размер генерации изображения"
+			}
+		}
+	]
+}

@@ -1,0 +1,263 @@
+{
+	"params": [
+		{
+			"version": {
+				"default": "Kandinsky2.2",
+				"values": [
+					{
+						"value": "Kandinsky2.2",
+						"description": "Модель Kandinsky 2.2, обученная для генерации изображений 768 на 768",
+						"name": "Kandinsky 2.2"
+					},
+					{
+						"value": "Kandinsky2.1",
+						"description": "Модель Kandinsky 2.1, обученная для генерации изображений 768 на 768",
+						"name": "Kandinsky 2.1",
+						"childs": [
+							{
+								"param_id": "progress",
+								"values_id": []
+							},
+							{
+								"param_id": "sampler",
+								"values_id": [ "ddim_sampler", "plms_sampler", "p_sampler" ]
+							},
+							{
+								"param_id": "ddim_eta",
+								"values_id": []
+							},
+							{
+								"param_id": "isCaption",
+								"values_id": []
+							}
+						]
+					}
+				],
+				"description": "Выбор модели влияет на то, как именно будет обрабатываться входной запрос. Как правило, более новые версии выполняют более качественную генерацию",
+				"type": "select",
+				"main": true,
+				"name": "Выбор версии модели"
+			}
+		},
+		{
+			"steps": {
+				"default": 100,
+				"min": 1,
+				"max": 350,
+				"step": 1,
+				"description": "",
+				"type": "range",
+				"main": true,
+				"name": "Количество шагов обработки"
+			}
+		},
+		{
+			"negative_prompt": {
+				"default": "",
+				"description": "Здесь, через запятую, можно перечислить всё то, что бы Вы не хотели видеть на итоговом изображении",
+				"type": "text",
+				"main": true,
+				"caption": "true",
+				"name": "Негативное описание"
+			}
+		},
+		{
+			"negative_prior_prompt": {
+				"default": "lowres, text, error, cropped, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, out of frame, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck, username, watermark, signature",
+				"description": "Здесь, через запятую, можно перечислить всё то, что бы Вы не хотели видеть на итоговом изображении",
+				"type": "text",
+				"main": true,
+				"caption": "true",
+				"name": "Негативное описание для первичной модели"
+			}
+		},
+		{
+			"prior_steps": {
+				"default": 25,
+				"min": 1,
+				"max": 350,
+				"step": 1,
+				"description": "",
+				"type": "range",
+				"name": "Количество шагов обработки первичной модели"
+			}
+		},
+		{
+			"sampler": {
+				"default": "ddim_sampler",
+				"values": [
+					{
+						"value": "ddim_sampler",
+						"child": true,
+						"description": "",
+						"name": "ddim"
+					},
+					{
+						"value": "plms_sampler",
+						"child": true,
+						"description": "",
+						"name": "plms"
+					},
+					{
+						"value": "p_sampler",
+						"child": true,
+						"description": "",
+						"name": "p"
+					}
+				],
+				"description": "Различные обработчики по-разному будут производить генерацию изображений. Каждый из них может лучше подходить для различных ситуаций, имеет смысл перебрать несколько",
+				"type": "select",
+				"name": "Выбрать обработчик"
+			}
+		},
+		{
+			"low_vram_mode": {
+				"default": "False",
+				"system": true,
+				"description": "",
+				"type": "boolean",
+				"name": "Режим для работы на малом количестве видеопамяти"
+			}
+		},
+		{
+			"first_image_weight": {
+				"default": 0.25,
+				"min": 0.0,
+				"max": 1.0,
+				"step": 0.01,
+				"description": "Отвечает на то, насколько сильно модель будет соответствовать первому изображению",
+				"type": "range",
+				"name": "Вес первого изображения"
+			}
+		},
+		{
+			"second_image_weight": {
+				"default": 0.25,
+				"min": 0.0,
+				"max": 1.0,
+				"step": 0.01,
+				"description": "Отвечает на то, насколько сильно модель будет соответствовать второму изображению",
+				"type": "range",
+				"name": "Вес второго изображения"
+			}
+		},
+		{
+			"first_prompt_weight": {
+				"default": 0.25,
+				"min": 0.0,
+				"max": 1.0,
+				"step": 0.01,
+				"description": "Отвечает на то, насколько сильно модель будет соответствовать первому описанию",
+				"type": "range",
+				"name": "Вес первого описания"
+			}
+		},
+		{
+			"second_prompt_weight": {
+				"default": 0.25,
+				"min": 0.0,
+				"max": 1.0,
+				"step": 0.01,
+				"description": "Отвечает на то, насколько сильно модель будет соответствовать второму описанию",
+				"type": "range",
+				"name": "Вес второго описания"
+			}
+		},
+		{
+			"num_cols": {
+				"default": 1,
+				"min": 1,
+				"max": 4,
+				"step": 1,
+				"description": "Параметр отвечает за то, сколько, по итогу, изображений Вы получите после генерации, и из них уже сможете выбрать лучшее",
+				"type": "range",
+				"name": "Количество генерируемых изображений"
+			}
+		},
+		{
+			"custom_orig_size": {
+				"default": "True",
+				"description": "Если выбран, размеры исходных изображений будут интерполироваться до размеров, указанных в параметрах ширины и высоты",
+				"type": "boolean",
+				"name": "Изменять размеры исходных изображения"
+			}
+		},
+		{
+			"w": {
+				"default": 512,
+				"min": 64,
+				"max": 1024,
+				"step": 64,
+				"description": "Новая ширина исходных изображений",
+				"type": "range",
+				"name": "Ширина исходных изображений"
+			}
+		},
+		{
+			"h": {
+				"default": 512,
+				"min": 64,
+				"max": 1024,
+				"step": 64,
+				"description": "Новая высота исходных изображений",
+				"type": "range",
+				"name": "Высота исходных изображений"
+			}
+		},
+		{
+			"progress": {
+				"default": "True",
+				"child": true,
+				"system": true,
+				"description": "",
+				"type": "boolean",
+				"name": "Текущий прогресс"
+			}
+		},
+		{
+			"guidance_scale": {
+				"default": 4,
+				"min": 0,
+				"max": 1000,
+				"step": 1,
+				"description": "Отвечает за то, насколько модель должна приблизиться к буквальному изображению запроса",
+				"type": "range",
+				"name": "Коэффициент точности соответсвтвия запросу"
+			}
+		},
+		{
+			"prior_scale": {
+				"default": 4,
+				"min": 0,
+				"max": 1000,
+				"step": 1,
+				"description": "Отвечает за то, насколько модель первичная должна приблизиться к буквальному изображению запроса",
+				"type": "range",
+				"name": "Коэффициент соответсвтвия первичной модели"
+			}
+		},
+		{
+			"ddim_eta": {
+				"default": 0.05,
+				"child": true,
+				"min": 0.0,
+				"max": 100.0,
+				"step": 0.01,
+				"description": "Чем меньше значение, тем меньше модель стремиться извлекать информации из описания и отталкивается от данных, на которых обучена",
+				"type": "range",
+				"name": "Коэффициент детерминированности выборки"
+			}
+		},
+		{
+			"seed": {
+				"default": 42,
+				"min": 0,
+				"max": 1000000000,
+				"step": 1,
+				"description": "Отвечает за то, как именно модель будет проводить обработку. Пробуя различные значения данного параметра вы будете получать различные вариации итогового результата",
+				"type": "range",
+				"name": "Инициализирующее значение"
+			}
+		}
+	]
+}

@@ -1,0 +1,165 @@
+{
+	"params": [
+		{
+			"model": {
+				"default": "DIS",
+				"values": [
+					{
+						"value": "U2NET",
+						"description": "Старая, стабильная модель",
+						"name": "U2NET",
+						"childs": [
+							{
+								"param_id": "RescaleT",
+								"values_id": []
+							}
+						]
+					},
+					{
+						"value": "DIS",
+						"description": "Новая, более качественная, но нестабильная модель",
+						"name": "DIS",
+						"childs": [
+							{
+								"param_id": "ckpt",
+								"values_id": [ "isnet.pth", "isnet-general-use.pth" ]
+							},
+							{
+								"param_id": "interm_sup",
+								"values_id": []
+							},
+							{
+								"param_id": "model_digit",
+								"values_id": []
+							},
+							{
+								"param_id": "seed",
+								"values_id": []
+							},
+							{
+								"param_id": "cache_size",
+								"values_id": []
+							},
+							{
+								"param_id": "input_size",
+								"values_id": []
+							},
+							{
+								"param_id": "crop_size",
+								"values_id": []
+							}
+						]
+					}
+				],
+				"description": "",
+				"type": "select",
+				"main": true,
+				"name": "Выбор нейронной сети для удаления фона. U2NET более старая и обкатанная, DIS новее и лучше, но пока, в предварительной версии, может часто ошибаться"
+			}
+		},
+		{
+			"ckpt": {
+				"default": "isnet-general-use.pth",
+				"values": [
+					{
+						"value": "isnet.pth",
+						"child": true,
+						"description": "",
+						"name": "Дополнительная модель ISNET"
+					},
+					{
+						"value": "isnet-general-use.pth",
+						"child": true,
+						"description": "",
+						"name": "Главная модель ISNET"
+					}
+				],
+				"description": "Различные модели по-разному справляются с удалением фона на различных изображениях",
+				"type": "select",
+				"main": true,
+				"name": "Выбор модели"
+			}
+		},
+		{
+			"RescaleT": {
+				"default": 320,
+				"child": true,
+				"min": 0,
+				"max": 1000000,
+				"step": 1,
+				"description": "Позволяет сохранять соотношение сторон при обработке",
+				"type": "range",
+				"name": "Сохранение соотношения сторон"
+			}
+		},
+		{
+			"model_digit": {
+				"default": "True",
+				"child": true,
+				"description": "Если выбран, то результат будет точнее, но обработка дольше",
+				"type": "boolean",
+				"name": "Использовать двойную точность обработки"
+			}
+		},
+		{
+			"interm_sup": {
+				"default": "False",
+				"child": true,
+				"description": "Параметр, отвечающий за контроль промежуточных функций",
+				"type": "boolean",
+				"name": "Активировать контроль промежуточных функций"
+			}
+		},
+		{
+			"seed": {
+				"default": 0,
+				"child": true,
+				"min": 0,
+				"max": 1000000,
+				"step": 1,
+				"description": "В зависимости от установленного значения модель по-разному будет применять обработку. Можете перебрать несколько значений, чтобы найти оптимальное для Вашего конкретного случая",
+				"type": "range",
+				"name": "Инициализирующее значение"
+			}
+		},
+		{
+			"cache_size": {
+				"default": [
+					1024,
+					1024
+				],
+				"child": true,
+				"system": true,
+				"description": "Значение можно повысить или понизить в зависимости от разрешения входного изображения",
+				"type": "int[]",
+				"name": "Кешированное входное пространственное разрешение"
+			}
+		},
+		{
+			"input_size": {
+				"default": [
+					1024,
+					1024
+				],
+				"child": true,
+				"system": true,
+				"description": "Значение можно повысить или понизить в зависимости от разрешения входного изображения",
+				"type": "int[]",
+				"name": "Входной пространственный размер модели"
+			}
+		},
+		{
+			"crop_size": {
+				"default": [
+					1024,
+					1024
+				],
+				"child": true,
+				"system": true,
+				"description": "Значение можно повысить или понизить в зависимости от разрешения входного изображения",
+				"type": "int[]",
+				"name": "Размер случайной обрезки из ввода"
+			}
+		}
+	]
+}
