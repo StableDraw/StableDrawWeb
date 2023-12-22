@@ -79,6 +79,7 @@ class neuralWindow {
 			}
 
 			this.parametrs = params
+			// this.setChildrenParams(this.parametrs, this.testParam)
 			this.setCurrentModelOnMount(params)//задаём модель генерации
 			this.doDefaultValues()
 		} catch (e) {
@@ -87,27 +88,41 @@ class neuralWindow {
 		}
 	}
 
-	visitedParams = ["model", "version", ]
-	setChildParams(allParams, rootParam, currentModel) {
-		this.visitedParams.push(rootParam)
+	//Обходим json в глубину, собирая дочерние значения и параметры
+	setChildrenParams(allParams, rootParam) {
+		let paramObj = {};
+		if (Object.keys(rootParam).length === 1) {
+			const paramName = Object.keys(rootParam)[0]; // название параметра
+			paramObj = rootParam[paramName]; //объект параметра
 
-		//обрабатываем случай для селектора
-		if (rootParam.type === "select") {
-			rootParam.values.forEach((value) => {
-				if (value.hasOwnProperty("childs")) {
-					value.childs.forEach((child) => {
-						this.setChildParams(child.param_id);
-						this.setChildValues(child.values_id);
+			//помещаем вершину(параметр) в список посещённых
+			this.setChildParams(paramName);
+		} else
+			paramObj = rootParam; // в этом случае, корневой параметр - значение селектора
+
+		//проверка есть ли у вершины смежные (дочерние параметры)
+		if (paramObj.hasOwnProperty("childs")) {
+			paramObj.childs.forEach((child) => {
+				const childParamName = child.param_id;
+				const childValueName = child.values_id;
+
+				//обработка особого параметра для описания
+				if (childParamName === "isCaption")
+					this.setChildParams(childParamName);
+
+				//проверяем, посещали ли мы данную вершину
+				if (!this.childParams.includes(childParamName)) {
+					this.setChildValues(childValueName);
+					//среди массива всех параметров находим текущий
+					allParams.forEach((param) => {
+						const paramName = Object.keys(param)[0];
+
+						//рекурсивно вызываем функцию, если дочерний параметр нашёлся
+						if (paramName === childParamName) {
+							this.setChildrenParams(allParams, param);
+						}
 					})
 				}
-			})
-		}
-
-		//случай для остальных типов параметров
-		if (rootParam.hasOwnProperty("childs")) {
-			rootParam.childs.forEach((child) => {
-				this.setChildParams(child.param_id);
-				this.setChildValues(child.values_id);
 			})
 		}
 	}

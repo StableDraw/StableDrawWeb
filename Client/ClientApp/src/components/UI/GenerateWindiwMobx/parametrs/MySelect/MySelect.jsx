@@ -7,7 +7,16 @@ const MySelect = ({ getValue, name, description, options, keyValue, defaultV, se
 	const [value, setValue] = useState(defaultV);
 
 	useEffect(() => {
-		setChild(testMob.currentModel); // заполняем массивы параметров, при смене модели генерации
+		options.forEach((option) => {
+			if(option.value === testMob.currentModel){
+				console.log(option)
+				testMob.setChildrenParams(testMob.parametrs, option)
+				console.log("params",testMob.childParams)
+				console.log("values", testMob.childValues)
+			}
+		})
+		
+		// setChild(testMob.currentModel); // заполняем массивы параметров, при смене модели генерации 	
 		testMob.doDefaultValues(); //заполняем объект из параметров для отправки на сервер при смене модели генерации
 	}, [testMob.currentModel, testMob.activeNeuralName]);
 
@@ -41,7 +50,6 @@ const MySelect = ({ getValue, name, description, options, keyValue, defaultV, se
 	const isValid = (value, valueObject) => {
 		return !(!testMob.childValues.includes(value) && valueObject.hasOwnProperty("child"))
 	}
-
 	return (
 		<>
 			{
