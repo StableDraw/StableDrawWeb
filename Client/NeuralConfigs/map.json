@@ -2,6 +2,7 @@
 	"Neurals": {
 		"colorizer": {
 			"image_count_input": 1,
+			"prompt_count_input": 0,
 			"serverName": "colorizer",
 			"clientName": "Колоризация",
 			"description": "При помощи данного режима Вы можете окрашивать или менять окрас изображений, как чёрно-белых фотографий, так и набросков или цветных изображений",
@@ -9,20 +10,51 @@
 		},
 		"delete_background": {
 			"image_count_input": 1,
+			"prompt_count_input": 0,
 			"serverName": "delete_background",
 			"clientName": "Удаление фона",
 			"description": "При помощи данного режима Вы можете удалять фон с изображений",
 			"path": "mods/delete_background.json"
 		},
 		"upscaler": {
-			"image_count_input": 1,
 			"serverName": "upscaler",
 			"clientName": "Апскейлер",
 			"description": "При помощи данного режима Вы можете повышать качество и разрешение исходных изображений, уменьшать шум и артефакты",
-			"path": "mods/upscaler.json"
+			"neurals": {
+				"name": "Выбор модели",
+				"description": "Различные модели нейронных сетей по-разному применяют обработку. Для моделей, основанных на StableDiffusion обязательно необходимо описание, их качество генерации, как правило, выше. ESRGAN модели способны обрабатывать только на основе изображения",
+				"default": "StableDiffusionx4Upscaler",
+				"values": [
+					{
+						"image_count_input": 1,
+						"prompt_count_input": 0,
+						"value": "StableDiffusionx4Upscaler",						
+						"path": "mods/upscaler/SDx4.json"
+					},
+					{
+						"image_count_input": 1,
+						"prompt_count_input": 1,
+						"value": "StableDiffusionxLatentx2Upscaler",
+						"name": "mods/upscaler/SDx2Latent.json"
+					},
+					{
+						"image_count_input": 1,
+						"prompt_count_input": 1,
+						"value": "RealESRGAN",
+						"name": "mods/upscaler/RealESRGAN.json"
+					},
+					{
+						"image_count_input": 1,
+						"prompt_count_input": 1,
+						"value": "webui_upscaler",
+						"name": "mods/upscaler/WebUI.json"
+					}
+				]
+			}
 		},
 		"image_to_image": {
 			"image_count_input": 1,
+			"prompt_count_input": 1,
 			"serverName": "image_to_image",
 			"clientName": "Генерация по изображению",
 			"description": "Генерирует изображение по изображению",
@@ -31,6 +63,7 @@
 		},
 		"text_to_image": {
 			"image_count_input": 0,
+			"prompt_count_input": 1,
 			"serverName": "text_to_image",
 			"clientName": "Генерация по тексту",
 			"description": "Генерация изображения по текстовому описанию",
@@ -48,6 +81,7 @@
 		},
 		"inpainting": {
 			"image_count_input": 2,
+			"prompt_count_input": 1,
 			"serverName": "inpainting",
 			"clientName": "Перерисовка области изображения",
 			"description": "Перерисовка выбранного участка изображения (инпеинтинг)",
@@ -56,6 +90,7 @@
 		},
 		"stylization": {
 			"image_count_input": 2,
+			"prompt_count_input": 2,
 			"serverName": "stylization",
 			"clientName": "Стилизация",
 			"description": "Стилизация одного изображения под другое",
