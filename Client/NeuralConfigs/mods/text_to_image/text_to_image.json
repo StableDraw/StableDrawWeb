@@ -153,10 +153,6 @@
 							{
 								"param_id": "isCaption",
 								"values_id": []
-							},
-							{
-								"param_id": "custom_ckpt_name",
-								"values_id": [ "v2-1_768-ema-pruned.safetensors", "v2-1_768-noema-pruned.safetensors" ]
 							}
 						]
 					},
