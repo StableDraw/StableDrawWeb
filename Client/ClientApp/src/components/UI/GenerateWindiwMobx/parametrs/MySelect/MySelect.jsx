@@ -3,17 +3,13 @@ import cl from './MySelect.module.css'
 import Tooltip from '@mui/material/Tooltip';
 import testMob from '../../../../../store/neuralWindow.jsx'
 
-const MySelect = ({ getValue, name, description, options, keyValue, defaultV, setChild }) => {
+const MySelect = ({ getValue, name, description, options, keyValue, defaultV, isChild}) => {
 	const [value, setValue] = useState(defaultV);
 
 	useEffect(() => {
 		options.forEach((option) => {
-			if(option.value === testMob.currentModel){
-				console.log(option)
+			if(option.value === testMob.currentModel)
 				testMob.setChildrenParams(testMob.parametrs, option)
-				console.log("params",testMob.childParams)
-				console.log("values", testMob.childValues)
-			}
 		})
 		
 		// setChild(testMob.currentModel); // заполняем массивы параметров, при смене модели генерации 	
@@ -43,12 +39,12 @@ const MySelect = ({ getValue, name, description, options, keyValue, defaultV, se
 
 	//возвращает true, если хотя бы один элемент в массиве options содержит свойство "child"
 	const isAnyChild = () => {
-		return options.some(value => value.hasOwnProperty("child"));
+		return options.some(value => value.hasOwnProperty("child")) || isChild;
 	}
 
 	//проверка валидности значений селекторов
 	const isValid = (value, valueObject) => {
-		return !(!testMob.childValues.includes(value) && valueObject.hasOwnProperty("child"))
+		return !(!testMob.childValues.includes(value) && (valueObject.hasOwnProperty("child") || isChild))
 	}
 	return (
 		<>
