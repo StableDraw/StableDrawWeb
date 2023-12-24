@@ -1,0 +1,74 @@
+.flexBox { display: flex; }
+.thirdScreen
+{
+	width: 70%;
+	margin: auto;
+	justify-content: center;
+	margin-top: 180px;
+	margin-top: 10vw;
+	flex-wrap: wrap;
+}
+.thirdScreen h2
+{
+    text-align: center;
+}
+.advantagesTitle
+{
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 48px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: 122.838%;
+	margin-bottom: 40px;
+}
+.advantagesContent, .processContent
+{
+    width: 100%;
+    justify-content: center;
+	gap: 30px;
+}
+.listAdvantages
+{
+    flex-direction: column;
+    gap: 40px;
+}
+.itemListAdvantages
+{
+    align-items: center;
+	gap: 40px;
+}
+.numberItem
+{
+	color: #06F;
+	font-family: Montserrat;
+	font-size: 2.85vw;
+	font-style: normal;
+	font-weight: 900;
+	line-height: normal;
+    width: 5vw;
+    height: 5vw;
+    justify-content: center;
+    align-items: center;
+	border-radius: 100px;
+    border: 2px solid transparent;
+    background: linear-gradient(180deg,white,#1975D2) border-box;
+    -webkit-mask-composite: xor;
+    box-shadow: inset 0px 0px 0px 60px #000;
+    mask-composite: exclude;
+}
+.textItem
+{
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 24px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 122.838%;
+    width: 262px;
+}
+.advantagesImg img
+{
+	width: 610px;
+	height: 408px;
+}

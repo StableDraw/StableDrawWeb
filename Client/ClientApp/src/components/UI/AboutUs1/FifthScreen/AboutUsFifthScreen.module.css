@@ -1,0 +1,81 @@
+.flexBox { display: flex; }
+.fifthScreen
+{
+	width: 100%;
+    flex-direction: column;
+	margin-top: 10vw;
+	align-items: center;
+	gap: 50px;
+}
+.fifthScreen h2
+{
+	text-align: center;
+}
+.module3DTitle
+{
+	width: 100%;
+    text-align: center;
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 48px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+}
+.sliderModule3d
+{
+	padding: 20px 0;
+    border-top: solid 1px;
+    border-bottom: solid 1px;
+	gap: 20px;
+	justify-content: space-between;
+	overflow: hidden;
+}
+.sliderModule3d img
+{
+	width: 186px;
+	height: 231px;
+}
+.text3Dmodule
+{
+	width: 804px;
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+}
+.arrowBlockModule
+{
+	display: none;
+    justify-content: space-between;
+    max-width: 1010px;
+    width: 100%;
+    margin-top: -302px;
+}
+.lArrow3dModule, .rArrow3dModule
+{
+	background: rgba(0, 0, 0, 0.35);
+	display: flex;
+	align-items: center;
+	position: relative;
+	width: 41px;
+	height: 231px;
+}
+.lArrow3dModule img, .rArrow3dModule img
+{
+	width: fit-content;
+	height: fit-content;
+}
+.lArrow3dModule
+{
+	border-radius: 20px 0px 0px 20px;
+    margin-right: -5.5%;
+}
+.rArrow3dModule
+{
+	border-radius: 0px 20px 20px 0px;
+	margin-left: -5.5%;
+}
+.lArrow3dModule:hover, .rArrow3dModule:hover { cursor: pointer; }

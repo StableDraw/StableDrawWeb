@@ -1,0 +1,49 @@
+.firstScreen
+{
+	width: fit-content;
+	flex-wrap: wrap;
+	width: 1233px;
+	margin: auto;
+}
+.firstScreenImage { width: fit-content; }
+.firstScreenImage img
+{
+	width: 756px;
+	height: 594px;
+	border-radius: 20px;
+}
+.flexBox { display: flex; }
+.textFirstScreen
+{
+	width: 422px;
+	flex-direction: column;
+	justify-content: flex-end;
+}
+.textFirstScreen p
+{
+	color: #FFF;
+    font-family: Montserrat;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-bottom: 140px;
+    margin-left: 3vw;
+}
+.h1FirstScreen
+{
+	color: #FFF;
+    font-family: Montserrat;
+    font-size: 96px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    flex-grow: 2;
+    margin-left: 622px;
+    margin-top: -140px;
+    width: 594px;
+	height: 110px;
+	text-decoration: underline;
+	text-underline-offset: 20px;
+	text-decoration-thickness: 2px;
+}

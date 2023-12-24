@@ -1,0 +1,51 @@
+.flexBox { display: flex; }
+.ourTeam
+{
+	flex-direction: column;
+	width: 69%;
+	margin: auto;
+}
+.ourTeam h2
+{
+	text-align: center;
+}
+.listOurTeam
+{
+	flex-wrap: wrap;
+    width: fit-content;
+    gap: 20px;
+    justify-content: space-between;
+}
+.itemListOurTeam
+{
+	display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 32%;
+    padding: 0 20px;
+}
+.itemListOurTeamText
+{
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
+}
+.itemListOurTeamNameDescription
+{
+	font-size: 16px;
+	font-weight: 500;
+}
+.infoOurTeamText
+{
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	margin: 80px auto auto;
+	width: 850px;
+}

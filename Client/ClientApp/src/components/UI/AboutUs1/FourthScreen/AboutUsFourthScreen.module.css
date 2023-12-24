@@ -1,0 +1,60 @@
+.flexBox { display: flex; }
+.fourthScreen
+{
+	width: 100%;
+	gap: 50px;
+	justify-content: center;
+	margin-top: 10vw;
+	flex-wrap: wrap;
+}
+.fourthScreen h2
+{
+	text-align: left;
+}
+.processTitle
+{
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 48px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: 122.838%;
+	text-align: left;
+	width: 543px;
+	margin-left: 421px;
+}
+.processContent { gap: 40px; justify-content: center;}
+.listProcess
+{
+	width: 40%;
+	flex-direction: column;
+	gap: 30px;
+}
+.itemListProcess
+{
+    align-items: center;
+    flex-direction: row;
+	gap: 20px;
+	align-items: flex-start;
+}
+.itemListProcess .textItem
+{
+	color: #FFF;
+	width: 699px;
+	font-family: Montserrat;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 122.838%;
+}
+.processImg
+{
+	flex-direction: column;
+	max-width: 392px;
+	gap: 20px;
+}
+.processImg img
+{
+	width: 392px;
+	height: 555px;
+}

@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import cl from "./AboutUs1.module.css";
 import { Link } from 'react-router-dom';
-import { TeamObject1 } from "./TeamObject1";
+import AboutUsFirstScreen from "./FirstScreen/AboutUsFirstScreen";
+import AboutUsSecondScreen from "./SecondScreen/AboutUsSecondScreen";
+import AboutUsThirdScreen from "./ThirdScreen/AboutUsThirdScreen";
+import AboutsUsFourthScreen from "./FourthScreen/AboutUsFourthScreen";
+import AboutUsFifthScreen from "./FifthScreen/AboutUsFifthScreen";
+import AboutUsOurPartners from "./OurPartners/AboutUsOurPartners";
+import AboutUsOurTeam from "./OurTeam/AboutUsOurTeam";
 import { ImgLinkObject1 } from "./ImgLinkObject1";
 import PhotoSlider from "./PhotoSlider";
 
@@ -26,29 +32,7 @@ const imgLinks = [
 	{ id: 3, href: "https://vk.com/stabledraw", name: "Instagram", img: '/instagram.svg' }
 ]
 
-const teams = [
-	{ id: 1, name: "Антон Богданов", description: "Руководитель проекта", img: './members/AntonBogdanov.png' },
-	{ id: 2, name: "Игорь Исаков", description: "Специалист по нейросетям", img: './members/IgorIsaakov.png' },
-	{ id: 3, name: "Никита Михайлов", description: "Бекенд-разработчик", img: './members/NikitaMihailov.png' },
-	{ id: 4, name: "Сергей Алексейчук", description: "Фронтенд-разработчик", img: './members/SergeyAlexseychuk.png' },
-	{ id: 5, name: "Вероника Данилова", description: "Маркетолог", img: './members/VeronikaDanikova.png' },
-	{ id: 6, name: "Павел Зырянов", description: "Бекенд-разработчик", img: './members/PavelZiranov.png' },
-	{ id: 7, name: "Артём Федченко", description: "Фронтенд-разработчик", img: './members/ArtemFedchenko.png' },
-	{ id: 8, name: "Владимир Ямщиков", description: "Фронтенд-разработчик", img: './members/VladimirIamshikov.png' },
-	{ id: 9, name: "Сулде Дастай-оол", description: "Бекенд-разработчик", img: './members/SuldeDastai.png' },
-	{ id: 10, name: "Лейла Толегенова", description: "Дизайнер", img: './members/LeilaToleganova.png' },
-	{ id: 11, name: "Татьяна Лебедева", description: "Дизайнер", img: './members/TatianaLebedeva.png' },
-	{ id: 12, name: "Дорогань Дмитрий", description: "3D художник", img: './members/DmitriDorogan.png' },
-	{ id: 13, name: "Андрей Зайцев", description: "Фронтенд-разработчик", img: './members/AndreyZaitsev.png' },
-	{ id: 14, name: "Вардуи Мазманян", description: "СММ-менеджер", img: './members/VardueMazmanan.png' },
-	{ id: 15, name: "Никита Аргунов", description: "Фронтенд-разработчик", img: './members/NikitaArgunov.png' },
-	{ id: 16, name: "Максим Семёнов", description: "Бекенд-разработчик", img: './members/MaksimSemenov.png' },
-	{ id: 17, name: "Лев Богданов", description: "Фронтенд-разработчик", img: './members/LevBogdanov.png' },
-	{ id: 18, name: "Антон Приваленко", description: "Data scientist", img: './members/AntonPrivalenko.png' },
-	{ id: 19, name: "Семён Савельев", description: "Специалист по нейросетям", img: './members/SemenSavelev.png' },
-	{ id: 20, name: "Татьяна Гражданкина", description: "Фронтенд-разработчик", img: './members/TatyanaGrajdankina.png' },
-	{ id: 21, name: "Данила Черненко", description: "Бекенд-разработчик", img: './members/DanilaChernenko.png' }
-];
+
 const AboutUs1 = () => {
 	const [isHover, setIsHover] = useState(false);
 	const [isRegHover, setRegIsHover] = useState(false);
@@ -114,240 +98,96 @@ const AboutUs1 = () => {
 						</div>
 					</div>
 				</header>
-				<div className={cl.mainpart}>
-					<div className={cl.photocontainer}>
-						<img
-							className={cl.Neural}
-							src={"Neural.png"}
-							alt={"Neural"}
-						/>
-						<div className={cl.NeuralText}>
-							<div className={cl.neurontex}>
-								<p>Веб-платформа для рисования,</p>
-								<p>обработки изображений</p>
-								<p>и создания анимаций</p>
-								<p>с применением искусственных</p>
-								<p>нейронных сетей.</p>
-							</div>
-						</div>
-					</div>
-					<div className={cl.float_container}>
-						<div className={cl.maintex}>
-							<p>STABLE DRAW</p>
-						</div>
-						<div className={cl.hrLine}></div>
-					</div>
-					<div className={cl.float_container1}>
-						<div className={cl.what}></div>
-						<div className={cl.float_container1_Text}>
-							<p>Технологии <span>служат</span> искусству</p>
-							<p>и <span>помогают</span> людям являть</p>
-							<p>миру своё видение.</p>
-						</div>
-					</div>
-					<div className={cl.photoGroup}>
-						<div className={cl.vanGoghBlock}>
-							<img
-								className={cl.vanGogh1}
-								src={"VanGogh.png"}
-								alt={"VanGogh"}
-							/>
-							<img
-								className={cl.vanGogh1}
-								src={"VanGogh1.png"}
-								alt={"VanGogh1"}
-							/>
-						</div>
-						<div className={cl.technoprom}>
-							<img
-								className={cl.tech1}
-								src={"Technoprom.png"}
-								alt={"Technoprom"}
-							/>
-							<img
-								className={cl.tech2}
-								src={"Technoprom1.png"}
-								alt={"Technoprom1"}
-							/>
-						</div>
-						<div className={cl.technopromText}>
-							<p>Сибирская Венчурная Ярмарка</p>
-						</div>
-					</div>
 
-					<div className={cl.textAboutUs}>
-						<span className={`${cl.txt} ${cl.txtInfo}`}>
-							Компания StableDraw занимается разработкой веб-портала, результат работы которого — многократное увеличение скорости создания дизайна и его обработки, удобная визуализации дизайна на 3д моделях в одном сервисе, а также более качественный результат за счёт сценариев обработки и доработанных нейронных сетей. Веб-портал также позволяет клиентам не использовать собственные мощности компьютера, так как обработка запросов для нейросетей происходит на наших серверах. Также веб-портал даёт возможность создавать изображения с помощью нейросетей и переносить на дизайн упаковки в одном окне.
-						</span>
-						<div className={cl.infoBlock}>
-							<div className={cl.infoBlock__txt}>
-								<span className={cl.txt}>
-									В StableDraw мы выстраиваем микросервисную архитектуру с горизонтальным масштабированием для доступа к нашему сервису большого количество пользователей, выстраиваем пайплайны ci/cd, а также систему, используя шину сообщений. Во время фронтенд-разработки применяем React и фреймворки на Typescript. При разработке используем Scrum-методологию, составляем спринты и создаём продукт, учитывая индивидуальные предпочтения каждого пользователя.
-								</span>
-								<img className={cl.certificate} src="./certificate.png" alt="" />
-								<span className={cl.txt}>
-									В StableDraw мы используем и выстраиваем как готовые нейросетевые решения для генерации и обработки изображений с открытым исходным кодом и лицензией, позволяющей коммерческое применение, так и разрабатываем собственные или модифицируем существующие архитектуры. Также обучаем и дообучаем модели нейронных сетей для интеграции в сервис обработки продукта.
-								</span>
-							</div>
-
+				<div className={cl.aboutUs}>
+					<AboutUsFirstScreen></AboutUsFirstScreen>
+					<AboutUsSecondScreen></AboutUsSecondScreen>
+					<AboutUsThirdScreen></AboutUsThirdScreen>
+					<AboutsUsFourthScreen></AboutsUsFourthScreen>
+					<AboutUsFifthScreen></AboutUsFifthScreen>
+					<AboutUsOurPartners></AboutUsOurPartners>
+					<AboutUsOurTeam></AboutUsOurTeam>
+					<div className={`${cl.achievements} ${cl.flexBox}`}>
+						<div className={cl.leftAchivements}>
+							<img src="Achievements1.svg" alt="" />
+							<img src="Achievements5.svg" alt="" />
+							<img src="Achievements6.svg" alt="" />
+							<img src="Achievements2.svg" alt="" />
 						</div>
-						<span className={`${cl.txt} ${cl.txtInfo2}`}>
-							Наши клиенты — это компании, специализирующиеся в области графического дизайна, анимации, разработчики дизайна упаковочной продукции. Также мы занимаемся расширением функционала нашего веб-сервиса по требованиям заказчиков.
-						</span>
-					</div>
-					<div className={cl.threeDtext}>
-						3D модуль
-					</div>
-
-					<div className={cl.newtex}>
-						<p>Веб-платформа для рисования, обработки
-							изображений и создания анимаций с
-							применением искусственных нейронных сетей.</p>
-					</div>
-					<div className={cl.section}>
-						<img
-							className={cl.show}
-							src={"Showcase.png"}
-							alt={"Showcase"}
-						/>
-						<div className={cl.showtex}>
-							<p>Веб-платформа для</p>
-							<p>рисования, обработки</p>
-							<p>изображений и</p>
-							<p>создания анимаций с</p>
-							<p>применением</p>
-							<p>искусственных</p>
-							<p>нейронных сетей.</p>
-						</div>
-						<img
-							className={cl.busket}
-							src={"Busket.png"}
-							alt={"Busket"}
-						/>
-					</div>
-					<div className={cl.ourCompanies}>
-						Наши партнёры
-					</div>
-					<div className={cl.companiesBlock}>
-						<div className={cl.LambumizBlock}>
-							<img
-								className={cl.LambumizImg}
-								src={"Lambumiz.png"}
-								alt={"Lambumiz"}
-							/>
-							<div className={cl.LambumizText}>
-								<p>Ламбумиз</p>
-							</div>
-						</div>
-						<img
-							className={cl.NSTU}
-							src={"NGTU.png"}
-							alt={"NGTU"}
-						/>
-						<div className={cl.AniLibriaBlock}>
-							<img
-								className={cl.LambumizImg}
-								src={"AniLibria.png"}
-								alt={"AniLibria"}
-							/>
-							<div className={cl.LambumizText}>
-								<p>AniLibria</p>
-							</div>
-						</div>
-						<div className={cl.DevoidBlock}>
-							<div className={cl.DevoidText}>
-								<span>DEVOID</span>
-								<div>Devoid diffusion</div>
-							</div>
+						<div className={cl.rightAchivements}>
+							<img src="Achievements7.svg" alt="" />
+							<img src="Achievements8.svg" alt="" />
+							<img src="Achievements4.svg" alt="" />
+							<img src="Achievements3.svg" alt="" />
+							<p>Достижения StableDraw</p>
 						</div>
 					</div>
-					<div className={cl.teamtext}>
-						Наша команда
-					</div>
-					<div className={cl.ourTeam}>
-						{teams.map(team => <TeamObject1
-							name={team.name}
-							description={team.description}
-							key={team.id}
-							img={team.img}
-						/>
-						)}
-					</div>
-					<span className={`${cl.txt} ${cl.txtEnd}`}>
-						Свидетельство о государственной регистрации программы для ЭВМ №2023662897, автор: Богданов Антон Аркадьевич, дата государственной регистрации в Реестре программ для ЭВМ: 16 июня 2023 г.
-					</span>
 				</div>
+
 				<footer className={cl.footer}>
 					<div className={cl.section1}>
 						<div className={cl.footer_section1}>
-							<Link
-								to="/"
-							>
-								<img
-									className={cl.logo}
-									src={"лого.png"}
-									alt={"logo"}
-								/>
-							</Link>
-							<div className={cl.email}>
-								<a href={'support@stabledraw.com'}>
-									support@stabledraw.com
-								</a>
+							<div className={cl.footerLogo}>
+								<Link
+									to="/"
+								>
+									<div className={cl.footerLogo2}>
+										<img src="footerLogo.svg" alt="logo" />
+										<span>StableDraw</span>
+									</div>
+								</Link>
+								<div className={cl.email}>
+									<a href={'support@stabledraw.com'}>
+										support@stabledraw.com
+									</a>
+								</div>
 							</div>
 						</div>
-						<div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-
-							<span className={cl.Tex1}>Языки программирования: C#, Typescript, Python, HTML, CSS</span>
-							<div className={cl.footer_section1_text}>
-								Общество с ограниченной ответственностью "Стейбл Дроу", 630112, г. Новосибирск, ул. Гоголя, д. 192, кв. 71
-							</div>
-						</div>
-					</div>
-					<div className={cl.socialBlock}>
-						{imgLinks.map(imgLink => <ImgLinkObject1
-							href={imgLink.href}
-							name={imgLink.name}
-							img={imgLink.img}
-							key={imgLink.id}
-						/>
-						)}
+						<span>Общество с ограниченной ответственностью "Стейбл Дроу", 630112, г. Новосибирск, ул. Гоголя, д. 192, кв. 71</span>
 					</div>
 					<div className={cl.footer_section2}>
-						<div className={cl.toptex}>
-							<p>Пользовательское соглашение</p>
+						<div className={cl.socialContact}>
+							<div className={cl.socialBlock}>
+								{imgLinks.map(imgLink => <ImgLinkObject1
+									href={imgLink.href}
+									name={imgLink.name}
+									img={imgLink.img}
+									key={imgLink.id}
+								/>
+								)}
+							</div>
+							<span>+7(913)786-98-87</span>
 						</div>
-						<div className={cl.downtex}>
-							<p>Политика оплаты и возврата</p>
-						</div>
-						<div className={cl.menuText}>
-							<div className={cl.Tex1}>Помощь</div>
-							<div className={cl.Tex2}>
-								<Link
-									to="/AboutUs1"
-									style={{ color: isHover ? '#d5b8b8' : '#ffffff', cursor: "pointer" }}
-									onMouseEnter={handleMouseEnter}
-									onMouseLeave={handleMouseLeave}
-								>
-									О нас
-								</Link>
+						<div>
+							<div className={cl.toptex}>
+								<p>Пользовательское соглашение</p>
+							</div>
+							<div className={cl.downtex}>
+								<p>Политика оплаты и возврата</p>
+							</div>
+							<div className={cl.menuText}>
+								<div className={cl.Tex1}>Помощь</div>
+								<div className={cl.Tex2}>
+									<Link
+										to="/AboutUs1"
+										style={{ color: isHover ? '#d5b8b8' : '#ffffff', cursor: "pointer" }}
+										onMouseEnter={handleMouseEnter}
+										onMouseLeave={handleMouseLeave}
+									>
+										О нас
+									</Link>
+								</div>
 							</div>
 						</div>
-						<div style={{ display: "flex", flexDirection: 'column', gap: '10px', marginTop:'40px' }}>
-							<span className={cl.Tex1}>
-								<span className={cl.txtt}>ИНН/КПП: </span> 5405088796/540501001
-							</span>
-							<span className={cl.Tex1}>
-								<span className={cl.txtt}>ОГРН: </span> 123540003826
-							</span>
-							<span className={cl.Tex1}>
-								<span className={cl.txtt}>Место нахождения: </span><br />630112, г. Новосибирск, ул. Гоголя, д. 192, кв. 71
-							</span>
-							<span className={cl.Tex1}>
-								<span className={cl.txtt}>Телефон: </span> +7-913-786-9887;
-							</span>
-							<span >Код ОКВЭД: 62.01 «Разработка компьютерного программного обеспечения»</span>
-						</div>
 					</div>
+					<div className={cl.footerInfoAbout}>
+							<div className={cl.footerInfoAboutYur}>
+								<span>ИНН/КПП: 5405088796/540501001</span><br></br>
+								<span>ОГРН: 123540003826</span><br></br>
+								<span>Код ОКВЭД: 62.01 «Разработка компьютерного программного обеспечения»</span>
+							</div>
+							<span>Языки программирования: C#, Typescript, Python, HTML, CSS</span>
+						</div>
 				</footer>
 			</div>
 		</div>

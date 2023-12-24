@@ -1,0 +1,47 @@
+.flexBox { display: flex; }
+.ourPartners
+{
+	width: 1216px;
+    margin: 180px auto;
+	flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.ourPartners h2
+{
+	text-align: center;
+}
+.listPartner
+{
+	width: 100%;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+	gap: 30px;
+}
+.itemListPartner
+{
+    width: fit-content;
+    align-items: center;
+}
+.itemListPartnerImg
+{
+	width: 100%;
+    height: auto;
+}
+.itemListPartnerText
+{
+	color: #FFF;
+	font-family: Montserrat;
+	font-size: 48px;
+	font-style: normal;
+	font-weight: 800;
+	line-height: normal;
+	text-align: center;
+}
+.itemListPartner:last-child .itemListPartnerText span:first-child { color: #1DE9B6; }
+.itemListPartner:nth-child(2) img
+{
+	width: 537px;
+	height: 246px;
+}
