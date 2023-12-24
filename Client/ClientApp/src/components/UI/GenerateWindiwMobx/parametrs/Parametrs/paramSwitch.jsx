@@ -7,26 +7,26 @@ import { observer } from 'mobx-react-lite'
 
 
 
-export const ParamSwitch = observer(({value, id, setValueForServer}) => {
+export const ParamSwitch = observer(({ value, id, setValueForServer }) => {
 	const paramName = Object.keys(value); //название параметра(системное) в массиве
 
-	//задаёт массивы дочерних параметров и значений селекторов в зависимости от текущей модели/версии
-	const setChild = (currentModel) => {
-		if ((paramName[0] === "model" || paramName[0] === "version")) {
-			value[paramName].values.map((model) => {
-				if (model.value === currentModel && Object.hasOwn(model, "childs")) {
-					model.childs.map((child) => {
-						testMob.setChildParams(child.param_id)
-						testMob.setChildValues(child.values_id)
-					})
-				} else if (!Object.hasOwn(model, "childs") && model.value === currentModel) {
-					testMob.setCurrentModel('');
-					testMob.clearChildParams();
-					testMob.clearChildValues();
-				}
-			})
-		}
-	}
+	// //задаёт массивы дочерних параметров и значений селекторов в зависимости от текущей модели/версии
+	// const setChild = (currentModel) => {
+	// 	if ((paramName[0] === "model" || paramName[0] === "version")) {
+	// 		value[paramName].values.map((model) => {
+	// 			if (model.value === currentModel && Object.hasOwn(model, "childs")) {
+	// 				model.childs.map((child) => {
+	// 					testMob.setChildParams(child.param_id)
+	// 					testMob.setChildValues(child.values_id)
+	// 				})
+	// 			} else if (!Object.hasOwn(model, "childs") && model.value === currentModel) {
+	// 				testMob.setCurrentModel('');
+	// 				testMob.clearChildParams();
+	// 				testMob.clearChildValues();
+	// 			}
+	// 		})
+	// 	}
+	// }
 
 	//возвращает false, если у параметра есть свойство child и при этом его нет в массиве дочерних параметров к текущей модели
 	const isValid = () => {
@@ -38,6 +38,7 @@ export const ParamSwitch = observer(({value, id, setValueForServer}) => {
 		switch (type) {
 			case 'select':
 				return <MySelect
+					isChild={value[paramName].child}
 					key={id}
 					keyValue={paramName}
 					name={value[paramName].name}
@@ -45,7 +46,7 @@ export const ParamSwitch = observer(({value, id, setValueForServer}) => {
 					options={value[paramName].values}
 					description={value[paramName].description}
 					getValue={setValueForServer}
-					setChild={setChild} />
+				/>
 			case 'text':
 				return <InputText
 					key={id}

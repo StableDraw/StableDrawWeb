@@ -64,7 +64,6 @@
 	padding: 3px;
 	border-radius: 10px;
 	border: 1px solid var(--gray, #ABABAB);
-	height: 400px;
 	transition: 200ms ease-in-out;
 }
 
@@ -90,7 +89,7 @@
 
 .img_1 {
 	max-width: 880px;
-	max-height: 450px;
+	max-height: 440px;
 }
 
 .img_2 {
