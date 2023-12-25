@@ -1,7 +1,7 @@
 .flexBox { display: flex; }
 .ourPartners
 {
-	width: 1216px;
+	width: 60vw;
     margin: 180px auto;
 	flex-direction: column;
     align-items: center;
@@ -24,24 +24,39 @@
     width: fit-content;
     align-items: center;
 }
-.itemListPartnerImg
+.letfPartner
 {
-	width: 100%;
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.rightPartner
+{
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 26vw;
+    gap: 5vw;
+}
+.itemListPartnerImg, .letfPartner .itemListPartner:nth-child(2) img
+{
+	width: 10vw;
     height: auto;
 }
-.itemListPartnerText
+.itemListPartnerText, .letfPartner .itemListPartner:last-child:nth-child(2) span:first-child
 {
 	color: #FFF;
 	font-family: Montserrat;
-	font-size: 48px;
+	font-size: 2.5vw;
 	font-style: normal;
 	font-weight: 800;
 	line-height: normal;
 	text-align: center;
 }
 .itemListPartner:last-child .itemListPartnerText span:first-child { color: #1DE9B6; }
-.itemListPartner:nth-child(2) img
+.rightPartner .itemListPartner:nth-child(1) img
 {
-	width: 537px;
-	height: 246px;
+	width: 25vw;
 }

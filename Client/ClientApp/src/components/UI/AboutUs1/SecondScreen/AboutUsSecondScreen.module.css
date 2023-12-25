@@ -1,7 +1,7 @@
 .flexBox { display: flex; }
 .secondScreen
 {
-	width: 70%;
+	width: 60vw;
     margin: auto;
 	flex-wrap: wrap;
 	justify-content: center;
@@ -11,7 +11,7 @@
 {
 	color: #FFF;
 	font-family: Montserrat;
-	font-size: 36px;
+	font-size: 1.9vw;
 	font-style: normal;
 	font-weight: 500;
 	line-height: normal;
@@ -19,7 +19,7 @@
 .glassBlock
 {
 	padding: 8px 22px;
-    width: 651px;
+    width: 33vw;
     margin: auto auto -6.7vw;
 	border-radius: 20px;
 	background: rgba(0, 0, 0, 0.20);
@@ -34,6 +34,6 @@
 }
 .secondScreenImages img
 {
-	width: 491px;
-	height: 492px;
+	width: 28vw;
+    height: auto;
 }

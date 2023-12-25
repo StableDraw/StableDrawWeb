@@ -16,7 +16,7 @@
 {
 	color: #FFF;
 	font-family: Montserrat;
-	font-size: 48px;
+	font-size: 2.5vw;
 	font-style: normal;
 	font-weight: 700;
 	line-height: 122.838%;
@@ -61,14 +61,13 @@
 {
 	color: #FFF;
 	font-family: Montserrat;
-	font-size: 24px;
+	font-size: 1.25vw;
 	font-style: normal;
 	font-weight: 500;
 	line-height: 122.838%;
-    width: 262px;
+    width: 13vw;
 }
 .advantagesImg img
 {
-	width: 610px;
-	height: 408px;
+	width: 36vw;
 }
