@@ -213,7 +213,7 @@
 .footerLogo
 {
 	display: flex;
-	gap: 40px;
+	gap: 2vw;
 }
 .footer_section2 {
 	display: flex;
@@ -441,7 +441,7 @@
 	.footerInfoAboutYur {max-width: 476px;}
 	.socialBlock {gap: 20px;}
 	.section1 span {font-size: 14px;}
-	.footerLogo2 span {font-size: 24px;}
+	.footerLogo2 span {font-size: 24px; flex-direction: column;}
 	.footer_section2 {gap: 50px;}
 	.listAdvantages {gap: 72px;}
 }
