@@ -145,7 +145,7 @@ class neuralWindow {
 			})
 			return isHasChild
 		}
-
+		
 		// проверяет, нужно ли отправлять на сервер дефолтное значение селектора для текущей модели
 		const isValidDefSelectorValue = (param) => {
 			if (param?.type === "select" && param !== "model" && param !== "version") {

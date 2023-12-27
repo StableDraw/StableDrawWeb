@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from 'react'
-import cl from './InputRange.module.css'
-import Tooltip from '@mui/material/Tooltip';
-import testMob from '../../../../../store/neuralWindow.jsx'
+import Tooltip from "@mui/material/Tooltip";
+import React, { useEffect, useState } from "react";
+import testMob from "../../../../../store/neuralWindow.jsx";
+import cl from "./InputRange.module.css";
 
 const InputRange = ({ getValue, description, defaultV, max, min, step, name, keyValue, isValidParam }) => {
 	const [value, setValue] = useState(defaultV);
 
-	useEffect(() => { setValue(defaultV) }, [testMob.currentModel, testMob.activeNeuralName])
+	useEffect(() => {}, [testMob.childParams, testMob.childValues]);
+
+	useEffect(() => {
+		setValue(defaultV);
+	}, [testMob.currentModel, testMob.activeNeuralName]);
 	const call = (res) => {
 		setValue(res);
-	}
+	};
 
 	//выделяет значение в ячейке, когда пользователь кликает по ней.
 	//сделано для упрощения ввода
@@ -19,13 +23,12 @@ const InputRange = ({ getValue, description, defaultV, max, min, step, name, key
 
 	//убирает появляющийся в начале 0 при введении однозначного числа (нужно понять, где этот 0 хранится)
 	const removeZero = (value) => {
-		return Number(value.toString().replace(/^0+/, ''))
-	}
+		return Number(value.toString().replace(/^0+/, ""));
+	};
 
 	return (
 		<>
-			{
-				isValidParam() &&
+			{isValidParam() && (
 				<div className={cl.cont}>
 					<div className={cl.main__cont}>
 						<span className={cl.text}>{name}</span>
@@ -55,14 +58,13 @@ const InputRange = ({ getValue, description, defaultV, max, min, step, name, key
 					</div>
 					<div className={cl.question}>
 						<Tooltip title={description}>
-							<img className={cl.paramImg} src='Question.svg' alt='' />
+							<img className={cl.paramImg} src="Question.svg" alt="" />
 						</Tooltip>
 					</div>
 				</div>
-			}
+			)}
 		</>
+	);
+};
 
-	)
-}
-
-export default InputRange
+export default InputRange;
