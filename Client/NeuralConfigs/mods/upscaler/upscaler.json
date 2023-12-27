@@ -1,93 +1,39 @@
 {
-	"name": "Выбор модели",
-	"description": "Различные модели нейронных сетей по-разному применяют обработку. Для моделей, основанных на StableDiffusion обязательно необходимо описание, их качество генерации, как правило, выше. ESRGAN модели способны обрабатывать только на основе изображения",
+	"name": "Выбор нейронной сети для обработки",
+	"description": "Различные семейства нейронных сетей сетей по-разному применяют обработку. Для моделей, основанных на StableDiffusion обязательно необходимо описание, их качество генерации, как правило, выше. ESRGAN модели способны обрабатывать только на основе изображения",
 	"default": "StableDiffusionx4Upscaler",
-	"values": [
+	"values": {
+		"webui_upscaler":
 		{
-			"value": "webui_upscaler",
 			"name": "SD WebUI",
-			"description": "Модель StableDiffusion WebUI",
+			"description": "StableDiffusion WebUI",
 			"image_count_input": 1,
 			"prompt_count_input": 1,
-			"output": "img",
-			"path": "models/WebUI.json"
+			"output": "img"
 		},
+		"RealESRGAN":
 		{
-			"value": "RealESRGAN_x4plus",
-			"name": "RealESRGAN_x4plus",
-			"description": "Основная модель RealESRGAN для четырёхкратного апскейла изображений",
+			"name": "RealESRGAN",
+			"description": "Нейронная сеть для апскейла без использования описания",
 			"image_count_input": 1,
 			"prompt_count_input": 0,
-			"output": "img",
-			"path": "models/RealESRGAN.json"
+			"output": "img"
 		},
+		"StableDiffusionx4Upscaler":
 		{
-			"value": "RealESRNet_x4plus",
-			"name": "RealESRNet_x4plus",
-			"description": "Облегчённая, быстрая модель RealESRGAN для четырёхкратного апскейла изображений",
-			"image_count_input": 1,
-			"prompt_count_input": 0,
-			"output": "img",
-			"path": "models/RealESRGAN.json"
-		},
-		{
-			"value": "RealESRGAN_x4plus_anime_6B",
-			"name": "RealESRGAN_x4plus_anime_6B",
-			"description": "Облегчённая, быстрая модель RealESRGAN для четырёхкратного апскейла изображений с 6 дополнительными блоками для обработки, обученная на мультипликационной стилистике",
-			"image_count_input": 1,
-			"prompt_count_input": 0,
-			"output": "img",
-			"path": "models/RealESRGAN.json"
-		},
-		{
-			"value": "RealESRGAN_x2plus",
-			"name": "RealESRGAN_x2plus",
-			"description": "Основная модель RealESRGAN для двукратного апскейла изображений",
-			"image_count_input": 1,
-			"prompt_count_input": 0,
-			"output": "img",
-			"path": "models/RealESRGAN.json"
-		},
-		{
-			"value": "realesr-animevideov3",
-			"name": "realesr-animevideov3",
-			"description": "Облегчённая модель RealESRGAN для быстрого двукратного апскейла изображений, обученная на мультипликацонном стиле",
-			"image_count_input": 1,
-			"prompt_count_input": 0,
-			"output": "img",
-			"path": "models/RealESRGAN.json"
-		},
-		{
-			"value": "realesr-general-x4v3",
-			"name": "realesr-general-x4v3",
-			"description": "Новая, облегчённая, быстрая модель RealESRGAN для четырёхкратного апскейла изображений с дополнительной возможностью коррекции шума",
-			"childs": [
-				{
-					"param_id": "denoise_strength"
-				}
-			],
-			"image_count_input": 1,
-			"prompt_count_input": 0,
-			"output": "img",
-			"path": "models/RealESRGAN.json"
-		},
-		{
-			"value": "StableDiffusionx4Upscaler",
 			"name": "StableDiffusionx4Upscaler",
 			"description": "Четырёхкратный апскейлер от StableDiffusion",
 			"image_count_input": 1,
 			"prompt_count_input": 1,
-			"output": "list",
-			"path": "models/SDx4.json"
+			"output": "img_list"
 		},
+		"StableDiffusionxLatentx2Upscaler":
 		{
-			"value": "StableDiffusionxLatentx2Upscaler",
 			"name": "StableDiffusionxLatentx2Upscaler",
 			"description": "Двукратный сторонний апскейлер, основанный на StableDiffusion",
 			"image_count_input": 1,
 			"prompt_count_input": 1,
-			"output": "img",
-			"path": "models/SDx4.json"
+			"output": "img"
 		}
-	]
+	}
 }

@@ -1,73 +1,51 @@
 {
 	"text_to_image": {
-		"serverName": "text_to_image",
 		"clientName": "Генерация по тексту",
-		"description": "Генерация изображения по текстовому описанию",
-		"path": "mods/text_to_image/text_to_image.json"
+		"description": "Генерация изображения по текстовому описанию"
 	},
 	"image_to_image": {
-		"serverName": "image_to_image",
 		"clientName": "Генерация по изображению",
-		"description": "Генерирует изображение по изображению",
-		"path": "mods/image_to_image/image_to_image.json"
+		"description": "Генерирует изображение по изображению"
 	},
 	"inpainting": {
-		"serverName": "inpainting",
 		"clientName": "Перерисовка области изображения",
-		"description": "Перерисовка выбранного участка изображения (инпеинтинг)",
-		"path": "mods/inpainting/inpainting.json"
+		"description": "Перерисовка выбранного участка изображения (инпеинтинг)"
 	},
 	"image_fusion": {
-		"serverName": "image_fusion",
 		"clientName": "Объединение изображений",
-		"description": "При помощи данного редима можно совместить несколько изображений",
-		"path": "mods/image_fusion/image_fusion.json"
+		"description": "При помощи данного редима можно совместить несколько изображений"
 	},
 	"upscaler": {
-		"serverName": "upscaler",
 		"clientName": "Апскейлер",
-		"description": "При помощи данного режима Вы можете повышать качество и разрешение исходных изображений, уменьшать шум и артефакты",
-		"path": "mods/upscaler/upscaler.json"
+		"description": "При помощи данного режима Вы можете повышать качество и разрешение исходных изображений, уменьшать шум и артефакты"
 	},
 	"stylization": {
-		"serverName": "stylization",
 		"clientName": "Стилизация",
-		"description": "Стилизация одного изображения под другое",
-		"path": "mods/stylization/stylization.json"
+		"description": "Стилизация одного изображения под другое"
 	},
 	"delete_background": {
-		"serverName": "delete_background",
 		"clientName": "Удаление фона",
-		"description": "При помощи данного режима Вы можете удалять фон с изображений",
-		"path": "mods/delete_background/delete_background.json"
+		"description": "При помощи данного режима Вы можете удалять фон с изображений"
 	},
 	"colorizer": {
-		"serverName": "colorizer",
 		"clientName": "Колоризация",
-		"description": "При помощи данного режима Вы можете окрашивать или менять окрас изображений, как чёрно-белых фотографий, так и набросков или цветных изображений",
-		"path": "mods/colorizer/colorizer.json"
+		"description": "При помощи данного режима Вы можете окрашивать или менять окрас изображений, как чёрно-белых фотографий, так и набросков или цветных изображений"
 	},
 	"image_captioning": {
 		"system": true,
-		"serverName": "image_captioning",
 		"clientName": "Генерация описания для изображения",
-		"description": "Генерация описания для изображения",
-		"path": "mods/image_captioning/image_captioning.json"
+		"description": "Генерация описания для изображения"
 	},
 	"image_classification":
 	{
 		"system": true,
-		"serverName": "image_classification",
 		"clientName": "Определение типа изображения",
-		"description": "определяет тип изображения в соответствии с классом",
-		"path": "mods/image_classification/image_classification.json"
+		"description": "определяет тип изображения в соответствии с классом"
 	},
 	"translation":
 	{
 		"system": true,
-		"serverName": "translation",
 		"clientName": "Переводчик",
-		"description": "Перевод текста с одного языка на другой",
-		"path": "mods/translation/translation.json"
+		"description": "Перевод текста с одного языка на другой"
 	}
 }
