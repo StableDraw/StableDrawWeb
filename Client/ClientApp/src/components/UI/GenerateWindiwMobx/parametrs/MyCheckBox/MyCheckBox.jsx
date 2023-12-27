@@ -1,76 +1,78 @@
-import React, { useEffect, useState } from 'react'
-import cl from './MyCheckBox.module.css'
-import Tooltip from '@mui/material/Tooltip';
-import store from '../../../../../store/neuralWindow.jsx'
-
+import Tooltip from "@mui/material/Tooltip";
+import React, { useEffect, useState } from "react";
+import store from "../../../../../store/neuralWindow.jsx";
+import cl from "./MyCheckBox.module.css";
 
 const MyCheckBox = ({ getValue, name, defaultV, description, keyValue, isValidParam, isChilds }) => {
-
-	const [value, setValue] = useState(defaultV)
-
-	useEffect(() => { setValue(defaultV) }, [store.currentModel, store.activeNeuralName])
+	const [value, setValue] = useState(defaultV);
 
 	useEffect(() => {
-		if (isChilds) {
-			let childValues = [];
-			const childParams = isChilds.map((child) => child.param_id);
-			isChilds.forEach((child) => {
-				childValues = [...childValues, ...child.values_id];
-			})
+		setValue(defaultV);
+	}, [store.currentModel, store.activeNeuralName]);
 
-			if (!value) {
-				const newChildValues = store.childValues.filter((value) => {
-					return !childValues.includes(value);
-				})
+	useEffect(() => {
+		if (isChilds) setChilds();
+	}, [value, store.currentModel]);
 
-				const newChildParams = store.childParams.filter((param) => {
-					return !childParams.includes(param);
-				})
+	//Обработка дочерних параметров checkBox
+	const setChilds = () => {
+		let childValues = [];
+		const childParams = isChilds.map((child) => child.param_id);
+		isChilds.forEach((child) => {
+			childValues = [...childValues, ...child.values_id];
+		});
 
-				store.clearChildParams();
-				store.clearChildValues();
-				newChildParams.forEach((param) => store.setChildParams(param));
-				store.setChildValues(newChildValues);
-				console.log(store.childParams);
-				console.log(store.childValues);
-			}
+		//если значение чекбокса - false, то убираем Сhilds из массива дочерних параметров
+		if (!value) {
+			//чистим массив дочерних значений
+			const newChildValues = store.childValues.filter((value) => {
+				return !childValues.includes(value);
+			});
 
-			if (value && childParams.some((param) => !store.childParams.includes(param))) {
-				childParams.forEach((param) => {
-					store.setChildParams(param);
-				})
+			//чистим массив дочерних параметров
+			const newChildParams = store.childParams.filter((param) => {
+				return !childParams.includes(param);
+			});
 
-				store.setChildValues(childValues);
-				console.log(store.childParams);
-				console.log(store.childValues);
-			}
+			store.clearChildParams();
+			store.clearChildValues();
+			newChildParams.forEach((param) => store.setChildParams(param));
+			store.setChildValues(newChildValues);
 		}
 
-
-	}, [value])
+		//если значение чекбокса - true и хотя бы одного дочернего параметра чекбокса нет в store
+		if (value && childParams.some((param) => !store.childParams.includes(param))) {
+			childParams.forEach((param) => store.setChildParams(param));
+			store.setChildValues(childValues);
+		}
+	};
 
 	return (
 		<>
-			{
-				isValidParam() &&
+			{isValidParam() && (
 				<div className={cl.cont}>
 					<div className={cl.main__cont}>
 						<section className={cl.block}>
 							<span className={cl.text}>{name}</span>
 						</section>
 						<label className={cl.switch}>
-							<input checked={value} type="checkbox" onChange={() => setValue(!value)} onBlur={() => getValue(value, keyValue)} />
+							<input
+								checked={value}
+								type="checkbox"
+								onChange={() => setValue(!value)}
+								onBlur={() => getValue(value, keyValue)}
+							/>
 							<span className={cl.slider_round} />
 						</label>
 					</div>
 					<div className={cl.question}>
 						<Tooltip title={description}>
-							<img className={cl.paramImg} src='Question.svg' alt='' />
+							<img className={cl.paramImg} src="Question.svg" alt="" />
 						</Tooltip>
 					</div>
 				</div>
-			}
+			)}
 		</>
-	)
-}
-export default MyCheckBox
+	);
+};
+export default MyCheckBox;
