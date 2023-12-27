@@ -2,20 +2,20 @@
 {
 	width: fit-content;
 	flex-wrap: wrap;
-	width: 1233px;
+	width: 70vw;
 	margin: auto;
 }
 .firstScreenImage { width: fit-content; }
 .firstScreenImage img
 {
-	width: 756px;
-	height: 594px;
-	border-radius: 20px;
+	width: 39.5vw;
+    height: 30vw;
+    border-radius: 20px;
 }
 .flexBox { display: flex; }
 .textFirstScreen
 {
-	width: 422px;
+	width: 30vw;
 	flex-direction: column;
 	justify-content: flex-end;
 }
@@ -23,26 +23,24 @@
 {
 	color: #FFF;
     font-family: Montserrat;
-    font-size: 24px;
+    font-size: 1.5vw;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    margin-bottom: 140px;
+    margin-bottom: 9vw;
     margin-left: 3vw;
 }
 .h1FirstScreen
 {
 	color: #FFF;
     font-family: Montserrat;
-    font-size: 96px;
+    font-size: 5vw;
     font-style: normal;
     font-weight: 800;
     line-height: normal;
     flex-grow: 2;
-    margin-left: 622px;
-    margin-top: -140px;
-    width: 594px;
-	height: 110px;
+    margin-left: 32.5vw;
+    margin-top: -7.5vw;
 	text-decoration: underline;
 	text-underline-offset: 20px;
 	text-decoration-thickness: 2px;

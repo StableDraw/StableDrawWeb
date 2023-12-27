@@ -38,10 +38,10 @@
 }
 .text3Dmodule
 {
-	width: 804px;
+	width: 50vw;
 	color: #FFF;
 	font-family: Montserrat;
-	font-size: 20px;
+	font-size: 1.2vw;
 	font-style: normal;
 	font-weight: 500;
 	line-height: normal;
@@ -50,8 +50,8 @@
 {
 	display: none;
     justify-content: space-between;
-    max-width: 1010px;
-    width: 100%;
+    width: 67vw;
+	height: 231px;
     margin-top: -302px;
 }
 .lArrow3dModule, .rArrow3dModule
@@ -60,8 +60,7 @@
 	display: flex;
 	align-items: center;
 	position: relative;
-	width: 41px;
-	height: 231px;
+	width: 40px;
 }
 .lArrow3dModule img, .rArrow3dModule img
 {
@@ -71,11 +70,17 @@
 .lArrow3dModule
 {
 	border-radius: 20px 0px 0px 20px;
-    margin-right: -5.5%;
+    margin-right: 0;
 }
 .rArrow3dModule
 {
 	border-radius: 0px 20px 20px 0px;
-	margin-left: -5.5%;
+	left: 0;
 }
 .lArrow3dModule:hover, .rArrow3dModule:hover { cursor: pointer; }
+@media screen and (max-width: 1600px) {
+	.processContent {gap: 20px;}
+	.processContent h2 {margin-left: 395px;}
+	.sliderModule3d {max-width: 67vw;}
+	.arrowBlockModule {display: flex;}
+}

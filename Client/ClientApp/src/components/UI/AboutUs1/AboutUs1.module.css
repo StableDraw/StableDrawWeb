@@ -66,7 +66,7 @@
 {
 	color: #FFF;
 	font-family: Montserrat;
-	font-size: 48px;
+	font-size: 2.5vw;
 	font-style: normal;
 	font-weight: 700;
 	line-height: normal;
@@ -104,8 +104,8 @@
 {
 	color: #FFF;
 	font-family: Montserrat;
-	font-size: 20px;
 	font-style: normal;
+	font-size: 1vw;
 	font-weight: 600;
 	line-height: normal;
 }
@@ -134,7 +134,7 @@
 }
 .leftAchivements img
 {
-	width: fit-content;
+	width: 15vw;
 	height: fit-content;
 }
 .leftAchivements img:nth-child(3)
@@ -213,18 +213,18 @@
 .footerLogo
 {
 	display: flex;
-	gap: 40px;
+	gap: 2vw;
 }
 .footer_section2 {
 	display: flex;
-    gap: 96px;
+    gap: 5vw;
 	margin-top: 50px;
 }
 .section1 {
 	flex-direction: column;
     display: flex;
     width: 60%;
-    gap: 40px;
+    gap: 2vw;
     margin-top: 50px;
 	margin-bottom: 30px;
 }
@@ -232,7 +232,7 @@
 {
 	color: #FFF;
 	font-family: Montserrat;
-	font-size: 15px;
+	font-size: 0.8vw;
 	font-style: normal;
 	font-weight: 400;
 	line-height: normal;
@@ -253,7 +253,7 @@
 {
 	color: #FFF;
 	font-family: Montserrat;
-	font-size: 16px;
+	font-size: 1vw;
 	font-style: normal;
 	font-weight: 400;
 	line-height: normal;
@@ -275,7 +275,7 @@
 .toptex {
 	color: #FFF;
 	font-family: Montserrat;
-	font-size: 0.875em;
+	font-size: 0.8vw;
 	font-style: normal;
 	font-weight: 400;
 	line-height: normal;
@@ -304,6 +304,7 @@
     flex-wrap: wrap;
 	align-items: flex-end;
 	justify-content: space-between;
+	font-size: 0.8vw;
 }
 .email {
 	display: flex;
@@ -356,7 +357,7 @@
 	.listOurTeam {justify-content: center;}
 	.itemListOurTeam {width: 38%;}
 	.infoOurTeamText {width: 847px;}
-	.section1 {width: 40%;}
+	.section1 {width: 40vw;}
 	.footer {justify-content: space-between;}
 	.listPartner
 	{
@@ -397,7 +398,7 @@
 	.listProcess {width: fit-content;}
 	.itemListProcess .textItem {width: 542px;}
 	.itemListOurTeam {width: 48%;}
-	.achievements {width: 100%;}
+	.achievements {width: fit-content;}
 	.footer {padding: 0 5% 100px;}
 	.listPartner {justify-content: space-around;}
 	.itemListPartnerText {font-size: 40px;}
@@ -424,8 +425,8 @@
 	.itemListProcess .textItem {width: 505px;}
 	.footer {padding: 0 2% 100px;}
 	.ourPartners {width: 100%;}
-	.leftAchivements img {width: 274px;}
-	.rightAchivements img {width: 282px;}
+	.leftAchivements img {width: 15vw;}
+	.rightAchivements img {width: 15vw;}
 	.ourTeam
 	{
 		width: 100%;
@@ -440,7 +441,7 @@
 	.footerInfoAboutYur {max-width: 476px;}
 	.socialBlock {gap: 20px;}
 	.section1 span {font-size: 14px;}
-	.footerLogo2 span {font-size: 24px;}
+	.footerLogo2 span {font-size: 24px; flex-direction: column;}
 	.footer_section2 {gap: 50px;}
 	.listAdvantages {gap: 72px;}
 }
