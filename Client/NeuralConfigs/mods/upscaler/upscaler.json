@@ -1,0 +1,39 @@
+{
+	"name": "Выбор нейронной сети для обработки",
+	"description": "Различные семейства нейронных сетей сетей по-разному применяют обработку. Для моделей, основанных на StableDiffusion обязательно необходимо описание, их качество генерации, как правило, выше. ESRGAN модели способны обрабатывать только на основе изображения",
+	"default": "StableDiffusionx4Upscaler",
+	"values": {
+		"webui_upscaler":
+		{
+			"name": "SD WebUI",
+			"description": "StableDiffusion WebUI",
+			"image_count_input": 1,
+			"prompt_count_input": 1,
+			"output": "img"
+		},
+		"RealESRGAN":
+		{
+			"name": "RealESRGAN",
+			"description": "Нейронная сеть для апскейла без использования описания",
+			"image_count_input": 1,
+			"prompt_count_input": 0,
+			"output": "img"
+		},
+		"StableDiffusionx4Upscaler":
+		{
+			"name": "StableDiffusionx4Upscaler",
+			"description": "Четырёхкратный апскейлер от StableDiffusion",
+			"image_count_input": 1,
+			"prompt_count_input": 1,
+			"output": "img_list"
+		},
+		"StableDiffusionxLatentx2Upscaler":
+		{
+			"name": "StableDiffusionxLatentx2Upscaler",
+			"description": "Двукратный сторонний апскейлер, основанный на StableDiffusion",
+			"image_count_input": 1,
+			"prompt_count_input": 1,
+			"output": "img"
+		}
+	}
+}

@@ -1,0 +1,135 @@
+{
+	"name": "Выбор нейронной сети для обработки",
+	"description": "Данный выбор отвечает за то, какой нейронной сетью будет обрабатываться изображение. Как правило более новые версии нейронных сетей генерируют более качетсвенные результаты. Всё зависит от Ваших предпочтений",
+	"default": "Kandinsky2.2",
+	"values": [
+		{
+			"value": "Kandinsky2.2",
+			"description": "Наилучшая (на данный момент) модель Kandinsky для генерации 768 на 768",
+			"name": "Kandinsky2.2"
+		},
+		{
+			"value": "SDXL-base-1.0",
+			"description": "Наилучшая (на данный момент) модель StableDiffusionXL, но достаточно долго обрабатывается",
+			"name": "SDXL-base-1.0"
+		},
+		{
+			"value": "SDXL-base-0.9",
+			"system": true,
+			"description": "Тестовая модель StableDiffusionXL, достаточно долго обрабатывается",
+			"name": "SDXL-base-0.9"
+		},
+		{
+			"value": "webui_text2img",
+			"description": "Модель StableDiffusion WebUI, обученная для генерации изображений",
+			"name": "SD WebUI"
+		},
+		{
+			"value": "SD-2.1",
+			"description": "Модель StableDiffusion 2.1, обученная для генерации изображений 512 на 512",
+			"name": "SD-2.1"
+		},
+		{
+			"value": "Kandinsky2.1",
+			"description": "Модель Kandinsky 2.1, обученная для генерации изображений 512 на 512",
+			"name": "Kandinsky2.1"
+		},
+		{
+			"value": "SD-2.0",
+			"description": "Модель StableDiffusion 2.0, обученная для генерации изображений 512 на 512",
+			"name": "SD-2.0",
+			"childs": [
+				{
+					"param_id": "negative_prompt",
+					"values_id": []
+				},
+				{
+					"param_id": "sampler",
+					"values_id": [ "ddim_sampler", "plms_sampler", "p_sampler" ]
+				},
+				{
+					"param_id": "ddim_eta",
+					"values_id": []
+				},
+				{
+					"param_id": "isCaption",
+					"values_id": []
+				}
+			]
+		},
+		{
+			"value": "Kandinsky2.0",
+			"description": "Модель Kandinsky 2.0, обученная для генерации изображений 512 на 512",
+			"name": "Kandinsky2.0",
+			"childs": [
+				{
+					"param_id": "use_flash_attention",
+					"values_id": []
+				},
+				{
+					"param_id": "progress",
+					"values_id": []
+				},
+				{
+					"param_id": "dynamic_threshold_v",
+					"values_id": []
+				},
+				{
+					"param_id": "denoised_type",
+					"values_id": [ "dynamic_threshold", "clip_denoised" ]
+				},
+				{
+					"param_id": "sampler",
+					"values_id": [ "ddim_sampler", "plms_sampler", "p_sampler" ]
+				},
+				{
+					"param_id": "ddim_eta",
+					"values_id": []
+				},
+				{
+					"param_id": "isCaption",
+					"values_id": []
+				}
+			]
+		},
+		{
+			"value": "SDXL-refiner-1.0",
+			"description": "Модель SDXL-refiner-1.0, обученная для постобработки для генерации изображений 1024 на 1024",
+			"name": "SDXL-refiner-1.0",
+			"childs": [
+				{
+					"param_id": "negative_prompt",
+					"values_id": []
+				},
+				{
+					"param_id": "isCaption",
+					"values_id": []
+				},
+				{
+					"param_id": "sampler",
+					"values_id": [ "EulerEDMSampler", "HeunEDMSampler", "EulerAncestralSampler", "DPMPP2SAncestralSampler", "DPMPP2MSampler", "LinearMultistepSampler" ]
+				}
+			]
+		},
+		{
+			"value": "SDXL-refiner-0.9",
+			"system": true,
+			"description": "",
+			"name": "SDXL-refiner-0.9",
+			"childs": [
+				{
+					"param_id": "negative_prompt",
+					"values_id": []
+				},
+				{
+					"param_id": "isCaption",
+					"values_id": []
+				},
+				{
+					"param_id": "sampler",
+					"values_id": [ "EulerEDMSampler", "HeunEDMSampler", "EulerAncestralSampler", "DPMPP2SAncestralSampler", "DPMPP2MSampler", "LinearMultistepSampler" ]
+				}
+			]
+		}
+	]
+}

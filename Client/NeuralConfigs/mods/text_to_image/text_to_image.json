@@ -1,0 +1,39 @@
+{
+	"name": "Выбор нейронной сети для обработки",
+	"description": "Данный выбор отвечает за то, какой нейронной сетью будет обрабатываться изображение. Как правило более новые версии нейронных сетей генерируют более качетсвенные результаты. Всё зависит от Ваших предпочтений",
+	"default": "Kandinsky",
+	"values": {
+		"webui_text2img":
+		{
+			"name": "StableDiffusion WebUI",
+			"description": "Модели семейства StableDiffusion WebUI",
+			"image_count_input": 0,
+			"prompt_count_input": 1,
+			"output": "img"
+		},
+		"Kandinsky":
+		{
+			"name": "Kandinsky2.2",
+			"description": "Модели семейства Kandinsky",
+			"image_count_input": 0,
+			"prompt_count_input": 1,
+			"output": "img"
+		},
+		"SDXL":
+		{
+			"name": "StableDiffusionXL",
+			"description": "Модели семейства StableDiffusionXL, но обработка занимает длительное время",
+			"image_count_input": 0,
+			"prompt_count_input": 1,
+			"output": "img"
+		},
+		"StableDiffusionText2Img":
+		{
+			"name": "StableDiffusion-2.1",
+			"description": "Старые модели StableDiffusion 1.0-2.1, которые часто хоть и выдают странные результаты, но их генерация имеет свой шарм. Обработка выполняется посредством StableDiffusion-2.1",
+			"image_count_input": 0,
+			"prompt_count_input": 1,
+			"output": "img_list"
+		}
+	}
+}

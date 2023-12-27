@@ -1,74 +1,51 @@
 {
-	"Neurals": {
-		"colorizer": {
-			"image_count_input": 1,
-			"serverName": "colorizer",
-			"clientName": "Колоризация",
-			"description": "При помощи данного режима Вы можете окрашивать или менять окрас изображений, как чёрно-белых фотографий, так и набросков или цветных изображений",
-			"path": "mods/colorizer.json"
-		},
-		"delete_background": {
-			"image_count_input": 1,
-			"serverName": "delete_background",
-			"clientName": "Удаление фона",
-			"description": "При помощи данного режима Вы можете удалять фон с изображений",
-			"path": "mods/delete_background.json"
-		},
-		"upscaler": {
-			"image_count_input": 1,
-			"serverName": "upscaler",
-			"clientName": "Апскейлер",
-			"description": "При помощи данного режима Вы можете повышать качество и разрешение исходных изображений, уменьшать шум и артефакты",
-			"path": "mods/upscaler.json"
-		},
-		"image_to_image": {
-			"image_count_input": 1,
-			"serverName": "image_to_image",
-			"clientName": "Генерация по изображению",
-			"description": "Генерирует изображение по изображению",
-			"caption": true,
-			"path": "mods/image_to_image.json"
-		},
-		"text_to_image": {
-			"image_count_input": 0,
-			"serverName": "text_to_image",
-			"clientName": "Генерация по тексту",
-			"description": "Генерация изображения по текстовому описанию",
-			"caption": true,
-			"path": "mods/text_to_image.json"
-		},
-		"image_captioning": {
-			"image_count_input": 1,
-			"system": true,
-			"serverName": "image_captioning",
-			"clientName": "Генерация описания для изображения",
-			"description": "Генерация случайного описания для изображения",
-			"caption": true,
-			"path": "mods/image_captioning.json"
-		},
-		"inpainting": {
-			"image_count_input": 2,
-			"serverName": "inpainting",
-			"clientName": "Перерисовка области изображения",
-			"description": "Перерисовка выбранного участка изображения (инпеинтинг)",
-			"caption": true,
-			"path": "mods/inpainting.json"
-		},
-		"stylization": {
-			"image_count_input": 2,
-			"serverName": "stylization",
-			"clientName": "Стилизация",
-			"description": "Стилизация одного изображения под другое",
-			"caption": true,
-			"path": "mods/stylization.json"
-		},
-		"image_fusion": {
-			"image_count_input": 2,
-			"prompt_count_input": 2,
-			"serverName": "image_fusion",
-			"clientName": "Объединение изображений",
-			"description": "При помощи данного редима можно совместить несколько изображений",
-			"path": "mods/image_fusion.json"
-		}
+	"text_to_image": {
+		"clientName": "Генерация по тексту",
+		"description": "Генерация изображения по текстовому описанию"
+	},
+	"image_to_image": {
+		"clientName": "Генерация по изображению",
+		"description": "Генерирует изображение по изображению"
+	},
+	"inpainting": {
+		"clientName": "Перерисовка области изображения",
+		"description": "Перерисовка выбранного участка изображения (инпеинтинг)"
+	},
+	"image_fusion": {
+		"clientName": "Объединение изображений",
+		"description": "При помощи данного редима можно совместить несколько изображений"
+	},
+	"upscaler": {
+		"clientName": "Апскейлер",
+		"description": "При помощи данного режима Вы можете повышать качество и разрешение исходных изображений, уменьшать шум и артефакты"
+	},
+	"stylization": {
+		"clientName": "Стилизация",
+		"description": "Стилизация одного изображения под другое"
+	},
+	"delete_background": {
+		"clientName": "Удаление фона",
+		"description": "При помощи данного режима Вы можете удалять фон с изображений"
+	},
+	"colorizer": {
+		"clientName": "Колоризация",
+		"description": "При помощи данного режима Вы можете окрашивать или менять окрас изображений, как чёрно-белых фотографий, так и набросков или цветных изображений"
+	},
+	"image_captioning": {
+		"system": true,
+		"clientName": "Генерация описания для изображения",
+		"description": "Генерация описания для изображения"
+	},
+	"image_classification":
+	{
+		"system": true,
+		"clientName": "Определение типа изображения",
+		"description": "определяет тип изображения в соответствии с классом"
+	},
+	"translation":
+	{
+		"system": true,
+		"clientName": "Переводчик",
+		"description": "Перевод текста с одного языка на другой"
 	}
 }
