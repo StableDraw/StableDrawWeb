@@ -43,19 +43,20 @@
 		"values": {
 			"ddim":
 			{
-				"description": "Обработчик DDIM",
-				"name": "DDIM"
+				"name": "DDIM",
+				"description": "Обработчик DDIM"
+				
 			},
 			"dpm":
 			{
-				"description": "Обработчик DPM-решатель",
-				"name": "DPM"
+				"name": "DPM",
+				"description": "Обработчик DPM-решатель"
 			},
 			"plms":
 			{
 				"system": true,
-				"description": "Обработчик PLMS. Крайне зашумлённые результаты обработки",
-				"name": "PLMS"
+				"name": "PLMS",
+				"description": "Обработчик PLMS. Крайне зашумлённые результаты обработки"
 			}
 		}
 	},

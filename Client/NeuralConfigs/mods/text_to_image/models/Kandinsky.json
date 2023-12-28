@@ -1,0 +1,284 @@
+{
+	"prompt_main": {
+		"prompt": true,
+		"main": true,
+		"name": "Описание",
+		"description": "Опишите Ваше изображение",
+		"type": "text",
+		"default": ""
+	},
+	"models": {
+        "main": true,
+        "default": "Kandinsky3.0",
+        "values": {
+            "Kandinsky2.0": {
+				"name": "Версия Kandinsky 2.0",
+                "description": "Модель Kandinsky 2.0, обученная на изображениях 512x512. Самая первая модель семейства Kandinsky, как правило, выдаёт своеобразные результаты генерации",
+                "childs": {
+					"sampler": [],
+					"eta": [],
+					"denoised_type": [],
+					"use_flash_attention": []
+				}
+            },
+			"Kandinsky2.1": {
+                "name": "Версия Kandinsky 2.1",
+                "description": "Модель Kandinsky 2.1, обученная на изображениях 768x768. Модель Kandinsky второго поколения, генерирует уже лучше, близка к уровню Stable Diffusion 2.1",
+                "childs": {
+					"negative_prior_prompt": [],
+                    "negative_prompt": [],
+					"prior_steps": [],
+					"sampler": [],
+					"eta": [],
+					"prior_scale": [],
+					"use_flash_attention": []
+				}
+            },
+			"Kandinsky2.2": {
+                "name": "Версия Kandinsky 2.2",
+                "description": "Модель Kandinsky 2.2, обученная на изображениях 768x768 и 1024x1024. Модель Kandinsky третьего поколения, генерирует немного лучше Stable Diffusion 2.1",
+				"childs": {
+					"ControlNET": [],
+                    "negative_prior_prompt": [],
+                    "negative_prompt": [],
+					"prior_steps": [],
+					"prior_scale": [],
+					"use_flash_attention": [],
+					"precision": []
+				}
+			},
+			"Kandinsky3.0": {
+                "name": "Версия Kandinsky 3.0",
+                "description": "Новейшая модель Kandinsky 3.0, построенная на новой архитектуре и обученная на изображениях 1024x1024. Генерирует изображения близкие по качеству к Stable Diffusion XL",
+				"childs": {
+                    "negative_prompt": [],
+					"eta": [],
+					"precision": []
+				}
+			}
+		}
+    },
+    "negative_prior_prompt": {
+        "main": true,
+		"name": "Негативное описание первичного обработчика",
+		"description": "Перечислите, через запятую, признаки, которые бы не хотели видеть на итоговом изображении. Используется при двухэтапной генерации, где вначале обработка производится первичным обработчиком, затем основным",
+		"type": "text",
+		"default": "lowres, text, error, cropped, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, out of frame, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck, username, watermark, signature",
+        "child": true
+	},
+    "negative_prompt": {
+        "main": true,
+		"name": "Негативное описание",
+		"description": "Перечислите, через запятую, признаки, которые бы не хотели видеть на итоговом изображении",
+		"type": "text",
+		"default": "lowres, text, error, cropped, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, out of frame, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck, username, watermark, signature",
+        "child": true
+	},
+    "ControlNET": {
+        "main": true,
+		"name": "Использовать ControlNET",
+		"description": "Модифицированная версия Kandinsky 2.2 с внедрённым ControlNET. Иногда выдаёт более качественные изображения",
+		"type": "boolean",
+		"default": "False",
+        "child": true
+	},
+    "prior_steps": {
+		"main": true,
+		"name": "Количество шагов обработки первичного обработчика",
+		"description": "Шаги обработки первичного обработчика. Параметр отвечает за то, сколько раз модель применит к изображению в процессе генерации первичным обработчиком. Используется при двухэтапной генерации, где вначале обработка производится первичным обработчиком, затем основным",
+		"type": "range",
+		"default": 25,
+		"min": 2,
+		"max": 200,
+		"step": 1,
+        "child": true
+	},
+	"steps": {
+		"main": true,
+		"name": "Количество шагов обработки",
+		"description": "Шаги обработки. Параметр отвечает за то, сколько раз модель применит к изображению в процессе генерации",
+		"type": "range",
+		"default": 50,
+		"min": 2,
+		"max": 200,
+		"step": 1
+	},
+	"seed": {
+		"name": "Инициализирующее значение",
+		"description": "Отвечает за то, как от чего именно будет отталкиваться нейронная сеть в генерации. Можете попробовать различные значения и получить различные вариации генерации",
+		"type": "range",
+		"default": 42,
+		"min": 0,
+		"max": 2147483647,
+		"step": 1
+	},
+    "use_custom_res": {
+		"name": "Использовать собственное разрешение",
+		"description": "Использовать собственное разрешение изображения для каждой модели, вместо рекомендованного",
+		"type": "boolean",
+		"childs": {
+			"w": [],
+			"h": []
+		},
+		"default": false
+	},
+	"w": {
+		"name": "Ширина",
+		"description": "Ширина желаемого изображения, в пикселях",
+		"type": "range",
+		"default": 512,
+		"min": 64,
+		"max": 1024,
+		"step": 64,
+        "child": true
+	},
+	"h": {
+		"name": "Высота",
+		"description": "Высота желаемого изображения, в пикселях",
+		"type": "range",
+		"default": 512,
+		"min": 64,
+		"max": 1024,
+		"step": 64,
+        "child": true
+	},
+	"sampler": {
+		"name": "Выбор обработчика",
+		"description": "Выбор обработчика для генерации",
+		"type": "select",
+		"default": "ddim",
+		"values": {
+			"ddim": {
+                "name": "DDIM",
+				"description": "Обработчик DDIM"
+				
+			},
+			"dpm": {
+                "name": "DPM",
+				"description": "Обработчик DPM",
+				"childs": {
+					"progress": []
+				}
+			},
+			"plms": {
+                "name": "PLMS",
+				"description": "Обработчик PLMS",
+				"child": true
+			}
+		},
+        "child": true
+	},
+	"num_samples": {
+		"name": "Сколько вариаций генерировать за раз",
+		"description": "Нейронная сеть сгенерирует столько различных вариаций изображений, сколько Вы укажете. Чем больше изображений, тем дольше будет производиться генерация",
+		"type": "range",
+		"default": 1,
+		"min": 1,
+		"max": 2,
+		"step": 1
+	},
+	"eta": {
+		"name": "Коэффициент детерминированной выборки",
+		"description": "Данный коэффициент отражает насколько модель будет оригинальна в своей обработке. Чем он выше, тем больше модель будет \"додумывать\"",
+		"type": "range",
+		"default": 0.05,
+		"min": 0.0,
+		"max": 1.0,
+		"step": 0.01,
+		"child": true
+	},
+    "prior_scale": {
+		"name": "Коэффициент точности соответсвтвия запросу первичного обработчика",
+		"description": "Отвечает за то, насколько первичный обработчик должен приблизиться к буквальному изображению запроса. Используется при двухэтапной генерации, где вначале обработка производится первичным обработчиком, затем основным",
+		"type": "range",
+		"default": 4.0,
+		"min": 0.1,
+		"max": 30.0,
+		"step": 0.1,
+        "child": true
+	},
+	"scale": {
+		"name": "Коэффициент точности соответсвтвия запросу",
+		"description": "Отвечает за то, насколько обработчик должен приблизиться к буквальному изображению запроса",
+		"type": "range",
+		"default": 3.0,
+		"min": 0.1,
+		"max": 30.0,
+		"step": 0.1
+	},
+    "denoised_type": {
+		"name": "Вид отбраковки",
+		"description": "Различные виды отбраковки по-разновы вычленяют лучшие результаты по мере генерации",
+		"type": "select",
+		"default": "ddim",
+		"values": {
+			"dynamic_threshold": {
+                "name": "Динамический предел",
+				"description": "Динамический предел гибко обучен на предыдущих неудачных результатах генерации, а также имеет настроку предела диапазона отбраковки",
+				"childs":
+				{
+					"dynamic_threshold_v": []
+				}
+			},
+			"clip_denoised": {
+                "name": "Статический предел",
+				"description": "Статический предел производит отбраковку, основываясь на диапазонах ранее полученных исторических значений и не имеет дополнительной настроки диапазона отбраковки"
+				
+			}
+		},
+        "child": true
+	},
+    "dynamic_threshold_v": {
+        "name": "Диапазон динамической отбраковки",
+		"description": "Отвечает за то, в каком диапазоне будет производиться динамическая отбраковка",
+		"type": "range",
+		"default": 99.5,
+		"min": 0.0,
+		"max": 100.0,
+		"step": 0.1,
+        "child": true
+    },
+	"precision": 
+	{
+		"name": "Вычислять с полной точностью?",
+		"description": "Если нет, то с половинной. Это быстрее, но менее качественно. С ним генерация значительно медленнее",
+		"type": "boolean",
+		"default": false,
+        "child": true
+	},
+	"use_flash_attention": {
+        "system": true,
+		"name": "Использовать flash attention",
+		"description": "Вроде ускоряет обработку. На результате генерации никак не сказывается. У меня проблемы со сборкой пакета flash_attn, если получится его сбилдить, то можкно будет включать этот параметр",
+		"type": "boolean",
+		"default": false,
+        "child": true
+	},
+	"progress":
+	{
+		"system": true,
+		"name": "Отображать прогресс",
+		"description": "Если он выбран, то будет отображаться прогресс генерации у обработчика \"dpm\"",
+		"type": "boolean",
+		"default": true,
+        "child": true
+	},
+	"low_vram_mode":
+	{
+		"system": true,
+		"name": "Вычислять на CPU",
+		"description": "Если нет видеокарты или не хватает видеопамяти. Для тестов",
+		"type": "boolean",
+		"default": false
+	},
+	"max_dim": {
+		"system": true,
+		"name": "Максимальное разрешение",
+		"description": "",
+		"type": "range",
+		"default": 1048576,
+		"min": 0,
+		"max": 1000000000,
+		"step": 1
+	}
+}

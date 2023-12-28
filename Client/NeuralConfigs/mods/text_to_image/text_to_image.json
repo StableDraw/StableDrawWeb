@@ -13,7 +13,7 @@
 		},
 		"Kandinsky":
 		{
-			"name": "Kandinsky2.2",
+			"name": "Kandinsky",
 			"description": "Модели семейства Kandinsky",
 			"image_count_input": 0,
 			"prompt_count_input": 1,
